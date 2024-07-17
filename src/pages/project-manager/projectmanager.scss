@@ -732,6 +732,7 @@
       @media (max-width: 767px) {
         display: flex;
         justify-content: space-between;
+        padding-bottom: 115px;
       }
 
       button.btn_delete {
@@ -767,6 +768,7 @@
   left: 0;
   display: none;
   width: 100vw;
+  z-index: 99;
 
   @media (max-width: 767px) {
     display: block;
