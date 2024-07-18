@@ -1,0 +1,59 @@
+.add-synergy-container {
+    background-color: var(--nav-bg-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1em;
+}
+
+.add-synergy-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 5% 0 5%;
+}
+
+.close-btn {
+    width: fit-content;
+    height: fit-content;
+}
+
+.add-synergy-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
+}
+
+.add-synergy-form-input {
+    width: 40%;
+    padding: 1%;
+    border-radius: 3%;
+    background-color: var(--nav-bg-color);
+    border: none;
+    color: var(--text-gray)
+}
+
+.add-synergy-img-input {
+    display: flex;
+    gap: 1em;
+}
+
+.add-synergy-btn {
+    width: 50%;
+    height: 2em;
+    background-color: var(--primary-color);
+    color: var(--nav-btn-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-synergy-btn:hover {
+    background-color: var(--primary-hover);
+}
+
+.add-synergy-btn:active {
+    background-color: var(--primary-color);
+}

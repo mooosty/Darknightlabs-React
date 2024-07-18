@@ -1,0 +1,67 @@
+.ctr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 3;
+}
+
+.ctrhidden {
+  display: none;
+  z-index: 3;
+
+}
+
+.ctr2 {
+  display: flex;
+  width: 90%;
+  justify-content: center;
+  z-index: 3;
+
+}
+
+.ctr2-hidden {
+  display: flex;
+  width: 90%;
+  justify-content: center;
+  justify-self: center;
+  z-index: 3;
+
+  }
+
+  .frb-div {
+    z-index: 3;
+  }
+
+
+
+.main-content {
+  display: grid;
+  grid-template-columns: 0.2fr 0.8fr;
+  margin-top: 2%;
+}
+
+.main-content-center-hidden {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin-top: 2%;
+  z-index: 3;
+
+}
+
+.show-sidebar-btn {
+  background-color: transparent;
+  border: none;
+  font-size: 1.5em;
+  z-index: 10;
+
+  color: white;
+}
+
+.show-sidebar-btn:hover {
+  cursor: pointer;
+  color: gray;
+}
+
+.show-sidebar-btn:active {
+  color: white;
+}

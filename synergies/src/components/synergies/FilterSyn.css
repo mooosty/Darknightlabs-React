@@ -1,0 +1,7 @@
+.filter-container {
+    display: flex;
+    justify-content: center;
+    background-color: var(--nav-bg-color);
+    padding: 2%;
+    gap: 2%;
+}

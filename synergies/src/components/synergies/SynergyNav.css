@@ -1,0 +1,71 @@
+.add-syn-container {
+    background-color: var(--nav-bg-color);
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 1% 1% 0 0;
+    border-bottom: .5px solid var(--synergies-border);
+    padding: 1%;
+}
+
+.add-syn-container h1, p {
+    margin: 0;
+}
+
+.syn-btn {
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    gap: .5em;
+    background-color: var(--dark-gray);
+    white-space: nowrap;
+
+    color: var(--syn-nav-text);
+    border: none;
+    padding: .6em;
+    border-radius: 5%;
+}
+
+.syn-btn-layout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--syn-nav-text);
+    background-color: var(--dark-gray);
+    border: none;
+    cursor: pointer;
+    padding: 15%;
+}
+
+.syn-layout-wrap {
+    background-color: #242623;
+    display: flex;
+    width: 4.7%;
+    padding: 0px .5% 0px .5%;
+}
+
+.syn-btn-container {
+    display: flex;
+    align-items: center;
+    gap: 5%;
+    margin-right: 1%;
+}
+
+.inactive {
+    opacity: 60%;
+}
+
+.syn-btn-container-layout {
+    display: flex;
+    align-items: center;
+    padding: .5%;
+    background-color: #242623;
+}
+
+.syn-btn:hover {
+    cursor: pointer;
+}
+
+.syn-btn:active {
+    background-color: var(--dark-gray);
+}
