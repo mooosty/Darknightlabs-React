@@ -1,0 +1,26 @@
+.nav-container {
+    background-color: var(--nav-bg-color);
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    z-index: 5;
+}
+
+.link-container {
+    padding: .5%;
+    background: var(--nav-bg-color);
+    margin: 1% 1% 1% 0%;
+    cursor: pointer;
+    border: 1px solid var(--nav-btn-color);
+    z-index: 5;
+    display: flex;
+    flex-wrap: nowrap !important;
+}
+
+.link-container a {
+    text-decoration: none;
+    color: var(--nav-btn-color);
+    display: flex;
+    flex-wrap: nowrap  !important;
+    font-family: var(--text-style-primary);
+}

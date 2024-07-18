@@ -1,0 +1,522 @@
+{
+  "user": {
+    "username": "Sam",
+    "profileImage": "/profilepicture.jpeg",
+    "role": "Admin"
+  },
+  "synergies": [
+    {
+      "key": 1,
+      "id": 1,
+      "synergyName": "Synergy One",
+      "creator": "Joan of Arc",
+      "creatorImage": "./creatorImage.png",
+      "image": "/orc2.png",
+      "price": "0.00000001",
+      "angels": ["Angel1", "Angel2", "Angel3", "Angel4", "Angel5"],
+      "date": "12/12/2024"
+    },
+    {
+      "key": 2,
+      "id": 2,
+      "synergyName": "Synergy Two",
+      "creator": "Joan of Arc",
+      "creatorImage": "./creatorImage.png",
+      "image": "/wizard.png",
+      "price": "0.00000002",
+      "angels": ["Angel6", "Angel7", "Angel8", "Angel9", "Angel10"],
+      "date": "13/12/2024"
+    },
+    {
+      "key": 3,
+      "id": 3,
+      "synergyName": "Synergy Three",
+      "creator": "Joan of Arc",
+      "creatorImage": "./creatorImage.png",
+      "image": "/man.png",
+      "price": "0.00000003",
+      "angels": ["Angel11", "Angel12", "Angel13", "Angel14", "Angel15"],
+      "date": "14/12/2024"
+    },
+    {
+      "key": 4,
+      "id": 4,
+      "synergyName": "Synergy Four",
+      "creator": "Joan of Arc",
+      "creatorImage": "./creatorImage.png",
+
+      "image": "/man.png",
+      "price": "0.00000004",
+      "angels": ["Angel16", "Angel17", "Angel18", "Angel19", "Angel20"],
+      "date": "15/12/2024"
+    },
+    {
+      "key": 5,
+      "id": 5,
+      "synergyName": "Synergy Five",
+      "creator": "Joan of Arc",
+      "creatorImage": "./creatorImage.png",
+
+      "image": "/man.png",
+      "price": "0.00000005",
+      "angels": ["Angel21", "Angel22", "Angel23", "Angel24", "Angel25"],
+      "date": "16/12/2024"
+    },
+    {
+      "key": 6,
+      "id": 6,
+      "synergyName": "Synergy Six",
+      "creator": "Joan of Arc",
+      "creatorImage": "./creatorImage.png",
+
+      "image": "/man.png",
+      "price": "0.00000006",
+      "angels": ["Angel26", "Angel27", "Angel28", "Angel29", "Angel30"],
+      "date": "17/12/2024"
+    },
+    {
+      "key": 7,
+      "id": 7,
+      "synergyName": "Synergy Seven",
+      "creator": "Joan of Arc",
+      "creatorImage": "./creatorImage.png",
+
+      "image": "/man.png",
+      "price": "0.00000007",
+      "angels": ["Angel31", "Angel32", "Angel33", "Angel34", "Angel35"],
+      "date": "18/12/2024"
+    },
+    {
+      "key": 8,
+      "id": 8,
+      "synergyName": "Synergy Eight",
+      "creator": "Joan of Arc",
+      "creatorImage": "./creatorImage.png",
+
+      "image": "/man.png",
+      "price": "0.00000008",
+      "angels": ["Angel36", "Angel37", "Angel38", "Angel39", "Angel40"],
+      "date": "19/12/2024"
+    },
+    {
+      "key": 9,
+      "id": 9,
+      "synergyName": "Synergy Nine",
+      "creator": "Joan of Arc",
+      "creatorImage": "./creatorImage.png",
+
+      "image": "/man.png",
+      "price": "0.00000009",
+      "angels": ["Angel41", "Angel42", "Angel43", "Angel44", "Angel45"],
+      "date": "20/12/2024"
+    },
+    {
+      "key": 10,
+      "id": 10,
+      "synergyName": "Synergy Ten",
+      "creator": "Joan of Arc",
+      "creatorImage": "./creatorImage.png",
+
+      "image": "/man.png",
+      "price": "0.00000010",
+      "angels": ["Angel46", "Angel47", "Angel48", "Angel49", "Angel50"],
+      "date": "21/12/2024"
+    },
+    {
+      "key": 11,
+      "id": 11,
+      "synergyName": "Synergy Eleven",
+      "creator": "Joan of Arc",
+      "creatorImage": "./creatorImage.png",
+
+      "image": "/man.png",
+      "price": "0.00000011",
+      "angels": ["Angel51", "Angel52", "Angel53", "Angel54", "Angel55"],
+      "date": "22/12/2024"
+    },
+    {
+      "key": 12,
+      "id": 12,
+      "synergyName": "Synergy Twelve",
+      "creator": "Joan of Arc",
+      "creatorImage": "./creatorImage.png",
+
+      "image": "/pp-dk.png",
+      "price": "0.00000012",
+      "angels": ["Angel56", "Angel57", "Angel58", "Angel59", "Angel60"],
+      "date": "23/12/2024"
+    },
+    {
+      "key": 13,
+      "id": 13,
+      "synergyName": "Synergy Thirteen",
+      "creator": "Joan of Arc",
+      "creatorImage": "./creatorImage.png",
+
+      "image": "/pp-dk.png",
+      "price": "0.00000013",
+      "angels": ["Angel61", "Angel62", "Angel63", "Angel64", "Angel65"],
+      "date": "24/12/2024"
+    },
+    {
+      "key": 14,
+      "id": 14,
+      "synergyName": "Synergy Fourteen",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000014",
+      "angels": ["Angel66", "Angel67", "Angel68", "Angel69", "Angel70"],
+      "date": "25/12/2024"
+    },
+    {
+      "key": 15,
+      "id": 15,
+      "synergyName": "Synergy Fifteen",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000015",
+      "angels": ["Angel71", "Angel72", "Angel73", "Angel74", "Angel75"],
+      "date": "26/12/2024"
+    },
+    {
+      "key": 16,
+      "id": 16,
+      "synergyName": "Synergy Sixteen",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000016",
+      "angels": ["Angel76", "Angel77", "Angel78", "Angel79", "Angel80"],
+      "date": "27/12/2024"
+    },
+    {
+      "key": 17,
+      "id": 17,
+      "synergyName": "Synergy Seventeen",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000017",
+      "angels": ["Angel81", "Angel82", "Angel83", "Angel84", "Angel85"],
+      "date": "28/12/2024"
+    },
+    {
+      "key": 18,
+      "id": 18,
+      "synergyName": "Synergy Eighteen",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000018",
+      "angels": ["Angel86", "Angel87", "Angel88", "Angel89", "Angel90"],
+      "date": "29/12/2024"
+    },
+    {
+      "key": 19,
+      "id": 19,
+      "synergyName": "Synergy Nineteen",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000019",
+      "angels": ["Angel91", "Angel92", "Angel93", "Angel94", "Angel95"],
+      "date": "30/12/2024"
+    },
+    {
+      "key": 20,
+      "id": 20,
+      "synergyName": "Synergy Twenty",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000020",
+      "angels": ["Angel96", "Angel97", "Angel98", "Angel99", "Angel100"],
+      "date": "31/12/2024"
+    },
+    {
+      "key": 21,
+      "id": 21,
+      "synergyName": "Synergy Twenty-One",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000021",
+      "angels": ["Angel101", "Angel102", "Angel103", "Angel104", "Angel105"],
+      "date": "01/01/2025"
+    },
+    {
+      "key": 22,
+      "id": 22,
+      "synergyName": "Synergy Twenty-Two",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000022",
+      "angels": ["Angel106", "Angel107", "Angel108", "Angel109", "Angel110"],
+      "date": "02/01/2025"
+    },
+    {
+      "key": 23,
+      "id": 23,
+      "synergyName": "Synergy Twenty-Three",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000023",
+      "angels": ["Angel111", "Angel112", "Angel113", "Angel114", "Angel115"],
+      "date": "03/01/2025"
+    },
+    {
+      "key": 24,
+      "id": 24,
+      "synergyName": "Synergy Twenty-Four",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000024",
+      "angels": ["Angel116", "Angel117", "Angel118", "Angel119", "Angel120"],
+      "date": "04/01/2025"
+    },
+    {
+      "key": 25,
+      "id": 25,
+      "synergyName": "Synergy Twenty-Five",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000025",
+      "angels": ["Angel121", "Angel122", "Angel123", "Angel124", "Angel125"],
+      "date": "05/01/2025"
+    },
+    {
+      "key": 26,
+      "id": 26,
+      "synergyName": "Synergy Twenty-Six",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000026",
+      "angels": ["Angel126", "Angel127", "Angel128", "Angel129", "Angel130"],
+      "date": "06/01/2025"
+    },
+    {
+      "key": 27,
+      "id": 27,
+      "synergyName": "Synergy Twenty-Seven",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000027",
+      "angels": ["Angel131", "Angel132", "Angel133", "Angel134", "Angel135"],
+      "date": "07/01/2025"
+    },
+    {
+      "key": 28,
+      "id": 28,
+      "synergyName": "Synergy Twenty-Eight",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000028",
+      "angels": ["Angel136", "Angel137", "Angel138", "Angel139", "Angel140"],
+      "date": "08/01/2025"
+    },
+    {
+      "key": 29,
+      "id": 29,
+      "synergyName": "Synergy Twenty-Nine",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000029",
+      "angels": ["Angel141", "Angel142", "Angel143", "Angel144", "Angel145"],
+      "date": "09/01/2025"
+    },
+    {
+      "key": 30,
+      "id": 30,
+      "synergyName": "Synergy Thirty",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000030",
+      "angels": ["Angel146", "Angel147", "Angel148", "Angel149", "Angel150"],
+      "date": "10/01/2025"
+    },
+    {
+      "key": 31,
+      "id": 31,
+      "synergyName": "Synergy Thirty-One",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000031",
+      "angels": ["Angel151", "Angel152", "Angel153", "Angel154", "Angel155"],
+      "date": "11/01/2025"
+    },
+    {
+      "key": 32,
+      "id": 32,
+      "synergyName": "Synergy Thirty-Two",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000032",
+      "angels": ["Angel156", "Angel157", "Angel158", "Angel159", "Angel160"],
+      "date": "12/01/2025"
+    },
+    {
+      "key": 33,
+      "id": 33,
+      "synergyName": "Synergy Thirty-Three",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000033",
+      "angels": ["Angel161", "Angel162", "Angel163", "Angel164", "Angel165"],
+      "date": "13/01/2025"
+    },
+    {
+      "key": 34,
+      "id": 34,
+      "synergyName": "Synergy Thirty-Four",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000034",
+      "angels": ["Angel166", "Angel167", "Angel168", "Angel169", "Angel170"],
+      "date": "14/01/2025"
+    },
+    {
+      "key": 35,
+      "id": 35,
+      "synergyName": "Synergy Thirty-Five",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000035",
+      "angels": ["Angel171", "Angel172", "Angel173", "Angel174", "Angel175"],
+      "date": "15/01/2025"
+    },
+    {
+      "key": 36,
+      "id": 36,
+      "synergyName": "Synergy Thirty-Six",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000036",
+      "angels": ["Angel176", "Angel177", "Angel178", "Angel179", "Angel180"],
+      "date": "16/01/2025"
+    },
+    {
+      "key": 37,
+      "id": 37,
+      "synergyName": "Synergy Thirty-Seven",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000037",
+      "angels": ["Angel181", "Angel182", "Angel183", "Angel184", "Angel185"],
+      "date": "17/01/2025"
+    },
+    {
+      "key": 38,
+      "id": 38,
+      "synergyName": "Synergy Thirty-Eight",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000038",
+      "angels": ["Angel186", "Angel187", "Angel188", "Angel189", "Angel190"],
+      "date": "18/01/2025"
+    },
+    {
+      "key": 39,
+      "id": 39,
+      "synergyName": "Synergy Thirty-Nine",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000039",
+      "angels": ["Angel191", "Angel192", "Angel193", "Angel194", "Angel195"],
+      "date": "19/01/2025"
+    },
+    {
+      "key": 40,
+      "id": 40,
+      "synergyName": "Synergy Forty",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000040",
+      "angels": ["Angel196", "Angel197", "Angel198", "Angel199", "Angel200"],
+      "date": "20/01/2025"
+    },
+    {
+      "key": 41,
+      "id": 41,
+      "synergyName": "Synergy Forty-One",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000041",
+      "angels": ["Angel201", "Angel202", "Angel203", "Angel204", "Angel205"],
+      "date": "21/01/2025"
+    },
+    {
+      "key": 42,
+      "id": 42,
+      "synergyName": "Synergy Forty-Two",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000042",
+      "angels": ["Angel206", "Angel207", "Angel208", "Angel209", "Angel210"],
+      "date": "22/01/2025"
+    },
+    {
+      "key": 43,
+      "id": 43,
+      "synergyName": "Synergy Forty-Three",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000043",
+      "angels": ["Angel211", "Angel212", "Angel213", "Angel214", "Angel215"],
+      "date": "23/01/2025"
+    },
+    {
+      "key": 44,
+      "id": 44,
+      "synergyName": "Synergy Forty-Four",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000044",
+      "angels": ["Angel216", "Angel217", "Angel218", "Angel219", "Angel220"],
+      "date": "24/01/2025"
+    },
+    {
+      "key": 45,
+      "id": 45,
+      "synergyName": "Synergy Forty-Five",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000045",
+      "angels": ["Angel221", "Angel222", "Angel223", "Angel224", "Angel225"],
+      "date": "25/01/2025"
+    },
+    {
+      "key": 46,
+      "id": 46,
+      "synergyName": "Synergy Forty-Six",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000046",
+      "angels": ["Angel226", "Angel227", "Angel228", "Angel229", "Angel230"],
+      "date": "26/01/2025"
+    },
+    {
+      "key": 47,
+      "id": 47,
+      "synergyName": "Synergy Forty-Seven",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000047",
+      "angels": ["Angel231", "Angel232", "Angel233", "Angel234", "Angel235"],
+      "date": "27/01/2025"
+    },
+    {
+      "key": 48,
+      "id": 48,
+      "synergyName": "Synergy Forty-Eight",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000048",
+      "angels": ["Angel236", "Angel237", "Angel238", "Angel239", "Angel240"],
+      "date": "28/01/2025"
+    },
+    {
+      "key": 49,
+      "id": 49,
+      "synergyName": "Synergy Forty-Nine",
+      "creator": "Joan of Arc",
+      "image": "/pp-dk.png",
+      "price": "0.00000049",
+      "angels": ["Angel241", "Angel242", "Angel243", "Angel244", "Angel245"],
+      "date": "29/01/2025"
+    }
+  ]
+}

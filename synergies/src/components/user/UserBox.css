@@ -1,0 +1,144 @@
+.user-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--nav-bg-color);
+  width: 80%;
+  /* height: 60vh; */
+  border-radius: 2%;
+}
+
+.user-info-box {
+  display: flex;
+  width: 100%;
+  padding-bottom: 1%;
+  /* justify-content: space-evenly; */
+}
+
+.user-info-box img {
+  width: 4em;
+  height: 4em;
+  border: .5px solid gray;
+  border-radius: 5%;
+  margin-top: 5%;
+  margin-left: 5%;
+  margin-right: 2%;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.hide-btn {
+  align-self: center;
+  margin-left: auto;
+  margin-right: 0;
+  background-color: transparent;
+  border: none;
+  font-size: 1.5em;
+  color: white;
+}
+
+.hide-btn:hover {
+  cursor: pointer;
+  color: gray;
+}
+
+.hide-btn:active {
+  color: white;
+}
+
+.user-info h1, p {
+  font-size: .8em;
+  margin: 0;
+  padding: 0;
+}
+
+.user-info p {
+  margin: 0;
+  padding: 0;
+  color: var(--text-gray);
+}
+
+.user-info h2 {
+  font-size: 1.1em;
+}
+
+
+.user-nav-container {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  /* justify-content: space-evenly; */
+  width: 100%;
+  height: 100%;
+  margin-top: 10%;
+
+  /* margin-left: 20%; */
+}
+
+.footer {
+  height: 95%;
+  margin-top: 30%;
+  display: flex;
+  justify-content: end;
+  flex-direction: column;
+  margin-bottom: 10%;
+  align-items: center;
+}
+
+.divider {
+  height: 2px; /* Adjust the height as needed */
+  background: linear-gradient(to right, transparent, #4d4a3c, transparent);
+  color: white;
+  maringleft: 0;
+  width: 90%;
+
+  margin-top: 10%;
+}
+
+
+.usernav-link {
+  margin-top: 8%;
+  margin-left: 10%;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.usernav-link-icon-wrap {
+  display: flex;
+  gap: 0.5em;
+  color: var(--usernav-link);
+  opacity: 60%;
+}
+
+.logout {
+  color: #FF9E98;
+  display: flex;
+margin-left: 10%;
+margin-bottom: 10%;
+}
+
+
+.logout a, .logout svg {
+  color: #FF9E98;
+  text-decoration: none;
+  font-size: .8em;
+}
+
+.usernav-link a {
+  color: var(--usernav-link);
+  text-decoration: none;
+  font-size: .8em;
+}
+
+
+.active {
+  opacity: 100% !important;
+}

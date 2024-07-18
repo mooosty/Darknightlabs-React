@@ -1,0 +1,337 @@
+.search-container {
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: start;
+}
+
+.second-header-wrap {
+  align-self: flex-end;
+  margin-left: auto; 
+  font-size: .9em;
+}
+
+/* .custom-checkbox-class {
+  height: 1em;
+  background-color: red;
+  width: 1em;
+  border: 1px solid #343a40;
+  borderradius: "1px";
+} */
+
+.check-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1.5em;
+  width: 1.5em;
+  border: 1px solid #848483;
+  borderradius: 1px;
+}
+
+.search-container h1,
+h2 {
+  margin: 0;
+  font-family: var(--text-style-primary);
+  text-shadow: 0px 2px 5px rgb(0, 0, 0);
+}
+
+.search-container h2 {
+  color: #F5EFDB;
+  text-shadow: 0px 2px 5px rgb(0, 0, 0);
+}
+
+.search-input-container {
+  position: relative;
+  width: 30%;
+  align-self: center;
+  margin-left: 2%;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--text-gray); /* Adjust the color to match your theme */
+}
+
+.search-input {
+  width: 100%;
+  padding: 3%;
+  padding-left: 30px; /* Adjust padding to make space for the icon */
+  border-radius: 3%;
+  background-color: var(--nav-bg-color);
+  border: none;
+  color: var(--text-gray);
+}
+
+.bg-color {
+  background-color: var(--nav-bg-color);
+}
+
+/* Table Styles */
+.table-container {
+  padding: 1% 1% 0 1%;
+  width: 100%;
+  margin: 0;
+  /* font-size: 18px; */
+  text-align: left;
+  /* font-size: 1.5em; */
+}
+
+.creator-column {
+  color: var(--text-secondary);
+
+  gap: .5em;
+}
+
+.creator-column-wrap {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: .5em;
+}
+
+.creator-image {
+  height: 1.3em;
+  width: 1.3em;
+  object-fit: cover;
+  border-radius: 80%;
+  border: 1px solid white;
+  padding: 2% 0 2% 0;
+}
+
+
+
+  .left {
+    text-align: left !important;
+  }
+
+
+.table-header {
+  background-color: #343a40;
+}
+
+
+.action-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+
+
+.border {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 0.5px solid var(--synergies-border);
+  background-color: var(--nav-bg-color);
+}
+
+.table-header th {
+  /* padding: 12px 15px; */
+  padding-bottom: 5%;
+  padding-top: 5%;
+  /* border: .5px solid #dee2e6; */
+  background-color: var(--nav-bg-color);
+  justify-content: center;
+  text-align: center;
+  font-family: var(--text-style-primary);
+  font-size: 0.9em;
+  color: var(--text-synergies-header);
+  font-weight: 500;
+}
+
+.table-body tr {
+  /* border-bottom: .5px solid #dee2e6; */
+}
+
+.table-body tr:hover {
+  background-color: #f1f3f5;
+}
+
+.chk-name-container {
+  display: flex;
+  padding-left: 10%;
+  gap: 0.5em;
+  background-color: var(--nav-bg-color);
+  border-top: 0.5px solid var(--synergies-border);
+  /* border-bottom: .5px solid white; */
+}
+
+.table-body td {
+
+  border-top: 0.5px solid var(--synergies-border);
+
+  background-color: var(--nav-bg-color);
+  font-size: 0.7em;
+  text-align: center;
+}
+
+.table-body-td-main {
+  border-top: 0.5px solid var(--synergies-border);
+  background-color: var(--nav-bg-color);
+  font-size: 0.7em;
+  text-align: center;
+}
+
+.synergy-image {
+  height: 45%;
+  width: 45%;
+  object-fit: cover;
+  border-radius: 15%;
+  padding: 2% 0 2% 0;
+}
+
+.name-column {
+  color: var(--text-primary);
+}
+
+
+
+.price-column {
+  color: var(--text-price);
+}
+
+/* Parent container for angels */
+.angels-container {
+  display: flex;
+  flex-wrap: wrap; /* Ensure child elements wrap to the next line */
+  justify-content: center;
+  align-items: center;
+  gap: .5em;
+  width: 100%; /* Ensure the container takes full width */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+/* Child elements inside the angels container */
+.angels-container p {
+  /* flex: 1 1 23%; Flex-grow, flex-shrink, flex-basis (23% of the container) */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  margin: 0.5em 0; /* Add some margin for spacing */
+  overflow-wrap: break-word; /* Break long words and prevent overflow */
+  word-wrap: break-word; /* Ensure compatibility with older browsers */
+}
+
+.date-column {
+  color: var(--text-date);
+}
+
+.table-footer-bg-wrap {
+  background-color: var(--nav-bg-color);
+}
+
+.table-footer-wrap {
+  /* padding: 1%; */
+}
+
+.table-footer {
+  background-color: #343a40;
+  color: #fff;
+}
+
+.table-footer td {
+  padding: 12px 15px;
+  /* border: 1px solid #dee2e6; */
+}
+
+.table-button {
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.table-button.pen:hover {
+  opacity: 100%;
+}
+
+.table-button.trash:hover {
+  opacity: 100%;
+}
+
+.table-button.pen:active {
+  opacity: 60%;
+}
+
+.table-button.trash:active {
+  opacity: 60%;
+}
+
+.pen {
+  opacity: 60%;
+  padding: 0;
+}
+
+.trash {
+  color: red;
+  opacity: 60%;
+  padding: 0;
+}
+
+
+.pagination-controls {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  padding: 1%;
+  background-color: var(--nav-bg-color);
+  gap: 1em;
+}
+
+.pagination-controls button {
+  background-color: transparent;
+  font-size: 1.5em;
+  color: white;
+  border: none;
+}
+
+.pagination-controls button:hover {
+  color: gray;
+}
+
+.pagination-controls button.active {
+  color: white;
+}
+
+.plain-select {
+  background: none; /* Remove any background gradient */
+  border: none; /* Remove border if any */
+  color: inherit; /* Use inherited text color */
+  font: inherit; /* Use inherited font properties */
+  -webkit-appearance: none; /* Remove default styling in Webkit browsers */
+  -moz-appearance: none; /* Remove default styling in Firefox */
+  appearance: none; /* Remove default styling in other browsers */
+  margin-left: .5em;
+  border: none;
+}
+
+#demo-simple-select-label {
+  color: white;
+  border: none;
+}
+
+.css-1d3z3hw-MuiOutlinedInput-notchedOutline {
+  border-width: 0px !important;
+}
+
+.css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
+  color: white;
+}
+
+.MuiFormControl-root {
+  vertical-align: baseline !important;
+}
+
+.MuiInputBase-root {
+  color: white !important;
+}
+
+.MuiSvgIcon-root {
+  color: white !important;
+}
