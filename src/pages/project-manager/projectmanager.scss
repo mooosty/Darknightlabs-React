@@ -1,6 +1,11 @@
 .page_box {
   display: flex;
   gap: 40px;
+  margin-bottom: 15px;
+
+  @media (max-width: 767px) {
+    margin-bottom: 0px;
+  }
 
   @media (max-width: 1199px) {
     gap: 20px;
@@ -148,7 +153,6 @@
           }
         }
       }
-
     }
 
     .page_data {
@@ -169,7 +173,7 @@
         justify-content: space-between;
         margin-bottom: 24px;
 
-        @media(max-width: 767px) {
+        @media (max-width: 767px) {
           padding: 24px 16px;
         }
 
@@ -188,7 +192,7 @@
           font-weight: 500;
           font-family: "MedievalSharp", cursive;
 
-          @media(max-width: 767px) {
+          @media (max-width: 767px) {
             gap: 5px;
           }
 
@@ -208,7 +212,7 @@
               font-size: 18px;
             }
 
-            @media(max-width: 767px) {
+            @media (max-width: 767px) {
               font-size: 12px;
             }
           }
@@ -218,7 +222,7 @@
               font-size: 18px;
             }
 
-            @media(max-width: 767px) {
+            @media (max-width: 767px) {
               font-size: 12px;
             }
           }
@@ -293,6 +297,56 @@
             margin-bottom: 20px;
           }
 
+          .upload_profile {
+            background-color: rgba(255, 255, 255, 0.0509803922);
+            min-height: 300px;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffffff0d;
+            position: relative;
+
+            input {
+              position: absolute;
+              left: 0;
+              right: 0;
+              width: 100%;
+              top: 0;
+              bottom: 0;
+              height: 100%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              opacity: 0;
+            }
+
+            .upload_document_title {
+              color: #f5efdb;
+              font-size: 14px;
+              font-weight: 400;
+              line-height: 18px;
+              margin: 8px 0;
+            }
+
+            span.drag_file {
+              color: #717171;
+              font-weight: 400;
+              font-size: 14px;
+              line-height: 18px;
+              margin-bottom: 8px;
+            }
+
+            .file_type {
+              color: #717171;
+              font-weight: 400;
+              font-size: 14px;
+              line-height: 18px;
+              margin-bottom: 8px;
+            }
+          }
+
           .project_image {
             height: 400px;
             width: 100%;
@@ -314,6 +368,7 @@
             display: flex;
             gap: 10px;
             margin-top: 24px;
+            margin-bottom: 20px;
 
             .btn-gray {
               width: 100%;
@@ -371,7 +426,7 @@
           width: 70%;
 
           .btn_gray {
-            @media(max-width: 767px) {
+            @media (max-width: 767px) {
               width: 100%;
             }
           }
@@ -460,7 +515,7 @@
             .form_group {
               margin-bottom: 16px;
 
-              @media(max-width: 767px) {
+              @media (max-width: 767px) {
                 margin-bottom: 0;
               }
 
@@ -507,6 +562,10 @@
                   font-size: 16px;
                   font-weight: 400;
                   margin-inline-end: 3px;
+
+                  @media (max-width: 1600px) {
+                    font-size: 14px;
+                  }
                 }
 
                 input {
@@ -525,7 +584,7 @@
               align-items: center;
               gap: 12px;
 
-              @media(max-width: 767px) {
+              @media (max-width: 767px) {
                 margin-bottom: 10px;
                 gap: 5px;
 
@@ -547,7 +606,6 @@
               }
             }
 
-
             &.synergy {
               display: flex;
               align-items: center;
@@ -556,7 +614,7 @@
                 width: 80%;
               }
 
-              @media(max-width: 767px) {
+              @media (max-width: 767px) {
                 flex-wrap: wrap;
               }
             }
@@ -570,7 +628,7 @@
               width: 100%;
               margin-bottom: 16px;
 
-              @media(max-width: 767px) {
+              @media (max-width: 767px) {
                 margin-bottom: 0px;
               }
             }
@@ -629,7 +687,6 @@
                     translate: 30px 0;
                     background: #ffffff;
                   }
-
                 }
 
                 h3 {
@@ -655,7 +712,7 @@
             width: 100%;
             gap: 12px;
 
-            @media(max-width: 767px) {
+            @media (max-width: 767px) {
               gap: 5px;
               flex-wrap: wrap;
               margin-bottom: 10px;
@@ -665,19 +722,20 @@
       }
     }
 
-    .delete-project-btn {
+    .delete_project_btn {
       display: flex;
       justify-content: end;
       background-color: #191917;
       border-top: 1px solid #32312c;
       padding: 15px 20px 15px 15px;
 
-      @media(max-width:767px) {
+      @media (max-width: 767px) {
         display: flex;
         justify-content: space-between;
+        padding-bottom: 115px;
       }
 
-      button.btn-delete {
+      button.btn_delete {
         background-color: #242623;
         border: none;
         padding: 12px;
@@ -696,7 +754,7 @@
       .btn_gray {
         display: none;
 
-        @media(max-width: 767px) {
+        @media (max-width: 767px) {
           display: block;
         }
       }
@@ -705,10 +763,14 @@
 }
 
 .mobile_bottom_footer {
-  background-color: #191917;
+  position: fixed;
+  bottom: 0;
+  left: 0;
   display: none;
+  width: 100vw;
+  z-index: 99;
 
-  @media(max-width:767px) {
+  @media (max-width: 767px) {
     display: block;
   }
 
@@ -731,7 +793,7 @@
         justify-content: center;
         align-items: center;
         font-size: 12px;
-        color: #F5EFDB;
+        color: #f5efdb;
         max-width: 90px;
 
         span {
@@ -753,7 +815,6 @@
           border-radius: 100px;
           align-items: center;
           font-size: 12px;
-
         }
 
         img {

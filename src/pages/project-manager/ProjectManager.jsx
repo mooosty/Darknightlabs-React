@@ -21,35 +21,43 @@ const synergyAnglesOptions = [
     {
         label: 'Getting whitelist spots',
         value: 'Getting whitelist spots',
+        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
     },
     {
         label: 'Giving whitelists spots',
         value: 'Giving whitelists spots',
+        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
     },
     {
         label: 'Hosting AMAs',
         value: 'Hosting AMAs',
+        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
     },
     {
         label: 'Integrating branded game assets',
         value: 'Integrating branded game assets',
+        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
     },
     {
         label: 'Integrating your own branded assets',
         value: 'Integrating your own branded assets',
+        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
     },
     {
         label: 'Getting early alpha',
         value: 'Getting early alpha',
+        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
     },
     {
         label: 'Sharing early alpha',
         value: 'Sharing early alpha',
+        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
     },
 ]
 
 const ProjectManager = () => {
     const [isAddAngelPopupOpen, setIsAddAngelPopupOpen] = useState(false)
+
     return (
         <>
             <div className="content_header">
@@ -85,16 +93,26 @@ const ProjectManager = () => {
                         <span className="auther_time">16:07</span>
                     </div>
                     <div className="project_profile">
-                        <div className="project_image">
-                            <img src={projectImageProfile} alt="Project" />
-                        </div>
-                        <div className="project_profile_btn">
-                            <button className="btn-gray">
-                                <img src={uploadIcon} alt="" /> Replace photo</button>
-                            <button className="btn-red">
-                                <img src={trashIcon} alt="" /> Delete</button>
+                        {/* <>
+                            <div className="project_image">
+                                <img src={projectImageProfile} alt="Project" />
+                            </div>
+                            <div className="project_profile_btn">
+                                <button className="btn-gray">
+                                    <img src={uploadIcon} alt="" /> Replace photo</button>
+                                <button className="btn-red">
+                                    <img src={trashIcon} alt="" /> Delete</button>
+                            </div>
+                        </> */}
+                        <div className="upload_profile">
+                            <img src={uploadIcon} alt="" />
+                            <input type="file" />
+                            <p className="upload_document_title">Click to upload</p>
+                            <span className="drag_file">or drag and drop</span>
+                            <div className="file_type">SVG, PNG, JPG (max. 800x400px)</div>
                         </div>
                     </div>
+
 
                     <div className="project_description_form">
                         <div className="project_author">
@@ -173,6 +191,7 @@ const ProjectManager = () => {
                                 <div className="form_box synergy_selected">
                                     <label>Synergy angles</label>
                                     <Select
+                                        name='synergy_angles'
                                         options={synergyAnglesOptions}
                                         placeholder='Select synergy angel'
                                         hasAddButton={true}
@@ -275,8 +294,8 @@ const ProjectManager = () => {
                     </div>
                 </div>
             </div>
-            <div className="delete-project-btn">
-                <button className="btn-delete">
+            <div className="delete_project_btn">
+                <button className="btn_delete">
                     <img src={trashIcon} alt="Delete" /> Delete project
                 </button>
                 <button className="btn_gray">
@@ -320,6 +339,7 @@ const ProjectManager = () => {
 
             <AddAngelPopup
                 open={isAddAngelPopupOpen}
+                handleClose={() => setIsAddAngelPopupOpen(false)}
             />
 
         </>

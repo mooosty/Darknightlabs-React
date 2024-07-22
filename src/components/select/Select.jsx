@@ -5,8 +5,10 @@ import addIcon from "../../assets/add-icon.png"
 import arrowDown from "../../assets/arrow-down.png"
 import './select.scss'
 import { useClickOutside } from '../../utils/hooks/useClickOutside';
+import { Tooltip } from 'react-tooltip';
 
 const Select = ({
+    name,
     value,
     options = [],
     placeholder,
@@ -48,6 +50,26 @@ const Select = ({
                 {
                     optionData ? <>{<span className='custom_select_label'> {optionData.label}</span>}</> : <><span className='custom_select_placeholder'> {placeholder ?? 'Select'}</span></>
                 }
+                {
+                    optionData?.tooltip && <div
+                        className='label_tooltip'
+                        id={`select_${name ?? ''}_label`}
+                    >
+                        <img src={infoCircle} alt="" />
+                        <Tooltip
+                            place="top"
+                            style={{
+                                maxWidth: '200px',
+                                boxShadow: '0px 3px 10.3px -4px rgba(229, 229, 229, 0.1)',
+                                background: 'rgba(79, 79, 79, 1)',
+                                opacity: '1',
+                            }}
+                            anchorSelect={`#select_${name ?? ''}_label`}
+                        >
+                            {optionData.tooltip}
+                        </Tooltip>
+                    </div>
+                }
                 <div className='down-arrow'>
                     <img src={arrowDown} alt="" />
                 </div>
@@ -58,12 +80,24 @@ const Select = ({
             >
                 <ul>
                     {
-                        options.map((opt) => {
+                        options.map((opt, index) => {
                             return (
                                 <li key={opt.value} onClick={() => handleSelectOption(opt)}>
                                     {opt.label}
-                                    {opt.tooltip && <div className="tooltip">
+                                    {opt.tooltip && <div id={`select_${name ?? ''}_${index}`} className="tooltip">
                                         <img src={infoCircle} alt="" />
+                                        <Tooltip
+                                            place="top"
+                                            style={{
+                                                maxWidth: '200px',
+                                                boxShadow: '0px 3px 10.3px -4px rgba(229, 229, 229, 0.1)',
+                                                background: 'rgba(79, 79, 79, 1)',
+                                                opacity: '1',
+                                            }}
+                                            anchorSelect={`#select_${name ?? ''}_${index}`}
+                                        >
+                                            {opt.tooltip}
+                                        </Tooltip>
                                     </div>}
                                 </li>
                             )
@@ -83,6 +117,7 @@ const Select = ({
 }
 
 Select.propTypes = {
+    name: PropTypes.string,
     value: PropTypes.any,
     placeholder: PropTypes.string,
     options: PropTypes.array,
