@@ -1,3 +1,4 @@
 export const ROUTER = {
-    projectManager: 'project-manager'
+    projectManager: 'project-manager',
+    userProfile:'user-profile'
 }

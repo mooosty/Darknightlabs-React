@@ -6,14 +6,17 @@
     position: relative;
     height: 100%;
 
-    @media (max-width: 1199px) {    
+    @media (max-width: 1199px) {
         width: 30%;
     }
-    @media (max-width: 767px){
+
+    @media (max-width: 767px) {
         display: none;
     }
-    .sidbar_menu{
+
+    .sidbar_menu {
         height: 55vh;
+
         @media (max-width: 1600px) {
             height: auto;
         }
@@ -65,11 +68,12 @@
     .menu-box {
         ul {
             li {
-                &:hover{
-                    a{
+                &:hover {
+                    a {
                         opacity: 1;
                     }
                 }
+
                 a {
                     text-decoration: none;
                     color: #fff;
@@ -82,6 +86,7 @@
                     line-height: 21.78px;
                     opacity: 0.5;
                     margin-bottom: 16px;
+
                     @media (max-width: 1600px) {
                         font-size: 14px;
                     }
@@ -118,6 +123,7 @@
 
     .project_manager {
         margin-bottom: 57px;
+
         @media (max-width: 1600px) {
             margin-bottom: 30px;
         }
@@ -130,6 +136,7 @@
 
         ul li:last-child a {
             margin-bottom: 49px;
+
             @media (max-width: 1600px) {
                 margin-bottom: 30px;
             }
@@ -151,4 +158,76 @@
         }
     }
 
+}
+
+
+.mobile_bottom_footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    display: none;
+    width: 100vw;
+    z-index: 99;
+
+    @media (max-width: 767px) {
+        display: block;
+    }
+
+    ul {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        padding: 20px 24px;
+
+        background-color: #191917;
+        border-radius: 24px 24px 0 0;
+        border-top: 1px solid #e6a6406b;
+
+        li {
+            width: 66px;
+
+            a {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                font-size: 12px;
+                color: #f5efdb;
+                max-width: 90px;
+
+                span {
+                    text-align: center;
+                }
+
+                .chat {
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+                }
+
+                .chat_count {
+                    background-color: #a18527;
+                    height: 16px;
+                    width: 20px;
+                    display: flex;
+                    justify-content: center;
+                    border-radius: 100px;
+                    align-items: center;
+                    font-size: 12px;
+                }
+
+                img {
+                    width: 24px;
+                    height: 24px;
+                    margin-bottom: 8px;
+                }
+            }
+
+            &.active {
+                a {
+                    color: #ffffff;
+                }
+            }
+        }
+    }
 }

@@ -302,40 +302,6 @@ const ProjectManager = () => {
                     Save changes
                 </button>
             </div>
-            <div className="mobile_bottom_footer">
-                <ul>
-                    <li className="active">
-                        <a href="#">
-                            <img src={projectIcon} alt="" />
-                            <span>Projects manager</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src={pendingIcon} alt="" />
-                            <span>Pending Synergies</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src={synergiesIcon} alt="" />
-                            <span>Synergies Manager</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src={chatIcon} alt="" />
-                            <span className="chat">Chat <p className="chat_count">1</p></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src={profileIcon} alt="" />
-                            <span>Profile</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
 
             <AddAngelPopup
                 open={isAddAngelPopupOpen}
