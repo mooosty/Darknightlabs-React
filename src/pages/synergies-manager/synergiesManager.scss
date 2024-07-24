@@ -1,0 +1,392 @@
+.page_box {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 15px;
+
+    @media (max-width: 767px) {
+        margin-bottom: 0px;
+    }
+
+    @media (max-width: 1199px) {
+        gap: 20px;
+    }
+
+    .btn_gray {
+        padding: 16px 24px;
+        border: none;
+        background-color: #4e4e4e94;
+        font-size: 16px;
+        font-weight: 500;
+        color: #f5efdb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+
+        @media (max-width: 1600px) {
+            font-size: 14px;
+            padding: 10px 20px;
+        }
+    }
+
+    .btn_delete {
+        background-color: #ff9e9826;
+        border: none;
+        padding: 13px;
+
+        @media (max-width: 1600px) {
+            padding: 10px;
+        }
+
+        img {
+            @media (max-width: 1600px) {
+                width: 17px;
+            }
+        }
+    }
+
+    .synergies_content_header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 32px;
+
+        @media (max-width: 1600px) {
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 1199px) {
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 767px) {
+            display: none;
+        }
+
+        .synergies_content_left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            h2 {
+                font-size: 28px;
+                color: #fff;
+                font-weight: 500;
+                font-family: "MedievalSharp", cursive;
+
+                @media (max-width: 1600px) {
+                    font-size: 24px;
+                }
+            }
+
+            .search_box {
+                position: relative;
+                min-width: 350px;
+
+                @media (max-width: 1199px) {
+                    min-width: 230px;
+                }
+
+                input {
+                    background-color: #191917;
+                    padding: 17px 24px 17px 52px;
+
+                    border: 1px solid #3c3c3c;
+                    border-radius: 9px;
+                    width: 100%;
+                    color: #f5efdb;
+
+                    @media (max-width: 1199px) {
+                        padding: 10px 15px 10px 40px;
+                    }
+
+                    &::placeholder {
+                        color: #f5efdb;
+                        font-size: 18px;
+                        opacity: 0.5;
+
+                        @media (max-width: 1199px) {
+                            font-size: 14px;
+                        }
+                    }
+                }
+
+                .search_icon {
+                    position: absolute;
+                    left: 24px;
+                    top: 50%;
+                    transform: translateY(-50%);
+
+                    @media (max-width: 1199px) {
+                        left: 15px;
+                    }
+                }
+            }
+        }
+
+        .synergies_content_right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            a {
+                color: #f5efdb;
+                text-decoration: none;
+                font-size: 24px;
+                font-weight: 500;
+                line-height: 27.12px;
+                font-family: "MedievalSharp", cursive;
+
+                @media (max-width: 1600px) {
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+
+    .synergies_page_data {
+        border-radius: 20px;
+        background-color: #191917;
+
+        @media (max-width: 767px) {
+            border-radius: 0;
+            padding: 0;
+            background-color: #242623eb;
+        }
+
+        .synergies_page_header {
+            border-bottom: 1px solid #f5efdb26;
+            padding: 20px 30px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+
+            @media (max-width: 767px) {
+                padding: 24px 16px;
+            }
+
+            .btn_gray {
+                @media (max-width: 767px) {
+                    display: none;
+                }
+            }
+
+            .synergies_pagination {
+                display: flex;
+                align-items: center;
+                padding: 4px 8px;
+                gap: 8px;
+                font-size: 24px;
+                color: #fff;
+                background-color: #242623;
+                font-weight: 500;
+                font-family: "MedievalSharp", cursive;
+
+                @media (max-width: 767px) {
+                    gap: 4px;
+                }
+
+                .synergies_pagination_btn {
+                    padding: 10px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background-color: transparent;
+                    border: none;
+
+                    &.active {
+                        background-color: rgba(78, 78, 78, 0.58);
+                        color: #F5EFDB;
+
+                        svg {
+                            path {
+                                stroke: #F5EFDB;
+                            }
+                        }
+                    }
+
+                    svg {
+                        height: 24px;
+                        width: 24px;
+                    }
+                }
+            }
+
+            .synergies_page_header_button {
+                display: flex;
+                gap: 10px;
+
+                .btn_filter {
+                    img {
+                        height: 22px;
+                        width: 22px;
+                    }
+                }
+            }
+        }
+
+        .synergies_page_body {
+
+            .synergies_page_table {
+                margin: 20px 24px;
+
+                table,
+                tr,
+                td {
+                    border-collapse: collapse;
+                }
+
+                table {
+                    width: 100%;
+
+                    thead {
+                        text-align: left;
+
+                        th {
+                            font-family: MedievalSharp;
+                            font-size: 18px;
+                            color: #F5EFDB;
+                            font-weight: 400;
+                            padding: 4px 12px;
+                            border-bottom: 1px solid rgba(255, 239, 219, 0.15);
+
+                            &.center {
+                                text-align: center;
+                            }
+                        }
+                    }
+
+                    tbody {
+                        color: rgba(245, 239, 219, 0.6);
+                        font-size: 14px;
+                        font-family: "Inter", sans-serif;
+
+                        tr,
+                        td {
+                            padding: 10px 12px;
+                            border-bottom: 1px solid rgba(245, 239, 219, 0.15);
+
+                            .table_name {
+                                display: flex;
+                                align-items: center;
+                                font-size: 16px;
+                                gap: 5px;
+
+                                .costum_checkbox {
+                                    display: flex;
+                                    align-items: end;
+
+                                    .costum_checkbox_input {
+                                        display: none;
+                                    }
+
+                                    .costum_checkbox_label {
+                                        height: 24px !important;
+                                        width: 24px !important;
+                                        padding: 0.5px 10px;
+                                        background-color: rgba(78, 78, 78, 0.2);
+                                        border: 1px solid #fff;
+                                    }
+
+                                    .costum_checkbox_input:checked+.costum_checkbox_label {
+                                        position: relative;
+
+                                        &::after {
+                                            content: '';
+                                            display: block;
+                                            position: absolute;
+                                            top: -2px;
+                                            left: -1px;
+                                            height: 24px;
+                                            width: 24px;
+                                            background-image: url('../../assets/Input-checked.svg');
+                                            background-repeat: no-repeat;
+                                            background-size: cover;
+                                            z-index: 5;
+                                        }
+                                    }
+                                }
+                            }
+
+                            .actor {
+                                display: flex;
+                                gap: 8px;
+                                align-items: center;
+                                color: rgba(255, 209, 166, 0.8);
+
+                                img {
+                                    height: 24px;
+                                    width: 24px;
+                                    border-radius: 30px;
+                                }
+                            }
+
+                            .table_image {
+                                border-radius: 11px;
+                                overflow: hidden;
+                                height: 96px;
+                                width: 96px;
+
+                                img {
+                                    height: 100%;
+                                    width: 100%;
+                                }
+                            }
+
+                            .price {
+                                display: flex;
+                                align-items: center;
+                                gap: 4px;
+                                color: #FFDF76;
+                                font-family: "MedievalSharp";
+                            }
+
+                            .table_angles {
+                                display: flex;
+                                flex-wrap: wrap;
+                                justify-content: center;
+                                gap: 4px;
+                                color: #ffffff;
+                                max-width: 425px;
+
+                                @media (min-width:1900px) {
+                                    padding-inline: 10px;
+                                }
+
+                                .angle_tag {
+                                    display: flex;
+                                    align-items: center;
+                                    padding: 4px 6px;
+                                    gap: 4px;
+                                }
+                            }
+
+                            .date {
+                                display: flex;
+                                align-items: center;
+                                font-size: 16px;
+                                color: rgba(255, 255, 255, 0.60);
+                            }
+
+                            .actions {
+                                display: flex;
+                                gap: 8px;
+
+                                button {
+                                    background-color: transparent;
+                                    border: none;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .synergies_table_pagination {
+                height: 64px;
+                padding-bottom: 20px;
+            }
+        }
+    }
+}
