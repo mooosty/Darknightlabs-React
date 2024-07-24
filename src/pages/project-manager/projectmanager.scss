@@ -513,7 +513,7 @@
             }
 
             .form_group {
-              margin-bottom: 16px;
+              // margin-bottom: 16px;
 
               @media (max-width: 767px) {
                 margin-bottom: 0;
@@ -581,8 +581,9 @@
 
             .form_item_box {
               display: flex;
-              align-items: center;
+              align-items: end;
               gap: 12px;
+              margin-bottom: 24px;
 
               @media (max-width: 767px) {
                 margin-bottom: 10px;
@@ -595,14 +596,14 @@
                 &.investment_item_box {
                   align-items: end;
 
-                  .btn_delete {
-                    margin-bottom: 9px;
-                  }
                 }
               }
 
               .form_group {
                 width: 100%;
+              }
+              .btn_delete{
+                padding-top: 11px;
               }
             }
 
@@ -626,7 +627,6 @@
 
             &.synergy_selected {
               width: 100%;
-              margin-bottom: 16px;
 
               @media (max-width: 767px) {
                 margin-bottom: 0px;
@@ -708,9 +708,14 @@
 
           .custom_select {
             display: flex;
-            align-items: center;
+            align-items: end;
             width: 100%;
             gap: 12px;
+            margin-bottom: 24px;
+
+            .btn_delete{
+              padding-top: 11px;
+            }
 
             @media (max-width: 767px) {
               gap: 5px;
