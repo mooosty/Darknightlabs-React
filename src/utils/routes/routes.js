@@ -1,5 +1,5 @@
 export const ROUTER = {
+    profile: 'profile',
     projectManager: 'project-manager',
-    userProfile: 'user-profile',
     SynergiesManager: 'synergies-manager'
 }

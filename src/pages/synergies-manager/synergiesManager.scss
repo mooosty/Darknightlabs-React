@@ -60,13 +60,19 @@
         }
 
         @media (max-width: 767px) {
-            display: none;
+            margin-bottom: 0px;
+            background-color: #191917;
         }
 
         .synergies_content_left {
             display: flex;
             align-items: center;
             gap: 10px;
+
+            @media (max-width: 767px) {
+                padding-inline: 24px;
+                padding-top: 15px;
+            }
 
             h2 {
                 font-size: 28px;
@@ -85,6 +91,10 @@
 
                 @media (max-width: 1199px) {
                     min-width: 230px;
+                }
+
+                @media (max-width: 767px) {
+                    display: none;
                 }
 
                 input {
@@ -129,6 +139,10 @@
             align-items: center;
             gap: 10px;
 
+            @media (max-width: 767px) {
+                display: none;
+            }
+
             a {
                 color: #f5efdb;
                 text-decoration: none;
@@ -151,7 +165,7 @@
         @media (max-width: 767px) {
             border-radius: 0;
             padding: 0;
-            background-color: #242623eb;
+            background-color: #191917;
         }
 
         .synergies_page_header {
@@ -163,13 +177,7 @@
             margin-bottom: 24px;
 
             @media (max-width: 767px) {
-                padding: 24px 16px;
-            }
-
-            .btn_gray {
-                @media (max-width: 767px) {
-                    display: none;
-                }
+                padding: 24px 24px;
             }
 
             .synergies_pagination {
@@ -185,6 +193,7 @@
 
                 @media (max-width: 767px) {
                     gap: 4px;
+                    display: none;
                 }
 
                 .synergies_pagination_btn {
@@ -217,6 +226,11 @@
                 display: flex;
                 gap: 10px;
 
+                @media (max-width: 767px) {
+                    width: 100%;
+                    justify-content: space-between;
+                }
+
                 .btn_filter {
                     img {
                         height: 22px;
@@ -230,6 +244,10 @@
 
             .synergies_page_table {
                 margin: 20px 24px;
+
+                @media (max-width: 1099px) {
+                    display: none;
+                }
 
                 table,
                 tr,
@@ -267,6 +285,10 @@
                             padding: 10px 12px;
                             border-bottom: 1px solid rgba(245, 239, 219, 0.15);
 
+                            @media (max-width:1199px) {
+                                padding: 0px;
+                            }
+
                             .table_name {
                                 display: flex;
                                 align-items: center;
@@ -300,7 +322,7 @@
                                             left: -1px;
                                             height: 24px;
                                             width: 24px;
-                                            background-image: url('../../assets/Input-checked.svg');
+                                            background-image: url('../../assets/InputChecked.svg');
                                             background-repeat: no-repeat;
                                             background-size: cover;
                                             z-index: 5;
@@ -325,8 +347,8 @@
                             .table_image {
                                 border-radius: 11px;
                                 overflow: hidden;
-                                height: 96px;
-                                width: 96px;
+                                height: 5vw;
+                                width: 5vw;
 
                                 img {
                                     height: 100%;
@@ -384,8 +406,78 @@
             }
 
             .synergies_table_pagination {
-                height: 64px;
-                padding-bottom: 20px;
+                padding: 0 20px 18px 0;
+                display: flex;
+                justify-content: end;
+                align-items: center;
+                margin-top: 25px;
+
+                .synergies_table_pagination_content {
+                    display: flex;
+                    justify-content: space-between;
+                    color: #BDBDBD;
+
+                    .synergies_table_pagination_content_text {
+                        font-size: 14px;
+                        color: #fff;
+                        display: flex;
+                        gap: 8px;
+
+                        .pagination_head {
+                            color: #BDBDBD;
+                        }
+
+                        .pagination_dropdown {
+                            select {
+                                border: none;
+                                background: transparent;
+                                color: #fff;
+                                cursor: pointer;
+                                font-family: "Inter", sans-serif;
+                                font-size: 14px;
+                                outline: 0px;
+
+                                option {
+                                    background-color: #242623;
+                                }
+                            }
+                        }
+
+                        .synergies_table_pagination_content_arrows {
+                            display: flex;
+                            gap: 12px;
+
+                            .table_pagination_content_button {
+                                background: transparent;
+                                border: none;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+
+                                svg {
+                                    path {
+                                        height: 20px;
+                                        width: 20px;
+                                    }
+                                }
+
+                                &:focus {
+                                    svg {
+                                        path {
+                                            fill: #fff;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .synergies_page_accordion {
+                @media (min-width: 1099px) {
+                    display: none;
+                }
             }
         }
     }

@@ -7,9 +7,13 @@ import synergiesIcon from "../../../assets/synergies-icon.png"
 import chatIcon from "../../../assets/chat-icon.png"
 import profileIcon from "../../../assets/profile-icon.png"
 import logoutIcon from "../../../assets/logout-icon.png"
+import { Link, useLocation } from 'react-router-dom'
+import { ROUTER } from '../../../utils/routes/routes'
 
 
 const Sidebar = () => {
+    const location = useLocation()
+
     return (
         <>
             <div className="sidbar">
@@ -25,50 +29,50 @@ const Sidebar = () => {
                         <img src={collapseLeftIcon} alt="Collapse" />
                     </a>
                 </div>
-                <div className="menu-box active project_manager">
+                <div className="menu-box project_manager">
                     <ul>
-                        <li>
-                            <a href="#">
+                        <li className={`${location.pathname === `/${ROUTER.projectManager}` ? 'active' : ''}`}>
+                            <Link to={ROUTER.projectManager}>
                                 <img src={projectIcon} alt="Project Manager" />
                                 Projects manager
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </div>
                 <div className="menu-box synergies_menu">
                     <span className="saprator"></span>
                     <ul>
-                        <li>
-                            <a href="#">
+                        <li className={`${location.pathname === `/` ? 'active' : ''}`}>
+                            <Link>
                                 <img src={pendingIcon} alt="Pending Synergies" />
                                 Pending Synergies
-                            </a>
+                            </Link>
                         </li>
-                        <li>
-                            <a href="#">
+                        <li className={`${location.pathname === `/${ROUTER.SynergiesManager}` ? 'active' : ''}`}>
+                            <Link to={ROUTER.SynergiesManager}>
                                 <img src={synergiesIcon} alt="Synergies Manager" />
                                 Synergies Manager
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </div>
                 <div className="menu-box chat_profile">
                     <span className="saprator"></span>
                     <ul>
-                        <li>
-                            <a href="#">
+                        <li className={`${location.pathname === `/` ? 'active' : ''}`}>
+                            <Link>
                                 <img src={chatIcon} alt="Chat" />
                                 Chat <span className="notification">1</span>
-                            </a>
+                            </Link>
                         </li>
-                        <li>
-                            <a href="#">
+                        <li className={`${location.pathname === `/${ROUTER.profile}` ? 'active' : ''}`}>
+                            <Link to={ROUTER.profile}>
                                 <img src={profileIcon} alt="Profile" />
                                 Profile
-                            </a>
+                            </Link>
                         </li>
-                    </ul>
-                </div>
+                    </ul >
+                </div >
                 <div className="menu-box sidbar_bottom">
                     <span className="saprator"></span>
                     <ul>
@@ -80,7 +84,7 @@ const Sidebar = () => {
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div >
 
             <div className="mobile_bottom_footer">
                 <ul>

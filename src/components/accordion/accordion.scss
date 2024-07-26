@@ -1,0 +1,186 @@
+.accordion_conrtainer {
+    margin: 5px 24px;
+    background-color: #242623eb;
+
+    .accordion {
+        border-radius: 5px;
+        overflow: hidden;
+    }
+
+    &.active {
+        .accordion_content {
+            max-height: 100vh;
+            padding-block: 16px 8px;
+        }
+
+        .accordion_label {
+            border-bottom: none;
+            border-bottom-left-radius: 0px;
+            border-bottom-right-radius: 0px;
+
+            .table_row .content .left .table_arrow {
+                transform: rotateZ(0deg);
+            }
+        }
+
+        .accordion_content {
+            border: 1px solid rgba(245, 239, 219, 0.15);
+            border-top: none;
+        }
+    }
+
+    .accordion_label {
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 5px;
+        border: 1px solid rgba(245, 239, 219, 0.15);
+
+        .table_row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+
+            .content {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .left {
+                    display: flex;
+                    gap: 10px;
+                    align-items: center;
+
+                    .table_arrow {
+                        transition: all 0.2s;
+                        height: 24px;
+                        width: 24px;
+                        transform: rotateZ(-90deg);
+                    }
+
+                    .creator_img {
+                        min-height: 40px;
+                        height: 4vw;
+                        width: 4vw;
+                        min-width: 40px;
+                        overflow: hidden;
+                        border-radius: 6px;
+
+                        img {
+                            height: 100%;
+                            width: 100%;
+                        }
+                    }
+
+                    .table_name {
+                        font-family: "MedievalSharp";
+                        color: #fff;
+                    }
+                }
+
+                .right {
+                    margin-inline: auto;
+
+                    @media (max-width: 499px) {
+                        display: none;
+                    }
+
+                    .creator {
+                        display: flex;
+                        gap: 8px;
+                        align-items: center;
+                        color: rgba(255, 209, 166, 0.8);
+
+                        img {
+                            height: 24px;
+                            width: 24px;
+                            border-radius: 30px;
+                        }
+                    }
+                }
+            }
+
+            .actions {
+                flex-basis: 60px;
+                display: flex;
+                gap: 8px;
+                margin-left: auto;
+
+                button {
+                    background-color: transparent;
+                    border: none;
+                }
+            }
+        }
+    }
+
+    .accordion_content {
+        max-height: 0;
+        padding-inline: 10px;
+        padding-left: 24px;
+        transition: all 0.2s;
+        color: aliceblue;
+        border-color: rgba(245, 239, 219, 0.15);
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+
+        .table_data {
+            font-size: 14px;
+
+            .data_container {
+                display: flex;
+                align-items: center;
+                padding-block: 8px;
+
+                .label {
+                    color: #fff;
+                    display: block;
+                    flex-basis: 60px;
+                }
+
+                .creator {
+                    display: flex;
+                    gap: 8px;
+                    align-items: center;
+                    color: rgba(255, 209, 166, 0.8);
+
+                    img {
+                        height: 24px;
+                        width: 24px;
+                        border-radius: 30px;
+                    }
+                }
+
+                .price {
+                    display: flex;
+                    align-items: center;
+                    gap: 4px;
+                    color: #FFDF76;
+                    font-family: "MedievalSharp";
+                }
+
+                &.angel_container {
+                    align-items: start;
+
+                    .angle {
+                        display: flex;
+                        align-items: center;
+                        flex-wrap: wrap;
+                        gap: 10px;
+                        width: calc(100% - 60px);
+
+                        span {
+                            display: flex;
+                            align-items: center;
+                            gap: 5px;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}

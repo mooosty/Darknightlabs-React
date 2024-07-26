@@ -6,7 +6,6 @@ import Layout from './components/layout/Layout'
 import UserProfile from './pages/user-profile/UserProfile'
 import SynergiesManager from './pages/synergies-manager/SynergiesManager'
 
-
 function App() {
 
   return (
@@ -17,9 +16,8 @@ function App() {
 
           <Route element={<Layout />}>
             <Route path={ROUTER.projectManager} element={<ProjectManager />} />
-            <Route path={ROUTER.userProfile} element={<UserProfile />} />
+            <Route path={ROUTER.profile} element={<UserProfile />} />
             <Route path={ROUTER.SynergiesManager} element={<SynergiesManager />} />
-
           </Route>
 
           <Route path="*" element={<div>Not found</div>} />
