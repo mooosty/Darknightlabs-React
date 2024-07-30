@@ -164,7 +164,7 @@
 
         @media (max-width: 767px) {
             border-radius: 0;
-            padding: 0;
+            padding: 0 0 40px 0;
             background-color: #191917;
         }
 
@@ -237,6 +237,17 @@
                         width: 22px;
                     }
                 }
+
+                .btn_gray.active {
+                    background-color: #A18527;
+                    color: white;
+                }
+
+                .btn_gray:disabled {
+                    cursor: no-drop;
+                    background-color: rgba(78, 78, 78, 0.16);
+                    color: rgba(255, 255, 255, 0.4);
+                }
             }
         }
 
@@ -245,7 +256,7 @@
             .synergies_page_table {
                 margin: 20px 24px;
 
-                @media (max-width: 1099px) {
+                @media (max-width: 1098px) {
                     display: none;
                 }
 
@@ -280,8 +291,8 @@
                         font-size: 14px;
                         font-family: "Inter", sans-serif;
 
-                        tr,
                         td {
+                            opacity: 1;
                             padding: 10px 12px;
                             border-bottom: 1px solid rgba(245, 239, 219, 0.15);
 
@@ -401,6 +412,17 @@
                                 }
                             }
                         }
+
+                        tr.disable {
+                            opacity: 0.4;
+
+                            .table_angles {
+                                .angle_tag {
+                                    border-radius: 8px;
+                                    background-color: rgba(245, 239, 219, 0.16);
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -475,6 +497,7 @@
             }
 
             .synergies_page_accordion {
+
                 @media (min-width: 1099px) {
                     display: none;
                 }

@@ -1,0 +1,271 @@
+.edit_synergies_model_bg {
+    display: none;
+    z-index: 99;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+
+    &.active {
+        display: block;
+    }
+
+    .edit_synergies_popup {
+        background-color: #434242cc;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        width: 100%;
+        height: 100%;
+
+        @media (max-width: 767px) {
+            width: 105%;
+            height: 106%;
+        }
+
+        .edit_synergies_model_box {
+            width: 488px;
+            background-color: #191917;
+            background-image: url("../../../assets/model-frame.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position-x: 10px;
+            background-position-y: 10px;
+            position: relative;
+
+            @media (max-width: 1600px) {
+                width: 460px;
+            }
+
+            @media (max-width: 767px) {
+                width: 85%;
+            }
+
+            .edit_synergies_model_header {
+                display: flex;
+                align-items: center;
+                margin-bottom: 24px;
+
+                @media (max-width: 767px) {
+                    margin-bottom: 16px;
+                }
+
+                h3 {
+                    color: #f5efdb;
+                    text-decoration: none;
+                    font-size: 32px;
+                    font-weight: 500;
+                    line-height: 36px;
+                    font-family: "MedievalSharp", cursive;
+                }
+
+                button.close {
+                    background-color: transparent;
+                    border: gainsboro;
+                    position: absolute;
+                    top: 25px;
+                    right: 30px;
+
+                    img {
+                        width: 30px;
+
+                        @media (max-width: 1600px) {
+                            width: 24px;
+                        }
+                    }
+                }
+            }
+
+            .edit_synergies_model_body_container {
+                margin: 60px 18px 30px 30px;
+
+                .edit_synergies_model_body {
+                    max-height: 450px;
+                    overflow-y: scroll;
+                    padding-right: 8px;
+
+                    @media (max-width: 1600px) {
+                        margin-bottom: 30px;
+                    }
+
+                    @media (max-width: 767px) {
+                        margin-bottom: 20px;
+                    }
+
+                    &::-webkit-scrollbar {
+                        width: 4px;
+                    }
+
+                    &::-webkit-scrollbar-track {
+                        background: transparent;
+                    }
+
+                    &::-webkit-scrollbar-thumb {
+                        background: rgba(78, 78, 78, 0.5);
+                    }
+
+                    .edit_synergies_model_data {
+                        padding-right: 7px;
+                        font-family: "MedievalSharp", cursive;
+                        color: #f5efdb;
+                        overflow: hidden;
+
+
+                        .image {
+                            height: 195px;
+                            overflow: hidden;
+                            margin-bottom: 20px;
+                            border-radius: 12px;
+
+                            img {
+                                height: 200px;
+                                width: 100%;
+                                object-fit: cover;
+                            }
+                        }
+
+                        .angel_model_data_head {
+                            display: flex;
+                            gap: 12px;
+                            margin-bottom: 28px;
+
+                            .title {
+                                font-size: 22px;
+                            }
+                        }
+
+                        .angel_model_data_body {
+                            .title {
+                                margin-bottom: 14px;
+                            }
+
+                            .angels_container {
+                                height: 100%;
+
+                                .synergirs_name {
+                                    display: flex;
+                                    flex-direction: column;
+                                    gap: 10px;
+                                    margin-bottom: 28px;
+
+                                    input {
+                                        padding: 15px 20px;
+                                        border: 1px solid #ffffff80;
+                                        background-color: transparent;
+                                        width: 100%;
+                                        color: #f5efdb;
+                                        line-height: 19px;
+                                        font-size: 16px;
+                                        font-weight: 500;
+
+                                        @media screen and (max-width : 1600px) {
+                                            padding: 10px 20px;
+                                        }
+                                    }
+                                }
+
+                                .synergirs_project {
+                                    height: 100%;
+                                    display: flex;
+                                    flex-direction: column;
+                                    gap: 10px;
+
+                                    .synergirs_project_select {
+                                        .multiselect_wrapper {
+                                            display: flex;
+                                            flex-direction: column;
+                                            gap: 3px;
+
+                                            .custom_multiselect_field {
+                                                width: 100%;
+                                            }
+
+                                            .custom_multiselect_list {
+                                                position: relative;
+                                            }
+
+                                            .custom_multiselect_label{
+                                                padding-inline: 6px;
+                                            }
+                                        }
+
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .edit_synergies_model_footer {
+                padding: 0 18px 20px;
+                background-color: #191917;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                z-index: 8;
+
+                @media (max-width: 767px) {
+                    gap: 10px;
+                }
+
+                .back_btn {
+                    background-color: rgba(255, 158, 152, 0.1490196078);
+                    border: none;
+                    padding: 14px 40px;
+                    color: #ff9e98;
+                    font-size: 16px;
+
+                    @media (max-width: 1600px) {
+                        font-size: 14px;
+                    }
+
+                    @media (max-width: 767px) {
+                        width: 50%;
+                        max-width: 140px;
+                        padding-inline: 0;
+                    }
+                }
+
+                .pagination {
+                    display: flex;
+                    gap: 4px;
+                    color: white;
+                    font-size: 14px;
+                    font-family: "Inter", sans-serif;
+                }
+
+                .cancel_btn {
+                    border: none;
+                    background-color: rgba(78, 78, 78, 0.5803921569);
+                    font-weight: 500;
+                    color: #f5efdb;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 5px;
+                    border: none;
+                    padding: 14px 47px;
+                    font-size: 16px;
+
+                    @media (max-width: 1600px) {
+                        font-size: 14px;
+                    }
+
+                    @media (max-width: 767px) {
+                        width: 50%;
+                        max-width: 140px;
+                        padding-inline: 0;
+                    }
+                }
+            }
+        }
+    }
+}

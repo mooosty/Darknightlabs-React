@@ -1,4 +1,4 @@
-.delete_model_bg {
+.create_model_bg {
     display: none;
     z-index: 99;
     position: fixed;
@@ -11,7 +11,7 @@
         display: block;
     }
 
-    .delete_popup {
+    .create_popup {
         background-color: #434242cc;
         position: absolute;
         top: 50%;
@@ -29,8 +29,8 @@
             height: 106%;
         }
 
-        .delete_model_box {
-            width: 488px;
+        .create_model_box {
+            width: 528px;
             background-color: #191917;
             background-image: url("../../../assets/model-frame.png");
             background-size: contain;
@@ -39,15 +39,16 @@
             background-position-y: 10px;
 
             @media (max-width: 1600px) {
-                width: 460px;
+                width: 428px;
             }
 
             @media (max-width: 767px) {
                 width: 85%;
+                max-width: 450px;
             }
 
-            .delete_model_body {
-                padding: 40px 18px 40px 18px;
+            .create_model_body {
+                padding: 32px 18px 40px 18px;
                 position: relative;
 
                 @media (max-width: 1600px) {
@@ -58,15 +59,14 @@
                     padding-bottom: 25px;
                 }
 
-                .delete_model_header {
+                .create_model_header {
                     display: flex;
                     align-items: center;
-                    justify-content: center;
                     margin-bottom: 34px;
-                    margin-top: 10px;
+                    margin-left: 10px;
 
                     @media (max-width: 1600px) {
-                        margin-bottom: 24px;
+                        margin-bottom: 28px;
                     }
 
                     @media (max-width: 767px) {
@@ -103,36 +103,60 @@
                     }
                 }
 
-                .delete_model_text {
-                    color: #fff;
-                    text-decoration: none;
-                    text-align: center;
-                    font-size: 16px;
-                    font-weight: lighter;
-                    line-height: 19px;
-                    font-family: "Inter", sans-serif;
-                    padding-inline: 40px;
+                .form_group {
+                    margin: 8px 26px;
+                    margin-left: 10px;
 
-                    @media (max-width: 1600px) {
-                        font-size: 14px;
+                    label {
+                        color: #f5efdb;
+                        line-height: 19.36px;
+                        font-size: 16px;
+                        font-weight: 500;
+                        margin-bottom: 10px;
+                        display: block;
+
+                        @media (max-width: 767px) {
+                            font-size: 14px;
+                        }
                     }
 
-                    @media (max-width: 767px) {
-                        padding-inline: 20px;
+                    input {
+                        padding: 16px 24px;
+                        border: 1px solid #ffffff80;
+                        background-color: transparent;
+                        width: 100%;
+                        color: #f5efdb;
+                        line-height: 19.36px;
+                        font-size: 16px;
+                        font-weight: 500;
+
+                        @media (max-width: 1600px) {
+                            padding: 10px 15px;
+                            font-size: 14px;
+                        }
                     }
                 }
             }
 
-            .delete_model_footer {
-                padding: 0 40px 20px;
+            .create_model_footer {
+                padding: 24px 20px;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
+                background-color: #111111;
 
-                .delete_btn {
+                @media (max-width: 1600px) {
+                    padding: 20px 20px;
+                }
+
+                @media (max-width: 767px) {
+                    gap: 20px;
+                }
+
+                .refuse_btn {
                     background-color: rgba(255, 158, 152, 0.1490196078);
                     border: none;
-                    padding: 14px 44px;
+                    padding: 14px 45px;
                     color: #ff9e98;
                     font-size: 16px;
 
@@ -141,11 +165,12 @@
                     }
 
                     @media (max-width: 767px) {
-                        padding-inline: 30px;
+                        width: 142px;
+                        padding-inline: 0;
                     }
                 }
 
-                .cancel_btn {
+                .next_btn {
                     border: none;
                     background-color: rgba(78, 78, 78, 0.5803921569);
                     font-weight: 500;
@@ -155,7 +180,7 @@
                     justify-content: center;
                     gap: 5px;
                     border: none;
-                    padding: 14px 44px;
+                    padding: 14px 30px;
                     font-size: 16px;
 
                     @media (max-width: 1600px) {
@@ -163,7 +188,8 @@
                     }
 
                     @media (max-width: 767px) {
-                        padding-inline: 30px;
+                        width: 142px;
+                        padding-inline: 0;
                     }
                 }
             }

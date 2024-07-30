@@ -6,6 +6,7 @@ import { DownIcon } from '../../utils/SVGs/SVGs';
 import bitCoinIcon from "../../assets/logosBitcoin.svg";
 import globalIcon from "../../assets/global.svg";
 import { useState } from 'react';
+import DeleteConfirmPopup from '../popup/delete-confirm-popup/DeleteConfirmaPopup';
 
 
 const Accordion = ({
@@ -16,8 +17,22 @@ const Accordion = ({
     price,
     synergiesAngles = [],
     date,
+    onEdit = () => { },
+    onDelete = () => { },
 }) => {
-    const [open, setOpen] = useState(false)
+    const id = Math.round(Math.random() * 1000)
+    const [open, setOpen] = useState(false);
+    const [isDeleteConfirmPopupOpen, setIsDeleteConfirmPopupOpen] = useState(false);
+    const handleDelete = (e) => {
+        onDelete
+        e.stopPropagation()
+        setIsDeleteConfirmPopupOpen(true)
+    }
+    const handleEdit = (e) => {
+        onEdit
+        e.stopPropagation()
+    }
+
 
     return (
         <>
@@ -25,11 +40,17 @@ const Accordion = ({
                 className={`accordion_conrtainer ${open ? 'active' : ''}`}
             >
                 <div className="accordion">
-                    <div className='accordion_label' onClick={() => setOpen(!open)} >
+                    <div className='accordion_label' >
                         <div className="table_row">
                             <div className='content'>
                                 <div className='left'>
-                                    <DownIcon className='table_arrow' />
+                                    <div>
+                                        <div className="costum_checkbox">
+                                            <input type="checkbox" id={`checkbox_${id}`} className='costum_checkbox_input' />
+                                            <label htmlFor={`checkbox_${id}`} className='costum_checkbox_label'></label>
+                                        </div>
+                                    </div>
+                                    <DownIcon className='table_arrow' onClick={() => setOpen(!open)} />
                                     <div className="creator_img">
                                         <img src={synergyImg} alt="" />
                                     </div>
@@ -44,10 +65,10 @@ const Accordion = ({
                             </div>
 
                             <div className="actions">
-                                <button className='delete_btn'>
+                                <button className='delete_btn' onClick={handleDelete}>
                                     <img src={trashIcon} alt=" " />
                                 </button>
-                                <button>
+                                <button onClick={handleEdit}>
                                     <img src={editIcon} alt=" " />
                                 </button>
                             </div>
@@ -79,15 +100,19 @@ const Accordion = ({
                             <div className="data_container angel_container">
                                 <span className='label'>Angles:</span>
                                 <div className='angle'>
-                                    {synergiesAngles && synergiesAngles.map((data) => (<>
-                                        <span><img src={globalIcon} alt=" " />{data}</span>
-                                    </>))}
+                                    {synergiesAngles && synergiesAngles.map((data, index) => (
+                                        <span key={index}><img src={globalIcon} alt=" " />{data}</span>
+                                    ))}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <DeleteConfirmPopup
+                open={isDeleteConfirmPopupOpen}
+                handleClose={() => setIsDeleteConfirmPopupOpen(false)}
+            />
         </>
     )
 }
@@ -100,6 +125,8 @@ Accordion.propTypes = {
     price: PropTypes.string,
     date: PropTypes.string,
     synergiesAngles: PropTypes.array,
+    onEdit: PropTypes.func,
+    onDelete: PropTypes.func,
 }
 
 export default Accordion

@@ -75,11 +75,26 @@ export const GlobalIcon = () => {
     )
 }
 
+export const UpIcon = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+            <path d="M19.9201 15.55L13.4001 9.02999C12.6301 8.25999 11.3701 8.25999 10.6001 9.02999L4.08008 15.55" stroke="white" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+    )
+}
 
 export const DownIcon = (props) => {
     return (
         <svg {...props} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path d="M4.94 5.22668L8 8.28002L11.06 5.22668L12 6.16668L8 10.1667L4 6.16668L4.94 5.22668Z" fill="#BDBDBD" />
+        </svg>
+    )
+}
+
+export const DownAccordionIcon = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+            <path d="M19.9201 9.44922L13.4001 15.9692C12.6301 16.7392 11.3701 16.7392 10.6001 15.9692L4.08008 9.44922" stroke="white" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
     )
 }
@@ -99,3 +114,33 @@ export const LeftIcon = () => {
         </svg>
     )
 }
+
+export const RightCornerArrowIcon = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M19 3.5L5 17.5" stroke="white" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M19 13.77V3.5H8.73" stroke="white" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+    )
+}
+
+export const CLeseCircleIcon = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
+            <path d="M9.99996 18.8333C14.5833 18.8333 18.3333 15.0833 18.3333 10.5C18.3333 5.91666 14.5833 2.16666 9.99996 2.16666C5.41663 2.16666 1.66663 5.91666 1.66663 10.5C1.66663 15.0833 5.41663 18.8333 9.99996 18.8333Z" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M7.64172 12.8583L12.3584 8.14166" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M12.3584 12.8583L7.64172 8.14166" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+    )
+}
+
+export const AddCircleIcon = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
+            <path d="M9.99996 18.8333C14.5833 18.8333 18.3333 15.0833 18.3333 10.5C18.3333 5.91666 14.5833 2.16666 9.99996 2.16666C5.41663 2.16666 1.66663 5.91666 1.66663 10.5C1.66663 15.0833 5.41663 18.8333 9.99996 18.8333Z" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M6.66663 10.5H13.3333" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M10 13.8333V7.16666" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+    )
+}
+

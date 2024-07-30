@@ -1,9 +1,9 @@
 import './synergiesManager.scss'
 import searchIcon from "../../assets/search-icon.png";
-import addIcon from "../../assets/addIcon.svg";
 import filterIcon from "../../assets/filter.svg";
 import globalIcon from "../../assets/global.svg";
-import bitCoinIcon from "../../assets/logosBitcoin.svg";
+import dollar from "../../assets/CoinDollar.svg";
+import riyal from "../../assets/CoinRiyal.svg";
 import tableActor from "../../assets/tableActorImage.jpg";
 import tableActorImage1 from "../../assets/avatar-1.jpg";
 import tableActorImage2 from "../../assets/avatar-2.jpg";
@@ -11,10 +11,15 @@ import tableActorImage3 from "../../assets/avatar-3.jpg";
 import editIcon from "../../assets/edit-icon.svg";
 import trashIcon from "../../assets/trash-icon.png";
 import AddSynergiesPopup from '../../components/popup/add-synergies-popup/AddSynergiesPopup';
-import { GridIcon, LeftIcon, ListIcon, RightIcon } from '../../utils/SVGs/SVGs';
+import { GridIcon, ListIcon } from '../../utils/SVGs/SVGs';
 import { useState } from 'react';
 import DeleteConfirmPopup from '../../components/popup/delete-confirm-popup/DeleteConfirmaPopup';
 import Accordion from '../../components/accordion/Accordion';
+import CreateSynergiesPopup from '../../components/popup/create-synergies-popup/CreateSynergiesPopup';
+import EditSynergiesAngelPopup from '../../components/popup/edit-synergies-angel-popup/EditSynergiesAngelPopup';
+import ConfirmSynergiesPopup from '../../components/popup/confirm-senergies-popup/ConfirmSynergiesPopup';
+import SynergieaCreatedSuccessfullyPopup from '../../components/popup/synergiea-created-successfully-popup/SynergieaCreatedSuccessfullyPopup';
+import EditSynergiesPopup from '../../components/popup/edit-synergies-popup/EditSynergiesPopup';
 
 const tableData = [
   {
@@ -24,8 +29,10 @@ const tableData = [
     creator: 'Joan of Arc',
     synergyImg: tableActorImage1,
     price: '0,000000001',
+    currency: 'Dollar',
     synergiesAngles: ['IP integration', 'Hosting AMAS', 'Angle48', 'Angle48', 'Angle48'],
     date: '12/12/2024',
+    disabled: true
   },
   {
     key: 2,
@@ -34,6 +41,7 @@ const tableData = [
     creator: 'Joan of Arc',
     synergyImg: tableActorImage2,
     price: '0,000000001',
+    currency: 'Dollar',
     synergiesAngles: ['IP integration', 'Hosting AMAS', 'Angle48', 'Angle48', 'Angle48'],
     date: '12/12/2024',
   },
@@ -44,6 +52,7 @@ const tableData = [
     creator: 'Joan of Arc',
     synergyImg: tableActorImage3,
     price: '0,000000001',
+    currency: 'Riyal',
     synergiesAngles: ['IP integration', 'Hosting AMAS', 'Angle48', 'Angle48', 'Angle48'],
     date: '12/12/2024',
   },
@@ -54,6 +63,7 @@ const tableData = [
     creator: 'Joan of Arc',
     synergyImg: tableActorImage1,
     price: '0,000000001',
+    currency: 'Riyal',
     synergiesAngles: ['IP integration', 'Hosting AMAS', 'Angle48', 'Angle48', 'Angle48'],
     date: '12/12/2024',
   },
@@ -64,6 +74,7 @@ const tableData = [
     creator: 'Joan of Arc',
     synergyImg: tableActorImage2,
     price: '0,000000001',
+    currency: 'Riyal',
     synergiesAngles: ['IP integration', 'Hosting AMAS', 'Angle48', 'Angle48', 'Angle48'],
     date: '12/12/2024',
   },
@@ -74,6 +85,7 @@ const tableData = [
     creator: 'Joan of Arc',
     synergyImg: tableActorImage3,
     price: '0,000000001',
+    currency: 'Dollar',
     synergiesAngles: ['IP integration', 'Hosting AMAS', 'Angle48', 'Angle48', 'Angle48'],
     date: '12/12/2024',
   },
@@ -84,6 +96,7 @@ const tableData = [
     creator: 'Joan of Arc',
     synergyImg: tableActorImage3,
     price: '0,000000001',
+    currency: 'Dollar',
     synergiesAngles: ['IP integration', 'Hosting AMAS', 'Angle48', 'Angle48', 'Angle48'],
     date: '12/12/2024',
   },
@@ -94,15 +107,26 @@ const tableData = [
     creator: 'Joan of Arc',
     synergyImg: tableActorImage2,
     price: '0,000000001',
+    currency: 'Dollar',
     synergiesAngles: ['IP integration', 'Hosting AMAS', 'Angle48', 'Angle48', 'Angle48'],
     date: '12/12/2024',
   },
 ]
 
+const currencyList = {
+  'Dollar': dollar,
+  'Riyal': riyal
+}
+
 const SynergiesManager = () => {
   const [activeLayout, setActiveLayout] = useState('TAB');
   const [isAddAngelPopupOpen, setIsAddAngelPopupOpen] = useState(false);
   const [isDeleteConfirmPopupOpen, setIsDeleteConfirmPopupOpen] = useState(false);
+  const [isEditSynergiesAngelPopupOpen, setIsEditSynergiesAngelPopupOpen] = useState(false);
+  const [isEditSynergiesPopupOpen, setIsEditSynergiesPopupOpen] = useState(false);
+  const [isCreateSynergiesPopupOpen, setIsCreateSynergiesPopupOpen] = useState(false);
+  const [isConfirmSynergiesPopupOpen, setIsConfirmSynergiesPopupOpen] = useState(false);
+  const [isSynergieaCreatedSuccessfullyPopupOpen, setIsSynergieaCreatedSuccessfullyPopupOpen] = useState(false);
 
   const handleActive = (key) => {
     setActiveLayout(key);
@@ -136,28 +160,30 @@ const SynergiesManager = () => {
           </div>
           <div className='synergies_page_header_button'>
             <button className="btn_gray btn_filter">Filters <img src={filterIcon} alt=" " /> </button>
-            <button className="btn_gray" onClick={() => setIsAddAngelPopupOpen(true)}>
-              Add new synergy <img src={addIcon} alt=" " />
-            </button>
+            {/* <button className={`btn_gray`}> Next Page </button> */}
+            <button className={`btn_gray active`} onClick={() => setIsCreateSynergiesPopupOpen(true)}> Synergize </button>
+            {/* <button className={`btn_gray`} disabled> Next Page </button> */}
           </div>
         </div>
         <div className="synergies_page_body">
           <div className="synergies_page_table">
             <table>
               <thead>
-                <th>Synergy name</th>
-                <th className='center'>Creator</th>
-                <th className='center'>Image</th>
-                <th className='center'>Price</th>
-                <th className='center'>Synergies angles</th>
-                <th className='center'>Date</th>
-                <th className='center'>Actions</th>
+                <tr>
+                  <th>Synergy name</th>
+                  <th className='center'>Creator</th>
+                  <th className='center'>Image</th>
+                  <th className='center'>Price</th>
+                  <th className='center'>Synergies angles</th>
+                  <th className='center'>Date</th>
+                  <th className='center'>Actions</th>
+                </tr>
               </thead>
               <tbody>
                 {
                   tableData.map((rowData) => {
                     return (
-                      <tr key={rowData.key}>
+                      <tr key={rowData.key} className={`${rowData.disabled ? 'disable' : ''}`}>
                         <td>
                           <div className='table_name'>
                             <div className="costum_checkbox">
@@ -180,7 +206,8 @@ const SynergiesManager = () => {
                         </td>
                         <td>
                           <div className="price">
-                            <img src={bitCoinIcon} alt=" " /> {rowData.price}
+                            <img src={currencyList[rowData.currency]} alt=" " />
+                            <span>{rowData.price}</span>
                           </div>
                         </td>
                         <td>
@@ -200,8 +227,16 @@ const SynergiesManager = () => {
                         </td>
                         <td>
                           <div className="actions">
-                            <button><img src={editIcon} alt=" " /></button>
-                            <button><img src={trashIcon} alt=" " onClick={() => setIsDeleteConfirmPopupOpen(true)} /></button>
+                            <button
+                              onClick={() => setIsEditSynergiesAngelPopupOpen(true)}
+                            >
+                              <img src={editIcon} alt=" " />
+                            </button>
+                            <button
+                              onClick={() => setIsDeleteConfirmPopupOpen(true)}
+                            >
+                              <img src={trashIcon} alt=" " />
+                            </button>
                           </div>
                         </td>
                       </tr>
@@ -214,7 +249,8 @@ const SynergiesManager = () => {
           <div className="synergies_page_accordion">
             {
               tableData.map((rowData) => (
-                <Accordion key={rowData.key}
+                <Accordion
+                  key={rowData.key}
                   synergyName={rowData.synergyName}
                   creatorImg={rowData.creatorImg}
                   creator={rowData.creator}
@@ -225,8 +261,7 @@ const SynergiesManager = () => {
                 />))
             }
           </div>
-
-          <div className="synergies_table_pagination">
+          {/* <div className="synergies_table_pagination">
             <div className="synergies_table_pagination_content">
               <div className="synergies_table_pagination_content_text">
                 <span className='pagination_head'>Row per page:</span>
@@ -247,7 +282,7 @@ const SynergiesManager = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -261,6 +296,31 @@ const SynergiesManager = () => {
         handleClose={() => setIsDeleteConfirmPopupOpen(false)}
       />
 
+      <SynergieaCreatedSuccessfullyPopup
+        open={isSynergieaCreatedSuccessfullyPopupOpen}
+        handleClose={() => setIsSynergieaCreatedSuccessfullyPopupOpen(false)}
+      />
+
+      <CreateSynergiesPopup
+        open={isCreateSynergiesPopupOpen}
+        handleClose={() => setIsCreateSynergiesPopupOpen(false)}
+      />
+
+      <EditSynergiesAngelPopup
+        open={isEditSynergiesAngelPopupOpen}
+        handleClose={() => setIsEditSynergiesAngelPopupOpen(false)}
+      />
+
+
+      <ConfirmSynergiesPopup
+        open={isConfirmSynergiesPopupOpen}
+        handleClose={() => setIsConfirmSynergiesPopupOpen(false)}
+      />
+
+      <EditSynergiesPopup
+        open={isEditSynergiesPopupOpen}
+        handleClose={() => setIsEditSynergiesPopupOpen(false)}
+      />
     </>
   )
 }

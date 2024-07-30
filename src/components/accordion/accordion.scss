@@ -54,6 +54,41 @@
                     gap: 10px;
                     align-items: center;
 
+                    .costum_checkbox {
+                        display: flex;
+                        align-items: end;
+
+                        .costum_checkbox_input {
+                            display: none;
+                        }
+
+                        .costum_checkbox_label {
+                            height: 18px !important;
+                            width: 18px !important;
+                            padding: 0.5px 5px;
+                            background-color: rgba(78, 78, 78, 0.2);
+                            border: 1px solid #fff;
+                        }
+
+                        .costum_checkbox_input:checked+.costum_checkbox_label {
+                            position: relative;
+
+                            &::after {
+                                content: '';
+                                display: block;
+                                position: absolute;
+                                top: -2px;
+                                left: -1px;
+                                height: 18px;
+                                width: 18px;
+                                background-image: url('../../assets/InputChecked.svg');
+                                background-repeat: no-repeat;
+                                background-size: cover;
+                                z-index: 5;
+                            }
+                        }
+                    }
+
                     .table_arrow {
                         transition: all 0.2s;
                         height: 24px;

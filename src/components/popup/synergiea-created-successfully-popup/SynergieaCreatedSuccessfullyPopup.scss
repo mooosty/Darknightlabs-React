@@ -1,4 +1,4 @@
-.delete_model_bg {
+.success_model_bg {
     display: none;
     z-index: 99;
     position: fixed;
@@ -11,7 +11,7 @@
         display: block;
     }
 
-    .delete_popup {
+    .success_popup {
         background-color: #434242cc;
         position: absolute;
         top: 50%;
@@ -29,7 +29,7 @@
             height: 106%;
         }
 
-        .delete_model_box {
+        .success_model_box {
             width: 488px;
             background-color: #191917;
             background-image: url("../../../assets/model-frame.png");
@@ -46,7 +46,7 @@
                 width: 85%;
             }
 
-            .delete_model_body {
+            .success_model_body {
                 padding: 40px 18px 40px 18px;
                 position: relative;
 
@@ -58,12 +58,11 @@
                     padding-bottom: 25px;
                 }
 
-                .delete_model_header {
+                .success_model_header {
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     margin-bottom: 34px;
-                    margin-top: 10px;
 
                     @media (max-width: 1600px) {
                         margin-bottom: 24px;
@@ -80,6 +79,9 @@
                         font-weight: 500;
                         line-height: 36px;
                         font-family: "MedievalSharp", cursive;
+                        display: flex;
+                        flex-direction: column;
+                        text-align: center;
 
                         @media (max-width: 1600px) {
                             font-size: 24px;
@@ -103,7 +105,7 @@
                     }
                 }
 
-                .delete_model_text {
+                .success_model_text {
                     color: #fff;
                     text-decoration: none;
                     text-align: center;
@@ -121,52 +123,7 @@
                         padding-inline: 20px;
                     }
                 }
-            }
-
-            .delete_model_footer {
-                padding: 0 40px 20px;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-
-                .delete_btn {
-                    background-color: rgba(255, 158, 152, 0.1490196078);
-                    border: none;
-                    padding: 14px 44px;
-                    color: #ff9e98;
-                    font-size: 16px;
-
-                    @media (max-width: 1600px) {
-                        font-size: 14px;
-                    }
-
-                    @media (max-width: 767px) {
-                        padding-inline: 30px;
-                    }
-                }
-
-                .cancel_btn {
-                    border: none;
-                    background-color: rgba(78, 78, 78, 0.5803921569);
-                    font-weight: 500;
-                    color: #f5efdb;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    gap: 5px;
-                    border: none;
-                    padding: 14px 44px;
-                    font-size: 16px;
-
-                    @media (max-width: 1600px) {
-                        font-size: 14px;
-                    }
-
-                    @media (max-width: 767px) {
-                        padding-inline: 30px;
-                    }
-                }
-            }
+            } 
         }
     }
 }
