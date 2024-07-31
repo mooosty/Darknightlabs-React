@@ -255,6 +255,7 @@
 
             .synergies_page_table {
                 margin: 20px 24px;
+                padding-bottom: 20px;
 
                 @media (max-width: 1098px) {
                     display: none;
@@ -497,6 +498,7 @@
             }
 
             .synergies_page_accordion {
+                padding-bottom: 18px;
 
                 @media (min-width: 1099px) {
                     display: none;
