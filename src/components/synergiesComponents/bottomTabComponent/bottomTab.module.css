@@ -1,0 +1,23 @@
+  .bottomTabContainer {
+    @apply flex xl:hidden justify-between items-center gap-[7px] mt-8 border-t-2 border-[#463600] rounded-tl-2xl rounded-tr-2xl px-4 py-3 h-[88px];
+  }
+
+  .tabIcon {
+    @apply w-6 h-6;
+  }
+
+  .tabLabel {
+    @apply flex items-center font-inter text-[12px] gap-1;
+  }
+
+  .tabLabelActive {
+    @apply text-white;
+  }
+
+  .tabLabelInactive {
+    @apply text-[#F5EFDB];
+  }
+
+  .tabNumber {
+    @apply flex items-center justify-center bg-[#A18527] px-[10px] rounded-[21px] w-[20px] h-4 text-[10px] leading-3;
+  }

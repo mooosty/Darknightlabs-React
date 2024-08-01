@@ -3,6 +3,7 @@ import ProjectManager from './pages/project-manager/ProjectManager'
 import { ROUTER } from './utils/routes/routes'
 import './App.scss'
 import Layout from './components/layout/Layout'
+import Synergies from "./pages/synergies/Synergies";
 
 function App() {
 
@@ -11,6 +12,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path={'/'} element={<Navigate to={ROUTER.projectManager} />} />
+          <Route exact path="/synergies" element={<Synergies />} />
 
           <Route element={<Layout />}>
             <Route path={ROUTER.projectManager} element={<ProjectManager />} />

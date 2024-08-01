@@ -1,0 +1,92 @@
+.container {
+    @apply xl:bg-[#191917] xl:px-[30px] xl:py-[34px] rounded-[15px] mt-8 2xl:w-[1380px];
+  }
+  
+  .innerContainer {
+    @apply w-full px-4 pb-4 border-[#F5EFDB] border-opacity-15;
+  }
+  
+  .title {
+    @apply text-[#F5EFDB] leading-[27px] font-medium text-[24px];
+  }
+  
+  .buttonContainer {
+    @apply text-white xl:flex xl:items-center xl:justify-between xl:mt-4;
+  }
+  
+  .buttonGroup {
+    @apply flex items-center mt-4 xl:mt-0 bg-[#242623] w-[240px] h-[38px] xl:px-2 xl:w-[256px] xl:h-[48px] gap-2;
+  }
+  
+  .button {
+    @apply flex items-center justify-center w-[85px] h-[38px] p-[10px];
+  }
+  
+  .buttonActive {
+    @apply bg-[#4E4E4E] opacity-100 text-[f5efdb];
+  }
+  
+  .buttonInactive {
+    @apply opacity-45;
+  }
+  
+  .buttonPending {
+    @apply text-[#E6EAEE];
+  }
+  
+  .dropdown {
+    @apply flex items-center justify-between font-[12px] text-[#F5EFDB] leading-[14px] font-inter w-[50%] h-[40px] border border-white bg-[#242623] p-2 xl:w-[300px] xl:h-[48px];
+  }
+  
+  .cardContainer {
+    @apply px-[45px] md:flex md:flex-wrap md:ml-9 lg:ml-0 xl:px-0 gap-4 2xl:gap-10 2xl:h-[742px];
+  }
+  
+  .card {
+    @apply xl:w-[290px] p-[1px] rounded-[10px] mt-6 xl:mt-6 2xl:mt-0;
+  }
+  
+  .cardInner {
+    @apply bg-[#242623] w-[290px] 2xl:w-[300px] h-[351px] py-4 px-3 rounded-[10px];
+  }
+  
+  .cardImage {
+    @apply w-[276px] h-[114px];
+  }
+  
+  .tagContainer {
+    @apply flex flex-wrap gap-1 items-center mt-4;
+  }
+  
+  .tag {
+    @apply flex items-center justify-center bg-gradient-to-r from-[#622BFD] to-[#DA4370] p-[1px] h-[26px] rounded-lg;
+  }
+  
+  .tagInner {
+    @apply flex gap-1 items-center justify-center bg-[#242623] w-full h-full p-1 rounded-[8px] text-[12px] font-inter;
+  }
+  
+  .tagButton {
+    @apply flex gap-1 items-center justify-center bg-[#191917] w-[80px] h-[24px] p-1 rounded-[10px] text-[12px] font-inter;
+  }
+  
+  .projectName {
+    @apply text-[#F5EFDB] text-[16px] xl:text-[18px] leading-[18px] mt-3 font-medium;
+  }
+  
+  .projectContent {
+    @apply text-white opacity-60 text-[14px] font-inter w-[276px] mt-2;
+  }
+  
+  .tagButtonContainer {
+    @apply flex gap-1 mt-3;
+  }
+  
+  .readMore {
+    @apply flex items-center gap-2 text-[#FFDF76] text-[14px] font-medium leading-4 mt-2;
+  }
+  
+  .pagination {
+    @apply w-full flex justify-end items-end mt-2 -mb-6;
+  }
+  

@@ -1,0 +1,74 @@
+ .sideBarContainer {
+    @apply hidden xl:flex flex-col gap-12 bg-[#191917] w-[300px] h-[900px] p-6 rounded-[9px];
+  }
+  
+  .profileHeader {
+    @apply flex justify-between;
+  }
+  
+  .profileDetails {
+    @apply flex items-end w-full h-[84px] gap-[10px];
+  }
+  
+  .profilePic {
+    @apply w-[76px] h-[76px];
+  }
+  
+  .profileText {
+    @apply flex flex-col gap-[5px];
+  }
+  
+  .username {
+    @apply text-[#ffffff] text-[18px] leading-5 font-medieval;
+  }
+  
+  .role {
+    @apply text-[#ffffff] opacity-40 text-[14px] leading-4;
+  }
+  
+  .backIcon {
+    @apply w-6 h-6;
+  }
+  
+  .menuItem {
+    @apply flex items-center gap-3 p-2;
+  }
+  
+  .menuItemText {
+    @apply text-[#F5EFDB] text-[18px] font-inter hover:opacity-100;;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+  }
+  
+  .menuItemText.active {
+    @apply opacity-100;
+  }
+  
+  .chatNotification {
+    @apply flex items-center justify-center w-6 h-[22px] rounded-[21px] px-3 bg-[#A18527] text-white text-[12px] leading-[14px] font-inter font-medium;
+  }
+  
+  .logoutText {
+    @apply text-[#FF9E98] font-medium text-[18px] font-inter;
+  }
+  
+  .divider {
+    @apply flex flex-col gap-4;
+    border-top-width: 1px;
+    border-style: solid;
+    border-image: linear-gradient(-180deg, #463600, #F5EFDB00);
+    border-image-slice: 1;
+  }
+  
+  .marginTop300 {
+    @apply mt-[300px];
+  }
+  
+  .iconSize {
+    @apply w-5 h-5;
+  }
+  
+  .synergiesIcon {
+    @apply w-5 h-5;
+  }
+  

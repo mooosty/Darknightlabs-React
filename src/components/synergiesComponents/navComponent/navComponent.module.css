@@ -1,0 +1,23 @@
+  .navContainer {
+    @apply xl:h-[80px];
+  }
+
+  .navWrapper {
+    @apply flex justify-between items-center leading-[27px] bg-[#090A0B] p-6 xl:h-[80px];
+  }
+
+  .navTitle {
+    @apply text-[#F5EFDB] font-medieval font-medium text-[24px] xl:hidden;
+  }
+
+  .navLinks {
+    @apply hidden xl:flex justify-end font-medium text-[16px] text-[#F5EFDB] w-full leading-[18px];
+  }
+
+  .navLink {
+    @apply border border-[#F5EFDB] px-6 py-2;
+  }
+
+  .menuIcon {
+    @apply text-white w-6 h-6 xl:hidden;
+  }

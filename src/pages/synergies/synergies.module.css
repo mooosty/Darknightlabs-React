@@ -1,0 +1,7 @@
+.mainContainer {
+    @apply font-medieval;
+}
+
+.midContainer {
+    @apply mt-4 xl:gap-5 2xl:gap-10 xl:px-[30px] xl:py-[30px] xl:flex 2xl:px-[100px];
+}

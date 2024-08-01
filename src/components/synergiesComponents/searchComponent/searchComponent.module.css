@@ -1,0 +1,24 @@
+ .searchContainer {
+    @apply flex justify-between items-center h-[56px] px-6 xl:px-0 xl:gap-8;
+  }
+  
+  .tabName {
+    @apply text-white font-medieval leading-[36px] font-medium text-[24px] xl:text-[40px] 2xl:text-[48px];
+  }
+  
+  .searchInput {
+    @apply hidden xl:flex w-[500px] h-[54px] 2xl:w-[703px] text-[#F5EFDB] placeholder-[#F5EFDB] font-inter appearance-none bg-[#191917] border border-[#3C3C3C] rounded-[9px] py-2 px-4 xl:px-[52px] focus:outline-none focus:border-blue-500;
+  }
+  
+  .searchIcon {
+    @apply hidden xl:block absolute w-5 h-5 top-[144px] ml-5 opacity-55;
+  }
+  
+  .tabNameMobile {
+    @apply hidden xl:flex text-[#F5EFDB] font-medieval leading-[36px] font-medium xl:text-[24px];
+  }
+  
+  .searchIconMobile {
+    @apply text-white w-[72px] h-[56px] xl:hidden;
+  }
+  
