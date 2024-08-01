@@ -5,6 +5,7 @@ import './App.scss'
 import Layout from './components/layout/Layout'
 import UserProfile from './pages/user-profile/UserProfile'
 import SynergiesManager from './pages/synergies-manager/SynergiesManager'
+import Projects from './pages/projects/Projects'
 
 function App() {
 
@@ -17,7 +18,8 @@ function App() {
           <Route element={<Layout />}>
             <Route path={ROUTER.projectManager} element={<ProjectManager />} />
             <Route path={ROUTER.profile} element={<UserProfile />} />
-            <Route path={ROUTER.SynergiesManager} element={<SynergiesManager />} />
+            <Route path={ROUTER.synergiesManager} element={<SynergiesManager />} />
+            <Route path={ROUTER.projects} element={<Projects />} />
           </Route>
 
           <Route path="*" element={<div>Not found</div>} />

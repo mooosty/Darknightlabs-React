@@ -48,8 +48,8 @@ const Sidebar = () => {
                                 Pending Synergies
                             </Link>
                         </li>
-                        <li className={`${location.pathname === `/${ROUTER.SynergiesManager}` ? 'active' : ''}`}>
-                            <Link to={ROUTER.SynergiesManager}>
+                        <li className={`${location.pathname === `/${ROUTER.synergiesManager}` ? 'active' : ''}`}>
+                            <Link to={ROUTER.synergiesManager}>
                                 <img src={synergiesIcon} alt="Synergies Manager" />
                                 Synergies Manager
                             </Link>
