@@ -67,7 +67,7 @@
                 justify-content: space-between;
 
                 @media (max-width: 767px) {
-                    padding: 24px 24px;
+                    padding: 0px;
                 }
 
                 .project_pagination {
@@ -114,27 +114,49 @@
             }
 
             .project_page_filter {
-                width: 75%;
                 display: none;
                 gap: 16px;
 
+                @media (max-width: 1098px) {
+                    width: 100%;
+                }
+
                 &.active {
                     display: flex;
+
+                    @media (max-width: 767px) {
+                        flex-direction: column;
+                    }
                 }
 
                 .angels {
-                    flex-grow: 2;
+                    flex-grow: 1;
                     max-width: 280px;
+
+                    @media (max-width: 767px) {
+                        max-width: 100%;
+                        flex-grow: none;
+                    }
                 }
 
                 .project {
-                    flex-grow: 2;
+                    flex-grow: 1;
                     max-width: 280px;
+
+                    @media (max-width: 767px) {
+                        max-width: 100%;
+                        flex-grow: none;
+                    }
                 }
 
                 .sort {
                     flex-grow: 1;
                     max-width: 120px;
+
+                    @media (max-width: 767px) {
+                        max-width: 100%;
+                        flex-grow: none;
+                    }
                 }
             }
 
@@ -168,17 +190,25 @@
         }
 
         .project_page_body {
-
-
             .project_page_table_handler {
                 padding: 12px 24px;
                 display: flex;
+
                 align-items: center;
                 gap: 18px;
                 background-color: #242623;
                 border-block: 1px solid rgba(245, 239, 219, 0.15);
 
+                @media (max-width: 1098px) {
+                    flex-grow: 1;
+                }
+
+                @media (max-width: 1125px) {
+                    justify-content: space-between;
+                }
+
                 .selected_count {
+                    min-width: 110px;
                     display: flex;
                     justify-content: center;
                     align-items: center;
@@ -224,9 +254,23 @@
 
                 .table_actions {
                     display: flex;
-                    justify-content: center;
+                    justify-content: start;
                     align-items: center;
                     gap: 10px;
+
+                    @media (max-width: 1125px) {
+                        display: none;
+                    }
+
+                    button {
+                        height: 42px;
+                        box-sizing: border-box;
+                        font-size: 16px;
+
+                        @media (max-width: 1600px) {
+                            font-size: 14px;
+                        }
+                    }
 
                     .btn_cancle {
                         img {
@@ -244,6 +288,8 @@
                             height: 20px;
                             width: 24px;
                         }
+
+
                     }
 
                     .btn_create {
@@ -255,6 +301,7 @@
 
                     .btn_delete {
                         display: flex;
+                        justify-content: center;
                         align-items: center;
                         border: none;
                         gap: 5px;
@@ -266,6 +313,43 @@
                                 width: 19px;
                             }
                         }
+
+                        @media (max-width: 1098px) and (min-width: 767px) {
+                            padding-inline: 5px;
+                        }
+                    }
+                }
+
+                .table_actions_button {
+                    display: none;
+                    gap: 16px;
+
+                    @media (max-width: 1125px) {
+                        display: flex;
+                    }
+
+                    .button_delete {
+                        padding: 8px 10px;
+                        background-color: #ff9e9826;
+                        border: none;
+                    }
+
+                    .menu_button {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        padding: 8px 10px;
+                        border: none;
+                        background-color: rgba(78, 78, 78, 0.58);
+                        ;
+                    }
+
+                    .buttom_menubar {
+                        display: none;
+                    }
+
+                    .active_menu {
+                        display: block;
                     }
                 }
             }
@@ -273,6 +357,10 @@
             .project_page_table {
                 margin: 20px 24px;
                 padding-bottom: 20px;
+
+                @media (max-width: 1240px) {
+                    display: none;
+                }
 
                 table,
                 tr,
@@ -513,16 +601,20 @@
                                 display: flex;
                                 flex-wrap: wrap;
                                 align-items: center;
+                                justify-content: center;
                                 font-size: 14px;
-
+                                gap: 4px;
+                                
                                 .table_tag {
-                                    min-width: 80px;
-                                    display: flex;
-                                    justify-content: start;
+                                    display: inline-flex;
+                                    justify-content: center;
                                     align-items: center;
                                     white-space: nowrap;
                                     overflow: hidden;
                                     text-overflow: ellipsis;
+                                    background-color: rgba(47, 46, 42, 0.46);
+                                    padding: 2px 5px;
+                                    border-radius: 3px;
                                 }
                             }
 
@@ -559,8 +651,8 @@
                                         padding: 5px 10px;
 
                                         svg {
-                                            height: 18px;
-                                            width: 18px;
+                                            height: 15px;
+                                            width: 15px;
                                         }
                                     }
                                 }
@@ -595,6 +687,15 @@
                             }
                         }
                     }
+                }
+            }
+
+            .project_page_accordion {
+                display: none;
+                padding-block: 20px;
+
+                @media (max-width: 1240px) {
+                    display: block;
                 }
             }
         }

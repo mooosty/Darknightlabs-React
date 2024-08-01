@@ -1,7 +1,7 @@
 import './projects.scss'
 import searchIcon from "../../assets/search-icon.png"
 import addIcon from "../../assets/add-icon.png"
-import { GridIcon, ListIcon, TableStatusIcon, GredientGlobalIcon, GradientGraphIcon, InfiniteIcon } from '../../utils/SVGs/SVGs'
+import { GridIcon, ListIcon, TableStatusIcon, GredientGlobalIcon, GradientGraphIcon, InfiniteIcon, MoreIcon } from '../../utils/SVGs/SVGs'
 import filterIcon from "../../assets/filter.svg";
 import tableActor1 from "../../assets/tableActorImage.jpg";
 import tableActor2 from "../../assets/tableActorImage1.jpg";
@@ -14,29 +14,38 @@ import trashIcon from "../../assets/trash-icon.png";
 import closeIcon from "../../assets/X-icon.png";
 import { useState } from 'react';
 import Select from "../../components/select/Select"
+import ProjectAccordion from '../../components/project-accordion/ProjectAccordion';
+import ButtomMenu from '../../components/buttom-menu/ButtomMenu';
+import DeleteConfirmPopup from '../../components/popup/delete-confirm-popup/DeleteConfirmaPopup';
+import { Tooltip } from 'react-tooltip';
+
 
 const tableData = [
     {
         key: 1,
         checked: true,
         projectName: 'Project 1581',
-        creatorImg: [
+        teamMembers: [
             {
                 icon: tableActor1,
+                tooltip:'Alexander - Founder and CEO'
             },
             {
                 icon: tableActor2,
+                tooltip:'Alexander - Founder and CEO'
             },
             {
                 icon: tableActor3,
+                tooltip:'Alexander - Founder and CEO'
             },
             {
                 icon: tableActor1,
+                tooltip:'Alexander - Founder and CEO'
             },
             {
                 icon: tableActor1,
+                tooltip:'Alexander - Founder and CEO'
             }],
-        creator: 'Joan of Arc',
         synergyImg: tableActorImage1,
         description: 'Porem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.',
         synergiesAngles: [
@@ -66,17 +75,19 @@ const tableData = [
     {
         key: 2,
         projectName: 'Project 1581',
-        creatorImg: [
+        teamMembers: [
             {
                 icon: tableActor1,
+                tooltip:'Alexander - Founder and CEO'
             },
             {
                 icon: tableActor2,
+                tooltip:'Alexander - Founder and CEO'
             },
             {
                 icon: tableActor3,
+                tooltip:'Alexander - Founder and CEO'
             }],
-        creator: 'Joan of Arc',
         synergyImg: tableActorImage2,
         description: 'Porem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.',
         synergiesAngles: [
@@ -105,20 +116,23 @@ const tableData = [
     {
         key: 3,
         projectName: 'Project 1581',
-        creatorImg: [
+        teamMembers: [
             {
                 icon: tableActor1,
+                tooltip:'Alexander - Founder and CEO'
             },
             {
                 icon: tableActor1,
+                tooltip:'Alexander - Founder and CEO'
             },
             {
                 icon: tableActor1,
+                tooltip:'Alexander - Founder and CEO'
             },
             {
                 icon: tableActor1,
+                tooltip:'Alexander - Founder and CEO'
             }],
-        creator: 'Joan of Arc',
         synergyImg: tableActorImage3,
         description: 'Porem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.',
         synergiesAngles: [
@@ -147,17 +161,19 @@ const tableData = [
     {
         key: 4,
         projectName: 'Project 1581',
-        creatorImg: [
+        teamMembers: [
             {
                 icon: tableActor1,
+                tooltip:'Alexander - Founder and CEO'
             },
             {
                 icon: tableActor2,
+                tooltip:'Alexander - Founder and CEO'
             },
             {
                 icon: tableActor3,
+                tooltip:'Alexander - Founder and CEO'
             }],
-        creator: 'Joan of Arc',
         synergyImg: tableActorImage1,
         description: 'Porem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.',
         synergiesAngles: [
@@ -186,17 +202,19 @@ const tableData = [
     {
         key: 5,
         projectName: 'Project 1581',
-        creatorImg: [
+        teamMembers: [
             {
                 icon: tableActor1,
+                tooltip:'Alexander - Founder and CEO'
             },
             {
                 icon: tableActor2,
+                tooltip:'Alexander - Founder and CEO'
             },
             {
                 icon: tableActor3,
+                tooltip:'Alexander - Founder and CEO'
             }],
-        creator: 'Joan of Arc',
         synergyImg: tableActorImage2,
         description: 'Porem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.',
         synergiesAngles: [
@@ -225,20 +243,23 @@ const tableData = [
     {
         key: 6,
         projectName: 'Project 1581',
-        creatorImg: [
+        teamMembers: [
             {
                 icon: tableActor1,
+                tooltip:'Alexander - Founder and CEO'
             },
             {
                 icon: tableActor1,
+                tooltip:'Alexander - Founder and CEO'
             },
             {
                 icon: tableActor1,
+                tooltip:'Alexander - Founder and CEO'
             },
             {
                 icon: tableActor1,
+                tooltip:'Alexander - Founder and CEO'
             }],
-        creator: 'Joan of Arc',
         synergyImg: tableActorImage3,
         description: 'Porem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.',
         synergiesAngles: [
@@ -267,23 +288,27 @@ const tableData = [
     {
         key: 7,
         projectName: 'Project 1581',
-        creatorImg: [
+        teamMembers: [
             {
                 icon: tableActor1,
+                tooltip:'Alexander - Founder and CEO'
             },
             {
                 icon: tableActor2,
+                tooltip:'Alexander - Founder and CEO'
             },
             {
                 icon: tableActor3,
+                tooltip:'Alexander - Founder and CEO'
             },
             {
                 icon: tableActor1,
+                tooltip:'Alexander - Founder and CEO'
             },
             {
                 icon: tableActor1,
+                tooltip:'Alexander - Founder and CEO'
             }],
-        creator: 'Joan of Arc',
         synergyImg: tableActorImage3,
         description: 'Porem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.',
         synergiesAngles: [
@@ -312,20 +337,23 @@ const tableData = [
     {
         key: 8,
         projectName: 'Project 1581',
-        creatorImg: [
+        teamMembers: [
             {
                 icon: tableActor1,
+                tooltip:'Alexander - Founder and CEO'
             },
             {
                 icon: tableActor1,
+                tooltip:'Alexander - Founder and CEO'
             },
             {
                 icon: tableActor1,
+                tooltip:'Alexander - Founder and CEO'
             },
             {
                 icon: tableActor1,
+                tooltip:'Alexander - Founder and CEO'
             }],
-        creator: 'Joan of Arc',
         synergyImg: tableActorImage2,
         description: 'Porem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.',
         synergiesAngles: [
@@ -356,6 +384,9 @@ const tableData = [
 const Projects = () => {
     const [activeLayout, setActiveLayout] = useState('TAB');
     const [isFilterOpen, setIsFilterOpen] = useState(false);
+    const [isButtomMenuOpen, setIsButtomMenuOpen] = useState(false);
+    const [isDeleteConfirmPopupOpen, setIsDeleteConfirmPopupOpen] = useState(false);
+
 
     const handleActive = (key) => {
         setActiveLayout(key);
@@ -364,6 +395,7 @@ const Projects = () => {
     const handleFilterOpen = () => {
         setIsFilterOpen(!isFilterOpen);
     }
+
 
     return (
         <>
@@ -379,7 +411,6 @@ const Projects = () => {
                     <a href="#">Darknight Labs</a>
                 </div>
             </div>
-
             <div className="project_page_data">
                 <div className="project_page_header">
                     <div className="project_page_header_top">
@@ -419,7 +450,6 @@ const Projects = () => {
                                     { label: 'Gaming', value: 'Gaming' },
                                     { label: 'AI', value: 'AI' },
                                     { label: 'Metaverse', value: 'Metaverse' },
-
                                 ]}
                                 placeholder={'All project types'}
                             />
@@ -464,6 +494,16 @@ const Projects = () => {
                                 <span>Delete</span>
                             </button>
                         </div>
+
+                        <div className="table_actions_button">
+                            <button className="button_delete ">
+                                <img src={trashIcon} alt="Delete" />
+                            </button>
+                            <button className="menu_button" onClick={() => setIsButtomMenuOpen(true)}>
+                                <MoreIcon />
+                            </button>
+                        </div>
+
                     </div>
                     <div className="project_page_table">
                         <table>
@@ -497,10 +537,27 @@ const Projects = () => {
                                                 <td>
                                                     <div className='actor'>
                                                         <ul>
-                                                            {rowData.creatorImg.map((Actor, index) => (
-                                                                <li key={index}>
-                                                                    <img src={Actor.icon} alt="" title="Alexander - Founder and CEO" />
-                                                                </li>
+                                                            {rowData.teamMembers.map((member, index) => (
+                                                                <>
+                                                                    <li
+                                                                        key={index}
+                                                                        id={`tooltip_team_member_${index}`}
+                                                                    >
+                                                                        <img src={member.icon} alt="" title="Alexander - Founder and CEO" />
+                                                                    </li>
+                                                                    <Tooltip
+                                                                        place="top"
+                                                                        style={{
+                                                                            maxWidth: '500px',
+                                                                            boxShadow: '0px 3px 10.3px -4px rgba(229, 229, 229, 0.1)',
+                                                                            background: 'rgba(79, 79, 79, 1)',
+                                                                            opacity: '1',
+                                                                        }}
+                                                                        anchorSelect={`#tooltip_team_member_${index}`}
+                                                                    >
+                                                                        {member.tooltip}
+                                                                    </Tooltip>
+                                                                </>
                                                             ))
                                                             }
                                                         </ul>
@@ -581,8 +638,35 @@ const Projects = () => {
                             </tbody>
                         </table>
                     </div>
+
+                    <div className="project_page_accordion">
+                        {
+                            tableData.map((rowData) => (
+                                <ProjectAccordion
+                                    key={rowData.key}
+                                    projectName={rowData.projectName}
+                                    teamMembers={rowData.teamMembers}
+                                    synergyImg={rowData.synergyImg}
+                                    description={rowData.description}
+                                    type={rowData.type}
+                                    status={rowData.status}
+                                    synergiesAngles={rowData.synergiesAngles}
+                                    date={rowData.date}
+                                    isFeatured={rowData.isFeatured}
+                                    checked={rowData.checked}
+                                />))
+                        }
+                    </div>
                 </div>
             </div>
+            <DeleteConfirmPopup
+                open={isDeleteConfirmPopupOpen}
+                handleClose={() => setIsDeleteConfirmPopupOpen(false)}
+            />
+            <ButtomMenu
+                open={isButtomMenuOpen}
+                handleClose={() => setIsButtomMenuOpen(false)}
+            />
         </>
     )
 }

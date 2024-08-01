@@ -53,16 +53,17 @@ export const GraphIcon = () => {
 }
 
 export const GradientGraphIcon = () => {
+    const id = Math.round(Math.random() * 10000)
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M12.2133 7.99947C13.9467 7.99947 14.6667 7.3328 14.0267 5.14614C13.5933 3.6728 12.3267 2.40614 10.8533 1.9728C8.66667 1.3328 8 2.0528 8 3.78614V5.70614C8 7.3328 8.66667 7.99947 10 7.99947H12.2133Z" stroke="url(#paint0_linear_257_15400)" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M13.3334 9.80049C12.7134 12.8872 9.75345 15.1272 6.38678 14.5805C3.86012 14.1738 1.82678 12.1405 1.41345 9.61383C0.87345 6.26049 3.10012 3.30049 6.17345 2.67383" stroke="url(#paint1_linear_257_15400)" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M12.2133 7.99947C13.9467 7.99947 14.6667 7.3328 14.0267 5.14614C13.5933 3.6728 12.3267 2.40614 10.8533 1.9728C8.66667 1.3328 8 2.0528 8 3.78614V5.70614C8 7.3328 8.66667 7.99947 10 7.99947H12.2133Z" stroke={`url(#paint0_linear_257_15400_${id})`} strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M13.3334 9.80049C12.7134 12.8872 9.75345 15.1272 6.38678 14.5805C3.86012 14.1738 1.82678 12.1405 1.41345 9.61383C0.87345 6.26049 3.10012 3.30049 6.17345 2.67383" stroke={`url(#paint1_linear_257_15400_${id})`} strokeLinecap="round" strokeLinejoin="round" />
             <defs>
-                <linearGradient id="paint0_linear_257_15400" x1="8.15262" y1="2.36791" x2="14.7291" y2="2.71788" gradientUnits="userSpaceOnUse">
+                <linearGradient id={`paint0_linear_257_15400_${id}`} x1="8.15262" y1="2.36791" x2="14.7291" y2="2.71788" gradientUnits="userSpaceOnUse">
                     <stop stopColor="#E68A02" />
                     <stop offset="1" stopColor="#DAB943" />
                 </linearGradient>
-                <linearGradient id="paint1_linear_257_15400" x1="1.62523" y1="3.87273" x2="14.2383" y2="4.5446" gradientUnits="userSpaceOnUse">
+                <linearGradient id={`paint1_linear_257_15400_${id}`} x1="1.62523" y1="3.87273" x2="14.2383" y2="4.5446" gradientUnits="userSpaceOnUse">
                     <stop stopColor="#E68A02" />
                     <stop offset="1" stopColor="#DAB943" />
                 </linearGradient>
@@ -95,31 +96,32 @@ export const GlobalIcon = () => {
 }
 
 export const GredientGlobalIcon = () => {
+    const id = Math.round(Math.random() * 10000)
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M8.00016 14.6673C11.6821 14.6673 14.6668 11.6825 14.6668 8.00065C14.6668 4.31875 11.6821 1.33398 8.00016 1.33398C4.31826 1.33398 1.3335 4.31875 1.3335 8.00065C1.3335 11.6825 4.31826 14.6673 8.00016 14.6673Z" stroke="url(#paint0_linear_257_10023)" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M5.33324 2H5.9999C4.6999 5.89333 4.6999 10.1067 5.9999 14H5.33324" stroke="url(#paint1_linear_257_10023)" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M10 2C11.3 5.89333 11.3 10.1067 10 14" stroke="url(#paint2_linear_257_10023)" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M2 10.6667V10C5.89333 11.3 10.1067 11.3 14 10V10.6667" stroke="url(#paint3_linear_257_10023)" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M2 6.00039C5.89333 4.70039 10.1067 4.70039 14 6.00039" stroke="url(#paint4_linear_257_10023)" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M8.00016 14.6673C11.6821 14.6673 14.6668 11.6825 14.6668 8.00065C14.6668 4.31875 11.6821 1.33398 8.00016 1.33398C4.31826 1.33398 1.3335 4.31875 1.3335 8.00065C1.3335 11.6825 4.31826 14.6673 8.00016 14.6673Z" stroke={`url(#paint0_linear_257_10023_${id})`} strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M5.33324 2H5.9999C4.6999 5.89333 4.6999 10.1067 5.9999 14H5.33324" stroke={`url(#paint1_linear_257_10023_${id})`} strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M10 2C11.3 5.89333 11.3 10.1067 10 14" stroke={`url(#paint2_linear_257_10023_${id})`} strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M2 10.6667V10C5.89333 11.3 10.1067 11.3 14 10V10.6667" stroke={`url(#paint3_linear_257_10023_${id})`} strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M2 6.00039C5.89333 4.70039 10.1067 4.70039 14 6.00039" stroke={`url(#paint4_linear_257_10023_${id})`} strokeLinecap="round" strokeLinejoin="round" />
             <defs>
-                <linearGradient id="paint0_linear_257_10023" x1="1.6587" y1="2.66731" x2="15.6722" y2="3.41305" gradientUnits="userSpaceOnUse">
+                <linearGradient id={`paint0_linear_257_10023_${id}`} x1="1.6587" y1="2.66731" x2="15.6722" y2="3.41305" gradientUnits="userSpaceOnUse">
                     <stop stopColor="#622BFD" />
                     <stop offset="1" stopColor="#DA4370" />
                 </linearGradient>
-                <linearGradient id="paint1_linear_257_10023" x1="5.04868" y1="3.2" x2="6.0763" y2="3.20444" gradientUnits="userSpaceOnUse">
+                <linearGradient id={`paint1_linear_257_10023_${id}`} x1="5.04868" y1="3.2" x2="6.0763" y2="3.20444" gradientUnits="userSpaceOnUse">
                     <stop stopColor="#622BFD" />
                     <stop offset="1" stopColor="#DA4370" />
                 </linearGradient>
-                <linearGradient id="paint2_linear_257_10023" x1="10.0238" y1="3.2" x2="11.0514" y2="3.20444" gradientUnits="userSpaceOnUse">
+                <linearGradient id={`paint2_linear_257_10023_${id}`} x1="10.0238" y1="3.2" x2="11.0514" y2="3.20444" gradientUnits="userSpaceOnUse">
                     <stop stopColor="#622BFD" />
                     <stop offset="1" stopColor="#DA4370" />
                 </linearGradient>
-                <linearGradient id="paint3_linear_257_10023" x1="2.29268" y1="10.0975" x2="11.1438" y2="15.8946" gradientUnits="userSpaceOnUse">
+                <linearGradient id={`paint3_linear_257_10023_${id}`} x1="2.29268" y1="10.0975" x2="11.1438" y2="15.8946" gradientUnits="userSpaceOnUse">
                     <stop stopColor="#622BFD" />
                     <stop offset="1" stopColor="#DA4370" />
                 </linearGradient>
-                <linearGradient id="paint4_linear_257_10023" x1="2.29268" y1="5.12289" x2="11.1438" y2="10.92" gradientUnits="userSpaceOnUse">
+                <linearGradient id={`paint4_linear_257_10023_${id}`} x1="2.29268" y1="5.12289" x2="11.1438" y2="10.92" gradientUnits="userSpaceOnUse">
                     <stop stopColor="#622BFD" />
                     <stop offset="1" stopColor="#DA4370" />
                 </linearGradient>
@@ -225,56 +227,57 @@ export const TypeAIIcon = () => {
 
 
 export const TableStatusIcon = () => {
+    const id = Math.round(Math.random() * 10000)
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="19" viewBox="0 0 16 19" fill="none">
             <path fillRule="evenodd" clipRule="evenodd" d="M3.39648 9.64213L8.00022 15.196L12.6447 9.64213L8.00022 4.03906L3.39648 9.64213Z" fill="black" />
-            <path fillRule="evenodd" clipRule="evenodd" d="M1.92961 9.64184C3.96667 7.18435 6.00373 4.72687 8.04079 2.26939V0.5L7.02226 1.72874L0.503662 9.59268H1.92961V9.64184Z" fill="url(#paint0_linear_235_16164)" />
-            <path fillRule="evenodd" clipRule="evenodd" d="M8.0001 2.26953C5.96304 4.72701 3.92598 7.1845 1.88892 9.64198H3.35559L8.0001 4.03892V2.26953Z" fill="url(#paint1_linear_235_16164)" />
-            <path fillRule="evenodd" clipRule="evenodd" d="M8 4.03892L12.6445 9.64198H14.1112C12.0741 7.1845 10.0371 4.72701 8 2.26953V4.03892Z" fill="url(#paint2_linear_235_16164)" />
-            <path fillRule="evenodd" clipRule="evenodd" d="M8 2.26907C10.0371 4.72655 12.0741 7.18404 14.1112 9.64152H15.5779L9.05926 1.77757L8.04073 0.548828V2.26907H8Z" fill="url(#paint3_linear_235_16164)" />
-            <path fillRule="evenodd" clipRule="evenodd" d="M12.6445 9.64258L8 15.2456V17.015C10.0371 14.5575 12.0741 12.1001 14.1112 9.64258H12.6445Z" fill="url(#paint4_linear_235_16164)" />
-            <path fillRule="evenodd" clipRule="evenodd" d="M14.1112 9.64258C12.0741 12.1001 10.0371 14.5575 8 17.015V18.7844L15.5779 9.64258H14.1112Z" fill="url(#paint5_linear_235_16164)" />
-            <path fillRule="evenodd" clipRule="evenodd" d="M8.0001 15.1968L3.35559 9.59375H1.88892C3.92598 12.0512 5.96304 14.5087 8.0001 16.9662V15.1968Z" fill="url(#paint6_linear_235_16164)" />
-            <path fillRule="evenodd" clipRule="evenodd" d="M7.99998 16.9662C5.96292 14.5087 3.92586 12.0512 1.88879 9.59375H0.422119L7.99998 18.7356V16.9662Z" fill="url(#paint7_linear_235_16164)" />
-            <path fillRule="evenodd" clipRule="evenodd" d="M4.90356 9.64195L7.99989 13.3773L11.137 9.64195L7.99989 5.85742L4.90356 9.64195Z" fill="url(#paint8_linear_235_16164)" />
+            <path fillRule="evenodd" clipRule="evenodd" d="M1.92961 9.64184C3.96667 7.18435 6.00373 4.72687 8.04079 2.26939V0.5L7.02226 1.72874L0.503662 9.59268H1.92961V9.64184Z" fill={`url(#paint0_linear_235_16164_${id})`} />
+            <path fillRule="evenodd" clipRule="evenodd" d="M8.0001 2.26953C5.96304 4.72701 3.92598 7.1845 1.88892 9.64198H3.35559L8.0001 4.03892V2.26953Z" fill={`url(#paint1_linear_235_16164_${id})`} />
+            <path fillRule="evenodd" clipRule="evenodd" d="M8 4.03892L12.6445 9.64198H14.1112C12.0741 7.1845 10.0371 4.72701 8 2.26953V4.03892Z" fill={`url(#paint2_linear_235_16164_${id})`} />
+            <path fillRule="evenodd" clipRule="evenodd" d="M8 2.26907C10.0371 4.72655 12.0741 7.18404 14.1112 9.64152H15.5779L9.05926 1.77757L8.04073 0.548828V2.26907H8Z" fill={`url(#paint3_linear_235_16164_${id})`} />
+            <path fillRule="evenodd" clipRule="evenodd" d="M12.6445 9.64258L8 15.2456V17.015C10.0371 14.5575 12.0741 12.1001 14.1112 9.64258H12.6445Z" fill={`url(#paint4_linear_235_16164_${id})`} />
+            <path fillRule="evenodd" clipRule="evenodd" d="M14.1112 9.64258C12.0741 12.1001 10.0371 14.5575 8 17.015V18.7844L15.5779 9.64258H14.1112Z" fill={`url(#paint5_linear_235_16164_${id})`} />
+            <path fillRule="evenodd" clipRule="evenodd" d="M8.0001 15.1968L3.35559 9.59375H1.88892C3.92598 12.0512 5.96304 14.5087 8.0001 16.9662V15.1968Z" fill={`url(#paint6_linear_235_16164_${id})`} />
+            <path fillRule="evenodd" clipRule="evenodd" d="M7.99998 16.9662C5.96292 14.5087 3.92586 12.0512 1.88879 9.59375H0.422119L7.99998 18.7356V16.9662Z" fill={`url(#paint7_linear_235_16164_${id})`} />
+            <path fillRule="evenodd" clipRule="evenodd" d="M4.90356 9.64195L7.99989 13.3773L11.137 9.64195L7.99989 5.85742L4.90356 9.64195Z" fill={`url(#paint8_linear_235_16164_${id})`} />
             <path fillRule="evenodd" clipRule="evenodd" d="M4.90389 9.64213L8.00022 5.8576V4.03906L3.39648 9.64213H4.90389Z" fill="#203D6B" />
             <path fillRule="evenodd" clipRule="evenodd" d="M11.1371 9.64258L8 13.3779V15.1965L12.6445 9.64258H11.1371Z" fill="#010716" />
             <path fillRule="evenodd" clipRule="evenodd" d="M8 5.8576L11.1371 9.64213H12.6445L8 4.03906V5.8576Z" fill="#132D54" />
             <path fillRule="evenodd" clipRule="evenodd" d="M8.00022 13.3779L4.90389 9.64258H3.39648L8.00022 15.1965V13.3779Z" fill="#132D54" />
             <defs>
-                <linearGradient id="paint0_linear_235_16164" x1="4.96079" y1="5.94588" x2="4.09033" y2="5.22429" gradientUnits="userSpaceOnUse">
+                <linearGradient id={`paint0_linear_235_16164_${id}`} x1="4.96079" y1="5.94588" x2="4.09033" y2="5.22429" gradientUnits="userSpaceOnUse">
                     <stop stopColor="#EFE1BB" />
                     <stop offset="1" stopColor="#EDD4AE" />
                 </linearGradient>
-                <linearGradient id="paint1_linear_235_16164" x1="5.695" y1="6.83175" x2="4.82459" y2="6.11025" gradientUnits="userSpaceOnUse">
+                <linearGradient id={`paint1_linear_235_16164_${id}`} x1="5.695" y1="6.83175" x2="4.82459" y2="6.11025" gradientUnits="userSpaceOnUse">
                     <stop stopColor="#523329" />
                     <stop offset="1" stopColor="#A27048" />
                 </linearGradient>
-                <linearGradient id="paint2_linear_235_16164" x1="11.0585" y1="5.94593" x2="10.1881" y2="6.66738" gradientUnits="userSpaceOnUse">
+                <linearGradient id={`paint2_linear_235_16164_${id}`} x1="11.0585" y1="5.94593" x2="10.1881" y2="6.66738" gradientUnits="userSpaceOnUse">
                     <stop stopColor="#A27048" />
                     <stop offset="1" stopColor="#523329" />
                 </linearGradient>
-                <linearGradient id="paint3_linear_235_16164" x1="11.7927" y1="5.05959" x2="10.9222" y2="5.78117" gradientUnits="userSpaceOnUse">
+                <linearGradient id={`paint3_linear_235_16164_${id}`} x1="11.7927" y1="5.05959" x2="10.9222" y2="5.78117" gradientUnits="userSpaceOnUse">
                     <stop stopColor="#E2BB7E" />
                     <stop offset="1" stopColor="#ECE2A9" />
                 </linearGradient>
-                <linearGradient id="paint4_linear_235_16164" x1="11.0585" y1="13.3029" x2="10.188" y2="12.5814" gradientUnits="userSpaceOnUse">
+                <linearGradient id={`paint4_linear_235_16164_${id}`} x1="11.0585" y1="13.3029" x2="10.188" y2="12.5814" gradientUnits="userSpaceOnUse">
                     <stop stopColor="#EFE1BB" />
                     <stop offset="1" stopColor="#EDD4AE" />
                 </linearGradient>
-                <linearGradient id="paint5_linear_235_16164" x1="11.7926" y1="14.1886" x2="10.9221" y2="13.4671" gradientUnits="userSpaceOnUse">
+                <linearGradient id={`paint5_linear_235_16164_${id}`} x1="11.7926" y1="14.1886" x2="10.9221" y2="13.4671" gradientUnits="userSpaceOnUse">
                     <stop stopColor="#523329" />
                     <stop offset="1" stopColor="#A27048" />
                 </linearGradient>
-                <linearGradient id="paint6_linear_235_16164" x1="5.69496" y1="12.4174" x2="4.82459" y2="13.1389" gradientUnits="userSpaceOnUse">
+                <linearGradient id={`paint6_linear_235_16164_${id}`} x1="5.69496" y1="12.4174" x2="4.82459" y2="13.1389" gradientUnits="userSpaceOnUse">
                     <stop stopColor="#8C6C51" />
                     <stop offset="1" stopColor="#DEC2A0" />
                 </linearGradient>
-                <linearGradient id="paint7_linear_235_16164" x1="4.96081" y1="13.303" x2="4.0903" y2="14.0246" gradientUnits="userSpaceOnUse">
+                <linearGradient id={`paint7_linear_235_16164_${id}`} x1="4.96081" y1="13.303" x2="4.0903" y2="14.0246" gradientUnits="userSpaceOnUse">
                     <stop stopColor="#A27048" />
                     <stop offset="1" stopColor="#523329" />
                 </linearGradient>
-                <linearGradient id="paint8_linear_235_16164" x1="8.00944" y1="13.3794" x2="8.00944" y2="5.86863" gradientUnits="userSpaceOnUse">
+                <linearGradient id={`paint8_linear_235_16164_${id}`} x1="8.00944" y1="13.3794" x2="8.00944" y2="5.86863" gradientUnits="userSpaceOnUse">
                     <stop stopColor="#1A2540" />
                     <stop offset="1" stopColor="#101524" />
                 </linearGradient>
@@ -287,6 +290,16 @@ export const InfiniteIcon = () => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 18 14" fill="none">
             <path d="M10.4162 5.85144C10.4441 5.85884 10.4703 5.87162 10.4934 5.88905C10.4936 5.88922 10.4938 5.88938 10.494 5.88955L10.8923 6.19622L12.0639 7.09839L11.6802 5.67031C11.4317 4.74552 10.9294 3.90871 10.2302 3.25449C9.5309 2.60027 8.66254 2.15474 7.72328 1.96828C6.78402 1.78183 5.81133 1.86188 4.91519 2.19939C4.01905 2.5369 3.23522 3.11841 2.65232 3.87815C2.06943 4.6379 1.71072 5.54557 1.61677 6.49854C1.52282 7.45151 1.69737 8.41175 2.12068 9.2707C2.54399 10.1296 3.19917 10.853 4.01215 11.359C4.82512 11.865 5.76346 12.1335 6.72104 12.1341H6.72133C6.77309 12.1341 6.82369 12.1321 6.86832 12.1299C7.02509 12.2759 7.18835 12.4145 7.35754 12.5454C7.14658 12.5697 6.9341 12.582 6.72112 12.5821L6.7206 12.5821C5.67646 12.5836 4.65281 12.2923 3.76587 11.7414C2.87894 11.1904 2.16424 10.4018 1.70294 9.46508C1.24164 8.52837 1.05221 7.48108 1.15616 6.44213C1.26012 5.40318 1.65328 4.41419 2.29103 3.58744C2.92877 2.7607 3.78554 2.12932 4.76406 1.765C5.74258 1.40068 6.80364 1.31801 7.82678 1.52639C8.84991 1.73476 9.79413 2.22582 10.5522 2.94381C11.3103 3.66181 11.8519 4.57798 12.1155 5.58829L12.3672 6.55267L12.9898 5.77441L13.1898 5.52441L13.1899 5.52448L13.1965 5.51581C13.2143 5.49259 13.2364 5.47309 13.2617 5.45843C13.287 5.44377 13.3149 5.43424 13.3439 5.43038C13.3729 5.42651 13.4024 5.4284 13.4306 5.43592C13.4589 5.44344 13.4854 5.45646 13.5086 5.47422C13.5318 5.49198 13.5513 5.51414 13.566 5.53944C13.5806 5.56473 13.5902 5.59267 13.594 5.62165C13.5979 5.65063 13.596 5.68008 13.5885 5.70834C13.5809 5.73659 13.5679 5.76309 13.5502 5.78631L13.55 5.78657L12.244 7.49657L12.244 7.49656L12.2415 7.49984C12.2063 7.54677 12.1539 7.57784 12.0958 7.58625C12.0385 7.59456 11.9802 7.58012 11.9334 7.54607L10.2246 6.24256C10.2246 6.24255 10.2246 6.24254 10.2246 6.24253C10.2014 6.22485 10.182 6.20278 10.1674 6.17759C10.1527 6.15238 10.1432 6.12453 10.1393 6.09563C10.1354 6.06673 10.1372 6.03735 10.1447 6.00917C10.1522 5.98099 10.1651 5.95455 10.1828 5.93137C10.2005 5.90819 10.2226 5.88872 10.2478 5.87408C10.273 5.85943 10.3009 5.84989 10.3298 5.84601C10.3587 5.84213 10.388 5.84397 10.4162 5.85144ZM11.4948 1.86696C11.3396 1.72268 11.178 1.58561 11.0107 1.45615C11.8642 1.35951 12.7319 1.46099 13.5451 1.75679C14.578 2.13252 15.4768 2.80501 16.1288 3.68984C16.7808 4.57467 17.1568 5.6324 17.2098 6.73022C17.2627 7.82804 16.9901 8.91703 16.4262 9.86046C15.8623 10.8039 15.0323 11.5597 14.0403 12.033C13.0484 12.5063 11.9387 12.676 10.8506 12.5209C9.76252 12.3657 8.74453 11.8925 7.92445 11.1607C7.10437 10.4289 6.51875 9.47121 6.24112 8.40776L5.9894 7.44358L5.3669 8.22171L5.1669 8.47171L5.1668 8.47163L5.15984 8.48074C5.12412 8.52756 5.07126 8.55826 5.01291 8.5661C4.95455 8.57395 4.89546 8.55829 4.84865 8.52256C4.80183 8.48684 4.77113 8.43399 4.76329 8.37563C4.75548 8.31756 4.77095 8.25878 4.80629 8.21208C4.80647 8.21184 4.80665 8.21161 4.80683 8.21137L6.1214 6.50523L6.12142 6.50524L6.12368 6.50225C6.1412 6.47915 6.16312 6.45974 6.18817 6.44514C6.21322 6.43054 6.24091 6.42104 6.26965 6.41718C6.29839 6.41331 6.32761 6.41517 6.35562 6.42264C6.38364 6.43011 6.4099 6.44304 6.4329 6.4607L6.43407 6.46159L8.1358 7.75976C8.17723 7.79638 8.20372 7.84711 8.21 7.90222C8.21655 7.95972 8.20059 8.01751 8.16548 8.06351C8.13036 8.1095 8.07881 8.14012 8.02162 8.14895C7.96703 8.15738 7.91134 8.14533 7.8652 8.11529L7.47638 7.81589L6.30172 6.91141L6.68866 8.34256C6.93875 9.26753 7.4426 10.1041 8.14326 10.7577C8.84392 11.4113 9.71345 11.8559 10.6536 12.0411C11.5937 12.2264 12.5668 12.145 13.4631 11.8061C14.3594 11.4672 15.1429 10.8844 15.7253 10.1235C16.3076 9.36256 16.6655 8.45391 16.7584 7.50024C16.8514 6.54657 16.6757 5.58593 16.2512 4.72689C15.8268 3.86785 15.1704 3.14467 14.3565 2.63912C13.5426 2.13359 12.6035 1.86581 11.6453 1.86606C11.6453 1.86606 11.6452 1.86606 11.6452 1.86606L11.6355 1.86606C11.5921 1.86605 11.5448 1.86605 11.4948 1.86696Z" fill="#F5EFDB" stroke="#F5EFDB" />
+        </svg>
+    )
+}
+
+export const MoreIcon = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M5 10C3.9 10 3 10.9 3 12C3 13.1 3.9 14 5 14C6.1 14 7 13.1 7 12C7 10.9 6.1 10 5 10Z" stroke="white" strokeWidth="1.5" />
+            <path d="M19 10C17.9 10 17 10.9 17 12C17 13.1 17.9 14 19 14C20.1 14 21 13.1 21 12C21 10.9 20.1 10 19 10Z" stroke="white" strokeWidth="1.5" />
+            <path d="M12 10C10.9 10 10 10.9 10 12C10 13.1 10.9 14 12 14C13.1 14 14 13.1 14 12C14 10.9 13.1 10 12 10Z" stroke="white" strokeWidth="1.5" />
         </svg>
     )
 }
