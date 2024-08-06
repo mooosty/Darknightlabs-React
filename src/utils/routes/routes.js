@@ -3,4 +3,6 @@ export const ROUTER = {
     projectManager: 'project-manager',
     synergiesManager: 'synergies-manager',
     projects: 'projects',
+    featuredProjects: 'featured-projects',
+
 }

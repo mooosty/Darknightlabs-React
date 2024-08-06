@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import closeIcon from '../../../assets/X-icon.png'
 
-import './SynergieaCreatedSuccessfullyPopup.scss';
+import './synergyRequestSuccessfullySentPopup.scss';
 
-const SynergieaCreatedSuccessfullyPopup = ({ open, handleClose }) => {
+const SynergyRequestSuccessfullySentPopup = ({ open, handleClose }) => {
 
     return (
         <>
@@ -12,9 +12,7 @@ const SynergieaCreatedSuccessfullyPopup = ({ open, handleClose }) => {
                     <div className='success_model_box'>
                         <div className='success_model_body'>
                             <div className='success_model_header'>
-                                <h3> <span>Your synergy</span>
-                                    <span> was successfully created!</span>
-                                </h3>
+                                 <span className='title'>Your synergy request has been successfully sent!</span>
                                 <button
                                     className='close'
                                     onClick={() => {
@@ -26,7 +24,7 @@ const SynergieaCreatedSuccessfullyPopup = ({ open, handleClose }) => {
                             </div>
 
                             <div className="success_model_text">
-                                <p> Norem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. </p>
+                                <p> Darknight Labs` team is reviewing it, and they will connect you with the project. </p>
                             </div>
                         </div>
 
@@ -37,9 +35,9 @@ const SynergieaCreatedSuccessfullyPopup = ({ open, handleClose }) => {
     )
 }
 
-SynergieaCreatedSuccessfullyPopup.propTypes = {
+SynergyRequestSuccessfullySentPopup.propTypes = {
     open: PropTypes.bool,
     handleClose: PropTypes.func,
 }
 
-export default SynergieaCreatedSuccessfullyPopup
+export default SynergyRequestSuccessfullySentPopup

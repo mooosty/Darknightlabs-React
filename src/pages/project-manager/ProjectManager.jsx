@@ -1,56 +1,401 @@
+import './projectManager.scss'
 import searchIcon from "../../assets/search-icon.png"
-import autherProfile from "../../assets/auther-profile.png"
-import trashIcon from "../../assets/trash-icon.png"
 import addIcon from "../../assets/add-icon.png"
-import sepratorImage from "../../assets/seprator-image.png"
-import uploadIcon from "../../assets/document-upload.png"
-import "./projectmanager.scss"
+import { GridIcon, ListIcon, TableStatusIcon, GredientGlobalIcon, GradientGraphIcon, InfiniteIcon, MoreIcon } from '../../utils/SVGs/SVGs'
+import filterIcon from "../../assets/filter.svg";
+import tableActor1 from "../../assets/tableActorImage.jpg";
+import tableActor2 from "../../assets/tableActorImage1.jpg";
+import tableActor3 from "../../assets/tableActorImage2.jpg";
+import tableActorImage1 from "../../assets/avatar-1.jpg";
+import tableActorImage2 from "../../assets/avatar-2.jpg";
+import tableActorImage3 from "../../assets/avatar-3.jpg";
+import editIcon from "../../assets/edit-icon.svg";
+import trashIcon from "../../assets/trash-icon.png";
+import closeIcon from "../../assets/X-icon.png";
+import { useState } from 'react';
 import Select from "../../components/select/Select"
-import arrowRight from "../../assets/arrow-right.png"
-import AddAngelPopup from "../../components/popup/add-angel-popup/AddAngelPopup"
-import { useState } from "react"
+import ProjectAccordion from '../../components/project-accordion/ProjectAccordion';
+import ButtomMenu from '../../components/buttom-menu/ButtomMenu';
+import DeleteConfirmPopup from '../../components/popup/delete-confirm-popup/DeleteConfirmaPopup';
+import { Tooltip } from 'react-tooltip';
 
 
-const synergyAnglesOptions = [
+const tableData = [
     {
-        label: 'Getting whitelist spots',
-        value: 'Getting whitelist spots',
-        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
+        key: 1,
+        checked: true,
+        projectName: 'Project 1581',
+        teamMembers: [
+            {
+                icon: tableActor1,
+                tooltip: 'Alexander - Founder and CEO'
+            },
+            {
+                icon: tableActor2,
+                tooltip: 'Alexander - Founder and CEO'
+            },
+            {
+                icon: tableActor3,
+                tooltip: 'Alexander - Founder and CEO'
+            },
+            {
+                icon: tableActor1,
+                tooltip: 'Alexander - Founder and CEO'
+            },
+            {
+                icon: tableActor1,
+                tooltip: 'Alexander - Founder and CEO'
+            }],
+        synergyImg: tableActorImage1,
+        description: 'Porem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.',
+        synergiesAngles: [
+            {
+                label: 'IP integration',
+            },
+            {
+                label: 'Hosting AMAS',
+            },
+            {
+                label: 'Angle48'
+            },
+            {
+                label: 'Angle48'
+            },
+            {
+                label: 'Angle48'
+            },
+            {
+                label: 'Angle48'
+            }],
+        type: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
+        isFeatured: true,
+        date: '12/12/2024',
+        disabled: false
     },
     {
-        label: 'Giving whitelists spots',
-        value: 'Giving whitelists spots',
-        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
+        key: 2,
+        projectName: 'Project 1581',
+        teamMembers: [
+            {
+                icon: tableActor1,
+                tooltip: 'Alexander - Founder and CEO'
+            },
+            {
+                icon: tableActor2,
+                tooltip: 'Alexander - Founder and CEO'
+            },
+            {
+                icon: tableActor3,
+                tooltip: 'Alexander - Founder and CEO'
+            }],
+        synergyImg: tableActorImage2,
+        description: 'Porem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.',
+        synergiesAngles: [
+            {
+                label: 'IP integration',
+            },
+            {
+                label: 'Hosting AMAS',
+            },
+            {
+                label: 'Angle48'
+            },
+            {
+                label: 'Angle48'
+            },
+            {
+                label: 'Angle48'
+            },
+            {
+                label: 'Angle48'
+            }],
+        type: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
+        status: 'Default',
+        date: '12/12/2024',
     },
     {
-        label: 'Hosting AMAs',
-        value: 'Hosting AMAs',
-        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
+        key: 3,
+        projectName: 'Project 1581',
+        teamMembers: [
+            {
+                icon: tableActor1,
+                tooltip: 'Alexander - Founder and CEO'
+            },
+            {
+                icon: tableActor1,
+                tooltip: 'Alexander - Founder and CEO'
+            },
+            {
+                icon: tableActor1,
+                tooltip: 'Alexander - Founder and CEO'
+            },
+            {
+                icon: tableActor1,
+                tooltip: 'Alexander - Founder and CEO'
+            }],
+        synergyImg: tableActorImage3,
+        description: 'Porem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.',
+        synergiesAngles: [
+            {
+                label: 'IP integration',
+            },
+            {
+                label: 'Hosting AMAS',
+            },
+            {
+                label: 'Angle48'
+            },
+            {
+                label: 'Angle48'
+            },
+            {
+                label: 'Angle48'
+            },
+            {
+                label: 'Angle48'
+            }],
+        type: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
+        isFeatured: true,
+        date: '12/12/2024',
     },
     {
-        label: 'Integrating branded game assets',
-        value: 'Integrating branded game assets',
-        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
+        key: 4,
+        projectName: 'Project 1581',
+        teamMembers: [
+            {
+                icon: tableActor1,
+                tooltip: 'Alexander - Founder and CEO'
+            },
+            {
+                icon: tableActor2,
+                tooltip: 'Alexander - Founder and CEO'
+            },
+            {
+                icon: tableActor3,
+                tooltip: 'Alexander - Founder and CEO'
+            }],
+        synergyImg: tableActorImage1,
+        description: 'Porem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.',
+        synergiesAngles: [
+            {
+                label: 'IP integration',
+            },
+            {
+                label: 'Hosting AMAS',
+            },
+            {
+                label: 'Angle48'
+            },
+            {
+                label: 'Angle48'
+            },
+            {
+                label: 'Angle48'
+            },
+            {
+                label: 'Angle48'
+            }],
+        type: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
+        isFeatured: true,
+        date: '12/12/2024',
     },
     {
-        label: 'Integrating your own branded assets',
-        value: 'Integrating your own branded assets',
-        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
+        key: 5,
+        projectName: 'Project 1581',
+        teamMembers: [
+            {
+                icon: tableActor1,
+                tooltip: 'Alexander - Founder and CEO'
+            },
+            {
+                icon: tableActor2,
+                tooltip: 'Alexander - Founder and CEO'
+            },
+            {
+                icon: tableActor3,
+                tooltip: 'Alexander - Founder and CEO'
+            }],
+        synergyImg: tableActorImage2,
+        description: 'Porem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.',
+        synergiesAngles: [
+            {
+                label: 'IP integration',
+            },
+            {
+                label: 'Hosting AMAS',
+            },
+            {
+                label: 'Angle48'
+            },
+            {
+                label: 'Angle48'
+            },
+            {
+                label: 'Angle48'
+            },
+            {
+                label: 'Angle48'
+            }],
+        type: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
+        status: 'Default',
+        date: '12/12/2024',
     },
     {
-        label: 'Getting early alpha',
-        value: 'Getting early alpha',
-        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
+        key: 6,
+        projectName: 'Project 1581',
+        teamMembers: [
+            {
+                icon: tableActor1,
+                tooltip: 'Alexander - Founder and CEO'
+            },
+            {
+                icon: tableActor1,
+                tooltip: 'Alexander - Founder and CEO'
+            },
+            {
+                icon: tableActor1,
+                tooltip: 'Alexander - Founder and CEO'
+            },
+            {
+                icon: tableActor1,
+                tooltip: 'Alexander - Founder and CEO'
+            }],
+        synergyImg: tableActorImage3,
+        description: 'Porem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.',
+        synergiesAngles: [
+            {
+                label: 'IP integration',
+            },
+            {
+                label: 'Hosting AMAS',
+            },
+            {
+                label: 'Angle48'
+            },
+            {
+                label: 'Angle48'
+            },
+            {
+                label: 'Angle48'
+            },
+            {
+                label: 'Angle48'
+            }],
+        type: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
+        status: 'Default',
+        date: '12/12/2024',
     },
     {
-        label: 'Sharing early alpha',
-        value: 'Sharing early alpha',
-        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
+        key: 7,
+        projectName: 'Project 1581',
+        teamMembers: [
+            {
+                icon: tableActor1,
+                tooltip: 'Alexander - Founder and CEO'
+            },
+            {
+                icon: tableActor2,
+                tooltip: 'Alexander - Founder and CEO'
+            },
+            {
+                icon: tableActor3,
+                tooltip: 'Alexander - Founder and CEO'
+            },
+            {
+                icon: tableActor1,
+                tooltip: 'Alexander - Founder and CEO'
+            },
+            {
+                icon: tableActor1,
+                tooltip: 'Alexander - Founder and CEO'
+            }],
+        synergyImg: tableActorImage3,
+        description: 'Porem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.',
+        synergiesAngles: [
+            {
+                label: 'IP integration',
+            },
+            {
+                label: 'Hosting AMAS',
+            },
+            {
+                label: 'Angle48'
+            },
+            {
+                label: 'Angle48'
+            },
+            {
+                label: 'Angle48'
+            },
+            {
+                label: 'Angle48'
+            }],
+        type: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
+        status: 'Default',
+        date: '12/12/2024',
     },
+    {
+        key: 8,
+        projectName: 'Project 1581',
+        teamMembers: [
+            {
+                icon: tableActor1,
+                tooltip: 'Alexander - Founder and CEO'
+            },
+            {
+                icon: tableActor1,
+                tooltip: 'Alexander - Founder and CEO'
+            },
+            {
+                icon: tableActor1,
+                tooltip: 'Alexander - Founder and CEO'
+            },
+            {
+                icon: tableActor1,
+                tooltip: 'Alexander - Founder and CEO'
+            }],
+        synergyImg: tableActorImage2,
+        description: 'Porem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.',
+        synergiesAngles: [
+            {
+                label: 'IP integration',
+            },
+            {
+                label: 'Hosting AMAS',
+            },
+            {
+                label: 'Angle48'
+            },
+            {
+                label: 'Angle48'
+            },
+            {
+                label: 'Angle48'
+            },
+            {
+                label: 'Angle48'
+            }],
+        type: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
+        status: 'Default',
+        date: '12/12/2024',
+    }
 ]
 
 const ProjectManager = () => {
-    const [isAddAngelPopupOpen, setIsAddAngelPopupOpen] = useState(false)
+    const [activeLayout, setActiveLayout] = useState('TAB');
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
+    const [isButtomMenuOpen, setIsButtomMenuOpen] = useState(false);
+    const [isDeleteConfirmPopupOpen, setIsDeleteConfirmPopupOpen] = useState(false);
+
+
+    const handleActive = (key) => {
+        setActiveLayout(key);
+    }
+
+    const handleFilterOpen = () => {
+        setIsFilterOpen(!isFilterOpen);
+    }
+
 
     return (
         <>
@@ -63,245 +408,265 @@ const ProjectManager = () => {
                     </div>
                 </div>
                 <div className="content_right">
-                    <a href="#">Darknight</a>
-                    <a href="#">Labs</a>
+                    <a href="#">Darknight Labs</a>
                 </div>
             </div>
-            <div className="page_data">
-                <div className="page_header">
-                    <div className="pagination">
-                        <a href="#">Project manager</a>
-                        <span>
-                            <img src={arrowRight} alt="" />
-                        </span>
-                        <p>Project name 111</p>
-                    </div>
-                    <button className="btn_gray">Save changes</button>
-                </div>
-                <div className="page_content">
-                    <div className="project_author">
-                        <span className="created_by">Created by</span>
-                        <img className="auther_profile" src={autherProfile} alt="Author" />
-                        <span className="auther_name">Joan of Arc</span>
-                        <span className="auther_post_date">17/11/2023</span>
-                        <span className="auther_time">16:07</span>
-                    </div>
-                    <div className="project_profile">
-                        {/* <>
-                            <div className="project_image">
-                                <img src={projectImageProfile} alt="Project" />
-                            </div>
-                            <div className="project_profile_btn">
-                                <button className="btn-gray">
-                                    <img src={uploadIcon} alt="" /> Replace photo</button>
-                                <button className="btn-red">
-                                    <img src={trashIcon} alt="" /> Delete</button>
-                            </div>
-                        </> */}
-                        <div className="upload_profile">
-                            <img src={uploadIcon} alt="" />
-                            <input type="file" />
-                            <p className="upload_document_title">Click to upload</p>
-                            <span className="drag_file">or drag and drop</span>
-                            <div className="file_type">SVG, PNG, JPG (max. 800x400px)</div>
-                        </div>
-                    </div>
-
-
-                    <div className="project_description_form">
-                        <div className="project_author">
-                            <span className="created_by">Created by</span>
-                            <img className="auther_profile" src={autherProfile} alt="Author" />
-                            <span className="auther_name">Joan of Arc</span>
-                            <span className="auther_post_date">17/11/2023</span>
-                            <span className="auther_time">16:07</span>
-                        </div>
-                        <div className="form_box">
-                            <h3 className="project_title">Project details</h3>
-                            <div className="form_group">
-                                <label htmlFor="projectName">Project Name</label>
-                                <input type="text" id="projectName" value="Project 1581" placeholder="Add project name" />
-                            </div>
-                            <div className="form_group">
-                                <label>Tags</label>
-                                <div className="tag_box">
-                                    <span>#Gaming</span>
-                                    <span>#AI</span>
-                                    <span>#Metaverse</span>
-                                    <input type="text" name="" id="" />
-                                </div>
-                            </div>
-                            <div className="form_item_box">
-                                <div className="form_group">
-                                    <label htmlFor="arc">Joan of Arc</label>
-                                    <Select
-                                        options={[
-                                            { label: 'Owner', value: 'Owner' },
-                                            { label: 'Joan of Arc', value: 'Joan of Arc' },
-                                        ]}
-                                        value='Joan of Arc'
-                                    />
-                                </div>
-                                <div className="form_group">
-                                    <label htmlFor="owner">Owner</label>
-                                    <Select
-                                        options={[
-                                            { label: 'Owner', value: 'Owner' },
-                                            { label: 'Joan of Arc', value: 'Joan of Arc' },
-                                        ]}
-                                        value='Owners'
-                                    />
-                                </div>
-                                <button className="btn_delete">
-                                    <img src={trashIcon} alt="Delete" />
-                                </button>
-                            </div>
-                            <button className="btn_gray">
-                                Add member
-                                <img src={addIcon} alt="Add" />
+            <div className="project_page_data">
+                <div className="project_page_header">
+                    <div className="project_page_header_top">
+                        <div className="project_pagination">
+                            <button className={`project_pagination_btn ${activeLayout === 'TAB' ? 'active' : ''}`} onClick={() => handleActive('TAB')} >
+                                <ListIcon />
                             </button>
-                            <br />
-                            <div className="form_group">
-                                <label htmlFor="description">Project Description</label>
-                                <textarea id="description" rows="7" cols="60" placeholder="Add project Description">
-                                    Norem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-                                </textarea>
-                            </div>
-                            <div className="seprator-image">
-                                <img src={sepratorImage} alt="Separator" />
-                            </div>
-                            <h3 className="project_title">Synergy</h3>
-                            <div className="form_box synergy">
-                                <label htmlFor="synergy">Who has access to synergy side?</label>
-                                <Select
-                                    options={[
-                                        { label: 'All Users', value: 'All Users' },
-                                        { label: 'Joan of Arc', value: 'Joan of Arc' },
-                                    ]}
-                                    value='All Users'
-                                />
-                            </div>
-                            <div className="custom_select">
-                                <div className="form_box synergy_selected">
-                                    <label>Synergy angles</label>
-                                    <Select
-                                        name='synergy_angles'
-                                        options={synergyAnglesOptions}
-                                        placeholder='Select synergy angel'
-                                        hasAddButton={true}
-                                        onAdd={() => setIsAddAngelPopupOpen(true)}
-                                        addButtonLabel='Add new angle'
-                                    />
-                                </div>
-                                <button className="btn_delete">
-                                    <img src={trashIcon} alt="Delete" />
-                                </button>
-                            </div>
-                            <button className="btn_gray">
-                                Add member
-                                <img src={addIcon} alt="Add" />
+                            <button className={`project_pagination_btn ${activeLayout === 'LAYOUT' ? 'active' : ''}`} onClick={() => handleActive('LAYOUT')} >
+                                <GridIcon />
                             </button>
-                            <div className="invostments-group">
-                                <div className="seprator-image">
-                                    <img src={sepratorImage} alt="Separator" />
-                                </div>
-                                <h3 className="project_title">Investments</h3>
-                                <div className="toogle-switch">
-                                    <h3>Open to investments</h3>
-                                    <span className="switch">
-                                        <input id="switch-rounded" type="checkbox" />
-                                        <label htmlFor="switch-rounded"></label>
-                                    </span>
-                                </div>
-                                <div className="form_box synergy">
-                                    <label htmlFor="synergy">Who has access to investments side?</label>
-                                    <Select
-                                        options={[
-                                            { label: 'All Users', value: 'All Users' },
-                                            { label: 'Joan of Arc', value: 'Joan of Arc' },
-                                        ]}
-                                        value='All Users'
-                                    />
-                                </div>
-                                <div className="invostments-pro-wrap">
-                                    <div className="form_item_box investment_item_box">
-                                        <div className="form_group">
-                                            <label htmlFor="arc">Investment properties</label>
-                                            <Select
-                                                options={[
-                                                    { label: 'FDV', value: 'FDV' },
-                                                    { label: 'FDV 2', value: 'FDV 2' },
-                                                    { label: 'FDV 3', value: 'FDV 3' },
-                                                ]}
-                                                value='FDV'
-                                            />
-                                        </div>
-                                        <div className="form_group">
-                                            <label htmlFor="owner">Investment properties</label>
-                                            <Select
-                                                options={[
-                                                    { label: '20mil', value: '20mil' },
-                                                    { label: '20mil 2', value: '20mil 2' },
-                                                    { label: '20mil 3', value: '20mil 3' },
-                                                ]}
-                                                value='20mil'
-                                            />
-                                        </div>
-                                        <button className="btn_delete">
-                                            <img src={trashIcon} alt="Delete" />
-                                        </button>
-                                    </div>
-                                    <div className="form_item_box investment_item_box">
-                                        <div className="form_group">
-                                            <label htmlFor="arc">Token price</label>
-                                            <Select
-                                                options={[
-                                                    { label: 'Token Price', value: 'Token Price' },
-                                                    { label: 'Token Price 2', value: 'Token Price 2' },
-                                                    { label: 'Token Price 3', value: 'Token Price 3' },
-                                                ]}
-                                                value='Token Price'
-                                            />
-                                        </div>
-                                        <div className="form_group">
-                                            <label htmlFor="owner">Price</label>
-                                            <Select
-                                                options={[
-                                                    { label: '0.05$', value: '0.05$' },
-                                                    { label: '0.06$', value: '0.06$' },
-                                                    { label: '0.07$', value: '0.07$' },
-                                                ]}
-                                                value='0.05$'
-                                            />
-                                        </div>
-                                        <button className="btn_delete">
-                                            <img src={trashIcon} alt="Delete" />
-                                        </button>
-                                    </div>
-                                    <button className="btn_gray">
-                                        Add property
-                                        <img src={addIcon} alt="Add" />
-                                    </button>
-                                </div>
-                            </div>
+                        </div>
+                        <div className='project_page_header_button'>
+                            <button
+                                className="btn_gray btn_filter"
+                                onClick={handleFilterOpen}
+                            >
+                                Filters <img src={filterIcon} alt=" " />
+                            </button>
+                            <button className={`btn_gray `} >
+                                Add New Project
+                                <img src={addIcon} alt="" />
+                            </button>
+                        </div>
+                    </div>
+                    <div className={`project_page_filter ${isFilterOpen ? 'active' : ''}`}>
+                        <div className="angels">
+                            <Select
+                                options={[
+                                    { label: 'Project 1581', value: 'Project 1581' },
+                                ]}
+                                placeholder={'All synergies angles'}
+                            />
+                        </div>
+                        <div className="project">
+                            <Select
+                                options={[
+                                    { label: 'Gaming', value: 'Gaming' },
+                                    { label: 'AI', value: 'AI' },
+                                    { label: 'Metaverse', value: 'Metaverse' },
+                                ]}
+                                placeholder={'All project types'}
+                            />
+                        </div>
+                        <div className="sort">
+                            <Select
+                                options={[
+                                    { label: 'Status', value: 'Status' },
+                                    { label: 'Date', value: 'Date' },
+                                ]}
+                                placeholder={'Sort by'}
+                            />
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className="delete_project_btn">
-                <button className="btn_delete">
-                    <img src={trashIcon} alt="Delete" /> Delete project
-                </button>
-                <button className="btn_gray">
-                    Save changes
-                </button>
-            </div>
+                <div className="project_page_body">
+                    <div className="project_page_table_handler">
+                        <div className="selected_count">
+                            <div className="costum_checkbox">
+                                <input type="checkbox" id='checkboxSelected' className='costum_checkbox_input' defaultChecked='checked' />
+                                <label htmlFor='checkboxSelected' className='costum_checkbox_label'></label>
+                            </div>
+                            <span>
+                                1 Selected
+                            </span>
+                        </div>
+                        <div className="table_actions">
+                            <button className="btn_cancle btn_gray">
+                                <img src={closeIcon} alt="Add" />
+                                <span>Cancel</span>
+                            </button>
+                            <button className="btn_featured btn_gray">
+                                <TableStatusIcon />
+                                <span>Add to Featured</span>
+                            </button>
+                            <button className="btn_create btn_gray">
+                                <InfiniteIcon />
+                                <span>Create synergy</span>
+                            </button>
+                            <button className="btn_delete ">
+                                <img src={trashIcon} alt="Delete" />
+                                <span>Delete</span>
+                            </button>
+                        </div>
 
-            <AddAngelPopup
-                open={isAddAngelPopupOpen}
-                handleClose={() => setIsAddAngelPopupOpen(false)}
+                        <div className="table_actions_button">
+                            <button className="button_delete ">
+                                <img src={trashIcon} alt="Delete" />
+                            </button>
+                            <button className="menu_button" onClick={() => setIsButtomMenuOpen(true)}>
+                                <MoreIcon />
+                            </button>
+                        </div>
+
+                    </div>
+                    <div className="project_page_table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Project name</th>
+                                    <th className='center'>Team members</th>
+                                    <th className='center'>Image</th>
+                                    <th className='center'>Description</th>
+                                    <th className='center'>Synergies</th>
+                                    <th className='center'>Type</th>
+                                    <th className='center'>Status</th>
+                                    <th className='center'>Date</th>
+                                    <th className='center'>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    tableData.map((rowData) => {
+                                        return (
+                                            <tr key={rowData.key} className={`${rowData.isFeatured ? 'heighlighted' : ''} ${rowData.checked ? 'selected' : ''}`}>
+                                                <td>
+                                                    <div className='table_name'>
+                                                        <div className="costum_checkbox">
+                                                            <input type="checkbox" id={`tableName_${rowData.key}`} className='costum_checkbox_input' checked={rowData.checked} />
+                                                            <label htmlFor={`tableName_${rowData.key}`} className='costum_checkbox_label'></label>
+                                                        </div>
+                                                        <span className='label'> {rowData.projectName}</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div className='actor'>
+                                                        <ul>
+                                                            {rowData.teamMembers.map((member, index) => (
+                                                                <>
+                                                                    <li
+                                                                        key={index}
+                                                                        id={`tooltip_team_member_${index}`}
+                                                                    >
+                                                                        <img src={member.icon} alt="" title="Alexander - Founder and CEO" />
+                                                                    </li>
+                                                                    <Tooltip
+                                                                        place="top"
+                                                                        style={{
+                                                                            maxWidth: '500px',
+                                                                            boxShadow: '0px 3px 10.3px -4px rgba(229, 229, 229, 0.1)',
+                                                                            background: 'rgba(79, 79, 79, 1)',
+                                                                            opacity: '1',
+                                                                        }}
+                                                                        anchorSelect={`#tooltip_team_member_${index}`}
+                                                                    >
+                                                                        {member.tooltip}
+                                                                    </Tooltip>
+                                                                </>
+                                                            ))
+                                                            }
+                                                        </ul>
+
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div className="table_image">
+                                                        <img src={rowData.synergyImg} alt=" " />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div className="description">
+                                                        <span>{rowData.description}</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div className='table_angles'>
+
+                                                        {
+                                                            rowData.synergiesAngles.slice(0, 3).map((Angle, index) => (
+                                                                <div className={`${index === 0 ? 'global' : (index === 1 ? 'graph' : '')}`} key={index}>
+                                                                    <div className=' angle_tag'>
+                                                                        <>{index === 0 && <GredientGlobalIcon />}</>
+                                                                        <>{index === 1 && <GradientGraphIcon />}</>
+                                                                        <span className='text'>
+                                                                            <span>{Angle.label}</span>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            ))
+                                                        }
+                                                        {rowData.synergiesAngles.length > 3 ?
+                                                            <div className="angle_tag">
+                                                                <span className='angle_tag_count'>+{rowData.synergiesAngles.length - 3}</span>
+                                                            </div>
+                                                            : ''}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div className='table_type'>
+                                                        {
+                                                            rowData.type.map((type, index) => (
+                                                                <div key={index} className='table_tag'>{type}</div>
+                                                            ))
+                                                        }
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div className="status">
+                                                        {rowData.isFeatured ?
+                                                            <div className="status_tabs">
+                                                                <div className='status_tab'>
+                                                                    <TableStatusIcon />
+                                                                    <span>Featured</span>
+                                                                </div>
+                                                            </div>
+                                                            : <span>{rowData.status}</span>}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div className="date">{rowData.date}</div>
+                                                </td>
+                                                <td>
+                                                    <div className="actions">
+                                                        <button className='btn'>
+                                                            <img src={editIcon} alt=" " />
+                                                        </button>
+                                                        <button className='btn'>
+                                                            <img src={trashIcon} alt=" " />
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        )
+                                    })
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className="project_page_accordion">
+                        {
+                            tableData.map((rowData) => (
+                                <ProjectAccordion
+                                    key={rowData.key}
+                                    projectName={rowData.projectName}
+                                    teamMembers={rowData.teamMembers}
+                                    synergyImg={rowData.synergyImg}
+                                    description={rowData.description}
+                                    type={rowData.type}
+                                    status={rowData.status}
+                                    synergiesAngles={rowData.synergiesAngles}
+                                    date={rowData.date}
+                                    isFeatured={rowData.isFeatured}
+                                    checked={rowData.checked}
+                                />))
+                        }
+                    </div>
+                </div>
+            </div>
+            <DeleteConfirmPopup
+                open={isDeleteConfirmPopupOpen}
+                handleClose={() => setIsDeleteConfirmPopupOpen(false)}
             />
-
+            <ButtomMenu
+                open={isButtomMenuOpen}
+                handleClose={() => setIsButtomMenuOpen(false)}
+            />
         </>
     )
 }

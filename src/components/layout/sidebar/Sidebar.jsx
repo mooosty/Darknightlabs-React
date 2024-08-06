@@ -88,23 +88,23 @@ const Sidebar = () => {
 
             <div className="mobile_bottom_footer">
                 <ul>
-                    <li className="active">
-                        <a href="#">
+                    <li className={`${location.pathname === `/${ROUTER.projectManager}` ? 'active' : ''}`} >
+                        <Link to={ROUTER.projectManager}>
                             <img src={projectIcon} alt="" />
                             <span>Projects manager</span>
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a href="#">
+                        <Link>
                             <img src={pendingIcon} alt="" />
                             <span>Pending Synergies</span>
-                        </a>
+                        </Link>
                     </li>
-                    <li>
-                        <a href="#">
+                    <li className={`${location.pathname === `/${ROUTER.synergiesManager}` ? 'active' : ''}`}>
+                        <Link to={ROUTER.synergiesManager}>
                             <img src={synergiesIcon} alt="" />
                             <span>Synergies Manager</span>
-                        </a>
+                        </Link>
                     </li>
                     <li>
                         <a href="#">
@@ -112,11 +112,11 @@ const Sidebar = () => {
                             <span className="chat">Chat <p className="chat_count">1</p></span>
                         </a>
                     </li>
-                    <li>
-                        <a href="#">
+                    <li className={`${location.pathname === `/${ROUTER.profile}` ? 'active' : ''}`}>
+                        <Link to={ROUTER.profile}>
                             <img src={profileIcon} alt="" />
                             <span>Profile</span>
-                        </a>
+                        </Link>
                     </li>
                 </ul>
             </div>

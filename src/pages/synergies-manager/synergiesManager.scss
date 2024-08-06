@@ -87,7 +87,7 @@
 
             .search_box {
                 position: relative;
-                min-width: 350px;
+                min-width: 450px;
 
                 @media (max-width: 1199px) {
                     min-width: 230px;
@@ -99,7 +99,7 @@
 
                 input {
                     background-color: #191917;
-                    padding: 17px 24px 17px 52px;
+                    padding: 15px 24px 12px 52px;
 
                     border: 1px solid #3c3c3c;
                     border-radius: 9px;
