@@ -8,6 +8,8 @@ import ProjectManager from './pages/project-manager/ProjectManager'
 import ProjectManagerEdit from './pages/project-manager-edit/ProjectManagerEdit'
 import FeaturedAllProjects from './pages/projects/featured-all-projects/FeaturedAllProjects'
 import Projects from './pages/projects/Projects'
+import Synergies from './pages/synergies/Synergies'
+import SynergyProject from './pages/synergies/synergy-project/SynergyProject'
 
 function App() {
 
@@ -24,6 +26,8 @@ function App() {
             <Route path={ROUTER.synergiesManager} element={<SynergiesManager />} />
             <Route path={ROUTER.projects} element={<Projects />} />
             <Route path={`projects/${ROUTER.featuredProjects}`} element={<FeaturedAllProjects />} />
+            <Route path={ROUTER.synergies} element={<Synergies />} />
+            <Route path={ROUTER.synergyProject} element={<SynergyProject />} />
           </Route>
 
           <Route path="*" element={<div>Not found</div>} />

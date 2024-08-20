@@ -6,7 +6,7 @@ import cardImg3 from "../../../assets/project-card-img-3.png"
 import cardImg4 from "../../../assets/project-card-img-4.png"
 import SynergyRequestSuccessfullySentPopup from "../../../components/popup/synergy-request-successfully-sent-popup/SynergyRequestSuccessfullySentPopup"
 import { useState } from "react"
-import Card from "../../../components/card/Card"
+import Card from "../../../components/project-card/Card"
 import './featuredAllProjects.scss'
 import MultiselectDropDown from "../../../components/multiselect-dropdwon/MultiselectDropDown"
 

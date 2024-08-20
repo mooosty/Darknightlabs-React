@@ -15,7 +15,7 @@ import cardImg13 from "../../assets/project-card-img-13.png"
 import cardImg14 from "../../assets/project-card-img-14.png"
 import cardImg15 from "../../assets/project-card-img-15.png"
 import { GradientGraphIcon, GredientGlobalIcon, HealthIcon, StarIcon, GrammerlyIcon, LeftIcon, RightIcon } from '../../utils/SVGs/SVGs'
-import Card from '../../components/card/Card'
+import Card from '../../components/project-card/Card'
 import { useState } from 'react'
 import MultiselectDropDown from '../../components/multiselect-dropdwon/MultiselectDropDown'
 import SynergyRequestSuccessfullySentPopup from '../../components/popup/synergy-request-successfully-sent-popup/SynergyRequestSuccessfullySentPopup'
