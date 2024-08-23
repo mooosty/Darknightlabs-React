@@ -59,8 +59,8 @@ const Sidebar = () => {
                 <div className="menu-box chat_profile">
                     <span className="saprator"></span>
                     <ul>
-                        <li className={`${location.pathname === `/` ? 'active' : ''}`}>
-                            <Link>
+                        <li className={`${location.pathname === `/${ROUTER.chat}` ? 'active' : ''}`}>
+                            <Link  to={ROUTER.chat}>
                                 <img src={chatIcon} alt="Chat" />
                                 Chat <span className="notification">1</span>
                             </Link>
@@ -106,11 +106,11 @@ const Sidebar = () => {
                             <span>Synergies Manager</span>
                         </Link>
                     </li>
-                    <li>
-                        <a href="#">
+                    <li className={`${location.pathname === `/${ROUTER.chat}` ? 'active' : ''}`}>
+                        <Link to={ROUTER.chat}>
                             <img src={chatIcon} alt="" />
                             <span className="chat">Chat <p className="chat_count">1</p></span>
-                        </a>
+                        </Link>
                     </li>
                     <li className={`${location.pathname === `/${ROUTER.profile}` ? 'active' : ''}`}>
                         <Link to={ROUTER.profile}>

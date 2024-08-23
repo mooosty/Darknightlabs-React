@@ -1,0 +1,147 @@
+.menu_contianer {
+    height: 100vh;
+    width: 100vw;
+    z-index: 99;
+    position: fixed;
+    background-color: #434242cc;
+    bottom: 0;
+    left: 0;
+    display: none;
+
+    &.active {
+        display: block;
+    }
+
+    @media (min-width: 1200px) {
+        display: none !important;
+    }
+
+    .menu {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+
+
+        .members {
+            display: none;
+            width: 100%;
+            padding-inline: 16px;
+            background-color: #242623;
+            border-top: 1px solid rgba(255, 255, 255, 0.5);
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+
+            @media (max-width: 1200px) {
+                display: block;
+            }
+
+            .head {
+                color: #f5efdb;
+                text-decoration: none;
+                font-size: 24px;
+                font-family: "MedievalSharp", cursive;
+                padding-block: 24px 19px;
+            }
+
+            .members_list {
+                width: 100%;
+                padding: 6px 10px;
+
+                .btn_gray {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    line-height: 16px;
+                    letter-spacing: 0.24px;
+                    padding-block: 16px;
+                    margin-bottom: 8px;
+                    gap: 10px;
+                }
+
+                .list_container {
+                    max-height: 70vh;
+                    overflow-y: auto;
+
+                    &::-webkit-scrollbar {
+                        width: 4px;
+                    }
+
+                    &::-webkit-scrollbar-track {
+                        background: transparent;
+                        margin-block: 4px;
+                    }
+
+                    &::-webkit-scrollbar-thumb {
+                        background: #F5EFDB;
+                    }
+
+                    .list_header {
+                        color: #fff;
+                        font-size: 12px;
+                        text-transform: uppercase;
+                        padding: 4px 2px;
+                    }
+
+                    .list_body {
+                        padding-right: 14px;
+                        width: 100%;
+                        margin-bottom: 12px;
+
+                        .list_items {
+                            display: flex;
+                            align-items: center;
+                            gap: 10px;
+                            padding-block: 3px;
+
+                            .img {
+                                height: 40px;
+                                width: 40px;
+                                overflow: hidden;
+                                border-radius: 50%;
+
+                                img {
+                                    height: 100%;
+                                    width: 100%;
+                                }
+                            }
+
+                            .name {
+                                width: 100%;
+                                display: flex;
+                                flex-direction: column;
+                                gap: 2px;
+
+                                .top {
+                                    display: flex;
+                                    justify-content: space-between;
+                                    align-items: center;
+
+                                    .top_left {
+                                        color: #ffd1a6cc;
+                                        line-height: 20px;
+                                        font-size: 14px;
+                                    }
+
+                                    .top_right {
+                                        color: #f5efdb99;
+                                        line-height: 20px;
+                                        font-size: 10px;
+                                        text-transform: uppercase;
+                                    }
+                                }
+
+                                .bottom {
+                                    color: #ffffff80;
+                                    font-size: 12px;
+                                    line-height: 20px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -10,6 +10,8 @@ import FeaturedAllProjects from './pages/projects/featured-all-projects/Featured
 import Projects from './pages/projects/Projects'
 import Synergies from './pages/synergies/Synergies'
 import SynergyProject from './pages/synergies/synergy-project/SynergyProject'
+import Chats from './pages/chats/Chats'
+
 
 function App() {
 
@@ -28,6 +30,7 @@ function App() {
             <Route path={`projects/${ROUTER.featuredProjects}`} element={<FeaturedAllProjects />} />
             <Route path={ROUTER.synergies} element={<Synergies />} />
             <Route path={ROUTER.synergyProject} element={<SynergyProject />} />
+            <Route path={ROUTER.chat} element={<Chats />} />
           </Route>
 
           <Route path="*" element={<div>Not found</div>} />

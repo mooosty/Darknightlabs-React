@@ -6,4 +6,5 @@ export const ROUTER = {
     synergies: 'synergies',
     synergyProject: 'synergies/project',
     featuredProjects: 'featured-projects',
+    chat: 'chat',
 }
