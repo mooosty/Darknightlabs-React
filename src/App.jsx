@@ -11,6 +11,7 @@ import Projects from './pages/projects/Projects'
 import Synergies from './pages/synergies/Synergies'
 import SynergyProject from './pages/synergies/synergy-project/SynergyProject'
 import Chats from './pages/chats/Chats'
+import PendingSynergies from './pages/pending-synergies/PendingSynergies'
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
             <Route path={ROUTER.synergies} element={<Synergies />} />
             <Route path={ROUTER.synergyProject} element={<SynergyProject />} />
             <Route path={ROUTER.chat} element={<Chats />} />
+            <Route path={ROUTER.pendingSynergies} element={<PendingSynergies />} />
           </Route>
 
           <Route path="*" element={<div>Not found</div>} />

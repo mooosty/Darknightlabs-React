@@ -45,11 +45,12 @@
         }
     }
 
-    .synergies_content_header {
+    .pending_synergies_content_header {
         display: flex;
         align-items: center;
         justify-content: space-between;
         margin-bottom: 32px;
+
 
         @media (max-width: 1600px) {
             margin-bottom: 20px;
@@ -64,21 +65,24 @@
             background-color: #191917;
         }
 
-        .synergies_content_left {
+        .content_left {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 32px;
 
             @media (max-width: 767px) {
+                width: 100%;
                 padding-inline: 24px;
                 padding-top: 15px;
+                gap: 10px;
+                justify-content: space-between;
             }
 
             h2 {
                 color: #fff;
                 font-weight: 500;
                 font-family: "MedievalSharp", cursive;
-                font-size: 48px ;
+                font-size: 48px;
 
                 @media (max-width: 1600px) {
                     font-size: 32px;
@@ -94,8 +98,12 @@
                 }
 
                 @media (max-width: 767px) {
-                    display: none;
+                    min-width: 30px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
                 }
+
 
                 input {
                     background-color: #191917;
@@ -107,6 +115,10 @@
 
                     @media (max-width: 1199px) {
                         padding: 10px 15px 10px 40px;
+                    }
+
+                    @media (max-width: 767px) {
+                        display: none;
                     }
 
                     &::placeholder {
@@ -133,7 +145,7 @@
             }
         }
 
-        .synergies_content_right {
+        .content_right {
             display: flex;
             align-items: center;
             gap: 10px;
@@ -157,7 +169,7 @@
         }
     }
 
-    .synergies_page_data {
+    .pending_synergies_page_data {
         border-radius: 20px;
         background-color: #191917;
 
@@ -168,15 +180,14 @@
         }
 
         .synergies_page_header {
-            border-bottom: 1px solid #f5efdb26;
-            padding: 20px 30px 16px;
+            padding: 20px 30px 16px 30px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
             margin-bottom: 24px;
 
             @media (max-width: 767px) {
                 padding: 24px 24px;
+                border-bottom: 1px solid #f5efdb26;
             }
 
             .synergies_pagination {
@@ -190,11 +201,6 @@
                 font-weight: 500;
                 font-family: "MedievalSharp", cursive;
 
-                @media (max-width: 767px) {
-                    gap: 4px;
-                    display: none;
-                }
-
                 .synergies_pagination_btn {
                     padding: 10px;
                     display: flex;
@@ -203,223 +209,173 @@
                     background-color: transparent;
                     border: none;
 
+                    span {
+                        font-family: "MedievalSharp", cursive;
+                        color: #e6eaee81;
+                    }
+
                     &.active {
                         background-color: rgba(78, 78, 78, 0.58);
-                        color: #F5EFDB;
 
-                        svg {
-                            path {
-                                stroke: #F5EFDB;
-                            }
+                        span {
+                            color: #F5EFDB;
                         }
                     }
-
-                    svg {
-                        height: 24px;
-                        width: 24px;
-                    }
-                }
-            }
-
-            .synergies_page_header_button {
-                display: flex;
-                gap: 10px;
-
-                @media (max-width: 767px) {
-                    width: 100%;
-                    justify-content: space-between;
-                }
-
-                .btn_filter {
-                    img {
-                        height: 22px;
-                        width: 22px;
-                    }
-                }
-
-                .btn_gray.active {
-                    background-color: #A18527;
-                    color: white;
-                }
-
-                .btn_gray:disabled {
-                    cursor: no-drop;
-                    background-color: rgba(78, 78, 78, 0.16);
-                    color: rgba(255, 255, 255, 0.4);
                 }
             }
         }
 
         .synergies_page_body {
+            padding-inline: 30px;
 
-            .synergies_page_table {
-                margin: 20px 24px;
-                padding-bottom: 20px;
+            .card_container {
+                width: 100%;
+                display: flex;
+                gap: 24px;
+                flex-wrap: wrap;
 
-                @media (max-width: 1098px) {
-                    display: none;
+                @media (max-width: 1300px) {
+                    justify-content: space-between;
                 }
 
-                table,
-                tr,
-                td {
-                    border-collapse: collapse;
-                }
+                .card {
+                    width: 18%;
+                    padding: 12px 16px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 16px;
+                    background-color: #242623;
 
-                table {
-                    width: 100%;
-
-                    thead {
-                        text-align: left;
-
-                        th {
-                            font-family: MedievalSharp;
-                            font-size: 18px;
-                            color: #F5EFDB;
-                            font-weight: 400;
-                            padding: 4px 12px;
-                            border-bottom: 1px solid rgba(255, 239, 219, 0.15);
-
-                            &.center {
-                                text-align: center;
-                            }
-                        }
+                    &:hover {
+                        box-shadow: 1px 0px 20px 1px rgba(255, 138, 28, 0.35);
                     }
 
-                    tbody {
-                        color: rgba(245, 239, 219, 0.6);
-                        font-size: 14px;
-                        font-family: "Inter", sans-serif;
+                    @media (max-width: 1600px) {
+                        width: 23%;
+                    }
 
-                        td {
-                            opacity: 1;
-                            padding: 10px 12px;
-                            border-bottom: 1px solid rgba(245, 239, 219, 0.15);
+                    @media (max-width: 1300px) {
+                        width: 30%;
+                    }
 
-                            @media (max-width:1199px) {
-                                padding: 0px;
-                            }
+                    @media (max-width: 1000px) {
+                        width: 47%;
+                    }
 
-                            .table_name {
-                                display: flex;
-                                align-items: center;
-                                font-size: 16px;
-                                gap: 5px;
+                    @media (max-width: 500px) {
+                        width: 100%;
+                    }
 
-                                .costum_checkbox {
-                                    display: flex;
-                                    align-items: end;
+                    .card_image {
+                        object-fit: contain;
+                        max-width: 220px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        overflow: hidden;
+                        border-radius: 8px;
 
-                                    .costum_checkbox_input {
-                                        display: none;
-                                    }
-
-                                    .costum_checkbox_label {
-                                        height: 24px !important;
-                                        width: 24px !important;
-                                        padding: 0.5px 10px;
-                                        background-color: rgba(78, 78, 78, 0.2);
-                                        border: 1px solid #fff;
-                                    }
-
-                                    .costum_checkbox_input:checked+.costum_checkbox_label {
-                                        position: relative;
-
-                                        &::after {
-                                            content: '';
-                                            display: block;
-                                            position: absolute;
-                                            top: -2px;
-                                            left: -1px;
-                                            height: 24px;
-                                            width: 24px;
-                                            background-image: url('../../assets/InputChecked.svg');
-                                            background-repeat: no-repeat;
-                                            background-size: cover;
-                                            z-index: 5;
-                                        }
-                                    }
-                                }
-                            }
-
-                            .actor {
-                                display: flex;
-                                gap: 8px;
-                                align-items: center;
-                                color: rgba(255, 209, 166, 0.8);
-
-                                img {
-                                    height: 24px;
-                                    width: 24px;
-                                    border-radius: 30px;
-                                }
-                            }
-
-                            .table_image {
-                                border-radius: 11px;
-                                overflow: hidden;
-                                height: 5vw;
-                                width: 5vw;
-
-                                img {
-                                    height: 100%;
-                                    width: 100%;
-                                }
-                            }
-
-                            .price {
-                                display: flex;
-                                align-items: center;
-                                gap: 4px;
-                                color: #FFDF76;
-                                font-family: "MedievalSharp";
-                            }
-
-                            .table_angles {
-                                display: flex;
-                                flex-wrap: wrap;
-                                justify-content: center;
-                                gap: 4px;
-                                color: #ffffff;
-                                max-width: 425px;
-
-                                @media (min-width:1900px) {
-                                    padding-inline: 10px;
-                                }
-
-                                .angle_tag {
-                                    display: flex;
-                                    align-items: center;
-                                    padding: 4px 6px;
-                                    gap: 4px;
-                                }
-                            }
-
-                            .date {
-                                display: flex;
-                                align-items: center;
-                                font-size: 16px;
-                                color: rgba(255, 255, 255, 0.60);
-                            }
-
-                            .actions {
-                                display: flex;
-                                gap: 8px;
-
-                                button {
-                                    background-color: transparent;
-                                    border: none;
-                                }
-                            }
+                        @media (max-width: 1300px) {
+                            width: 100%;
+                            max-width: none;
                         }
 
-                        tr.disable {
-                            opacity: 0.4;
+                        img {
+                            object-fit: cover;
+                            height: 100%;
+                            width: 100%;
+                        }
 
-                            .table_angles {
+
+                    }
+
+                    .card_body {
+                        .name {
+                            color: #F5EFDB;
+                            font-family: "MedievalSharp", cursive;
+                            font-size: 18px;
+                            margin-bottom: 10px;
+                        }
+
+                        .tabs {
+                            display: flex;
+                            flex-wrap: wrap;
+                            gap: 4px;
+                            color: #ffffff;
+
+                            @media (min-width:1900px) {
+                                padding-inline: 10px;
+                            }
+
+                            .angle_tag {
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                padding: 4px 8px;
+                                font-size: 12px;
+                                border-radius: 6px;
+                                background: #191917;
+                                gap: 4px;
+
+                                .text {
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    display: -webkit-box;
+                                    -webkit-line-clamp: 1;
+                                    -webkit-box-orient: vertical;
+                                    color: #f5efdb;
+                                }
+                            }
+
+                            .global {
                                 .angle_tag {
-                                    border-radius: 8px;
-                                    background-color: rgba(245, 239, 219, 0.16);
+                                    position: relative;
+
+                                    &::before {
+                                        content: "";
+                                        inset: 0;
+                                        position: absolute;
+                                        border-radius: 6px;
+                                        padding: 1px;
+                                        background: linear-gradient(to bottom right, #622BFD, #DA4370);
+                                        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                                        -webkit-mask-composite: xor;
+                                        mask-composite: exclude;
+                                        pointer-events: none;
+                                    }
+
+                                    .text {
+                                        background-image: linear-gradient(to bottom right, #622BFD, #DA4370);
+                                        -webkit-background-clip: text;
+                                        -webkit-text-fill-color: transparent;
+                                    }
+                                }
+                            }
+
+                            .graph {
+                                .angle_tag {
+                                    position: relative;
+
+                                    &::before {
+                                        content: "";
+                                        inset: 0;
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;
+                                        border-radius: 6px;
+                                        padding: 1px;
+                                        background: linear-gradient(to bottom right, #E58A02, #DAB943);
+                                        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                                        -webkit-mask-composite: xor;
+                                        mask-composite: exclude;
+                                        pointer-events: none;
+                                    }
+
+                                    .text {
+                                        background-image: linear-gradient(to bottom right, #E58A02, #DAB943);
+                                        -webkit-background-clip: text;
+                                        -webkit-text-fill-color: transparent;
+                                    }
                                 }
                             }
                         }
@@ -493,14 +449,6 @@
                             }
                         }
                     }
-                }
-            }
-
-            .synergies_page_accordion {
-                padding-bottom: 18px;
-
-                @media (min-width: 1099px) {
-                    display: none;
                 }
             }
         }

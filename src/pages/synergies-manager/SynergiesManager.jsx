@@ -311,7 +311,6 @@ const SynergiesManager = () => {
         handleClose={() => setIsEditSynergiesAngelPopupOpen(false)}
       />
 
-
       <ConfirmSynergiesPopup
         open={isConfirmSynergiesPopupOpen}
         handleClose={() => setIsConfirmSynergiesPopupOpen(false)}

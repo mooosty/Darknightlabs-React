@@ -42,8 +42,8 @@ const Sidebar = () => {
                 <div className="menu-box synergies_menu">
                     <span className="saprator"></span>
                     <ul>
-                        <li className={`${location.pathname === `/` ? 'active' : ''}`}>
-                            <Link>
+                        <li className={`${location.pathname === `/${ROUTER.pendingSynergies}` ? 'active' : ''}`}>
+                            <Link to={ROUTER.pendingSynergies}>
                                 <img src={pendingIcon} alt="Pending Synergies" />
                                 Pending Synergies
                             </Link>
@@ -94,8 +94,8 @@ const Sidebar = () => {
                             <span>Projects manager</span>
                         </Link>
                     </li>
-                    <li>
-                        <Link>
+                    <li className={`${location.pathname === `/${ROUTER.pendingSynergies}` ? 'active' : ''}`}>
+                        <Link to={ROUTER.pendingSynergies}>
                             <img src={pendingIcon} alt="" />
                             <span>Pending Synergies</span>
                         </Link>

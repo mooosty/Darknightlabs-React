@@ -63,7 +63,6 @@ const chatSynergies = [
         "message": 22
     },
 ]
-
 const channelsList = [
     {
         name: 'General discution',
