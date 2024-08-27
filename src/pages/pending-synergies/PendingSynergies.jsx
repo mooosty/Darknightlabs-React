@@ -466,9 +466,9 @@ const PendingSynergies = () => {
               )
             })}
           </div>
-          <div className="synergies_table_pagination">
-            <div className="synergies_table_pagination_content">
-              <div className="synergies_table_pagination_content_text">
+          <div className="synergies_pagination">
+            <div className="synergies_pagination_content">
+              <div className="synergies_pagination_content_text">
                 <span className='pagination_head'>Row per page:</span>
                 <span className='pagination_dropdown'>
                   <select name="cars" id="cars" >
@@ -476,7 +476,7 @@ const PendingSynergies = () => {
                     <option value="10">10</option>
                     <option value="8">8</option></select></span>
                 <span className='pagination_pages'>1-5 of 13</span>
-                <div className="synergies_table_pagination_content_arrows">
+                <div className="synergies_pagination_content_arrows">
                   <button className={`table_pagination_content_button`}>
                     <LeftIcon />
                   </button>

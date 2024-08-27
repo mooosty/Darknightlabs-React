@@ -29,7 +29,7 @@
         }
 
         .edit_pending_engel_model_box {
-            width: 620px;
+            width: 520px;
             background-color: #191917;
             background-image: url("../../../assets/model-frame.png");
             background-size: contain;
@@ -51,7 +51,11 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                margin-bottom: 44px !important;
+                margin-bottom: 20px !important;
+
+                @media (max-width: 767px) {
+                    margin-bottom: 16px !important;
+                }
 
                 h3 {
                     color: #f5efdb;
@@ -71,71 +75,58 @@
                     background-color: transparent;
                     border: gainsboro;
                     position: absolute;
-                    top: 50px;
-                    right: 60px;
-
-                    @media (max-width: 767px) {
-                        top: 25px;
-                        right: 30px;
-                    }
+                    top: 25px;
+                    right: 30px;
 
                     img {
-                        width: 30px;
+                        width: 32px;
 
                         @media (max-width: 1600px) {
                             width: 24px;
                         }
                     }
+                //     position: absolute;
+                //     top: 40px;
+                //     right: 30px;
+
+                //     img {
+                //         width: 32px;
+                //         height: 32px;
+                //     }
                 }
             }
 
             .model_body_container {
-                padding: 60px 18px 15px 25px;
+                padding: 37px 26px 36px 26px;
 
-
-                @media (max-width: 767px) {
-                    padding-right: 8px;
+                @media (max-width: 600px) {
+                    padding: 24px 16px;
                 }
 
                 .model_body {
-                    max-height: 851px;
+                    max-height: 551px;
                     overflow-y: scroll;
-                    padding-inline: 10px;
+                    margin-top: 15px;
 
                     @media (max-width: 1600px) {
-                        padding-bottom: 30px;
-                        max-height: 650px;
+                        max-height: 420px;
                     }
 
-                    @media (max-width: 767px) {
-                        padding-bottom: 20px;
-                        padding-inline: 5px;
+                    @media (max-width: 600px) {
+                        max-height: 620px;
                     }
 
                     @media (max-width: 600px) {
                         height: 60vh;
                     }
 
-                    // Height
-                    @media (max-height: 850px) {
-                        padding-bottom: 30px;
-                        max-height: 550px;
-                    }
-
-                    @media (max-height: 750px) {
-                        padding-bottom: 30px;
-                    }
-
-                    @media (max-height: 650px) {
-                        padding-bottom: 30px;
-                        max-height: 450px;
-                    }
-
                     &::-webkit-scrollbar {
                         width: 4px;
+
                     }
 
                     &::-webkit-scrollbar-track {
+                        margin-top: 42px;
                         background: transparent;
                     }
 
@@ -144,10 +135,8 @@
                     }
 
                     .model_data {
-                        padding-right: 7px;
                         font-family: "MedievalSharp", cursive;
                         color: #f5efdb;
-                        overflow: hidden;
 
                         @media (max-height: 600px) {
                             height: 60vh;
@@ -159,8 +148,8 @@
                             margin-bottom: 20px;
                             border-radius: 12px;
 
-                            @media (max-width: 767px) {
-                                margin-bottom: 32px;
+                            @media (max-width: 600px) {
+                                margin-bottom: 16px;
                             }
 
                             img {

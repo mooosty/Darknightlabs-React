@@ -172,18 +172,22 @@
     .pending_synergies_page_data {
         border-radius: 20px;
         background-color: #191917;
+        background-image: url("../../assets/model-frame.png");
+        background-repeat: no-repeat;
+        background-position-x: 10px;
+        background-position-y: 10px;
 
         @media (max-width: 767px) {
             border-radius: 0;
             padding: 0 0 40px 0;
             background-color: #191917;
+            background-image: none;
         }
 
         .synergies_page_header {
-            padding: 20px 30px 16px 30px;
+            padding: 34px 34px 21px 34px;
             display: flex;
             align-items: center;
-            margin-bottom: 24px;
 
             @media (max-width: 767px) {
                 padding: 24px 24px;
@@ -226,7 +230,12 @@
         }
 
         .synergies_page_body {
-            padding-inline: 30px;
+            padding-inline: 34px;
+
+            @media (max-width: 767px) {
+                padding-top: 24px;
+                padding-inline: 15px;
+            }
 
             .card_container {
                 width: 100%;
@@ -236,6 +245,11 @@
 
                 @media (max-width: 1300px) {
                     justify-content: space-between;
+                }
+
+                @media (max-width: 767px) {
+                    gap: 16px;
+                    justify-content: start;
                 }
 
                 .card {
@@ -262,18 +276,22 @@
                         width: 47%;
                     }
 
+                    @media (max-width: 767px) {
+                        width: 48%;
+                    }
+
                     @media (max-width: 500px) {
                         width: 100%;
                     }
 
                     .card_image {
                         object-fit: contain;
-                        max-width: 220px;
                         display: flex;
                         align-items: center;
                         justify-content: center;
                         overflow: hidden;
                         border-radius: 8px;
+                        width: 100%;
 
                         @media (max-width: 1300px) {
                             width: 100%;
@@ -290,11 +308,14 @@
                     }
 
                     .card_body {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 10px;
+
                         .name {
                             color: #F5EFDB;
                             font-family: "MedievalSharp", cursive;
                             font-size: 18px;
-                            margin-bottom: 10px;
                         }
 
                         .tabs {
@@ -383,19 +404,19 @@
                 }
             }
 
-            .synergies_table_pagination {
+            .synergies_pagination {
                 padding: 0 20px 18px 0;
                 display: flex;
                 justify-content: end;
                 align-items: center;
                 margin-top: 25px;
 
-                .synergies_table_pagination_content {
+                .synergies_pagination_content {
                     display: flex;
                     justify-content: space-between;
                     color: #BDBDBD;
 
-                    .synergies_table_pagination_content_text {
+                    .synergies_pagination_content_text {
                         font-size: 14px;
                         color: #fff;
                         display: flex;
@@ -421,7 +442,7 @@
                             }
                         }
 
-                        .synergies_table_pagination_content_arrows {
+                        .synergies_pagination_content_arrows {
                             display: flex;
                             gap: 12px;
 
