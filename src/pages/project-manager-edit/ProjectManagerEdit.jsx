@@ -9,6 +9,7 @@ import Select from "../../components/select/Select"
 import arrowRight from "../../assets/arrow-right.png"
 import AddAngelPopup from "../../components/popup/add-angel-popup/AddAngelPopup"
 import { useState } from "react"
+import { useFormik } from 'formik';
 
 
 const synergyAnglesOptions = [
@@ -49,8 +50,24 @@ const synergyAnglesOptions = [
     },
 ]
 
+
 const ProjectManagerEdit = () => {
     const [isAddAngelPopupOpen, setIsAddAngelPopupOpen] = useState(false)
+
+
+    const initialValues = {
+        email: '',
+    }
+
+    const formik = useFormik({
+        initialValues: initialValues,
+        onSubmit: (values) => {
+            console.log('values', values)
+        }
+    })
+
+    const { values, handleChange, handleBlur, submitForm } = formik
+
 
     return (
         <>
@@ -132,7 +149,17 @@ const ProjectManagerEdit = () => {
                             </div>
                             <div className="form_item_box">
                                 <div className="form_group">
-                                    <label htmlFor="arc">Joan of Arc</label>
+                                    <label htmlFor="arc">Twitter</label>
+                                    <input type="text" placeholder="twitter.com/username" />
+                                </div>
+                                <div className="form_group">
+                                    <label htmlFor="owner">Discord</label>
+                                    <input type="text" placeholder="discordapp.com/users/xxxx/" />
+                                </div>
+                            </div>
+                            <div className="form_item_box">
+                                <div className="form_group">
+                                    <label htmlFor="arc">Members</label>
                                     <Select
                                         options={[
                                             { label: 'Owner', value: 'Owner' },

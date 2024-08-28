@@ -12,9 +12,13 @@ import Synergies from './pages/synergies/Synergies'
 import SynergyProject from './pages/synergies/synergy-project/SynergyProject'
 import Chats from './pages/chats/Chats'
 import PendingSynergies from './pages/pending-synergies/PendingSynergies'
+import { injectStore } from './store/injector'
+import { store } from './store/store'
 
 
 function App() {
+
+  injectStore(store)
 
   return (
     <>
