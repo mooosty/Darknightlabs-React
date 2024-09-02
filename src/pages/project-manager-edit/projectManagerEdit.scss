@@ -584,6 +584,10 @@
               gap: 12px;
               margin-bottom: 24px;
 
+              input{
+                margin-bottom: 0px;;
+              }
+
               @media (max-width: 767px) {
                 margin-bottom: 10px;
                 gap: 5px;

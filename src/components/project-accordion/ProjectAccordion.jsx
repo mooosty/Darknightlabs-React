@@ -24,13 +24,14 @@ const ProjectAccordion = ({
     const id = Math.round(Math.random() * 1000)
     const [open, setOpen] = useState(false);
     const [isDeleteConfirmPopupOpen, setIsDeleteConfirmPopupOpen] = useState(false);
+    
     const handleDelete = (e) => {
-        onDelete
         e.stopPropagation()
         setIsDeleteConfirmPopupOpen(true)
     }
+
     const handleEdit = (e) => {
-        onEdit
+        onEdit()
         e.stopPropagation()
     }
 
@@ -163,6 +164,7 @@ const ProjectAccordion = ({
             <DeleteConfirmPopup
                 open={isDeleteConfirmPopupOpen}
                 handleClose={() => setIsDeleteConfirmPopupOpen(false)}
+                handleDelete={onDelete}
             />
         </>
     )

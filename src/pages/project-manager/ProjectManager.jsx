@@ -12,12 +12,15 @@ import tableActorImage3 from "../../assets/avatar-3.jpg";
 import editIcon from "../../assets/edit-icon.svg";
 import trashIcon from "../../assets/trash-icon.png";
 import closeIcon from "../../assets/X-icon.png";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Select from "../../components/select/Select"
 import ProjectAccordion from '../../components/project-accordion/ProjectAccordion';
 import ButtomMenu from '../../components/buttom-menu/ButtomMenu';
 import DeleteConfirmPopup from '../../components/popup/delete-confirm-popup/DeleteConfirmaPopup';
 import { Tooltip } from 'react-tooltip';
+import { getProjectsAPI, deleteProjectAPI } from '../../api-services/projectApis';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 
 const tableData = [
@@ -384,9 +387,54 @@ const tableData = [
 const ProjectManager = () => {
     const [activeLayout, setActiveLayout] = useState('TAB');
     const [isFilterOpen, setIsFilterOpen] = useState(false);
-    const [isButtomMenuOpen, setIsButtomMenuOpen] = useState(false);
+    const [isBottomMenuOpen, setIsBottomMenuOpen] = useState(false)
+    const [selectedProjects, setSelectedProjects] = useState([])
     const [isDeleteConfirmPopupOpen, setIsDeleteConfirmPopupOpen] = useState(false);
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const data = useSelector((state) => state.project.projects)
+    const projectData = [
+        ...data.map((project, index) => {
+            let tags = project.project_info?.split('#') || [];
+            tags = tags.filter(tag => tag).map(tag => `#${tag}`);
+
+            let synergy_angles = Object.keys(project.synergy_angles)
+                .map(key => project.synergy_angles[key] ? { label: project.synergy_angles[key] } : null)
+                .filter(item => item);
+
+            const row = {
+                key: index,
+                checked: false,
+                projectName: project.project_name,
+                teamMembers: [
+                ],
+                synergyImg: project.image ?? '',
+                synergiesAngles: synergy_angles,
+                type: tags,
+                isFeatured: project.featured,
+                date: formatDate(project.date),
+                disabled: false,
+                description: project.description,
+                projectId: project.project_id,
+            }
+            return row;
+        })
+    ]
+
+    function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
+
+        return [day, month, year].join('/');
+    }
 
     const handleActive = (key) => {
         setActiveLayout(key);
@@ -396,7 +444,44 @@ const ProjectManager = () => {
         setIsFilterOpen(!isFilterOpen);
     }
 
+    const handleDelete = (projectId) => {
+        dispatch(deleteProjectAPI({
+            "projectIds": [
+                projectId
+            ]
+        }))
+    }
 
+    const handleSelectProject = ({ projectId }) => {
+        let tmpSelectedProjects = [...selectedProjects]
+        const project = tmpSelectedProjects.find((item) => item === projectId)
+        if (project) {
+            tmpSelectedProjects = tmpSelectedProjects.filter((item) => item !== projectId)
+        } else {
+            tmpSelectedProjects.push(projectId)
+        }
+        setSelectedProjects([...tmpSelectedProjects])
+    }
+
+    const handleSelectAllProjects = () => {
+        if (selectedProjects.length === projectData.length && projectData.length !== 0) {
+            setSelectedProjects([])
+        } else {
+            setSelectedProjects([
+                ...projectData.map((project) => project.projectId)
+            ])
+        }
+    }
+
+    const handleCancelSelection = () => {
+        setSelectedProjects([])
+    }
+
+    useEffect(() => {
+        dispatch(getProjectsAPI());
+    }, [])
+
+    console.log('selectedProjects', selectedProjects)
     return (
         <>
             <div className="content_header">
@@ -466,18 +551,27 @@ const ProjectManager = () => {
                     </div>
                 </div>
                 <div className="project_page_body">
-                    <div className="project_page_table_handler">
+                    {selectedProjects.length > 0 && <div className="project_page_table_handler">
                         <div className="selected_count">
                             <div className="costum_checkbox">
-                                <input type="checkbox" id='checkboxSelected' className='costum_checkbox_input' defaultChecked='checked' />
-                                <label htmlFor='checkboxSelected' className='costum_checkbox_label'></label>
+                                <input
+                                    type="checkbox"
+                                    id='checkboxSelected'
+                                    className='costum_checkbox_input'
+                                    checked={selectedProjects.length === projectData.length && projectData.length !== 0}
+                                />
+                                <label
+                                    htmlFor='checkboxSelected'
+                                    className='costum_checkbox_label'
+                                    onClick={handleSelectAllProjects}
+                                ></label>
                             </div>
                             <span>
-                                1 Selected
+                                {selectedProjects.length} Selected
                             </span>
                         </div>
                         <div className="table_actions">
-                            <button className="btn_cancle btn_gray">
+                            <button className="btn_cancle btn_gray" onClick={handleCancelSelection}>
                                 <img src={closeIcon} alt="Add" />
                                 <span>Cancel</span>
                             </button>
@@ -499,12 +593,12 @@ const ProjectManager = () => {
                             <button className="button_delete ">
                                 <img src={trashIcon} alt="Delete" />
                             </button>
-                            <button className="menu_button" onClick={() => setIsButtomMenuOpen(true)}>
+                            <button className="menu_button" onClick={() => setIsBottomMenuOpen(true)}>
                                 <MoreIcon />
                             </button>
                         </div>
+                    </div>}
 
-                    </div>
                     <div className="project_page_table">
                         <table>
                             <thead>
@@ -522,14 +616,23 @@ const ProjectManager = () => {
                             </thead>
                             <tbody>
                                 {
-                                    tableData.map((rowData) => {
+                                    projectData.map((rowData) => {
                                         return (
-                                            <tr key={rowData.key} className={`${rowData.isFeatured ? 'heighlighted' : ''} ${rowData.checked ? 'selected' : ''}`}>
+                                            <tr key={rowData.projectId} className={`${rowData.isFeatured ? 'heighlighted' : ''} ${selectedProjects.includes(selectedProjects.projectId) ? 'selected' : ''}`}>
                                                 <td>
                                                     <div className='table_name'>
-                                                        <div className="costum_checkbox">
-                                                            <input type="checkbox" id={`tableName_${rowData.key}`} className='costum_checkbox_input' checked={rowData.checked} />
-                                                            <label htmlFor={`tableName_${rowData.key}`} className='costum_checkbox_label'></label>
+                                                        <div
+                                                            className="costum_checkbox"
+                                                        >
+                                                            <input
+                                                                type="checkbox"
+                                                                className='costum_checkbox_input'
+                                                                checked={selectedProjects.includes(rowData.projectId)}
+                                                            />
+                                                            <label
+                                                                className='costum_checkbox_label'
+                                                                onClick={() => handleSelectProject(rowData)}
+                                                            ></label>
                                                         </div>
                                                         <span className='label'> {rowData.projectName}</span>
                                                     </div>
@@ -623,10 +726,14 @@ const ProjectManager = () => {
                                                 </td>
                                                 <td>
                                                     <div className="actions">
-                                                        <button className='btn'>
+                                                        <button className='btn' onClick={() => {
+                                                            navigate(`/project-manager/${rowData.projectId}`)
+                                                        }}>
                                                             <img src={editIcon} alt=" " />
                                                         </button>
-                                                        <button className='btn'>
+                                                        <button className='btn' onClick={() => {
+                                                            handleDelete(rowData.projectId)
+                                                        }}>
                                                             <img src={trashIcon} alt=" " />
                                                         </button>
                                                     </div>
@@ -641,7 +748,7 @@ const ProjectManager = () => {
 
                     <div className="project_page_accordion">
                         {
-                            tableData.map((rowData) => (
+                            projectData.map((rowData) => (
                                 <ProjectAccordion
                                     key={rowData.key}
                                     projectName={rowData.projectName}
@@ -654,18 +761,24 @@ const ProjectManager = () => {
                                     date={rowData.date}
                                     isFeatured={rowData.isFeatured}
                                     checked={rowData.checked}
+                                    onDelete={() => {
+                                        handleDelete(rowData.projectId)
+                                    }}
+                                    onEdit={() => {
+                                        navigate(`/project-manager/${rowData.projectId}`)
+                                    }}
                                 />))
                         }
                     </div>
                 </div>
             </div>
-            <DeleteConfirmPopup
+            {/* <DeleteConfirmPopup
                 open={isDeleteConfirmPopupOpen}
                 handleClose={() => setIsDeleteConfirmPopupOpen(false)}
-            />
+            /> */}
             <ButtomMenu
-                open={isButtomMenuOpen}
-                handleClose={() => setIsButtomMenuOpen(false)}
+                open={isBottomMenuOpen}
+                handleClose={() => setIsBottomMenuOpen(false)}
             />
         </>
     )

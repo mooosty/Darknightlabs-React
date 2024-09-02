@@ -306,6 +306,7 @@
             .project_page_table_handler {
                 padding: 12px 24px;
                 display: flex;
+                margin-bottom: 20px;
 
                 align-items: center;
                 gap: 18px;
@@ -468,7 +469,7 @@
             }
 
             .project_page_table {
-                margin: 20px 24px;
+                margin: 0px 24px 20px 24px;
                 padding-bottom: 20px;
 
                 @media (max-width: 1240px) {

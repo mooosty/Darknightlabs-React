@@ -3,7 +3,7 @@ import closeIcon from '../../../assets/X-icon.png'
 
 import './DeleteConfirmPopup.scss';
 
-const DeleteConfirmPopup = ({ open, handleClose }) => {
+const DeleteConfirmPopup = ({ open, handleClose, handleDelete }) => {
 
     return (
         <>
@@ -32,6 +32,7 @@ const DeleteConfirmPopup = ({ open, handleClose }) => {
                                 handleClose()
                             }}>Cancel</button>
                             <button className='delete_btn' onClick={() => {
+                                handleDelete()
                                 handleClose()
                             }}>Delete</button>
                         </div>
@@ -45,6 +46,7 @@ const DeleteConfirmPopup = ({ open, handleClose }) => {
 DeleteConfirmPopup.propTypes = {
     open: PropTypes.bool,
     handleClose: PropTypes.func,
+    handleDelete:PropTypes.func
 }
 
 export default DeleteConfirmPopup

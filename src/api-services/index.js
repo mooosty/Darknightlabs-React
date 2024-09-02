@@ -4,19 +4,19 @@ import { getStore } from "../store/injector";
 
 const axiosApi = Axios.create({
     baseURL: apiRoutes.BASE,
-    timeout: 10000, //  timeout value (10 seconds)
+    // timeout: 10000, //  timeout value (10 seconds)
     responseType: 'json',
 })
 
 axiosApi.interceptors.request.use(
     async (config) => {
-        const store = getStore()
+        const store = getStore()?.getState()
         let headers = {
             Accept: "application/json, */*",
             "Content-Type": "application/json",
         }
 
-        if (store.auth.token) {
+        if (store?.auth?.token) {
             headers = {
                 ...headers,
                 "Authorization": `Bearer ${store.auth.token}`
@@ -26,7 +26,6 @@ axiosApi.interceptors.request.use(
         config.headers = {
             ...headers
         }
-
         return config
     },
     (error) => { return error }
