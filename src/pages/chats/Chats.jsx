@@ -25,9 +25,11 @@ import chatMassageDP from '../../assets/chat-message-dp.png'
 import chatMassageDP1 from '../../assets/chat-message-dp1.png'
 import sharedImg from '../../assets/chat_shared-image.png'
 import { AddUserIcon, AttechmentIcon, DownAccordionIcon, EmojiFiiledIcon, HashTag, MicrophoneIcon, UserIcon } from '../../utils/SVGs/SVGs';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AddChatMemberPopup from '../../components/popup/add-chat-menber-popup/AddChatMemberPopup'
 import ChatMembers from '../../components/chat-members/ChatMembers';
+import { getGroupsAPI } from '../../api-services/chatApis';
+import { useDispatch,useSelector } from 'react-redux';
 
 const chatSynergies = [
     {
@@ -200,6 +202,11 @@ const Chats = () => {
     const [chatNumber, setchatNumber] = useState(false);
     const [isChatMembersOpen, setIsChatMembersOpen] = useState(false);
 
+    const data=useSelector((state)=>{return state.auth})
+    console.log('data :>> ', data);
+
+    const dispatch = useDispatch();
+
 
     const handleChannelOpen = () => {
         setIsChannelOpen(!isChannelOpen);
@@ -219,6 +226,10 @@ const Chats = () => {
         setIsMenberListOpen(!isMenberListOpen);
 
     }
+
+    useEffect(()=>{
+        dispatch(getGroupsAPI())
+    },[])
 
 
     return (

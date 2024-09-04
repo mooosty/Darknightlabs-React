@@ -5,7 +5,7 @@ import { axiosApi } from './index'
 export const getProjectsAPI = createAsyncThunk('project/get',
     async (data, thunkAPI) => {
         const response = await axiosApi.get(apiRoutes.PROJECT, data)
-        if (response?.statusText==='OK') return response?.data
+        if (response?.statusText === 'OK') return response?.data
         else return thunkAPI.rejectWithValue(response?.data)
     }
 )
@@ -13,7 +13,10 @@ export const getProjectsAPI = createAsyncThunk('project/get',
 export const addProjectAPI = createAsyncThunk('project/add',
     async (data, thunkAPI) => {
         const response = await axiosApi.post(apiRoutes.PROJECT, data)
-        if (response?.data?.success) return response?.data
+        if (response?.data?.success) return {
+            response: response?.data,
+            data: data
+        }
         else return thunkAPI.rejectWithValue(response?.data)
     }
 )
@@ -34,11 +37,14 @@ export const addMemberAPI = createAsyncThunk('userproject/add',
     }
 )
 
-export const deleteProjectAPI= createAsyncThunk('project/delete',
+export const deleteProjectAPI = createAsyncThunk('project/delete',
     async (data, thunkAPI) => {
         console.log('data :>> ', data);
-        const response = await axiosApi.delete(apiRoutes.PROJECT,{data:data})
-        if (response?.data?.success) return response?.data
+        const response = await axiosApi.delete(apiRoutes.PROJECT, { data: data })
+        if (response?.data?.success) return {
+            response: response?.data,
+            data: data
+        }
         else return thunkAPI.rejectWithValue(response?.data)
     }
 )

@@ -21,6 +21,7 @@ import { Tooltip } from 'react-tooltip';
 import { getProjectsAPI, deleteProjectAPI } from '../../api-services/projectApis';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { addFeature } from '../../store/slice/projectSlice';
 
 
 const tableData = [
@@ -390,10 +391,12 @@ const ProjectManager = () => {
     const [isBottomMenuOpen, setIsBottomMenuOpen] = useState(false)
     const [selectedProjects, setSelectedProjects] = useState([])
     const [isDeleteConfirmPopupOpen, setIsDeleteConfirmPopupOpen] = useState(false);
+    const [dltId,setDltId]=useState(null);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const data = useSelector((state) => state.project.projects)
+    console.log('data :>> ', data);
     const projectData = [
         ...data.map((project, index) => {
             let tags = project.project_info?.split('#') || [];
@@ -449,7 +452,11 @@ const ProjectManager = () => {
             "projectIds": [
                 projectId
             ]
-        }))
+        })).then(()=>{
+            console.log('suCcess :>> ', );
+            setIsDeleteConfirmPopupOpen(false);
+            setDltId(null);
+        })
     }
 
     const handleSelectProject = ({ projectId }) => {
@@ -478,10 +485,11 @@ const ProjectManager = () => {
     }
 
     useEffect(() => {
-        dispatch(getProjectsAPI());
+        if (data.length === 0)
+            dispatch(getProjectsAPI());
     }, [])
 
-    console.log('selectedProjects', selectedProjects)
+    // console.log('selectedProjects', selectedProjects)
     return (
         <>
             <div className="content_header">
@@ -514,7 +522,9 @@ const ProjectManager = () => {
                             >
                                 Filters <img src={filterIcon} alt=" " />
                             </button>
-                            <button className={`btn_gray `} >
+                            <button className={`btn_gray `} onClick={()=>{
+                                navigate('/project-manager/ADD')
+                            }}>
                                 Add New Project
                                 <img src={addIcon} alt="" />
                             </button>
@@ -575,7 +585,9 @@ const ProjectManager = () => {
                                 <img src={closeIcon} alt="Add" />
                                 <span>Cancel</span>
                             </button>
-                            <button className="btn_featured btn_gray">
+                            <button className="btn_featured btn_gray" onClick={()=>{
+                                dispatch(addFeature(selectedProjects))
+                            }}>
                                 <TableStatusIcon />
                                 <span>Add to Featured</span>
                             </button>
@@ -583,7 +595,13 @@ const ProjectManager = () => {
                                 <InfiniteIcon />
                                 <span>Create synergy</span>
                             </button>
-                            <button className="btn_delete ">
+                            <button className="btn_delete " onClick={() => {
+                                dispatch(deleteProjectAPI({
+                                    "projectIds": [
+                                        ...selectedProjects
+                                    ]
+                                }))
+                            }}>
                                 <img src={trashIcon} alt="Delete" />
                                 <span>Delete</span>
                             </button>
@@ -732,7 +750,8 @@ const ProjectManager = () => {
                                                             <img src={editIcon} alt=" " />
                                                         </button>
                                                         <button className='btn' onClick={() => {
-                                                            handleDelete(rowData.projectId)
+                                                            setIsDeleteConfirmPopupOpen(true);
+                                                            setDltId(rowData.projectId)
                                                         }}>
                                                             <img src={trashIcon} alt=" " />
                                                         </button>
@@ -772,10 +791,16 @@ const ProjectManager = () => {
                     </div>
                 </div>
             </div>
-            {/* <DeleteConfirmPopup
+            <DeleteConfirmPopup
+                title='Are You Sure ?'
+                description={`After once a delete project can't be recover...`}
                 open={isDeleteConfirmPopupOpen}
-                handleClose={() => setIsDeleteConfirmPopupOpen(false)}
-            /> */}
+                handleClose={() => {
+                    setIsDeleteConfirmPopupOpen(false);
+                    setDltId(null);
+                }}
+                handleDelete={()=> handleDelete(dltId)}
+            />
             <ButtomMenu
                 open={isBottomMenuOpen}
                 handleClose={() => setIsBottomMenuOpen(false)}

@@ -13,7 +13,8 @@ import { useFormik } from 'formik';
 import { addProjectAPI, deleteProjectAPI, addMemberAPI, updateProjectAPI } from "../../api-services/projectApis"
 import { getUsersAPI } from "../../api-services/userApis"
 import { useDispatch, useSelector } from "react-redux"
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams,Link } from "react-router-dom"
+import { updateProject } from "../../store/slice/projectSlice"
 
 
 const synergyAnglesOptions = [
@@ -64,7 +65,7 @@ const ProjectManagerEdit = () => {
     const navigate = useNavigate();
     const { projectId } = useParams();
     const projectData = useSelector(state => state.project.projects.find(project => project.project_id == projectId))
-    const userData = useSelector(state => { return state.user.users })
+    
 
     const initialValues = {
         project_name: '',
@@ -123,8 +124,8 @@ const ProjectManagerEdit = () => {
 
         const synergy_obj = {};
 
-        values.synergy_angles.forEach(({ synergy_angle }, index) => {
-            synergy_obj[`synergy_angle${index}`] = synergy_angle;
+        values.synergy_angles.forEach(( synergy_angle, index) => {
+            synergy_obj[`synergy_angle${index}`] = synergy_angle[`synergy_angle${index}`];
         });
 
         const investment_obj = {};
@@ -134,7 +135,6 @@ const ProjectManagerEdit = () => {
         });
 
         const data = {
-            "project_id": 0,
             "project_name": values.project_name,
             "project_info": values.tags,
             "website": "",
@@ -174,9 +174,10 @@ const ProjectManagerEdit = () => {
 
         const synergy_obj = {};
 
-        values.synergy_angles.forEach(({ synergy_angle }, index) => {
-            synergy_obj[`synergy_angle${index}`] = synergy_angle;
+        values.synergy_angles.forEach(( synergy_angle, index) => {
+            synergy_obj[`synergy_angle${index}`] = synergy_angle[`synergy_angle${index}`];
         });
+
 
         const investment_obj = {};
 
@@ -201,14 +202,17 @@ const ProjectManagerEdit = () => {
             "investments_access": true,
             "investments": investment_obj
         }
-        dispatch(updateProjectAPI(data))
+        // dispatch(addProjectAPI(data))//after change with update
+
+        dispatch(updateProject(data));
+        navigate('/project-manager');
     }
 
 
 
     // console.log('values :>> ', values);
     useEffect(() => {
-        if (projectId !== 0) {
+        if (projectId !== 'ADD') {
             let synergy_angles = [];
             if (projectData?.synergy_angles)
                 Object.keys(projectData?.synergy_angles).forEach((key, index) => {
@@ -252,7 +256,6 @@ const ProjectManagerEdit = () => {
         dispatch(getUsersAPI());
     }, [])
 
-    console.log('values :>> ', values);
 
 
 
@@ -273,14 +276,14 @@ const ProjectManagerEdit = () => {
             <div className="page_data">
                 <div className="page_header">
                     <div className="pagination">
-                        <a href="#">Project manager</a>
+                        <Link to={'/project-manager'}>Project manager</Link>
                         <span>
                             <img src={arrowRight} alt="" />
                         </span>
-                        <p>Project name 111</p>
+                        <p>{values.project_name}</p>
                     </div>
-                    {projectId !== 0 && <button className="btn_gray" onClick={handleSaveChanges}>Save changes</button>}
-                    {projectId === 0 && <button className="btn_gray" onClick={handleAddProject}>Add Project</button>}
+                    {projectId !== 'ADD' && <button className="btn_gray" onClick={handleSaveChanges}>Save changes</button>}
+                    {projectId === 'ADD' && <button className="btn_gray" onClick={handleAddProject}>Add Project</button>}
                 </div>
                 <div className="page_content">
                     <div className="project_author">
@@ -578,7 +581,7 @@ const ProjectManagerEdit = () => {
                 </div>
             </div>
             <div className="delete_project_btn">
-                <button className="btn_delete" disabled={projectId === 0} onClick={() => {
+                <button className="btn_delete" disabled={projectId === 'ADD'} onClick={() => {
                     dispatch(deleteProjectAPI({
                         "projectIds": [
                             projectId
@@ -588,8 +591,8 @@ const ProjectManagerEdit = () => {
                 }}>
                     <img src={trashIcon} alt="Delete" /> Delete project
                 </button>
-                {projectId !== 0 && <button className="btn_gray" onClick={handleSaveChanges}>Save changes</button>}
-                {projectId === 0 && <button className="btn_gray" onClick={handleAddProject}>Add Project</button>}
+                {projectId !== 'ADD' && <button className="btn_gray" onClick={handleSaveChanges}>Save changes</button>}
+                {projectId === 'ADD' && <button className="btn_gray" onClick={handleAddProject}>Add Project</button>}
             </div>
 
             <AddAngelPopup
