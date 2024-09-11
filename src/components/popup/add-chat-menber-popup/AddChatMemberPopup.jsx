@@ -137,17 +137,23 @@ const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
         setIsMemberInvited(index)
     }
 
-    useEffect(() => {
-        if (searchUser !== '') {
+    const handleSearch = (value) => {
+        setSearchUser(value);
+        if (value !== '') {
             const tempArr = initialMember.filter((member) => {
-                return member.name.indexOf(searchUser) !== -1;
+                return member.name.indexOf(value) !== -1;
             })
             setFilteredMember([...tempArr]);
         }
         else {
-            setFilteredMember([...memberList])
+            setFilteredMember([...initialMember])
         }
-    }, [searchUser, initialMember])
+    }
+
+    useEffect(() => {
+        if (searchUser !== '')
+            handleSearch(searchUser);
+    }, [initialMember])
 
     useEffect(() => {
         const userIdArr = groupUser?.[0].users.map((user) => user['_id']);
@@ -156,7 +162,7 @@ const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
         });
         setFilteredMember([...tmpArr])
         setInitialMember([...tmpArr])
-    }, [memberList, groupUser])
+    }, [memberList, groupUser.length])
 
 
     return (
@@ -181,7 +187,8 @@ const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
                                 <div className="search_box">
                                     <img className="search_icon" src={searchIcon} alt="Search" />
                                     <input type="text" placeholder="Search" onChange={(e) => {
-                                        setSearchUser(e.target.value);
+                                        console.log('searching :>> ', );
+                                        handleSearch(e.target.value)
                                     }} />
                                 </div>
                                 <div className="member_list_box">
@@ -240,16 +247,18 @@ const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
                             <div className="member_list_main">
                                 <div className="search_box">
                                     <img className="search_icon" src={searchIcon} alt="Search" />
-                                    <input type="text" placeholder="Search" />
+                                    <input type="text" placeholder="Search" onChange={(e) => {
+                                        handleSearch(e.target.value)
+                                    }}/>
                                 </div>
                                 <div className="member_list_box">
                                     <div className="list">
-                                        {memberList.map((data, index) => {
+                                        {filteredMember.map((data, index) => {
                                             return (
                                                 <div key={index} className="member_list_item">
                                                     <div className="item_left">
                                                         <div className="costum_checkboxs">
-                                                            <input type="checkbox" id={`add_member_checkbox_${index}`} defaultChecked={true} name='add_member_checkbox' className='costum_checkbox_inputs' />
+                                                            <input type="checkbox" id={`add_member_checkbox_${index}`} defaultChecked={selectedMember.includes(data['_id'])} name='add_member_checkbox' className='costum_checkbox_inputs' />
                                                             <label htmlFor={`add_member_checkbox_${index}`} className='costum_checkbox_labels'></label>
                                                         </div>
                                                         <div className="item_name">
