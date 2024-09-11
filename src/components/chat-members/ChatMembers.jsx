@@ -127,12 +127,7 @@ const participantList = [
     },
 ]
 
-const ChatMembers = ({ open, handleClose }) => {
-    const [isAddChatMemberPopupOpen, setIsAddChatMemberPopupOpen] = useState(false);
-    const handlePopup = () => {
-        setIsAddChatMemberPopupOpen(true)
-        handleClose()
-    }
+const ChatMembers = ({ open, handleClose, groupData,openChatIndex,handleOpenAddMemberPopup }) => {
 
     return (
         <>
@@ -143,39 +138,38 @@ const ChatMembers = ({ open, handleClose }) => {
                         <div className="head"> Chat members </div>
 
                         <div className="members_list">
-
                             <div className="list_container">
-                                <div className="list_header"> Moderators - {moderatorList.length} </div>
+                                <div className="list_header"> Moderators - {1} </div>
                                 <div className="list_body">
-                                    {moderatorList.map((data, index) => {
-                                        return (
-                                            <div key={index} className="list_items">
+                                    {/* {moderatorList.map((data, index) => {
+                                        return ( */}
+                                            <div  className="list_items">
                                                 <div className="img">
-                                                    <img src={data.img} alt=" " />
+                                                    <img src={member2} alt=" " />
                                                 </div>
                                                 <div className="name">
                                                     <div className="top">
-                                                        <div className="top_left">{data.name} </div>
-                                                        <div className="top_right">{data.tpye}</div>
+                                                        <div className="top_left">{groupData[openChatIndex]?.groupAdmin?.name} </div>
+                                                        {/* <div className="top_right">{data.tpye}</div> */}
                                                     </div>
-                                                    <div className="bottom">{data.project}</div>
+                                                    {/* <div className="bottom">{data.project}</div> */}
                                                 </div>
                                             </div>
-                                        )
-                                    })}
+                                        {/* )
+                                    })} */}
                                 </div>
-                                <div className="list_header"> Participants - {participantList.length} </div>
+                                <div className="list_header"> Participants - {groupData[openChatIndex]?.users.length} </div>
                                 <div className="list_body">
-                                    {participantList.map((data, index) => {
+                                    {groupData?.[openChatIndex]?.users.map((data, index) => {
                                         return (
                                             <div key={index} className="list_items">
                                                 <div className="img">
-                                                    <img src={data.img} alt=" " />
+                                                    <img src={member1} alt=" " />
                                                 </div>
                                                 <div className="name">
                                                     <div className="top">
                                                         <div className="top_left">{data.name} </div>
-                                                        <div className="top_right">{data.tpye}</div>
+                                                        {/* <div className="top_right">{data.tpye}</div> */}
                                                     </div>
                                                 </div>
                                             </div>
@@ -183,7 +177,7 @@ const ChatMembers = ({ open, handleClose }) => {
                                     })}
                                 </div>
                             </div>
-                            <button className="btn_gray" onClick={handlePopup}>
+                            <button className="btn_gray" onClick={handleOpenAddMemberPopup}>
                                 <span>Add user</span>
                                 < AddUserIcon />
                             </button>
@@ -191,16 +185,15 @@ const ChatMembers = ({ open, handleClose }) => {
                     </div>
                 </div>
             </div>
-            <AddChatMemberPopup
-                open={isAddChatMemberPopupOpen}
-                handleClose={() => setIsAddChatMemberPopupOpen(false)}
-            />
         </>
     )
 }
 ChatMembers.propTypes = {
     open: PropTypes.bool,
     handleClose: PropTypes.func,
+    groupData:PropTypes.array,
+    openChatIndex:PropTypes.number,
+    handleOpenAddMemberPopup:PropTypes.func
 }
 
 export default ChatMembers

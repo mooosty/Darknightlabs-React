@@ -3,12 +3,12 @@ import searchIcon from "../../assets/search-icon.png"
 import addIcon from "../../assets/add-icon.png"
 import { GridIcon, ListIcon, TableStatusIcon, GredientGlobalIcon, GradientGraphIcon, InfiniteIcon, MoreIcon } from '../../utils/SVGs/SVGs'
 import filterIcon from "../../assets/filter.svg";
-import tableActor1 from "../../assets/tableActorImage.jpg";
-import tableActor2 from "../../assets/tableActorImage1.jpg";
-import tableActor3 from "../../assets/tableActorImage2.jpg";
-import tableActorImage1 from "../../assets/avatar-1.jpg";
-import tableActorImage2 from "../../assets/avatar-2.jpg";
-import tableActorImage3 from "../../assets/avatar-3.jpg";
+// import tableActor1 from "../../assets/tableActorImage.jpg";
+// import tableActor2 from "../../assets/tableActorImage1.jpg";
+// import tableActor3 from "../../assets/tableActorImage2.jpg";
+// import tableActorImage1 from "../../assets/avatar-1.jpg";
+// import tableActorImage2 from "../../assets/avatar-2.jpg";
+// import tableActorImage3 from "../../assets/avatar-3.jpg";
 import editIcon from "../../assets/edit-icon.svg";
 import trashIcon from "../../assets/trash-icon.png";
 import closeIcon from "../../assets/X-icon.png";
@@ -22,369 +22,7 @@ import { getProjectsAPI, deleteProjectAPI } from '../../api-services/projectApis
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { addFeature } from '../../store/slice/projectSlice';
-import { date } from 'yup';
 
-
-const tableData = [
-    {
-        key: 1,
-        checked: true,
-        projectName: 'Project 1581',
-        teamMembers: [
-            {
-                icon: tableActor1,
-                tooltip: 'Alexander - Founder and CEO'
-            },
-            {
-                icon: tableActor2,
-                tooltip: 'Alexander - Founder and CEO'
-            },
-            {
-                icon: tableActor3,
-                tooltip: 'Alexander - Founder and CEO'
-            },
-            {
-                icon: tableActor1,
-                tooltip: 'Alexander - Founder and CEO'
-            },
-            {
-                icon: tableActor1,
-                tooltip: 'Alexander - Founder and CEO'
-            }],
-        synergyImg: tableActorImage1,
-        description: 'Porem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.',
-        synergiesAngles: [
-            {
-                label: 'IP integration',
-            },
-            {
-                label: 'Hosting AMAS',
-            },
-            {
-                label: 'Angle48'
-            },
-            {
-                label: 'Angle48'
-            },
-            {
-                label: 'Angle48'
-            },
-            {
-                label: 'Angle48'
-            }],
-        type: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
-        isFeatured: true,
-        date: '12/12/2024',
-        disabled: false
-    },
-    {
-        key: 2,
-        projectName: 'Project 1581',
-        teamMembers: [
-            {
-                icon: tableActor1,
-                tooltip: 'Alexander - Founder and CEO'
-            },
-            {
-                icon: tableActor2,
-                tooltip: 'Alexander - Founder and CEO'
-            },
-            {
-                icon: tableActor3,
-                tooltip: 'Alexander - Founder and CEO'
-            }],
-        synergyImg: tableActorImage2,
-        description: 'Porem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.',
-        synergiesAngles: [
-            {
-                label: 'IP integration',
-            },
-            {
-                label: 'Hosting AMAS',
-            },
-            {
-                label: 'Angle48'
-            },
-            {
-                label: 'Angle48'
-            },
-            {
-                label: 'Angle48'
-            },
-            {
-                label: 'Angle48'
-            }],
-        type: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
-        status: 'Default',
-        date: '12/12/2024',
-    },
-    {
-        key: 3,
-        projectName: 'Project 1581',
-        teamMembers: [
-            {
-                icon: tableActor1,
-                tooltip: 'Alexander - Founder and CEO'
-            },
-            {
-                icon: tableActor1,
-                tooltip: 'Alexander - Founder and CEO'
-            },
-            {
-                icon: tableActor1,
-                tooltip: 'Alexander - Founder and CEO'
-            },
-            {
-                icon: tableActor1,
-                tooltip: 'Alexander - Founder and CEO'
-            }],
-        synergyImg: tableActorImage3,
-        description: 'Porem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.',
-        synergiesAngles: [
-            {
-                label: 'IP integration',
-            },
-            {
-                label: 'Hosting AMAS',
-            },
-            {
-                label: 'Angle48'
-            },
-            {
-                label: 'Angle48'
-            },
-            {
-                label: 'Angle48'
-            },
-            {
-                label: 'Angle48'
-            }],
-        type: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
-        isFeatured: true,
-        date: '12/12/2024',
-    },
-    {
-        key: 4,
-        projectName: 'Project 1581',
-        teamMembers: [
-            {
-                icon: tableActor1,
-                tooltip: 'Alexander - Founder and CEO'
-            },
-            {
-                icon: tableActor2,
-                tooltip: 'Alexander - Founder and CEO'
-            },
-            {
-                icon: tableActor3,
-                tooltip: 'Alexander - Founder and CEO'
-            }],
-        synergyImg: tableActorImage1,
-        description: 'Porem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.',
-        synergiesAngles: [
-            {
-                label: 'IP integration',
-            },
-            {
-                label: 'Hosting AMAS',
-            },
-            {
-                label: 'Angle48'
-            },
-            {
-                label: 'Angle48'
-            },
-            {
-                label: 'Angle48'
-            },
-            {
-                label: 'Angle48'
-            }],
-        type: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
-        isFeatured: true,
-        date: '12/12/2024',
-    },
-    {
-        key: 5,
-        projectName: 'Project 1581',
-        teamMembers: [
-            {
-                icon: tableActor1,
-                tooltip: 'Alexander - Founder and CEO'
-            },
-            {
-                icon: tableActor2,
-                tooltip: 'Alexander - Founder and CEO'
-            },
-            {
-                icon: tableActor3,
-                tooltip: 'Alexander - Founder and CEO'
-            }],
-        synergyImg: tableActorImage2,
-        description: 'Porem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.',
-        synergiesAngles: [
-            {
-                label: 'IP integration',
-            },
-            {
-                label: 'Hosting AMAS',
-            },
-            {
-                label: 'Angle48'
-            },
-            {
-                label: 'Angle48'
-            },
-            {
-                label: 'Angle48'
-            },
-            {
-                label: 'Angle48'
-            }],
-        type: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
-        status: 'Default',
-        date: '12/12/2024',
-    },
-    {
-        key: 6,
-        projectName: 'Project 1581',
-        teamMembers: [
-            {
-                icon: tableActor1,
-                tooltip: 'Alexander - Founder and CEO'
-            },
-            {
-                icon: tableActor1,
-                tooltip: 'Alexander - Founder and CEO'
-            },
-            {
-                icon: tableActor1,
-                tooltip: 'Alexander - Founder and CEO'
-            },
-            {
-                icon: tableActor1,
-                tooltip: 'Alexander - Founder and CEO'
-            }],
-        synergyImg: tableActorImage3,
-        description: 'Porem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.',
-        synergiesAngles: [
-            {
-                label: 'IP integration',
-            },
-            {
-                label: 'Hosting AMAS',
-            },
-            {
-                label: 'Angle48'
-            },
-            {
-                label: 'Angle48'
-            },
-            {
-                label: 'Angle48'
-            },
-            {
-                label: 'Angle48'
-            }],
-        type: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
-        status: 'Default',
-        date: '12/12/2024',
-    },
-    {
-        key: 7,
-        projectName: 'Project 1581',
-        teamMembers: [
-            {
-                icon: tableActor1,
-                tooltip: 'Alexander - Founder and CEO'
-            },
-            {
-                icon: tableActor2,
-                tooltip: 'Alexander - Founder and CEO'
-            },
-            {
-                icon: tableActor3,
-                tooltip: 'Alexander - Founder and CEO'
-            },
-            {
-                icon: tableActor1,
-                tooltip: 'Alexander - Founder and CEO'
-            },
-            {
-                icon: tableActor1,
-                tooltip: 'Alexander - Founder and CEO'
-            }],
-        synergyImg: tableActorImage3,
-        description: 'Porem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.',
-        synergiesAngles: [
-            {
-                label: 'IP integration',
-            },
-            {
-                label: 'Hosting AMAS',
-            },
-            {
-                label: 'Angle48'
-            },
-            {
-                label: 'Angle48'
-            },
-            {
-                label: 'Angle48'
-            },
-            {
-                label: 'Angle48'
-            }],
-        type: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
-        status: 'Default',
-        date: '12/12/2024',
-    },
-    {
-        key: 8,
-        projectName: 'Project 1581',
-        teamMembers: [
-            {
-                icon: tableActor1,
-                tooltip: 'Alexander - Founder and CEO'
-            },
-            {
-                icon: tableActor1,
-                tooltip: 'Alexander - Founder and CEO'
-            },
-            {
-                icon: tableActor1,
-                tooltip: 'Alexander - Founder and CEO'
-            },
-            {
-                icon: tableActor1,
-                tooltip: 'Alexander - Founder and CEO'
-            }],
-        synergyImg: tableActorImage2,
-        description: 'Porem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.',
-        synergiesAngles: [
-            {
-                label: 'IP integration',
-            },
-            {
-                label: 'Hosting AMAS',
-            },
-            {
-                label: 'Angle48'
-            },
-            {
-                label: 'Angle48'
-            },
-            {
-                label: 'Angle48'
-            },
-            {
-                label: 'Angle48'
-            }],
-        type: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
-        status: 'Default',
-        date: '12/12/2024',
-    }
-]
 
 const synergyAnglesOptions = [
     {
@@ -491,16 +129,13 @@ const ProjectManager = () => {
     }
 
     const handleSelectAllProjects = () => {
-        setSelectedProjects([
-            ...filterProject.map((project) => project.projectId)
-        ])
-        // if (selectedProjects.length === initialProject.length && initialProject.length !== 0) {
-        //     setSelectedProjects([])
-        // } else {
-        //     setSelectedProjects([
-        //         ...initialProject.map((project) => project.projectId)
-        //     ])
-        // }
+        if (selectedProjects.length === filterProject.length && filterProject.length !== 0) {
+            setSelectedProjects([])
+        } else {
+            setSelectedProjects([
+                ...filterProject.map((project) => project.projectId)
+            ])
+        }
     }
 
     const handleCancelSelection = () => {
@@ -548,29 +183,27 @@ const ProjectManager = () => {
                 setFilterProject([...filterArr])
             }
             else if (filter.sortBy === 'date') {
-                console.log('as :>> ', );
                 const filterArr = filterProject.sort((project1, project2) => {
                     const dateA = project1.date.split('/');
                     const dateB = project2.date.split('/');
-                    if(dateA[2]===dateB[2]){
-                        if(dateA[1]===dateB[1]){
-                             return dateB[0]-dateA[0];
+                    if (dateA[2] === dateB[2]) {
+                        if (dateA[1] === dateB[1]) {
+                            return dateB[0] - dateA[0];
                         }
-                        else{
-                          return dateB[1]-dateA[2];
+                        else {
+                            return dateB[1] - dateA[2];
                         }
                     }
-                    else{
+                    else {
                         return dateB[2] - dateA[2];
                     }
                 });
                 setFilterProject([...filterArr])
             }
-            else if(filter.sortBy==='description'){
+            else if (filter.sortBy === 'description') {
                 const filterArr = filterProject.sort((project1, project2) => {
                     const firstLetterA = project1.description.trim()[0].toLowerCase();
                     const firstLetterB = project2.description.trim()[0].toLowerCase();
-                    console.log('firstLetterA :>> ', firstLetterA);
 
                     if (firstLetterA < firstLetterB) {
                         return -1;
@@ -620,11 +253,11 @@ const ProjectManager = () => {
         setFilterProject([...projectData])
     }, [data])
 
-
     useEffect(() => {
         if (data.length === 0)
             dispatch(getProjectsAPI());
     }, [])
+
 
     return (
         <>
@@ -672,6 +305,7 @@ const ProjectManager = () => {
                                 options={synergyAnglesOptions}
                                 placeholder={'All synergies angles'}
                                 onChange={(value) => {
+                                    setSelectedProjects([])
                                     setFilter({
                                         ...filter,
                                         synergyAngleValue: value.value
@@ -694,11 +328,12 @@ const ProjectManager = () => {
                                 options={[
                                     { label: 'Project Name', value: 'name' },
                                     { label: 'Status', value: 'status' },
-                                    { label: 'Description', value:'description'},
+                                    { label: 'Description', value: 'description' },
                                     { label: 'Date', value: 'date' },
                                 ]}
                                 placeholder={'Sort by'}
                                 onChange={(value) => {
+                                    setSelectedProjects([])
                                     setFilter({
                                         ...filter,
                                         sortBy: value.value
@@ -781,7 +416,7 @@ const ProjectManager = () => {
                                 {
                                     filterProject.map((rowData) => {
                                         return (
-                                            <tr key={rowData.projectId} className={`${rowData.isFeatured ? 'heighlighted' : ''} ${selectedProjects.includes(selectedProjects.projectId) ? 'selected' : ''}`}>
+                                            <tr key={rowData.projectId} className={`${rowData.isFeatured ? 'heighlighted' : ''} ${selectedProjects.includes(rowData.projectId) ? 'selected' : ''}`}>
                                                 <td>
                                                     <div className='table_name'>
                                                         <div
@@ -790,7 +425,7 @@ const ProjectManager = () => {
                                                             <input
                                                                 type="checkbox"
                                                                 className='costum_checkbox_input'
-                                                                defaultChecked={selectedProjects.includes(rowData.projectId)}
+                                                                checked={selectedProjects.includes(rowData.projectId)}
                                                             />
                                                             <label
                                                                 className='costum_checkbox_label'
@@ -924,12 +559,16 @@ const ProjectManager = () => {
                                     synergiesAngles={rowData.synergiesAngles}
                                     date={rowData.date}
                                     isFeatured={rowData.isFeatured}
-                                    checked={rowData.checked}
+                                    checked={selectedProjects.includes(rowData.projectId)}
                                     onDelete={() => {
-                                        handleDelete(rowData.projectId)
+                                        setIsDeleteConfirmPopupOpen(true);
+                                        setDltId(rowData.projectId)
                                     }}
                                     onEdit={() => {
                                         navigate(`/project-manager/${rowData.projectId}`)
+                                    }}
+                                    onSelect={() => {
+                                        handleSelectProject(rowData)
                                     }}
                                 />))
                         }

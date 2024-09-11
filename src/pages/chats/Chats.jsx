@@ -9,21 +9,21 @@ import chatSynergies7 from '../../assets/chat-synergies-7.png'
 import chatSynergies8 from '../../assets/chat-synergies-8.png'
 import member1 from '../../assets/member_img1.png'
 import member2 from '../../assets/member_img2.png'
-import member3 from '../../assets/member_img3.png'
-import member4 from '../../assets/member_img4.png'
-import member5 from '../../assets/member_img5.png'
-import member6 from '../../assets/member_img6.png'
-import member7 from '../../assets/member_img7.png'
-import member8 from '../../assets/member_img8.png'
-import member9 from '../../assets/member_img9.png'
-import member10 from '../../assets/member_img10.png'
-import member11 from '../../assets/member_img11.png'
-import member12 from '../../assets/member_img12.png'
-import member13 from '../../assets/member_img13.png'
+// import member3 from '../../assets/member_img3.png'
+// import member4 from '../../assets/member_img4.png'
+// import member5 from '../../assets/member_img5.png'
+// import member6 from '../../assets/member_img6.png'
+// import member7 from '../../assets/member_img7.png'
+// import member8 from '../../assets/member_img8.png'
+// import member9 from '../../assets/member_img9.png'
+// import member10 from '../../assets/member_img10.png'
+// import member11 from '../../assets/member_img11.png'
+// import member12 from '../../assets/member_img12.png'
+// import member13 from '../../assets/member_img13.png'
 import chatAvtar from '../../assets/chat-avtar.png'
 import chatMassageDP from '../../assets/chat-message-dp.png'
-import chatMassageDP1 from '../../assets/chat-message-dp1.png'
-import sharedImg from '../../assets/chat_shared-image.png'
+// import chatMassageDP1 from '../../assets/chat-message-dp1.png'
+// import sharedImg from '../../assets/chat_shared-image.png'
 import { AddUserIcon, AttechmentIcon, DownAccordionIcon, EmojiFiiledIcon, HashTag, MicrophoneIcon, UserIcon } from '../../utils/SVGs/SVGs';
 import { useEffect, useState } from 'react';
 import AddChatMemberPopup from '../../components/popup/add-chat-menber-popup/AddChatMemberPopup'
@@ -66,134 +66,7 @@ const chatSynergies = [
         "message": 22
     },
 ]
-const channelsList = [
-    {
-        name: 'General discution',
-        message: 1
-    },
-    {
-        name: 'Lorem ipsum',
-        message: null
-    },
-    {
-        name: 'Lorem ipsum',
-        message: null
-    },
-    {
-        name: 'Lorem ipsum',
-        message: null
-    },
-]
 
-const moderatorList = [
-    {
-        img: member1,
-        name: 'James Rich',
-        project: 'Darknight Labs',
-        tpye: 'auto'
-    },
-    {
-        img: member2,
-        name: 'Julia Sunny',
-        project: 'Darknight Labs',
-        tpye: 'auto'
-    },
-    {
-        img: member3,
-        name: 'Moana Smith',
-        project: '“Synergy name”',
-        tpye: 'auto'
-    },
-    {
-        img: member4,
-        name: 'Fiona Adams',
-        project: 'Moderator',
-        tpye: 'auto'
-    },
-]
-
-const participantList = [
-    {
-        img: member5,
-        name: 'Sir Lancelot',
-        tpye: 'MANUAL'
-    },
-    {
-        img: member6,
-        name: 'Joan of Arc',
-        tpye: 'AUTO'
-    },
-    {
-        img: member7,
-        name: 'Phoenix',
-        tpye: 'AUTO'
-    },
-    {
-        img: member8,
-        name: 'Robin Hood',
-        tpye: 'MANUAL'
-    },
-    {
-        img: member9,
-        name: 'supero',
-        tpye: 'AUTO'
-    },
-    {
-        img: member7,
-        name: 'Phoenix',
-        tpye: 'AUTO'
-    },
-    {
-        img: member8,
-        name: 'Robin Hood',
-        tpye: 'MANUAL'
-    },
-    {
-        img: member9,
-        name: 'supero',
-        tpye: 'AUTO'
-    },
-    {
-        img: member10,
-        name: 'meowart',
-        tpye: 'MANUAL'
-    },
-    {
-        img: member11,
-        name: 'punicher',
-        tpye: 'AUTO'
-    },
-    {
-        img: member12,
-        name: 'kitycatty',
-        tpye: 'MANUAL'
-    },
-    {
-        img: member13,
-        name: 'blazerrr',
-        tpye: 'auto'
-    },
-    {
-        img: member11,
-        name: 'punicher',
-        tpye: 'AUTO'
-    },
-    {
-        img: member12,
-        name: 'kitycatty',
-        tpye: 'MANUAL'
-    },
-    {
-        img: member13,
-        name: 'blazerrr',
-        tpye: 'auto'
-    },
-    {
-        img: member12,
-        name: 'kitycatty',
-        tpye: 'MANUAL'
-    },
-]
 
 const Chats = () => {
     const [isChannelOpen, setIsChannelOpen] = useState(false);
@@ -204,11 +77,9 @@ const Chats = () => {
     const [isChatMembersOpen, setIsChatMembersOpen] = useState(false);
     const [msg, setMsg] = useState('');
 
-    const groupData = useSelector((state) => state.chat.groups)
+    const groupData = useSelector((state) => state.group.groups)
     const msgInfo = useSelector((state) => state.chat.groupMsg)
     const userData = useSelector((state) => state.auth)
-
-    console.log('groupData', groupData)
 
     const dispatch = useDispatch();
 
@@ -330,16 +201,17 @@ const Chats = () => {
     useEffect(() => {
         let interval;
         if (groupData.length > 0) {
-            interval=setInterval(()=>{
+            interval = setInterval(() => {
                 dispatch(getChatMessages(groupData[openChatIndex]['_id']))
-            },1000)
+            }, 1000)
         }
-        return ()=>{
-            if(interval){
+        return () => {
+            if (interval) {
                 clearInterval(interval);
             }
         }
     }, [openChatIndex, groupData])
+
 
 
     return (
@@ -751,14 +623,20 @@ const Chats = () => {
                 </div>
             </div>
 
-            <AddChatMemberPopup
+            {isAddChatMemberPopupOpen && <AddChatMemberPopup
                 open={isAddChatMemberPopupOpen}
                 handleClose={() => setIsAddChatMemberPopupOpen(false)}
-                chatId={isAddChatMemberPopupOpen ? groupData[openChatIndex]['_id'] : null}
-            />
+                chatId={groupData[openChatIndex]['_id']}
+            />}
             <ChatMembers
                 open={isChatMembersOpen}
                 handleClose={() => setIsChatMembersOpen(false)}
+                handleOpenAddMemberPopup={()=>{
+                    setIsAddChatMemberPopupOpen(true)
+                    setIsChatMembersOpen(false);
+                }}
+                groupData={groupData}
+                openChatIndex={openChatIndex}
             />
         </>
     )

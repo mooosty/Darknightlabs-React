@@ -4,7 +4,6 @@ import trashIcon from "../../assets/trash-icon.png";
 import editIcon from "../../assets/edit-icon.svg";
 import { DownIcon, GlobalIcon, GradientGraphIcon, GredientGlobalIcon, TableStatusIcon } from '../../utils/SVGs/SVGs';
 import { useState } from 'react';
-import DeleteConfirmPopup from '../popup/delete-confirm-popup/DeleteConfirmaPopup';
 
 
 const ProjectAccordion = ({
@@ -20,14 +19,13 @@ const ProjectAccordion = ({
     date,
     onEdit = () => { },
     onDelete = () => { },
+    onSelect = () => { },
 }) => {
-    const id = Math.round(Math.random() * 1000)
     const [open, setOpen] = useState(false);
-    const [isDeleteConfirmPopupOpen, setIsDeleteConfirmPopupOpen] = useState(false);
-    
+
     const handleDelete = (e) => {
         e.stopPropagation()
-        setIsDeleteConfirmPopupOpen(true)
+        onDelete()
     }
 
     const handleEdit = (e) => {
@@ -48,8 +46,8 @@ const ProjectAccordion = ({
                                 <div className='left'>
                                     <div>
                                         <div className="costum_checkbox">
-                                            <input type="checkbox" id={`checkbox_${id}`} className='costum_checkbox_input' />
-                                            <label htmlFor={`checkbox_${id}`} className='costum_checkbox_label'></label>
+                                            <input type="checkbox" checked={checked} className='costum_checkbox_input' />
+                                            <label className='costum_checkbox_label' onClick={() => onSelect()}></label>
                                         </div>
                                     </div>
                                     <DownIcon className='table_arrow' onClick={() => setOpen(!open)} />
@@ -161,11 +159,6 @@ const ProjectAccordion = ({
                     </div>
                 </div>
             </div>
-            <DeleteConfirmPopup
-                open={isDeleteConfirmPopupOpen}
-                handleClose={() => setIsDeleteConfirmPopupOpen(false)}
-                handleDelete={onDelete}
-            />
         </>
     )
 }
@@ -181,9 +174,9 @@ ProjectAccordion.propTypes = {
     type: PropTypes.array,
     onEdit: PropTypes.func,
     onDelete: PropTypes.func,
+    onSelect: PropTypes.func,
     isFeatured: PropTypes.number,
     checked: PropTypes.bool,
-
 }
 
 export default ProjectAccordion

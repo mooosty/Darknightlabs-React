@@ -2,9 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { addMemberIntoGroup, getAllUsers, getChatMessages, getGroupsAPI, sendMsg } from "../../api-services/chatApis";
 
 const initialState = {
-    groups: [],
     isLoading: false,
-    users: [],
     groupMsg: {
         groupId: null,
         messages: []
@@ -16,7 +14,6 @@ const chatSlice = createSlice({
     initialState: initialState,
     reducers: {
         addMessage: (state, action) => {
-            console.log('action.payload :>> ', action.payload);
             return {
                 ...state,
                 groupMsg: {
@@ -29,75 +26,38 @@ const chatSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(getGroupsAPI.pending, (state) => {
-            return {
-                ...state,
-                isLoading: true,
-                groups: []
-            }
-        })
-        builder.addCase(getGroupsAPI.fulfilled, (state, action) => {
-            return {
-                ...state,
-                isLoading: false,
-                groups: [...action.payload]
-            };
-        });
-        builder.addCase(getGroupsAPI.rejected, (state) => {
-            return {
-                ...state,
-                isLoading: false,
-                groups: []
-            }
-        });
 
-        builder.addCase(getAllUsers.pending, (state) => {
+        builder.addCase(getChatMessages.pending, (state, action) => {
             return {
                 ...state,
-                isLoading: true,
-                users: []
-            }
-        })
-        builder.addCase(getAllUsers.fulfilled, (state, action) => {
-            return {
-                ...state,
-                isLoading: false,
-                users: [...action.payload.data]
-            };
-        });
-        builder.addCase(getAllUsers.rejected, (state) => {
-            return {
-                ...state,
-                isLoading: false,
-                users: []
-            }
-        });
-
-        builder.addCase(getChatMessages.pending, (state,action) => {
-            return {
-                ...state,
-                groupId: action.meta.arg!==state.groupMsg.groupId?null:state.groupMsg.groupId,
-                messages: action.meta.arg!==state.groupMsg.groupId?[]:state.groupMsg.messages,
-                isLoading: action.meta.arg!==state.groupMsg.groupId?true:false
+                groupId: action.meta.arg !== state.groupMsg.groupId ? null : state.groupMsg.groupId,
+                messages: action.meta.arg !== state.groupMsg.groupId ? [] : state.groupMsg.messages,
+                isLoading: action.meta.arg !== state.groupMsg.groupId ? true : false
             }
         })
         builder.addCase(getChatMessages.fulfilled, (state, action) => {
+            if ((state.groupMsg.messages.length < action.payload.response.length) || (action.payload.groupId !== state.groupMsg.groupId)) {
+                return {
+                    ...state,
+                    isLoading: false,
+                    groupMsg: {
+                        ...state.groupMsg,
+                        groupId: action.payload.groupId,
+                        messages: [...action.payload.response]
+                    }
+                };
+            }
             return {
                 ...state,
-                isLoading: false,
-                groupMsg: {
-                    ...state.groupMsg,
-                    groupId: action.payload.groupId,
-                    messages: [...action.payload.response]
-                }
-            };
+                isLoading: false
+            }
         });
-        
+
         builder.addCase(getChatMessages.rejected, (state) => {
             return {
                 ...state,
                 isLoading: false,
-                groupMsg:{
+                groupMsg: {
                     ...initialState
                 }
             }
@@ -119,32 +79,6 @@ const chatSlice = createSlice({
             }
         });
 
-        builder.addCase(addMemberIntoGroup.pending, (state) => {
-            return {
-                ...state
-            }
-        })
-        builder.addCase(addMemberIntoGroup.fulfilled, (state, action) => {
-            console.log('action.payload :>> ', action.payload);
-            return {
-                ...state,
-                groups: [...state.groups.map((group) => {
-                    if (group['_id'] === action.payload['_id']) {
-                        return {
-                            ...group,
-                            users: [...action.payload.users]
-                        }
-                    }
-                    return group;
-                })]
-
-            };
-        });
-        builder.addCase(addMemberIntoGroup.rejected, (state) => {
-            return {
-                ...state,
-            }
-        });
     }
 })
 

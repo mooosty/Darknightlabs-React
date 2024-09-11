@@ -267,7 +267,7 @@
                     max-width: 280px;
 
                     @media (max-width: 767px) {
-                        max-width: 100%;
+                       max-width: 100%;
                         flex-grow: none;
                     }
                 }
@@ -285,7 +285,7 @@
                 .btn_filter {
                     img {
                         height: 22px;
-                        width: 22px;
+                        width: 22px; 
                     }
                 }
 

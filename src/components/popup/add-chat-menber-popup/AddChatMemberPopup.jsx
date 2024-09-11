@@ -4,9 +4,10 @@ import searchIcon from "../../../assets/search-icon.png"
 import member from '../../../assets/member_img1.png'
 import './addChatMemberPopup.scss'
 import { AddUserIcon, LoadingIcon } from '../../../utils/SVGs/SVGs';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMemberIntoGroup } from '../../../api-services/chatApis';
+
 const memberList = [
     {
         img: member,
@@ -93,14 +94,22 @@ const memberList = [
 const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
     const [isMemberInvited, setIsMemberInvited] = useState(null);
     const [selectedMember, setSelectedMember] = useState([]);
+    const [searchUser, setSearchUser] = useState('');
+    const [filteredMember, setFilteredMember] = useState([]);
+    const [initialMember, setInitialMember] = useState([]);
     const memberList = useSelector((state) => {
-        return state.chat.users;
+        return state.group.users;
+    })
+
+    const groupUser = useSelector((state) => {
+        return state.group.groups.filter((group) => {
+            return group['_id'] === chatId;
+        });
     })
 
     const dispatch = useDispatch();
 
     const handleSelcteMember = (userId) => {
-        console.log(userId)
         let tmpSelectedMember = [...selectedMember]
         const project = tmpSelectedMember.find((id) => id === userId)
         if (project) {
@@ -120,13 +129,35 @@ const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
             dispatch(addMemberIntoGroup(data));
         })
 
-        Promise.allSettled(responseArr).then(()=>setSelectedMember([]));
+        Promise.allSettled(responseArr).then(() => setSelectedMember([]));
         handleClose();
     }
 
     const handleInvite = (index) => {
         setIsMemberInvited(index)
     }
+
+    useEffect(() => {
+        if (searchUser !== '') {
+            const tempArr = initialMember.filter((member) => {
+                return member.name.indexOf(searchUser) !== -1;
+            })
+            setFilteredMember([...tempArr]);
+        }
+        else {
+            setFilteredMember([...memberList])
+        }
+    }, [searchUser, initialMember])
+
+    useEffect(() => {
+        const userIdArr = groupUser?.[0].users.map((user) => user['_id']);
+        const tmpArr = memberList.filter((member) => {
+            return !userIdArr.includes(member['_id']);
+        });
+        setFilteredMember([...tmpArr])
+        setInitialMember([...tmpArr])
+    }, [memberList, groupUser])
+
 
     return (
         <>
@@ -149,11 +180,13 @@ const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
                             <div className="member_list_main">
                                 <div className="search_box">
                                     <img className="search_icon" src={searchIcon} alt="Search" />
-                                    <input type="text" placeholder="Search" />
+                                    <input type="text" placeholder="Search" onChange={(e) => {
+                                        setSearchUser(e.target.value);
+                                    }} />
                                 </div>
                                 <div className="member_list_box">
                                     <div className="list">
-                                        {memberList.map((data, index) => {
+                                        {filteredMember.map((data, index) => {
                                             return (
                                                 <div key={index} className="member_list_item">
                                                     <div className="item_left">
@@ -195,7 +228,7 @@ const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
                         </div>
                         <div className='model_footer'>
                             <button className='cancel_btn' onClick={() => { handleClose() }}>Cancel</button>
-                            <button className='add_btn'  onClick={handleAddmember}>Add members</button>
+                            <button className='add_btn' onClick={handleAddmember}>Add members</button>
                         </div>
                     </div>
 
@@ -265,7 +298,7 @@ const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
 AddChatMemberPopup.propTypes = {
     open: PropTypes.bool,
     handleClose: PropTypes.func,
-    chatId:PropTypes.string
+    chatId: PropTypes.string
 }
 
 export default AddChatMemberPopup

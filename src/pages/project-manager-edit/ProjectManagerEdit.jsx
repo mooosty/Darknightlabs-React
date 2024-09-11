@@ -463,7 +463,7 @@ const ProjectManagerEdit = () => {
                                     return (<>
                                         <div className="custom_select">
                                             <div className="form_box synergy_selected">
-                                                <label>Synergy angles</label>
+                                                {index===0 && <label>Synergy angles</label>}
                                                 <Select
                                                     name='synergy_angles'
                                                     options={synergyAnglesOptions}
@@ -492,7 +492,7 @@ const ProjectManagerEdit = () => {
                             }
 
                             <button className="btn_gray" onClick={() => {
-                                setFieldValue('synergy_angles', [...values.synergy_angles, {
+                                setFieldValue(`synergy_angles`, [...values.synergy_angles, {
                                     synergy_angle: ''
                                 }])
                             }}>
