@@ -301,7 +301,7 @@
                     width: 100%;
                     display: flex;
                     flex-direction: column;
-                    max-height: 750px;
+                    height: 750px;
                     gap: 24px;
                     padding-top: 12px;
                     overflow-y: auto;
@@ -309,7 +309,7 @@
                     padding-bottom: 76px;
 
                     @media (max-width: 1600px) {
-                        max-height: 450px;
+                        height: 450px;
                         padding-bottom: 64px;
                     }
 
@@ -335,6 +335,7 @@
                             font-size: 15px;
                             color: #fff;
                             line-height: 20px;
+                            text-align: center;
                         }
 
                         .right {
@@ -494,105 +495,105 @@
                         }
                     }
                 }
-            }
+                .members {
+                    min-width: 230px;
+                    width: 230px;
+                    // height: 100%;
+                    padding-bottom: 20px;
+                    background-color: #040400;
+                    align-self: stretch;
 
-            .members {
-                min-width: 230px;
-                width: 230px;
-                height: 100%;
-                padding-bottom: 20px;
-                background-color: #040400;
-
-                @media (max-width: 1123px) {
-                    display: none;
-                }
-
-                .head {
-                    padding: 16px 12px 8px 12px;
-                    color: #F5EFDB;
-                    font-size: 14px;
-                }
-
-                .members_list {
-                    padding: 6px 10px;
-
-                    .btn_gray {
-                        width: 100%;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        line-height: 16px;
-                        letter-spacing: 0.24px;
-                        padding-block: 8px;
-                        margin-bottom: 8px;
+                    @media (max-width: 1123px) {
+                        display: none;
                     }
-
-                    .list_container {
-                        max-height: 660px;
-                        overflow-y: auto;
-
-                        @media (max-width: 1600px) {
-                            max-height: 350px;
-                        }
-
-                        .list_header {
-                            color: #fff;
-                            font-size: 12px;
-                            text-transform: uppercase;
-                            padding: 4px 2px;
-                        }
-
-                        .list_body {
+    
+                    .head {
+                        padding: 16px 12px 8px 12px;
+                        color: #F5EFDB;
+                        font-size: 14px;
+                    }
+    
+                    .members_list {
+                        padding: 6px 10px;
+    
+                        .btn_gray {
                             width: 100%;
-                            margin-bottom: 12px;
-
-                            .list_items {
-                                display: flex;
-                                align-items: center;
-                                gap: 10px;
-                                padding-block: 3px;
-
-                                .img {
-                                    height: 40px;
-                                    width: 40px;
-                                    overflow: hidden;
-                                    border-radius: 50%;
-
-                                    img {
-                                        height: 100%;
-                                        width: 100%;
-                                    }
-                                }
-
-                                .name {
-                                    width: 155px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            line-height: 16px;
+                            letter-spacing: 0.24px;
+                            padding-block: 8px;
+                            margin-bottom: 8px;
+                        }
+    
+                        .list_container {
+                            max-height: 660px;
+                            overflow-y: auto;
+    
+                            @media (max-width: 1600px) {
+                                max-height: 350px;
+                            }
+    
+                            .list_header {
+                                color: #fff;
+                                font-size: 12px;
+                                text-transform: uppercase;
+                                padding: 4px 2px;
+                            }
+    
+                            .list_body {
+                                width: 100%;
+                                margin-bottom: 12px;
+    
+                                .list_items {
                                     display: flex;
-                                    flex-direction: column;
-                                    gap: 2px;
-
-                                    .top {
-                                        display: flex;
-                                        justify-content: space-between;
-                                        align-items: center;
-
-                                        .top_left {
-                                            color: #ffd1a6cc;
-                                            line-height: 20px;
-                                            font-size: 14px;
-                                        }
-
-                                        .top_right {
-                                            color: #f5efdb99;
-                                            line-height: 20px;
-                                            font-size: 10px;
-                                            text-transform: uppercase;
+                                    align-items: center;
+                                    gap: 10px;
+                                    padding-block: 3px;
+    
+                                    .img {
+                                        height: 40px;
+                                        width: 40px;
+                                        overflow: hidden;
+                                        border-radius: 50%;
+    
+                                        img {
+                                            height: 100%;
+                                            width: 100%;
                                         }
                                     }
-
-                                    .bottom {
-                                        color: #ffffff80;
-                                        font-size: 12px;
-                                        line-height: 20px;
+    
+                                    .name {
+                                        width: 155px;
+                                        display: flex;
+                                        flex-direction: column;
+                                        gap: 2px;
+    
+                                        .top {
+                                            display: flex;
+                                            justify-content: space-between;
+                                            align-items: center;
+    
+                                            .top_left {
+                                                color: #ffd1a6cc;
+                                                line-height: 20px;
+                                                font-size: 14px;
+                                            }
+    
+                                            .top_right {
+                                                color: #f5efdb99;
+                                                line-height: 20px;
+                                                font-size: 10px;
+                                                text-transform: uppercase;
+                                            }
+                                        }
+    
+                                        .bottom {
+                                            color: #ffffff80;
+                                            font-size: 12px;
+                                            line-height: 20px;
+                                        }
                                     }
                                 }
                             }

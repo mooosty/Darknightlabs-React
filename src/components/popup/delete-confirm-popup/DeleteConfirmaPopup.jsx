@@ -45,7 +45,9 @@ const DeleteConfirmPopup = ({ open,title='',description='' ,handleClose, handleD
 DeleteConfirmPopup.propTypes = {
     open: PropTypes.bool,
     handleClose: PropTypes.func,
-    handleDelete:PropTypes.func
+    handleDelete:PropTypes.func,
+    title:PropTypes.string,
+    description:PropTypes.string
 }
 
 export default DeleteConfirmPopup

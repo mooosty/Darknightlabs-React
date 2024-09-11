@@ -22,6 +22,7 @@ import { getProjectsAPI, deleteProjectAPI } from '../../api-services/projectApis
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { addFeature } from '../../store/slice/projectSlice';
+import { date } from 'yup';
 
 
 const tableData = [
@@ -385,45 +386,65 @@ const tableData = [
     }
 ]
 
+const synergyAnglesOptions = [
+    {
+        label: 'Getting whitelist spots',
+        value: 'Getting whitelist spots',
+        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
+    },
+    {
+        label: 'Giving whitelists spots',
+        value: 'Giving whitelists spots',
+        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
+    },
+    {
+        label: 'Hosting AMAs',
+        value: 'Hosting AMAs',
+        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
+    },
+    {
+        label: 'Integrating branded game assets',
+        value: 'Integrating branded game assets',
+        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
+    },
+    {
+        label: 'Integrating your own branded assets',
+        value: 'Integrating your own branded assets',
+        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
+    },
+    {
+        label: 'Getting early alpha',
+        value: 'Getting early alpha',
+        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
+    },
+    {
+        label: 'Sharing early alpha',
+        value: 'Sharing early alpha',
+        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
+    },
+]
+
+
 const ProjectManager = () => {
     const [activeLayout, setActiveLayout] = useState('TAB');
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [isBottomMenuOpen, setIsBottomMenuOpen] = useState(false)
     const [selectedProjects, setSelectedProjects] = useState([])
     const [isDeleteConfirmPopupOpen, setIsDeleteConfirmPopupOpen] = useState(false);
-    const [dltId,setDltId]=useState(null);
+    const [isMultiDltConfirmPopupOpen, setIsMultiDltConfirmPopupOpen] = useState(false);
+    const [dltId, setDltId] = useState(null);
+    const [filter, setFilter] = useState({
+        synergyAngleValue: '',
+        sortBy: null
+    })
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const data = useSelector((state) => state.project.projects)
-    console.log('data :>> ', data);
-    const projectData = [
-        ...data.map((project, index) => {
-            let tags = project.project_info?.split('#') || [];
-            tags = tags.filter(tag => tag).map(tag => `#${tag}`);
 
-            let synergy_angles = Object.keys(project.synergy_angles)
-                .map(key => project.synergy_angles[key] ? { label: project.synergy_angles[key] } : null)
-                .filter(item => item);
 
-            const row = {
-                key: index,
-                checked: false,
-                projectName: project.project_name,
-                teamMembers: [
-                ],
-                synergyImg: project.image ?? '',
-                synergiesAngles: synergy_angles,
-                type: tags,
-                isFeatured: project.featured,
-                date: formatDate(project.date),
-                disabled: false,
-                description: project.description,
-                projectId: project.project_id,
-            }
-            return row;
-        })
-    ]
+    const [initialProject, setInitialProject] = useState([])
+    const [filterProject, setFilterProject] = useState([])
 
     function formatDate(date) {
         var d = new Date(date),
@@ -452,8 +473,7 @@ const ProjectManager = () => {
             "projectIds": [
                 projectId
             ]
-        })).then(()=>{
-            console.log('suCcess :>> ', );
+        })).then(() => {
             setIsDeleteConfirmPopupOpen(false);
             setDltId(null);
         })
@@ -471,13 +491,16 @@ const ProjectManager = () => {
     }
 
     const handleSelectAllProjects = () => {
-        if (selectedProjects.length === projectData.length && projectData.length !== 0) {
-            setSelectedProjects([])
-        } else {
-            setSelectedProjects([
-                ...projectData.map((project) => project.projectId)
-            ])
-        }
+        setSelectedProjects([
+            ...filterProject.map((project) => project.projectId)
+        ])
+        // if (selectedProjects.length === initialProject.length && initialProject.length !== 0) {
+        //     setSelectedProjects([])
+        // } else {
+        //     setSelectedProjects([
+        //         ...initialProject.map((project) => project.projectId)
+        //     ])
+        // }
     }
 
     const handleCancelSelection = () => {
@@ -485,11 +508,124 @@ const ProjectManager = () => {
     }
 
     useEffect(() => {
+        if (filter.synergyAngleValue !== '') {
+            const filterArr = initialProject.filter((project) => {
+                return project.synergiesAngles.findIndex((synergy) => {
+                    return synergy.label === filter.synergyAngleValue;
+                }) !== -1;
+            });
+            setFilterProject([...filterArr])
+        }
+        else if (filter.sortBy !== '') {
+            if (filter.sortBy === 'name') {
+                const filterArr = filterProject.sort((project1, project2) => {
+                    const firstLetterA = project1.projectName[0].toLowerCase();
+                    const firstLetterB = project2.projectName[0].toLowerCase();
+
+                    if (firstLetterA < firstLetterB) {
+                        return -1;
+                    }
+                    if (firstLetterA > firstLetterB) {
+                        return 1;
+                    }
+                    return 0;
+                })
+                setFilterProject([...filterArr])
+            }
+            else if (filter.sortBy === 'status') {
+                const filterArr = filterProject.sort((project1, project2) => {
+                    const status1 = project1.isFeatured;
+                    const status2 = project2.isFeatured;
+
+                    if (status1 > status2) {
+                        return -1;
+                    }
+                    if (status1 < status2) {
+                        return 1;
+                    }
+                    return 0;
+                })
+                setFilterProject([...filterArr])
+            }
+            else if (filter.sortBy === 'date') {
+                console.log('as :>> ', );
+                const filterArr = filterProject.sort((project1, project2) => {
+                    const dateA = project1.date.split('/');
+                    const dateB = project2.date.split('/');
+                    if(dateA[2]===dateB[2]){
+                        if(dateA[1]===dateB[1]){
+                             return dateB[0]-dateA[0];
+                        }
+                        else{
+                          return dateB[1]-dateA[2];
+                        }
+                    }
+                    else{
+                        return dateB[2] - dateA[2];
+                    }
+                });
+                setFilterProject([...filterArr])
+            }
+            else if(filter.sortBy==='description'){
+                const filterArr = filterProject.sort((project1, project2) => {
+                    const firstLetterA = project1.description.trim()[0].toLowerCase();
+                    const firstLetterB = project2.description.trim()[0].toLowerCase();
+                    console.log('firstLetterA :>> ', firstLetterA);
+
+                    if (firstLetterA < firstLetterB) {
+                        return -1;
+                    }
+                    if (firstLetterA > firstLetterB) {
+                        return 1;
+                    }
+                    return 0;
+                })
+                setFilterProject([...filterArr])
+            }
+        }
+        else {
+            setFilterProject([...initialProject])
+        }
+    }, [filter])
+
+    useEffect(() => {
+        const projectData = [
+            ...data.map((project, index) => {
+                let tags = project.project_info?.split('#') || [];
+                tags = tags.filter(tag => tag).map(tag => `#${tag}`);
+
+                let synergy_angles = Object.keys(project.synergy_angles)
+                    .map(key => project.synergy_angles[key] ? { label: project.synergy_angles[key] } : null)
+                    .filter(item => item);
+
+                const row = {
+                    key: index,
+                    checked: false,
+                    projectName: project.project_name,
+                    teamMembers: [
+                    ],
+                    synergyImg: project.image ?? '',
+                    synergiesAngles: synergy_angles,
+                    type: tags,
+                    isFeatured: project.featured,
+                    date: formatDate(project.date),
+                    disabled: false,
+                    description: project.description,
+                    projectId: project.project_id,
+                }
+                return row;
+            })
+        ]
+        setInitialProject([...projectData])
+        setFilterProject([...projectData])
+    }, [data])
+
+
+    useEffect(() => {
         if (data.length === 0)
             dispatch(getProjectsAPI());
     }, [])
 
-    // console.log('selectedProjects', selectedProjects)
     return (
         <>
             <div className="content_header">
@@ -522,7 +658,7 @@ const ProjectManager = () => {
                             >
                                 Filters <img src={filterIcon} alt=" " />
                             </button>
-                            <button className={`btn_gray `} onClick={()=>{
+                            <button className={`btn_gray `} onClick={() => {
                                 navigate('/project-manager/ADD')
                             }}>
                                 Add New Project
@@ -533,10 +669,14 @@ const ProjectManager = () => {
                     <div className={`project_page_filter ${isFilterOpen ? 'active' : ''}`}>
                         <div className="angels">
                             <Select
-                                options={[
-                                    { label: 'Project 1581', value: 'Project 1581' },
-                                ]}
+                                options={synergyAnglesOptions}
                                 placeholder={'All synergies angles'}
+                                onChange={(value) => {
+                                    setFilter({
+                                        ...filter,
+                                        synergyAngleValue: value.value
+                                    })
+                                }}
                             />
                         </div>
                         <div className="project">
@@ -552,10 +692,18 @@ const ProjectManager = () => {
                         <div className="sort">
                             <Select
                                 options={[
-                                    { label: 'Status', value: 'Status' },
-                                    { label: 'Date', value: 'Date' },
+                                    { label: 'Project Name', value: 'name' },
+                                    { label: 'Status', value: 'status' },
+                                    { label: 'Description', value:'description'},
+                                    { label: 'Date', value: 'date' },
                                 ]}
                                 placeholder={'Sort by'}
+                                onChange={(value) => {
+                                    setFilter({
+                                        ...filter,
+                                        sortBy: value.value
+                                    })
+                                }}
                             />
                         </div>
                     </div>
@@ -568,7 +716,7 @@ const ProjectManager = () => {
                                     type="checkbox"
                                     id='checkboxSelected'
                                     className='costum_checkbox_input'
-                                    checked={selectedProjects.length === projectData.length && projectData.length !== 0}
+                                    defaultChecked={selectedProjects.length === filterProject.length && filterProject.length !== 0}
                                 />
                                 <label
                                     htmlFor='checkboxSelected'
@@ -585,8 +733,9 @@ const ProjectManager = () => {
                                 <img src={closeIcon} alt="Add" />
                                 <span>Cancel</span>
                             </button>
-                            <button className="btn_featured btn_gray" onClick={()=>{
+                            <button className="btn_featured btn_gray" onClick={() => {
                                 dispatch(addFeature(selectedProjects))
+                                setSelectedProjects([])
                             }}>
                                 <TableStatusIcon />
                                 <span>Add to Featured</span>
@@ -595,12 +744,8 @@ const ProjectManager = () => {
                                 <InfiniteIcon />
                                 <span>Create synergy</span>
                             </button>
-                            <button className="btn_delete " onClick={() => {
-                                dispatch(deleteProjectAPI({
-                                    "projectIds": [
-                                        ...selectedProjects
-                                    ]
-                                }))
+                            <button className="btn_delete" onClick={() => {
+                                setIsMultiDltConfirmPopupOpen(true);
                             }}>
                                 <img src={trashIcon} alt="Delete" />
                                 <span>Delete</span>
@@ -634,7 +779,7 @@ const ProjectManager = () => {
                             </thead>
                             <tbody>
                                 {
-                                    projectData.map((rowData) => {
+                                    filterProject.map((rowData) => {
                                         return (
                                             <tr key={rowData.projectId} className={`${rowData.isFeatured ? 'heighlighted' : ''} ${selectedProjects.includes(selectedProjects.projectId) ? 'selected' : ''}`}>
                                                 <td>
@@ -645,7 +790,7 @@ const ProjectManager = () => {
                                                             <input
                                                                 type="checkbox"
                                                                 className='costum_checkbox_input'
-                                                                checked={selectedProjects.includes(rowData.projectId)}
+                                                                defaultChecked={selectedProjects.includes(rowData.projectId)}
                                                             />
                                                             <label
                                                                 className='costum_checkbox_label'
@@ -767,7 +912,7 @@ const ProjectManager = () => {
 
                     <div className="project_page_accordion">
                         {
-                            projectData.map((rowData) => (
+                            filterProject.map((rowData) => (
                                 <ProjectAccordion
                                     key={rowData.key}
                                     projectName={rowData.projectName}
@@ -799,7 +944,25 @@ const ProjectManager = () => {
                     setIsDeleteConfirmPopupOpen(false);
                     setDltId(null);
                 }}
-                handleDelete={()=> handleDelete(dltId)}
+                handleDelete={() => handleDelete(dltId)}
+            />
+            <DeleteConfirmPopup
+                title='Are You Sure ?'
+                description={`After once a delete project can't be recover...`}
+                open={isMultiDltConfirmPopupOpen}
+                handleClose={() => {
+                    setIsMultiDltConfirmPopupOpen(false);
+                }}
+                handleDelete={() => {
+                    dispatch(deleteProjectAPI({
+                        "projectIds": [
+                            ...selectedProjects
+                        ]
+                    })).then(() => {
+                        setSelectedProjects([])
+                    })
+                    setIsMultiDltConfirmPopupOpen(false);
+                }}
             />
             <ButtomMenu
                 open={isBottomMenuOpen}

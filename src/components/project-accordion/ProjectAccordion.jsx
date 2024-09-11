@@ -181,7 +181,7 @@ ProjectAccordion.propTypes = {
     type: PropTypes.array,
     onEdit: PropTypes.func,
     onDelete: PropTypes.func,
-    isFeatured: PropTypes.bool,
+    isFeatured: PropTypes.number,
     checked: PropTypes.bool,
 
 }

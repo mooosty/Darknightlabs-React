@@ -5,6 +5,8 @@ import member from '../../../assets/member_img1.png'
 import './addChatMemberPopup.scss'
 import { AddUserIcon, LoadingIcon } from '../../../utils/SVGs/SVGs';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addMemberIntoGroup } from '../../../api-services/chatApis';
 const memberList = [
     {
         img: member,
@@ -88,8 +90,39 @@ const memberList = [
     },
 
 ]
-const AddChatMemberPopup = ({ open, handleClose }) => {
+const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
     const [isMemberInvited, setIsMemberInvited] = useState(null);
+    const [selectedMember, setSelectedMember] = useState([]);
+    const memberList = useSelector((state) => {
+        return state.chat.users;
+    })
+
+    const dispatch = useDispatch();
+
+    const handleSelcteMember = (userId) => {
+        console.log(userId)
+        let tmpSelectedMember = [...selectedMember]
+        const project = tmpSelectedMember.find((id) => id === userId)
+        if (project) {
+            tmpSelectedMember = tmpSelectedMember.filter((item) => item !== userId)
+        } else {
+            tmpSelectedMember.push(userId)
+        }
+        setSelectedMember([...tmpSelectedMember])
+    }
+
+    const handleAddmember = () => {
+        const responseArr = selectedMember.map((memberId) => {
+            const data = {
+                "chatId": chatId,
+                "userId": memberId
+            }
+            dispatch(addMemberIntoGroup(data));
+        })
+
+        Promise.allSettled(responseArr).then(()=>setSelectedMember([]));
+        handleClose();
+    }
 
     const handleInvite = (index) => {
         setIsMemberInvited(index)
@@ -125,12 +158,12 @@ const AddChatMemberPopup = ({ open, handleClose }) => {
                                                 <div key={index} className="member_list_item">
                                                     <div className="item_left">
                                                         <div className="costum_checkbox">
-                                                            <input type="checkbox" id={`checkBox_${index}`} className='costum_checkbox_input' />
+                                                            <input type="checkbox" id={`checkBox_${index}`} className='costum_checkbox_input' defaultChecked={selectedMember.includes(data['_id'])} onClick={() => handleSelcteMember(data['_id'])} />
                                                             <label htmlFor={`checkBox_${index}`} className='costum_checkbox_label'></label>
                                                         </div>
                                                         <div className="item_name">
                                                             <div className="image">
-                                                                <img src={data.img} alt="" />
+                                                                <img src={member} alt="" />
                                                             </div>
                                                             <div className="name">
                                                                 <div className="top">{data.name}</div>
@@ -162,7 +195,7 @@ const AddChatMemberPopup = ({ open, handleClose }) => {
                         </div>
                         <div className='model_footer'>
                             <button className='cancel_btn' onClick={() => { handleClose() }}>Cancel</button>
-                            <button className='add_btn' onClick={() => { handleClose() }}>Add members</button>
+                            <button className='add_btn'  onClick={handleAddmember}>Add members</button>
                         </div>
                     </div>
 
@@ -183,7 +216,7 @@ const AddChatMemberPopup = ({ open, handleClose }) => {
                                                 <div key={index} className="member_list_item">
                                                     <div className="item_left">
                                                         <div className="costum_checkboxs">
-                                                            <input type="checkbox" id={`add_member_checkbox_${index}`} checked={true} name='add_member_checkbox' className='costum_checkbox_inputs' />
+                                                            <input type="checkbox" id={`add_member_checkbox_${index}`} defaultChecked={true} name='add_member_checkbox' className='costum_checkbox_inputs' />
                                                             <label htmlFor={`add_member_checkbox_${index}`} className='costum_checkbox_labels'></label>
                                                         </div>
                                                         <div className="item_name">
@@ -232,6 +265,7 @@ const AddChatMemberPopup = ({ open, handleClose }) => {
 AddChatMemberPopup.propTypes = {
     open: PropTypes.bool,
     handleClose: PropTypes.func,
+    chatId:PropTypes.string
 }
 
 export default AddChatMemberPopup

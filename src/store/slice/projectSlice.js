@@ -11,56 +11,50 @@ const projectSlice = createSlice({
     initialState: initialState,
     reducers: {
         updateProject: (state, action) => {
-            const idx = state.projects.findIndex((project) => project.project_id === action.payload.project_id);
-            console.log('idx,action.payload :>> ', idx, action.payload);
-        
-            if (idx === -1) {
-                return state;
-            }
-        
             return {
                 ...state,
                 projects: [
-                    ...state.projects.slice(0, idx),
-                    {
-                        ...action.payload
-                    },
-                    ...state.projects.slice(idx + 1)
+                    ...state.projects.map((project) => {
+                        if (project.project_id === action.payload.project_id) {
+                            return { ...action.payload }
+                        }
+                        return project;
+                    })
                 ]
             };
         },
 
         addFeature: (state, action) => {
-            const tmpProjectArr = state.projects.map(project => {
-                if (action.payload.includes(project.project_id)) {
-                    return {
-                        ...project,
-                        featured: 1
-                    };
-                }
-                return project;
-            });
-        
             return {
                 ...state,
-                projects: tmpProjectArr
+                projects: [...state.projects.map(project => {
+                    if (action.payload.includes(project.project_id)) {
+                        return {
+                            ...project,
+                            featured: 1
+                        };
+                    }
+                    return project;
+                })]
             };
         }
-        
+
     },
     extraReducers: (builder) => {
         builder.addCase(getProjectsAPI.pending, (state) => {
             return {
                 ...state,
-                isLoading: true
+                isLoading: true,
+                projects: [],
             }
         })
 
         builder.addCase(
             getProjectsAPI.fulfilled, (state, action) => {
                 return {
+                    ...state,
+                    isLoading: false,
                     projects: [...action.payload],
-                    isLoading: false
                 }
             }
         )
@@ -68,7 +62,8 @@ const projectSlice = createSlice({
         builder.addCase(getProjectsAPI.rejected, (state) => {
             return {
                 ...state,
-                isLoading: false
+                isLoading: false,
+                projects: [],
             }
         })
 
@@ -80,11 +75,10 @@ const projectSlice = createSlice({
         })
         builder.addCase(
             addProjectAPI.fulfilled, (state, action) => {
-                console.log('action.payload :>> ', action.payload);
                 return {
                     ...state,
                     isLoading: false,
-                    projects: [...state.projects, { ...action.payload.data, project_id: action.payload.response.data.insertId,featured:0 }]
+                    projects: [...state.projects, { ...action.payload.data, project_id: action.payload.response.data.insertId, featured: 0 }]
                 }
             }
         )

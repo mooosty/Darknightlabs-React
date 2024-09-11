@@ -10,11 +10,12 @@ import arrowRight from "../../assets/arrow-right.png"
 import AddAngelPopup from "../../components/popup/add-angel-popup/AddAngelPopup"
 import { useEffect, useState } from "react"
 import { useFormik } from 'formik';
-import { addProjectAPI, deleteProjectAPI, addMemberAPI, updateProjectAPI } from "../../api-services/projectApis"
+import { addProjectAPI, deleteProjectAPI, addMemberAPI } from "../../api-services/projectApis"
 import { getUsersAPI } from "../../api-services/userApis"
 import { useDispatch, useSelector } from "react-redux"
-import { useNavigate, useParams,Link } from "react-router-dom"
+import { useNavigate, useParams, Link } from "react-router-dom"
 import { updateProject } from "../../store/slice/projectSlice"
+import DeleteConfirmPopup from "../../components/popup/delete-confirm-popup/DeleteConfirmaPopup"
 
 
 const synergyAnglesOptions = [
@@ -60,12 +61,13 @@ const ProjectManagerEdit = () => {
     const [isAddAngelPopupOpen, setIsAddAngelPopupOpen] = useState(false)
     const [whoAccessToSynergySide, setWhoAccessToSynergySide] = useState('All Users');
     const [whoAccessToInvestmentSide, setWhoAccessToInvestmentSide] = useState('All Users');
+    const [isDeleteConfirmPopupOpen,setIsDeleteConfirmPopupOpen]=useState(false);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { projectId } = useParams();
     const projectData = useSelector(state => state.project.projects.find(project => project.project_id == projectId))
-    
+
 
     const initialValues = {
         project_name: '',
@@ -97,10 +99,9 @@ const ProjectManagerEdit = () => {
         }
     })
 
-    const { values, setFieldValue, setValues, handleChange, handleBlur, submitForm } = formik
+    const { values, setFieldValue, setValues, handleChange } = formik
 
     const handleUploadImage = (file) => {
-        console.log('file :>> ', { ...file });
         let reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = function () {
@@ -124,7 +125,7 @@ const ProjectManagerEdit = () => {
 
         const synergy_obj = {};
 
-        values.synergy_angles.forEach(( synergy_angle, index) => {
+        values.synergy_angles.forEach((synergy_angle, index) => {
             synergy_obj[`synergy_angle${index}`] = synergy_angle[`synergy_angle${index}`];
         });
 
@@ -174,7 +175,7 @@ const ProjectManagerEdit = () => {
 
         const synergy_obj = {};
 
-        values.synergy_angles.forEach(( synergy_angle, index) => {
+        values.synergy_angles.forEach((synergy_angle, index) => {
             synergy_obj[`synergy_angle${index}`] = synergy_angle[`synergy_angle${index}`];
         });
 
@@ -202,17 +203,27 @@ const ProjectManagerEdit = () => {
             "investments_access": true,
             "investments": investment_obj
         }
-        // dispatch(addProjectAPI(data))//after change with update
 
         dispatch(updateProject(data));
         navigate('/project-manager');
+    }
+
+    const handleProjectDelete = () => {
+        dispatch(deleteProjectAPI({
+            "projectIds": [
+                projectId-0
+            ]
+        })).then(()=>{
+            navigate('/project-manager')
+        })
+        setIsDeleteConfirmPopupOpen(false);
     }
 
 
 
     // console.log('values :>> ', values);
     useEffect(() => {
-        if (projectId !== 'ADD') {
+        if (projectId && projectId !== 'ADD') {
             let synergy_angles = [];
             if (projectData?.synergy_angles)
                 Object.keys(projectData?.synergy_angles).forEach((key, index) => {
@@ -582,18 +593,23 @@ const ProjectManagerEdit = () => {
             </div>
             <div className="delete_project_btn">
                 <button className="btn_delete" disabled={projectId === 'ADD'} onClick={() => {
-                    dispatch(deleteProjectAPI({
-                        "projectIds": [
-                            projectId
-                        ]
-                    }))
-                    navigate('/project-manager')
+                     setIsDeleteConfirmPopupOpen(true);
                 }}>
                     <img src={trashIcon} alt="Delete" /> Delete project
                 </button>
                 {projectId !== 'ADD' && <button className="btn_gray" onClick={handleSaveChanges}>Save changes</button>}
                 {projectId === 'ADD' && <button className="btn_gray" onClick={handleAddProject}>Add Project</button>}
             </div>
+
+            <DeleteConfirmPopup
+                title='Are You Sure ?'
+                description={`After once a delete project can't be recover...`}
+                open={isDeleteConfirmPopupOpen}
+                handleClose={() => {
+                    setIsDeleteConfirmPopupOpen(false);
+                }}
+                handleDelete={handleProjectDelete}
+            />
 
             <AddAngelPopup
                 open={isAddAngelPopupOpen}
