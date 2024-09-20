@@ -138,22 +138,6 @@ const projectSlice = createSlice({
                 isLoading: true
             }
         })
-        // builder.addCase(getMemberApi.fulfilled, (state, action) => {
-        //     return {
-        //         ...state,
-        //         isLoading: false,
-        //         projects: state.projects.map((project) => {
-        //             if (action.payload.data[0]['_project_id'] === project['project_id']){
-        //                 console.log(' :>> ', action.payload.data[0]['_project_id'], project['project_id']);
-        //                 return {
-        //                     ...project,
-        //                     members: action.payload.data
-        //                 };
-        //             }
-        //             return { ...project };
-        //         })
-        //     };
-        // });
         builder.addCase(getMemberApi.fulfilled, (state, action) => {
             console.log('Payload Data:', action.payload.data);
             return {

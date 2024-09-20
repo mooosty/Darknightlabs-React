@@ -3,11 +3,11 @@ import searchIcon from "../../assets/search-icon.png"
 import addIcon from "../../assets/add-icon.png"
 import { GridIcon, ListIcon, TableStatusIcon, GredientGlobalIcon, GradientGraphIcon, InfiniteIcon, MoreIcon, AddCircleIcon, CLeseCircleIcon, GlobalIcon, DownAccordionIcon } from '../../utils/SVGs/SVGs'
 import filterIcon from "../../assets/filter.svg";
-import tableActor1 from "../../assets/tableActorImage.jpg";
-import tableActor2 from "../../assets/tableActorImage1.jpg";
-import tableActor3 from "../../assets/tableActorImage2.jpg";
-import tableActorImage1 from "../../assets/avatar-1.jpg";
-import tableActorImage2 from "../../assets/avatar-2.jpg";
+// import tableActor1 from "../../assets/tableActorImage.jpg";
+// import tableActor2 from "../../assets/tableActorImage1.jpg";
+// import tableActor3 from "../../assets/tableActorImage2.jpg";
+// import tableActorImage1 from "../../assets/avatar-1.jpg";
+// import tableActorImage2 from "../../assets/avatar-2.jpg";
 import tableActorImage3 from "../../assets/avatar-3.jpg";
 import editIcon from "../../assets/edit-icon.svg";
 import trashIcon from "../../assets/trash-icon.png";
@@ -24,7 +24,6 @@ import { useNavigate } from 'react-router-dom';
 import CreateSynergiesPopup from '../../components/popup/create-synergies-popup/CreateSynergiesPopup';
 import ConfirmSynergiesPopup from '../../components/popup/confirm-senergies-popup/ConfirmSynergiesPopup';
 import angelBg from '../../assets/edit-senergies-hero-image.png'
-import ChoosePrioritySynergiesPopup from '../../components/popup/choose-priority-synergies-popup/ChoosePrioritySynergiesPopup';
 import SynergieaCreatedSuccessfullyPopup from '../../components/popup/synergiea-created-successfully-popup/SynergieaCreatedSuccessfullyPopup';
 
 
@@ -47,33 +46,12 @@ const buttons = [
     },
     {
         id: 5,
-        name: 'IP integration'
+        name: 'Getting whitelist spots'
     },
     {
         id: 6,
-        name: 'IP integration',
-    },
-    {
-        id: 7,
-        name: 'Angle48',
-    },
-    {
-        id: 8,
-        name: 'Hosting AMAS',
-    },
-    {
-        id: 9,
-        name: 'IP Angle48'
-    },
-    {
-        id: 10,
-        name: 'IP integration',
-    },
-    {
-        id: 11,
-        name: 'IP integration',
-    },
-
+        name: 'Integrating branded game assets'
+    }
 ]
 
 const synergyAnglesOptions = [
@@ -126,7 +104,7 @@ const ProjectManager = () => {
     const [dltId, setDltId] = useState(null);
     const [filter, setFilter] = useState({
         synergyAngleValue: '',
-        staus: '',
+        status: '',
         sortBy: ''
     })
 
@@ -143,7 +121,7 @@ const ProjectManager = () => {
     });
     const [createSynergyStep, setCreateSynergyStep] = useState(0);
     const [projectCounter, setProjectCounter] = useState(0);
-    const [createSynergySuccessPopup,setCreateSynergySuccessPopup]=useState(false);
+    const [createSynergySuccessPopup, setCreateSynergySuccessPopup] = useState(false);
 
 
 
@@ -221,12 +199,12 @@ const ProjectManager = () => {
     }
 
     const handleAddFeature = () => {
-        let projects=[...data.filter((project) => {
+        let projects = [...data.filter((project) => {
             return selectedProjects.includes(project.project_id) && !project.featured;
         })]
 
         const resArr = projects.map((project) => {
-            
+
             const data = {
                 "projectId": project.project_id,
                 "projectData": {
@@ -243,6 +221,27 @@ const ProjectManager = () => {
 
     const handleCreateSynergy = () => {
         setCreateSynergyStep(createSynergyStep + 1);
+    }
+
+    const handleSynergize = () => {
+        setCreateSynergyStep(createSynergyStep + 1);
+        let synergyName = '';
+        let projects = [...data.map((project) => {
+            if (selectedProjects.includes(project.project_id) || selectedProjectForSynergy.includes(project.project_id)) {
+                if (synergyName === '') {
+                    synergyName +=project.project_name
+                }
+                else {
+                    synergyName += ' X ' + project.project_name
+                }
+                return project;
+            }
+        })]
+        setSynergies({
+            ...synergies,
+            synergyName:synergyName,
+            projects: projects
+        })
     }
 
     const handleSynergy = (data) => {
@@ -269,10 +268,11 @@ const ProjectManager = () => {
             }),
         }));
     };
-    
+
 
     useEffect(() => {
         let data = initialProject;
+        console.log('data :>> ', data);
         if (filter.synergyAngleValue !== '') {
             const filterArr = data.filter((project) => {
                 return project.synergiesAngles.findIndex((synergy) => {
@@ -293,18 +293,14 @@ const ProjectManager = () => {
         }
         if (filter.sortBy !== '') {
             if (filter.sortBy === 'name') {
+                console.log('data :>> ', data);
                 const filterArr = data.sort((project1, project2) => {
                     const firstLetterA = project1.projectName[0].toLowerCase();
                     const firstLetterB = project2.projectName[0].toLowerCase();
 
-                    if (firstLetterA < firstLetterB) {
-                        return -1;
-                    }
-                    if (firstLetterA > firstLetterB) {
-                        return 1;
-                    }
-                    return 0;
-                })
+                    return firstLetterA.localeCompare(firstLetterB);
+                });
+
                 data = [...filterArr];
             }
             else if (filter.sortBy === 'date') {
@@ -327,8 +323,8 @@ const ProjectManager = () => {
             }
             else if (filter.sortBy === 'description') {
                 const filterArr = data.sort((project1, project2) => {
-                    const firstLetterA = project1.description.trim()[0].toLowerCase();
-                    const firstLetterB = project2.description.trim()[0].toLowerCase();
+                    const firstLetterA = project1.description.trim()[0]?.toLowerCase();
+                    const firstLetterB = project2.description.trim()[0]?.toLowerCase();
 
                     if (firstLetterA < firstLetterB) {
                         return -1;
@@ -429,15 +425,7 @@ const ProjectManager = () => {
                                 setCreateSynergyStep(createSynergyStep + 1)
                             }} disabled={!(createSynergyStep >= 1)}>
                                 Next Step
-                            </button> : <button className={`btn_gray ${createSynergyStep >= 1 ? 'active' : ''}`} onClick={() => {
-                                setCreateSynergyStep(createSynergyStep + 1);
-                                setSynergies({
-                                    ...synergies,
-                                    projects: [...data.filter((project) => {
-                                        return selectedProjects.includes(project.project_id) || selectedProjectForSynergy.includes(project.project_id);
-                                    })]
-                                })
-                            }}>
+                            </button> : <button className={`btn_gray ${createSynergyStep >= 1 ? 'active' : ''}`} onClick={handleSynergize}>
                                 Synergize
                             </button>}
                         </div>
@@ -600,7 +588,7 @@ const ProjectManager = () => {
                                                     <div className='actor'>
                                                         <ul>
                                                             {rowData?.teamMembers?.map((member, index) => {
-                                                                console.log('',member);
+                                                                console.log('', member);
                                                                 return (
                                                                     <>
                                                                         <li
@@ -645,8 +633,8 @@ const ProjectManager = () => {
                                                             rowData.synergiesAngles.slice(0, 3).map((Angle, index) => (
                                                                 <div className={`${index === 0 ? 'global' : (index === 1 ? 'graph' : '')}`} key={index}>
                                                                     <div className='angle_tag'>
-                                                                        <>{index === 0 && <GredientGlobalIcon />}</>
-                                                                        <>{index === 1 && <GradientGraphIcon />}</>
+                                                                        <>{index === 0 && <div className='icon'><GredientGlobalIcon /></div>}</>
+                                                                        <>{index === 1 && <div className='icon'><GradientGraphIcon /></div>}</>
                                                                         <span className='text'>
                                                                             <span>{Angle.label}</span>
                                                                         </span>
@@ -772,7 +760,7 @@ const ProjectManager = () => {
                 title={createSynergyStep === 3 ? 'Create Synergy' :
                     createSynergyStep === 3 ? synergies.projects[projectCounter]['project_name'] :
                         createSynergyStep === 4 ? 'Edit synergy angles' :
-                            createSynergyStep === 5 ? 'Confirm Synergy' :''}
+                            createSynergyStep === 5 ? 'Confirm Synergy' : ''}
                 onClose={() => {
                     setCreateSynergyStep(0);
                     setProjectCounter(0);
@@ -809,7 +797,7 @@ const ProjectManager = () => {
                                                 {buttons.map((data) => (
                                                     <div key={data.id} className='angel_tab'>
                                                         <input type="checkbox" checked={synergies.projects[projectCounter]?.synergy?.some(synergy => synergy.id === data.id) || false} name="angleName" id={`angle1+${data.id}`} className='checkbox_input' />
-                                                        <label htmlFor={`angle1+${data.id}`} className='checkbox_label' onClick={()=> handleSynergy(data)}>
+                                                        <label htmlFor={`angle1+${data.id}`} className='checkbox_label' onClick={() => handleSynergy(data)}>
                                                             <div className="checkbox_label_text" >
                                                                 <GlobalIcon />
                                                                 <span className='checkbox_label_text_head'>{data.name}</span>
@@ -907,15 +895,15 @@ const ProjectManager = () => {
                                     setCreateSynergyStep(4);
                                 }}>Back</button>
                                 <button className='next_btn' onClick={() => {
-                                   setCreateSynergyStep(0);
-                                   setProjectCounter(0);
-                                   setSynergies({
-                                       synergyName: '',
-                                       projects: []
-                                   })
-                                   setSelectedProjects([]);
-                                   setSelectedProjectForSynergy([]);
-                                   setCreateSynergySuccessPopup(true);
+                                    setCreateSynergyStep(0);
+                                    setProjectCounter(0);
+                                    setSynergies({
+                                        synergyName: '',
+                                        projects: []
+                                    })
+                                    setSelectedProjects([]);
+                                    setSelectedProjectForSynergy([]);
+                                    setCreateSynergySuccessPopup(true);
                                 }}>Create synergy</button>
                             </>
                         }
@@ -925,10 +913,10 @@ const ProjectManager = () => {
                 }
             />
             <SynergieaCreatedSuccessfullyPopup
-               open={createSynergySuccessPopup}
-               handleClose={()=>{
-                setCreateSynergySuccessPopup(false);
-               }}
+                open={createSynergySuccessPopup}
+                handleClose={() => {
+                    setCreateSynergySuccessPopup(false);
+                }}
             />
             < ConfirmSynergiesPopup
                 open={false}
@@ -940,8 +928,8 @@ const ProjectManager = () => {
                     handleCancelSelection()
                     setIsBottomMenuOpen(false)
                 }}
-                
-                handleCreateSynergy={()=>{
+
+                handleCreateSynergy={() => {
                     handleCreateSynergy();
                     setIsBottomMenuOpen(false);
                 }}
