@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { getProjectsAPI, addProjectAPI, addMemberAPI, deleteProjectAPI, updateProjectAPI } from "../../api-services/projectApis"
+import { getProjectsAPI, addProjectAPI, addMemberAPI, deleteProjectAPI, updateProjectAPI, getMemberApi } from "../../api-services/projectApis"
 
 const initialState = {
     projects: [],
@@ -10,35 +10,6 @@ const projectSlice = createSlice({
     name: 'project',
     initialState: initialState,
     reducers: {
-        updateProject: (state, action) => {
-            return {
-                ...state,
-                projects: [
-                    ...state.projects.map((project) => {
-                        if (project.project_id === action.payload.project_id) {
-                            return { ...action.payload }
-                        }
-                        return project;
-                    })
-                ]
-            };
-        },
-
-        addFeature: (state, action) => {
-            return {
-                ...state,
-                projects: [...state.projects.map(project => {
-                    if (action.payload.includes(project.project_id)) {
-                        return {
-                            ...project,
-                            featured: 1
-                        };
-                    }
-                    return project;
-                })]
-            };
-        }
-
     },
     extraReducers: (builder) => {
         builder.addCase(getProjectsAPI.pending, (state) => {
@@ -99,6 +70,15 @@ const projectSlice = createSlice({
             updateProjectAPI.fulfilled, (state, action) => {
                 return {
                     ...state,
+                    projects: [...state.projects.map(project => {
+                        if (project.project_id === action.payload.projectData.projectId) {
+                            return {
+                                ...project,
+                                ...action.payload.projectData.projectData
+                            };
+                        }
+                        return project;
+                    })],
                     isLoading: false
                 }
             }
@@ -152,8 +132,55 @@ const projectSlice = createSlice({
                 isLoading: false
             }
         })
+        builder.addCase(getMemberApi.pending, (state) => {
+            return {
+                ...state,
+                isLoading: true
+            }
+        })
+        // builder.addCase(getMemberApi.fulfilled, (state, action) => {
+        //     return {
+        //         ...state,
+        //         isLoading: false,
+        //         projects: state.projects.map((project) => {
+        //             if (action.payload.data[0]['_project_id'] === project['project_id']){
+        //                 console.log(' :>> ', action.payload.data[0]['_project_id'], project['project_id']);
+        //                 return {
+        //                     ...project,
+        //                     members: action.payload.data
+        //                 };
+        //             }
+        //             return { ...project };
+        //         })
+        //     };
+        // });
+        builder.addCase(getMemberApi.fulfilled, (state, action) => {
+            console.log('Payload Data:', action.payload.data);
+            return {
+                ...state,
+                isLoading: false,
+                projects: state.projects.map((project) => {
+                    if (action.payload.data[0]['_project_id'] === project['project_id']) {
+                        return {
+                            ...project,
+                            teamMembers: action.payload.data?.length > 0 ? action.payload.data : []
+                        };
+                    }
+                    else
+                        return {
+                            ...project
+                        };
+                })
+            };
+        });
+
+        builder.addCase(getMemberApi.rejected, (state) => {
+            return {
+                ...state,
+                isLoading: false
+            }
+        })
     }
 })
 
-export const { updateProject, addFeature } = projectSlice.actions
 export default projectSlice.reducer

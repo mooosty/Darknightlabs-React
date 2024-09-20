@@ -24,7 +24,10 @@ export const addProjectAPI = createAsyncThunk('project/add',
 export const updateProjectAPI = createAsyncThunk('project/update',
     async (data, thunkAPI) => {
         const response = await axiosApi.patch(apiRoutes.PROJECT, data)
-        if (response?.data?.success) return response?.data
+        if (response?.data?.success) return {
+            response:response?.data,
+            projectData:data
+        }
         else return thunkAPI.rejectWithValue(response?.data)
     }
 )
@@ -32,6 +35,14 @@ export const updateProjectAPI = createAsyncThunk('project/update',
 export const addMemberAPI = createAsyncThunk('userproject/add',
     async (data, thunkAPI) => {
         const response = await axiosApi.post(apiRoutes.USER_PROJECT, data)
+        if (response?.data?.success) return response?.data
+        else return thunkAPI.rejectWithValue(response?.data)
+    }
+)
+
+export const getMemberApi = createAsyncThunk('userproject/get',
+    async (data, thunkAPI) => {
+        const response = await axiosApi.get(apiRoutes.PROJECTUSER+`/${data}`)
         if (response?.data?.success) return response?.data
         else return thunkAPI.rejectWithValue(response?.data)
     }

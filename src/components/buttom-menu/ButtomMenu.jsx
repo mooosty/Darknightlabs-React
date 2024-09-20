@@ -5,7 +5,7 @@ import closeIcon from "../../assets/X-icon.png";
 import trashIcon from "../../assets/trash-icon.png";
 
 
-const ButtomMenu = ({ open, handleClose }) => {
+const ButtomMenu = ({ open, handleClose,handleDelete,handleAddFeature,handleCreateSynergy }) => {
     return (
         <>
             <div className={`menu_contianer ${open ? 'active' : ''} `}>
@@ -16,14 +16,14 @@ const ButtomMenu = ({ open, handleClose }) => {
                             <img src={closeIcon} alt="Add" />
                             <span>Cancel</span>
                         </button>
-                        <button >
+                        <button onClick={()=>handleAddFeature()}>
                             <TableStatusIcon />
                             Add to Featured</button>
-                        <button >
+                        <button onClick={()=>handleCreateSynergy()}>
                             <InfiniteIcon />
                             <span>Create synergy</span>
                         </button>
-                        <button >
+                        <button onClick={()=>handleDelete()}>
                             <img src={trashIcon} alt="Delete" />
                             <span>Delete</span>
                         </button>
@@ -33,9 +33,13 @@ const ButtomMenu = ({ open, handleClose }) => {
         </>
     )
 }
+
 ButtomMenu.propTypes = {
     open: PropTypes.bool,
     handleClose: PropTypes.func,
+    handleDelete: PropTypes.func,
+    handleAddFeature: PropTypes.func,
+    handleCreateSynergy: PropTypes.func
 }
 
 export default ButtomMenu

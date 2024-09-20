@@ -4,6 +4,7 @@ import trashIcon from "../../assets/trash-icon.png";
 import editIcon from "../../assets/edit-icon.svg";
 import { DownIcon, GlobalIcon, GradientGraphIcon, GredientGlobalIcon, TableStatusIcon } from '../../utils/SVGs/SVGs';
 import { useState } from 'react';
+import tableActorImage3 from "../../assets/avatar-3.jpg";
 
 
 const ProjectAccordion = ({
@@ -16,6 +17,7 @@ const ProjectAccordion = ({
     status,
     isFeatured,
     checked,
+    disabled,
     date,
     onEdit = () => { },
     onDelete = () => { },
@@ -37,9 +39,9 @@ const ProjectAccordion = ({
     return (
         <>
             <div
-                className={`project_accordion_conrtainer ${open ? 'active' : ''}`}
+                className={`project_accordion_conrtainer ${open ? 'active' : ''} ${disabled?'disable':''}`}
             >
-                <div className={`project_accordion ${isFeatured ? 'heighlighted' : ''} ${checked ? 'selected' : ''}`}>
+                <div className={`project_accordion ${isFeatured ? 'heighlighted' : ''} ${checked ? 'selected' : ''} `}>
                     <div className='project_accordion_label' >
                         <div className="table_row">
                             <div className='content'>
@@ -60,12 +62,19 @@ const ProjectAccordion = ({
                                     <div className='center'>
                                         <div className='creator'>
                                             <ul>
-                                                {teamMembers.map((Actor, index) => (
-                                                    <li key={index}>
-                                                        <img src={Actor.icon} alt="" title="Alexander - Founder and CEO" />
-                                                    </li>
-                                                ))
-                                                }
+                                                {teamMembers?.map((member, index) => {
+                                                    return (
+                                                        <>
+                                                            <li
+                                                                key={index}
+                                                                id={`tooltip_team_member_${index}`}
+                                                            >
+                                                                <img src={member.profile_picture ? member.profile_picture : tableActorImage3} alt="" title="Alexander - Founder and CEO" />
+
+                                                            </li>
+                                                        </>
+                                                    )
+                                                })}
                                             </ul>
                                         </div>
                                     </div>
@@ -106,12 +115,19 @@ const ProjectAccordion = ({
                                 <span className='label'>Members:</span>
                                 <div className='creator'>
                                     <ul>
-                                        {teamMembers.map((Actor, index) => (
-                                            <li key={index}>
-                                                <img src={Actor.icon} alt="" title="Alexander - Founder and CEO" />
-                                            </li>
-                                        ))
-                                        }
+                                        {teamMembers?.map((member, index) => {
+                                            return (
+                                                <>
+                                                    <li
+                                                        key={index}
+                                                        id={`tooltip_team_member_${index}`}
+                                                    >
+                                                        <img src={member.profile_picture ? member.profile_picture : tableActorImage3} alt="" title="Alexander - Founder and CEO" />
+
+                                                    </li>
+                                                </>
+                                            )
+                                        })}
                                     </ul>
                                 </div>
                             </div>
@@ -119,11 +135,8 @@ const ProjectAccordion = ({
                                 <span className='label'>Type:</span>
                                 <div className='type'>
                                     {type.map((type, index) => (
-                                        <div key={index} className='table_tag'>
-                                            {type}
-                                        </div>
-                                    ))
-                                    }
+                                        <div key={index} className='table_tag'>{type}</div>
+                                    ))}
                                 </div>
                             </div>
                             <div className="data_container angel_container">
@@ -177,6 +190,7 @@ ProjectAccordion.propTypes = {
     onSelect: PropTypes.func,
     isFeatured: PropTypes.number,
     checked: PropTypes.bool,
+    disabled:PropTypes.bool
 }
 
 export default ProjectAccordion

@@ -1,14 +1,14 @@
 import './projectManager.scss'
 import searchIcon from "../../assets/search-icon.png"
 import addIcon from "../../assets/add-icon.png"
-import { GridIcon, ListIcon, TableStatusIcon, GredientGlobalIcon, GradientGraphIcon, InfiniteIcon, MoreIcon } from '../../utils/SVGs/SVGs'
+import { GridIcon, ListIcon, TableStatusIcon, GredientGlobalIcon, GradientGraphIcon, InfiniteIcon, MoreIcon, AddCircleIcon, CLeseCircleIcon, GlobalIcon, DownAccordionIcon } from '../../utils/SVGs/SVGs'
 import filterIcon from "../../assets/filter.svg";
-// import tableActor1 from "../../assets/tableActorImage.jpg";
-// import tableActor2 from "../../assets/tableActorImage1.jpg";
-// import tableActor3 from "../../assets/tableActorImage2.jpg";
-// import tableActorImage1 from "../../assets/avatar-1.jpg";
-// import tableActorImage2 from "../../assets/avatar-2.jpg";
-// import tableActorImage3 from "../../assets/avatar-3.jpg";
+import tableActor1 from "../../assets/tableActorImage.jpg";
+import tableActor2 from "../../assets/tableActorImage1.jpg";
+import tableActor3 from "../../assets/tableActorImage2.jpg";
+import tableActorImage1 from "../../assets/avatar-1.jpg";
+import tableActorImage2 from "../../assets/avatar-2.jpg";
+import tableActorImage3 from "../../assets/avatar-3.jpg";
 import editIcon from "../../assets/edit-icon.svg";
 import trashIcon from "../../assets/trash-icon.png";
 import closeIcon from "../../assets/X-icon.png";
@@ -18,11 +18,63 @@ import ProjectAccordion from '../../components/project-accordion/ProjectAccordio
 import ButtomMenu from '../../components/buttom-menu/ButtomMenu';
 import DeleteConfirmPopup from '../../components/popup/delete-confirm-popup/DeleteConfirmaPopup';
 import { Tooltip } from 'react-tooltip';
-import { getProjectsAPI, deleteProjectAPI } from '../../api-services/projectApis';
+import { getProjectsAPI, deleteProjectAPI, updateProjectAPI, getMemberApi } from '../../api-services/projectApis';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { addFeature } from '../../store/slice/projectSlice';
+import CreateSynergiesPopup from '../../components/popup/create-synergies-popup/CreateSynergiesPopup';
+import ConfirmSynergiesPopup from '../../components/popup/confirm-senergies-popup/ConfirmSynergiesPopup';
+import angelBg from '../../assets/edit-senergies-hero-image.png'
+import ChoosePrioritySynergiesPopup from '../../components/popup/choose-priority-synergies-popup/ChoosePrioritySynergiesPopup';
+import SynergieaCreatedSuccessfullyPopup from '../../components/popup/synergiea-created-successfully-popup/SynergieaCreatedSuccessfullyPopup';
 
+
+const buttons = [
+    {
+        id: 1,
+        name: 'IP integration'
+    },
+    {
+        id: 2,
+        name: 'Angle48'
+    },
+    {
+        id: 3,
+        name: 'Hosting AMAS',
+    },
+    {
+        id: 4,
+        name: 'IP Angle48'
+    },
+    {
+        id: 5,
+        name: 'IP integration'
+    },
+    {
+        id: 6,
+        name: 'IP integration',
+    },
+    {
+        id: 7,
+        name: 'Angle48',
+    },
+    {
+        id: 8,
+        name: 'Hosting AMAS',
+    },
+    {
+        id: 9,
+        name: 'IP Angle48'
+    },
+    {
+        id: 10,
+        name: 'IP integration',
+    },
+    {
+        id: 11,
+        name: 'IP integration',
+    },
+
+]
 
 const synergyAnglesOptions = [
     {
@@ -68,12 +120,14 @@ const ProjectManager = () => {
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [isBottomMenuOpen, setIsBottomMenuOpen] = useState(false)
     const [selectedProjects, setSelectedProjects] = useState([])
+    const [selectedProjectForSynergy, setSelectedProjectForSynergy] = useState([]);
     const [isDeleteConfirmPopupOpen, setIsDeleteConfirmPopupOpen] = useState(false);
     const [isMultiDltConfirmPopupOpen, setIsMultiDltConfirmPopupOpen] = useState(false);
     const [dltId, setDltId] = useState(null);
     const [filter, setFilter] = useState({
         synergyAngleValue: '',
-        sortBy: null
+        staus: '',
+        sortBy: ''
     })
 
     const dispatch = useDispatch();
@@ -83,6 +137,15 @@ const ProjectManager = () => {
 
     const [initialProject, setInitialProject] = useState([])
     const [filterProject, setFilterProject] = useState([])
+    const [synergies, setSynergies] = useState({
+        synergyName: '',
+        projects: []
+    });
+    const [createSynergyStep, setCreateSynergyStep] = useState(0);
+    const [projectCounter, setProjectCounter] = useState(0);
+    const [createSynergySuccessPopup,setCreateSynergySuccessPopup]=useState(false);
+
+
 
     function formatDate(date) {
         var d = new Date(date),
@@ -118,14 +181,29 @@ const ProjectManager = () => {
     }
 
     const handleSelectProject = ({ projectId }) => {
-        let tmpSelectedProjects = [...selectedProjects]
-        const project = tmpSelectedProjects.find((item) => item === projectId)
-        if (project) {
-            tmpSelectedProjects = tmpSelectedProjects.filter((item) => item !== projectId)
-        } else {
-            tmpSelectedProjects.push(projectId)
+        if (createSynergyStep === 0) {
+            let tmpSelectedProjects = [...selectedProjects]
+            const project = tmpSelectedProjects.find((item) => item === projectId)
+            if (project) {
+                tmpSelectedProjects = tmpSelectedProjects.filter((item) => item !== projectId)
+            } else {
+                tmpSelectedProjects.push(projectId)
+            }
+            setSelectedProjects([...tmpSelectedProjects])
         }
-        setSelectedProjects([...tmpSelectedProjects])
+        else if (createSynergyStep === 2) {
+            let tmpSelectedProjects = [...selectedProjectForSynergy]
+            const project = tmpSelectedProjects.find((item) => item === projectId)
+            const findInSelected = selectedProjects.find((item) => item === projectId)
+            if (!findInSelected) {
+                if (project) {
+                    tmpSelectedProjects = tmpSelectedProjects.filter((item) => item !== projectId)
+                } else {
+                    tmpSelectedProjects.push(projectId)
+                }
+            }
+            setSelectedProjectForSynergy([...tmpSelectedProjects])
+        }
     }
 
     const handleSelectAllProjects = () => {
@@ -142,18 +220,80 @@ const ProjectManager = () => {
         setSelectedProjects([])
     }
 
+    const handleAddFeature = () => {
+        let projects=[...data.filter((project) => {
+            return selectedProjects.includes(project.project_id) && !project.featured;
+        })]
+
+        const resArr = projects.map((project) => {
+            
+            const data = {
+                "projectId": project.project_id,
+                "projectData": {
+                    "featured": 1,
+                }
+            }
+            return dispatch(updateProjectAPI(data));
+        })
+
+        Promise.allSettled(resArr).then(() => {
+            setSelectedProjects([])
+        })
+    }
+
+    const handleCreateSynergy = () => {
+        setCreateSynergyStep(createSynergyStep + 1);
+    }
+
+    const handleSynergy = (data) => {
+        setSynergies(prevSynergies => ({
+            ...prevSynergies,
+            projects: prevSynergies.projects.map((project, index) => {
+                if (index === projectCounter) {
+                    const currentSynergy = project.synergy || [];
+                    const synergyExists = currentSynergy.some(item => item.id === data.id);
+                    if (synergyExists) {
+                        const updatedSynergy = currentSynergy.filter(item => item.id !== data.id);
+                        return {
+                            ...project,
+                            synergy: updatedSynergy,
+                        };
+                    } else {
+                        return {
+                            ...project,
+                            synergy: [...currentSynergy, data],
+                        };
+                    }
+                }
+                return project;
+            }),
+        }));
+    };
+    
+
     useEffect(() => {
+        let data = initialProject;
         if (filter.synergyAngleValue !== '') {
-            const filterArr = initialProject.filter((project) => {
+            const filterArr = data.filter((project) => {
                 return project.synergiesAngles.findIndex((synergy) => {
                     return synergy.label === filter.synergyAngleValue;
                 }) !== -1;
             });
-            setFilterProject([...filterArr])
+            data = [...filterArr];
         }
-        else if (filter.sortBy !== '') {
+        if (filter.status !== '') {
+            const filterArr = data.filter((project) => {
+                if (filter.status === 'Featured')
+                    return project.isFeatured
+                else {
+                    return !project.isFeatured
+                }
+            })
+            data = [...filterArr];
+        }
+        if (filter.sortBy !== '') {
             if (filter.sortBy === 'name') {
-                const filterArr = filterProject.sort((project1, project2) => {
+                const filterArr = data.sort((project1, project2) => {
                     const firstLetterA = project1.projectName[0].toLowerCase();
                     const firstLetterB = project2.projectName[0].toLowerCase();
 
@@ -165,25 +305,10 @@ const ProjectManager = () => {
                     }
                     return 0;
                 })
-                setFilterProject([...filterArr])
-            }
-            else if (filter.sortBy === 'status') {
-                const filterArr = filterProject.sort((project1, project2) => {
-                    const status1 = project1.isFeatured;
-                    const status2 = project2.isFeatured;
-
-                    if (status1 > status2) {
-                        return -1;
-                    }
-                    if (status1 < status2) {
-                        return 1;
-                    }
-                    return 0;
-                })
-                setFilterProject([...filterArr])
+                data = [...filterArr];
             }
             else if (filter.sortBy === 'date') {
-                const filterArr = filterProject.sort((project1, project2) => {
+                const filterArr = data.sort((project1, project2) => {
                     const dateA = project1.date.split('/');
                     const dateB = project2.date.split('/');
                     if (dateA[2] === dateB[2]) {
@@ -198,10 +323,10 @@ const ProjectManager = () => {
                         return dateB[2] - dateA[2];
                     }
                 });
-                setFilterProject([...filterArr])
+                data = [...filterArr];
             }
             else if (filter.sortBy === 'description') {
-                const filterArr = filterProject.sort((project1, project2) => {
+                const filterArr = data.sort((project1, project2) => {
                     const firstLetterA = project1.description.trim()[0].toLowerCase();
                     const firstLetterB = project2.description.trim()[0].toLowerCase();
 
@@ -213,12 +338,10 @@ const ProjectManager = () => {
                     }
                     return 0;
                 })
-                setFilterProject([...filterArr])
+                data = [...filterArr];
             }
         }
-        else {
-            setFilterProject([...initialProject])
-        }
+        setFilterProject([...data])
     }, [filter])
 
     useEffect(() => {
@@ -235,8 +358,7 @@ const ProjectManager = () => {
                     key: index,
                     checked: false,
                     projectName: project.project_name,
-                    teamMembers: [
-                    ],
+                    teamMembers: project?.teamMembers ?? [],
                     synergyImg: project.image ?? '',
                     synergiesAngles: synergy_angles,
                     type: tags,
@@ -255,8 +377,14 @@ const ProjectManager = () => {
 
     useEffect(() => {
         if (data.length === 0)
-            dispatch(getProjectsAPI());
+            dispatch(getProjectsAPI()).then((res) => {
+                res.payload.map((project) => {
+                    dispatch(getMemberApi(project.project_id))
+                })
+            });
     }, [])
+
+    console.log('synergies :>> ', synergies);
 
 
     return (
@@ -289,7 +417,7 @@ const ProjectManager = () => {
                                 className="btn_gray btn_filter"
                                 onClick={handleFilterOpen}
                             >
-                                Filters <img src={filterIcon} alt=" " />
+                                Filters ({Object.values(filter).filter(value => value !== '').length})<img src={filterIcon} alt=" " />
                             </button>
                             <button className={`btn_gray `} onClick={() => {
                                 navigate('/project-manager/ADD')
@@ -297,6 +425,21 @@ const ProjectManager = () => {
                                 Add New Project
                                 <img src={addIcon} alt="" />
                             </button>
+                            {createSynergyStep < 2 ? <button className={`btn_gray ${createSynergyStep >= 1 ? 'active' : ''}`} onClick={() => {
+                                setCreateSynergyStep(createSynergyStep + 1)
+                            }} disabled={!(createSynergyStep >= 1)}>
+                                Next Step
+                            </button> : <button className={`btn_gray ${createSynergyStep >= 1 ? 'active' : ''}`} onClick={() => {
+                                setCreateSynergyStep(createSynergyStep + 1);
+                                setSynergies({
+                                    ...synergies,
+                                    projects: [...data.filter((project) => {
+                                        return selectedProjects.includes(project.project_id) || selectedProjectForSynergy.includes(project.project_id);
+                                    })]
+                                })
+                            }}>
+                                Synergize
+                            </button>}
                         </div>
                     </div>
                     <div className={`project_page_filter ${isFilterOpen ? 'active' : ''}`}>
@@ -323,11 +466,26 @@ const ProjectManager = () => {
                                 placeholder={'All project types'}
                             />
                         </div>
+                        <div className="status">
+                            <Select
+                                options={[
+                                    { label: 'Featured', value: 'Featured' },
+                                    { label: 'Non Featured', value: 'Non Featured' },
+                                ]}
+                                placeholder={'All Statuses'}
+                                onChange={(value) => {
+                                    setSelectedProjects([])
+                                    setFilter({
+                                        ...filter,
+                                        status: value.value
+                                    })
+                                }}
+                            />
+                        </div>
                         <div className="sort">
                             <Select
                                 options={[
                                     { label: 'Project Name', value: 'name' },
-                                    { label: 'Status', value: 'status' },
                                     { label: 'Description', value: 'description' },
                                     { label: 'Date', value: 'date' },
                                 ]}
@@ -344,14 +502,14 @@ const ProjectManager = () => {
                     </div>
                 </div>
                 <div className="project_page_body">
-                    {selectedProjects.length > 0 && <div className="project_page_table_handler">
+                    {(selectedProjects.length > 0 && !(createSynergyStep >= 1)) && <div className="project_page_table_handler">
                         <div className="selected_count">
                             <div className="costum_checkbox">
                                 <input
                                     type="checkbox"
                                     id='checkboxSelected'
                                     className='costum_checkbox_input'
-                                    defaultChecked={selectedProjects.length === filterProject.length && filterProject.length !== 0}
+                                    checked={selectedProjects.length === filterProject.length && filterProject.length !== 0}
                                 />
                                 <label
                                     htmlFor='checkboxSelected'
@@ -369,13 +527,14 @@ const ProjectManager = () => {
                                 <span>Cancel</span>
                             </button>
                             <button className="btn_featured btn_gray" onClick={() => {
-                                dispatch(addFeature(selectedProjects))
-                                setSelectedProjects([])
+                                handleAddFeature()
                             }}>
                                 <TableStatusIcon />
                                 <span>Add to Featured</span>
                             </button>
-                            <button className="btn_create btn_gray">
+                            <button className="btn_create btn_gray" onClick={() => {
+                                handleCreateSynergy();
+                            }}>
                                 <InfiniteIcon />
                                 <span>Create synergy</span>
                             </button>
@@ -388,7 +547,9 @@ const ProjectManager = () => {
                         </div>
 
                         <div className="table_actions_button">
-                            <button className="button_delete ">
+                            <button className="button_delete " onClick={() => {
+                                setIsMultiDltConfirmPopupOpen(true);
+                            }}>
                                 <img src={trashIcon} alt="Delete" />
                             </button>
                             <button className="menu_button" onClick={() => setIsBottomMenuOpen(true)}>
@@ -416,7 +577,7 @@ const ProjectManager = () => {
                                 {
                                     filterProject.map((rowData) => {
                                         return (
-                                            <tr key={rowData.projectId} className={`${rowData.isFeatured ? 'heighlighted' : ''} ${selectedProjects.includes(rowData.projectId) ? 'selected' : ''}`}>
+                                            <tr key={rowData.projectId} className={`${rowData.isFeatured ? 'heighlighted' : ''} ${selectedProjects.includes(rowData.projectId) ? 'selected' : ''} ${selectedProjects.includes(rowData.projectId) && createSynergyStep >= 2 ? 'disable' : ''}`}>
                                                 <td>
                                                     <div className='table_name'>
                                                         <div
@@ -425,7 +586,7 @@ const ProjectManager = () => {
                                                             <input
                                                                 type="checkbox"
                                                                 className='costum_checkbox_input'
-                                                                checked={selectedProjects.includes(rowData.projectId)}
+                                                                checked={selectedProjects.includes(rowData.projectId) || selectedProjectForSynergy.includes(rowData.projectId)}
                                                             />
                                                             <label
                                                                 className='costum_checkbox_label'
@@ -438,29 +599,31 @@ const ProjectManager = () => {
                                                 <td>
                                                     <div className='actor'>
                                                         <ul>
-                                                            {rowData.teamMembers.map((member, index) => (
-                                                                <>
-                                                                    <li
-                                                                        key={index}
-                                                                        id={`tooltip_team_member_${index}`}
-                                                                    >
-                                                                        <img src={member.icon} alt="" title="Alexander - Founder and CEO" />
-                                                                    </li>
-                                                                    <Tooltip
-                                                                        place="top"
-                                                                        style={{
-                                                                            maxWidth: '500px',
-                                                                            boxShadow: '0px 3px 10.3px -4px rgba(229, 229, 229, 0.1)',
-                                                                            background: 'rgba(79, 79, 79, 1)',
-                                                                            opacity: '1',
-                                                                        }}
-                                                                        anchorSelect={`#tooltip_team_member_${index}`}
-                                                                    >
-                                                                        {member.tooltip}
-                                                                    </Tooltip>
-                                                                </>
-                                                            ))
-                                                            }
+                                                            {rowData?.teamMembers?.map((member, index) => {
+                                                                console.log('',member);
+                                                                return (
+                                                                    <>
+                                                                        <li
+                                                                            key={index}
+                                                                            id={`tooltip_team_member_${index}`}
+                                                                        >
+                                                                            <img src={member.profile_picture ? member.profile_picture : tableActorImage3} alt="" title="Alexander - Founder and CEO" />
+                                                                        </li>
+                                                                        <Tooltip
+                                                                            place="top"
+                                                                            style={{
+                                                                                maxWidth: '500px',
+                                                                                boxShadow: '0px 3px 10.3px -4px rgba(229, 229, 229, 0.1)',
+                                                                                background: 'rgba(79, 79, 79, 1)',
+                                                                                opacity: '1',
+                                                                            }}
+                                                                            anchorSelect={`#tooltip_team_member_${index}`}
+                                                                        >
+                                                                            {member.twitter}
+                                                                        </Tooltip>
+                                                                    </>
+                                                                )
+                                                            })}
                                                         </ul>
 
                                                     </div>
@@ -481,7 +644,7 @@ const ProjectManager = () => {
                                                         {
                                                             rowData.synergiesAngles.slice(0, 3).map((Angle, index) => (
                                                                 <div className={`${index === 0 ? 'global' : (index === 1 ? 'graph' : '')}`} key={index}>
-                                                                    <div className=' angle_tag'>
+                                                                    <div className='angle_tag'>
                                                                         <>{index === 0 && <GredientGlobalIcon />}</>
                                                                         <>{index === 1 && <GradientGraphIcon />}</>
                                                                         <span className='text'>
@@ -551,7 +714,7 @@ const ProjectManager = () => {
                                 <ProjectAccordion
                                     key={rowData.key}
                                     projectName={rowData.projectName}
-                                    teamMembers={rowData.teamMembers}
+                                    teamMembers={rowData?.teamMembers}
                                     synergyImg={rowData.synergyImg}
                                     description={rowData.description}
                                     type={rowData.type}
@@ -559,7 +722,8 @@ const ProjectManager = () => {
                                     synergiesAngles={rowData.synergiesAngles}
                                     date={rowData.date}
                                     isFeatured={rowData.isFeatured}
-                                    checked={selectedProjects.includes(rowData.projectId)}
+                                    checked={selectedProjects.includes(rowData.projectId) || selectedProjectForSynergy.includes(rowData.projectId)}
+                                    disabled={selectedProjects.includes(rowData.projectId) && createSynergyStep >= 2}
                                     onDelete={() => {
                                         setIsDeleteConfirmPopupOpen(true);
                                         setDltId(rowData.projectId)
@@ -603,10 +767,196 @@ const ProjectManager = () => {
                     setIsMultiDltConfirmPopupOpen(false);
                 }}
             />
+            <CreateSynergiesPopup
+                open={createSynergyStep >= 3}
+                title={createSynergyStep === 3 ? 'Create Synergy' :
+                    createSynergyStep === 3 ? synergies.projects[projectCounter]['project_name'] :
+                        createSynergyStep === 4 ? 'Edit synergy angles' :
+                            createSynergyStep === 5 ? 'Confirm Synergy' :''}
+                onClose={() => {
+                    setCreateSynergyStep(0);
+                    setProjectCounter(0);
+                    setSynergies({
+                        synergyName: '',
+                        projects: []
+                    })
+                    setSelectedProjects([]);
+                    setSelectedProjectForSynergy([]);
+                }}
+                body={
+                    <>
+                        {
+                            createSynergyStep === 3 && <>
+                                <div className="form_group">
+                                    <label htmlFor="projectName">Create synergy name</label>
+                                    <input type="text" id="projectName" placeholder="Ex. Synergy 1581" value={synergies.synergyName} onChange={(e) => setSynergies({ ...synergies, synergyName: e.target.value })} />
+                                </div>
+                            </>
+                        }
+
+                        {createSynergyStep === 4 && <>
+                            <div className='model_body'>
+                                <div className="model_data">
+                                    <div className="image">
+                                        <img src={angelBg} alt="" />
+                                    </div>
+                                    <div className={`page active`}>
+                                        <div className="angel_model_data_head">
+                                            <div className="title">Synergy angles </div>
+                                        </div>
+                                        <div className="angel_model_data_body">
+                                            <div className="angels_container">
+                                                {buttons.map((data) => (
+                                                    <div key={data.id} className='angel_tab'>
+                                                        <input type="checkbox" checked={synergies.projects[projectCounter]?.synergy?.some(synergy => synergy.id === data.id) || false} name="angleName" id={`angle1+${data.id}`} className='checkbox_input' />
+                                                        <label htmlFor={`angle1+${data.id}`} className='checkbox_label' onClick={()=> handleSynergy(data)}>
+                                                            <div className="checkbox_label_text" >
+                                                                <GlobalIcon />
+                                                                <span className='checkbox_label_text_head'>{data.name}</span>
+                                                            </div>
+                                                            <div className="angel_add">
+                                                                <AddCircleIcon />
+                                                            </div>
+                                                            <div className="angel_remove" >
+                                                                <CLeseCircleIcon />
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </>}
+
+                        {createSynergyStep === 5 &&
+                            <>
+                                <div className="confirm_synergies_data_body">
+                                    {synergies.projects.map((data, index) => (
+                                        <div className='accordion' key={index}>
+                                            <input className='accordion_input' type="checkbox" id={`angle_+${index}`} />
+                                            <label className='accordion_label' htmlFor={`angle_+${index}`}>
+                                                <div className="header">
+                                                    <span>{data.project_name}</span>
+                                                    <DownAccordionIcon />
+                                                </div>
+                                            </label>
+
+                                            <div className='accordion_content'>
+                                                <div className="header_name">Synergy angles</div>
+                                                <div className="checkboxs">
+                                                    {data?.synergy?.map((item) => {
+                                                        return (
+                                                            <>
+                                                                <span className='checkbox_angles' >
+                                                                    <input type="checkbox" name="angleName" id={`angles_+${item.id}`} className='checkbox_input' />
+                                                                    <label htmlFor={`angles_+${data.id}`} className='checkbox_label' ><GlobalIcon />{item.name} </label>
+                                                                </span>
+                                                            </>
+                                                        )
+                                                    }
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    ))}
+
+                                </div>
+                            </>
+                        }
+                    </>
+
+                }
+                footer={
+                    <>
+                        {createSynergyStep === 3 && <>
+                            <button className='refuse_btn' onClick={() => {
+                                setCreateSynergyStep(createSynergyStep - 1);
+                            }}>Refuse</button>
+                            <button className='next_btn' onClick={() => {
+                                setCreateSynergyStep(createSynergyStep + 1);
+                            }}>Next project</button>
+                        </>}
+                        {
+                            createSynergyStep === 4 && <>
+                                <button className='refuse_btn' onClick={() => {
+                                    if (projectCounter === 0) {
+                                        setCreateSynergyStep(3);
+                                    }
+                                    else {
+                                        setProjectCounter(projectCounter - 1);
+                                    }
+                                }}>Back</button>
+                                <div className='project_counter'>
+                                    {projectCounter + 1}/{synergies.projects.length}
+                                </div>
+                                <button className='next_btn' onClick={() => {
+                                    if (projectCounter === synergies.projects.length - 1) {
+                                        setCreateSynergyStep(5);
+                                    } else {
+                                        setProjectCounter(projectCounter + 1);
+                                    }
+                                }}>{projectCounter === synergies.projects.length - 1 ? "Confirm" : 'Next project'}</button>
+                            </>
+                        }
+                        {
+                            createSynergyStep === 5 && <>
+                                <button className='refuse_btn' onClick={() => {
+                                    setCreateSynergyStep(4);
+                                }}>Back</button>
+                                <button className='next_btn' onClick={() => {
+                                   setCreateSynergyStep(0);
+                                   setProjectCounter(0);
+                                   setSynergies({
+                                       synergyName: '',
+                                       projects: []
+                                   })
+                                   setSelectedProjects([]);
+                                   setSelectedProjectForSynergy([]);
+                                   setCreateSynergySuccessPopup(true);
+                                }}>Create synergy</button>
+                            </>
+                        }
+
+
+                    </>
+                }
+            />
+            <SynergieaCreatedSuccessfullyPopup
+               open={createSynergySuccessPopup}
+               handleClose={()=>{
+                setCreateSynergySuccessPopup(false);
+               }}
+            />
+            < ConfirmSynergiesPopup
+                open={false}
+            />
+
             <ButtomMenu
                 open={isBottomMenuOpen}
-                handleClose={() => setIsBottomMenuOpen(false)}
+                handleClose={() => {
+                    handleCancelSelection()
+                    setIsBottomMenuOpen(false)
+                }}
+                
+                handleCreateSynergy={()=>{
+                    handleCreateSynergy();
+                    setIsBottomMenuOpen(false);
+                }}
+
+                handleDelete={() => {
+                    setIsMultiDltConfirmPopupOpen(true);
+                    setIsBottomMenuOpen(false);
+                }}
+
+                handleAddFeature={() => {
+                    handleAddFeature()
+                    setIsBottomMenuOpen(false);
+                }}
             />
+
         </>
     )
 }

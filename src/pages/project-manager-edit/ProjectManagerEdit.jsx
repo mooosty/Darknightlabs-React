@@ -14,7 +14,8 @@ import { addProjectAPI, deleteProjectAPI, addMemberAPI } from "../../api-service
 import { getUsersAPI } from "../../api-services/userApis"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams, Link } from "react-router-dom"
-import { updateProject } from "../../store/slice/projectSlice"
+// import { updateProject } from "../../store/slice/projectSlice"
+import { updateProjectAPI } from "../../api-services/projectApis"
 import DeleteConfirmPopup from "../../components/popup/delete-confirm-popup/DeleteConfirmaPopup"
 
 
@@ -61,13 +62,14 @@ const ProjectManagerEdit = () => {
     const [isAddAngelPopupOpen, setIsAddAngelPopupOpen] = useState(false)
     const [whoAccessToSynergySide, setWhoAccessToSynergySide] = useState('All Users');
     const [whoAccessToInvestmentSide, setWhoAccessToInvestmentSide] = useState('All Users');
-    const [isDeleteConfirmPopupOpen,setIsDeleteConfirmPopupOpen]=useState(false);
+    const [isDeleteConfirmPopupOpen, setIsDeleteConfirmPopupOpen] = useState(false);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { projectId } = useParams();
     const projectData = useSelector(state => state.project.projects.find(project => project.project_id == projectId))
-
+    const userData = useSelector(state => state.user.users);
+    console.log('userData :>> ', userData);
 
     const initialValues = {
         project_name: '',
@@ -153,13 +155,13 @@ const ProjectManagerEdit = () => {
         }
 
         dispatch(addProjectAPI(data)).then((res) => {
-            const insertId = res.payload.data.insertId;
+            console.log('res :>> ', res);
+
             const resArr = values.members.map((member) => {
                 const data = {
-                    "userId": 2,
-                    "projectId": insertId,
+                    "userId": member.userId,
+                    "projectId": res.payload.response.data.insertId,
                     "roles": member.position,
-                    "synergy_angles": ""
                 }
                 return dispatch(addMemberAPI(data))
             })
@@ -195,7 +197,6 @@ const ProjectManagerEdit = () => {
             "description": values.description,
             "twitter": values.twitter_username,
             "rating": 0,
-            "featured": 0,
             "image": values.image.base64Url,
             "date": `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`,
             "synergy_access": true,
@@ -204,16 +205,19 @@ const ProjectManagerEdit = () => {
             "investments": investment_obj
         }
 
-        dispatch(updateProject(data));
+        dispatch(updateProjectAPI({
+            "projectId": projectId - 0,
+            "projectData": data
+        }));
         navigate('/project-manager');
     }
 
     const handleProjectDelete = () => {
         dispatch(deleteProjectAPI({
             "projectIds": [
-                projectId-0
+                projectId - 0
             ]
-        })).then(()=>{
+        })).then(() => {
             navigate('/project-manager')
         })
         setIsDeleteConfirmPopupOpen(false);
@@ -267,6 +271,7 @@ const ProjectManagerEdit = () => {
         dispatch(getUsersAPI());
     }, [])
 
+    console.log('values :>> ', values);
 
 
 
@@ -385,14 +390,18 @@ const ProjectManagerEdit = () => {
                                                 <div className="form_group">
                                                     <label htmlFor="arc">Members</label>
                                                     <Select
-                                                        options={[
-                                                            { label: 'Owner', value: 'Owner' },
-                                                            { label: 'Joan of Arc', value: 'Joan of Arc' },
-                                                        ]}
-                                                        value={member.name}
+                                                        options={userData.map((user) => {
+                                                            return {
+                                                                label: user.twitter,
+                                                                value: user.id
+                                                            }
+                                                        })
+                                                        }
+                                                        value={member.userId}
                                                         onChange={(value) => {
                                                             setFieldValue('members', [...values.members.slice(0, index), {
-                                                                'name': value.value,
+                                                                'name': value.label,
+                                                                'userId': value.value,
                                                                 'position': member.position
                                                             }, ...values.members.slice(index + 1)])
                                                         }}
@@ -463,7 +472,7 @@ const ProjectManagerEdit = () => {
                                     return (<>
                                         <div className="custom_select">
                                             <div className="form_box synergy_selected">
-                                                {index===0 && <label>Synergy angles</label>}
+                                                {index === 0 && <label>Synergy angles</label>}
                                                 <Select
                                                     name='synergy_angles'
                                                     options={synergyAnglesOptions}
@@ -593,7 +602,7 @@ const ProjectManagerEdit = () => {
             </div>
             <div className="delete_project_btn">
                 <button className="btn_delete" disabled={projectId === 'ADD'} onClick={() => {
-                     setIsDeleteConfirmPopupOpen(true);
+                    setIsDeleteConfirmPopupOpen(true);
                 }}>
                     <img src={trashIcon} alt="Delete" /> Delete project
                 </button>

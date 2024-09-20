@@ -262,6 +262,16 @@
                     }
                 }
 
+                .status {
+                    flex-grow: 1;
+                    max-width: 280px;
+
+                    @media (max-width: 767px) {
+                        max-width: 100%;
+                        flex-grow: none;
+                    }
+                }
+
                 .sort {
                     flex-grow: 1;
                     max-width: 280px;
@@ -656,6 +666,13 @@
                                     .angle_tag_count {
                                         padding: 0 2px;
                                     }
+
+                                    svg{
+                                        width: 20px;
+                                        height: 20px;
+                                    }
+
+                                    
                                 }
 
                                 .global {
@@ -791,7 +808,7 @@
                         }
 
                         tr.disable {
-                            opacity: 0.4;
+                                opacity: 0.4;
 
                             .table_angles {
                                 .angle_tag {

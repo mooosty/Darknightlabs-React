@@ -57,7 +57,10 @@
 
                 @media (max-width: 767px) {
                     padding-bottom: 25px;
+                    
                 }
+
+               
 
                 .create_model_header {
                     display: flex;
@@ -136,6 +139,362 @@
                         }
                     }
                 }
+
+                .model_body {
+                    max-height: 551px;
+                    overflow-y: scroll;
+                    margin: 0 10px;
+
+                    @media (max-width: 1600px) {
+                        max-height: 420px;
+                    }
+
+                    @media (max-width: 600px) {
+                        max-height: 620px;
+                    }
+
+                    @media (max-width: 600px) {
+                        height: 60vh;
+                    }
+
+                    &::-webkit-scrollbar {
+                        width: 4px;
+
+                    }
+
+                    &::-webkit-scrollbar-track {
+                        margin-top: 42px;
+                        background: transparent;
+                    }
+
+                    &::-webkit-scrollbar-thumb {
+                        background: rgba(78, 78, 78, 0.5);
+                    }
+
+                    .model_header {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        margin-bottom: 20px !important;
+        
+                        @media (max-width: 767px) {
+                            margin-bottom: 16px !important;
+                        }
+        
+                        h3 {
+                            color: #f5efdb;
+                            text-decoration: none;
+                            font-size: 32px;
+                            font-weight: 500;
+                            line-height: 36px;
+                            font-family: "MedievalSharp", cursive;
+        
+                            @media (max-width: 767px) {
+                                font-size: 24px;
+                            }
+        
+                        }
+        
+                        button.close {
+                            background-color: transparent;
+                            border: gainsboro;
+                            position: absolute;
+                            top: 25px;
+                            right: 30px;
+        
+                            img {
+                                width: 32px;
+        
+                                @media (max-width: 1600px) {
+                                    width: 24px;
+                                }
+                            }
+                            position: absolute;
+                            top: 40px;
+                            right: 30px;
+        
+                            img {
+                                width: 32px;
+                                height: 32px;
+                            }
+                        }
+                    }
+
+                    .model_data {
+                        font-family: "MedievalSharp", cursive;
+                        color: #f5efdb;
+
+                        @media (max-height: 600px) {
+                            height: 60vh;
+                        }
+
+                        .image {
+                            height: 195px;
+                            overflow: hidden;
+                            margin-bottom: 20px;
+                            border-radius: 12px;
+
+                            @media (max-width: 600px) {
+                                margin-bottom: 16px;
+                            }
+
+                            img {
+                                height: 200px;
+                                width: 100%;
+                                object-fit: cover;
+                            }
+                        }
+
+                        .page {
+                            .angel_model_data_head {
+                                display: flex;
+                                gap: 12px;
+                                margin-bottom: 20px;
+
+                                @media (max-width: 767px) {
+                                    margin-bottom: 16px;
+                                }
+
+                                .title {
+                                    font-size: 22px;
+                                }
+                            }
+
+                            .angel_model_data_body {
+
+                                .title {
+                                    font-size: 16px;
+                                    margin-bottom: 14px;
+                                }
+
+                                .angels_container {
+                                    display: flex;
+                                    text-align: center;
+                                    gap: 16px;
+                                    flex-wrap: wrap;
+
+                                    @media (max-width: 767px) {
+                                        gap: 8px;
+                                    }
+
+                                    .angel_tab {
+                                        .checkbox_input {
+                                            display: none;
+                                        }
+
+                                        .checkbox_label {
+                                            display: flex;
+                                            text-align: center;
+                                            gap: 12px;
+                                            padding: 6px 10px;
+                                            border: 1px solid rgba(255, 255, 255, 0.2);
+                                            color: rgba(255, 255, 255, 0.32);
+                                            font-family: "Inter", sans-serif;
+                                            border-radius: 8px;
+
+                                            @media (max-width: 767px) {
+                                                padding: 5px 8px;
+                                                gap: 5px;
+                                            }
+
+                                            .checkbox_label_text {
+                                                display: flex;
+                                                align-items: center;
+                                                -webkit-user-select: none;
+                                                -ms-user-select: none;
+                                                user-select: none;
+                                                gap: 4px;
+                                                cursor: pointer;
+
+                                                svg {
+                                                    height: 18px;
+                                                    width: 18px;
+                                                    margin-bottom: 2px;
+
+                                                    path {
+                                                        stroke: rgba(255, 255, 255, 0.32);
+                                                    }
+                                                }
+                                            }
+
+                                            .angel_add,
+                                            .angel_remove {
+                                                background-color: transparent;
+                                                justify-content: center;
+                                                align-items: center;
+                                                border: none;
+                                                height: 20px;
+                                                width: 20px;
+
+                                                svg {
+                                                    height: 100%;
+                                                    width: 100%;
+
+                                                    path {
+                                                        stroke: rgba(255, 255, 255, 0.32);
+                                                    }
+                                                }
+                                            }
+
+                                            .angel_remove {
+                                                display: none;
+                                            }
+                                        }
+
+                                        .checkbox_input:checked+.checkbox_label {
+                                            background-color: rgba(255, 255, 255, 0.1);
+
+                                            .checkbox_label_text {
+                                                color: white;
+                                            }
+
+                                            .angel_add {
+                                                display: none;
+                                            }
+
+                                            .angel_remove {
+                                                display: flex;
+                                            }
+
+                                            svg {
+                                                path {
+                                                    stroke: white;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .confirm_synergies_data_body {
+                    font-family: "MedievalSharp", cursive;
+                    color: #f5efdb;
+                    margin: 0 10px;
+
+                    .accordion_input {
+                        position: absolute;
+                        opacity: 0;
+                        z-index: -1;
+                    }
+
+                    .accordion {
+                        border-radius: 5px;
+                        overflow: hidden;
+                        margin-bottom: 5px;
+                    }
+
+                    .accordion_label {
+                        opacity: 1;
+                        display: flex;
+                        justify-content: space-between;
+                        padding: 6px;
+                        padding-left: 0;
+                        font-family: MedievalSharp;
+                        cursor: pointer;
+                        color: #f5efdb;
+
+                        .header {
+                            width: 100%;
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            font-size: 24px;
+
+                            @media (max-width: 1600px) {
+                                font-size: 18px;
+                            }
+
+                            svg {
+                                transition: all 0.2s;
+                                transform: rotateZ(0deg);
+                            }
+                        }
+                    }
+
+                    .accordion_content {
+                        max-height: 0;
+                        padding: 0;
+                        padding-top: 8px;
+                        transition: all 0.2s;
+
+                        .header_name {
+                            font-size: 14px;
+                            margin-bottom: 8px;
+                        }
+
+                        .checkboxs {
+                            display: flex;
+                            flex-wrap: wrap;
+                            gap: 4px;
+                            align-items: center;
+                            font-family: "Inter", sans-serif;
+                            font-weight: 200;
+
+                            .checkbox_angles {
+
+                                .checkbox_label {
+                                    margin: 0;
+                                    color: rgba(245, 245, 245, 0.5);
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 6px;
+                                    padding: 5px 7px;
+                                    cursor: pointer;
+                                    border-radius: 5px;
+                                    border: 1px solid rgba(255, 255, 255, 0.15);
+                                    font-size: 16px;
+
+                                    @media (max-width: 1600px) {
+                                        font-size: 14px;
+                                    }
+
+                                    svg {
+                                        path {
+                                            stroke: rgba(255, 255, 255, 0.5);
+                                        }
+                                    }
+                                }
+
+                                .checkbox_input {
+                                    display: none;
+                                }
+
+                                .checkbox_input:checked+.checkbox_label {
+                                    background-color: rgba(245, 245, 245, 0.15);
+                                    color: rgb(245, 245, 245, );
+                                    stroke: white;
+
+                                    svg {
+                                        path {
+                                            stroke: white;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .accordion_input:checked~.accordion_content {
+                        max-height: 100vh;
+                        padding: 0px;
+                        padding-top: 0px;
+                    }
+
+                    .accordion_input:checked+.accordion_label {
+                        margin-bottom: 0;
+
+                        .header {
+                            svg {
+                                transition: all 0.2s;
+                                transform: rotateZ(180deg);
+                            }
+                        }
+                    }
+
+                }
             }
 
             .create_model_footer {
@@ -168,6 +527,10 @@
                         width: 142px;
                         padding-inline: 0;
                     }
+                }
+                
+                .project_counter{
+                    color: white;
                 }
 
                 .next_btn {

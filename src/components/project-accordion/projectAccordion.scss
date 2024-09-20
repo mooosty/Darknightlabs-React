@@ -37,6 +37,12 @@
         }
     }
 
+    &.disable{
+        opacity: 0.4;
+        background-color: rgba(245, 239, 219, 0.16);
+        
+    }
+
     .project_accordion_label {
         display: flex;
         justify-content: space-between;

@@ -8,5 +8,6 @@ export const apiRoutes = {
     CHATALLUSER:'/user/all',
     CHATMSG:'/message/all',
     SENDMSG:'/message/send',
-    ADDMEMBER:'/chat/group/addtogroup'
+    ADDMEMBER:'/chat/group/addtogroup',
+    PROJECTUSER:'projectusers'
 }

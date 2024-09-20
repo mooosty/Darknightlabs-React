@@ -65,7 +65,6 @@ const ConfirmSynergiesPopup = ({ open, handleClose }) => {
                             </div>
                             <div className="confirm_synergies_data_body">
                                 {accordion.map((data) => (
-
                                     <div className='accordion' key={data.id}>
                                         <input className='accordion_input' type="checkbox" id={`angle_+${data.id}`} />
                                         <label className='accordion_label' htmlFor={`angle_+${data.id}`}>
