@@ -173,50 +173,118 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 24px;
+            flex-direction: column;
+            gap: 24px;
 
             @media (max-width: 767px) {
                 padding: 24px 24px;
             }
-
-            .synergies_pagination {
+            .synergy_page_header_top {
                 display: flex;
                 align-items: center;
-                padding: 4px 8px;
-                gap: 8px;
-                font-size: 24px;
-                color: #fff;
-                background-color: #242623;
-                font-weight: 500;
-                font-family: "MedievalSharp", cursive;
-
+                width: 100%;
+                justify-content: space-between;
+                
                 @media (max-width: 767px) {
-                    gap: 4px;
-                    display: none;
+                    padding: 0px;
                 }
-
-                .synergies_pagination_btn {
-                    padding: 10px;
+                .synergies_pagination {
                     display: flex;
                     align-items: center;
-                    justify-content: center;
-                    background-color: transparent;
-                    border: none;
-
-                    &.active {
-                        background-color: rgba(78, 78, 78, 0.58);
-                        color: #F5EFDB;
-
-                        svg {
-                            path {
-                                stroke: #F5EFDB;
+                    padding: 4px 8px;
+                    gap: 8px;
+                    font-size: 24px;
+                    color: #fff;
+                    background-color: #242623;
+                    font-weight: 500;
+                    font-family: "MedievalSharp", cursive;
+    
+                    @media (max-width: 767px) {
+                        gap: 4px;
+                        display: none;
+                    }
+    
+                    .synergies_pagination_btn {
+                        padding: 10px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        background-color: transparent;
+                        border: none;
+    
+                        &.active {
+                            background-color: rgba(78, 78, 78, 0.58);
+                            color: #F5EFDB;
+    
+                            svg {
+                                path {
+                                    stroke: #F5EFDB;
+                                }
                             }
                         }
+    
+                        svg {
+                            height: 24px;
+                            width: 24px;
+                        }
                     }
+                }
+            }
+            
+            .synergy_page_filter {
+                display: none;
+                gap: 16px;
+                width: 100%;
 
-                    svg {
-                        height: 24px;
-                        width: 24px;
+                @media (max-width: 1098px) {
+                    width: 100%;
+                }
+
+                &.active {
+                    display: flex;
+
+                    @media (max-width: 767px) {
+                        flex-direction: column;
+                    }
+                }
+
+                .angels {
+                    flex-grow: 1;
+                    max-width: 280px;
+
+                    @media (max-width: 767px) {
+                        max-width: 100%;
+                        flex-grow: none;
+                    }
+                }
+
+                .project {
+                    flex-grow: 1;
+                    max-width: 280px;
+
+                    @media (max-width: 767px) {
+                        max-width: 100%;
+                        flex-grow: none;
+                    }
+                }
+
+                .status {
+                    flex-grow: 1;
+                    max-width: 280px;
+
+                    @media (max-width: 767px) {
+                        max-width: 100%;
+                        flex-grow: none;
+                    }
+                }
+
+                .sort {
+                    flex-grow: 1;
+                    max-width: 280px;
+
+                    @media (max-width: 767px) {
+                       max-width: 100%;
+                        flex-grow: none;
                     }
                 }
             }
@@ -251,6 +319,171 @@
         }
 
         .synergies_page_body {
+
+            .synergy_page_table_handler {
+                padding: 12px 24px;
+                display: flex;
+                margin-bottom: 20px;
+
+                align-items: center;
+                gap: 18px;
+                background-color: #242623;
+                border-block: 1px solid rgba(245, 239, 219, 0.15);
+
+                @media (max-width: 1098px) {
+                    flex-grow: 1;
+                }
+
+                @media (max-width: 1125px) {
+                    justify-content: space-between;
+                }
+
+                .selected_count {
+                    min-width: 110px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 5px;
+                    color: #F5EFDB;
+                    font-family: "Inter", sans-serif;
+
+                    .costum_checkbox {
+                        display: flex;
+                        align-items: end;
+
+                        .costum_checkbox_input {
+                            display: none;
+                        }
+
+                        .costum_checkbox_label {
+                            height: 24px !important;
+                            width: 24px !important;
+                            padding: 0.5px 10px;
+                            background-color: rgba(78, 78, 78, 0.2);
+                            border: 1px solid #fff;
+                        }
+
+                        .costum_checkbox_input:checked+.costum_checkbox_label {
+                            position: relative;
+
+                            &::after {
+                                content: '';
+                                display: block;
+                                position: absolute;
+                                top: -2px;
+                                left: -1px;
+                                height: 24px;
+                                width: 24px;
+                                background-image: url('../../assets/InputChecked.svg');
+                                background-repeat: no-repeat;
+                                background-size: cover;
+                                z-index: 5;
+                            }
+                        }
+                    }
+                }
+
+                .table_actions {
+                    display: flex;
+                    justify-content: start;
+                    align-items: center;
+                    gap: 10px;
+
+                    @media (max-width: 1125px) {
+                        display: none;
+                    }
+
+                    button {
+                        height: 42px;
+                        box-sizing: border-box;
+                        font-size: 16px;
+
+                        @media (max-width: 1600px) {
+                            font-size: 14px;
+                        }
+                    }
+
+                    .btn_cancle {
+                        img {
+                            height: 22px;
+                            width: 22px;
+                        }
+                    }
+
+                    .btn_featured {
+                        border: 1px solid;
+                        border-image-source: linear-gradient(157.79deg, rgba(157, 140, 83, 0.6) 14.5%, rgba(186, 168, 108, 0.350334) 32.43%);
+                        border-image-slice: 1;
+
+                        svg {
+                            height: 20px;
+                            width: 24px;
+                        }
+
+
+                    }
+
+                    .btn_create {
+                        svg {
+                            height: 20px;
+                            width: 20px;
+                        }
+                    }
+
+                    .btn_delete {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        border: none;
+                        gap: 5px;
+                        font-weight: 500;
+                        color: #FF9E98;
+
+                        img {
+                            @media (max-width: 1600px) {
+                                width: 19px;
+                            }
+                        }
+
+                        @media (max-width: 1098px) and (min-width: 767px) {
+                            padding-inline: 5px;
+                        }
+                    }
+                }
+
+                .table_actions_button {
+                    display: none;
+                    gap: 16px;
+
+                    @media (max-width: 1125px) {
+                        display: flex;
+                    }
+
+                    .button_delete {
+                        padding: 8px 10px;
+                        background-color: #ff9e9826;
+                        border: none;
+                    }
+
+                    .menu_button {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        padding: 8px 10px;
+                        border: none;
+                        background-color: rgba(78, 78, 78, 0.58);
+                        ;
+                    }
+
+                    .buttom_menubar {
+                        display: none;
+                    }
+
+                    .active_menu {
+                        display: block;
+                    }
+                }
+            }
 
             .synergies_page_table {
                 margin: 20px 24px;

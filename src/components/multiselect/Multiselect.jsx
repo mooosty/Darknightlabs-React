@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import addIcon from "../../assets/add-icon.png"
 import arrowDown from "../../assets/arrow-down.png"
 import './Multiselect.scss'
@@ -10,6 +10,7 @@ const Multiselect = ({
     placeholder,
     hasAddButton,
     addButtonLabel,
+    value=[],
     onAdd = () => { },
     onChange = () => { },
 }) => {
@@ -18,7 +19,6 @@ const Multiselect = ({
     const listRef = useClickOutside(() => {
         setIsOpen(false)
     })
-
 
     const handleClickLabel = () => {
         setIsOpen(!isOpen)
@@ -32,9 +32,19 @@ const Multiselect = ({
             selectedOptions = [...selectedOptions, selectedOption]
         }
 
-        onChange(selectedOptions)
-        setCurrentOptions(selectedOptions)
+        onChange(selectedOption.value)
+        setCurrentOptions([...selectedOptions])
     }
+
+    useEffect(()=>{
+       setCurrentOptions([...value.map((item)=>{
+            return { 
+                label:item.project_name,
+                value:item.project_id
+            }
+       })
+    ])
+    },[value])
 
     return (
         <div
@@ -92,7 +102,8 @@ const Multiselect = ({
                 >
                     {addButtonLabel ?? 'Add'}
                     <img src={addIcon} alt="" />
-                </button>}
+                </button>
+                }
             </div>
         </div >
     )
@@ -106,5 +117,6 @@ Multiselect.propTypes = {
     hasAddButton: PropTypes.bool,
     addButtonLabel: PropTypes.string,
     onAdd: PropTypes.func,
+    value:PropTypes.array
 }
 export default Multiselect

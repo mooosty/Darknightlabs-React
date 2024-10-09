@@ -69,7 +69,6 @@ const ProjectManagerEdit = () => {
     const { projectId } = useParams();
     const projectData = useSelector(state => state.project.projects.find(project => project.project_id == projectId))
     const userData = useSelector(state => state.user.users);
-    console.log('userData :>> ', userData);
 
     const initialValues = {
         project_name: '',
@@ -95,10 +94,7 @@ const ProjectManagerEdit = () => {
     }
 
     const formik = useFormik({
-        initialValues: initialValues,
-        onSubmit: (values) => {
-            console.log('values', values)
-        }
+        initialValues: initialValues
     })
 
     const { values, setFieldValue, setValues, handleChange } = formik
@@ -155,7 +151,6 @@ const ProjectManagerEdit = () => {
         }
 
         dispatch(addProjectAPI(data)).then((res) => {
-            console.log('res :>> ', res);
 
             const resArr = values.members.map((member) => {
                 const data = {
@@ -225,7 +220,6 @@ const ProjectManagerEdit = () => {
 
 
 
-    // console.log('values :>> ', values);
     useEffect(() => {
         if (projectId && projectId !== 'ADD') {
             let synergy_angles = [];
@@ -270,9 +264,6 @@ const ProjectManagerEdit = () => {
     useEffect(() => {
         dispatch(getUsersAPI());
     }, [])
-
-    console.log('values :>> ', values);
-
 
 
     return (
@@ -505,7 +496,7 @@ const ProjectManagerEdit = () => {
                                     synergy_angle: ''
                                 }])
                             }}>
-                                Add member
+                                Add synergy angel
                                 <img src={addIcon} alt="Add" />
                             </button>
                             <div className="invostments-group">

@@ -14,7 +14,6 @@ import Chats from './pages/chats/Chats'
 import PendingSynergies from './pages/pending-synergies/PendingSynergies'
 import { injectStore } from './store/injector'
 import { store } from './store/store'
-import Loader from './components/loader/Loader'
 
 
 function App() {
@@ -24,7 +23,6 @@ function App() {
   return (
     <>
       <BrowserRouter>
-      <Loader />
         <Routes>
           <Route path={'/'} element={<Navigate to={ROUTER.projectManager} />} />
 

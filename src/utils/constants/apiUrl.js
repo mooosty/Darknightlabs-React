@@ -9,5 +9,6 @@ export const apiRoutes = {
     CHATMSG:'/message/all',
     SENDMSG:'/message/send',
     ADDMEMBER:'/chat/group/addtogroup',
-    PROJECTUSER:'projectusers'
+    PROJECTUSER:'projectusers',
+    SYNERGY:'/synergies'
 }

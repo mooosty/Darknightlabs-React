@@ -6,7 +6,6 @@ const initialState = {
     userId: "66d803bb836702a60484f35e",
     name:'Test',
     email:'test123@gmail.com'
-
 }
 
 const authSlice = createSlice({

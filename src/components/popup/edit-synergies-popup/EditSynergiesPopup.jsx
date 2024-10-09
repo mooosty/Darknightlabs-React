@@ -3,9 +3,42 @@ import closeIcon from '../../../assets/X-icon.png'
 import angelBg from '../../../assets/edit-senergies-hero-image.png'
 import './EditSynergiesPopup.scss';
 import Multiselect from '../../multiselect/Multiselect';
+import { useSelector,useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { getProjectsAPI } from '../../../api-services/projectApis';
 
-const EditSynergiesPopup = ({ open, handleClose }) => {
+const EditSynergiesPopup = ({ open, handleClose, synergy,onSave=()=>{} }) => {
+    const projects = useSelector((state) => state.project.projects)
+    const [synergyName, setSynergyName] = useState('');
+    const [selectedProject, setSelectedProject] = useState([]);
+    const dispatch=useDispatch();
 
+    const handleSaveChanges = () => {
+         onSave({
+            synergyName:synergyName,
+            selectedProject:selectedProject
+         })
+    }
+
+    const handleSelectProjectChange=(value)=>{
+        if(selectedProject.includes(value)){
+            setSelectedProject([...selectedProject.filter((project_id)=>project_id!==value)])
+        }
+        else{
+            setSelectedProject([...selectedProject,value]);
+        }
+    }
+
+    useEffect(() => {
+        if (open) {
+            if(projects.length===0){
+                dispatch(getProjectsAPI());
+            }
+            setSynergyName(synergy?.synergyName);
+            setSelectedProject([...synergy.projects])
+        }
+    }, [open,synergy])
+    
 
     return (
         <>
@@ -30,7 +63,7 @@ const EditSynergiesPopup = ({ open, handleClose }) => {
                                         <img src={angelBg} alt="" />
                                     </div>
                                     <div className="angel_model_data_head">
-                                        <div className="title">Synergy Name </div>
+                                        <div className="title">{synergy?.synergyName}</div>
                                     </div>
                                     <div className="angel_model_data_body">
 
@@ -39,7 +72,7 @@ const EditSynergiesPopup = ({ open, handleClose }) => {
                                                 <label htmlFor="synergiesName">
                                                     <span className="title">Synergy Name </span>
                                                 </label>
-                                                <input type="text" id="synergiesName" placeholder='Synergy Name' />
+                                                <input type="text" value={synergyName} id="synergiesName" placeholder='Synergy Name' onChange={(e)=>setSynergyName(e.target.value)}/>
                                             </div>
 
                                             <div className="synergirs_project">
@@ -50,13 +83,20 @@ const EditSynergiesPopup = ({ open, handleClose }) => {
                                                 <div className="synergirs_project_select">
                                                     <Multiselect
                                                         options={[
-                                                            { label: 'Project Name 1', value: 'project_1' },
-                                                            { label: 'Project Name 2', value: 'project_2' },
-                                                            { label: 'Project Name 3', value: 'project_3' },
-                                                            { label: 'Project Name 4', value: 'project_4' },
-                                                            { label: 'Project Name 5', value: 'project_6' }
+                                                            ...projects.map((project) => {
+                                                                return {
+                                                                    label: project.project_name,
+                                                                    value: project.project_id
+                                                                }
+                                                            })
                                                         ]}
                                                         placeholder={'Select'}
+                                                        value={
+                                                            projects.filter((project) => {
+                                                                return selectedProject?.includes(project.project_id);
+                                                            })
+                                                        }
+                                                        onChange={handleSelectProjectChange}
                                                     />
                                                 </div>
                                             </div>
@@ -66,8 +106,10 @@ const EditSynergiesPopup = ({ open, handleClose }) => {
                             </div>
                         </div>
                         <div className='edit_synergies_model_footer'>
-                            <button className='back_btn' >Cancel</button>
-                            <button className='cancel_btn'>Save</button>
+                            <button className='back_btn' onClick={handleClose}>Cancel</button>
+                            <button className='cancel_btn' onClick={() => {
+                                handleSaveChanges()
+                            }}>Save</button>
                         </div>
                     </div>
                 </div>
@@ -79,6 +121,8 @@ const EditSynergiesPopup = ({ open, handleClose }) => {
 EditSynergiesPopup.propTypes = {
     open: PropTypes.bool,
     handleClose: PropTypes.func,
+    synergy: PropTypes.object,
+    onSave: PropTypes.func
 }
 
 export default EditSynergiesPopup

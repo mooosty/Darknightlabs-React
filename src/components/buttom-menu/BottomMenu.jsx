@@ -1,19 +1,16 @@
 import PropTypes from 'prop-types';
-import { InfiniteIcon, TableStatusIcon } from '../../utils/SVGs/SVGs'
-import './buttomMenu.scss'
-import closeIcon from "../../assets/X-icon.png";
-import trashIcon from "../../assets/trash-icon.png";
+import './bottomMenu.scss'
 
 
-const ButtomMenu = ({ open, handleClose,handleDelete,handleAddFeature,handleCreateSynergy }) => {
+const ButtomMenu = ({ open,children }) => {
     return (
         <>
             <div className={`menu_contianer ${open ? 'active' : ''} `}>
 
                 <div className="menu">
                     <div className="buttons">
-                        
-                        <button onClick={() => {handleClose()}}>
+                        {children}
+                        {/* <button onClick={() => {handleClose()}}>
                             <img src={closeIcon} alt="Add" />
                             <span>Cancel</span>
                         </button>
@@ -27,7 +24,7 @@ const ButtomMenu = ({ open, handleClose,handleDelete,handleAddFeature,handleCrea
                         <button onClick={()=>handleDelete()}>
                             <img src={trashIcon} alt="Delete" />
                             <span>Delete</span>
-                        </button>
+                        </button> */}
                     </div>
                 </div>
             </div>
@@ -37,6 +34,7 @@ const ButtomMenu = ({ open, handleClose,handleDelete,handleAddFeature,handleCrea
 
 ButtomMenu.propTypes = {
     open: PropTypes.bool,
+    children:PropTypes.any,
     handleClose: PropTypes.func,
     handleDelete: PropTypes.func,
     handleAddFeature: PropTypes.func,

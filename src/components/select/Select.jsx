@@ -29,7 +29,6 @@ const Select = ({
     }
 
     const handleSelectOption = (selectedOption) => {
-        console.log('selectedOption :>> ', selectedOption);
         onChange(selectedOption)
         setcurrentOption(selectedOption.value)
         setIsOpen(false)

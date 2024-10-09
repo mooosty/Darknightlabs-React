@@ -25,7 +25,7 @@ const projectSlice = createSlice({
                 return {
                     ...state,
                     isLoading: false,
-                    projects: [...action.payload],
+                    projects:action.payload ?? [],
                 }
             }
         )
@@ -139,7 +139,6 @@ const projectSlice = createSlice({
             }
         })
         builder.addCase(getMemberApi.fulfilled, (state, action) => {
-            console.log('Payload Data:', action.payload.data);
             return {
                 ...state,
                 isLoading: false,

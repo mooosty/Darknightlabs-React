@@ -6,6 +6,7 @@ import authSlice from "./slice/authSlice";
 import userSlice from "./slice/userSlice";
 import chatSlice from "./slice/chatSlice";
 import groupSlice from "./slice/groupSlice";
+import synergySlice from "./slice/synergySlice"
 
 const persistConfig = {
     key: 'darknight',
@@ -18,7 +19,8 @@ const tempRootReducer = combineReducers({
     project: projectSlice,
     user:userSlice,
     chat:chatSlice,
-    group:groupSlice
+    group:groupSlice,
+    synergies:synergySlice
 })
 
 export const rootReducer = persistReducer(persistConfig, tempRootReducer)

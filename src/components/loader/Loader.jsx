@@ -1,26 +1,7 @@
 import './Loader.scss';
-import { useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
-const Loader = () => {
-  const chatApiLoading = useSelector((state) => state.chat.isLoading)
-  const projectApiLoading = useSelector((state) => state.project.isLoading)
-  const groupApiLoading=useSelector((state)=> state.group.isLoading)
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (chatApiLoading || projectApiLoading || groupApiLoading) {
-      setLoading(true);
-    }
-    else {
-      const timer = setTimeout(() => {
-        if (!chatApiLoading && !projectApiLoading && !groupApiLoading) {
-          setLoading(false);
-        }
-      }, 1200);
-      return () => clearTimeout(timer);
-    }
-  }, [chatApiLoading, projectApiLoading,groupApiLoading]);
+const Loader = ({loading}) => {
 
   return (
     <>
@@ -30,6 +11,10 @@ const Loader = () => {
       </div>}
     </>
   )
+}
+
+Loader.prototype={
+  loading:PropTypes.bool
 }
 
 export default Loader

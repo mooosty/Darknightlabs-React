@@ -59,10 +59,9 @@ const buttons = [
 
 const EditPendingSynergiesAngelPopup = ({ open, handleClose }) => {
 
-
     return (
         <>
-            {/* <div className={`edit_pending_engel_model_bg ${open ? 'active' : ''} `}>
+            { <div className={`edit_pending_engel_model_bg ${open ? 'active' : ''} `}>
                 <div className={`edit_pending_engel_popup`} >
                     <div className='edit_pending_engel_model_box'>
                         <div className="model_body_container">
@@ -117,38 +116,38 @@ const EditPendingSynergiesAngelPopup = ({ open, handleClose }) => {
                         </div>
                     </div>
                 </div>
-            </div> */}
-                <div className="model_data">
-                    <div className="image">
-                        <img src={angelBg} alt="" />
+            </div>}
+            <div className="model_data">
+                <div className="image">
+                    <img src={angelBg} alt="" />
+                </div>
+                <div className={`page active`}>
+                    <div className="angel_model_data_head">
+                        <div className="title">Synergy angles </div>
                     </div>
-                    <div className={`page active`}>
-                        <div className="angel_model_data_head">
-                            <div className="title">Synergy angles </div>
-                        </div>
-                        <div className="angel_model_data_body">
-                            <div className="angels_container">
-                                {buttons.map((data) => (
-                                    <div key={data.id} className='angel_tab'>
-                                        <input type="checkbox" defaultChecked={data.checked} name="angleName" id={`angle1+${data.id}`} className='checkbox_input' />
-                                        <label htmlFor={`angle1+${data.id}`} className='checkbox_label' >
-                                            <div className="checkbox_label_text">
-                                                <GlobalIcon />
-                                                <span className='checkbox_label_text_head'> {data.name}</span>
-                                            </div>
-                                            <div className="angel_add">
-                                                <AddCircleIcon />
-                                            </div>
-                                            <div className="angel_remove">
-                                                <CLeseCircleIcon />
-                                            </div>
-                                        </label>
-                                    </div>
-                                ))}
-                            </div>
+                    <div className="angel_model_data_body">
+                        <div className="angels_container">
+                            {buttons.map((data) => (
+                                <div key={data.id} className='angel_tab'>
+                                    <input type="checkbox" defaultChecked={data.checked} name="angleName" id={`angle1+${data.id}`} className='checkbox_input' />
+                                    <label htmlFor={`angle1+${data.id}`} className='checkbox_label' >
+                                        <div className="checkbox_label_text">
+                                            <GlobalIcon />
+                                            <span className='checkbox_label_text_head'> {data.name}</span>
+                                        </div>
+                                        <div className="angel_add">
+                                            <AddCircleIcon />
+                                        </div>
+                                        <div className="angel_remove">
+                                            <CLeseCircleIcon />
+                                        </div>
+                                    </label>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>
+            </div>
         </>
     )
 }

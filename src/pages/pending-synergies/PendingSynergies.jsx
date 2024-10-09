@@ -2,7 +2,7 @@ import './pendingSynergies.scss'
 import searchIcon from "../../assets/search-icon.png";
 import { useState } from 'react';
 import DeleteConfirmPopup from '../../components/popup/delete-confirm-popup/DeleteConfirmaPopup';
-import { GradientGraphIcon, GrammerlyIcon, GredientGlobalIcon, HealthIcon, LeftIcon, RightIcon, StarIcon } from '../../utils/SVGs/SVGs';
+import { GradientGraphIcon, GrammerlyIcon, GredientGlobalIcon, HealthIcon, LeftIcon, RightIcon, StarIcon, AddCircleIcon, CLeseCircleIcon, GlobalIcon } from '../../utils/SVGs/SVGs';
 import cardActor1 from '../../assets/pending-synergy-img1.png'
 import cardActor2 from '../../assets/pending-synergy-img2.png'
 import cardActor3 from '../../assets/pending-synergy-img3.png'
@@ -19,6 +19,60 @@ import cardActor13 from '../../assets/pending-synergy-img13.png'
 import cardActor14 from '../../assets/pending-synergy-img14.png'
 import cardActor15 from '../../assets/pending-synergy-img15.png'
 import EditPendingSynergiesAngelPopup from '../../components/popup/edit-pending-synergies-angel-popup/EditPendingSynergiesAngelPopup';
+import CreateSynergiesPopup from '../../components/popup/create-synergies-popup/CreateSynergiesPopup';
+import angelBg from '../../assets/edit-senergies-hero-image.png'
+const buttons = [
+  {
+    id: 1,
+    name: 'IP integration',
+    checked: true
+  },
+  {
+    id: 2,
+    name: 'Angle48',
+    checked: true
+  },
+  {
+    id: 3,
+    name: 'Hosting AMAS',
+  },
+  {
+    id: 4,
+    name: 'IP Angle48',
+    checked: true
+  },
+  {
+    id: 5,
+    name: 'IP integration',
+    checked: true
+  },
+  {
+    id: 6,
+    name: 'IP integration',
+  },
+  {
+    id: 7,
+    name: 'Angle48',
+  },
+  {
+    id: 8,
+    name: 'Hosting AMAS',
+  },
+  {
+    id: 9,
+    name: 'IP Angle48',
+    checked: true
+  },
+  {
+    id: 10,
+    name: 'IP integration',
+  },
+  {
+    id: 11,
+    name: 'IP integration',
+  },
+
+]
 
 const cardData = [
   {
@@ -440,7 +494,7 @@ const PendingSynergies = () => {
             {cardData.map((data, index) => {
               return (
                 <>
-                  <div key={index} className="card" onClick={() =>setIsEditPendingSynergiesAngelPopupOpen(true)}>
+                  <div key={index} className="card" onClick={() => setIsEditPendingSynergiesAngelPopupOpen(true)}>
                     <div className="card_image">
                       <img src={data.creatorImg} alt="" />
                     </div>
@@ -495,9 +549,61 @@ const PendingSynergies = () => {
         handleClose={() => setIsDeleteConfirmPopupOpen(false)}
       />
 
-      <EditPendingSynergiesAngelPopup
+      {/* <EditPendingSynergiesAngelPopup
         open={isEditPendingSynergiesAngelPopupOpen}
         handleClose={() => setIsEditPendingSynergiesAngelPopupOpen(false)}
+      /> */}
+      <CreateSynergiesPopup
+        title={"Edit synergy angles"}
+        open={isEditPendingSynergiesAngelPopupOpen}
+        onClose={() => {
+          setIsEditPendingSynergiesAngelPopupOpen(false);
+        }}
+        body={
+          <>
+            <div className='model_body'>
+              <div className="model_data">
+                <div className="image">
+                  <img src={angelBg} alt="" />
+                </div>
+                <div className={`page active`}>
+                  <div className="angel_model_data_head">
+                    <div className="title">Synergy angles </div>
+                  </div>
+                  <div className="angel_model_data_body">
+                    <div className="angels_container">
+                      {buttons.map((data) => (
+                        <div key={data.id} className='angel_tab'>
+                          <input type="checkbox" defaultChecked={data.checked} name="angleName" id={`angle1+${data.id}`} className='checkbox_input' />
+                          <label htmlFor={`angle1+${data.id}`} className='checkbox_label'>
+                            <div className="checkbox_label_text" >
+                              <GlobalIcon />
+                              <span className='checkbox_label_text_head'>{data.name}</span>
+                            </div>
+                            <div className="angel_add">
+                              <AddCircleIcon />
+                            </div>
+                            <div className="angel_remove" >
+                              <CLeseCircleIcon />
+                            </div>
+                          </label>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+        }
+
+        footer={<>
+          <button className='refuse_btn' onClick={() => {
+            setIsEditPendingSynergiesAngelPopupOpen(false);
+          }}>Refuse</button>
+          <button className='next_btn' onClick={() => {
+          }}>Confirm</button>
+        </>}
       />
 
     </>

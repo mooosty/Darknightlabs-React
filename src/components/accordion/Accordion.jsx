@@ -17,8 +17,10 @@ const Accordion = ({
     price,
     synergiesAngles = [],
     date,
+    checked,
     onEdit = () => { },
     onDelete = () => { },
+    onSelect=()=>{}
 }) => {
     const id = Math.round(Math.random() * 1000)
     const [open, setOpen] = useState(false);
@@ -46,8 +48,8 @@ const Accordion = ({
                                 <div className='left'>
                                     <div>
                                         <div className="costum_checkbox">
-                                            <input type="checkbox" id={`checkbox_${id}`} className='costum_checkbox_input' />
-                                            <label htmlFor={`checkbox_${id}`} className='costum_checkbox_label'></label>
+                                            <input type="checkbox" id={`checkbox_${id}`} className='costum_checkbox_input' checked={checked}/>
+                                            <label htmlFor={`checkbox_${id}`} className='costum_checkbox_label' onClick={onSelect}></label>
                                         </div>
                                     </div>
                                     <DownIcon className='table_arrow' onClick={() => setOpen(!open)} />
@@ -65,10 +67,10 @@ const Accordion = ({
                             </div>
 
                             <div className="actions">
-                                <button className='delete_btn' onClick={handleDelete}>
+                                <button className='delete_btn' onClick={onDelete}>
                                     <img src={trashIcon} alt=" " />
                                 </button>
-                                <button onClick={handleEdit}>
+                                <button onClick={onEdit}>
                                     <img src={editIcon} alt=" " />
                                 </button>
                             </div>
@@ -127,6 +129,8 @@ Accordion.propTypes = {
     synergiesAngles: PropTypes.array,
     onEdit: PropTypes.func,
     onDelete: PropTypes.func,
+    onSelect: PropTypes.func,
+    checked:PropTypes.bool
 }
 
 export default Accordion

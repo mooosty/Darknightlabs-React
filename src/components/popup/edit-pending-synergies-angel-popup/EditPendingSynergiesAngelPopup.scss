@@ -1,344 +1,344 @@
-// .edit_pending_engel_model_bg {
-//     display: none;
-//     z-index: 99;
-//     position: fixed;
-//     top: 0;
-//     left: 0;
-//     height: 100vh;
-//     width: 100vw;
+.edit_pending_engel_model_bg {
+    display: none;
+    z-index: 99;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
 
-//     &.active {
-//         display: block;
-//     }
+    &.active {
+        display: block;
+    }
 
-//     .edit_pending_engel_popup {
-//         background-color: #434242cc;
-//         position: absolute;
-//         top: 50%;
-//         left: 50%;
-//         transform: translate(-50%, -50%);
-//         display: flex;
-//         align-items: center;
-//         justify-content: center;
-//         gap: 20px;
-//         width: 100%;
-//         height: 100%;
+    .edit_pending_engel_popup {
+        background-color: #434242cc;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        width: 100%;
+        height: 100%;
 
-//         @media (max-width: 600px) {
-//             align-items: end;
-//         }
+        @media (max-width: 600px) {
+            align-items: end;
+        }
 
-//         .edit_pending_engel_model_box {
-//             width: 520px;
-//             background-color: #191917;
-//             background-image: url("../../../assets/model-frame.png");
-//             background-size: contain;
-//             background-repeat: no-repeat;
-//             background-position-x: 10px;
-//             background-position-y: 10px;
-//             position: relative;
+        .edit_pending_engel_model_box {
+            width: 520px;
+            background-color: #191917;
+            background-image: url("../../../assets/model-frame.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position-x: 10px;
+            background-position-y: 10px;
+            position: relative;
 
-//             @media (max-width: 600px) {
-//                 width: 100%;
-//                 border-top-left-radius: 20px;
-//                 border-top-right-radius: 20px;
-//                 border-top: 1px solid #ffffff80;
-//                 background-image: none;
-//                 background-color: #242623;
-//             }
+            @media (max-width: 600px) {
+                width: 100%;
+                border-top-left-radius: 20px;
+                border-top-right-radius: 20px;
+                border-top: 1px solid #ffffff80;
+                background-image: none;
+                background-color: #242623;
+            }
 
-//             .model_header {
-//                 display: flex;
-//                 align-items: center;
-//                 justify-content: space-between;
-//                 margin-bottom: 20px !important;
+            .model_header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 20px !important;
 
-//                 @media (max-width: 767px) {
-//                     margin-bottom: 16px !important;
-//                 }
+                @media (max-width: 767px) {
+                    margin-bottom: 16px !important;
+                }
 
-//                 h3 {
-//                     color: #f5efdb;
-//                     text-decoration: none;
-//                     font-size: 32px;
-//                     font-weight: 500;
-//                     line-height: 36px;
-//                     font-family: "MedievalSharp", cursive;
+                h3 {
+                    color: #f5efdb;
+                    text-decoration: none;
+                    font-size: 32px;
+                    font-weight: 500;
+                    line-height: 36px;
+                    font-family: "MedievalSharp", cursive;
 
-//                     @media (max-width: 767px) {
-//                         font-size: 24px;
-//                     }
+                    @media (max-width: 767px) {
+                        font-size: 24px;
+                    }
 
-//                 }
+                }
 
-//                 button.close {
-//                     background-color: transparent;
-//                     border: gainsboro;
-//                     position: absolute;
-//                     top: 25px;
-//                     right: 30px;
+                button.close {
+                    background-color: transparent;
+                    border: gainsboro;
+                    position: absolute;
+                    top: 25px;
+                    right: 30px;
 
-//                     img {
-//                         width: 32px;
+                    img {
+                        width: 32px;
 
-//                         @media (max-width: 1600px) {
-//                             width: 24px;
-//                         }
-//                     }
-//                 //     position: absolute;
-//                 //     top: 40px;
-//                 //     right: 30px;
+                        @media (max-width: 1600px) {
+                            width: 24px;
+                        }
+                    }
+                //     position: absolute;
+                //     top: 40px;
+                //     right: 30px;
 
-//                 //     img {
-//                 //         width: 32px;
-//                 //         height: 32px;
-//                 //     }
-//                 }
-//             }
+                //     img {
+                //         width: 32px;
+                //         height: 32px;
+                //     }
+                }
+            }
 
-//             .model_body_container {
-//                 padding: 37px 26px 36px 26px;
+            .model_body_container {
+                padding: 37px 26px 36px 26px;
 
-//                 @media (max-width: 600px) {
-//                     padding: 24px 16px;
-//                 }
+                @media (max-width: 600px) {
+                    padding: 24px 16px;
+                }
 
-//                 .model_body {
-//                     max-height: 551px;
-//                     overflow-y: scroll;
-//                     margin-top: 15px;
+                .model_body {
+                    max-height: 551px;
+                    overflow-y: scroll;
+                    margin-top: 15px;
 
-//                     @media (max-width: 1600px) {
-//                         max-height: 420px;
-//                     }
+                    @media (max-width: 1600px) {
+                        max-height: 420px;
+                    }
 
-//                     @media (max-width: 600px) {
-//                         max-height: 620px;
-//                     }
+                    @media (max-width: 600px) {
+                        max-height: 620px;
+                    }
 
-//                     @media (max-width: 600px) {
-//                         height: 60vh;
-//                     }
+                    @media (max-width: 600px) {
+                        height: 60vh;
+                    }
 
-//                     &::-webkit-scrollbar {
-//                         width: 4px;
+                    &::-webkit-scrollbar {
+                        width: 4px;
 
-//                     }
+                    }
 
-//                     &::-webkit-scrollbar-track {
-//                         margin-top: 42px;
-//                         background: transparent;
-//                     }
+                    &::-webkit-scrollbar-track {
+                        margin-top: 42px;
+                        background: transparent;
+                    }
 
-//                     &::-webkit-scrollbar-thumb {
-//                         background: rgba(78, 78, 78, 0.5);
-//                     }
+                    &::-webkit-scrollbar-thumb {
+                        background: rgba(78, 78, 78, 0.5);
+                    }
 
-//                     .model_data {
-//                         font-family: "MedievalSharp", cursive;
-//                         color: #f5efdb;
+                    .model_data {
+                        font-family: "MedievalSharp", cursive;
+                        color: #f5efdb;
 
-//                         @media (max-height: 600px) {
-//                             height: 60vh;
-//                         }
+                        @media (max-height: 600px) {
+                            height: 60vh;
+                        }
 
-//                         .image {
-//                             height: 195px;
-//                             overflow: hidden;
-//                             margin-bottom: 20px;
-//                             border-radius: 12px;
+                        .image {
+                            height: 195px;
+                            overflow: hidden;
+                            margin-bottom: 20px;
+                            border-radius: 12px;
 
-//                             @media (max-width: 600px) {
-//                                 margin-bottom: 16px;
-//                             }
+                            @media (max-width: 600px) {
+                                margin-bottom: 16px;
+                            }
 
-//                             img {
-//                                 height: 200px;
-//                                 width: 100%;
-//                                 object-fit: cover;
-//                             }
-//                         }
+                            img {
+                                height: 200px;
+                                width: 100%;
+                                object-fit: cover;
+                            }
+                        }
 
-//                         .page {
-//                             .angel_model_data_head {
-//                                 display: flex;
-//                                 gap: 12px;
-//                                 margin-bottom: 20px;
+                        .page {
+                            .angel_model_data_head {
+                                display: flex;
+                                gap: 12px;
+                                margin-bottom: 20px;
 
-//                                 @media (max-width: 767px) {
-//                                     margin-bottom: 16px;
-//                                 }
+                                @media (max-width: 767px) {
+                                    margin-bottom: 16px;
+                                }
 
-//                                 .title {
-//                                     font-size: 22px;
-//                                 }
-//                             }
+                                .title {
+                                    font-size: 22px;
+                                }
+                            }
 
-//                             .angel_model_data_body {
+                            .angel_model_data_body {
 
-//                                 .title {
-//                                     font-size: 16px;
-//                                     margin-bottom: 14px;
-//                                 }
+                                .title {
+                                    font-size: 16px;
+                                    margin-bottom: 14px;
+                                }
 
-//                                 .angels_container {
-//                                     display: flex;
-//                                     text-align: center;
-//                                     gap: 16px;
-//                                     flex-wrap: wrap;
+                                .angels_container {
+                                    display: flex;
+                                    text-align: center;
+                                    gap: 16px;
+                                    flex-wrap: wrap;
 
-//                                     @media (max-width: 767px) {
-//                                         gap: 8px;
-//                                     }
+                                    @media (max-width: 767px) {
+                                        gap: 8px;
+                                    }
 
-//                                     .angel_tab {
-//                                         .checkbox_input {
-//                                             display: none;
-//                                         }
+                                    .angel_tab {
+                                        .checkbox_input {
+                                            display: none;
+                                        }
 
-//                                         .checkbox_label {
-//                                             display: flex;
-//                                             text-align: center;
-//                                             gap: 12px;
-//                                             padding: 6px 10px;
-//                                             border: 1px solid rgba(255, 255, 255, 0.2);
-//                                             color: rgba(255, 255, 255, 0.32);
-//                                             font-family: "Inter", sans-serif;
-//                                             border-radius: 8px;
+                                        .checkbox_label {
+                                            display: flex;
+                                            text-align: center;
+                                            gap: 12px;
+                                            padding: 6px 10px;
+                                            border: 1px solid rgba(255, 255, 255, 0.2);
+                                            color: rgba(255, 255, 255, 0.32);
+                                            font-family: "Inter", sans-serif;
+                                            border-radius: 8px;
 
-//                                             @media (max-width: 767px) {
-//                                                 padding: 5px 8px;
-//                                                 gap: 5px;
-//                                             }
+                                            @media (max-width: 767px) {
+                                                padding: 5px 8px;
+                                                gap: 5px;
+                                            }
 
-//                                             .checkbox_label_text {
-//                                                 display: flex;
-//                                                 align-items: center;
-//                                                 -webkit-user-select: none;
-//                                                 -ms-user-select: none;
-//                                                 user-select: none;
-//                                                 gap: 4px;
-//                                                 cursor: pointer;
+                                            .checkbox_label_text {
+                                                display: flex;
+                                                align-items: center;
+                                                -webkit-user-select: none;
+                                                -ms-user-select: none;
+                                                user-select: none;
+                                                gap: 4px;
+                                                cursor: pointer;
 
-//                                                 svg {
-//                                                     height: 18px;
-//                                                     width: 18px;
-//                                                     margin-bottom: 2px;
+                                                svg {
+                                                    height: 18px;
+                                                    width: 18px;
+                                                    margin-bottom: 2px;
 
-//                                                     path {
-//                                                         stroke: rgba(255, 255, 255, 0.32);
-//                                                     }
-//                                                 }
-//                                             }
+                                                    path {
+                                                        stroke: rgba(255, 255, 255, 0.32);
+                                                    }
+                                                }
+                                            }
 
-//                                             .angel_add,
-//                                             .angel_remove {
-//                                                 background-color: transparent;
-//                                                 justify-content: center;
-//                                                 align-items: center;
-//                                                 border: none;
-//                                                 height: 20px;
-//                                                 width: 20px;
+                                            .angel_add,
+                                            .angel_remove {
+                                                background-color: transparent;
+                                                justify-content: center;
+                                                align-items: center;
+                                                border: none;
+                                                height: 20px;
+                                                width: 20px;
 
-//                                                 svg {
-//                                                     height: 100%;
-//                                                     width: 100%;
+                                                svg {
+                                                    height: 100%;
+                                                    width: 100%;
 
-//                                                     path {
-//                                                         stroke: rgba(255, 255, 255, 0.32);
-//                                                     }
-//                                                 }
-//                                             }
+                                                    path {
+                                                        stroke: rgba(255, 255, 255, 0.32);
+                                                    }
+                                                }
+                                            }
 
-//                                             .angel_remove {
-//                                                 display: none;
-//                                             }
-//                                         }
+                                            .angel_remove {
+                                                display: none;
+                                            }
+                                        }
 
-//                                         .checkbox_input:checked+.checkbox_label {
-//                                             background-color: rgba(255, 255, 255, 0.1);
+                                        .checkbox_input:checked+.checkbox_label {
+                                            background-color: rgba(255, 255, 255, 0.1);
 
-//                                             .checkbox_label_text {
-//                                                 color: white;
-//                                             }
+                                            .checkbox_label_text {
+                                                color: white;
+                                            }
 
-//                                             .angel_add {
-//                                                 display: none;
-//                                             }
+                                            .angel_add {
+                                                display: none;
+                                            }
 
-//                                             .angel_remove {
-//                                                 display: flex;
-//                                             }
+                                            .angel_remove {
+                                                display: flex;
+                                            }
 
-//                                             svg {
-//                                                 path {
-//                                                     stroke: white;
-//                                                 }
-//                                             }
-//                                         }
-//                                     }
-//                                 }
-//                             }
-//                         }
-//                     }
-//                 }
-//             }
+                                            svg {
+                                                path {
+                                                    stroke: white;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
-//             .edit_engel_model_footer {
-//                 padding: 24px 16px;
-//                 background-color: #111111;
-//                 display: flex;
-//                 align-items: center;
-//                 justify-content: space-between;
+            .edit_engel_model_footer {
+                padding: 24px 16px;
+                background-color: #111111;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
 
-//                 @media (max-width: 425px) {
-//                     padding-bottom: 15px;
-//                     gap: 5px;
-//                 }
+                @media (max-width: 425px) {
+                    padding-bottom: 15px;
+                    gap: 5px;
+                }
 
-//                 .refuse_btn {
-//                     background-color: rgba(255, 158, 152, 0.1490196078);
-//                     border: none;
-//                     padding: 14px 30px;
-//                     color: #ff9e98;
-//                     font-size: 16px;
+                .refuse_btn {
+                    background-color: rgba(255, 158, 152, 0.1490196078);
+                    border: none;
+                    padding: 14px 30px;
+                    color: #ff9e98;
+                    font-size: 16px;
 
-//                     @media (max-width: 1600px) {
-//                         font-size: 14px;
-//                     }
+                    @media (max-width: 1600px) {
+                        font-size: 14px;
+                    }
 
-//                     @media (max-width: 425px) {
-//                         padding-inline: 0;
-//                         width: 100%;
-//                     }
-//                 }
+                    @media (max-width: 425px) {
+                        padding-inline: 0;
+                        width: 100%;
+                    }
+                }
 
-//                 .confirm_btn {
-//                     border: none;
-//                     background-color: rgba(78, 78, 78, 0.5803921569);
-//                     font-weight: 500;
-//                     color: #f5efdb;
-//                     display: flex;
-//                     align-items: center;
-//                     justify-content: center;
-//                     gap: 5px;
-//                     border: none;
-//                     padding: 14px 27px;
-//                     font-size: 16px;
+                .confirm_btn {
+                    border: none;
+                    background-color: rgba(78, 78, 78, 0.5803921569);
+                    font-weight: 500;
+                    color: #f5efdb;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 5px;
+                    border: none;
+                    padding: 14px 27px;
+                    font-size: 16px;
 
-//                     @media (max-width: 1600px) {
-//                         font-size: 14px;
-//                     }
+                    @media (max-width: 1600px) {
+                        font-size: 14px;
+                    }
 
-//                     @media (max-width: 425px) {
-//                         padding-inline: 0;
-//                         width: 100%;
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }
+                    @media (max-width: 425px) {
+                        padding-inline: 0;
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}
 .model_body {
     max-height: 551px;
     overflow-y: scroll;

@@ -7,6 +7,13 @@ import chatSynergies5 from '../../assets/chat-synergies-5.png'
 import chatSynergies6 from '../../assets/chat-synergies-6.png'
 import chatSynergies7 from '../../assets/chat-synergies-7.png'
 import chatSynergies8 from '../../assets/chat-synergies-8.png'
+import synergy1 from '../../assets/synergy1.png'
+import synergy2 from '../../assets/synergy2.png'
+import synergy3 from '../../assets/synergy3.png'
+import synergy4 from '../../assets/synergy4.png'
+import synergy5 from '../../assets/synergy5.png'
+
+
 import member1 from '../../assets/member_img1.png'
 import member2 from '../../assets/member_img2.png'
 // import member3 from '../../assets/member_img3.png'
@@ -31,26 +38,27 @@ import ChatMembers from '../../components/chat-members/ChatMembers';
 import { getAllUsers, getGroupsAPI, getChatMessages, sendMsg } from '../../api-services/chatApis';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMessage } from '../../store/slice/chatSlice';
+import Loader from '../../components/loader/Loader';
 
 const chatSynergies = [
     {
-        "img": chatSynergies1,
-        "message": 1
-    },
-    {
-        "img": chatSynergies2,
+        "img": synergy1,
         "message": null
     },
     {
-        "img": chatSynergies3,
+        "img": synergy2,
         "message": null
     },
     {
-        "img": chatSynergies4,
+        "img": synergy3,
         "message": null
     },
     {
-        "img": chatSynergies5,
+        "img": synergy4,
+        "message": null
+    },
+    {
+        "img": synergy5,
         "message": null
     },
     {
@@ -59,11 +67,11 @@ const chatSynergies = [
     },
     {
         "img": chatSynergies7,
-        "message": 16
+        "message": null
     },
     {
         "img": chatSynergies8,
-        "message": 22
+        "message": null
     },
 ]
 
@@ -80,6 +88,8 @@ const Chats = () => {
     const groupData = useSelector((state) => state.group.groups)
     const msgInfo = useSelector((state) => state.chat.groupMsg)
     const userData = useSelector((state) => state.auth)
+    const chatApiLoading = useSelector((state) => state.chat.isLoading)
+    const groupApiLoading=useSelector((state)=> state.group.isLoading)
 
     const dispatch = useDispatch();
 
@@ -230,18 +240,22 @@ const Chats = () => {
                     <div className={`synergies ${chatNumber ? 'active' : ''}`}>
                         {
                             chatSynergies.map((data, index) => {
-                                return (
-                                    <div key={index} className='avtar_img'>
-                                        <img src={data.img} alt="" />
-                                        <div className={data.message ? "notification" : ''}>{data.message}</div>
-                                    </div>
-                                )
+                                if (index < groupData.length) {
+                                    return (
+                                        <div key={index} className='avtar_img' onClick={() => {
+                                                setOpenChatIndex(index)
+                                        }}>
+                                            <img src={data.img} alt="" />
+                                            <div className={data.message ? "notification" : ''}>{data.message}</div>
+                                        </div>
+                                    )
+                                }
                             })
                         }
                     </div>
                     <div className={`channels ${chatNumber ? 'active' : ''}`}>
                         <div className='channels_avtar'>
-                            <img src={chatAvtar} alt="" />
+                            <img src={chatSynergies[openChatIndex].img} alt="" />
                         </div>
                         <div className="channels_list">
                             <div className="channels_list_head">
@@ -631,13 +645,14 @@ const Chats = () => {
             <ChatMembers
                 open={isChatMembersOpen}
                 handleClose={() => setIsChatMembersOpen(false)}
-                handleOpenAddMemberPopup={()=>{
+                handleOpenAddMemberPopup={() => {
                     setIsAddChatMemberPopupOpen(true)
                     setIsChatMembersOpen(false);
                 }}
                 groupData={groupData}
                 openChatIndex={openChatIndex}
             />
+            <Loader loading={chatApiLoading || groupApiLoading}/>
         </>
     )
 }

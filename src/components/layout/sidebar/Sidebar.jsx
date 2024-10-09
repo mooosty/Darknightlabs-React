@@ -34,7 +34,7 @@ const Sidebar = () => {
                         <li className={`${location.pathname === `/${ROUTER.projectManager}` ? 'active' : ''}`}>
                             <Link to={ROUTER.projectManager}>
                                 <img src={projectIcon} alt="Project Manager" />
-                                Projects manager
+                                Projects Manager
                             </Link>
                         </li>
                     </ul>

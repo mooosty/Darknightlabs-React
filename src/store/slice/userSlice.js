@@ -18,7 +18,6 @@ const userSlice=createSlice({
             }
         })
         builder.addCase(getUsersAPI.fulfilled, (state,action) => {
-            // console.log('action :>> ', action.payload);
                 return {
                     users:[...action.payload.data],
                     isLoading: false

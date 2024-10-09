@@ -3,11 +3,11 @@ import searchIcon from "../../assets/search-icon.png"
 import addIcon from "../../assets/add-icon.png"
 import { GridIcon, ListIcon, TableStatusIcon, GredientGlobalIcon, GradientGraphIcon, InfiniteIcon, MoreIcon, AddCircleIcon, CLeseCircleIcon, GlobalIcon, DownAccordionIcon } from '../../utils/SVGs/SVGs'
 import filterIcon from "../../assets/filter.svg";
-// import tableActor1 from "../../assets/tableActorImage.jpg";
-// import tableActor2 from "../../assets/tableActorImage1.jpg";
-// import tableActor3 from "../../assets/tableActorImage2.jpg";
-// import tableActorImage1 from "../../assets/avatar-1.jpg";
-// import tableActorImage2 from "../../assets/avatar-2.jpg";
+import tableActor1 from "../../assets/tableActorImage.jpg";
+import tableActor2 from "../../assets/tableActorImage1.jpg";
+import tableActor3 from "../../assets/tableActorImage2.jpg";
+import tableActorImage1 from "../../assets/avatar-1.jpg";
+import tableActorImage2 from "../../assets/avatar-2.jpg";
 import tableActorImage3 from "../../assets/avatar-3.jpg";
 import editIcon from "../../assets/edit-icon.svg";
 import trashIcon from "../../assets/trash-icon.png";
@@ -15,7 +15,7 @@ import closeIcon from "../../assets/X-icon.png";
 import { useEffect, useState } from 'react';
 import Select from "../../components/select/Select"
 import ProjectAccordion from '../../components/project-accordion/ProjectAccordion';
-import ButtomMenu from '../../components/buttom-menu/ButtomMenu';
+import BottomMenu from '../../components/buttom-menu/BottomMenu';
 import DeleteConfirmPopup from '../../components/popup/delete-confirm-popup/DeleteConfirmaPopup';
 import { Tooltip } from 'react-tooltip';
 import { getProjectsAPI, deleteProjectAPI, updateProjectAPI, getMemberApi } from '../../api-services/projectApis';
@@ -24,7 +24,9 @@ import { useNavigate } from 'react-router-dom';
 import CreateSynergiesPopup from '../../components/popup/create-synergies-popup/CreateSynergiesPopup';
 import ConfirmSynergiesPopup from '../../components/popup/confirm-senergies-popup/ConfirmSynergiesPopup';
 import angelBg from '../../assets/edit-senergies-hero-image.png'
+import ChoosePrioritySynergiesPopup from '../../components/popup/choose-priority-synergies-popup/ChoosePrioritySynergiesPopup';
 import SynergieaCreatedSuccessfullyPopup from '../../components/popup/synergiea-created-successfully-popup/SynergieaCreatedSuccessfullyPopup';
+import Loader from '../../components/loader/Loader';
 
 
 const buttons = [
@@ -111,6 +113,7 @@ const ProjectManager = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const data = useSelector((state) => state.project.projects)
+    const projectApiLoading = useSelector((state) => state.project.isLoading)
 
 
     const [initialProject, setInitialProject] = useState([])
@@ -124,8 +127,7 @@ const ProjectManager = () => {
     const [createSynergySuccessPopup, setCreateSynergySuccessPopup] = useState(false);
 
 
-
-    function formatDate(date) {
+    const formatDate = (date) => {
         var d = new Date(date),
             month = '' + (d.getMonth() + 1),
             day = '' + d.getDate(),
@@ -226,20 +228,21 @@ const ProjectManager = () => {
     const handleSynergize = () => {
         setCreateSynergyStep(createSynergyStep + 1);
         let synergyName = '';
-        let projects = [...data.map((project) => {
+        let projects = [...data.filter((project) => {
             if (selectedProjects.includes(project.project_id) || selectedProjectForSynergy.includes(project.project_id)) {
                 if (synergyName === '') {
-                    synergyName +=project.project_name
+                    synergyName += project.project_name
                 }
                 else {
                     synergyName += ' X ' + project.project_name
                 }
-                return project;
+                return true;
             }
+            return false
         })]
         setSynergies({
             ...synergies,
-            synergyName:synergyName,
+            synergyName: synergyName,
             projects: projects
         })
     }
@@ -249,10 +252,10 @@ const ProjectManager = () => {
             ...prevSynergies,
             projects: prevSynergies.projects.map((project, index) => {
                 if (index === projectCounter) {
-                    const currentSynergy = project.synergy || [];
-                    const synergyExists = currentSynergy.some(item => item.id === data.id);
+                    const currentSynergy = project.synergy || Object.entries(synergies.projects[projectCounter].synergy_angles).map(([key, value]) => value);
+                    const synergyExists = currentSynergy.some(item => item === data);
                     if (synergyExists) {
-                        const updatedSynergy = currentSynergy.filter(item => item.id !== data.id);
+                        const updatedSynergy = currentSynergy.filter(item => item !== data);
                         return {
                             ...project,
                             synergy: updatedSynergy,
@@ -272,7 +275,6 @@ const ProjectManager = () => {
 
     useEffect(() => {
         let data = initialProject;
-        console.log('data :>> ', data);
         if (filter.synergyAngleValue !== '') {
             const filterArr = data.filter((project) => {
                 return project.synergiesAngles.findIndex((synergy) => {
@@ -293,43 +295,32 @@ const ProjectManager = () => {
         }
         if (filter.sortBy !== '') {
             if (filter.sortBy === 'name') {
-                console.log('data :>> ', data);
                 const filterArr = data.sort((project1, project2) => {
-                    const firstLetterA = project1.projectName[0].toLowerCase();
-                    const firstLetterB = project2.projectName[0].toLowerCase();
+                    const projectName1 = project1.projectName.toLowerCase();
+                    const projectName2 = project2.projectName.toLowerCase();
 
-                    return firstLetterA.localeCompare(firstLetterB);
+                    return projectName1.localeCompare(projectName2);
                 });
 
                 data = [...filterArr];
             }
             else if (filter.sortBy === 'date') {
                 const filterArr = data.sort((project1, project2) => {
-                    const dateA = project1.date.split('/');
-                    const dateB = project2.date.split('/');
-                    if (dateA[2] === dateB[2]) {
-                        if (dateA[1] === dateB[1]) {
-                            return dateB[0] - dateA[0];
-                        }
-                        else {
-                            return dateB[1] - dateA[2];
-                        }
-                    }
-                    else {
-                        return dateB[2] - dateA[2];
-                    }
+                    var date1 = project1.date.split('/').reverse().join();
+                    var date2 = project2.date.split('/').reverse().join();
+                    return date1 < date2 ? -1 : (date1 > date2 ? 1 : 0);
                 });
                 data = [...filterArr];
             }
             else if (filter.sortBy === 'description') {
                 const filterArr = data.sort((project1, project2) => {
-                    const firstLetterA = project1.description.trim()[0]?.toLowerCase();
-                    const firstLetterB = project2.description.trim()[0]?.toLowerCase();
+                    const description1 = project1.description.trim()?.toLowerCase();
+                    const description2 = project2.description.trim()?.toLowerCase();
 
-                    if (firstLetterA < firstLetterB) {
+                    if (description1 < description2) {
                         return -1;
                     }
-                    if (firstLetterA > firstLetterB) {
+                    if (description1 > description2) {
                         return 1;
                     }
                     return 0;
@@ -374,13 +365,14 @@ const ProjectManager = () => {
     useEffect(() => {
         if (data.length === 0)
             dispatch(getProjectsAPI()).then((res) => {
-                res.payload.map((project) => {
-                    dispatch(getMemberApi(project.project_id))
-                })
+                if (res?.payload?.length > 0) {
+                    res.payload.map((project) => {
+                        dispatch(getMemberApi(project.project_id))
+                    })
+                }
             });
     }, [])
 
-    console.log('synergies :>> ', synergies);
 
 
     return (
@@ -588,7 +580,6 @@ const ProjectManager = () => {
                                                     <div className='actor'>
                                                         <ul>
                                                             {rowData?.teamMembers?.map((member, index) => {
-                                                                console.log('', member);
                                                                 return (
                                                                     <>
                                                                         <li
@@ -786,7 +777,7 @@ const ProjectManager = () => {
                             <div className='model_body'>
                                 <div className="model_data">
                                     <div className="image">
-                                        <img src={angelBg} alt="" />
+                                        <img src={synergies.projects[projectCounter].image} alt="" />
                                     </div>
                                     <div className={`page active`}>
                                         <div className="angel_model_data_head">
@@ -794,7 +785,37 @@ const ProjectManager = () => {
                                         </div>
                                         <div className="angel_model_data_body">
                                             <div className="angels_container">
-                                                {buttons.map((data) => (
+                                                {(synergies.projects[projectCounter] && synergies.projects[projectCounter].synergy_angles) && (
+                                                    Object.entries(synergies.projects[projectCounter].synergy_angles).map(([key, value]) => (
+                                                        <div key={key} className='angel_tab'>
+                                                            <input
+                                                                type="checkbox"
+
+                                                                defaultChecked={
+                                                                    synergies.projects[projectCounter]?.synergy ?
+                                                                        synergies.projects[projectCounter]?.synergy?.some((value) => value === value) :
+                                                                        Object.entries(synergies.projects[projectCounter]?.synergy_angles).some(([value]) => value === value)
+                                                                }
+                                                                name="angleName"
+                                                                id={`angle1+${key}`}
+                                                                className='checkbox_input'
+                                                            />
+                                                            <label htmlFor={`angle1+${key}`} className='checkbox_label' onClick={() => handleSynergy(value)}>
+                                                                <div className="checkbox_label_text">
+                                                                    <GlobalIcon />
+                                                                    <span className='checkbox_label_text_head'>{value}</span>
+                                                                </div>
+                                                                <div className="angel_add">
+                                                                    <AddCircleIcon />
+                                                                </div>
+                                                                <div className="angel_remove">
+                                                                    <CLeseCircleIcon />
+                                                                </div>
+                                                            </label>
+                                                        </div>
+                                                    ))
+                                                )}
+                                                {/* {synergies.projects[projectCounter].synergy_angles.map((data) => (
                                                     <div key={data.id} className='angel_tab'>
                                                         <input type="checkbox" checked={synergies.projects[projectCounter]?.synergy?.some(synergy => synergy.id === data.id) || false} name="angleName" id={`angle1+${data.id}`} className='checkbox_input' />
                                                         <label htmlFor={`angle1+${data.id}`} className='checkbox_label' onClick={() => handleSynergy(data)}>
@@ -810,7 +831,7 @@ const ProjectManager = () => {
                                                             </div>
                                                         </label>
                                                     </div>
-                                                ))}
+                                                ))} */}
                                             </div>
                                         </div>
                                     </div>
@@ -834,17 +855,26 @@ const ProjectManager = () => {
                                             <div className='accordion_content'>
                                                 <div className="header_name">Synergy angles</div>
                                                 <div className="checkboxs">
-                                                    {data?.synergy?.map((item) => {
+                                                    {data?.synergy ? data?.synergy?.map((item, index) => {
                                                         return (
                                                             <>
                                                                 <span className='checkbox_angles' >
-                                                                    <input type="checkbox" name="angleName" id={`angles_+${item.id}`} className='checkbox_input' />
-                                                                    <label htmlFor={`angles_+${data.id}`} className='checkbox_label' ><GlobalIcon />{item.name} </label>
+                                                                    <input type="checkbox" name="angleName" id={`angles_+${index}`} className='checkbox_input' />
+                                                                    <label htmlFor={`angles_+${index}`} className='checkbox_label' ><GlobalIcon />{item} </label>
                                                                 </span>
                                                             </>
                                                         )
+                                                    }) : Object.entries(synergies.projects[index].synergy_angles).map(([key, value], index) => {
+                                                        return (
+                                                            <>
+                                                                <span className='checkbox_angles' >
+                                                                    <input type="checkbox" name="angleName" id={`angles_+${index}`} className='checkbox_input' />
+                                                                    <label htmlFor={`angles_+${index}`} className='checkbox_label' ><GlobalIcon />{value} </label>
+                                                                </span>
+                                                            </>
+                                                        )
+                                                    })
                                                     }
-                                                    )}
                                                 </div>
                                             </div>
                                         </div>
@@ -922,29 +952,41 @@ const ProjectManager = () => {
                 open={false}
             />
 
-            <ButtomMenu
+            <BottomMenu
                 open={isBottomMenuOpen}
-                handleClose={() => {
+            >
+                <button onClick={() => {
                     handleCancelSelection()
                     setIsBottomMenuOpen(false)
-                }}
-
-                handleCreateSynergy={() => {
-                    handleCreateSynergy();
-                    setIsBottomMenuOpen(false);
-                }}
-
-                handleDelete={() => {
-                    setIsMultiDltConfirmPopupOpen(true);
-                    setIsBottomMenuOpen(false);
-                }}
-
-                handleAddFeature={() => {
+                }}>
+                    <img src={closeIcon} alt="Add" />
+                    <span>Cancel</span>
+                </button>
+                <button onClick={() => {
                     handleAddFeature()
                     setIsBottomMenuOpen(false);
-                }}
-            />
+                }}>
+                    <TableStatusIcon />
+                    Add to Featured
+                </button>
+                <button onClick={() => {
+                    handleCreateSynergy();
+                    setIsBottomMenuOpen(false);
+                }}>
+                    <InfiniteIcon />
+                    <span>Create synergy</span>
+                </button>
+                <button onClick={() => {
+                    setIsMultiDltConfirmPopupOpen(true);
+                    setIsBottomMenuOpen(false);
+                }}>
+                    <img src={trashIcon} alt="Delete" />
+                    <span>Delete</span>
+                </button>
 
+            </BottomMenu>
+
+            <Loader loading={projectApiLoading} />
         </>
     )
 }
