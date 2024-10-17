@@ -1,6 +1,7 @@
 import './sidebar.scss'
 import profileImage from "../../../assets/profile-image.jpeg"
 import collapseLeftIcon from "../../../assets/collapse-left-icon.png"
+import collapseRightIcon from "../../../assets/collapse-right-icon.png"
 import projectIcon from "../../../assets/project-icon.png"
 import pendingIcon from "../../../assets/pending-icon.png"
 import synergiesIcon from "../../../assets/synergies-icon.png"
@@ -9,14 +10,18 @@ import profileIcon from "../../../assets/profile-icon.png"
 import logoutIcon from "../../../assets/logout-icon.png"
 import { Link, useLocation } from 'react-router-dom'
 import { ROUTER } from '../../../utils/routes/routes'
+import { useState } from 'react'
 
 
 const Sidebar = () => {
     const location = useLocation()
-
+    const [isCollapse, setIsCollapse] = useState(false);
+    const handleCollapse = () => {
+        setIsCollapse(!isCollapse);
+    }
     return (
         <>
-            <div className="sidbar">
+            <div className={`sidebar ${isCollapse ? 'sidebar_collapsed' : ''}`}>
                 <div className="profile_box">
                     <div className="profile_image">
                         <img src={profileImage} alt="Profile" />
@@ -25,62 +30,69 @@ const Sidebar = () => {
                         <h3>Username</h3>
                         <p>Admin</p>
                     </div>
-                    <a className="collapse_btn" href="#">
-                        <img src={collapseLeftIcon} alt="Collapse" />
-                    </a>
+                    <button className="collapse_btn" onClick={handleCollapse} >
+                        {isCollapse ?
+                            <img src={collapseRightIcon} alt="Collapse" />
+                            :
+                            <img src={collapseLeftIcon} alt="Collapse" />
+                        }
+                    </button>
                 </div>
-                <div className="menu-box project_manager">
+                <div className="menu-box">
                     <ul>
                         <li className={`${location.pathname === `/${ROUTER.projectManager}` ? 'active' : ''}`}>
                             <Link to={ROUTER.projectManager}>
                                 <img src={projectIcon} alt="Project Manager" />
-                                Projects Manager
+                                <span className='menu_text'>Projects Manager</span>
                             </Link>
                         </li>
                     </ul>
                 </div>
-                <div className="menu-box synergies_menu">
-                    <span className="saprator"></span>
+                <div className="menu-box">
+                    <span className="separator"></span>
                     <ul>
                         <li className={`${location.pathname === `/${ROUTER.pendingSynergies}` ? 'active' : ''}`}>
                             <Link to={ROUTER.pendingSynergies}>
                                 <img src={pendingIcon} alt="Pending Synergies" />
-                                Pending Synergies
+                                <span className='menu_text'>Pending Synergies</span>
                             </Link>
                         </li>
                         <li className={`${location.pathname === `/${ROUTER.synergiesManager}` ? 'active' : ''}`}>
                             <Link to={ROUTER.synergiesManager}>
                                 <img src={synergiesIcon} alt="Synergies Manager" />
-                                Synergies Manager
+                                <span className='menu_text'>Synergies Manager </span>
                             </Link>
                         </li>
                     </ul>
                 </div>
-                <div className="menu-box chat_profile">
-                    <span className="saprator"></span>
+                <div className="menu-box">
+                    <span className="separator"></span>
                     <ul>
-                        <li className={`${location.pathname === `/${ROUTER.chat}` ? 'active' : ''}`}>
-                            <Link  to={ROUTER.chat}>
+                        <li className={`${location.pathname === `/${ROUTER.chat}` ? 'active' : ''} chat`}>
+                            <Link to={ROUTER.chat}>
                                 <img src={chatIcon} alt="Chat" />
-                                Chat <span className="notification">1</span>
+                                <span className='menu_text'>Chat</span>
+                                <span className="notification">
+                                    <span className="notification_text">1</span>
+                                </span>
                             </Link>
                         </li>
                         <li className={`${location.pathname === `/${ROUTER.profile}` ? 'active' : ''}`}>
                             <Link to={ROUTER.profile}>
                                 <img src={profileIcon} alt="Profile" />
-                                Profile
+                                <span className='menu_text'>Profile</span>
                             </Link>
                         </li>
                     </ul >
                 </div >
-                <div className="menu-box sidbar_bottom">
-                    <span className="saprator"></span>
+                <div className="menu-box sidebar_bottom">
+                    <span className="separator"></span>
                     <ul>
                         <li>
-                            <a href="#">
+                            <Link href="#">
                                 <img src={logoutIcon} alt="Logout" />
-                                Logout
-                            </a>
+                                <span className='menu_text'>Logout</span>
+                            </Link>
                         </li>
                     </ul>
                 </div>

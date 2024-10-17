@@ -254,7 +254,7 @@ const Chats = () => {
                         }
                     </div>
                     <div className={`channels ${chatNumber ? 'active' : ''}`}>
-                        <div className='channels_avtar'>
+                        <div className='channels_avatar'>
                             <img src={chatSynergies[openChatIndex].img} alt="" />
                         </div>
                         <div className="channels_list">

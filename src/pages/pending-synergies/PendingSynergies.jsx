@@ -475,68 +475,69 @@ const PendingSynergies = () => {
           <a href="#">Darknight Labs</a>
         </div>
       </div>
-
       <div className="pending_synergies_page_data">
-        <div className="synergies_page_header">
-          <div className="synergies_pagination">
-            <button className={`synergies_pagination_btn ${activeLayout === 'TAB' ? 'active' : ''}`} onClick={() => handleActive('TAB')} >
-              {/* <ListIcon /> */}
-              <span>Newest</span>
-            </button>
-            <button className={`synergies_pagination_btn ${activeLayout === 'LAYOUT' ? 'active' : ''}`} onClick={() => handleActive('LAYOUT')} >
-              {/* <GridIcon /> */}
-              <span>Oldest</span>
-            </button>
+        <div className="page_data">
+          <div className="synergies_page_header">
+            <div className="synergies_toggleWrap">
+              <button className={`synergies_toggle_btn ${activeLayout === 'TAB' ? 'active' : ''}`} onClick={() => handleActive('TAB')} >
+                {/* <ListIcon /> */}
+                <span>Newest</span>
+              </button>
+              <button className={`synergies_toggle_btn ${activeLayout === 'LAYOUT' ? 'active' : ''}`} onClick={() => handleActive('LAYOUT')} >
+                {/* <GridIcon /> */}
+                <span>Oldest</span>
+              </button>
+            </div>
           </div>
-        </div>
-        <div className="synergies_page_body">
-          <div className="card_container">
-            {cardData.map((data, index) => {
-              return (
-                <>
-                  <div key={index} className="card" onClick={() => setIsEditPendingSynergiesAngelPopupOpen(true)}>
-                    <div className="card_image">
-                      <img src={data.creatorImg} alt="" />
-                    </div>
-                    <div className="card_body">
-                      <div className="name">{data.synergyName} </div>
-                      <div className="tabs">
-                        {
-                          data.synergiesAngles.map((angle, index) => {
-                            return (
-                              <div className={`${index === 0 ? 'global' : (index === 1 ? 'graph' : '')}`} key={index}>
-                                <div className='angle_tag' >
-                                  <>{angle.icon} </>
-                                  <span className='text'>
-                                    <span>{angle.label}</span>
-                                  </span>
-                                </div>
-                              </div>)
-                          })
-                        }
+          <div className="synergies_page_body">
+            <div className="card_container">
+              {cardData.map((data, index) => {
+                return (
+                  <>
+                    <div key={index} className="card" onClick={() => setIsEditPendingSynergiesAngelPopupOpen(true)}>
+                      <div className="card_image">
+                        <img src={data.creatorImg} alt="" />
                       </div>
-                    </div>
-                  </div></>
-              )
-            })}
-          </div>
-          <div className="synergies_pagination">
-            <div className="synergies_pagination_content">
-              <div className="synergies_pagination_content_text">
-                <span className='pagination_head'>Row per page:</span>
-                <span className='pagination_dropdown'>
-                  <select name="cars" id="cars" >
-                    <option value="12">12</option>
-                    <option value="10">10</option>
-                    <option value="8">8</option></select></span>
-                <span className='pagination_pages'>1-5 of 13</span>
-                <div className="synergies_pagination_content_arrows">
-                  <button className={`table_pagination_content_button`}>
-                    <LeftIcon />
-                  </button>
-                  <button className={`table_pagination_content_button`}>
-                    <RightIcon />
-                  </button>
+                      <div className="card_body">
+                        <div className="name">{data.synergyName} </div>
+                        <div className="tabs">
+                          {
+                            data.synergiesAngles.map((angle, index) => {
+                              return (
+                                <div className={`${index === 0 ? 'global' : (index === 1 ? 'graph' : '')}`} key={index}>
+                                  <div className='angle_tag' >
+                                    <>{angle.icon} </>
+                                    <span className='text'>
+                                      <span>{angle.label}</span>
+                                    </span>
+                                  </div>
+                                </div>)
+                            })
+                          }
+                        </div>
+                      </div>
+                    </div></>
+                )
+              })}
+            </div>
+            <div className="synergies_pagination">
+              <div className="synergies_pagination_content">
+                <div className="synergies_pagination_content_text">
+                  <span className='pagination_head'>Row per page:</span>
+                  <span className='pagination_dropdown'>
+                    <select name="cars" id="cars" >
+                      <option value="12">12</option>
+                      <option value="10">10</option>
+                      <option value="8">8</option></select></span>
+                  <span className='pagination_pages'>1-5 of 13</span>
+                  <div className="synergies_pagination_content_arrows">
+                    <button className={`table_pagination_content_button`}>
+                      <LeftIcon />
+                    </button>
+                    <button className={`table_pagination_content_button`}>
+                      <RightIcon />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

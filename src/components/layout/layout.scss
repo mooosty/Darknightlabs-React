@@ -8,6 +8,12 @@
             @media(max-width: 767px) {
                 padding: 0;
             }
+
+            .page_box{
+                .content_box{
+                    width: 100%;
+                }
+            }
         }
     }
 }

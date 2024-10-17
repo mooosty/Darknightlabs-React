@@ -57,10 +57,10 @@
 
                 @media (max-width: 767px) {
                     padding-bottom: 25px;
-                    
+
                 }
 
-               
+
 
                 .create_model_header {
                     display: flex;
@@ -176,11 +176,11 @@
                         align-items: center;
                         justify-content: space-between;
                         margin-bottom: 20px !important;
-        
+
                         @media (max-width: 767px) {
                             margin-bottom: 16px !important;
                         }
-        
+
                         h3 {
                             color: #f5efdb;
                             text-decoration: none;
@@ -188,31 +188,28 @@
                             font-weight: 500;
                             line-height: 36px;
                             font-family: "MedievalSharp", cursive;
-        
+
                             @media (max-width: 767px) {
                                 font-size: 24px;
                             }
-        
+
                         }
-        
+
                         button.close {
                             background-color: transparent;
                             border: gainsboro;
                             position: absolute;
-                            top: 25px;
+                            top: 40px;
                             right: 30px;
-        
+
                             img {
                                 width: 32px;
-        
+
                                 @media (max-width: 1600px) {
                                     width: 24px;
                                 }
                             }
-                            position: absolute;
-                            top: 40px;
-                            right: 30px;
-        
+
                             img {
                                 width: 32px;
                                 height: 32px;
@@ -528,8 +525,8 @@
                         padding-inline: 0;
                     }
                 }
-                
-                .project_counter{
+
+                .project_counter {
                     color: white;
                 }
 

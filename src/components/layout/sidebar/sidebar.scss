@@ -1,10 +1,16 @@
-.sidbar {
-    width: 20%;
+.sidebar {
     background-color: #191917;
     padding: 24px;
     border-radius: 9px;
     position: relative;
-    height: 100%;
+    height: calc(100vh - 132px);
+    overflow-y: auto;
+    transition: 0.5s;
+    width: 23%;
+
+    @media(max-width: 1600px) {
+        height: calc(100vh - 85px);
+    }
 
     @media (max-width: 1199px) {
         width: 30%;
@@ -14,7 +20,73 @@
         display: none;
     }
 
-    .sidbar_menu {
+    &.sidebar_collapsed {
+        width: 65px;
+        padding: 10px 8px;
+
+        .profile_box {
+            align-items: center;
+            flex-direction: column;
+            padding-top: 45px;
+            margin-bottom: 14px;
+
+            .profile_image {
+                height: 45px;
+                width: 45px;
+            }
+
+            .user_name {
+                text-align: center;
+                h3 {
+                    font-size: 13px;
+                    max-width: 50px;
+                }
+
+                p {
+                    max-width: 50px;
+                    font-size: 12px
+                }
+            }
+
+            .collapse_btn {
+                right: auto;
+                left: 25%;
+            }
+        }
+
+        .menu-box {
+            ul li a {
+                gap: 0;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+
+
+                .menu_text {
+                    display: none;
+                }
+
+                .notification {
+                    position: absolute;
+                    top: 5px;
+                    right: 10px;
+                    height: 8px;
+                    width: 8px;
+                    display: flex;
+                    justify-content: start;
+                    align-items: center;
+
+                    .notification_text {
+                        display: none;
+                    }
+                }
+            }
+
+
+        }
+    }
+
+    .sidebar_menu {
         height: 55vh;
 
         @media (max-width: 1600px) {
@@ -51,10 +123,16 @@
                 line-height: 20.34px;
                 font-weight: 700;
                 margin-bottom: 5px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
             p {
                 color: #ffffff6c;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
         }
 
@@ -62,15 +140,23 @@
             position: absolute;
             top: 0;
             right: 0;
+            background: transparent;
+            border: none;
         }
     }
 
     .menu-box {
         ul {
             li {
-                &:hover {
+                &.active {
                     a {
                         opacity: 1;
+                    }
+                }
+
+                &:hover {
+                    a {
+                        opacity: 0.85;
                     }
                 }
 
@@ -91,75 +177,42 @@
                         font-size: 14px;
                     }
                 }
-
-                &.active {
-                    a {
-                        opacity: 1;
-                    }
-                }
             }
         }
 
-        .saprator {
-            background: rgb(0, 0, 0);
+        .separator {
             background: linear-gradient(90deg, #463600, #f5efdb50, #f5efdb25);
             display: block;
             height: 1px;
             width: 100%;
-        }
-
-        .notification {
-            background-color: #a18527;
-            height: 22px;
-            width: 24px;
-            display: flex;
-            justify-content: center;
-            border-radius: 21px;
-            align-items: center;
-            font-size: 12px;
-        }
-
-    }
-
-    .project_manager {
-        margin-bottom: 57px;
-
-        @media (max-width: 1600px) {
-            margin-bottom: 30px;
-        }
-    }
-
-    .synergies_menu {
-        .saprator {
             margin-bottom: 16px;
         }
 
-        ul li:last-child a {
-            margin-bottom: 49px;
+        .chat {
+            position: relative;
 
-            @media (max-width: 1600px) {
-                margin-bottom: 30px;
+            .notification {
+                background-color: #a18527;
+                height: 22px;
+                width: 24px;
+                display: flex;
+                justify-content: center;
+                border-radius: 21px;
+                align-items: center;
+                font-size: 12px;
             }
         }
-
     }
 
-    .chat_profile .saprator {
-        margin-bottom: 16px;
-    }
+    .sidebar_bottom {
+        margin-top: auto;
 
-    .sidbar_bottom {
         ul li a {
             color: #ff9e98;
-        }
-
-        .saprator {
-            margin-bottom: 16px;
+            margin-bottom: 0;
         }
     }
-
 }
-
 
 .mobile_bottom_footer {
     height: 100px;

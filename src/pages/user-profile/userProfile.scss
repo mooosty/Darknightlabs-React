@@ -74,13 +74,13 @@
                 gap: 10px;
 
                 h2 {
-                    font-size: 28px;
+                    font-size: 42px;
                     color: #fff;
                     font-weight: 500;
                     font-family: "MedievalSharp", cursive;
 
                     @media (max-width: 1600px) {
-                        font-size: 24px;
+                        font-size: 28px;
                     }
                 }
             }
@@ -106,8 +106,8 @@
         }
 
         .profile_page_data {
+            padding: 35px;
             border-radius: 20px;
-            padding: 35px 50px;
             background-color: #191917;
             background-image: url("../../assets/model-frame.png");
             background-repeat: no-repeat;
@@ -115,224 +115,271 @@
             background-position-y: 10px;
 
             @media (max-width: 767px) {
-                border-radius: 0px;
-                padding: 15px 20px;
-                background-color: #242623eb;
+                border-radius: 0;
+                padding-block: 20px 0px;
+                background-color: #191917;
                 background-image: none;
             }
 
-            .header_button {
-                display: flex;
-                margin-bottom: 25px;
+            &.edit_mode {
+                .page_data {
+                    height: calc(100vh - 202px);
+                    overflow-y: auto;
 
-                .buttons {
+                    @media(max-width: 1600px) {
+                        height: calc(100vh - 155px);
+                    }
+                }
+            }
+
+            .page_data {
+                background-color: transparent;
+                height: calc(100vh - 264px);
+                overflow-y: auto;
+
+                @media(max-width: 1600px) {
+                    height: calc(100vh - 202px);
+                }
+
+
+                .header_button {
                     display: flex;
-                    justify-content: center;
-                    color: #ffffff80;
-                    border-bottom: 1px solid #ffffff80;
-                    cursor: pointer;
-                    padding: 10px 45px;
+                    margin-bottom: 25px;
 
-                    @media (max-width: 1199px) {
-                        min-width: auto;
-                        padding: 10px 25px;
-                    }
-
-                    @media (max-width: 767px) {
-                        width: 100%;
-                        text-align: center;
-                    }
-                }
-
-                .active {
-                    color: #fff;
-                    border-color: #fff;
-                }
-            }
-
-            .profile_page_header {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                border: none;
-                margin-block: 15px 30px;
-
-                @media (max-width: 767px) {
-                    margin-bottom: 24px;
-                }
-
-                .pagination {
-                    gap: 15px;
-                    font-size: 32px;
-                    color: #fff;
-                    font-weight: 500;
-                    font-family: "MedievalSharp", cursive;
-                }
-
-                .btn_gray {
-                    @media (max-width: 767px) {
-                        padding: 10px 24px;
-                    }
-                }
-            }
-
-            .profile_page_content {
-                display: flex;
-                gap: 100px;
-
-                @media (max-width: 1199px) {
-                    flex-direction: column;
-                    gap: 16px;
-                }
-
-                @media (max-width: 767px) {
-                    flex-direction: column;
-                    gap: 24px;
-                }
-
-
-                .project_profile {
-                    width: 20%;
-
-                    @media (max-width: 1199px) {
-                        width: 100%;
-                    }
-
-                    @media (max-width: 767px) {
-                        width: 100%;
-                    }
-
-
-                    .profile_upload_profile {
-                        width: 100%;
-                        background-color: rgba(255, 255, 255, 0.0509803922);
-                        border-radius: 20px;
+                    .buttons {
                         display: flex;
-                        flex-direction: column;
-                        align-items: center;
                         justify-content: center;
-                        background-color: #ffffff0d;
-                        position: relative;
+                        color: #ffffff80;
+                        border-bottom: 1px solid #ffffff80;
+                        cursor: pointer;
+                        padding: 10px 45px;
 
                         @media (max-width: 1199px) {
-                            width: 50%;
+                            min-width: auto;
+                            padding: 10px 25px;
                         }
 
                         @media (max-width: 767px) {
-                            width: 50%;
-                        }
-
-
-                        img {
                             width: 100%;
-
+                            text-align: center;
                         }
                     }
 
-                    .profile_upload_button {
-                        width: 100%;
+                    .active {
+                        color: #fff;
+                        border-color: #fff;
+                    }
+                }
 
-                        @media (max-width: 1199px) {
-                            width: 50%;
-                        }
+                .profile_page_header {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    border: none;
+                    margin-block: 15px 30px;
 
+                    @media (max-width: 767px) {
+                        margin-bottom: 24px;
+                    }
+
+                    .pagination {
+                        gap: 15px;
+                        font-size: 32px;
+                        color: #fff;
+                        font-weight: 500;
+                        font-family: "MedievalSharp", cursive;
+                    }
+
+                    .btn_gray {
                         @media (max-width: 767px) {
-                            width: 50%;
-                        }
-
-
-                        .change_photo {
-                            width: 100%;
-                            height: 36px;
-                            background: transparent;
-                            color: #F5EFDB;
-                            border: 1px solid #F5EFDB;
-                            margin-block: 16px;
-                            border-radius: 4px;
-                            font-style: 16px;
+                            padding: 10px 24px;
                         }
                     }
                 }
 
-                .profile_description_data {
-                    width: 70%;
-
+                .profile_page_content {
+                    display: flex;
+                    gap: 100px;
 
                     @media (max-width: 1199px) {
-                        width: 100%;
+                        flex-direction: column;
+                        gap: 16px;
+                    }
+
+                    @media (max-width: 767px) {
+                        flex-direction: column;
+                        gap: 24px;
                     }
 
 
-                    .profile_seprator_image {
-                        margin-block: 13px;
-
-                        img {
-                            width: 100%;
-                        }
-                    }
-
-                    .form_box {
-                        @media (max-width: 767px) {
-                            width: 100%;
-                        }
+                    .project_profile {
+                        width: 20%;
 
                         @media (max-width: 1199px) {
                             width: 100%;
                         }
 
-                        h3.profile_title {
-                            color: #f5efdb;
-                            font-family: "MedievalSharp", cursive;
-                            font-size: 20px;
-                            margin-bottom: 16px;
-                            line-height: 22.6px;
-                        }
-
-                        input {
-                            padding: 10px 14px;
-                            border: 1px solid #ffffff80;
-                            background-color: transparent;
+                        @media (max-width: 767px) {
                             width: 100%;
-                            color: #f5efdb;
-                            line-height: 19.36px;
-                            font-size: 16px;
-                            font-weight: 500;
-
-                            @media (max-width: 1600px) {
-                                padding: 10px 15px;
-                                font-size: 14px;
-                            }
                         }
 
-                        label {
-                            color: #f5efdb;
-                            line-height: 19.36px;
-                            font-size: 16px;
-                            font-weight: 500;
-                            display: block;
 
-                            @media (max-width: 1600px) {
-                                font-size: 14px;
-                            }
-                        }
-
-                        .form_group_data {
-                            margin-bottom: 16px;
+                        .profile_upload_profile {
+                            width: 100%;
+                            background-color: rgba(255, 255, 255, 0.0509803922);
+                            border-radius: 20px;
                             display: flex;
-                            gap: 16px;
-                            flex-wrap: wrap;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                            background-color: #ffffff0d;
+                            position: relative;
 
-                            .profile_info {
-                                width: 48%;
+                            @media (max-width: 1199px) {
+                                width: 50%;
+                            }
+
+                            @media (max-width: 767px) {
+                                width: 50%;
+                            }
+
+
+                            img {
+                                width: 100%;
+
+                            }
+                        }
+
+                        .profile_upload_button {
+                            width: 100%;
+
+                            @media (max-width: 1199px) {
+                                width: 50%;
+                            }
+
+                            @media (max-width: 767px) {
+                                width: 50%;
+                            }
+
+
+                            .change_photo {
+                                width: 100%;
+                                height: 36px;
+                                background: transparent;
+                                color: #F5EFDB;
+                                border: 1px solid #F5EFDB;
+                                margin-block: 16px;
+                                border-radius: 4px;
+                                font-style: 16px;
+                            }
+                        }
+                    }
+
+                    .profile_description_data {
+                        width: 70%;
+
+
+                        @media (max-width: 1199px) {
+                            width: 100%;
+                        }
+
+
+                        .profile_seprator_image {
+                            margin-block: 13px;
+
+                            img {
+                                width: 100%;
+                            }
+                        }
+
+                        .form_box {
+                            @media (max-width: 767px) {
+                                width: 100%;
+                            }
+
+                            @media (max-width: 1199px) {
+                                width: 100%;
+                            }
+
+                            h3.profile_title {
+                                color: #f5efdb;
+                                font-family: "MedievalSharp", cursive;
+                                font-size: 20px;
+                                margin-bottom: 16px;
+                                line-height: 22.6px;
+                            }
+
+                            input {
+                                padding: 10px 14px;
+                                border: 1px solid #ffffff80;
+                                background-color: transparent;
+                                width: 100%;
+                                color: #f5efdb;
+                                line-height: 19.36px;
+                                font-size: 16px;
+                                font-weight: 500;
+
+                                @media (max-width: 1600px) {
+                                    padding: 10px 15px;
+                                    font-size: 14px;
+                                }
+                            }
+
+                            label {
+                                color: #f5efdb;
+                                line-height: 19.36px;
+                                font-size: 16px;
+                                font-weight: 500;
+                                display: block;
+
+                                @media (max-width: 1600px) {
+                                    font-size: 14px;
+                                }
+                            }
+
+                            .form_group_data {
+                                margin-bottom: 16px;
+                                display: flex;
+                                gap: 16px;
+                                flex-wrap: wrap;
+
+                                .profile_info {
+                                    width: 48%;
+                                    display: flex;
+                                    flex-direction: column;
+                                    gap: 8px;
+
+                                    @media (max-width: 767px) {
+                                        width: 45%;
+                                    }
+
+                                    .profile_head {
+                                        color: #f5efdb93;
+                                        font-size: 16px;
+
+                                        @media (max-width: 1600px) {
+                                            font-size: 14px;
+                                        }
+                                    }
+
+                                    .profile_data {
+                                        font-size: 20px;
+                                        color: #F5EFDB;
+
+                                        @media (max-width: 1600px) {
+                                            font-size: 16px;
+                                        }
+                                    }
+                                }
+                            }
+
+                            .profile_bio_data {
+                                width: 100%;
                                 display: flex;
                                 flex-direction: column;
                                 gap: 8px;
 
-                                @media (max-width: 767px) {
-                                    width: 45%;
-                                }
-
-                                .profile_head {
+                                .profile_bio_head {
                                     color: #f5efdb93;
                                     font-size: 16px;
 
@@ -341,7 +388,7 @@
                                     }
                                 }
 
-                                .profile_data {
+                                .profile_bio_data {
                                     font-size: 20px;
                                     color: #F5EFDB;
 
@@ -350,230 +397,291 @@
                                     }
                                 }
                             }
-                        }
 
-                        .profile_bio_data {
-                            width: 100%;
-                            display: flex;
-                            flex-direction: column;
-                            gap: 8px;
-
-                            .profile_bio_head {
-                                color: #f5efdb93;
-                                font-size: 16px;
-
-                                @media (max-width: 1600px) {
-                                    font-size: 14px;
-                                }
-                            }
-
-                            .profile_bio_data {
-                                font-size: 20px;
-                                color: #F5EFDB;
-
-                                @media (max-width: 1600px) {
-                                    font-size: 16px;
-                                }
-                            }
-                        }
-
-                        .contact_info_data {
-                            height: 100%;
-                            display: flex;
-
-                            @media (max-width: 1199px) {
-                                gap: 20px;
-                            }
-
-                            @media (max-width: 767px) {
-                                flex-direction: column;
-                                gap: 0px;
-                            }
-
-
-                            .mail {
-                                width: 50%;
+                            .contact_info_data {
+                                height: 100%;
                                 display: flex;
-                                flex-direction: column;
-                                gap: 10px;
+
+                                @media (max-width: 1199px) {
+                                    gap: 20px;
+                                }
 
                                 @media (max-width: 767px) {
-                                    width: 100%;
-                                }
-
-
-                                .mail_head {
-                                    color: #f5efdb93;
-                                    font-size: 16px;
-                                }
-
-                                .mail_data {
-                                    color: #F5EFDB;
-                                    font-size: 20px;
-                                }
-
-                                .mail_desc {
-                                    color: #f5efdb93;
-                                    font-size: 14px;
-                                }
-                            }
-
-                            .social_media_wrp {
-                                width: 50%;
-                                display: flex;
-                                align-items: end;
-
-                                @media (max-width: 767px) {
-                                    width: 100%;
-                                    margin-top: 10px;
-                                }
-
-
-                                .social_media {
-                                    width: 100%;
-                                    display: flex;
-                                    gap: 10px;
                                     flex-direction: column;
+                                    gap: 0px;
+                                }
+
+
+                                .mail {
+                                    width: 50%;
+                                    display: flex;
+                                    flex-direction: column;
+                                    gap: 10px;
+
+                                    @media (max-width: 767px) {
+                                        width: 100%;
+                                    }
+
+
+                                    .mail_head {
+                                        color: #f5efdb93;
+                                        font-size: 16px;
+                                    }
+
+                                    .mail_data {
+                                        color: #F5EFDB;
+                                        font-size: 20px;
+                                    }
+
+                                    .mail_desc {
+                                        color: #f5efdb93;
+                                        font-size: 14px;
+                                    }
+                                }
+
+                                .social_media_wrp {
+                                    width: 50%;
+                                    display: flex;
                                     align-items: end;
 
                                     @media (max-width: 767px) {
-                                        align-items: start;
-                                        margin-top: 16px;
+                                        width: 100%;
+                                        margin-top: 10px;
                                     }
 
-                                    .social_media_title {
-                                        color: #f5efdb;
-                                        font-family: "MedievalSharp", cursive;
-                                        font-size: 20px;
-                                        margin-bottom: 6px;
-                                        line-height: 22.6px;
-                                        font-weight: bold;
-                                        min-width: 250px;
 
-                                        @media (max-width: 1199px) {
-                                            min-width: auto;
-                                            width: 100%;
+                                    .social_media {
+                                        width: 100%;
+                                        display: flex;
+                                        gap: 10px;
+                                        flex-direction: column;
+                                        align-items: end;
+
+                                        @media (max-width: 767px) {
+                                            align-items: start;
+                                            margin-top: 16px;
                                         }
-                                    }
 
-                                    button {
-                                        min-width: 250px;
-                                        padding-block: 10px;
+                                        .social_media_title {
+                                            color: #f5efdb;
+                                            font-family: "MedievalSharp", cursive;
+                                            font-size: 20px;
+                                            margin-bottom: 6px;
+                                            line-height: 22.6px;
+                                            font-weight: bold;
+                                            min-width: 250px;
 
-                                        @media (max-width: 1199px) {
-                                            min-width: auto;
-                                            width: 100%;
+                                            @media (max-width: 1199px) {
+                                                min-width: auto;
+                                                width: 100%;
+                                            }
+                                        }
+
+                                        button {
+                                            min-width: 250px;
+                                            padding-block: 10px;
+
+                                            @media (max-width: 1199px) {
+                                                min-width: auto;
+                                                width: 100%;
+                                            }
                                         }
                                     }
                                 }
                             }
+
+                            .password_info_data {
+                                .password_head {
+                                    color: rgba(245, 239, 219, 0.5);
+                                    font-size: 16px;
+                                    margin-bottom: 5px;
+                                }
+
+                                .password_data {
+                                    font-size: 20px;
+                                    color: #F5EFDB;
+                                    margin-bottom: 10px;
+                                }
+
+                                .password_desc {
+                                    font-size: 14px;
+                                    color: rgba(245, 239, 219, 0.5);
+
+                                }
+                            }
+                        }
+                    }
+
+                    .profile_description_form {
+                        width: 70%;
+
+                        @media (max-width: 1199px) {
+                            width: 100%;
                         }
 
-                        .password_info_data {
-                            .password_head {
-                                color: rgba(245, 239, 219, 0.5);
-                                font-size: 16px;
-                                margin-bottom: 5px;
-                            }
+                        @media (max-width: 767px) {
+                            width: 100%;
+                        }
 
-                            .password_data {
+                        .profile_seprator_image {
+                            margin-block: 13px;
+
+                            img {
+                                width: 100%;
+                            }
+                        }
+
+                        .form_box {
+                            h3.profile_title {
+                                color: #f5efdb;
+                                font-family: "MedievalSharp", cursive;
                                 font-size: 20px;
-                                color: #F5EFDB;
-                                margin-bottom: 10px;
+                                margin-bottom: 16px;
+                                line-height: 22.6px;
                             }
 
-                            .password_desc {
-                                font-size: 14px;
-                                color: rgba(245, 239, 219, 0.5);
+                            input {
+                                padding: 10px 14px;
+                                border: 1px solid #ffffff80;
+                                background-color: transparent;
+                                width: 100%;
+                                color: #f5efdb;
+                                line-height: 19.36px;
+                                font-size: 16px;
+                                font-weight: 500;
 
+                                @media (max-width: 1600px) {
+                                    padding: 10px 15px;
+                                    font-size: 14px;
+                                }
                             }
-                        }
-                    }
-                }
 
-                .profile_description_form {
-                    width: 70%;
+                            label {
+                                color: #f5efdb;
+                                line-height: 19.36px;
+                                font-size: 16px;
+                                display: block;
+                                font-family: MedievalSharp;
+                                font-weight: 500;
 
-                    @media (max-width: 1199px) {
-                        width: 100%;
-                    }
-
-                    @media (max-width: 767px) {
-                        width: 100%;
-                    }
-
-                    .profile_seprator_image {
-                        margin-block: 13px;
-
-                        img {
-                            width: 100%;
-                        }
-                    }
-
-                    .form_box {
-                        h3.profile_title {
-                            color: #f5efdb;
-                            font-family: "MedievalSharp", cursive;
-                            font-size: 20px;
-                            margin-bottom: 16px;
-                            line-height: 22.6px;
-                        }
-
-                        input {
-                            padding: 10px 14px;
-                            border: 1px solid #ffffff80;
-                            background-color: transparent;
-                            width: 100%;
-                            color: #f5efdb;
-                            line-height: 19.36px;
-                            font-size: 16px;
-                            font-weight: 500;
-
-                            @media (max-width: 1600px) {
-                                padding: 10px 15px;
-                                font-size: 14px;
+                                @media (max-width: 1600px) {
+                                    font-size: 14px;
+                                }
                             }
-                        }
 
-                        label {
-                            color: #f5efdb;
-                            line-height: 19.36px;
-                            font-size: 16px;
-                            display: block;
-                            font-family: MedievalSharp;
-                            font-weight: 500;
-
-                            @media (max-width: 1600px) {
-                                font-size: 14px;
-                            }
-                        }
-
-                        .form_group {
-                            display: flex;
-                            flex-direction: column;
-                            gap: 16px;
-
-                            .form_group_row {
+                            .form_group {
                                 display: flex;
+                                flex-direction: column;
                                 gap: 16px;
+
+                                .form_group_row {
+                                    display: flex;
+                                    gap: 16px;
+
+                                    @media (max-width: 767px) {
+                                        flex-direction: column;
+                                    }
+
+                                    .profile_info {
+                                        flex-basis: 50%;
+                                        display: flex;
+                                        flex-direction: column;
+                                        gap: 8px;
+
+                                        @media (max-width: 767px) {
+                                            flex-basis: 100%;
+                                        }
+
+                                        .profile_head {
+                                            color: #f5efdb93;
+                                            font-size: 12px;
+                                        }
+
+                                        .profile_data {
+                                            font-size: 16px;
+                                            color: #F5EFDB;
+                                        }
+
+                                        .type_calendar {
+                                            position: relative;
+
+                                            label {
+                                                height: 42px;
+                                                display: flex;
+                                                justify-content: space-between;
+                                                border: 1px solid rgba(255, 255, 255, 0.582);
+                                                padding: 10px 14px;
+                                                font-family: "Inter", sans-serif;
+                                                z-index: 1;
+                                            }
+
+                                            input[type=date] {
+                                                border: none;
+                                                opacity: 0;
+                                                position: absolute;
+                                                z-index: 2;
+                                            }
+
+                                            img {
+                                                height: 20px;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            .profile_bio {
+                                width: 100%;
+                                display: flex;
+                                flex-direction: column;
+                                gap: 8px;
+                                margin-top: 16px;
+
+                                .textArea {
+                                    background-color: transparent;
+                                    color: #f5efdb;
+                                    padding: 10px 14px;
+                                    outline: none;
+                                    resize: none;
+                                    font-family: "Inter", sans-serif;
+                                    min-height: 55px;
+                                    font-size: 16px;
+
+                                    @media (max-width: 1600px) {
+                                        font-size: 14px;
+                                    }
+
+                                    @media (max-width: 767px) {
+                                        min-height: 70px;
+                                    }
+                                }
+                            }
+
+                            .contact_info {
+                                height: 100%;
+                                display: flex;
+
+                                @media (max-width: 1199px) {
+                                    gap: 20px;
+                                }
 
                                 @media (max-width: 767px) {
                                     flex-direction: column;
                                 }
 
-                                .profile_info {
-                                    flex-basis: 50%;
+                                .mail {
+                                    width: 50%;
                                     display: flex;
                                     flex-direction: column;
-                                    gap: 8px;
+                                    gap: 10px;
 
                                     @media (max-width: 767px) {
-                                        flex-basis: 100%;
+                                        width: 100%;
                                     }
 
                                     .profile_head {
-                                        color: #f5efdb93;
-                                        font-size: 12px;
+                                        color: #f5efdb;
+                                        font-size: 14px;
                                     }
 
                                     .profile_data {
@@ -581,202 +689,116 @@
                                         color: #F5EFDB;
                                     }
 
-                                    .type_calendar {
-                                        position: relative;
+                                    .profile_desc {
+                                        color: #f5efdb;
+                                        font-size: 14px;
+                                    }
+                                }
 
-                                        label {
+                                .social_media_wrp {
+                                    width: 50%;
+                                    display: flex;
+                                    align-items: end;
+
+                                    @media (max-width: 767px) {
+                                        width: 100%;
+                                        margin-top: 10px;
+                                    }
+
+
+                                    .social_media {
+                                        width: 100%;
+                                        display: flex;
+                                        gap: 10px;
+                                        flex-direction: column;
+                                        align-items: end;
+
+                                        @media (max-width: 767px) {
+                                            align-items: start;
+                                            margin-top: 16px;
+                                        }
+
+                                        .social_media_title {
+                                            color: #f5efdb;
+                                            font-family: "MedievalSharp", cursive;
+                                            font-size: 20px;
+                                            margin-bottom: 6px;
+                                            line-height: 22.6px;
+                                            font-weight: bold;
+                                            min-width: 250px;
+
+                                            @media (max-width: 1199px) {
+                                                min-width: auto;
+                                                width: 100%;
+                                            }
+                                        }
+
+                                        button {
+                                            min-width: 250px;
+                                            padding-block: 10px;
+
+                                            @media (max-width: 1199px) {
+                                                min-width: auto;
+                                                width: 100%;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                .password {
+                                    width: 100%;
+                                    display: flex;
+                                    gap: 18px;
+
+                                    @media (max-width: 767px) {
+                                        flex-direction: column;
+                                    }
+
+                                    .password_input {
+                                        flex-basis: 50%;
+                                        display: flex;
+                                        flex-direction: column;
+                                        gap: 8px;
+
+                                        @media (max-width: 767px) {
+                                            width: 100%;
+                                        }
+
+                                        .type_password {
                                             height: 42px;
                                             display: flex;
                                             justify-content: space-between;
                                             border: 1px solid rgba(255, 255, 255, 0.582);
                                             padding: 10px 14px;
-                                            font-family: "Inter", sans-serif;
-                                            z-index: 1;
-                                        }
+                                            padding-left: 0;
 
-                                        input[type=date] {
-                                            border: none;
-                                            opacity: 0;
-                                            position: absolute;
-                                            z-index: 2;
-                                        }
+                                            input {
+                                                border: none;
+                                            }
 
-                                        img {
-                                            height: 20px;
+                                            img {
+                                                cursor: pointer;
+                                                height: 20px;
+                                            }
                                         }
                                     }
                                 }
                             }
-                        }
 
-                        .profile_bio {
-                            width: 100%;
-                            display: flex;
-                            flex-direction: column;
-                            gap: 8px;
-                            margin-top: 16px;
-
-                            .textArea {
-                                background-color: transparent;
-                                color: #f5efdb;
-                                padding: 10px 14px;
-                                outline: none;
-                                resize: none;
-                                font-family: "Inter", sans-serif;
-                                min-height: 55px;
-                                font-size: 16px;
-
-                                @media (max-width: 1600px) {
-                                    font-size: 14px;
-                                }
-
-                                @media (max-width: 767px) {
-                                    min-height: 70px;
-                                }
-                            }
-                        }
-
-                        .contact_info {
-                            height: 100%;
-                            display: flex;
-
-                            @media (max-width: 1199px) {
-                                gap: 20px;
-                            }
-
-                            @media (max-width: 767px) {
-                                flex-direction: column;
-                            }
-
-                            .mail {
-                                width: 50%;
+                            .submit_form {
                                 display: flex;
-                                flex-direction: column;
-                                gap: 10px;
+                                gap: 16px;
+                                padding: 16px;
+                                border-top: 1px solid rgba(78, 78, 78, 0.58);
 
                                 @media (max-width: 767px) {
+                                    padding-inline: 0px;
+                                }
+
+
+                                button {
                                     width: 100%;
                                 }
-
-                                .profile_head {
-                                    color: #f5efdb;
-                                    font-size: 14px;
-                                }
-
-                                .profile_data {
-                                    font-size: 16px;
-                                    color: #F5EFDB;
-                                }
-
-                                .profile_desc {
-                                    color: #f5efdb;
-                                    font-size: 14px;
-                                }
-                            }
-
-                            .social_media_wrp {
-                                width: 50%;
-                                display: flex;
-                                align-items: end;
-
-                                @media (max-width: 767px) {
-                                    width: 100%;
-                                    margin-top: 10px;
-                                }
-
-
-                                .social_media {
-                                    width: 100%;
-                                    display: flex;
-                                    gap: 10px;
-                                    flex-direction: column;
-                                    align-items: end;
-
-                                    @media (max-width: 767px) {
-                                        align-items: start;
-                                        margin-top: 16px;
-                                    }
-
-                                    .social_media_title {
-                                        color: #f5efdb;
-                                        font-family: "MedievalSharp", cursive;
-                                        font-size: 20px;
-                                        margin-bottom: 6px;
-                                        line-height: 22.6px;
-                                        font-weight: bold;
-                                        min-width: 250px;
-
-                                        @media (max-width: 1199px) {
-                                            min-width: auto;
-                                            width: 100%;
-                                        }
-                                    }
-
-                                    button {
-                                        min-width: 250px;
-                                        padding-block: 10px;
-
-                                        @media (max-width: 1199px) {
-                                            min-width: auto;
-                                            width: 100%;
-                                        }
-                                    }
-                                }
-                            }
-
-                            .password {
-                                width: 100%;
-                                display: flex;
-                                gap: 18px;
-
-                                @media (max-width: 767px) {
-                                    flex-direction: column;
-                                }
-
-                                .password_input {
-                                    flex-basis: 50%;
-                                    display: flex;
-                                    flex-direction: column;
-                                    gap: 8px;
-
-                                    @media (max-width: 767px) {
-                                        width: 100%;
-                                    }
-
-                                    .type_password {
-                                        height: 42px;
-                                        display: flex;
-                                        justify-content: space-between;
-                                        border: 1px solid rgba(255, 255, 255, 0.582);
-                                        padding: 10px 14px;
-                                        padding-left: 0;
-
-                                        input {
-                                            border: none;
-                                        }
-
-                                        img {
-                                            cursor: pointer;
-                                            height: 20px;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                        .submit_form {
-                            display: flex;
-                            gap: 16px;
-                            padding: 16px;
-                            border-top: 1px solid rgba(78, 78, 78, 0.58);
-
-                            @media (max-width: 767px) {
-                                padding-inline: 0px;
-                            }
-
-
-                            button {
-                                width: 100%;
                             }
                         }
                     }

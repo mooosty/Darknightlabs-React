@@ -95,9 +95,10 @@
                         color: #fff;
                         font-weight: 500;
                         font-family: "MedievalSharp", cursive;
+                        font-size: 42px;
 
                         @media (max-width: 1600px) {
-                            font-size: 24px;
+                            font-size: 28px;
                         }
                     }
 
@@ -115,15 +116,12 @@
 
                         input {
                             background-color: #191917;
-                            padding: 15px 24px 12px 52px;
+                            padding: 10px 24px 10px 52px;
                             border: 1px solid #3c3c3c;
                             border-radius: 9px;
                             width: 100%;
+                            font-size: 16px;
                             color: #f5efdb;
-
-                            @media (max-width: 1199px) {
-                                padding: 10px 15px 10px 40px;
-                            }
 
                             @media (max-width: 767px) {
                                 display: none;

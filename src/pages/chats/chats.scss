@@ -4,13 +4,11 @@
     }
 
     .content_header {
-        margin-bottom: 9px !important;
-
         .content_left h2 {
-            font-size: 48px !important;
+            font-size: 42px;
 
             @media (max-width: 1600px) {
-                font-size: 35px !important;
+                font-size: 28px;
             }
         }
     }
@@ -32,13 +30,13 @@
 
 .chat_wrap {
     width: 100%;
-    height: 830px;
     border-radius: 20px;
-    overflow: hidden;
     background-color: #191917;
+    height: calc(100vh - 188px);
+    overflow: hidden;
 
-    @media (max-width: 1600px) {
-        height: 520px;
+    @media(max-width: 1600px) {
+        height: calc(100vh - 131px);
     }
 
     @media (max-width: 767px) {
@@ -61,7 +59,6 @@
             gap: 8px;
             padding: 12px;
             background: #040400;
-            max-height: 830px;
             overflow-y: auto;
 
 
@@ -122,8 +119,8 @@
                 }
             }
 
-            .channels_avtar {
-                width: 100%;
+            .channels_avatar {
+                height: 150px;
 
                 @media (max-width: 900px) {
                     height: 200px;
@@ -132,6 +129,7 @@
 
                 img {
                     width: 100%;
+                    height: 100%;
                 }
             }
 
@@ -167,8 +165,6 @@
                 }
 
                 .channels_list_data {
-                    padding-left: 10px;
-
                     .data_header {
                         cursor: pointer;
                         color: #f5f2eb;
@@ -233,6 +229,7 @@
         }
 
         .chat_main {
+            height: 100%;
             width: 77%;
 
             @media (max-width: 900px) {
@@ -294,6 +291,7 @@
             }
 
             .chat_main_body {
+                height: calc(100% - 65px);
                 display: flex;
                 position: relative;
 
@@ -301,16 +299,10 @@
                     width: 100%;
                     display: flex;
                     flex-direction: column;
-                    height: 750px;
                     gap: 24px;
                     padding-top: 12px;
                     overflow-y: auto;
                     padding-bottom: 76px;
-
-                    @media (max-width: 1600px) {
-                        height: 450px;
-                        padding-bottom: 64px;
-                    }
 
                     @media (max-width: 767px) {
                         max-height: calc(100vh - 235px);
@@ -430,7 +422,7 @@
 
                     .chat_input_container {
                         width: 100%;
-                        padding: 10px 24px;
+                        padding: 10px 24px 5px 24px;
                         background-color: #191917;
                         outline: none;
                         border: none;
@@ -494,6 +486,7 @@
                         }
                     }
                 }
+
                 .members {
                     min-width: 230px;
                     width: 230px;
@@ -505,16 +498,16 @@
                     @media (max-width: 1123px) {
                         display: none;
                     }
-    
+
                     .head {
                         padding: 16px 12px 8px 12px;
                         color: #F5EFDB;
                         font-size: 14px;
                     }
-    
+
                     .members_list {
                         padding: 6px 10px;
-    
+
                         .btn_gray {
                             width: 100%;
                             display: flex;
@@ -525,61 +518,61 @@
                             padding-block: 8px;
                             margin-bottom: 8px;
                         }
-    
+
                         .list_container {
                             max-height: 660px;
                             overflow-y: auto;
-    
+
                             @media (max-width: 1600px) {
                                 max-height: 350px;
                             }
-    
+
                             .list_header {
                                 color: #fff;
                                 font-size: 12px;
                                 text-transform: uppercase;
                                 padding: 4px 2px;
                             }
-    
+
                             .list_body {
                                 width: 100%;
                                 margin-bottom: 12px;
-    
+
                                 .list_items {
                                     display: flex;
                                     align-items: center;
                                     gap: 10px;
                                     padding-block: 3px;
-    
+
                                     .img {
                                         height: 40px;
                                         width: 40px;
                                         overflow: hidden;
                                         border-radius: 50%;
-    
+
                                         img {
                                             height: 100%;
                                             width: 100%;
                                         }
                                     }
-    
+
                                     .name {
                                         width: 155px;
                                         display: flex;
                                         flex-direction: column;
                                         gap: 2px;
-    
+
                                         .top {
                                             display: flex;
                                             justify-content: space-between;
                                             align-items: center;
-    
+
                                             .top_left {
                                                 color: #ffd1a6cc;
                                                 line-height: 20px;
                                                 font-size: 14px;
                                             }
-    
+
                                             .top_right {
                                                 color: #f5efdb99;
                                                 line-height: 20px;
@@ -587,7 +580,7 @@
                                                 text-transform: uppercase;
                                             }
                                         }
-    
+
                                         .bottom {
                                             color: #ffffff80;
                                             font-size: 12px;

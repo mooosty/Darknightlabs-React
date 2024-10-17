@@ -1,20 +1,20 @@
 import './Loader.scss';
 import PropTypes from 'prop-types';
 
-const Loader = ({loading}) => {
-
+const Loader = ({ loading }) => {
   return (
     <>
-      {(loading) && <div className="loader_container">
-        <div className="loader">
+      {(loading) &&
+        <div className={`loader_container`}>
+          <div className="loading">Loading&#8230;</div>
         </div>
-      </div>}
+      }
     </>
   )
 }
 
-Loader.prototype={
-  loading:PropTypes.bool
+Loader.prototype = {
+  loading: PropTypes.bool,
 }
 
 export default Loader

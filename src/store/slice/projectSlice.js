@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { getProjectsAPI, addProjectAPI, addMemberAPI, deleteProjectAPI, updateProjectAPI, getMemberApi } from "../../api-services/projectApis"
+import { getProjectsAPI, addProjectAPI, addMemberAPI, deleteProjectAPI, updateProjectAPI, getMemberApi,getProjectsApiById } from "../../api-services/projectApis"
 
 const initialState = {
     projects: [],
@@ -35,6 +35,29 @@ const projectSlice = createSlice({
                 ...state,
                 isLoading: false,
                 projects: [],
+            }
+        })
+
+        builder.addCase(getProjectsApiById.pending, (state) => {
+            return {
+                ...state,
+                isLoading: true,
+            }
+        })
+
+        builder.addCase(
+            getProjectsApiById.fulfilled, (state) => {
+                return {
+                    ...state,
+                    isLoading: false,
+                }
+            }
+        )
+
+        builder.addCase(getProjectsApiById.rejected, (state) => {
+            return {
+                ...state,
+                isLoading: false,
             }
         })
 

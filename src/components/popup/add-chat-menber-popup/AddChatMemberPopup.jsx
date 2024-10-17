@@ -305,7 +305,7 @@ const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
 }
 
 AddChatMemberPopup.propTypes = {
-    open: PropTypes.bool,
+    open: PropTypes.bool,   
     handleClose: PropTypes.func,
     chatId: PropTypes.string
 }

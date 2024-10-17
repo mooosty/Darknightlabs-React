@@ -10,7 +10,7 @@ import arrowRight from "../../assets/arrow-right.png"
 import AddAngelPopup from "../../components/popup/add-angel-popup/AddAngelPopup"
 import { useEffect, useState } from "react"
 import { useFormik } from 'formik';
-import { addProjectAPI, deleteProjectAPI, addMemberAPI } from "../../api-services/projectApis"
+import { addProjectAPI, deleteProjectAPI, addMemberAPI, getProjectsApiById } from "../../api-services/projectApis"
 import { getUsersAPI } from "../../api-services/userApis"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams, Link } from "react-router-dom"
@@ -67,7 +67,7 @@ const ProjectManagerEdit = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { projectId } = useParams();
-    const projectData = useSelector(state => state.project.projects.find(project => project.project_id == projectId))
+    // const projectData = useSelector(state => state.project.projects.find(project => project.project_id == projectId))
     const userData = useSelector(state => state.user.users);
 
     const initialValues = {
@@ -222,40 +222,42 @@ const ProjectManagerEdit = () => {
 
     useEffect(() => {
         if (projectId && projectId !== 'ADD') {
-            let synergy_angles = [];
-            if (projectData?.synergy_angles)
-                Object.keys(projectData?.synergy_angles).forEach((key, index) => {
-                    synergy_angles.push({ [`synergy_angle${index}`]: projectData.synergy_angles[key] });
-                });
+            dispatch(getProjectsApiById(projectId)).then((res) => {
+                console.log('res :>> ', res.payload);
+                let projectData = res.payload;
 
-            let investments = [];
-
-            Object.keys(projectData?.investments).forEach((key) => {
-                investments.push({
-                    property: key,
-                    price: projectData.investments[key]
+                let synergy_angles = projectData?.synergy_angles.map((synergyAngle, index) => {
+                    return { [`synergy_angle${index}`]: synergyAngle[1] };
                 })
-            })
 
-            const obj = {
-                project_name: projectData.project_name,
-                tags: projectData.project_info,
-                twitter_username: projectData.twitter,
-                discord_username: projectData.discord_link,
-                members: [{
-                    name: '',
-                    position: ''
-                }],
-                description: projectData.description,
-                synergy_angles: synergy_angles,
-                image: {
-                    file: null,
-                    base64Url: projectData.image,
-                },
-                invesments: investments,
-                opentoinvest: false
-            }
-            setValues(obj);
+
+                let investments = projectData.investments.map((investment)=>{
+                    return {
+                        property: investment[0],
+                        price: investment[1]
+                    }
+                });
+                
+                const obj = {
+                    project_name: projectData.project_name,
+                    tags: projectData.project_info,
+                    twitter_username: projectData.twitter,
+                    discord_username: projectData.discord_link,
+                    members: [{
+                        name: '',
+                        position: ''
+                    }],
+                    description: projectData.description,
+                    synergy_angles: synergy_angles,
+                    image: {
+                        file: null,
+                        base64Url: projectData.image,
+                    },
+                    invesments: investments,
+                    opentoinvest: false
+                }
+                setValues(obj);
+            })
         }
 
         dispatch(getUsersAPI());
@@ -280,293 +282,145 @@ const ProjectManagerEdit = () => {
                     <a href="#">Darknight Labs</a>
                 </div>
             </div>
-            <div className="page_data">
-                <div className="page_header">
-                    <div className="pagination">
-                        <Link to={'/project-manager'}>Project manager</Link>
-                        <span>
-                            <img src={arrowRight} alt="" />
-                        </span>
-                        <p>{values.project_name}</p>
-                    </div>
-                    {projectId !== 'ADD' && <button className="btn_gray" onClick={handleSaveChanges}>Save changes</button>}
-                    {projectId === 'ADD' && <button className="btn_gray" onClick={handleAddProject}>Add Project</button>}
-                </div>
-                <div className="page_content">
-                    <div className="project_author">
-                        <span className="created_by">Created by</span>
-                        <img className="auther_profile" src={autherProfile} alt="Author" />
-                        <span className="auther_name">Joan of Arc</span>
-                        <span className="auther_post_date">17/11/2023</span>
-                        <span className="auther_time">16:07</span>
-                    </div>
-                    <div className="project_profile">
-                        {values.image?.base64Url && <>
-                            <div className="project_image">
-                                <img src={values.image.base64Url} alt="Project" />
-                            </div>
-                            <div className="project_profile_btn">
-                                <button className="btn-gray" onClick={() => {
-                                    let input = document.createElement('input');
-                                    input.type = 'file';
-                                    input.multiple = false
-                                    input.accept = '.jpg, .png, .svg, .jpeg';
-                                    input.onchange = () => {
-                                        let files = Array.from(input.files);
-                                        handleUploadImage(files[0]);
-                                    }
-                                    input.click()
-                                }}>
-                                    <img src={uploadIcon} alt="" /> Replace photo</button>
-                                <button className="btn-red" onClick={() => {
-                                    setFieldValue('image', null);
-                                }}>
-                                    <img src={trashIcon} alt="" /> Delete</button>
-                            </div>
-                        </>}
-                        {!values.image && <>
-                            <div className="upload_profile">
-                                <img src={uploadIcon} alt="" />
-                                <input type="file" multiple={false} accept=".png, .jpeg, .svg, .jpg" onChange={(e) => {
-                                    handleUploadImage(e.target.files[0]);
-                                }} />
-                                <p className="upload_document_title">Click to upload</p>
-                                <span className="drag_file">or drag and drop</span>
-                                <div className="file_type">SVG, PNG, JPG (max. 800x400px)</div>
-                            </div>
-                        </>}
-                    </div>
-
-
-                    <div className="project_description_form">
-                        <div className="project_author">
-                            <span className="created_by">Created by</span>
-                            <img className="auther_profile" src={autherProfile} alt="Author" />
-                            <span className="auther_name">Joan of Arc</span>
-                            <span className="auther_post_date">17/11/2023</span>
-                            <span className="auther_time">16:07</span>
+            <div className="project_page_data">
+                <div className="page_data">
+                    <div className="page_header">
+                        <div className="pagination">
+                            <Link to={'/project-manager'}>Project manager</Link>
+                            <span>
+                                <img src={arrowRight} alt="" />
+                            </span>
+                            <p>{values.project_name}</p>
                         </div>
-                        <div className="form_box">
-                            <h3 className="project_title">Project details</h3>
-                            <div className="form_group">
-                                <label htmlFor="projectName">Project Name</label>
-                                <input type="text" id="projectName" name="project_name" value={values.project_name} placeholder="Add project name"
-                                    onChange={handleChange}
-                                />
+                        {projectId !== 'ADD' && <button className="btn_gray" onClick={handleSaveChanges}>Save changes</button>}
+                        {projectId === 'ADD' && <button className="btn_gray" onClick={handleAddProject}>Add Project</button>}
+                    </div>
+                    <div className="page_body">
+                        <div className="page_content">
+                            <div className="project_author">
+                                <span className="created_by">Created by</span>
+                                <img className="auther_profile" src={autherProfile} alt="Author" />
+                                <span className="auther_name">Joan of Arc</span>
+                                <span className="auther_post_date">17/11/2023</span>
+                                <span className="auther_time">16:07</span>
                             </div>
-                            <div className="form_group">
-                                <label>Tags</label>
-                                <div className="tag_box">
-                                    {/* <span>#Gaming</span>
+                            <div className="project_profile">
+                                {values.image?.base64Url && <>
+                                    <div className="project_image">
+                                        <img src={values.image.base64Url} alt="Project" />
+                                    </div>
+                                    <div className="project_profile_btn">
+                                        <button className="btn-gray" onClick={() => {
+                                            let input = document.createElement('input');
+                                            input.type = 'file';
+                                            input.multiple = false
+                                            input.accept = '.jpg, .png, .svg, .jpeg';
+                                            input.onchange = () => {
+                                                let files = Array.from(input.files);
+                                                handleUploadImage(files[0]);
+                                            }
+                                            input.click()
+                                        }}>
+                                            <img src={uploadIcon} alt="" /> Replace photo</button>
+                                        <button className="btn-red" onClick={() => {
+                                            setFieldValue('image', null);
+                                        }}>
+                                            <img src={trashIcon} alt="" /> Delete</button>
+                                    </div>
+                                </>}
+                                {!values.image && <>
+                                    <div className="upload_profile">
+                                        <img src={uploadIcon} alt="" />
+                                        <input type="file" multiple={false} accept=".png, .jpeg, .svg, .jpg" onChange={(e) => {
+                                            handleUploadImage(e.target.files[0]);
+                                        }} />
+                                        <p className="upload_document_title">Click to upload</p>
+                                        <span className="drag_file">or drag and drop</span>
+                                        <div className="file_type">SVG, PNG, JPG (max. 800x400px)</div>
+                                    </div>
+                                </>}
+                            </div>
+
+
+                            <div className="project_description_form">
+                                <div className="project_author">
+                                    <span className="created_by">Created by</span>
+                                    <img className="auther_profile" src={autherProfile} alt="Author" />
+                                    <span className="auther_name">Joan of Arc</span>
+                                    <span className="auther_post_date">17/11/2023</span>
+                                    <span className="auther_time">16:07</span>
+                                </div>
+                                <div className="form_box">
+                                    <h3 className="project_title">Project details</h3>
+                                    <div className="form_group">
+                                        <label htmlFor="projectName">Project Name</label>
+                                        <input type="text" id="projectName" name="project_name" value={values.project_name} placeholder="Add project name"
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                    <div className="form_group">
+                                        <label>Tags</label>
+                                        <div className="tag_box">
+                                            {/* <span>#Gaming</span>
                                     <span>#AI</span>
                                     <span>#Metaverse</span> */}
-                                    <input type="text" name="tags" id="tag" value={values.tags} onChange={handleChange} />
-                                </div>
-                            </div>
-                            <div className="form_item_box">
-                                <div className="form_group">
-                                    <label htmlFor="arc">Twitter</label>
-                                    <input type="text" id="twitter_username" name="twitter_username" value={values.twitter_username} placeholder="twitter.com/username" onChange={handleChange} />
-                                </div>
-                                <div className="form_group">
-                                    <label htmlFor="owner">Discord</label>
-                                    <input type="text" id="discord_username" name="discord_username" value={values.discord_username} placeholder="discordapp.com/users/xxxx/" onChange={handleChange} />
-                                </div>
-                            </div>
-                            {
-                                values.members.map((member, index) => {
-                                    return (
-                                        <>
-                                            <div className="form_item_box">
-                                                <div className="form_group">
-                                                    <label htmlFor="arc">Members</label>
-                                                    <Select
-                                                        options={userData.map((user) => {
-                                                            return {
-                                                                label: user.twitter,
-                                                                value: user.id
-                                                            }
-                                                        })
-                                                        }
-                                                        value={member.userId}
-                                                        onChange={(value) => {
-                                                            setFieldValue('members', [...values.members.slice(0, index), {
-                                                                'name': value.label,
-                                                                'userId': value.value,
-                                                                'position': member.position
-                                                            }, ...values.members.slice(index + 1)])
-                                                        }}
-                                                    />
-                                                </div>
-                                                <div className="form_group">
-                                                    <label htmlFor="owner">Owner</label>
-                                                    <Select
-                                                        options={[
-                                                            { label: 'Owner', value: 'Owner' },
-                                                            { label: 'Joan of Arc', value: 'Joan of Arc' },
-                                                        ]}
-                                                        value={member.position}
-                                                        onChange={(value) => {
-                                                            setFieldValue('members', [...values.members.slice(0, index), {
-                                                                'name': member.name,
-                                                                'position': value.value,
-                                                            }, ...values.members.slice(index + 1)])
-                                                        }}
-                                                    />
-                                                </div>
-                                                <button className="btn_delete" onClick={() => {
-                                                    setFieldValue('members', [...values.members.slice(0, index), ...values.members.slice(index + 1)])
-                                                }}>
-                                                    <img src={trashIcon} alt="Delete" />
-                                                </button>
-                                            </div>
-                                        </>
-                                    );
-                                })
-                            }
-                            <button className="btn_gray" onClick={() => {
-                                setFieldValue('members', [...values.members, {
-                                    member: '',
-                                    position: ''
-                                }])
-                            }}>
-                                Add member
-                                <img src={addIcon} alt="Add" />
-                            </button>
-                            <br />
-                            <div className="form_group">
-                                <label htmlFor="description">Project Description</label>
-                                <textarea id="description" value={values.description} name="description" rows="7" cols="60" placeholder="Add project Description" onChange={handleChange}>
-                                    {values.description}
-                                </textarea>
-                            </div>
-                            <div className="seprator-image">
-                                <img src={sepratorImage} alt="Separator" />
-                            </div>
-                            <h3 className="project_title">Synergy</h3>
-                            <div className="form_box synergy">
-                                <label htmlFor="synergy">Who has access to synergy side?</label>
-                                <Select
-                                    options={[
-                                        { label: 'All Users', value: 'All Users' },
-                                        { label: 'Joan of Arc', value: 'Joan of Arc' },
-                                    ]}
-                                    value={whoAccessToSynergySide}
-                                    onChange={(value) => {
-                                        setWhoAccessToSynergySide(value.value)
-                                    }}
-                                />
-                            </div>
-
-                            {
-                                values.synergy_angles.map((synergy_angle, index) => {
-                                    return (<>
-                                        <div className="custom_select">
-                                            <div className="form_box synergy_selected">
-                                                {index === 0 && <label>Synergy angles</label>}
-                                                <Select
-                                                    name='synergy_angles'
-                                                    options={synergyAnglesOptions}
-                                                    placeholder='Select synergy angel'
-                                                    hasAddButton={true}
-                                                    onAdd={() => setIsAddAngelPopupOpen(true)}
-                                                    value={synergy_angle[`synergy_angle${index}`]}
-                                                    addButtonLabel='Add new angle'
-                                                    onChange={(value) => {
-                                                        setFieldValue('synergy_angles', [...values.synergy_angles.slice(0, index), {
-                                                            [`synergy_angle${index}`]: value.value
-                                                        }, ...values.synergy_angles.slice(index + 1)])
-                                                    }}
-                                                />
-                                            </div>
-                                            <button className="btn_delete"
-                                                onClick={() => {
-                                                    setFieldValue('synergy_angles', [...values.synergy_angles.slice(0, index), ...values.synergy_angles.slice(index + 1)])
-                                                }}
-                                            >
-                                                <img src={trashIcon} alt="Delete" />
-                                            </button>
+                                            <input type="text" name="tags" id="tag" value={values.tags} onChange={handleChange} />
                                         </div>
-                                    </>)
-                                })
-                            }
-
-                            <button className="btn_gray" onClick={() => {
-                                setFieldValue(`synergy_angles`, [...values.synergy_angles, {
-                                    synergy_angle: ''
-                                }])
-                            }}>
-                                Add synergy angel
-                                <img src={addIcon} alt="Add" />
-                            </button>
-                            <div className="invostments-group">
-                                <div className="seprator-image">
-                                    <img src={sepratorImage} alt="Separator" />
-                                </div>
-                                <h3 className="project_title">Investments</h3>
-                                <div className="toogle-switch">
-                                    <h3>Open to investments</h3>
-                                    <span className="switch">
-                                        <input id="switch-rounded" type="checkbox" onChange={(e) => {
-                                            setFieldValue('opentoinvest', e.target.checked);
-                                        }} />
-                                        <label htmlFor="switch-rounded"></label>
-                                    </span>
-                                </div>
-                                <div className="form_box synergy">
-                                    <label htmlFor="synergy">Who has access to investments side?</label>
-                                    <Select
-                                        options={[
-                                            { label: 'All Users', value: 'All Users' },
-                                            { label: 'Joan of Arc', value: 'Joan of Arc' },
-                                        ]}
-                                        value={whoAccessToInvestmentSide}
-                                        onChange={(value) => {
-                                            setWhoAccessToInvestmentSide(value.value)
-                                        }}
-                                    />
-                                </div>
-                                <div className="invostments-pro-wrap">
-                                    <label htmlFor="arc">Investment properties</label>
+                                    </div>
+                                    <div className="form_item_box">
+                                        <div className="form_group">
+                                            <label htmlFor="arc">Twitter</label>
+                                            <input type="text" id="twitter_username" name="twitter_username" value={values.twitter_username} placeholder="twitter.com/username" onChange={handleChange} />
+                                        </div>
+                                        <div className="form_group">
+                                            <label htmlFor="owner">Discord</label>
+                                            <input type="text" id="discord_username" name="discord_username" value={values.discord_username} placeholder="discordapp.com/users/xxxx/" onChange={handleChange} />
+                                        </div>
+                                    </div>
                                     {
-                                        values.invesments.map((investment, index) => {
+                                        values.members.map((member, index) => {
                                             return (
                                                 <>
-                                                    <div className="form_item_box investment_item_box">
+                                                    <div className="form_item_box">
                                                         <div className="form_group">
-
+                                                            <label htmlFor="arc">Members</label>
+                                                            <Select
+                                                                options={userData.map((user) => {
+                                                                    return {
+                                                                        label: user.twitter,
+                                                                        value: user.id
+                                                                    }
+                                                                })
+                                                                }
+                                                                value={member.userId}
+                                                                onChange={(value) => {
+                                                                    setFieldValue('members', [...values.members.slice(0, index), {
+                                                                        'name': value.label,
+                                                                        'userId': value.value,
+                                                                        'position': member.position
+                                                                    }, ...values.members.slice(index + 1)])
+                                                                }}
+                                                            />
+                                                        </div>
+                                                        <div className="form_group">
+                                                            <label htmlFor="owner">Owner</label>
                                                             <Select
                                                                 options={[
-                                                                    { label: 'FDV', value: 'FDV' },
-                                                                    { label: 'FDV 2', value: 'FDV 2' },
-                                                                    { label: 'FDV 3', value: 'FDV 3' },
+                                                                    { label: 'Owner', value: 'Owner' },
+                                                                    { label: 'Joan of Arc', value: 'Joan of Arc' },
                                                                 ]}
-                                                                value={investment.property}
+                                                                value={member.position}
                                                                 onChange={(value) => {
-                                                                    setFieldValue('invesments', [...values.invesments.slice(0, index), {
-                                                                        property: value.value,
-                                                                        price: investment.price
-                                                                    }, ...values.invesments.slice(index + 1)])
+                                                                    setFieldValue('members', [...values.members.slice(0, index), {
+                                                                        'name': member.name,
+                                                                        'position': value.value,
+                                                                    }, ...values.members.slice(index + 1)])
                                                                 }}
                                                             />
                                                         </div>
-
-                                                        <div className="form_group">
-                                                            <input type="text" id="property_price" name="property_price" value={investment.price}
-                                                                onChange={(e) => {
-                                                                    setFieldValue('invesments', [...values.invesments.slice(0, index), {
-                                                                        property: investment.property,
-                                                                        price: e.target.value
-                                                                    }, ...values.invesments.slice(index + 1)])
-                                                                }}
-                                                            />
-                                                        </div>
-
-                                                        <button className="btn_delete" onClick={
-                                                            () => {
-                                                                setFieldValue('invesments', [...values.invesments.slice(0, index), ...values.invesments.slice(index + 1)])
-                                                            }
-                                                        }>
+                                                        <button className="btn_delete" onClick={() => {
+                                                            setFieldValue('members', [...values.members.slice(0, index), ...values.members.slice(index + 1)])
+                                                        }}>
                                                             <img src={trashIcon} alt="Delete" />
                                                         </button>
                                                     </div>
@@ -574,31 +428,183 @@ const ProjectManagerEdit = () => {
                                             );
                                         })
                                     }
-
-
                                     <button className="btn_gray" onClick={() => {
-                                        setFieldValue('invesments', [...values.invesments, {
-                                            property: '',
-                                            price: ''
+                                        setFieldValue('members', [...values.members, {
+                                            member: '',
+                                            position: ''
                                         }])
                                     }}>
-                                        Add property
+                                        Add member
                                         <img src={addIcon} alt="Add" />
                                     </button>
+                                    <br />
+                                    <div className="form_group">
+                                        <label htmlFor="description">Project Description</label>
+                                        <textarea id="description" value={values.description} name="description" rows="7" cols="60" placeholder="Add project Description" onChange={handleChange}>
+                                            {values.description}
+                                        </textarea>
+                                    </div>
+                                    <div className="seprator-image">
+                                        <img src={sepratorImage} alt="Separator" />
+                                    </div>
+                                    <h3 className="project_title">Synergy</h3>
+                                    <div className="form_box synergy">
+                                        <label htmlFor="synergy">Who has access to synergy side?</label>
+                                        <Select
+                                            options={[
+                                                { label: 'All Users', value: 'All Users' },
+                                                { label: 'Joan of Arc', value: 'Joan of Arc' },
+                                            ]}
+                                            value={whoAccessToSynergySide}
+                                            onChange={(value) => {
+                                                setWhoAccessToSynergySide(value.value)
+                                            }}
+                                        />
+                                    </div>
+
+                                    {
+                                        values.synergy_angles.map((synergy_angle, index) => {
+                                            return (<>
+                                                <div className="custom_select">
+                                                    <div className="form_box synergy_selected">
+                                                        {index === 0 && <label>Synergy angles</label>}
+                                                        <Select
+                                                            name='synergy_angles'
+                                                            options={synergyAnglesOptions}
+                                                            placeholder='Select synergy angel'
+                                                            hasAddButton={true}
+                                                            onAdd={() => setIsAddAngelPopupOpen(true)}
+                                                            value={synergy_angle[`synergy_angle${index}`]}
+                                                            addButtonLabel='Add new angle'
+                                                            onChange={(value) => {
+                                                                setFieldValue('synergy_angles', [...values.synergy_angles.slice(0, index), {
+                                                                    [`synergy_angle${index}`]: value.value
+                                                                }, ...values.synergy_angles.slice(index + 1)])
+                                                            }}
+                                                        />
+                                                    </div>
+                                                    <button className="btn_delete"
+                                                        onClick={() => {
+                                                            setFieldValue('synergy_angles', [...values.synergy_angles.slice(0, index), ...values.synergy_angles.slice(index + 1)])
+                                                        }}
+                                                    >
+                                                        <img src={trashIcon} alt="Delete" />
+                                                    </button>
+                                                </div>
+                                            </>)
+                                        })
+                                    }
+
+                                    <button className="btn_gray" onClick={() => {
+                                        setFieldValue(`synergy_angles`, [...values.synergy_angles, {
+                                            synergy_angle: ''
+                                        }])
+                                    }}>
+                                        Add synergy angel
+                                        <img src={addIcon} alt="Add" />
+                                    </button>
+                                    <div className="invostments-group">
+                                        <div className="seprator-image">
+                                            <img src={sepratorImage} alt="Separator" />
+                                        </div>
+                                        <h3 className="project_title">Investments</h3>
+                                        <div className="toogle-switch">
+                                            <h3>Open to investments</h3>
+                                            <span className="switch">
+                                                <input id="switch-rounded" type="checkbox" onChange={(e) => {
+                                                    setFieldValue('opentoinvest', e.target.checked);
+                                                }} />
+                                                <label htmlFor="switch-rounded"></label>
+                                            </span>
+                                        </div>
+                                        <div className="form_box synergy">
+                                            <label htmlFor="synergy">Who has access to investments side?</label>
+                                            <Select
+                                                options={[
+                                                    { label: 'All Users', value: 'All Users' },
+                                                    { label: 'Joan of Arc', value: 'Joan of Arc' },
+                                                ]}
+                                                value={whoAccessToInvestmentSide}
+                                                onChange={(value) => {
+                                                    setWhoAccessToInvestmentSide(value.value)
+                                                }}
+                                            />
+                                        </div>
+                                        <div className="invostments-pro-wrap">
+                                            <label htmlFor="arc">Investment properties</label>
+                                            {
+                                                values.invesments.map((investment, index) => {
+                                                    return (
+                                                        <>
+                                                            <div className="form_item_box investment_item_box">
+                                                                <div className="form_group">
+
+                                                                    <Select
+                                                                        options={[
+                                                                            { label: 'FDV', value: 'FDV' },
+                                                                            { label: 'FDV 2', value: 'FDV 2' },
+                                                                            { label: 'FDV 3', value: 'FDV 3' },
+                                                                        ]}
+                                                                        value={investment.property}
+                                                                        onChange={(value) => {
+                                                                            setFieldValue('invesments', [...values.invesments.slice(0, index), {
+                                                                                property: value.value,
+                                                                                price: investment.price
+                                                                            }, ...values.invesments.slice(index + 1)])
+                                                                        }}
+                                                                    />
+                                                                </div>
+
+                                                                <div className="form_group">
+                                                                    <input type="text" id="property_price" name="property_price" value={investment.price}
+                                                                        onChange={(e) => {
+                                                                            setFieldValue('invesments', [...values.invesments.slice(0, index), {
+                                                                                property: investment.property,
+                                                                                price: e.target.value
+                                                                            }, ...values.invesments.slice(index + 1)])
+                                                                        }}
+                                                                    />
+                                                                </div>
+
+                                                                <button className="btn_delete" onClick={
+                                                                    () => {
+                                                                        setFieldValue('invesments', [...values.invesments.slice(0, index), ...values.invesments.slice(index + 1)])
+                                                                    }
+                                                                }>
+                                                                    <img src={trashIcon} alt="Delete" />
+                                                                </button>
+                                                            </div>
+                                                        </>
+                                                    );
+                                                })
+                                            }
+
+
+                                            <button className="btn_gray" onClick={() => {
+                                                setFieldValue('invesments', [...values.invesments, {
+                                                    property: '',
+                                                    price: ''
+                                                }])
+                                            }}>
+                                                Add property
+                                                <img src={addIcon} alt="Add" />
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div className="delete_project_btn">
+                            <button className="btn_delete" disabled={projectId === 'ADD'} onClick={() => {
+                                setIsDeleteConfirmPopupOpen(true);
+                            }}>
+                                <img src={trashIcon} alt="Delete" /> Delete project
+                            </button>
+                            {projectId !== 'ADD' && <button className="btn_gray" onClick={handleSaveChanges}>Save changes</button>}
+                            {projectId === 'ADD' && <button className="btn_gray" onClick={handleAddProject}>Add Project</button>}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className="delete_project_btn">
-                <button className="btn_delete" disabled={projectId === 'ADD'} onClick={() => {
-                    setIsDeleteConfirmPopupOpen(true);
-                }}>
-                    <img src={trashIcon} alt="Delete" /> Delete project
-                </button>
-                {projectId !== 'ADD' && <button className="btn_gray" onClick={handleSaveChanges}>Save changes</button>}
-                {projectId === 'ADD' && <button className="btn_gray" onClick={handleAddProject}>Add Project</button>}
             </div>
 
             <DeleteConfirmPopup
