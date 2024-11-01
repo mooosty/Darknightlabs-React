@@ -34,6 +34,10 @@
 
         .custom_select_placeholder {
             color: #F5EFDB80;
+            max-width: 90%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .down-arrow {

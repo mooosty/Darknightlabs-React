@@ -39,7 +39,7 @@ const ProjectAccordion = ({
     return (
         <>
             <div
-                className={`project_accordion_conrtainer ${open ? 'active' : ''} ${disabled?'disable':''}`}
+                className={`project_accordion_conrtainer ${open ? 'active' : ''} ${disabled ? 'disable' : ''}`}
             >
                 <div className={`project_accordion ${isFeatured ? 'heighlighted' : ''} ${checked ? 'selected' : ''} `}>
                     <div className='project_accordion_label' >
@@ -48,7 +48,7 @@ const ProjectAccordion = ({
                                 <div className='left'>
                                     <div>
                                         <div className="costum_checkbox">
-                                            <input type="checkbox" checked={checked} className='costum_checkbox_input' />
+                                            <input type="checkbox" checked={checked} className='costum_checkbox_input' readOnly />
                                             <label className='costum_checkbox_label' onClick={() => onSelect()}></label>
                                         </div>
                                     </div>
@@ -64,15 +64,13 @@ const ProjectAccordion = ({
                                             <ul>
                                                 {teamMembers?.map((member, index) => {
                                                     return (
-                                                        <>
-                                                            <li
-                                                                key={index}
-                                                                id={`tooltip_team_member_${index}`}
-                                                            >
-                                                                <img src={member.profile_picture ? member.profile_picture : tableActorImage3} alt="" title="Alexander - Founder and CEO" />
+                                                        <li
+                                                            key={index}
+                                                            id={`tooltip_team_member_${index}`}
+                                                        >
+                                                            <img src={member.profile_picture ? member.profile_picture : tableActorImage3} alt="" title="Alexander - Founder and CEO" />
 
-                                                            </li>
-                                                        </>
+                                                        </li>
                                                     )
                                                 })}
                                             </ul>
@@ -117,15 +115,13 @@ const ProjectAccordion = ({
                                     <ul>
                                         {teamMembers?.map((member, index) => {
                                             return (
-                                                <>
-                                                    <li
-                                                        key={index}
-                                                        id={`tooltip_team_member_${index}`}
-                                                    >
-                                                        <img src={member.profile_picture ? member.profile_picture : tableActorImage3} alt="" title="Alexander - Founder and CEO" />
+                                                <li
+                                                    key={index}
+                                                    id={`tooltip_team_member_${index}`}
+                                                >
+                                                    <img src={member.profile_picture ? member.profile_picture : tableActorImage3} alt="" title="Alexander - Founder and CEO" />
 
-                                                    </li>
-                                                </>
+                                                </li>
                                             )
                                         })}
                                     </ul>
@@ -190,7 +186,7 @@ ProjectAccordion.propTypes = {
     onSelect: PropTypes.func,
     isFeatured: PropTypes.number,
     checked: PropTypes.bool,
-    disabled:PropTypes.bool
+    disabled: PropTypes.bool
 }
 
 export default ProjectAccordion

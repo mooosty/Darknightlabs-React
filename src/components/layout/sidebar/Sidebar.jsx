@@ -40,7 +40,7 @@ const Sidebar = () => {
                 </div>
                 <div className="menu-box">
                     <ul>
-                        <li className={`${location.pathname === `/${ROUTER.projectManager}` ? 'active' : ''}`}>
+                        <li className={`${location.pathname.startsWith(`/${ROUTER.projectManager}`) ? 'active' : ''}`}>
                             <Link to={ROUTER.projectManager}>
                                 <img src={projectIcon} alt="Project Manager" />
                                 <span className='menu_text'>Projects Manager</span>

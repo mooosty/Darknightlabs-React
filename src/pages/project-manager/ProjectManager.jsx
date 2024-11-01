@@ -3,16 +3,11 @@ import searchIcon from "../../assets/search-icon.png"
 import addIcon from "../../assets/add-icon.png"
 import { GridIcon, ListIcon, TableStatusIcon, GredientGlobalIcon, GradientGraphIcon, InfiniteIcon, MoreIcon, AddCircleIcon, CLeseCircleIcon, GlobalIcon, DownAccordionIcon } from '../../utils/SVGs/SVGs'
 import filterIcon from "../../assets/filter.svg";
-import tableActor1 from "../../assets/tableActorImage.jpg";
-import tableActor2 from "../../assets/tableActorImage1.jpg";
-import tableActor3 from "../../assets/tableActorImage2.jpg";
-import tableActorImage1 from "../../assets/avatar-1.jpg";
-import tableActorImage2 from "../../assets/avatar-2.jpg";
 import tableActorImage3 from "../../assets/avatar-3.jpg";
 import editIcon from "../../assets/edit-icon.svg";
 import trashIcon from "../../assets/trash-icon.png";
 import closeIcon from "../../assets/X-icon.png";
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import Select from "../../components/select/Select"
 import ProjectAccordion from '../../components/project-accordion/ProjectAccordion';
 import BottomMenu from '../../components/buttom-menu/BottomMenu';
@@ -23,40 +18,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import CreateSynergiesPopup from '../../components/popup/create-synergies-popup/CreateSynergiesPopup';
 import ConfirmSynergiesPopup from '../../components/popup/confirm-senergies-popup/ConfirmSynergiesPopup';
-import angelBg from '../../assets/edit-senergies-hero-image.png'
-import ChoosePrioritySynergiesPopup from '../../components/popup/choose-priority-synergies-popup/ChoosePrioritySynergiesPopup';
 import SynergieaCreatedSuccessfullyPopup from '../../components/popup/synergiea-created-successfully-popup/SynergieaCreatedSuccessfullyPopup';
 import Loader from '../../components/loader/Loader';
 import { createSynergyApi } from '../../api-services/synergyApi';
 import { createGroupAPI } from '../../api-services/chatApis';
 
-
-const buttons = [
-    {
-        id: 1,
-        name: 'IP integration'
-    },
-    {
-        id: 2,
-        name: 'Angle48'
-    },
-    {
-        id: 3,
-        name: 'Hosting AMAS',
-    },
-    {
-        id: 4,
-        name: 'IP Angle48'
-    },
-    {
-        id: 5,
-        name: 'Getting whitelist spots'
-    },
-    {
-        id: 6,
-        name: 'Integrating branded game assets'
-    }
-]
 
 const synergyAnglesOptions = [
     {
@@ -297,12 +263,12 @@ const ProjectManager = () => {
 
         const groupData = {
             name: synergies.groupName,
-            users: [...synergies.projects[0]?.['teamMembers']?.map((member) => member.id)?? [],
-            ...synergies.projects[1]?.['teamMembers']?.map((member) => member.id)??[]]
+            users: [...synergies.projects[0]?.['teamMembers']?.map((member) => member.id) ?? [],
+            ...synergies.projects[1]?.['teamMembers']?.map((member) => member.id) ?? []]
         }
 
         dispatch(createSynergyApi(data)).then(() => {
-            dispatch(createGroupAPI(groupData)).then((res)=>{
+            dispatch(createGroupAPI(groupData)).then((res) => {
                 console.log('res :>> ', res);
                 setCreateSynergyStep(0);
                 setProjectCounter(0);
@@ -581,6 +547,7 @@ const ProjectManager = () => {
                                         id='checkboxSelected'
                                         className='costum_checkbox_input'
                                         checked={selectedProjects.length === filterProject.length && filterProject.length !== 0}
+                                        readOnly
                                     />
                                     <label
                                         htmlFor='checkboxSelected'
@@ -658,6 +625,7 @@ const ProjectManager = () => {
                                                                     type="checkbox"
                                                                     className='costum_checkbox_input'
                                                                     checked={selectedProjects.includes(rowData.projectId) || selectedProjectForSynergy === rowData.projectId}
+                                                                    readOnly
                                                                 />
                                                                 <label
                                                                     className='costum_checkbox_label'
@@ -672,9 +640,8 @@ const ProjectManager = () => {
                                                             <ul>
                                                                 {rowData?.teamMembers?.map((member, index) => {
                                                                     return (
-                                                                        <>
+                                                                        <Fragment key={index}>
                                                                             <li
-                                                                                key={index}
                                                                                 id={`tooltip_team_member_${index}`}
                                                                             >
                                                                                 <img src={member.profile_picture ? member.profile_picture : tableActorImage3} alt="" title="Alexander - Founder and CEO" />
@@ -691,7 +658,7 @@ const ProjectManager = () => {
                                                                             >
                                                                                 {member.twitter}
                                                                             </Tooltip>
-                                                                        </>
+                                                                        </Fragment>
                                                                     )
                                                                 })}
                                                             </ul>
@@ -780,9 +747,9 @@ const ProjectManager = () => {
 
                         <div className="project_page_accordion">
                             {
-                                filterProject.map((rowData) => (
+                                filterProject.map((rowData, index) => (
                                     <ProjectAccordion
-                                        key={rowData.key}
+                                        key={`${rowData.key}_${index}`}
                                         projectName={rowData.projectName}
                                         teamMembers={rowData?.teamMembers}
                                         synergyImg={rowData.synergyImg}
@@ -882,7 +849,6 @@ const ProjectManager = () => {
                                                         <div key={key} className='angel_tab'>
                                                             <input
                                                                 type="checkbox"
-
                                                                 defaultChecked={
                                                                     synergies.projects[projectCounter]?.synergy ?
                                                                         synergies.projects[projectCounter]?.synergy?.some((value) => value === value) :
@@ -949,21 +915,17 @@ const ProjectManager = () => {
                                                 <div className="checkboxs">
                                                     {data?.synergy ? data?.synergy?.map((item, index) => {
                                                         return (
-                                                            <>
-                                                                <span className='checkbox_angles' >
-                                                                    <input type="checkbox" name="angleName" id={`angles_+${index}`} className='checkbox_input' />
-                                                                    <label htmlFor={`angles_+${index}`} className='checkbox_label' ><GlobalIcon />{item} </label>
-                                                                </span>
-                                                            </>
+                                                            <span className='checkbox_angles' key={index}>
+                                                                <input checked={true} type="checkbox" name="angleName" id={`angles_+${index}`} className='checkbox_input' />
+                                                                <label htmlFor={`angles_+${index}`} className='checkbox_label' ><GlobalIcon />{item} </label>
+                                                            </span>
                                                         )
                                                     }) : Object.entries(synergies.projects[index].synergy_angles).map(([key, value], index) => {
                                                         return (
-                                                            <>
-                                                                <span className='checkbox_angles' >
-                                                                    <input type="checkbox" name="angleName" id={`angles_+${index}`} className='checkbox_input' />
-                                                                    <label htmlFor={`angles_+${index}`} className='checkbox_label' ><GlobalIcon />{value} </label>
-                                                                </span>
-                                                            </>
+                                                            <span className='checkbox_angles' key={key}>
+                                                                <input checked={true} type="checkbox" name="angleName" id={`angles_+${index}`} className='checkbox_input' />
+                                                                <label htmlFor={`angles_+${index}`} className='checkbox_label' ><GlobalIcon />{value} </label>
+                                                            </span>
                                                         )
                                                     })
                                                     }
@@ -1021,8 +983,6 @@ const ProjectManager = () => {
                                 }}>Create synergy</button>
                             </>
                         }
-
-
                     </>
                 }
             />

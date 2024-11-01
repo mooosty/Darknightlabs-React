@@ -362,7 +362,7 @@ const SynergiesManager = () => {
         creator: 'Joan of Arc',
         synergyImg: synergy.synergy_image,
         price: synergy.price,
-        currency: synergy.currency, 
+        currency: synergy.currency,
         synergiesAngles: synergy.synergy_angles,
         date: formatDate(synergy.date),
         projects: synergy?.['project2_id'] ? [synergy['_project_id'], synergy?.['project2_id']] : [synergy['_project_id']]
@@ -411,7 +411,10 @@ const SynergiesManager = () => {
                 </button>
               </div>
               <div className='synergies_page_header_button'>
-                <button className="btn_gray btn_filter" onClick={() => setIsFilterOpen(!isFilterOpen)}>Filters{Object.values(filter).filter(value => value !== '').length > 0 && `(${Object.values(filter).filter(value => value !== '').length})`}<img src={filterIcon} alt=" " /> </button>
+                <button className="btn_gray btn_filter" onClick={() => setIsFilterOpen(!isFilterOpen)}>
+                  Filters{Object.values(filter).filter(value => value !== '').length > 0 && `(${Object.values(filter).filter(value => value !== '').length})`}
+                  <img src={filterIcon} alt=" " />
+                </button>
                 {/* <button className={`btn_gray`}> Next Page </button> */}
                 {/* <button className={`btn_gray active`} onClick={() => setIsCreateSynergiesPopupOpen(true)}> Synergize </button> */}
                 {/* <button className={`btn_gray`} disabled> Next Page </button> */}

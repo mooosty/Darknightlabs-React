@@ -9,9 +9,14 @@
                 padding: 0;
             }
 
-            .page_box{
-                .content_box{
+            .page_box {
+                .content_box {
+                    height: calc(100vh - 132px);
                     width: 100%;
+
+                    @media(max-width: 1600px) {
+                        height: calc(100vh - 85px);
+                    }                
                 }
             }
         }

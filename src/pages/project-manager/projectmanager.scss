@@ -155,13 +155,19 @@
     }
 
     .project_page_data {
-        padding-block: 30px 20px;
+        padding: 20px 10px;
         border-radius: 20px;
         background-color: #191917;
-        background-image: url("../../assets/model-frame.png");
-        background-repeat: no-repeat;
-        background-position-x: 10px;
-        background-position-y: 10px;
+        // background-image: url("../../assets/model-frame.png");
+        // background-repeat: no-repeat;
+        // background-position-x: 10px;
+        // background-position-y: 10px;
+        min-height: 540px;
+        height: calc(100% - 80px);
+
+        @media(max-width: 1600px) {
+            height: calc(100% - 65px);
+        }   
 
         @media (max-width: 767px) {
             border-radius: 0;
@@ -171,17 +177,9 @@
         }
 
         .page_data {
+            height: 100%;
             background-color: transparent;
-            height: calc(100vh - 272px);
             overflow-y: auto;
-
-            @media(max-width: 1600px) {
-                height: calc(100vh - 206px);
-            }
-
-            @media (max-width: 767px) {
-                height: calc(100vh - 272px);
-            }
 
             .project_page_header {
                 padding: 0px 14px 21px 14px;
@@ -269,6 +267,16 @@
                         }
                     }
 
+                    .type {
+                        flex-grow: 1;
+                        max-width: 280px;
+
+                        @media (max-width: 767px) {
+                            max-width: 100%;
+                            flex-grow: none;
+                        }
+                    }
+
                     .project {
                         flex-grow: 1;
                         max-width: 280px;
@@ -309,6 +317,12 @@
                         justify-content: space-between;
                     }
 
+                    @media (min-width: 1600px) {
+                        .btn_gray{
+                            padding-block: 12px;
+                        }
+                    }
+
                     .btn_filter {
                         img {
                             height: 22px;
@@ -330,7 +344,7 @@
             }
 
             .project_page_body {
-                max-width: 1000px;
+
                 .project_page_table_handler {
                     overflow: hidden;
                     display: flex;
@@ -507,6 +521,7 @@
                 .project_page_table {
                     margin: 0px 14px 20px 14px;
                     padding-bottom: 20px;
+                    margin-top: 20px;
                     // height: calc(100vh - 394px);
                     // overflow-y: auto;
 

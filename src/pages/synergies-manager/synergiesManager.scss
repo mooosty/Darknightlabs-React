@@ -245,18 +245,19 @@
                 }
 
                 .synergy_page_filter {
-                    display: flex;
+                    display: none;
                     gap: 16px;
                     width: 100%;
-                    transition: max-height 0.5s ease-out;
+                    transition: all 0.5s linear;
 
                     @media (max-width: 1098px) {
                         width: 100%;
                     }
 
                     &.active {
+                        display: flex;
                         max-height: 300px;
-                        transition: max-height 0.5s ease-in;
+                        transition: all 0.5s ease-in;
 
                         @media (max-width: 767px) {
                             flex-direction: column;

@@ -282,6 +282,7 @@
                                         .checkbox_label {
                                             display: flex;
                                             text-align: center;
+                                            align-items: center;
                                             gap: 12px;
                                             padding: 6px 10px;
                                             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -306,7 +307,7 @@
                                                 svg {
                                                     height: 18px;
                                                     width: 18px;
-                                                    margin-bottom: 2px;
+                                                    margin-bottom: 0px;
 
                                                     path {
                                                         stroke: rgba(255, 255, 255, 0.32);
@@ -439,7 +440,6 @@
                                     align-items: center;
                                     gap: 6px;
                                     padding: 5px 7px;
-                                    cursor: pointer;
                                     border-radius: 5px;
                                     border: 1px solid rgba(255, 255, 255, 0.15);
                                     font-size: 16px;
