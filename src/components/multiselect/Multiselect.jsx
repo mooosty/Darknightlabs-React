@@ -13,6 +13,7 @@ const Multiselect = ({
     value=[],
     onAdd = () => { },
     onChange = () => { },
+    limit=null
 }) => {
     const [currentOptions, setCurrentOptions] = useState([])
     const [isOpen, setIsOpen] = useState(false)
@@ -29,7 +30,9 @@ const Multiselect = ({
         if (selectedOptions.find((item) => item.value === selectedOption.value)) {
             selectedOptions = selectedOptions.filter((item) => item.value !== selectedOption.value)
         } else {
-            selectedOptions = [...selectedOptions, selectedOption]
+            if(limit!==null && selectedOptions.length<limit){
+                selectedOptions = [...selectedOptions, selectedOption]
+            }
         }
 
         onChange(selectedOption.value)
@@ -117,6 +120,7 @@ Multiselect.propTypes = {
     hasAddButton: PropTypes.bool,
     addButtonLabel: PropTypes.string,
     onAdd: PropTypes.func,
-    value:PropTypes.array
+    value:PropTypes.array,
+    limit:PropTypes.number
 }
 export default Multiselect

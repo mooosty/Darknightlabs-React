@@ -21,7 +21,7 @@ import ConfirmSynergiesPopup from '../../components/popup/confirm-senergies-popu
 import SynergieaCreatedSuccessfullyPopup from '../../components/popup/synergiea-created-successfully-popup/SynergieaCreatedSuccessfullyPopup';
 import EditSynergiesPopup from '../../components/popup/edit-synergies-popup/EditSynergiesPopup';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteSynergyApi, getSynergyApi } from '../../api-services/synergyApi';
+import { deleteSynergyApi, getSynergyApi, updateSynergyApi } from '../../api-services/synergyApi';
 import closeIcon from "../../assets/X-icon.png";
 import BottomMenu from '../../components/buttom-menu/BottomMenu';
 import Select from '../../components/select/Select';
@@ -268,20 +268,33 @@ const SynergiesManager = () => {
   }
 
   const handleSaveChanges = ({ synergyName, selectedProject }) => {
-    let tempSynergies = [...synergies.map((synergy) => {
-      if (synergy.key === editId) {
-        return {
-          ...synergy,
-          synergyName: synergyName,
-          projects: selectedProject
-        }
-      }
-      else return synergy;
-    })]
-    setSynergies([...tempSynergies])
-    setFilterSynergies([...tempSynergies])
-    setIsEditSynergiesPopupOpen(false);
-    setEditId(null);
+
+    const data = {
+      "id": editId,
+      "_project_id": selectedProject[0],
+      "project2_id": selectedProject[1],
+      "synergy_name": synergyName,
+    }
+
+    dispatch(updateSynergyApi(data)).then(() => {
+      setIsEditSynergiesPopupOpen(false);
+      setEditId(null);
+    })
+
+    // let tempSynergies = [...synergies.map((synergy) => {
+    //   if (synergy.key === editId) {
+    //     return {
+    //       ...synergy,
+    //       synergyName: synergyName,
+    //       projects: selectedProject
+    //     }
+    //   }
+    //   else return synergy;
+    // })]
+    // setSynergies([...tempSynergies])
+    // setFilterSynergies([...tempSynergies])
+    // setIsEditSynergiesPopupOpen(false);
+    // setEditId(null);
   }
 
   const handleFilterSynergies = (filter) => {
@@ -317,23 +330,50 @@ const SynergiesManager = () => {
     setFilterSynergies([...data]);
   }
 
+  const handleSynergyAngleChange = (value) => {
+    if (value.value === 'All') {
+      setFilter({
+        ...filter,
+        synergyAngleValue: ''
+      })
+      handleFilterSynergies({
+        ...filter,
+        synergyAngleValue: ''
+      });
+    }
+    else {
+      setFilter({
+        ...filter,
+        synergyAngleValue: value.value
+      })
+      handleFilterSynergies({
+        ...filter,
+        synergyAngleValue: value.value
+      });
+    }
+  }
+
   useEffect(() => {
     let tempData = data.map((synergy) => {
       return {
         key: synergy.id,
-        synergyName: 'Synergy name',
+        synergyName: synergy.synergy_name ?? "Synergy Name",
         creatorImg: tableActor,
         creator: 'Joan of Arc',
-        synergyImg: tableActorImage3,
+        synergyImg: synergy.synergy_image,
         price: synergy.price,
-        currency: 'Riyal',
-        synergiesAngles: ['IP integration', 'Hosting AMAS', 'Angle48', 'Angle48', 'Angle48'],
+        currency: synergy.currency, 
+        synergiesAngles: synergy.synergy_angles,
         date: formatDate(synergy.date),
-        projects: [synergy['_project_id']]
+        projects: synergy?.['project2_id'] ? [synergy['_project_id'], synergy?.['project2_id']] : [synergy['_project_id']]
       }
     })
     setSynergies([...tempData]);
     setFilterSynergies([...tempData]);
+    setFilter({
+      synergyAngleValue: '',
+      sortBy: ''
+    })
   }, [data])
 
   useEffect(() => {
@@ -371,7 +411,7 @@ const SynergiesManager = () => {
                 </button>
               </div>
               <div className='synergies_page_header_button'>
-                <button className="btn_gray btn_filter" onClick={() => setIsFilterOpen(!isFilterOpen)}>Filters ({Object.values(filter).filter(value => value !== '').length})<img src={filterIcon} alt=" " /> </button>
+                <button className="btn_gray btn_filter" onClick={() => setIsFilterOpen(!isFilterOpen)}>Filters{Object.values(filter).filter(value => value !== '').length > 0 && `(${Object.values(filter).filter(value => value !== '').length})`}<img src={filterIcon} alt=" " /> </button>
                 {/* <button className={`btn_gray`}> Next Page </button> */}
                 {/* <button className={`btn_gray active`} onClick={() => setIsCreateSynergiesPopupOpen(true)}> Synergize </button> */}
                 {/* <button className={`btn_gray`} disabled> Next Page </button> */}
@@ -383,15 +423,10 @@ const SynergiesManager = () => {
                   options={synergyAnglesOptions}
                   placeholder={'All synergies angles'}
                   onChange={(value) => {
-                    setFilter({
-                      ...filter,
-                      synergyAngleValue: value.value
-                    })
-                    handleFilterSynergies({
-                      ...filter,
-                      synergyAngleValue: value.value
-                    });
+                    handleSynergyAngleChange(value);
                   }}
+                  showAllOption={true}
+                  allOptionText={"All synergies angles"}
                 />
               </div>
               <div className="sort">
@@ -459,7 +494,7 @@ const SynergiesManager = () => {
                 </button>
               </div>
             </div>
-            <div className="synergies_page_table"> 
+            <div className="synergies_page_table">
               {/* // ! loader set in table body when data is not fetched */}
               <table>
                 <thead>

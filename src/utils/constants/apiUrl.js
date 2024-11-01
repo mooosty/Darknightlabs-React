@@ -5,6 +5,7 @@ export const apiRoutes = {
     USER_PROJECT:'/userprojects',
     USER:'/users',
     chat: '/chat/group/fetch',
+    CHATGROUP:'/chat/group/create',
     CHATALLUSER:'/user/all',
     CHATMSG:'/message/all',
     SENDMSG:'/message/send',

@@ -156,9 +156,9 @@ const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
     }, [initialMember])
 
     useEffect(() => {
-        const userIdArr = groupUser?.[0].users.map((user) => user['_id']);
+        const userIdArr = groupUser?.[0]?.users?.map((user) => user['_id']);
         const tmpArr = memberList.filter((member) => {
-            return !userIdArr.includes(member['_id']);
+            return !userIdArr?.includes(member?.['_id']);
         });
         setFilteredMember([...tmpArr])
         setInitialMember([...tmpArr])

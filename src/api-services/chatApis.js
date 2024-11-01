@@ -2,6 +2,16 @@ import { createAsyncThunk } from "@reduxjs/toolkit"
 import { apiRoutes } from "../utils/constants/apiUrl"
 import { chatAxiosApi } from './index'
 
+export const createGroupAPI=createAsyncThunk('chat/group/create',
+    async (data,thunkAPI) => {
+        const response = await chatAxiosApi.post(apiRoutes.CHATGROUP,data)
+        console.log('response :>> ', response);
+        if (response?.status)
+            return response.data;
+        else return thunkAPI.rejectWithValue(response?.data)
+    }
+)
+
 export const getGroupsAPI = createAsyncThunk('chat/group/get',
     async (thunkAPI) => {
         const response = await chatAxiosApi.get(apiRoutes.chat )
@@ -57,3 +67,5 @@ export const addMemberIntoGroup = createAsyncThunk('grouop/member/add',
         else return thunkAPI.rejectWithValue(response?.data)
     }
 )
+
+

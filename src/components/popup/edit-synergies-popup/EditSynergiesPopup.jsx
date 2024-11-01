@@ -3,42 +3,44 @@ import closeIcon from '../../../assets/X-icon.png'
 import angelBg from '../../../assets/edit-senergies-hero-image.png'
 import './EditSynergiesPopup.scss';
 import Multiselect from '../../multiselect/Multiselect';
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getProjectsAPI } from '../../../api-services/projectApis';
 
-const EditSynergiesPopup = ({ open, handleClose, synergy,onSave=()=>{} }) => {
+const EditSynergiesPopup = ({ open, handleClose, synergy, onSave = () => { } }) => {
     const projects = useSelector((state) => state.project.projects)
     const [synergyName, setSynergyName] = useState('');
     const [selectedProject, setSelectedProject] = useState([]);
-    const dispatch=useDispatch();
+    const dispatch = useDispatch();
 
     const handleSaveChanges = () => {
-         onSave({
-            synergyName:synergyName,
-            selectedProject:selectedProject
-         })
+        onSave({
+            synergyName: synergyName,
+            selectedProject: selectedProject
+        })
     }
 
-    const handleSelectProjectChange=(value)=>{
-        if(selectedProject.includes(value)){
-            setSelectedProject([...selectedProject.filter((project_id)=>project_id!==value)])
+
+    const handleSelectProjectChange = (value) => {
+        if (selectedProject.includes(value)) {
+            setSelectedProject([...selectedProject.filter((project_id) => project_id !== value)])
         }
-        else{
-            setSelectedProject([...selectedProject,value]);
+        else {
+            if (selectedProject.length < 2)
+                setSelectedProject([...selectedProject, value]);
         }
     }
 
     useEffect(() => {
         if (open) {
-            if(projects.length===0){
+            if (projects.length === 0) {
                 dispatch(getProjectsAPI());
             }
             setSynergyName(synergy?.synergyName);
             setSelectedProject([...synergy.projects])
         }
-    }, [open,synergy])
-    
+    }, [open, synergy])
+
 
     return (
         <>
@@ -72,7 +74,7 @@ const EditSynergiesPopup = ({ open, handleClose, synergy,onSave=()=>{} }) => {
                                                 <label htmlFor="synergiesName">
                                                     <span className="title">Synergy Name </span>
                                                 </label>
-                                                <input type="text" value={synergyName} id="synergiesName" placeholder='Synergy Name' onChange={(e)=>setSynergyName(e.target.value)}/>
+                                                <input type="text" value={synergyName} id="synergiesName" placeholder='Synergy Name' onChange={(e) => setSynergyName(e.target.value)} />
                                             </div>
 
                                             <div className="synergirs_project">
@@ -97,6 +99,7 @@ const EditSynergiesPopup = ({ open, handleClose, synergy,onSave=()=>{} }) => {
                                                             })
                                                         }
                                                         onChange={handleSelectProjectChange}
+                                                        limit={2}
                                                     />
                                                 </div>
                                             </div>
@@ -107,7 +110,7 @@ const EditSynergiesPopup = ({ open, handleClose, synergy,onSave=()=>{} }) => {
                         </div>
                         <div className='edit_synergies_model_footer'>
                             <button className='back_btn' onClick={handleClose}>Cancel</button>
-                            <button className='cancel_btn' onClick={() => {
+                            <button disabled={synergyName==='' || selectedProject.length!==2} className='cancel_btn' onClick={() => {
                                 handleSaveChanges()
                             }}>Save</button>
                         </div>

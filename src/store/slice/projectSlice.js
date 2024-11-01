@@ -22,10 +22,19 @@ const projectSlice = createSlice({
 
         builder.addCase(
             getProjectsAPI.fulfilled, (state, action) => {
-                return {
-                    ...state,
-                    isLoading: false,
-                    projects:action.payload ?? [],
+                if(action.payload?.length>0){
+                    return {
+                        ...state,
+                        isLoading: false,
+                        projects:action.payload ?? [],
+                    }
+                }
+                else{
+                    return {
+                        ...state,
+                        isLoading: false,
+                        projects:[],
+                    }
                 }
             }
         )
@@ -166,7 +175,7 @@ const projectSlice = createSlice({
                 ...state,
                 isLoading: false,
                 projects: state.projects.map((project) => {
-                    if (action.payload.data[0]['_project_id'] === project['project_id']) {
+                    if (action.payload.data[0]?.['_project_id'] === project['project_id']) {
                         return {
                             ...project,
                             teamMembers: action.payload.data?.length > 0 ? action.payload.data : []

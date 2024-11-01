@@ -602,7 +602,7 @@ const Chats = () => {
                                                     </div>
                                                     <div className="name">
                                                         <div className="top">
-                                                            <div className="top_left">{groupData[openChatIndex].groupAdmin.name} </div>
+                                                            <div className="top_left">{groupData[openChatIndex]?.groupAdmin?.name} </div>
                                                             {/* <div className="top_right">{data.tpye}</div> */}
                                                         </div>
                                                         {/* <div className="bottom">{data.project}</div> */}
@@ -610,9 +610,9 @@ const Chats = () => {
                                                 </div>
 
                                             </div>
-                                            <div className="list_header"> Participants - {groupData[openChatIndex].users.length} </div>
+                                            <div className="list_header"> Participants - {groupData[openChatIndex]?.users?.length} </div>
                                             <div className="list_body">
-                                                {groupData[openChatIndex].users.map((data, index) => {
+                                                {groupData[openChatIndex]?.users?.map((data, index) => {
                                                     return (
                                                         <div key={index} className="list_items">
                                                             <div className="img">
@@ -640,7 +640,7 @@ const Chats = () => {
             {isAddChatMemberPopupOpen && <AddChatMemberPopup
                 open={isAddChatMemberPopupOpen}
                 handleClose={() => setIsAddChatMemberPopupOpen(false)}
-                chatId={groupData[openChatIndex]['_id']}
+                chatId={groupData[openChatIndex]?.['_id']}
             />}
             <ChatMembers
                 open={isChatMembersOpen}

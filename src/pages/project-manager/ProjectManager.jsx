@@ -27,6 +27,8 @@ import angelBg from '../../assets/edit-senergies-hero-image.png'
 import ChoosePrioritySynergiesPopup from '../../components/popup/choose-priority-synergies-popup/ChoosePrioritySynergiesPopup';
 import SynergieaCreatedSuccessfullyPopup from '../../components/popup/synergiea-created-successfully-popup/SynergieaCreatedSuccessfullyPopup';
 import Loader from '../../components/loader/Loader';
+import { createSynergyApi } from '../../api-services/synergyApi';
+import { createGroupAPI } from '../../api-services/chatApis';
 
 
 const buttons = [
@@ -100,14 +102,15 @@ const ProjectManager = () => {
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [isBottomMenuOpen, setIsBottomMenuOpen] = useState(false)
     const [selectedProjects, setSelectedProjects] = useState([])
-    const [selectedProjectForSynergy, setSelectedProjectForSynergy] = useState([]);
+    const [selectedProjectForSynergy, setSelectedProjectForSynergy] = useState(null);
     const [isDeleteConfirmPopupOpen, setIsDeleteConfirmPopupOpen] = useState(false);
     const [isMultiDltConfirmPopupOpen, setIsMultiDltConfirmPopupOpen] = useState(false);
     const [dltId, setDltId] = useState(null);
     const [filter, setFilter] = useState({
         synergyAngleValue: '',
         status: '',
-        sortBy: ''
+        sortBy: '',
+        type: ''
     })
 
     const dispatch = useDispatch();
@@ -172,17 +175,22 @@ const ProjectManager = () => {
             setSelectedProjects([...tmpSelectedProjects])
         }
         else if (createSynergyStep === 2) {
-            let tmpSelectedProjects = [...selectedProjectForSynergy]
-            const project = tmpSelectedProjects.find((item) => item === projectId)
-            const findInSelected = selectedProjects.find((item) => item === projectId)
-            if (!findInSelected) {
-                if (project) {
-                    tmpSelectedProjects = tmpSelectedProjects.filter((item) => item !== projectId)
-                } else {
-                    tmpSelectedProjects.push(projectId)
-                }
+            // let tmpSelectedProjects = [...selectedProjectForSynergy]
+            // const project = tmpSelectedProjects.find((item) => item === projectId)
+            // const findInSelected = selectedProjects.find((item) => item === projectId)
+            // if (!findInSelected) {
+            //     if (project) {
+            //         tmpSelectedProjects = tmpSelectedProjects.filter((item) => item !== projectId)
+            //     } else {
+            //         tmpSelectedProjects.push(projectId)
+            //     }
+            // }
+            if (selectedProjectForSynergy === projectId) {
+                setSelectedProjectForSynergy(null)
             }
-            setSelectedProjectForSynergy([...tmpSelectedProjects])
+            else {
+                setSelectedProjectForSynergy(projectId)
+            }
         }
     }
 
@@ -222,6 +230,7 @@ const ProjectManager = () => {
     }
 
     const handleCreateSynergy = () => {
+        setSelectedProjects([selectedProjects[0]]);
         setCreateSynergyStep(createSynergyStep + 1);
     }
 
@@ -229,7 +238,7 @@ const ProjectManager = () => {
         setCreateSynergyStep(createSynergyStep + 1);
         let synergyName = '';
         let projects = [...data.filter((project) => {
-            if (selectedProjects.includes(project.project_id) || selectedProjectForSynergy.includes(project.project_id)) {
+            if (selectedProjects[0] === project.project_id || selectedProjectForSynergy === project.project_id) {
                 if (synergyName === '') {
                     synergyName += project.project_name
                 }
@@ -243,6 +252,7 @@ const ProjectManager = () => {
         setSynergies({
             ...synergies,
             synergyName: synergyName,
+            groupName: synergyName,
             projects: projects
         })
     }
@@ -272,6 +282,41 @@ const ProjectManager = () => {
         }));
     };
 
+    const handleSubmitSynergy = () => {
+        console.log('synergies :>> ', synergies);
+
+        const data = {
+            "_project_id": synergies.projects[0]['project_id'],
+            "project2_id": synergies.projects[1]['project_id'],
+            "date": new Date().toISOString(),
+            "synergy_name": synergies.synergyName,
+            "synergy_angles": [...Object.entries(synergies.projects[0]['synergy_angles']).map((obj) => obj[1]), ...Object.entries(synergies.projects[1]['synergy_angles']).map((obj) => obj[1])],
+            "price": 0,
+            "synergy_image": synergies.projects[0]['image']
+        }
+
+        const groupData = {
+            name: synergies.groupName,
+            users: [...synergies.projects[0]?.['teamMembers']?.map((member) => member.id)?? [],
+            ...synergies.projects[1]?.['teamMembers']?.map((member) => member.id)??[]]
+        }
+
+        dispatch(createSynergyApi(data)).then(() => {
+            dispatch(createGroupAPI(groupData)).then((res)=>{
+                console.log('res :>> ', res);
+                setCreateSynergyStep(0);
+                setProjectCounter(0);
+                setSynergies({
+                    synergyName: '',
+                    projects: []
+                })
+                setSelectedProjects([]);
+                setSelectedProjectForSynergy(null);
+                setCreateSynergySuccessPopup(true);
+            })
+        }).catch((err) => { console.error('err :>> ', err) });
+    }
+
 
     useEffect(() => {
         let data = initialProject;
@@ -281,6 +326,7 @@ const ProjectManager = () => {
                     return synergy.label === filter.synergyAngleValue;
                 }) !== -1;
             });
+            console.log('filterArr :>> ', filterArr, filter);
             data = [...filterArr];
         }
         if (filter.status !== '') {
@@ -290,6 +336,12 @@ const ProjectManager = () => {
                 else {
                     return !project.isFeatured
                 }
+            })
+            data = [...filterArr];
+        }
+        if (filter.type !== '') {
+            const filterArr = data.filter((project) => {
+                return project.type?.findIndex((typeVal) => typeVal === `#${filter.type}`) !== -1
             })
             data = [...filterArr];
         }
@@ -374,7 +426,6 @@ const ProjectManager = () => {
     }, [])
 
 
-
     return (
         <>
             <div className="content_header">
@@ -406,10 +457,11 @@ const ProjectManager = () => {
                                     className="btn_gray btn_filter"
                                     onClick={handleFilterOpen}
                                 >
-                                    Filters ({Object.values(filter).filter(value => value !== '').length})<img src={filterIcon} alt=" " />
+                                    Filters {Object.values(filter).filter(value => value !== '').length > 0 &&
+                                        `(${Object.values(filter).filter(value => value !== '').length})`}<img src={filterIcon} alt=" " />
                                 </button>
                                 <button className={`btn_gray `} onClick={() => {
-                                    navigate('/project-manager/ADD')
+                                    navigate('/project-manager/add')
                                 }}>
                                     Add New Project
                                     <img src={addIcon} alt="" />
@@ -418,7 +470,7 @@ const ProjectManager = () => {
                                     setCreateSynergyStep(createSynergyStep + 1)
                                 }} disabled={!(createSynergyStep >= 1)}>
                                     Next Step
-                                </button> : <button className={`btn_gray ${createSynergyStep >= 1 ? 'active' : ''}`} onClick={handleSynergize}>
+                                </button> : <button disabled={selectedProjectForSynergy === null} className={`btn_gray ${createSynergyStep >= 1 ? 'active' : ''}`} onClick={handleSynergize}>
                                     Synergize
                                 </button>}
                             </div>
@@ -430,21 +482,48 @@ const ProjectManager = () => {
                                     placeholder={'All synergies angles'}
                                     onChange={(value) => {
                                         setSelectedProjects([])
-                                        setFilter({
-                                            ...filter,
-                                            synergyAngleValue: value.value
-                                        })
+                                        if (value.value === 'All') {
+                                            setFilter({
+                                                ...filter,
+                                                synergyAngleValue: ''
+                                            })
+                                        }
+                                        else {
+                                            setFilter({
+                                                ...filter,
+                                                synergyAngleValue: value.value
+                                            })
+                                        }
                                     }}
+                                    showAllOption={true}
+                                    allOptionText={"All synergies angles"}
                                 />
                             </div>
-                            <div className="project">
+                            <div className="type">
                                 <Select
                                     options={[
-                                        { label: 'Gaming', value: 'Gaming' },
+                                        { label: 'GAME', value: 'GAME' },
                                         { label: 'AI', value: 'AI' },
-                                        { label: 'Metaverse', value: 'Metaverse' },
+                                        { label: 'hey', value: 'hey' },
                                     ]}
+                                    onChange={(value) => {
+                                        setSelectedProjects([])
+                                        if (value.value === 'All') {
+                                            setFilter({
+                                                ...filter,
+                                                type: ''
+                                            })
+                                        }
+                                        else {
+                                            setFilter({
+                                                ...filter,
+                                                type: value.value
+                                            })
+                                        }
+                                    }}
                                     placeholder={'All project types'}
+                                    showAllOption={true}
+                                    allOptionText={"All project types"}
                                 />
                             </div>
                             <div className="status">
@@ -456,11 +535,21 @@ const ProjectManager = () => {
                                     placeholder={'All Statuses'}
                                     onChange={(value) => {
                                         setSelectedProjects([])
-                                        setFilter({
-                                            ...filter,
-                                            status: value.value
-                                        })
+                                        if (value.value === 'All') {
+                                            setFilter({
+                                                ...filter,
+                                                status: ''
+                                            })
+                                        }
+                                        else {
+                                            setFilter({
+                                                ...filter,
+                                                status: value.value
+                                            })
+                                        }
                                     }}
+                                    showAllOption={true}
+                                    allOptionText={"All Statuses"}
                                 />
                             </div>
                             <div className="sort">
@@ -568,7 +657,7 @@ const ProjectManager = () => {
                                                                 <input
                                                                     type="checkbox"
                                                                     className='costum_checkbox_input'
-                                                                    checked={selectedProjects.includes(rowData.projectId) || selectedProjectForSynergy.includes(rowData.projectId)}
+                                                                    checked={selectedProjects.includes(rowData.projectId) || selectedProjectForSynergy === rowData.projectId}
                                                                 />
                                                                 <label
                                                                     className='costum_checkbox_label'
@@ -703,7 +792,7 @@ const ProjectManager = () => {
                                         synergiesAngles={rowData.synergiesAngles}
                                         date={rowData.date}
                                         isFeatured={rowData.isFeatured}
-                                        checked={selectedProjects.includes(rowData.projectId) || selectedProjectForSynergy.includes(rowData.projectId)}
+                                        checked={selectedProjects.includes(rowData.projectId) || selectedProjectForSynergy === rowData.projectId}
                                         disabled={selectedProjects.includes(rowData.projectId) && createSynergyStep >= 2}
                                         onDelete={() => {
                                             setIsDeleteConfirmPopupOpen(true);
@@ -763,7 +852,7 @@ const ProjectManager = () => {
                         projects: []
                     })
                     setSelectedProjects([]);
-                    setSelectedProjectForSynergy([]);
+                    setSelectedProjectForSynergy(null);
                 }}
                 body={
                     <>
@@ -928,15 +1017,7 @@ const ProjectManager = () => {
                                     setCreateSynergyStep(4);
                                 }}>Back</button>
                                 <button className='next_btn' onClick={() => {
-                                    setCreateSynergyStep(0);
-                                    setProjectCounter(0);
-                                    setSynergies({
-                                        synergyName: '',
-                                        projects: []
-                                    })
-                                    setSelectedProjects([]);
-                                    setSelectedProjectForSynergy([]);
-                                    setCreateSynergySuccessPopup(true);
+                                    handleSubmitSynergy()
                                 }}>Create synergy</button>
                             </>
                         }

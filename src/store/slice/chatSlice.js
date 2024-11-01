@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addMemberIntoGroup, getAllUsers, getChatMessages, getGroupsAPI, sendMsg } from "../../api-services/chatApis";
+import { addMemberIntoGroup, createGroupAPI, getAllUsers, getChatMessages, getGroupsAPI, sendMsg } from "../../api-services/chatApis";
 
 const initialState = {
     isLoading: false,
@@ -26,6 +26,39 @@ const chatSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
+
+        builder.addCase(createGroupAPI.pending, (state) => {
+            return {
+                ...state,
+                isLoading:false
+            }
+        })
+        builder.addCase(createGroupAPI.fulfilled, (state, action) => {
+            console.log('action.payload :>> ', action.payload);
+            // if ((state.groupMsg.messages.length < action.payload.response.length) || (action.payload.groupId !== state.groupMsg.groupId)) {
+            //     return {
+            //         ...state,
+            //         isLoading: false,
+            //         groupMsg: {
+            //             ...state.groupMsg,
+            //             groupId: action.payload.groupId,
+            //             messages: [...action.payload.response]
+            //         }
+            //     };
+            // }
+            return {
+                ...state,
+                isLoading: false
+            }
+        });
+
+        builder.addCase(createGroupAPI.rejected, (state) => {
+            return {
+                ...state,
+                isLoading: false
+            }
+        });
+
 
         builder.addCase(getChatMessages.pending, (state, action) => {
             return {

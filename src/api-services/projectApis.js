@@ -13,7 +13,6 @@ export const getProjectsAPI = createAsyncThunk('project/get',
 export const getProjectsApiById = createAsyncThunk('project/get/:id',
     async (data, thunkAPI) => {
         const response = await axiosApi.get(`${apiRoutes.PROJECT}/${data}`)
-        console.log('response :>> ', response);
         if (!response?.data?.success||response?.data?.success!==0) return response?.data
         else return thunkAPI.rejectWithValue(response?.data)
     }

@@ -9,11 +9,13 @@ import { Tooltip } from 'react-tooltip';
 
 const Select = ({
     name,
-    value,
+    value = '',
     options = [],
     placeholder,
     hasAddButton,
     addButtonLabel,
+    showAllOption=false,
+    allOptionText='',
     onAdd = () => { },
     onChange = () => { },
 }) => {
@@ -103,6 +105,11 @@ const Select = ({
                             )
                         })
                     }
+                    {showAllOption && <li key={'all'} onClick={() => handleSelectOption({label:allOptionText,
+                        value:'All'
+                    })}>
+                        {allOptionText}
+                    </li>}
                 </ul>
                 {hasAddButton && <button
                     className="add_new_angle_btn"
@@ -125,5 +132,7 @@ Select.propTypes = {
     hasAddButton: PropTypes.bool,
     addButtonLabel: PropTypes.string,
     onAdd: PropTypes.func,
+    showAllOption: PropTypes.bool,
+    allOptionText: PropTypes.string,
 }
 export default Select

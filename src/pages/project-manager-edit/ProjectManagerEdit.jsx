@@ -17,7 +17,7 @@ import { useNavigate, useParams, Link } from "react-router-dom"
 // import { updateProject } from "../../store/slice/projectSlice"
 import { updateProjectAPI } from "../../api-services/projectApis"
 import DeleteConfirmPopup from "../../components/popup/delete-confirm-popup/DeleteConfirmaPopup"
-
+import axios from "axios"
 
 const synergyAnglesOptions = [
     {
@@ -118,7 +118,7 @@ const ProjectManagerEdit = () => {
         };
     }
 
-    const handleAddProject = () => {
+    const handleAddProject = async () => {
         const date = new Date();
 
         const synergy_obj = {};
@@ -132,7 +132,18 @@ const ProjectManagerEdit = () => {
         values.invesments.forEach(({ property, price }) => {
             investment_obj[property] = price;
         });
-
+        
+        console.log('values.image.file :>> ', values.image.file);
+        const formData = new FormData();
+        formData.append('file', values.image.file);
+        console.log('formData', formData)
+        const response = await axios.post(`${import.meta.env.VITE_IMAGE_UPLOAD_BASE_URL}/`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+        console.log('response :>> ', response);
+        
         const data = {
             "project_name": values.project_name,
             "project_info": values.tags,
@@ -142,14 +153,13 @@ const ProjectManagerEdit = () => {
             "twitter": values.twitter_username,
             "rating": 0,
             "featured": 0,
-            "image": values.image.base64Url,
+            "image": response.data.image_url,
             "date": `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`,
             "synergy_access": true,
             "synergy_angles": synergy_obj,
             "investments_access": true,
             "investments": investment_obj
         }
-
         dispatch(addProjectAPI(data)).then((res) => {
 
             const resArr = values.members.map((member) => {
@@ -221,9 +231,8 @@ const ProjectManagerEdit = () => {
 
 
     useEffect(() => {
-        if (projectId && projectId !== 'ADD') {
+        if (projectId && projectId !== 'add') {
             dispatch(getProjectsApiById(projectId)).then((res) => {
-                console.log('res :>> ', res.payload);
                 let projectData = res.payload;
 
                 let synergy_angles = projectData?.synergy_angles.map((synergyAngle, index) => {
@@ -231,13 +240,13 @@ const ProjectManagerEdit = () => {
                 })
 
 
-                let investments = projectData.investments.map((investment)=>{
+                let investments = projectData.investments.map((investment) => {
                     return {
                         property: investment[0],
                         price: investment[1]
                     }
                 });
-                
+
                 const obj = {
                     project_name: projectData.project_name,
                     tags: projectData.project_info,
@@ -292,8 +301,8 @@ const ProjectManagerEdit = () => {
                             </span>
                             <p>{values.project_name}</p>
                         </div>
-                        {projectId !== 'ADD' && <button className="btn_gray" onClick={handleSaveChanges}>Save changes</button>}
-                        {projectId === 'ADD' && <button className="btn_gray" onClick={handleAddProject}>Add Project</button>}
+                        {projectId !== 'add' && <button className="btn_gray" onClick={handleSaveChanges}>Save changes</button>}
+                        {projectId === 'add' && <button className="btn_gray" onClick={handleAddProject}>Add Project</button>}
                     </div>
                     <div className="page_body">
                         <div className="page_content">
@@ -400,6 +409,7 @@ const ProjectManagerEdit = () => {
                                                                         'position': member.position
                                                                     }, ...values.members.slice(index + 1)])
                                                                 }}
+                                                                
                                                             />
                                                         </div>
                                                         <div className="form_group">
@@ -595,13 +605,13 @@ const ProjectManagerEdit = () => {
                             </div>
                         </div>
                         <div className="delete_project_btn">
-                            <button className="btn_delete" disabled={projectId === 'ADD'} onClick={() => {
+                            <button className="btn_delete" disabled={projectId === 'add'} onClick={() => {
                                 setIsDeleteConfirmPopupOpen(true);
                             }}>
                                 <img src={trashIcon} alt="Delete" /> Delete project
                             </button>
-                            {projectId !== 'ADD' && <button className="btn_gray" onClick={handleSaveChanges}>Save changes</button>}
-                            {projectId === 'ADD' && <button className="btn_gray" onClick={handleAddProject}>Add Project</button>}
+                            {projectId !== 'add' && <button className="btn_gray" onClick={handleSaveChanges}>Save changes</button>}
+                            {projectId === 'add' && <button className="btn_gray" onClick={handleAddProject}>Add Project</button>}
                         </div>
                     </div>
                 </div>

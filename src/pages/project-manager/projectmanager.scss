@@ -241,20 +241,18 @@
                 }
 
                 .project_page_filter {
-                    display: flex;
+                    display: none;
                     gap: 16px;
-                    overflow: hidden;
-                    max-height: 0;
                     transition: max-height 0.5s ease-out;
 
                     @media (max-width: 1098px) {
                         width: 100%;
                     }
 
-
                     &.active {
                         max-height: 300px;
                         transition: max-height 0.5s ease-in;
+                        display: flex;
 
                         @media (max-width: 767px) {
                             flex-direction: column;
@@ -332,6 +330,7 @@
             }
 
             .project_page_body {
+                max-width: 1000px;
                 .project_page_table_handler {
                     overflow: hidden;
                     display: flex;
