@@ -2,12 +2,7 @@ import './synergiesManager.scss'
 import searchIcon from "../../assets/search-icon.png";
 import filterIcon from "../../assets/filter.svg";
 import globalIcon from "../../assets/global.svg";
-import dollar from "../../assets/CoinDollar.svg";
-import riyal from "../../assets/CoinRiyal.svg";
 import tableActor from "../../assets/tableActorImage.jpg";
-import tableActorImage1 from "../../assets/avatar-1.jpg";
-import tableActorImage2 from "../../assets/avatar-2.jpg";
-import tableActorImage3 from "../../assets/avatar-3.jpg";
 import editIcon from "../../assets/edit-icon.svg";
 import trashIcon from "../../assets/trash-icon.png";
 import AddSynergiesPopup from '../../components/popup/add-synergies-popup/AddSynergiesPopup';
@@ -70,110 +65,6 @@ const synergyAnglesOptions = [
   }
 ]
 
-const tableData = [
-  {
-    key: 1,
-    synergyName: 'Synergy name',
-    creatorImg: tableActor,
-    creator: 'Joan of Arc',
-    synergyImg: tableActorImage1,
-    price: '0,000000001',
-    currency: 'Dollar',
-    synergiesAngles: ['IP integration', 'Hosting AMAS', 'Angle48', 'Angle48', 'Angle48'],
-    date: '12/12/2024',
-    disabled: true,
-    projects: [2, 14]
-  },
-  {
-    key: 2,
-    synergyName: 'Synergy name',
-    creatorImg: tableActor,
-    creator: 'Joan of Arc',
-    synergyImg: tableActorImage2,
-    price: '0,000000001',
-    currency: 'Dollar',
-    synergiesAngles: ['IP integration', 'Hosting AMAS', 'Angle48', 'Angle48', 'Angle48'],
-    date: '12/12/2024',
-    projects: [2, 14]
-  },
-  {
-    key: 3,
-    synergyName: 'Synergy name',
-    creatorImg: tableActor,
-    creator: 'Joan of Arc',
-    synergyImg: tableActorImage3,
-    price: '0,000000001',
-    currency: 'Riyal',
-    synergiesAngles: ['IP integration', 'Hosting AMAS', 'Angle48', 'Angle48', 'Angle48'],
-    date: '12/12/2024',
-    projects: [2, 14]
-  },
-  {
-    key: 4,
-    synergyName: 'Synergy name',
-    creatorImg: tableActor,
-    creator: 'Joan of Arc',
-    synergyImg: tableActorImage1,
-    price: '0,000000001',
-    currency: 'Riyal',
-    synergiesAngles: ['IP integration', 'Hosting AMAS', 'Angle48', 'Angle48', 'Angle48'],
-    date: '12/12/2024',
-    projects: [2, 14]
-  },
-  {
-    key: 5,
-    synergyName: 'Synergy name',
-    creatorImg: tableActor,
-    creator: 'Joan of Arc',
-    synergyImg: tableActorImage2,
-    price: '0,000000001',
-    currency: 'Riyal',
-    synergiesAngles: ['IP integration', 'Hosting AMAS', 'Angle48', 'Angle48', 'Angle48'],
-    date: '12/12/2024',
-    projects: [2, 14]
-  },
-  {
-    key: 6,
-    synergyName: 'Synergy name',
-    creatorImg: tableActor,
-    creator: 'Joan of Arc',
-    synergyImg: tableActorImage3,
-    price: '0,000000001',
-    currency: 'Dollar',
-    synergiesAngles: ['IP integration', 'Hosting AMAS', 'Angle48', 'Angle48', 'Angle48'],
-    date: '12/12/2024',
-    projects: [2, 14]
-  },
-  {
-    key: 7,
-    synergyName: 'Synergy name',
-    creatorImg: tableActor,
-    creator: 'Joan of Arc',
-    synergyImg: tableActorImage3,
-    price: '0,000000001',
-    currency: 'Dollar',
-    synergiesAngles: ['IP integration', 'Hosting AMAS', 'Angle48', 'Angle48', 'Angle48'],
-    date: '12/12/2024',
-    projects: [2, 14]
-  },
-  {
-    key: 8,
-    synergyName: 'Synergy name',
-    creatorImg: tableActor,
-    creator: 'Joan of Arc',
-    synergyImg: tableActorImage2,
-    price: '0,000000001',
-    currency: 'Dollar',
-    synergiesAngles: ['IP integration', 'Hosting AMAS', 'Angle48', 'Angle48', 'Angle48'],
-    date: '12/12/2024',
-    projects: [2, 14]
-  },
-]
-
-const currencyList = {
-  'Dollar': dollar,
-  'Riyal': riyal
-}
 
 const SynergiesManager = () => {
   const [activeLayout, setActiveLayout] = useState('TAB');

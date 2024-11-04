@@ -21,7 +21,7 @@ import ConfirmSynergiesPopup from '../../components/popup/confirm-senergies-popu
 import SynergieaCreatedSuccessfullyPopup from '../../components/popup/synergiea-created-successfully-popup/SynergieaCreatedSuccessfullyPopup';
 import Loader from '../../components/loader/Loader';
 import { createSynergyApi } from '../../api-services/synergyApi';
-import { createGroupAPI } from '../../api-services/chatApis';
+import { createGroupAPI, createUserAPI } from '../../api-services/chatApis';
 
 
 const synergyAnglesOptions = [
@@ -83,7 +83,6 @@ const ProjectManager = () => {
     const navigate = useNavigate();
     const data = useSelector((state) => state.project.projects)
     const projectApiLoading = useSelector((state) => state.project.isLoading)
-
 
     const [initialProject, setInitialProject] = useState([])
     const [filterProject, setFilterProject] = useState([])
@@ -261,25 +260,48 @@ const ProjectManager = () => {
             "synergy_image": synergies.projects[0]['image']
         }
 
+        const users = []
+        synergies.projects?.forEach((project) => {
+            if (project.teamMembers) {
+                project.teamMembers.forEach((member) => users.push({ ...member }))
+            }
+        })
+
         const groupData = {
             name: synergies.groupName,
-            users: [...synergies.projects[0]?.['teamMembers']?.map((member) => member.id) ?? [],
-            ...synergies.projects[1]?.['teamMembers']?.map((member) => member.id) ?? []]
+            users: [...users.map((item) => item.id)]
         }
 
-        dispatch(createSynergyApi(data)).then(() => {
-            dispatch(createGroupAPI(groupData)).then((res) => {
-                console.log('res :>> ', res);
-                setCreateSynergyStep(0);
-                setProjectCounter(0);
-                setSynergies({
-                    synergyName: '',
-                    projects: []
+        dispatch(createSynergyApi(data)).then(async () => {
+            try {
+                const userPromises = users.map((user) => {
+                    const payload = {
+                        _id: user.id,
+                        name: user.username,
+                        email: user.email,
+                        password: `${user.id}@@@${user.email}`,
+                    }
+                    console.log('payload', payload)
+                    return dispatch(createUserAPI(payload))
                 })
-                setSelectedProjects([]);
-                setSelectedProjectForSynergy(null);
-                setCreateSynergySuccessPopup(true);
-            })
+
+                await Promise.allSettled(userPromises)
+
+                dispatch(createGroupAPI(groupData)).then((res) => {
+                    console.log('res :>> ', res);
+                    setCreateSynergyStep(0);
+                    setProjectCounter(0);
+                    setSynergies({
+                        synergyName: '',
+                        projects: []
+                    })
+                    setSelectedProjects([]);
+                    setSelectedProjectForSynergy(null);
+                    setCreateSynergySuccessPopup(true);
+                })
+            } catch (err) {
+                console.error('err', err)
+            }
         }).catch((err) => { console.error('err :>> ', err) });
     }
 
