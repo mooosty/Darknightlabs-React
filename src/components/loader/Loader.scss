@@ -10,6 +10,16 @@
     left: 0;
     bottom: 0;
     right: 0;
+    margin-left: calc(50% + 150px);
+
+    @media(max-width: 1600px) {
+      margin-left: calc(50% + 120px);
+    }
+
+    @media (max-width: 1199px) {
+      margin-left: calc(50% + 120px);
+    }
+
   }
 
   /* Transparent Overlay */
@@ -48,13 +58,13 @@
     border-radius: 0.5em;
     -webkit-box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.5) -1.5em 0 0 0, rgba(0, 0, 0, 0.5) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
     box-shadow: rgba(255, 255, 255, 0.75) 1.5em 0 0 0,
-                rgba(255, 255, 255, 0.75) 1.1em 1.1em 0 0,
-                rgba(255, 255, 255, 0.75) 0 1.5em 0 0,
-                rgba(255, 255, 255, 0.75) -1.1em 1.1em 0 0,
-                rgba(255, 255, 255, 0.5) -1.5em 0 0 0,
-                rgba(255, 255, 255, 0.5) -1.1em -1.1em 0 0,
-                rgba(255, 255, 255, 0.75) 0 -1.5em 0 0,
-                rgba(255, 255, 255, 0.75) 1.1em -1.1em 0 0;
+      rgba(255, 255, 255, 0.75) 1.1em 1.1em 0 0,
+      rgba(255, 255, 255, 0.75) 0 1.5em 0 0,
+      rgba(255, 255, 255, 0.75) -1.1em 1.1em 0 0,
+      rgba(255, 255, 255, 0.5) -1.5em 0 0 0,
+      rgba(255, 255, 255, 0.5) -1.1em -1.1em 0 0,
+      rgba(255, 255, 255, 0.75) 0 -1.5em 0 0,
+      rgba(255, 255, 255, 0.75) 1.1em -1.1em 0 0;
   }
 
   /* Animation */

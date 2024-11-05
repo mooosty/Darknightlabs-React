@@ -167,13 +167,11 @@
 
         @media(max-width: 1600px) {
             height: calc(100% - 65px);
-        }   
+        }
 
         @media (max-width: 767px) {
             border-radius: 0;
             padding-block: 20px 0px;
-            background-color: #191917;
-            background-image: none;
         }
 
         .page_data {
@@ -186,7 +184,6 @@
                 display: flex;
                 flex-direction: column;
                 border-bottom: 1px solid #f5efdb26;
-                gap: 24px;
 
                 .project_page_header_top {
                     display: flex;
@@ -240,17 +237,12 @@
 
                 .project_page_filter {
                     display: none;
-                    gap: 16px;
-                    transition: max-height 0.5s ease-out;
-
-                    @media (max-width: 1098px) {
-                        width: 100%;
-                    }
 
                     &.active {
-                        max-height: 300px;
-                        transition: max-height 0.5s ease-in;
+                        margin-top: 24px;
                         display: flex;
+                        align-items: center;
+                        gap: 18px;
 
                         @media (max-width: 767px) {
                             flex-direction: column;
@@ -262,7 +254,8 @@
                         max-width: 280px;
 
                         @media (max-width: 767px) {
-                            max-width: 100%;
+                            max-width: none;
+                            width: 100%;
                             flex-grow: none;
                         }
                     }
@@ -272,7 +265,8 @@
                         max-width: 280px;
 
                         @media (max-width: 767px) {
-                            max-width: 100%;
+                            max-width: none;
+                            width: 100%;
                             flex-grow: none;
                         }
                     }
@@ -282,7 +276,8 @@
                         max-width: 280px;
 
                         @media (max-width: 767px) {
-                            max-width: 100%;
+                            max-width: none;
+                            width: 100%;
                             flex-grow: none;
                         }
                     }
@@ -292,7 +287,8 @@
                         max-width: 280px;
 
                         @media (max-width: 767px) {
-                            max-width: 100%;
+                            max-width: none;
+                            width: 100%;
                             flex-grow: none;
                         }
                     }
@@ -302,7 +298,8 @@
                         max-width: 280px;
 
                         @media (max-width: 767px) {
-                            max-width: 100%;
+                            max-width: none;
+                            width: 100%;
                             flex-grow: none;
                         }
                     }
@@ -318,7 +315,7 @@
                     }
 
                     @media (min-width: 1600px) {
-                        .btn_gray{
+                        .btn_gray {
                             padding-block: 12px;
                         }
                     }

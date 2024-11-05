@@ -169,6 +169,12 @@
         background-repeat: no-repeat;
         background-position-x: 10px;
         background-position-y: 10px;
+        min-height: 540px;
+        height: calc(100% - 80px);
+
+        @media(max-width: 1600px) {
+            height: calc(100% - 65px);
+        }
 
         @media (max-width: 767px) {
             border-radius: 0;

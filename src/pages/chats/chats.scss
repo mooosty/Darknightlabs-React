@@ -32,11 +32,16 @@
     width: 100%;
     border-radius: 20px;
     background-color: #191917;
-    height: calc(100vh - 188px);
+    // height: calc(100vh - 188px);
+    min-height: 540px;
+    height: calc(100% - 80px);
     overflow: hidden;
 
+    // @media(max-width: 1600px) {
+    //     height: calc(100vh - 131px);
+    // }
     @media(max-width: 1600px) {
-        height: calc(100vh - 131px);
+        height: calc(100% - 65px);
     }
 
     @media (max-width: 767px) {
@@ -455,6 +460,7 @@
                             display: flex;
                             gap: 8px;
                             align-items: center;
+                            margin-bottom: 15px;
 
                             @media (max-width: 1600px) {
                                 padding: 10px 12px 10px 16px;

@@ -64,7 +64,23 @@
         position: absolute;
         display: none;
         width: 100%;
+        max-height: 200px;
+        overflow-y: auto;
         top: calc(100% + 0px);
+
+        ::-webkit-scrollbar {
+            width: 3px;
+            height: 3px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+            margin-block: 13px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #F5EFDB !important;
+        }
 
         &.active {
             display: block;

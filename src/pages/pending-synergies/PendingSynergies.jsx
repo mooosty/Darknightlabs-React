@@ -525,7 +525,7 @@ const PendingSynergies = () => {
                 <div className="synergies_pagination_content_text">
                   <span className='pagination_head'>Row per page:</span>
                   <span className='pagination_dropdown'>
-                    <select name="cars" id="cars" >
+                    <select name="page" id="page" >
                       <option value="12">12</option>
                       <option value="10">10</option>
                       <option value="8">8</option></select></span>

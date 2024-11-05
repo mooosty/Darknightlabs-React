@@ -25,7 +25,7 @@
 
         @media (max-width: 1600px) {
             font-size: 14px;
-            padding: 10px 20px;
+            padding-block: 12px;
         }
     }
 
@@ -157,38 +157,32 @@
     .synergies_page_data {
         border-radius: 20px;
         background-color: #191917;
-        background-image: url("../../assets/model-frame.png");
-        background-repeat: no-repeat;
-        background-position-x: 10px;
-        background-position-y: 10px;
-        padding-block: 30px 20px;
+        // background-image: url("../../assets/model-frame.png");
+        // background-repeat: no-repeat;
+        // background-position-x: 10px;
+        // background-position-y: 10px;
+        padding: 20px 10px;
+        min-height: 540px;
+        height: calc(100% - 80px);
+
+        @media(max-width: 1600px) {
+            height: calc(100% - 65px);
+        }
 
         @media (max-width: 767px) {
             border-radius: 0;
-            padding: 0 0 40px 0;
-            background-image: none;
-            background-color: #191917;
+            padding-block: 20px 0px;
         }
 
         .page_data {
+            height: 100%;
             background-color: transparent;
-            height: calc(100vh - 269px);
             overflow-y: auto;
-            padding-inline: 24px;
-
-            @media(max-width: 1600px) {
-                height: calc(100vh - 202px);
-            }
 
             .synergies_page_header {
+                padding: 0px 14px 21px 14px;
                 border-bottom: 1px solid #f5efdb26;
-                padding: 0px 10px 21px 10px;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                flex-direction: column;
-                gap: 24px;
-
+           
                 @media (max-width: 767px) {
                     padding: 24px 24px;
                 }
@@ -246,18 +240,16 @@
 
                 .synergy_page_filter {
                     display: none;
-                    gap: 16px;
-                    width: 100%;
-                    transition: all 0.5s linear;
+                    margin-top: 20px;
 
-                    @media (max-width: 1098px) {
-                        width: 100%;
+                    @media (max-width: 767px) {
+                        flex-direction: column;
                     }
 
                     &.active {
                         display: flex;
-                        max-height: 300px;
-                        transition: all 0.5s ease-in;
+                        align-items: center;
+                        gap: 16px;
 
                         @media (max-width: 767px) {
                             flex-direction: column;
@@ -269,27 +261,8 @@
                         max-width: 280px;
 
                         @media (max-width: 767px) {
-                            max-width: 100%;
-                            flex-grow: none;
-                        }
-                    }
-
-                    .project {
-                        flex-grow: 1;
-                        max-width: 280px;
-
-                        @media (max-width: 767px) {
-                            max-width: 100%;
-                            flex-grow: none;
-                        }
-                    }
-
-                    .status {
-                        flex-grow: 1;
-                        max-width: 280px;
-
-                        @media (max-width: 767px) {
-                            max-width: 100%;
+                            max-width: none;
+                            width: 100%;
                             flex-grow: none;
                         }
                     }
@@ -299,7 +272,8 @@
                         max-width: 280px;
 
                         @media (max-width: 767px) {
-                            max-width: 100%;
+                            max-width: none;
+                            width: 100%;
                             flex-grow: none;
                         }
                     }

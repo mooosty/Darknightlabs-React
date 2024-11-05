@@ -1,6 +1,7 @@
 import './synergiesManager.scss'
 import searchIcon from "../../assets/search-icon.png";
 import filterIcon from "../../assets/filter.svg";
+import addIcon from "../../assets/add-icon.png"
 import globalIcon from "../../assets/global.svg";
 import tableActor from "../../assets/tableActorImage.jpg";
 import editIcon from "../../assets/edit-icon.svg";
@@ -306,7 +307,9 @@ const SynergiesManager = () => {
                   Filters{Object.values(filter).filter(value => value !== '').length > 0 && `(${Object.values(filter).filter(value => value !== '').length})`}
                   <img src={filterIcon} alt=" " />
                 </button>
-                {/* <button className={`btn_gray`}> Next Page </button> */}
+                <button className={`btn_gray`}> Add new synergy
+                  <img src={addIcon} alt=" " />
+                </button>
                 {/* <button className={`btn_gray active`} onClick={() => setIsCreateSynergiesPopupOpen(true)}> Synergize </button> */}
                 {/* <button className={`btn_gray`} disabled> Next Page </button> */}
               </div>

@@ -22,6 +22,7 @@ import SynergieaCreatedSuccessfullyPopup from '../../components/popup/synergiea-
 import Loader from '../../components/loader/Loader';
 import { createSynergyApi } from '../../api-services/synergyApi';
 import { createGroupAPI, createUserAPI } from '../../api-services/chatApis';
+import CustomTooltip from '../../components/customTooltip/CustomTooltip';
 
 
 const synergyAnglesOptions = [
@@ -263,7 +264,12 @@ const ProjectManager = () => {
         const users = []
         synergies.projects?.forEach((project) => {
             if (project.teamMembers) {
-                project.teamMembers.forEach((member) => users.push({ ...member }))
+                project.teamMembers.forEach((member) => {
+                    const exists = users.find((user) => user.id === member.id)
+                    if(!exists){
+                        users.push({ ...member })
+                    }
+                })
             }
         })
 
@@ -666,9 +672,11 @@ const ProjectManager = () => {
                                                                             <li
                                                                                 id={`tooltip_team_member_${index}`}
                                                                             >
-                                                                                <img src={member.profile_picture ? member.profile_picture : tableActorImage3} alt="" title="Alexander - Founder and CEO" />
+                                                                                <CustomTooltip text={member.twitter}>
+                                                                                    <img src={member.profile_picture ? member.profile_picture : tableActorImage3} alt="" title="Alexander - Founder and CEO" />
+                                                                                </CustomTooltip>
                                                                             </li>
-                                                                            <Tooltip
+                                                                            {/* <Tooltip
                                                                                 place="top"
                                                                                 style={{
                                                                                     maxWidth: '500px',
@@ -679,7 +687,7 @@ const ProjectManager = () => {
                                                                                 anchorSelect={`#tooltip_team_member_${index}`}
                                                                             >
                                                                                 {member.twitter}
-                                                                            </Tooltip>
+                                                                            </Tooltip> */}
                                                                         </Fragment>
                                                                     )
                                                                 })}
