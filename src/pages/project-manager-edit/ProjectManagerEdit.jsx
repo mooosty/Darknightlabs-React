@@ -18,6 +18,7 @@ import { useNavigate, useParams, Link } from "react-router-dom"
 import { updateProjectAPI } from "../../api-services/projectApis"
 import DeleteConfirmPopup from "../../components/popup/delete-confirm-popup/DeleteConfirmaPopup"
 import axios from "axios"
+import Loader from "../../components/loader/Loader"
 
 const synergyAnglesOptions = [
     {
@@ -63,6 +64,7 @@ const ProjectManagerEdit = () => {
     const [whoAccessToSynergySide, setWhoAccessToSynergySide] = useState('All Users');
     const [whoAccessToInvestmentSide, setWhoAccessToInvestmentSide] = useState('All Users');
     const [isDeleteConfirmPopupOpen, setIsDeleteConfirmPopupOpen] = useState(false);
+    const projectApiLoading = useSelector((state) => state.project.isLoading)
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -81,7 +83,7 @@ const ProjectManagerEdit = () => {
         }],
         description: '',
         synergy_angles: [{
-            synergy_angle0: ''
+            synergy_angle: ''
         }],
         image: null,
         invesments: [
@@ -93,11 +95,14 @@ const ProjectManagerEdit = () => {
         opentoinvest: false
     }
 
+
     const formik = useFormik({
         initialValues: initialValues
     })
 
     const { values, setFieldValue, setValues, handleChange } = formik
+    console.log('ini :>> ', values.synergy_angles);
+
 
     const handleUploadImage = (file) => {
         let reader = new FileReader();
@@ -124,7 +129,7 @@ const ProjectManagerEdit = () => {
         const synergy_obj = {};
 
         values.synergy_angles.forEach((synergy_angle, index) => {
-            synergy_obj[`synergy_angle${index}`] = synergy_angle[`synergy_angle${index}`];
+            synergy_obj[`synergy_angle${index}`] = synergy_angle[`synergy_angle`];
         });
 
         const investment_obj = {};
@@ -132,18 +137,15 @@ const ProjectManagerEdit = () => {
         values.invesments.forEach(({ property, price }) => {
             investment_obj[property] = price;
         });
-        
-        console.log('values.image.file :>> ', values.image.file);
+
         const formData = new FormData();
         formData.append('file', values.image.file);
-        console.log('formData', formData)
         const response = await axios.post(`${import.meta.env.VITE_IMAGE_UPLOAD_BASE_URL}/`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
         });
-        console.log('response :>> ', response);
-        
+
         const data = {
             "project_name": values.project_name,
             "project_info": values.tags,
@@ -183,7 +185,7 @@ const ProjectManagerEdit = () => {
         const synergy_obj = {};
 
         values.synergy_angles.forEach((synergy_angle, index) => {
-            synergy_obj[`synergy_angle${index}`] = synergy_angle[`synergy_angle${index}`];
+            synergy_obj[`synergy_angle${index}`] = synergy_angle[`synergy_angle`];
         });
 
 
@@ -386,13 +388,13 @@ const ProjectManagerEdit = () => {
                                             <input type="text" id="discord_username" name="discord_username" value={values.discord_username} placeholder="discordapp.com/users/xxxx/" onChange={handleChange} />
                                         </div>
                                     </div>
+                                    <label htmlFor="arc">Members</label>
                                     {
                                         values.members.map((member, index) => {
                                             return (
                                                 <>
                                                     <div className="form_item_box">
                                                         <div className="form_group">
-                                                            <label htmlFor="arc">Members</label>
                                                             <Select
                                                                 options={userData.map((user) => {
                                                                     return {
@@ -409,11 +411,10 @@ const ProjectManagerEdit = () => {
                                                                         'position': member.position
                                                                     }, ...values.members.slice(index + 1)])
                                                                 }}
-                                                                
+
                                                             />
                                                         </div>
                                                         <div className="form_group">
-                                                            <label htmlFor="owner">Owner</label>
                                                             <Select
                                                                 options={[
                                                                     { label: 'Owner', value: 'Owner' },
@@ -422,7 +423,7 @@ const ProjectManagerEdit = () => {
                                                                 value={member.position}
                                                                 onChange={(value) => {
                                                                     setFieldValue('members', [...values.members.slice(0, index), {
-                                                                        'name': member.name,
+                                                                        ...member,
                                                                         'position': value.value,
                                                                     }, ...values.members.slice(index + 1)])
                                                                 }}
@@ -484,11 +485,11 @@ const ProjectManagerEdit = () => {
                                                             placeholder='Select synergy angel'
                                                             hasAddButton={true}
                                                             onAdd={() => setIsAddAngelPopupOpen(true)}
-                                                            value={synergy_angle[`synergy_angle${index}`]}
+                                                            value={synergy_angle[`synergy_angle`]}
                                                             addButtonLabel='Add new angle'
                                                             onChange={(value) => {
                                                                 setFieldValue('synergy_angles', [...values.synergy_angles.slice(0, index), {
-                                                                    [`synergy_angle${index}`]: value.value
+                                                                    [`synergy_angle`]: value.value
                                                                 }, ...values.synergy_angles.slice(index + 1)])
                                                             }}
                                                         />
@@ -632,6 +633,8 @@ const ProjectManagerEdit = () => {
                 handleClose={() => setIsAddAngelPopupOpen(false)}
 
             />
+
+            <Loader loading={projectApiLoading} />
 
         </>
     )

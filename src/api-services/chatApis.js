@@ -4,7 +4,7 @@ import { chatAxiosApi } from './index'
 
 export const createGroupAPI = createAsyncThunk('chat/group/create',
     async (data, thunkAPI) => {
-        const response = await chatAxiosApi.post(apiRoutes.CHATGROUP, data)
+        const response = await chatAxiosApi.post(apiRoutes.CHAT_GROUP, data)
         console.log('response :>> ', response);
         if (response?.status)
             return response.data;
@@ -41,7 +41,7 @@ export const addUserToChat = createAsyncThunk('chat/add_user',
 
 export const getAllUsers = createAsyncThunk('chat/user/get',
     async (thunkAPI) => {
-        const response = await chatAxiosApi.get(apiRoutes.CHATALLUSER)
+        const response = await chatAxiosApi.get(apiRoutes.CHAT_ALL_USER)
         if (response?.data.status)
             return response.data;
         else return thunkAPI.rejectWithValue(response?.data)
@@ -50,7 +50,7 @@ export const getAllUsers = createAsyncThunk('chat/user/get',
 
 export const getChatMessages = createAsyncThunk('chat/message/get',
     async (data, thunkAPI) => {
-        const response = await chatAxiosApi.get(apiRoutes.CHATMSG + `/${data}`)
+        const response = await chatAxiosApi.get(apiRoutes.CHAT_MSG + `/${data}`)
         if (response?.status)
             return {
                 response: response.data,
@@ -62,7 +62,7 @@ export const getChatMessages = createAsyncThunk('chat/message/get',
 
 export const sendMsg = createAsyncThunk('chat/message/send',
     async (data, thunkAPI) => {
-        const response = await chatAxiosApi.post(apiRoutes.SENDMSG, data)
+        const response = await chatAxiosApi.post(apiRoutes.SEND_MSG, data)
         if (response?.status)
             return response.data;
         else return thunkAPI.rejectWithValue(response?.data)
@@ -71,7 +71,7 @@ export const sendMsg = createAsyncThunk('chat/message/send',
 
 export const addMemberIntoGroup = createAsyncThunk('grouop/member/add',
     async (data, thunkAPI) => {
-        const response = await chatAxiosApi.post(apiRoutes.ADDMEMBER, data)
+        const response = await chatAxiosApi.post(apiRoutes.ADD_MEMBER, data)
         if (response?.status)
             return response.data;
         else return thunkAPI.rejectWithValue(response?.data)

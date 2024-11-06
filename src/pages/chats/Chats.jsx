@@ -32,7 +32,7 @@ import chatMassageDP from '../../assets/chat-message-dp.png'
 // import chatMassageDP1 from '../../assets/chat-message-dp1.png'
 // import sharedImg from '../../assets/chat_shared-image.png'
 import { AddUserIcon, AttechmentIcon, DownAccordionIcon, EmojiFiiledIcon, HashTag, MicrophoneIcon, UserIcon } from '../../utils/SVGs/SVGs';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import AddChatMemberPopup from '../../components/popup/add-chat-menber-popup/AddChatMemberPopup'
 import ChatMembers from '../../components/chat-members/ChatMembers';
 import { getAllUsers, getGroupsAPI, getChatMessages, sendMsg } from '../../api-services/chatApis';
@@ -89,7 +89,7 @@ const Chats = () => {
     const msgInfo = useSelector((state) => state.chat.groupMsg)
     const userData = useSelector((state) => state.auth)
     const chatApiLoading = useSelector((state) => state.chat.isLoading)
-    const groupApiLoading=useSelector((state)=> state.group.isLoading)
+    const groupApiLoading = useSelector((state) => state.group.isLoading)
 
     const dispatch = useDispatch();
 
@@ -243,7 +243,7 @@ const Chats = () => {
                                 if (index < groupData.length) {
                                     return (
                                         <div key={index} className='avtar_img' onClick={() => {
-                                                setOpenChatIndex(index)
+                                            setOpenChatIndex(index)
                                         }}>
                                             <img src={data.img} alt="" />
                                             <div className={data.message ? "notification" : ''}>{data.message}</div>
@@ -275,7 +275,7 @@ const Chats = () => {
                                     <div className='data_list'>
                                         {groupData.map((data, index) => {
                                             return (
-                                                <>
+                                                <Fragment key={index}>
                                                     {openChatIndex === index ?
                                                         <div key={index} className='data_list_item active' onClick={() => handleChatOpen(index)}>
                                                             <HashTag />
@@ -289,7 +289,7 @@ const Chats = () => {
                                                             {data.message ? <span className='notification'>{data.message}</span> : ''}
                                                         </div>
                                                     }
-                                                </>
+                                                </Fragment>
                                             )
                                         })}
                                     </div> : ''
@@ -319,7 +319,7 @@ const Chats = () => {
                                 {
                                     msgInfo.messages.map((msg, index) => {
                                         return (
-                                            <>
+                                            <Fragment key={index}>
                                                 {
                                                     (index === 0 || !isEqualDate(msg.createdAt, msgInfo.messages[index - 1].createdAt)) && <div className="date_separator ">
                                                         <div className="left"></div>
@@ -360,7 +360,7 @@ const Chats = () => {
                                                         </div> */}
                                                     </div>
                                                 }
-                                            </>
+                                            </Fragment>
                                         )
                                     })
                                 }
@@ -652,7 +652,7 @@ const Chats = () => {
                 groupData={groupData}
                 openChatIndex={openChatIndex}
             />
-            <Loader loading={chatApiLoading || groupApiLoading}/>
+            <Loader loading={chatApiLoading || groupApiLoading} />
         </>
     )
 }

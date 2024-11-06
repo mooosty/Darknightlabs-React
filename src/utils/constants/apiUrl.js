@@ -1,18 +1,18 @@
 export const apiRoutes = {
     BASE: import.meta.env.VITE_APP_BASE_URL,
-    CHATBASEURL: import.meta.env.CHAT_VITE_APP_BASE_URL,
+    CHAT_BASE_URL: import.meta.env.CHAT_VITE_APP_BASE_URL,
     PROJECT: '/projects',
     USER_PROJECT: '/userprojects',
     USER: '/users',
 
     CHAT: '/chat/group/fetch',
-    CHATGROUP: '/chat/group/create',
-    ADDMEMBER: '/chat/group/addtogroup',
+    CHAT_GROUP: '/chat/group/create',
+    ADD_MEMBER: '/chat/group/addtogroup',
     CREATE_CHAT_USER: '/user/create',
 
-    CHATALLUSER: '/user/all',
-    CHATMSG: '/message/all',
-    SENDMSG: '/message/send',
-    PROJECTUSER: 'projectusers',
+    CHAT_ALL_USER: '/user/all',
+    CHAT_MSG: '/message/all',
+    SEND_MSG: '/message/send',
+    PROJECT_USER: 'projectusers',
     SYNERGY: '/synergies'
 }

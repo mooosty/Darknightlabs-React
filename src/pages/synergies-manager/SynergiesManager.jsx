@@ -269,7 +269,6 @@ const SynergiesManager = () => {
   }, [data])
 
   useEffect(() => {
-    if (data.length === 0)
       dispatch(getSynergyApi())
   }, [])
 
@@ -356,6 +355,7 @@ const SynergiesManager = () => {
                     id='checkboxSelected'
                     className='costum_checkbox_input'
                     checked={selectedSynergy.length === filterSynergies.length && filterSynergies.length !== 0}
+                    readOnly={true}
                   />
                   <label
                     htmlFor='checkboxSelected'
@@ -412,7 +412,7 @@ const SynergiesManager = () => {
                           <td>
                             <div className='table_name'>
                               <div className="costum_checkbox">
-                                <input type="checkbox" id={`tableName_${rowData.key}`} className='costum_checkbox_input' checked={selectedSynergy.includes(rowData.key)} />
+                                <input type="checkbox" id={`tableName_${rowData.key}`} className='costum_checkbox_input' checked={selectedSynergy.includes(rowData.key)} readOnly={true}/>
                                 <label htmlFor={`tableName_${rowData.key}`} className='costum_checkbox_label'
                                   onClick={() => {
                                     handleSelectedSynergy(rowData.key);

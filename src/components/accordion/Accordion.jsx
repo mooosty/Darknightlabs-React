@@ -48,7 +48,7 @@ const Accordion = ({
                                 <div className='left'>
                                     <div>
                                         <div className="costum_checkbox">
-                                            <input type="checkbox" id={`checkbox_${id}`} className='costum_checkbox_input' checked={checked}/>
+                                            <input type="checkbox" id={`checkbox_${id}`} className='costum_checkbox_input' checked={checked} readOnly={true}/>
                                             <label htmlFor={`checkbox_${id}`} className='costum_checkbox_label' onClick={onSelect}></label>
                                         </div>
                                     </div>
@@ -124,7 +124,7 @@ Accordion.propTypes = {
     creatorImg: PropTypes.any,
     creator: PropTypes.string,
     synergyImg: PropTypes.any,
-    price: PropTypes.string,
+    price: PropTypes.number,
     date: PropTypes.string,
     synergiesAngles: PropTypes.array,
     onEdit: PropTypes.func,

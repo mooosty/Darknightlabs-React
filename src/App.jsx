@@ -14,7 +14,8 @@ import Chats from './pages/chats/Chats'
 import PendingSynergies from './pages/pending-synergies/PendingSynergies'
 import { injectStore } from './store/injector'
 import { store } from './store/store'
-
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
 
@@ -41,8 +42,8 @@ function App() {
 
           <Route path="*" element={<div>Not found</div>} />
         </Routes>
-        
       </BrowserRouter>
+      <ToastContainer />
     </>
   )
 }

@@ -23,7 +23,7 @@ const synergySlice = createSlice({
 
         builder.addCase(
             createSynergyApi.fulfilled, (state, action) => {
-                const tmpArr=action.payload.response.split(' ');
+                const tmpArr = action.payload.response.split(' ');
                 return {
                     ...state,
                     isLoading: false,
@@ -31,7 +31,7 @@ const synergySlice = createSlice({
                         ...action.payload.data,
                         "creator_name": null,
                         "creator_profile_image": null,
-                        "id":Number(tmpArr[tmpArr.length - 1])
+                        "id": Number(tmpArr[tmpArr.length - 1])
                     }]
                 }
             }
@@ -45,10 +45,17 @@ const synergySlice = createSlice({
         })
 
         builder.addCase(getSynergyApi.pending, (state) => {
-            return {
-                ...state,
-                isLoading: true,
-                synergies: [],
+            if (state.synergies.length === 0) {
+                return {
+                    ...state,
+                    isLoading: true,
+                    synergies: [],
+                }
+            }
+            else{
+                return {
+                    ...state
+                }
             }
         })
 

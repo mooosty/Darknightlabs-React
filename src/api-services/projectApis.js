@@ -52,7 +52,7 @@ export const addMemberAPI = createAsyncThunk('userproject/add',
 
 export const getMemberApi = createAsyncThunk('userproject/get',
     async (data, thunkAPI) => {
-        const response = await axiosApi.get(`${apiRoutes.PROJECTUSER}/${data}`)
+        const response = await axiosApi.get(`${apiRoutes.PROJECT_USER}/${data}`)
         if (response?.data?.success) return response?.data
         else return thunkAPI.rejectWithValue(response?.data)
     }

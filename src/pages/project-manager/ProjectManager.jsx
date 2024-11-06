@@ -23,6 +23,7 @@ import Loader from '../../components/loader/Loader';
 import { createSynergyApi } from '../../api-services/synergyApi';
 import { createGroupAPI, createUserAPI } from '../../api-services/chatApis';
 import CustomTooltip from '../../components/customTooltip/CustomTooltip';
+import { toast } from "react-toastify";
 
 
 const synergyAnglesOptions = [
@@ -249,8 +250,6 @@ const ProjectManager = () => {
     };
 
     const handleSubmitSynergy = () => {
-        console.log('synergies :>> ', synergies);
-
         const data = {
             "_project_id": synergies.projects[0]['project_id'],
             "project2_id": synergies.projects[1]['project_id'],
@@ -287,14 +286,12 @@ const ProjectManager = () => {
                         email: user.email,
                         password: `${user.id}@@@${user.email}`,
                     }
-                    console.log('payload', payload)
                     return dispatch(createUserAPI(payload))
                 })
 
                 await Promise.allSettled(userPromises)
 
                 dispatch(createGroupAPI(groupData)).then((res) => {
-                    console.log('res :>> ', res);
                     setCreateSynergyStep(0);
                     setProjectCounter(0);
                     setSynergies({
@@ -304,6 +301,12 @@ const ProjectManager = () => {
                     setSelectedProjects([]);
                     setSelectedProjectForSynergy(null);
                     setCreateSynergySuccessPopup(true);
+                    
+                    if(res?.error?.code==="ERR_BAD_REQUEST"){
+                        throw new Error(res?.error);
+                    }
+                }).catch(()=>{
+                    toast.error("Synergy Not Created");
                 })
             } catch (err) {
                 console.error('err', err)
@@ -320,7 +323,6 @@ const ProjectManager = () => {
                     return synergy.label === filter.synergyAngleValue;
                 }) !== -1;
             });
-            console.log('filterArr :>> ', filterArr, filter);
             data = [...filterArr];
         }
         if (filter.status !== '') {
