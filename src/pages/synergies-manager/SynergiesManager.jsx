@@ -7,7 +7,7 @@ import tableActor from "../../assets/tableActorImage.jpg";
 import editIcon from "../../assets/edit-icon.svg";
 import trashIcon from "../../assets/trash-icon.png";
 import AddSynergiesPopup from '../../components/popup/add-synergies-popup/AddSynergiesPopup';
-import { GridIcon, ListIcon, MoreIcon } from '../../utils/SVGs/SVGs';
+import { GradientGraphIcon, GredientGlobalIcon, GridIcon, ListIcon, MoreIcon } from '../../utils/SVGs/SVGs';
 import { useEffect, useState } from 'react';
 import DeleteConfirmPopup from '../../components/popup/delete-confirm-popup/DeleteConfirmaPopup';
 import Accordion from '../../components/accordion/Accordion';
@@ -22,6 +22,7 @@ import closeIcon from "../../assets/X-icon.png";
 import BottomMenu from '../../components/buttom-menu/BottomMenu';
 import Select from '../../components/select/Select';
 import Loader from '../../components/loader/Loader';
+import cardImg from '../../assets/project-card-img-1.png'
 
 const synergyAnglesOptions = [
   {
@@ -346,164 +347,165 @@ const SynergiesManager = () => {
               </div>
             </div>
           </div>
-          <div className="synergies_page_body">
-            <div className={`synergy_page_table_handler ${selectedSynergy.length > 0 ? 'active' : ''}`}>
-              <div className="selected_count">
-                <div className="costum_checkbox">
-                  <input
-                    type="checkbox"
-                    id='checkboxSelected'
-                    className='costum_checkbox_input'
-                    checked={selectedSynergy.length === filterSynergies.length && filterSynergies.length !== 0}
-                    readOnly={true}
-                  />
-                  <label
-                    htmlFor='checkboxSelected'
-                    className='costum_checkbox_label'
-                    onClick={handleSelectAllProjects}
-                  ></label>
+          {activeLayout === 'TAB' &&
+            <div className="synergies_page_body">
+              <div className={`synergy_page_table_handler ${selectedSynergy.length > 0 ? 'active' : ''}`}>
+                <div className="selected_count">
+                  <div className="costum_checkbox">
+                    <input
+                      type="checkbox"
+                      id='checkboxSelected'
+                      className='costum_checkbox_input'
+                      checked={selectedSynergy.length === filterSynergies.length && filterSynergies.length !== 0}
+                      readOnly={true}
+                    />
+                    <label
+                      htmlFor='checkboxSelected'
+                      className='costum_checkbox_label'
+                      onClick={handleSelectAllProjects}
+                    ></label>
+                  </div>
+                  <span>
+                    {selectedSynergy.length} Selected
+                  </span>
                 </div>
-                <span>
-                  {selectedSynergy.length} Selected
-                </span>
-              </div>
-              <div className="table_actions">
-                <button className="btn_cancle btn_gray" onClick={handleCancelSelection}>
-                  <img src={closeIcon} alt="Add" />
-                  <span>Cancel</span>
-                </button>
-                <button className="btn_delete" onClick={() => {
-                  setIsMultiDeleteConfirmPopupOpen(true);
-                }}>
-                  <img src={trashIcon} alt="Delete" />
-                  <span>Delete</span>
-                </button>
-              </div>
+                <div className="table_actions">
+                  <button className="btn_cancle btn_gray" onClick={handleCancelSelection}>
+                    <img src={closeIcon} alt="Add" />
+                    <span>Cancel</span>
+                  </button>
+                  <button className="btn_delete" onClick={() => {
+                    setIsMultiDeleteConfirmPopupOpen(true);
+                  }}>
+                    <img src={trashIcon} alt="Delete" />
+                    <span>Delete</span>
+                  </button>
+                </div>
 
-              <div className="table_actions_button">
-                <button className="button_delete " onClick={() => {
-                  setIsMultiDeleteConfirmPopupOpen(true);
-                }}>
-                  <img src={trashIcon} alt="Delete" />
-                </button>
-                <button className="menu_button" onClick={() => setIsBottomMenuOpen(true)}>
-                  <MoreIcon />
-                </button>
+                <div className="table_actions_button">
+                  <button className="button_delete " onClick={() => {
+                    setIsMultiDeleteConfirmPopupOpen(true);
+                  }}>
+                    <img src={trashIcon} alt="Delete" />
+                  </button>
+                  <button className="menu_button" onClick={() => setIsBottomMenuOpen(true)}>
+                    <MoreIcon />
+                  </button>
+                </div>
               </div>
-            </div>
-            <div className="synergies_page_table">
-              {/* // ! loader set in table body when data is not fetched */}
-              <table>
-                <thead>
-                  <tr>
-                    <th>Synergy name</th>
-                    <th className='center'>Creator</th>
-                    <th className='center'>Image</th>
-                    <th className='center'>Synergies angles</th>
-                    <th className='center'>Date</th>
-                    <th className='center'>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {
-                    filterSynergies.map((rowData) => {
-                      return (
-                        <tr key={rowData.key} className={`${rowData?.disabled ? 'disable' : ''}`}>
-                          <td>
-                            <div className='table_name'>
-                              <div className="costum_checkbox">
-                                <input type="checkbox" id={`tableName_${rowData.key}`} className='costum_checkbox_input' checked={selectedSynergy.includes(rowData.key)} readOnly={true} />
-                                <label htmlFor={`tableName_${rowData.key}`} className='costum_checkbox_label'
-                                  onClick={() => {
-                                    handleSelectedSynergy(rowData.key);
-                                  }}>
-                                </label>
+              <div className="synergies_page_table">
+                {/* // ! loader set in table body when data is not fetched */}
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Synergy name</th>
+                      <th className='center'>Creator</th>
+                      <th className='center'>Image</th>
+                      <th className='center'>Synergies angles</th>
+                      <th className='center'>Date</th>
+                      <th className='center'>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {
+                      filterSynergies.map((rowData) => {
+                        return (
+                          <tr key={rowData.key} className={`${rowData?.disabled ? 'disable' : ''}`}>
+                            <td>
+                              <div className='table_name'>
+                                <div className="costum_checkbox">
+                                  <input type="checkbox" id={`tableName_${rowData.key}`} className='costum_checkbox_input' checked={selectedSynergy.includes(rowData.key)} readOnly={true} />
+                                  <label htmlFor={`tableName_${rowData.key}`} className='costum_checkbox_label'
+                                    onClick={() => {
+                                      handleSelectedSynergy(rowData.key);
+                                    }}>
+                                  </label>
+                                </div>
+                                <span className='label'> {rowData.synergyName}</span>
                               </div>
-                              <span className='label'> {rowData.synergyName}</span>
-                            </div>
-                          </td>
-                          <td>
-                            <div className='actor'>
-                              <img src={rowData.creatorImg} alt=" " />
-                              <span>{rowData.creator}</span>
-                            </div>
-                          </td>
-                          <td>
-                            <div className="table_image">
-                              <img src={rowData.synergyImg} alt=" " />
-                            </div>
-                          </td>
-                          <td>
-                            <div className='table_angles'>
-                              {
-                                rowData.synergiesAngles.map((angle, index) => (
-                                  <span className='angle_tag' key={index}>
-                                    <img src={globalIcon} alt=" " />
-                                    <span>{angle}</span>
-                                  </span>
-                                ))
-                              }
-                            </div>
-                          </td>
-                          <td>
-                            <div className="date">{rowData.date}</div>
-                          </td>
-                          <td>
-                            <div className="actions">
-                              <button
-                                onClick={() => {
-                                  setEditId(rowData.key);
-                                  setIsEditSynergiesPopupOpen(true);
-                                }}
-                              >
-                                <img src={editIcon} alt=" " />
-                              </button>
-                              <button
-                                onClick={() => {
-                                  setDeleteId(rowData.key)
-                                  setIsDeleteConfirmPopupOpen(true)
+                            </td>
+                            <td>
+                              <div className='actor'>
+                                <img src={rowData.creatorImg} alt=" " />
+                                <span>{rowData.creator}</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div className="table_image">
+                                <img src={rowData.synergyImg} alt=" " />
+                              </div>
+                            </td>
+                            <td>
+                              <div className='table_angles'>
+                                {
+                                  rowData.synergiesAngles.map((angle, index) => (
+                                    <span className='angle_tag' key={index}>
+                                      <img src={globalIcon} alt=" " />
+                                      <span>{angle}</span>
+                                    </span>
+                                  ))
                                 }
-                                }
-                              >
-                                <img src={trashIcon} alt=" " />
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      )
-                    })
-                  }
-                </tbody>
-              </table>
-            </div>
-            <div className="synergies_page_accordion">
-              {
-                filterSynergies.map((rowData) => (
-                  <Accordion
-                    key={rowData.key}
-                    synergyName={rowData.synergyName}
-                    creatorImg={rowData.creatorImg}
-                    creator={rowData.creator}
-                    synergyImg={rowData.synergyImg}
-                    price={rowData.price}
-                    synergiesAngles={rowData.synergiesAngles}
-                    date={rowData.date}
-                    checked={selectedSynergy.includes(rowData.key)}
-                    onDelete={() => {
-                      setDeleteId(rowData.key);
-                      setIsDeleteConfirmPopupOpen(true);
-                    }}
-                    onEdit={() => {
-                      setEditId(rowData.key);
-                      setIsEditSynergiesPopupOpen(true);
-                    }}
-                    onSelect={() => {
-                      handleSelectedSynergy(rowData.key);
-                    }}
-                  />))
-              }
-            </div>
-            {/* <div className="synergies_table_pagination">
+                              </div>
+                            </td>
+                            <td>
+                              <div className="date">{rowData.date}</div>
+                            </td>
+                            <td>
+                              <div className="actions">
+                                <button
+                                  onClick={() => {
+                                    setEditId(rowData.key);
+                                    setIsEditSynergiesPopupOpen(true);
+                                  }}
+                                >
+                                  <img src={editIcon} alt=" " />
+                                </button>
+                                <button
+                                  onClick={() => {
+                                    setDeleteId(rowData.key)
+                                    setIsDeleteConfirmPopupOpen(true)
+                                  }
+                                  }
+                                >
+                                  <img src={trashIcon} alt=" " />
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        )
+                      })
+                    }
+                  </tbody>
+                </table>
+              </div>
+              <div className="synergies_page_accordion">
+                {
+                  filterSynergies.map((rowData) => (
+                    <Accordion
+                      key={rowData.key}
+                      synergyName={rowData.synergyName}
+                      creatorImg={rowData.creatorImg}
+                      creator={rowData.creator}
+                      synergyImg={rowData.synergyImg}
+                      price={rowData.price}
+                      synergiesAngles={rowData.synergiesAngles}
+                      date={rowData.date}
+                      checked={selectedSynergy.includes(rowData.key)}
+                      onDelete={() => {
+                        setDeleteId(rowData.key);
+                        setIsDeleteConfirmPopupOpen(true);
+                      }}
+                      onEdit={() => {
+                        setEditId(rowData.key);
+                        setIsEditSynergiesPopupOpen(true);
+                      }}
+                      onSelect={() => {
+                        handleSelectedSynergy(rowData.key);
+                      }}
+                    />))
+                }
+              </div>
+              {/* <div className="synergies_table_pagination">
             <div className="synergies_table_pagination_content">
               <div className="synergies_table_pagination_content_text">
                 <span className='pagination_head'>Row per page:</span>
@@ -525,7 +527,58 @@ const SynergiesManager = () => {
               </div>
             </div>
           </div> */}
-          </div>
+            </div>
+          }
+          {activeLayout === 'LAYOUT' &&
+            <div className='card_container'>
+              {filterSynergies.map((cardData, index) => {
+                const cardImage = cardData.synergyImg                
+                return (
+                  <>
+                    <div key={index} className={`card `}>
+                      <div className="card_image">
+                        {/* synergyImg */}
+                        <img src={!cardImage ? cardImg : cardImage} alt=" " />
+                      </div>
+                      <div className="card_body">
+                        <div className="name">
+                          {cardData.synergyName}
+                        </div>
+                        <div className="creator">
+                          <img src={cardData.creatorImg} alt="" />
+                        <span className="creator_name">{cardData.creator}</span> 
+                        </div>
+                        <div className="tabs">
+                          {
+                            cardData.synergiesAngles.slice(0, 3).map((Angle, index) => (
+                              <div className={`${index === 0 ? 'global' : (index === 1 ? 'graph' : '')}`} key={index}>
+                                <div className='angle_tag'>
+                                  <>{index === 0 && <div className='icon'><GredientGlobalIcon /></div>}</>
+                                  <>{index === 1 && <div className='icon'><GradientGraphIcon /></div>}</>
+                                  <span className='text'>
+                                    <span>{Angle}</span>
+                                  </span>
+                                </div>
+                              </div>
+                            ))
+                          }
+                          {/* {cardData.synergiesAngles.length > 3 ?
+                            <div className="angle_tag">
+                              <span className='angle_tag_count'>+{cardData.synergiesAngles.length - 3}</span>
+                            </div>
+                            : ''} */}
+                        </div>
+                        {/* <div className='tabs'>
+                          {cardData.date}
+                        </div> */}
+                      </div>
+                    </div>
+                  </>
+                )
+              })
+              }
+            </div>
+          }
         </div>
       </div>
 

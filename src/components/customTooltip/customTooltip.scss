@@ -11,43 +11,85 @@
         border-radius: 8px;
         z-index: 1000;
 
-        &::after {
-            content: '';
-            display: block;
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 14px;
-            z-index: 100;
-            clip-path: polygon(50% 100%, 100% 0%, 0% 0%);
-            height: 12px;
-            background-color: #4F4F4F;
-        }
-
-
         &.top {
             bottom: 125%;
             left: 50%;
             transform: translateX(-50%);
+
+            &::after {
+                content: '';
+                display: block;
+                position: absolute;
+                bottom: -8px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 14px;
+                z-index: 100;
+                clip-path: polygon(50% 100%, 100% 0%, 0% 0%);
+                height: 12px;
+                background-color: #4F4F4F;
+            }
         }
 
         &.right {
             top: 50%;
-            left: 100%;
+            left: 125%;
             transform: translateY(-50%);
+
+            &::after {
+                content: '';
+                display: block;
+                position: absolute;
+                left: -3px;
+                top: 30%;
+                transform: translateX(-50%);
+                width: 14px;
+                z-index: 100;
+                clip-path: polygon(100% 0, 0 54%, 100% 100%);
+                height: 12px;
+                background-color: #4F4F4F;
+            }
         }
 
         &.bottom {
-            top: 100%;
+            top: 125%;
             left: 50%;
             transform: translateX(-50%);
+
+
+            &::after {
+                content: '';
+                display: block;
+                position: absolute;
+                left: 50%;
+                top: -10px;
+                transform: translateX(-50%);
+                width: 14px;
+                z-index: 100;
+                clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+                height: 12px;
+                background-color: #4F4F4F;
+            }
         }
 
         &.left {
             top: 50%;
-            right: 100%;
+            right: 125%;
             transform: translateY(-50%);
+
+            &::after {
+                content: '';
+                display: block;
+                position: absolute;
+                right: -18px;
+                top: 30%;
+                transform: translateX(-50%);
+                width: 14px;
+                z-index: 100;
+                clip-path: polygon(0 0, 0% 100%, 100% 53%);
+                height: 12px;
+                background-color: #4F4F4F;
+            }
         }
     }
 }

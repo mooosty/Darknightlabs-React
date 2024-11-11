@@ -19,7 +19,7 @@ const Card = ({
 
     return (
         <>
-            <div className="card">
+            <div className="synergy_card">
                 <div className="card_img">
                     <img src={img} alt="" />
                 </div>

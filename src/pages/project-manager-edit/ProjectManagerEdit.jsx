@@ -307,7 +307,7 @@ const ProjectManagerEdit = () => {
                     <a href="#">Darknight Labs</a>
                 </div>
             </div>
-            <div className="project_page_data">
+            <div className="project_edit_page_data">
                 <div className="page_data">
                     <div className="page_header">
                         <div className="pagination">

@@ -19,7 +19,7 @@ function TagInput({ tags, setTags }) {
 
 
     return (
-        <div>
+        <div className='tag_input_container'>
             <div className='tags_list'>
                 {Array.isArray(tags) && tags.map((tag, index) => (
                     <span key={index} className='tag'>

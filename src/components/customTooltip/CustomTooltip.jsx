@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './customTooltip.scss'; // Optional: for styling
 import PropTypes from 'prop-types';
 
-const CustomTooltip = ({ children, text}) => {
+const CustomTooltip = ({ children, text, place='top'}) => {
     const [visible, setVisible] = useState(false);
 
     const showTooltip = () => setVisible(true);
@@ -12,7 +12,7 @@ const CustomTooltip = ({ children, text}) => {
         <div className="tooltip-container" onMouseEnter={showTooltip} onMouseLeave={hideTooltip}>
             {children}
             {visible && (
-                <div className={`tooltip top`}>
+                <div className={`tooltip ${place}`}>
                     {text}
                 </div>
             )}
@@ -22,6 +22,7 @@ const CustomTooltip = ({ children, text}) => {
 CustomTooltip.propTypes = {
     children: PropTypes.reactNode,
     text: PropTypes.string,
+    place: PropTypes.string,
 }
 
 export default CustomTooltip;
