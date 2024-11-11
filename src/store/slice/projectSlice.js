@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { getProjectsAPI, addProjectAPI, addMemberAPI, deleteProjectAPI, updateProjectAPI, getMemberApi,getProjectsApiById } from "../../api-services/projectApis"
+import { getProjectsAPI, addProjectAPI, addMemberAPI, deleteProjectAPI, updateProjectAPI, getMemberApi, getProjectsApiById } from "../../api-services/projectApis"
 
 const initialState = {
     projects: [],
-    isLoading: false
+    isLoading: false,
+    isSaveLoading: false
 }
 
 const projectSlice = createSlice({
@@ -22,18 +23,18 @@ const projectSlice = createSlice({
 
         builder.addCase(
             getProjectsAPI.fulfilled, (state, action) => {
-                if(action.payload?.length>0){
+                if (action.payload?.length > 0) {
                     return {
                         ...state,
                         isLoading: false,
-                        projects:action.payload ?? [],
+                        projects: action.payload ?? [],
                     }
                 }
-                else{
+                else {
                     return {
                         ...state,
                         isLoading: false,
-                        projects:[],
+                        projects: [],
                     }
                 }
             }
@@ -95,7 +96,8 @@ const projectSlice = createSlice({
         builder.addCase(updateProjectAPI.pending, (state) => {
             return {
                 ...state,
-                isLoading: true
+                isLoading: true,
+                isSaveLoading: true
             }
         })
         builder.addCase(
@@ -111,14 +113,16 @@ const projectSlice = createSlice({
                         }
                         return project;
                     })],
-                    isLoading: false
+                    isLoading: false,
+                    isSaveLoading: false
                 }
             }
         )
         builder.addCase(updateProjectAPI.rejected, (state) => {
             return {
                 ...state,
-                isLoading: false
+                isLoading: false,
+                isSaveLoading: false
             }
         })
 

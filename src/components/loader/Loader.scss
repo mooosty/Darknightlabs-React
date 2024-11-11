@@ -1,5 +1,4 @@
 .loader_container {
-
   .loading {
     position: fixed;
     height: 2em;
@@ -12,19 +11,18 @@
     right: 0;
     margin-left: calc(50% + 150px);
 
-    @media(max-width: 1600px) {
+    @media (max-width: 1600px) {
       margin-left: calc(50% + 120px);
     }
 
     @media (max-width: 1199px) {
       margin-left: calc(50% + 120px);
     }
-
   }
 
   /* Transparent Overlay */
   .loading:before {
-    content: '';
+    content: "";
     display: block;
     position: fixed;
     top: 0;
@@ -44,7 +42,7 @@
   }
 
   .loading:not(:required):after {
-    content: '';
+    content: "";
     display: block;
     font-size: 10px;
     width: 1em;
@@ -56,7 +54,11 @@
     -o-animation: spinner 1500ms infinite linear;
     animation: spinner 1500ms infinite linear;
     border-radius: 0.5em;
-    -webkit-box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.5) -1.5em 0 0 0, rgba(0, 0, 0, 0.5) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0,
+      rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0,
+      rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.5) -1.5em 0 0 0,
+      rgba(0, 0, 0, 0.5) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0,
+      rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
     box-shadow: rgba(255, 255, 255, 0.75) 1.5em 0 0 0,
       rgba(255, 255, 255, 0.75) 1.1em 1.1em 0 0,
       rgba(255, 255, 255, 0.75) 0 1.5em 0 0,
@@ -138,6 +140,53 @@
       -ms-transform: rotate(360deg);
       -o-transform: rotate(360deg);
       transform: rotate(360deg);
+    }
+  }
+}
+
+// Variables for customization
+$loader-size: 20px;
+$loader-color: #fff;
+
+.loader_container_for_btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  .loader {
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    border-top: 3px solid $loader-color; // Use variable for color
+    border-radius: 50%;
+    width: $loader-size; // Use variable for size
+    height: $loader-size; // Use variable for size
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .loading-text {
+    visibility: hidden;
+  }
+
+  @media (max-width: 1600px) {
+    .loader {
+      width: $loader-size * 0.8;
+      height: $loader-size * 0.8;
+    }
+  }
+
+  @media (max-width: 1199px) {
+    .loader {
+      width: $loader-size * 0.7;
+      height: $loader-size * 0.7;
     }
   }
 }

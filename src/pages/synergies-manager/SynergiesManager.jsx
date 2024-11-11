@@ -269,7 +269,7 @@ const SynergiesManager = () => {
   }, [data])
 
   useEffect(() => {
-      dispatch(getSynergyApi())
+    dispatch(getSynergyApi())
   }, [])
 
 
@@ -306,9 +306,9 @@ const SynergiesManager = () => {
                   Filters{Object.values(filter).filter(value => value !== '').length > 0 && `(${Object.values(filter).filter(value => value !== '').length})`}
                   <img src={filterIcon} alt=" " />
                 </button>
-                <button className={`btn_gray`}> Add new synergy
+                {/* <button className={`btn_gray`}> Add new synergy
                   <img src={addIcon} alt=" " />
-                </button>
+                </button> */}
                 {/* <button className={`btn_gray active`} onClick={() => setIsCreateSynergiesPopupOpen(true)}> Synergize </button> */}
                 {/* <button className={`btn_gray`} disabled> Next Page </button> */}
               </div>
@@ -412,7 +412,7 @@ const SynergiesManager = () => {
                           <td>
                             <div className='table_name'>
                               <div className="costum_checkbox">
-                                <input type="checkbox" id={`tableName_${rowData.key}`} className='costum_checkbox_input' checked={selectedSynergy.includes(rowData.key)} readOnly={true}/>
+                                <input type="checkbox" id={`tableName_${rowData.key}`} className='costum_checkbox_input' checked={selectedSynergy.includes(rowData.key)} readOnly={true} />
                                 <label htmlFor={`tableName_${rowData.key}`} className='costum_checkbox_label'
                                   onClick={() => {
                                     handleSelectedSynergy(rowData.key);

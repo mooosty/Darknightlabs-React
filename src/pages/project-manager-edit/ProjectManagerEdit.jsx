@@ -19,6 +19,7 @@ import { updateProjectAPI } from "../../api-services/projectApis"
 import DeleteConfirmPopup from "../../components/popup/delete-confirm-popup/DeleteConfirmaPopup"
 import axios from "axios"
 import Loader from "../../components/loader/Loader"
+import TagInput from "../../components/tags-input/TagInput"
 
 const synergyAnglesOptions = [
     {
@@ -65,6 +66,10 @@ const ProjectManagerEdit = () => {
     const [whoAccessToInvestmentSide, setWhoAccessToInvestmentSide] = useState('All Users');
     const [isDeleteConfirmPopupOpen, setIsDeleteConfirmPopupOpen] = useState(false);
     const projectApiLoading = useSelector((state) => state.project.isLoading)
+    const projectSaveApiLoading = useSelector((state) => state.project.isSaveLoading)
+
+
+    const [tags, setTags] = useState([]);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -148,7 +153,8 @@ const ProjectManagerEdit = () => {
 
         const data = {
             "project_name": values.project_name,
-            "project_info": values.tags,
+            // "project_info": values.tags,
+            "project_info": tags,
             "website": "",
             "discord_link": values.discord_username,
             "description": values.description,
@@ -195,10 +201,13 @@ const ProjectManagerEdit = () => {
             investment_obj[property] = price;
         });
 
+        const convertArrayToString = (arr) => arr.join(' ');
+        const tagsString = convertArrayToString(tags)
+
         const data = {
             "project_id": projectId - 0,
             "project_name": values.project_name,
-            "project_info": values.tags,
+            "project_info": tagsString,
             "website": "",
             "discord_link": values.discord_username,
             "description": values.description,
@@ -267,7 +276,12 @@ const ProjectManagerEdit = () => {
                     invesments: investments,
                     opentoinvest: false
                 }
-                setValues(obj);
+                const convertStringToArray = (input) => input.split(' ')
+                const tagsArr = convertStringToArray(projectData.project_info)
+
+                setTags(tagsArr)
+
+                setValues(obj)
             })
         }
 
@@ -303,8 +317,16 @@ const ProjectManagerEdit = () => {
                             </span>
                             <p>{values.project_name}</p>
                         </div>
-                        {projectId !== 'add' && <button className="btn_gray" onClick={handleSaveChanges}>Save changes</button>}
-                        {projectId === 'add' && <button className="btn_gray" onClick={handleAddProject}>Add Project</button>}
+                        {projectId !== 'add' && <button className="btn_gray" onClick={handleSaveChanges} disabled={projectSaveApiLoading}>
+                            {
+                                (projectSaveApiLoading) ? <> <Loader loading={projectSaveApiLoading} isItForbutton={true} /> <p>Save changes</p> </> : 'Save changes'
+                            }
+                        </button>}
+                        {projectId === 'add' && <button className="btn_gray" onClick={handleAddProject} disabled={projectApiLoading}>
+                            {
+                                (projectApiLoading) ? <> <Loader loading={projectApiLoading} isItForbutton={true} /> <p> Add Project</p> </> : ' Add Project'
+                            }
+                        </button>}
                     </div>
                     <div className="page_body">
                         <div className="page_content">
@@ -375,7 +397,9 @@ const ProjectManagerEdit = () => {
                                             {/* <span>#Gaming</span>
                                     <span>#AI</span>
                                     <span>#Metaverse</span> */}
-                                            <input type="text" name="tags" id="tag" value={values.tags} onChange={handleChange} />
+                                            {/* <input type="text" name="tags" id="tag" value={values.tags} onChange={handleChange} /> */}
+
+                                            <TagInput tags={tags} setTags={setTags} />
                                         </div>
                                     </div>
                                     <div className="form_item_box">

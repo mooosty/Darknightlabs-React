@@ -1,0 +1,10 @@
+.tags_list {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  .tag {
+    padding: "5px";
+    background-color: #d1d1d1;
+    border-radius: 4px;
+  }
+}

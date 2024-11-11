@@ -213,7 +213,7 @@ const Chats = () => {
         if (groupData.length > 0) {
             interval = setInterval(() => {
                 dispatch(getChatMessages(groupData[openChatIndex]['_id']))
-            }, 1000)
+            }, 500)
         }
         return () => {
             if (interval) {

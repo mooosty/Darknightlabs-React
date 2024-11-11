@@ -2,8 +2,9 @@ import PropTypes from 'prop-types';
 import closeIcon from '../../../assets/X-icon.png'
 
 import './DeleteConfirmPopup.scss';
+import Loader from '../../loader/Loader';
 
-const DeleteConfirmPopup = ({ open,title='',description='' ,handleClose, handleDelete }) => {
+const DeleteConfirmPopup = ({ open, title = '', description = '', handleClose, handleDelete, isLoading = false }) => {
 
     return (
         <>
@@ -31,9 +32,11 @@ const DeleteConfirmPopup = ({ open,title='',description='' ,handleClose, handleD
                             <button className='cancel_btn' onClick={() => {
                                 handleClose()
                             }}>Cancel</button>
-                            <button className='delete_btn' onClick={() => {
+                            <button className='delete_btn' disabled={isLoading} onClick={() => {
                                 handleDelete()
-                            }}>Delete</button>
+                            }}>
+                                {isLoading ? <> <Loader loading={isLoading} isItForbutton={true} />  <p>Delete</p></> : 'Delete'}
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -45,9 +48,9 @@ const DeleteConfirmPopup = ({ open,title='',description='' ,handleClose, handleD
 DeleteConfirmPopup.propTypes = {
     open: PropTypes.bool,
     handleClose: PropTypes.func,
-    handleDelete:PropTypes.func,
-    title:PropTypes.string,
-    description:PropTypes.string
+    handleDelete: PropTypes.func,
+    title: PropTypes.string,
+    description: PropTypes.string
 }
 
 export default DeleteConfirmPopup

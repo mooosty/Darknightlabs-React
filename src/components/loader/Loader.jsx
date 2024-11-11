@@ -1,11 +1,11 @@
 import './Loader.scss';
 import PropTypes from 'prop-types';
 
-const Loader = ({ loading }) => {
+const Loader = ({ loading = false, isItForbutton = false }) => {
   return (
     <>
       {(loading) &&
-        <div className={`loader_container`}>
+        <div className={isItForbutton ? `loader_container_for_btn` : `loader_container`}>
           <div className="loading">Loading&#8230;</div>
         </div>
       }
