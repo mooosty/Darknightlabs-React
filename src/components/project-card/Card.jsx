@@ -1,4 +1,4 @@
-import { GradientInfiniteIcon } from '../../utils/SVGs/SVGs';
+import { GradientGraphIcon, GradientInfiniteIcon, GredientGlobalIcon } from '../../utils/SVGs/SVGs';
 import './card.scss';
 import PropTypes from 'prop-types';
 import cardCoin from "../../assets/Coins.svg"
@@ -28,8 +28,8 @@ const Card = ({
                         <div className="tabs">
                             {
                                 synergiesAngles.map((angle, index) => {
-                                    const id = Math.floor((Math.random() * 10000) )
-                                    
+                                    const id = Math.floor((Math.random() * 10000))
+
                                     return (
                                         <div className={`${index === 0 ? 'global' : (index === 1 ? 'graph' : '')}`} key={id}>
                                             <div className='angle_tag' id={`tooltip_synergis_${id}`}>
@@ -39,9 +39,9 @@ const Card = ({
                                                 </span>
                                             </div>
                                             <Tooltip
-                                                place="top"                                                
+                                                place="top"
                                                 style={{
-                                                    zIndex:99,
+                                                    zIndex: 99,
                                                     maxWidth: '200px',
                                                     boxShadow: '0px 3px 10.3px -4px rgba(229, 229, 229, 0.1)',
                                                     background: 'rgba(79, 79, 79, 1)',
@@ -49,20 +49,21 @@ const Card = ({
                                                 opacity={1}
                                                 anchorSelect={`#tooltip_synergis_${id}`}
                                             >
-                                                {angle.tooltip} {id}
+                                                {angle.tooltip ?? angle.label} {id}
                                             </Tooltip>
                                         </div>)
                                 })
                             }
+
                         </div>
                     </div>
-                    <div className="card_body_price">
+                    {/* <div className="card_body_price">
                         <div className="text">Price</div>
                         <div className="digits">
                             <img src={cardCoin} alt=" " />
                             <span>{price}</span>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="card_body_button" onClick={handleActive}>
                         <div className="button">
                             <GradientInfiniteIcon />

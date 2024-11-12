@@ -1,525 +1,176 @@
-import { BackArrow, GradientGraphIcon, GrammerlyIcon, GredientGlobalIcon, HealthIcon, LeftIcon, RightIcon, StarIcon } from "../../../utils/SVGs/SVGs"
+import { BackArrow, GradientGraphIcon, GredientGlobalIcon } from "../../../utils/SVGs/SVGs"
 import searchIcon from "../../../assets/search-icon.png"
-import cardImg1 from "../../../assets/project-card-img-1.png"
-import cardImg2 from "../../../assets/project-card-img-2.png"
-import cardImg3 from "../../../assets/project-card-img-3.png"
-import cardImg4 from "../../../assets/project-card-img-4.png"
 import SynergyRequestSuccessfullySentPopup from "../../../components/popup/synergy-request-successfully-sent-popup/SynergyRequestSuccessfullySentPopup"
-import { useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import Card from "../../../components/project-card/Card"
 import './featuredAllProjects.scss'
 import MultiselectDropDown from "../../../components/multiselect-dropdwon/MultiselectDropDown"
+import { useDispatch, useSelector } from "react-redux"
+import { getMemberApi, getProjectsAPI } from "../../../api-services/projectApis"
+import debounce from "lodash.debounce"
+import { projectTypesOptions, synergyAnglesOptions } from "../../../utils/constants/options"
 
-const featuredAllCardData = [
-    {
-        img: cardImg1,
-        name: 'Project Name',
-        synergiesAngles: [
-            {
-                icon: <GredientGlobalIcon />,
-                label: 'IP integration',
-                tooltip: 'Integrate your IP in our Comic Books',
-            },
-            {
-                icon: <GradientGraphIcon />,
-                label: 'Hosting AMAS',
-                tooltip: 'Hosting your AMAS in our Comic Books',
-            },
-            {
-                icon: <GrammerlyIcon />,
-                label: 'Angle48',
-                tooltip: 'Angle your 48 in our Comic Books',
-            },
-            {
-                icon: <HealthIcon />,
-                label: 'Angle49',
-                tooltip: 'Angle your 49 in our Comic Books',
-            },
-            {
-                icon: StarIcon,
-                label: 'Angle50',
-                tooltip: 'Angle your 50 in our Comic Books',
-            }],
-        price: '0,000000001',
-    },
-    {
-        img: cardImg2,
-        name: 'Project Name',
-        synergiesAngles: [
-            {
-                icon: <GredientGlobalIcon />,
-                label: 'IP integration',
-                tooltip: 'Integrate your IP in our Comic Books',
-            },
-            {
-                icon: <GradientGraphIcon />,
-                label: 'Hosting AMAS',
-                tooltip: 'Hosting your AMAS in our Comic Books',
-            },
-            {
-                icon: <GrammerlyIcon />,
-                label: 'Angle48',
-                tooltip: 'Angle your 48 in our Comic Books',
-            },
-            {
-                icon: <HealthIcon />,
-                label: 'Angle49',
-                tooltip: 'Angle your 49 in our Comic Books',
-            },
-            {
-                icon: StarIcon,
-                label: 'Angle50',
-                tooltip: 'Angle your 50 in our Comic Books',
-            }],
-        price: '0,000000001',
-    },
-    {
-        img: cardImg3,
-        name: 'Project Name',
-        synergiesAngles: [
-            {
-                icon: <GredientGlobalIcon />,
-                label: 'IP integration',
-                tooltip: 'Integrate your IP in our Comic Books',
-            },
-            {
-                icon: <GradientGraphIcon />,
-                label: 'Hosting AMAS',
-                tooltip: 'Hosting your AMAS in our Comic Books',
-            },
-            {
-                icon: <GrammerlyIcon />,
-                label: 'Angle48',
-                tooltip: 'Angle your 48 in our Comic Books',
-            },
-            {
-                icon: <HealthIcon />,
-                label: 'Angle49',
-                tooltip: 'Angle your 49 in our Comic Books',
-            },
-            {
-                icon: StarIcon,
-                label: 'Angle50',
-                tooltip: 'Angle your 50 in our Comic Books',
-            }],
-        price: '0,000000001',
-    },
-    {
-        img: cardImg4,
-        name: 'Project Name',
-        synergiesAngles: [
-            {
-                icon: <GredientGlobalIcon />,
-                label: 'IP integration',
-                tooltip: 'Integrate your IP in our Comic Books',
-            },
-            {
-                icon: <GradientGraphIcon />,
-                label: 'Hosting AMAS',
-                tooltip: 'Hosting your AMAS in our Comic Books',
-            },
-            {
-                icon: <GrammerlyIcon />,
-                label: 'Angle48',
-                tooltip: 'Angle your 48 in our Comic Books',
-            },
-            {
-                icon: <HealthIcon />,
-                label: 'Angle49',
-                tooltip: 'Angle your 49 in our Comic Books',
-            },
-            {
-                icon: StarIcon,
-                label: 'Angle50',
-                tooltip: 'Angle your 50 in our Comic Books',
-            }],
-        price: '0,000000001',
-    },
-    {
-        img: cardImg1,
-        name: 'Project Name',
-        synergiesAngles: [
-            {
-                icon: <GredientGlobalIcon />,
-                label: 'IP integration',
-                tooltip: 'Integrate your IP in our Comic Books',
-            },
-            {
-                icon: <GradientGraphIcon />,
-                label: 'Hosting AMAS',
-                tooltip: 'Hosting your AMAS in our Comic Books',
-            },
-            {
-                icon: <GrammerlyIcon />,
-                label: 'Angle48',
-                tooltip: 'Angle your 48 in our Comic Books',
-            },
-            {
-                icon: <HealthIcon />,
-                label: 'Angle49',
-                tooltip: 'Angle your 49 in our Comic Books',
-            },
-            {
-                icon: StarIcon,
-                label: 'Angle50',
-                tooltip: 'Angle your 50 in our Comic Books',
-            }],
-        price: '0,000000001',
-    },
-    {
-        img: cardImg2,
-        name: 'Project Name',
-        synergiesAngles: [
-            {
-                icon: <GredientGlobalIcon />,
-                label: 'IP integration',
-                tooltip: 'Integrate your IP in our Comic Books',
-            },
-            {
-                icon: <GradientGraphIcon />,
-                label: 'Hosting AMAS',
-                tooltip: 'Hosting your AMAS in our Comic Books',
-            },
-            {
-                icon: <GrammerlyIcon />,
-                label: 'Angle48',
-                tooltip: 'Angle your 48 in our Comic Books',
-            },
-            {
-                icon: <HealthIcon />,
-                label: 'Angle49',
-                tooltip: 'Angle your 49 in our Comic Books',
-            },
-            {
-                icon: StarIcon,
-                label: 'Angle50',
-                tooltip: 'Angle your 50 in our Comic Books',
-            }],
-        price: '0,000000001',
-    },
-    {
-        img: cardImg3,
-        name: 'Project Name',
-        synergiesAngles: [
-            {
-                icon: <GredientGlobalIcon />,
-                label: 'IP integration',
-                tooltip: 'Integrate your IP in our Comic Books',
-            },
-            {
-                icon: <GradientGraphIcon />,
-                label: 'Hosting AMAS',
-                tooltip: 'Hosting your AMAS in our Comic Books',
-            },
-            {
-                icon: <GrammerlyIcon />,
-                label: 'Angle48',
-                tooltip: 'Angle your 48 in our Comic Books',
-            },
-            {
-                icon: <HealthIcon />,
-                label: 'Angle49',
-                tooltip: 'Angle your 49 in our Comic Books',
-            },
-            {
-                icon: StarIcon,
-                label: 'Angle50',
-                tooltip: 'Angle your 50 in our Comic Books',
-            }],
-        price: '0,000000001',
-    },
-    {
-        img: cardImg4,
-        name: 'Project Name',
-        synergiesAngles: [
-            {
-                icon: <GredientGlobalIcon />,
-                label: 'IP integration',
-                tooltip: 'Integrate your IP in our Comic Books',
-            },
-            {
-                icon: <GradientGraphIcon />,
-                label: 'Hosting AMAS',
-                tooltip: 'Hosting your AMAS in our Comic Books',
-            },
-            {
-                icon: <GrammerlyIcon />,
-                label: 'Angle48',
-                tooltip: 'Angle your 48 in our Comic Books',
-            },
-            {
-                icon: <HealthIcon />,
-                label: 'Angle49',
-                tooltip: 'Angle your 49 in our Comic Books',
-            },
-            {
-                icon: StarIcon,
-                label: 'Angle50',
-                tooltip: 'Angle your 50 in our Comic Books',
-            }],
-        price: '0,000000001',
-    },
-    {
-        img: cardImg1,
-        name: 'Project Name',
-        synergiesAngles: [
-            {
-                icon: <GredientGlobalIcon />,
-                label: 'IP integration',
-                tooltip: 'Integrate your IP in our Comic Books',
-            },
-            {
-                icon: <GradientGraphIcon />,
-                label: 'Hosting AMAS',
-                tooltip: 'Hosting your AMAS in our Comic Books',
-            },
-            {
-                icon: <GrammerlyIcon />,
-                label: 'Angle48',
-                tooltip: 'Angle your 48 in our Comic Books',
-            },
-            {
-                icon: <HealthIcon />,
-                label: 'Angle49',
-                tooltip: 'Angle your 49 in our Comic Books',
-            },
-            {
-                icon: StarIcon,
-                label: 'Angle50',
-                tooltip: 'Angle your 50 in our Comic Books',
-            }],
-        price: '0,000000001',
-    },
-    {
-        img: cardImg2,
-        name: 'Project Name',
-        synergiesAngles: [
-            {
-                icon: <GredientGlobalIcon />,
-                label: 'IP integration',
-                tooltip: 'Integrate your IP in our Comic Books',
-            },
-            {
-                icon: <GradientGraphIcon />,
-                label: 'Hosting AMAS',
-                tooltip: 'Hosting your AMAS in our Comic Books',
-            },
-            {
-                icon: <GrammerlyIcon />,
-                label: 'Angle48',
-                tooltip: 'Angle your 48 in our Comic Books',
-            },
-            {
-                icon: <HealthIcon />,
-                label: 'Angle49',
-                tooltip: 'Angle your 49 in our Comic Books',
-            },
-            {
-                icon: StarIcon,
-                label: 'Angle50',
-                tooltip: 'Angle your 50 in our Comic Books',
-            }],
-        price: '0,000000001',
-    },
-    {
-        img: cardImg3,
-        name: 'Project Name',
-        synergiesAngles: [
-            {
-                icon: <GredientGlobalIcon />,
-                label: 'IP integration',
-                tooltip: 'Integrate your IP in our Comic Books',
-            },
-            {
-                icon: <GradientGraphIcon />,
-                label: 'Hosting AMAS',
-                tooltip: 'Hosting your AMAS in our Comic Books',
-            },
-            {
-                icon: <GrammerlyIcon />,
-                label: 'Angle48',
-                tooltip: 'Angle your 48 in our Comic Books',
-            },
-            {
-                icon: <HealthIcon />,
-                label: 'Angle49',
-                tooltip: 'Angle your 49 in our Comic Books',
-            },
-            {
-                icon: StarIcon,
-                label: 'Angle50',
-                tooltip: 'Angle your 50 in our Comic Books',
-            }],
-        price: '0,000000001',
-    },
-    {
-        img: cardImg4,
-        name: 'Project Name',
-        synergiesAngles: [
-            {
-                icon: <GredientGlobalIcon />,
-                label: 'IP integration',
-                tooltip: 'Integrate your IP in our Comic Books',
-            },
-            {
-                icon: <GradientGraphIcon />,
-                label: 'Hosting AMAS',
-                tooltip: 'Hosting your AMAS in our Comic Books',
-            },
-            {
-                icon: <GrammerlyIcon />,
-                label: 'Angle48',
-                tooltip: 'Angle your 48 in our Comic Books',
-            },
-            {
-                icon: <HealthIcon />,
-                label: 'Angle49',
-                tooltip: 'Angle your 49 in our Comic Books',
-            },
-            {
-                icon: StarIcon,
-                label: 'Angle50',
-                tooltip: 'Angle your 50 in our Comic Books',
-            }],
-        price: '0,000000001',
-    },
-    {
-        img: cardImg1,
-        name: 'Project Name',
-        synergiesAngles: [
-            {
-                icon: <GredientGlobalIcon />,
-                label: 'IP integration',
-                tooltip: 'Integrate your IP in our Comic Books',
-            },
-            {
-                icon: <GradientGraphIcon />,
-                label: 'Hosting AMAS',
-                tooltip: 'Hosting your AMAS in our Comic Books',
-            },
-            {
-                icon: <GrammerlyIcon />,
-                label: 'Angle48',
-                tooltip: 'Angle your 48 in our Comic Books',
-            },
-            {
-                icon: <HealthIcon />,
-                label: 'Angle49',
-                tooltip: 'Angle your 49 in our Comic Books',
-            },
-            {
-                icon: StarIcon,
-                label: 'Angle50',
-                tooltip: 'Angle your 50 in our Comic Books',
-            }],
-        price: '0,000000001',
-    },
-    {
-        img: cardImg2,
-        name: 'Project Name',
-        synergiesAngles: [
-            {
-                icon: <GredientGlobalIcon />,
-                label: 'IP integration',
-                tooltip: 'Integrate your IP in our Comic Books',
-            },
-            {
-                icon: <GradientGraphIcon />,
-                label: 'Hosting AMAS',
-                tooltip: 'Hosting your AMAS in our Comic Books',
-            },
-            {
-                icon: <GrammerlyIcon />,
-                label: 'Angle48',
-                tooltip: 'Angle your 48 in our Comic Books',
-            },
-            {
-                icon: <HealthIcon />,
-                label: 'Angle49',
-                tooltip: 'Angle your 49 in our Comic Books',
-            },
-            {
-                icon: StarIcon,
-                label: 'Angle50',
-                tooltip: 'Angle your 50 in our Comic Books',
-            }],
-        price: '0,000000001',
-    },
-    {
-        img: cardImg3,
-        name: 'Project Name',
-        synergiesAngles: [
-            {
-                icon: <GredientGlobalIcon />,
-                label: 'IP integration',
-                tooltip: 'Integrate your IP in our Comic Books',
-            },
-            {
-                icon: <GradientGraphIcon />,
-                label: 'Hosting AMAS',
-                tooltip: 'Hosting your AMAS in our Comic Books',
-            },
-            {
-                icon: <GrammerlyIcon />,
-                label: 'Angle48',
-                tooltip: 'Angle your 48 in our Comic Books',
-            },
-            {
-                icon: <HealthIcon />,
-                label: 'Angle49',
-                tooltip: 'Angle your 49 in our Comic Books',
-            },
-            {
-                icon: StarIcon,
-                label: 'Angle50',
-                tooltip: 'Angle your 50 in our Comic Books',
-            }],
-        price: '0,000000001',
-    },
-    {
-        img: cardImg4,
-        name: 'Project Name',
-        synergiesAngles: [
-            {
-                icon: <GredientGlobalIcon />,
-                label: 'IP integration',
-                tooltip: 'Integrate your IP in our Comic Books',
-            },
-            {
-                icon: <GradientGraphIcon />,
-                label: 'Hosting AMAS',
-                tooltip: 'Hosting your AMAS in our Comic Books',
-            },
-            {
-                icon: <GrammerlyIcon />,
-                label: 'Angle48',
-                tooltip: 'Angle your 48 in our Comic Books',
-            },
-            {
-                icon: <HealthIcon />,
-                label: 'Angle49',
-                tooltip: 'Angle your 49 in our Comic Books',
-            },
-            {
-                icon: StarIcon,
-                label: 'Angle50',
-                tooltip: 'Angle your 50 in our Comic Books',
-            }],
-        price: '0,000000001',
-    },
-
-]
 
 const FeaturedAllProjects = () => {
     const [isSynergyRequestSuccessfullySentPopupOpen, setIsSynergyRequestSuccessfullySentPopupOpen] = useState(false);
+
+
+    const dispatch = useDispatch();
+
+    // projects
+    const data = useSelector((state) => state.project.projects)
+
+    const featuredProjects = data.filter(project => project.featured === 1);
+
+
+    const [initialProject, setInitialProject] = useState([])
+
+    const [filterProject, setFilterProject] = useState([])
+
+    const [filter, setFilter] = useState({
+        synergyAngleValues: [],
+        status: '',
+        sortBy: '',
+        types: [],
+        searchBy: ''
+    })
+
+    const getSynergyAngles = (project) => {
+        const selectedLabels = Object.values(project.synergy_angles)?.map((v, i) => {
+            if (i === 0) {
+                return {
+                    label: v,
+                    icon: <GredientGlobalIcon />
+                }
+            }
+
+            if (i === 1) {
+                return {
+                    label: v,
+                    icon: <GradientGraphIcon />
+                }
+            }
+
+            return {
+                label: v
+            }
+        })
+
+
+        return selectedLabels
+    }
+
+    const formatDate = (date) => {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
+
+        return [day, month, year].join('/');
+    }
+
+    const handleSearchChange = useCallback(
+        debounce((value) => {
+            setFilter((prevFilter) => ({
+                ...prevFilter,
+                searchBy: value,
+            }));
+        }, 500),
+        []
+    );
+
+    useEffect(() => {
+        if (data.length === 0)
+            dispatch(getProjectsAPI()).then((res) => {
+                if (res?.payload?.length > 0) {
+                    res.payload.map((project) => {
+                        dispatch(getMemberApi(project.project_id))
+                    })
+                }
+            });
+    }, [])
+
+    useEffect(() => {
+        let data = initialProject;
+        // Filter by Synergy Angle Values (for multiple selected options)
+        if (filter.synergyAngleValues && filter.synergyAngleValues.length > 0) {
+            data = data.filter((project) =>
+                filter.synergyAngleValues.some((angleValue) =>
+                    project.synergiesAngles.some((synergy) => synergy.label === angleValue)
+                )
+            );
+        }
+
+
+        if (filter.types && filter.types.length > 0) {
+
+            const filterArr = data.filter((project) => {
+                // Normalize and check if the project type matches any filter type (case insensitive, without spaces)
+                const projectTypes = project.type?.map(typeVal => typeVal.replace(/^#/, '').trim().toUpperCase());
+                return filter.types.some(filterType => projectTypes.includes(filterType.toUpperCase()));
+            });
+            data = [...filterArr];
+        }
+
+        if (filter.searchBy !== '') {
+            const searchKeyword = filter.searchBy.toLowerCase();
+            data = data.filter((project) =>
+                project.projectName.toLowerCase().includes(searchKeyword) ||
+                project.description.toLowerCase().includes(searchKeyword)
+            );
+        }
+
+        console.log('data', data)
+
+        setFilterProject([...data])
+    }, [filter])
+
+    useEffect(() => {
+        const projectData = [
+            ...featuredProjects.map((project, index) => {
+                let tags = project.project_info?.split('#') || [];
+                tags = tags.filter(tag => tag).map(tag => `#${tag}`);
+
+                // let synergy_angles = Object.keys(project.synergy_angles)
+                //     .map(key => project.synergy_angles[key] ? { label: project.synergy_angles[key] } : null)
+                //     .filter(item => item);
+
+
+                let synergy_angles = getSynergyAngles(project)
+
+                const row = {
+                    key: index,
+                    checked: false,
+                    projectName: project.project_name,
+                    teamMembers: project?.teamMembers ?? [],
+                    synergyImg: project.image ?? '',
+                    synergiesAngles: synergy_angles,
+                    type: tags,
+                    isFeatured: project.featured,
+                    date: formatDate(project.date),
+                    disabled: false,
+                    description: project.description,
+                    projectId: project.project_id,
+                }
+                return row;
+            })
+        ]
+        setInitialProject([...projectData])
+        setFilterProject([...projectData])
+    }, [data])
 
     return (
         <>
             <div className="featured_all_project_content_Wraper">
                 <div className="featured_all_project_content_header">
                     <div className="featured_all_project_content_left">
-                        <span onClick={()=>{window.history.back()}}>
-                        <BackArrow />
+                        <span onClick={() => { window.history.back() }}>
+                            <BackArrow />
                         </span>
                         <h2>Featured Projects</h2>
                     </div>
@@ -533,41 +184,32 @@ const FeaturedAllProjects = () => {
                             <div className="featured_projects_card_header_left">
                                 <div className="search_box">
                                     <img className="search_icon" src={searchIcon} alt="Search" />
-                                    <input type="text" placeholder="Search" />
+                                    <input type="text" placeholder="Search" onChange={(e) => handleSearchChange(e.target.value)} />
                                 </div>
                             </div>
                             <div className="featured_projects_card_header_right">
                                 <div className="selects">
                                     <MultiselectDropDown
-                                        options={[
-                                            { label: 'IP integration', value: 'iPIntegration' },
-                                            { label: 'Hosting AMAS', value: 'hostingAMAS' },
-                                            { label: 'Angle48', value: 'angle48' },
-                                            { label: 'Hosting AMAS', value: 'angle49' },
-                                            { label: 'Angle48', value: 'angle50' },
-                                            { label: 'Hosting AMAS', value: 'hostingAMAS1' },
-                                            { label: 'Angle48', value: 'angle481' },
-                                            { label: 'Hosting AMAS', value: 'hostingAMAS3' },
-                                            { label: 'Angle49', value: 'angle491' },
-                                            { label: 'IP integration', value: 'iPIntegration1' }
-                                        ]}
+                                        options={synergyAnglesOptions}
                                         placeholder={'All synergies angles'}
+                                        onApply={(currentOptions) => {
+                                            setFilter({
+                                                ...filter,
+                                                synergyAngleValues: currentOptions?.map((option) => option.value)
+                                            })
+                                        }}
                                     >
                                     </MultiselectDropDown>
                                     <MultiselectDropDown
-                                        options={[
-                                            { label: 'IP integration', value: 'iPIntegrations' },
-                                            { label: 'Hosting AMAS', value: 'hostingAMASs' },
-                                            { label: 'Angle48', value: 'angle48s' },
-                                            { label: 'Hosting AMAS', value: 'angle49s' },
-                                            { label: 'Angle48', value: 'angle50s' },
-                                            { label: 'Hosting AMAS', value: 'hostingAMAS1s' },
-                                            { label: 'Angle48', value: 'angle481s' },
-                                            { label: 'Hosting AMAS', value: 'hostingAMAS3s' },
-                                            { label: 'Angle49', value: 'angle491s' },
-                                            { label: 'IP integration', value: 'iPIntegration1s' }
-                                        ]}
+                                        options={projectTypesOptions}
                                         placeholder={'All project types'}
+                                        onApply={(currentOptions) => {
+                                            console.log('currentOptions', currentOptions)
+                                            setFilter({
+                                                ...filter,
+                                                types: currentOptions?.map((option) => option.value)
+                                            })
+                                        }}
                                     >
                                     </MultiselectDropDown>
                                 </div>
@@ -576,21 +218,23 @@ const FeaturedAllProjects = () => {
                         <div className="featured_projects_card_body_main">
                             <div className="featured_projects_card_body">
                                 {
-                                    featuredAllCardData.map((data) => {
+                                    filterProject.map((data) => {
                                         return (
                                             <>
                                                 <Card
-                                                    name={data.name}
-                                                    img={data.img}
+                                                    name={data.projectName}
+                                                    img={data.synergyImg}
                                                     synergiesAngles={data.synergiesAngles}
                                                     price={data.price}
-                                                > </Card>
+                                                />
                                             </>
                                         )
                                     })
                                 }
                             </div>
-                            <div className="project_page_pagination">
+
+                            {/* pagination */}
+                            {/* <div className="project_page_pagination">
                                 <div className="project_page_pagination_content">
                                     <div className="project_page_pagination_content_text">
                                         <span className='pagination_head'>Row per page:</span>
@@ -611,7 +255,7 @@ const FeaturedAllProjects = () => {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>
