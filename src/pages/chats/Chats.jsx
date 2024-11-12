@@ -1,9 +1,9 @@
 import './chats.scss';
-import chatSynergies1 from '../../assets/chat-synergies-1.png'
-import chatSynergies2 from '../../assets/chat-synergies-2.png'
-import chatSynergies3 from '../../assets/chat-synergies-3.png'
-import chatSynergies4 from '../../assets/chat-synergies-4.png'
-import chatSynergies5 from '../../assets/chat-synergies-5.png'
+// import chatSynergies1 from '../../assets/chat-synergies-1.png'
+// import chatSynergies2 from '../../assets/chat-synergies-2.png'
+// import chatSynergies3 from '../../assets/chat-synergies-3.png'
+// import chatSynergies4 from '../../assets/chat-synergies-4.png'
+// import chatSynergies5 from '../../assets/chat-synergies-5.png'
 import chatSynergies6 from '../../assets/chat-synergies-6.png'
 import chatSynergies7 from '../../assets/chat-synergies-7.png'
 import chatSynergies8 from '../../assets/chat-synergies-8.png'
@@ -27,7 +27,7 @@ import member2 from '../../assets/member_img2.png'
 // import member11 from '../../assets/member_img11.png'
 // import member12 from '../../assets/member_img12.png'
 // import member13 from '../../assets/member_img13.png'
-import chatAvtar from '../../assets/chat-avtar.png'
+// import chatAvtar from '../../assets/chat-avtar.png'
 import chatMassageDP from '../../assets/chat-message-dp.png'
 // import chatMassageDP1 from '../../assets/chat-message-dp1.png'
 // import sharedImg from '../../assets/chat_shared-image.png'
@@ -84,6 +84,7 @@ const Chats = () => {
     const [chatNumber, setchatNumber] = useState(false);
     const [isChatMembersOpen, setIsChatMembersOpen] = useState(false);
     const [msg, setMsg] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const groupData = useSelector((state) => state.group.groups)
     const msgInfo = useSelector((state) => state.chat.groupMsg)
@@ -101,19 +102,7 @@ const Chats = () => {
     const handleChatOpen = (index) => {
         setOpenChatIndex(index);
         setchatNumber(true)
-
-        setTimeout(() => {
-            const elements = document.getElementsByClassName('chat_container');
-            if (elements.length > 0) {
-                const container = elements[0];
-                console.log(container);
-                
-                let lastElement = container.childNodes[container.childNodes.length-2]
-                console.log(lastElement);
-                
-                lastElement.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
-            }
-        }, 3000)
+        setLoading(true);
     }
 
     const handleMenberListOpen = () => {
@@ -215,6 +204,14 @@ const Chats = () => {
         }
     }
 
+    const getMessages = () => {
+        dispatch(getChatMessages(groupData[openChatIndex]['_id'])).then(() => {
+            setLoading(false);
+        }).catch(() => {
+            setLoading(false);
+        });
+    }
+
 
     useEffect(() => {
         dispatch(getGroupsAPI())
@@ -225,7 +222,7 @@ const Chats = () => {
         let interval;
         if (groupData.length > 0) {
             interval = setInterval(() => {
-                dispatch(getChatMessages(groupData[openChatIndex]['_id']))
+                getMessages()
             }, 500)
         }
         return () => {
@@ -235,11 +232,23 @@ const Chats = () => {
         }
     }, [openChatIndex, groupData])
 
-    // useEffect(() => {
-    //     const lastClass = msgInfo.messages[msgInfo.messages.length - 1]?.sender.name === 'Test' ? 'message_send' : 'message_received';
-    //     document.getElementById(lastClass)?.scrollIntoView({ block: "end" });
-    //     console.log('rune', lastClass);
-    // }, [msgInfo])
+    useEffect(() => {
+        if (!loading) {
+            setTimeout(() => {
+                const elements = document.getElementsByClassName('chat_container');
+                if (elements.length > 0) {
+                    const container = elements[0];
+                    console.log(container);
+
+                    let lastElement = container.childNodes[container.childNodes.length - 2]
+                    console.log(lastElement);
+
+                    lastElement.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+                }
+            }, 0)
+        }
+    }, [loading])
+
 
     return (
         <>
@@ -260,7 +269,7 @@ const Chats = () => {
                                 if (index < groupData.length) {
                                     return (
                                         <div key={index} className='avtar_img' onClick={() => {
-                                            setOpenChatIndex(index)
+                                            handleChatOpen(index)
                                         }}>
                                             <img src={data.img} alt="" />
                                             <div className={data.message ? "notification" : ''}>{data.message}</div>
@@ -293,19 +302,13 @@ const Chats = () => {
                                         {groupData.map((data, index) => {
                                             return (
                                                 <Fragment key={index}>
-                                                    {openChatIndex === index ?
-                                                        <div key={index} className='data_list_item active' onClick={() => handleChatOpen(index)}>
-                                                            <HashTag />
-                                                            <span>{data.chatName}</span>
-                                                            {data.message ? <span className='notification'>{data.message}</span> : ''}
-                                                        </div>
-                                                        :
-                                                        <div key={index} className={'data_list_item'} onClick={() => handleChatOpen(index)}>
-                                                            <HashTag />
-                                                            <span>{data.chatName}</span>
-                                                            {data.message ? <span className='notification'>{data.message}</span> : ''}
-                                                        </div>
-                                                    }
+                                                    <div key={index} className={`data_list_item ${openChatIndex === index ? 'active' : ''}`} onClick={() => {
+                                                        handleChatOpen(index)
+                                                    }}>
+                                                        <HashTag />
+                                                        <span>{data.chatName}</span>
+                                                        {data.message ? <span className='notification'>{data.message}</span> : ''}
+                                                    </div>
                                                 </Fragment>
                                             )
                                         })}
@@ -669,7 +672,7 @@ const Chats = () => {
                 groupData={groupData}
                 openChatIndex={openChatIndex}
             />
-            <Loader loading={chatApiLoading || groupApiLoading} />
+            <Loader loading={chatApiLoading || groupApiLoading || loading} />
         </>
     )
 }

@@ -6,7 +6,7 @@ import searchIcon from "../../assets/search-icon.png"
 import Card from '../../components/project-card/Card'
 import { useDispatch, useSelector } from 'react-redux'
 import { useCallback, useEffect, useState } from 'react'
-import { getMemberApi, getProjectsAPI } from '../../api-services/projectApis'
+import { getProjectsAPI } from '../../api-services/projectApis'
 import { GradientGraphIcon, GredientGlobalIcon } from '../../utils/SVGs/SVGs'
 import { projectTypesOptions, synergyAnglesOptions } from '../../utils/constants/options'
 import MultiselectDropDown from '../../components/multiselect-dropdwon/MultiselectDropDown'
@@ -100,13 +100,7 @@ const Projects = () => {
 
     useEffect(() => {
         if (data.length === 0)
-            dispatch(getProjectsAPI()).then((res) => {
-                if (res?.payload?.length > 0) {
-                    res.payload.map((project) => {
-                        dispatch(getMemberApi(project.project_id))
-                    })
-                }
-            });
+            dispatch(getProjectsAPI())
     }, [])
 
     useEffect(() => {

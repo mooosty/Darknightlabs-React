@@ -88,8 +88,6 @@ const ProjectManager = () => {
     const data = useSelector((state) => state.project.projects)
     const projectApiLoading = useSelector((state) => state.project.isLoading)
 
-    const synergyApiLoading = true
-
     const [initialProject, setInitialProject] = useState([])
     const [filterProject, setFilterProject] = useState([])
     const [synergies, setSynergies] = useState({
@@ -99,6 +97,7 @@ const ProjectManager = () => {
     const [createSynergyStep, setCreateSynergyStep] = useState(0);
     const [projectCounter, setProjectCounter] = useState(0);
     const [createSynergySuccessPopup, setCreateSynergySuccessPopup] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
 
     const formatDate = (date) => {
@@ -281,6 +280,7 @@ const ProjectManager = () => {
             users: [...users.map((item) => item.id)]
         }
 
+        setIsLoading(true)
         dispatch(createSynergyApi(data)).then(async () => {
             try {
                 const userPromises = users.map((user) => {
@@ -309,13 +309,19 @@ const ProjectManager = () => {
                     if (res?.error?.code === "ERR_BAD_REQUEST") {
                         throw new Error(res?.error);
                     }
+                    setIsLoading(false)
                 }).catch(() => {
                     toast.error("Synergy Not Created");
+                    setIsLoading(false)
                 })
             } catch (err) {
                 console.error('err', err)
+                setIsLoading(false)
             }
-        }).catch((err) => { console.error('err :>> ', err) });
+        }).catch((err) => {
+            console.error('err :>> ', err)
+            setIsLoading(false)
+        })
     }
 
 
@@ -1098,14 +1104,16 @@ const ProjectManager = () => {
                                 <button className='refuse_btn' onClick={() => {
                                     setCreateSynergyStep(4);
                                 }}>Back</button>
-                                <button className='next_btn' onClick={() => {
-                                    handleSubmitSynergy()
-                                }} disabled={synergyApiLoading}>
-
+                                <button
+                                    className='next_btn'
+                                    onClick={() => {
+                                        handleSubmitSynergy()
+                                    }}
+                                    disabled={isLoading}
+                                >
                                     {
-                                        (synergyApiLoading) ? <> <Loader loading={synergyApiLoading} /> <p>Create synergy </p> </> : 'Create synergy '
+                                        (isLoading) ? <> <Loader loading={isLoading} isItForbutton={true} /> <p>Create synergy </p> </> : 'Create synergy '
                                     }
-
                                 </button>
                             </>
                         }
