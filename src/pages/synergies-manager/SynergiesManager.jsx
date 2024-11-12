@@ -21,8 +21,8 @@ import { deleteSynergyApi, getSynergyApi, updateSynergyApi } from '../../api-ser
 import closeIcon from "../../assets/X-icon.png";
 import BottomMenu from '../../components/buttom-menu/BottomMenu';
 import Select from '../../components/select/Select';
-import Loader from '../../components/loader/Loader';
-import cardImg from '../../assets/project-card-img-1.png'
+import Loader from '../../components/loader/Loader'; import cardImg from '../../assets/project-card-img-1.png'
+
 
 const synergyAnglesOptions = [
   {
@@ -532,13 +532,13 @@ const SynergiesManager = () => {
           {activeLayout === 'LAYOUT' &&
             <div className='card_container'>
               {filterSynergies.map((cardData, index) => {
-                const cardImage = cardData.synergyImg                
+                const cardImage = cardData.synergyImg
                 return (
                   <>
                     <div key={index} className={`card `}>
                       <div className="card_image">
                         {/* synergyImg */}
-                        <img src={!cardImage ? cardImg : cardImage} alt=" " />
+                        <img src={!cardImage ? cardImg : cardImage} onError={(e) => e.target.src = cardImg} alt=" " />
                       </div>
                       <div className="card_body">
                         <div className="name">
@@ -546,7 +546,7 @@ const SynergiesManager = () => {
                         </div>
                         <div className="creator">
                           <img src={cardData.creatorImg} alt="" />
-                        <span className="creator_name">{cardData.creator}</span> 
+                          <span className="creator_name">{cardData.creator}</span>
                         </div>
                         <div className="tabs">
                           {

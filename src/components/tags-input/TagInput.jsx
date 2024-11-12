@@ -26,16 +26,18 @@ function TagInput({ tags, setTags }) {
                         {tag}
                     </span>
                 ))}
+                
+                <input
+                    type="text"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={handleKeyPress} // Detect 'Enter' key press
+                    placeholder="Type and press enter"
+                    name='tags'
+                />
             </div>
 
-            <input
-                type="text"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={handleKeyPress} // Detect 'Enter' key press
-                placeholder="Type and press enter"
-                name='tags'
-            />
+
         </div>
     );
 }

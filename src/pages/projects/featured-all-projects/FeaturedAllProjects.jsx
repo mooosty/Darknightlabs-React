@@ -1,15 +1,14 @@
-import { BackArrow, GradientGraphIcon, GredientGlobalIcon } from "../../../utils/SVGs/SVGs"
+import './featuredAllProjects.scss'
+import debounce from "lodash.debounce"
+import { useDispatch, useSelector } from "react-redux"
 import searchIcon from "../../../assets/search-icon.png"
-import SynergyRequestSuccessfullySentPopup from "../../../components/popup/synergy-request-successfully-sent-popup/SynergyRequestSuccessfullySentPopup"
 import { useCallback, useEffect, useState } from "react"
 import Card from "../../../components/project-card/Card"
-import './featuredAllProjects.scss'
-import MultiselectDropDown from "../../../components/multiselect-dropdwon/MultiselectDropDown"
-import { useDispatch, useSelector } from "react-redux"
 import { getMemberApi, getProjectsAPI } from "../../../api-services/projectApis"
-import debounce from "lodash.debounce"
+import { BackArrow, GradientGraphIcon, GredientGlobalIcon } from "../../../utils/SVGs/SVGs"
 import { projectTypesOptions, synergyAnglesOptions } from "../../../utils/constants/options"
-
+import MultiselectDropDown from "../../../components/multiselect-dropdwon/MultiselectDropDown"
+import SynergyRequestSuccessfullySentPopup from "../../../components/popup/synergy-request-successfully-sent-popup/SynergyRequestSuccessfullySentPopup"
 
 const FeaturedAllProjects = () => {
     const [isSynergyRequestSuccessfullySentPopupOpen, setIsSynergyRequestSuccessfullySentPopupOpen] = useState(false);
@@ -222,6 +221,7 @@ const FeaturedAllProjects = () => {
                                         return (
                                             <>
                                                 <Card
+                                                    isFeatured={data.isFeatured}
                                                     name={data.projectName}
                                                     img={data.synergyImg}
                                                     synergiesAngles={data.synergiesAngles}

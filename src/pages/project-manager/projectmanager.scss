@@ -907,9 +907,9 @@
             flex-direction: column;
             gap: 16px;
             background-color: #242623;
-            position: relative;
 
             &.heighlighted {
+              position: relative;
               background-color: rgba(218, 185, 67, 0.1);
               border: 1px solid #ddc38c;
             }

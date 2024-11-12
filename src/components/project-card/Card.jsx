@@ -1,15 +1,17 @@
-import { GradientGraphIcon, GradientInfiniteIcon, GredientGlobalIcon } from '../../utils/SVGs/SVGs';
+import { GradientInfiniteIcon, TableStatusIcon } from '../../utils/SVGs/SVGs';
 import './card.scss';
 import PropTypes from 'prop-types';
 import cardCoin from "../../assets/Coins.svg"
 import ChoosePrioritySynergiesPopup from '../popup/choose-priority-synergies-popup/ChoosePrioritySynergiesPopup';
 import { useState } from 'react';
 import { Tooltip } from 'react-tooltip'
+import defaultImage from '../../assets/project-card-img-1.png'
 
 const Card = ({
     name,
     img,
     synergiesAngles = [],
+    isFeatured,
     price,
 }) => {
     const [isChoosePrioritySynergiesPopupOpen, setIsChoosePrioritySynergiesPopupOpen] = useState(false);
@@ -18,9 +20,11 @@ const Card = ({
     }
     return (
         <>
-            <div className="project_card">
+            <div className={`project_card ${isFeatured ? 'heighlighted' : ''}`}>
+                {isFeatured ?
+                    <div className="isFeaturedCard"> <TableStatusIcon /></div> : ''}
                 <div className="card_img">
-                    <img src={img} alt="" />
+                    <img src={img} alt="" onError={(e) => e.target.src = defaultImage} />
                 </div>
                 <div className="card_body">
                     <div className="card_body_head">{name}</div>
@@ -57,13 +61,13 @@ const Card = ({
 
                         </div>
                     </div>
-                    {/* <div className="card_body_price">
+                    {price && <div className="card_body_price">
                         <div className="text">Price</div>
                         <div className="digits">
                             <img src={cardCoin} alt=" " />
                             <span>{price}</span>
                         </div>
-                    </div> */}
+                    </div>}
                     <div className="card_body_button" onClick={handleActive}>
                         <div className="button">
                             <GradientInfiniteIcon />
@@ -84,6 +88,7 @@ Card.propTypes = {
     img: PropTypes.string,
     synergiesAngles: PropTypes.array,
     price: PropTypes.string,
+    isFeatured: PropTypes.bool,
 }
 
 export default Card

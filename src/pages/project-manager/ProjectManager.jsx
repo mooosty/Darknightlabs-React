@@ -12,7 +12,7 @@ import Loader from '../../components/loader/Loader';
 import searchIcon from "../../assets/search-icon.png"
 import { useSelector, useDispatch } from 'react-redux';
 import tableActorImage3 from "../../assets/avatar-3.jpg";
-import cardImg from "../../assets/project-card-img-1.png";
+import cardImage from "../../assets//project-card-img-1.png";
 import { createSynergyApi } from '../../api-services/synergyApi';
 import BottomMenu from '../../components/buttom-menu/BottomMenu';
 import { Fragment, useCallback, useEffect, useState } from 'react';
@@ -658,7 +658,6 @@ const ProjectManager = () => {
                         {activeLayout === 'LAYOUT' && <div className='card_container'>
                             {
                                 filterProject.map((rowData, index) => {
-                                    const cardImage = rowData.synergyImg
                                     return (
                                         <div key={index} className={`card ${rowData.isFeatured ? 'heighlighted' : ''}`}>
 
@@ -666,7 +665,7 @@ const ProjectManager = () => {
                                                 <div className="isFeaturedCard"> <TableStatusIcon /></div>
                                             </> : ''}
                                             <div className="card_image">
-                                                <img src={cardImage === '' ? cardImg : cardImage} alt=" " />
+                                                <img src={rowData.synergyImg} alt=" " onError={(e) => e.target.src = cardImage} />
                                             </div>
                                             <div className="card_body">
                                                 <div className="name">

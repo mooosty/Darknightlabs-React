@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Tooltip } from 'react-tooltip'
 import ChoosePrioritySynergiesPopup from '../popup/choose-priority-synergies-popup/ChoosePrioritySynergiesPopup';
 import arrowRight from '../../assets/arrow-right.svg'
+import defaultImage from '../../assets/project-card-img-1.png'
 
 const Card = ({
     name,
@@ -21,7 +22,7 @@ const Card = ({
         <>
             <div className="synergy_card">
                 <div className="card_img">
-                    <img src={img} alt="" />
+                    <img src={img} alt=""  onError={(e) => e.target.src = defaultImage} />
                 </div>
                 <div className="card_body">
                     <div className="card_body_content">

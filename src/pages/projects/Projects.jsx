@@ -1,17 +1,16 @@
 import './projects.scss'
+import { Link } from 'react-router-dom'
+import debounce from 'lodash.debounce'
+import { ROUTER } from '../../utils/routes/routes'
 import searchIcon from "../../assets/search-icon.png"
-import { GradientGraphIcon, GredientGlobalIcon } from '../../utils/SVGs/SVGs'
 import Card from '../../components/project-card/Card'
+import { useDispatch, useSelector } from 'react-redux'
 import { useCallback, useEffect, useState } from 'react'
+import { getMemberApi, getProjectsAPI } from '../../api-services/projectApis'
+import { GradientGraphIcon, GredientGlobalIcon } from '../../utils/SVGs/SVGs'
+import { projectTypesOptions, synergyAnglesOptions } from '../../utils/constants/options'
 import MultiselectDropDown from '../../components/multiselect-dropdwon/MultiselectDropDown'
 import SynergyRequestSuccessfullySentPopup from '../../components/popup/synergy-request-successfully-sent-popup/SynergyRequestSuccessfullySentPopup'
-import { Link } from 'react-router-dom'
-import { ROUTER } from '../../utils/routes/routes'
-import { useDispatch, useSelector } from 'react-redux'
-import { getMemberApi, getProjectsAPI } from '../../api-services/projectApis'
-import { projectTypesOptions, synergyAnglesOptions } from '../../utils/constants/options'
-import debounce from 'lodash.debounce'
-
 
 const Projects = () => {
     const [activeLayout, setActiveLayout] = useState('TRENDING');
@@ -215,21 +214,81 @@ const Projects = () => {
                         <a href="#">Darknight Labs</a>
                     </div>
                 </div>
-                <div className="featured_project_page_data">
-                    <div className="featured_projects_card_box">
-                        <div className="featured_projects_card_header">
-                            <div className="featured_projects_card_header_left"> Featured projects </div>
-                            <div className="featured_projects_card_header_right">
-                                <Link to={ROUTER.featuredProjects} className="btn_gray">View all</Link>
+                <div className="project_content_body">
+                    <div className="featured_project_page_data">
+                        <div className="featured_projects_card_box">
+                            <div className="featured_projects_card_header">
+                                <div className="featured_projects_card_header_left"> Featured projects </div>
+                                <div className="featured_projects_card_header_right">
+                                    <Link to={ROUTER.featuredProjects} className="btn_gray">View all</Link>
+                                </div>
+                            </div>
+                            <div className="featured_projects_card_body_main">
+                                <div className="featured_projects_card_body">
+                                    {
+                                        filterFeaturedProject.slice(0, 4).map((data) => {
+                                            return (
+                                                <>
+                                                    <Card
+                                                        isFeatured={data.isFeatured == 1}
+                                                        name={data.projectName}
+                                                        img={data.synergyImg}
+                                                        synergiesAngles={data.synergiesAngles}
+                                                        price={data.price}
+                                                    />
+                                                </>
+                                            )
+                                        })
+                                    }
+                                </div>
                             </div>
                         </div>
-                        <div className="featured_projects_card_body_main">
-                            <div className="featured_projects_card_body">
+                    </div>
+                    <div className="all_project_page_data">
+                        <div className="all_projects_card_box">
+                            <div className="all_projects_card_header">
+                                <div className="all_projects_card_header_top"> All projects </div>
+                                <div className="all_projects_card_header_bottom">
+                                    <div className="btns">
+                                        <button className={`btn ${activeLayout === 'TRENDING' ? 'active' : ''}`} onClick={() => handleActive('TRENDING')} >Trending</button>
+                                        <button className={`btn ${activeLayout === 'NEWEST' ? 'active' : ''}`} onClick={() => handleActive('NEWEST')} >Newest</button>
+                                        <button className={`btn ${activeLayout === 'OLDEST' ? 'active' : ''}`} onClick={() => handleActive('OLDEST')} >Oldest</button>
+                                    </div>
+                                    <div className="selects">
+                                        <MultiselectDropDown
+                                            options={synergyAnglesOptions}
+                                            placeholder={'All synergies angles'}
+                                            onApply={(currentOptions) => {
+                                                setFilter({
+                                                    ...filter,
+                                                    synergyAngleValues: currentOptions?.map((option) => option.value)
+                                                })
+                                            }}
+                                        >
+                                        </MultiselectDropDown>
+                                        <MultiselectDropDown
+                                            options={projectTypesOptions}
+                                            placeholder={'All project types'}
+                                            onApply={(currentOptions) => {
+                                                console.log('currentOptions', currentOptions)
+                                                setFilter({
+                                                    ...filter,
+                                                    types: currentOptions?.map((option) => option.value)
+                                                })
+                                            }}
+                                        >
+                                        </MultiselectDropDown>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="all_projects_card_body">
                                 {
-                                    filterFeaturedProject.map((data) => {
+                                    filterProject.map((data) => {
                                         return (
                                             <>
                                                 <Card
+                                                    isFeatured={data.isFeatured == 1}
                                                     name={data.projectName}
                                                     img={data.synergyImg}
                                                     synergiesAngles={data.synergiesAngles}
@@ -241,67 +300,9 @@ const Projects = () => {
                                 }
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <div className="all_project_page_data">
-                    <div className="all_projects_card_box">
-                        <div className="all_projects_card_header">
-                            <div className="all_projects_card_header_top"> All projects </div>
-                            <div className="all_projects_card_header_bottom">
-                                <div className="btns">
-                                    <button className={`btn ${activeLayout === 'TRENDING' ? 'active' : ''}`} onClick={() => handleActive('TRENDING')} >Trending</button>
-                                    <button className={`btn ${activeLayout === 'NEWEST' ? 'active' : ''}`} onClick={() => handleActive('NEWEST')} >Newest</button>
-                                    <button className={`btn ${activeLayout === 'OLDEST' ? 'active' : ''}`} onClick={() => handleActive('OLDEST')} >Oldest</button>
-                                </div>
-                                <div className="selects">
-                                    <MultiselectDropDown
-                                        options={synergyAnglesOptions}
-                                        placeholder={'All synergies angles'}
-                                        onApply={(currentOptions) => {
-                                            setFilter({
-                                                ...filter,
-                                                synergyAngleValues: currentOptions?.map((option) => option.value)
-                                            })
-                                        }}
-                                    >
-                                    </MultiselectDropDown>
-                                    <MultiselectDropDown
-                                        options={projectTypesOptions}
-                                        placeholder={'All project types'}
-                                        onApply={(currentOptions) => {
-                                            console.log('currentOptions', currentOptions)
-                                            setFilter({
-                                                ...filter,
-                                                types: currentOptions?.map((option) => option.value)
-                                            })
-                                        }}
-                                    >
-                                    </MultiselectDropDown>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="all_projects_card_body">
-                            {
-                                filterProject.map((data) => {
-                                    return (
-                                        <>
-                                            <Card
-                                                name={data.projectName}
-                                                img={data.synergyImg}
-                                                synergiesAngles={data.synergiesAngles}
-                                                price={data.price}
-                                            />
-                                        </>
-                                    )
-                                })
-                            }
-                        </div>
-                    </div>
-
-                    {/* pagination  */}
-                    {/* <div className="project_page_pagination">
+                        {/* pagination  */}
+                        {/* <div className="project_page_pagination">
                         <div className="project_page_pagination_content">
                             <div className="project_page_pagination_content_text">
                                 <span className='pagination_head'>Row per page:</span>
@@ -323,6 +324,7 @@ const Projects = () => {
                             </div>
                         </div>
                     </div> */}
+                    </div>
                 </div>
             </div>
             <SynergyRequestSuccessfullySentPopup

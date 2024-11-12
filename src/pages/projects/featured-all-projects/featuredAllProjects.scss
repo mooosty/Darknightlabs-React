@@ -58,6 +58,8 @@
         }
 
         .featured_all_project_content_Wraper {
+            height: 100%;
+
             .featured_all_project_content_header {
                 display: flex;
                 align-items: center;
@@ -88,13 +90,13 @@
                     }
 
                     h2 {
-                        font-size: 28px;
                         color: #fff;
                         font-weight: 500;
                         font-family: "MedievalSharp", cursive;
+                        font-size: 42px;
 
                         @media (max-width: 1600px) {
-                            font-size: 24px;
+                            font-size: 28px;
                         }
 
                         @media (max-width: 767px) and (min-width: 355px) {
@@ -130,11 +132,20 @@
                 }
             }
 
-
             .featured_project_page_data {
+                min-height: 540px;
+                height: calc(100% - 80px);
                 border-radius: 20px;
                 background-color: #191917;
                 margin-bottom: 32px;
+                padding: 30px 30px 28px 28px;
+                background-image: url('../../../assets/model-frame.png');
+                background-repeat: no-repeat;
+                background-position: 8px 17px;
+
+                @media (max-width: 1600px) {
+                    height: calc(100% - 65px);
+                }
 
                 @media (max-width: 767px) {
                     border-radius: 0;
@@ -142,10 +153,8 @@
                 }
 
                 .featured_projects_card_box {
-                    background-image: url('../../../assets/model-frame.png');
-                    background-repeat: no-repeat;
-                    background-position: 8px 17px;
-                    padding: 30px 30px 28px 28px;
+                    height: 100%;
+                    overflow-y: auto;
                     display: block;
 
                     @media (max-width: 767px) {
@@ -202,7 +211,7 @@
                                     color: #f5efdb;
 
                                     @media (max-width: 290px) {
-                                        padding:  10px 0px 10px 50px;
+                                        padding: 10px 0px 10px 50px;
                                         max-width: 240px;
                                         width: 100%;
                                     }
@@ -250,48 +259,53 @@
                             }
                         }
                     }
-                }
-            }
 
-            .featured_projects_card_body_main {
-                // overflow-x: scroll;
-                // padding: 4px;
+                    .featured_projects_card_body_main {
+                        // overflow-x: scroll;
+                        // padding: 4px;
 
-                // &::-webkit-scrollbar {
-                //     width: 4px;
-                // }
+                        // &::-webkit-scrollbar {
+                        //     width: 4px;
+                        // }
 
-                // &::-webkit-scrollbar-track {
-                //     background: transparent;
-                // }
+                        // &::-webkit-scrollbar-track {
+                        //     background: transparent;
+                        // }
 
-                // &::-webkit-scrollbar-thumb {
-                //     background: transparent;
-                // }
+                        // &::-webkit-scrollbar-thumb {
+                        //     background: transparent;
+                        // }
 
-                .featured_projects_card_body {
-                    height: 100%;
-                    display: flex;
-                    flex-wrap: wrap;
-                    gap: 16px;
-                    row-gap: 32px;
+                        .featured_projects_card_body {
+                            height: 100%;
+                            display: flex;
+                            flex-wrap: wrap;
+                            gap: 16px;
+                            row-gap: 32px;
 
-                    .card {
-                        width: 23.7%;
+                            .project_card {
+                                width: 23.7%;
 
-                        @media (min-width:1200px) and (max-width:1350px) {
-                            width: 32%;
-                        }
+                                @media (min-width:1200px) and (max-width:1350px) {
+                                    width: 32%;
+                                }
 
-                        @media (min-width:600px) and (max-width:1200px) {
-                            width: 48%;
-                        }
+                                @media (min-width:600px) and (max-width:1200px) {
+                                    width: 48%;
+                                }
 
-                        @media (max-width:600px) {
-                            width: 100%;
+                                @media (max-width:600px) {
+                                    width: 100%;
+                                }
+
+                                &.heighlighted {
+                                    background-color: rgba(218, 185, 67, 0.1);
+                                    border: 1px solid #ddc38c;
+                                }
+                            }
+
                         }
                     }
-
                 }
             }
         }
