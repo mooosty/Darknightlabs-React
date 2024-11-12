@@ -101,6 +101,19 @@ const Chats = () => {
     const handleChatOpen = (index) => {
         setOpenChatIndex(index);
         setchatNumber(true)
+
+        setTimeout(() => {
+            const elements = document.getElementsByClassName('chat_container');
+            if (elements.length > 0) {
+                const container = elements[0];
+                console.log(container);
+                
+                let lastElement = container.childNodes[container.childNodes.length-2]
+                console.log(lastElement);
+                
+                lastElement.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+            }
+        }, 3000)
     }
 
     const handleMenberListOpen = () => {
@@ -222,7 +235,11 @@ const Chats = () => {
         }
     }, [openChatIndex, groupData])
 
-
+    // useEffect(() => {
+    //     const lastClass = msgInfo.messages[msgInfo.messages.length - 1]?.sender.name === 'Test' ? 'message_send' : 'message_received';
+    //     document.getElementById(lastClass)?.scrollIntoView({ block: "end" });
+    //     console.log('rune', lastClass);
+    // }, [msgInfo])
 
     return (
         <>

@@ -28,21 +28,12 @@ const AddAngelPopup = ({ open, handleClose }) => {
                             <form action="#" className='model_form'>
                                 <div className="form_group">
                                     <label htmlFor="projectName">Project Name</label>
-                                    <input type="text" id="projectName" value="Project 1581" placeholder="Add project name" />
+                                    <input type="text" id="projectName" defaultValue="Project 1581" placeholder="Add project name" />
                                 </div>
                                 <div className="form_group">
                                     <label htmlFor="projectName">Description</label>
-                                    <Select
-                                        options={[
-                                            { label: 'Description', value: 'description' },
-                                            { label: 'Description 2', value: 'description 2' }
-                                        ]}
-                                    />
+                                    <input type="text" id="projectName" defaultValue="Project 1581" placeholder="Add description" />
                                 </div>
-                                <button className='add_more_btn'>Add more
-                                    <img src={addIcon} alt="" />
-
-                                </button>
                             </form>
                         </div>
                         <div className='model_footer'>

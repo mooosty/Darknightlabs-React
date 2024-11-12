@@ -7,7 +7,7 @@ import tableActor from "../../assets/tableActorImage.jpg";
 import editIcon from "../../assets/edit-icon.svg";
 import trashIcon from "../../assets/trash-icon.png";
 import AddSynergiesPopup from '../../components/popup/add-synergies-popup/AddSynergiesPopup';
-import { GradientGraphIcon, GredientGlobalIcon, GridIcon, ListIcon, MoreIcon } from '../../utils/SVGs/SVGs';
+import { GradientGraphIcon, GrammerlyIcon, GredientGlobalIcon, GridIcon, ListIcon, MoreIcon } from '../../utils/SVGs/SVGs';
 import { useEffect, useState } from 'react';
 import DeleteConfirmPopup from '../../components/popup/delete-confirm-popup/DeleteConfirmaPopup';
 import Accordion from '../../components/accordion/Accordion';
@@ -274,7 +274,6 @@ const SynergiesManager = () => {
   }, [])
 
 
-
   return (
     <>
       <div className="synergies_content_header">
@@ -286,7 +285,7 @@ const SynergiesManager = () => {
           </div>
         </div>
         <div className="synergies_content_right">
-          <a href="#">Darknight Labs</a>
+          <button>Darknight Labs</button>
         </div>
       </div>
 
@@ -348,7 +347,7 @@ const SynergiesManager = () => {
             </div>
           </div>
           {activeLayout === 'TAB' &&
-            <div className="synergies_page_body">
+            <div className="synergies_page_body" >
               <div className={`synergy_page_table_handler ${selectedSynergy.length > 0 ? 'active' : ''}`}>
                 <div className="selected_count">
                   <div className="costum_checkbox">
@@ -555,6 +554,7 @@ const SynergiesManager = () => {
                                 <div className='angle_tag'>
                                   <>{index === 0 && <div className='icon'><GredientGlobalIcon /></div>}</>
                                   <>{index === 1 && <div className='icon'><GradientGraphIcon /></div>}</>
+                                  <>{index > 1 && <div className='icon'><GrammerlyIcon /></div>}</>
                                   <span className='text'>
                                     <span>{Angle}</span>
                                   </span>

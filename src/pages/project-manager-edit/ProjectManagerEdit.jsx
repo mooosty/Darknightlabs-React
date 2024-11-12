@@ -76,6 +76,7 @@ const ProjectManagerEdit = () => {
     const { projectId } = useParams();
     // const projectData = useSelector(state => state.project.projects.find(project => project.project_id == projectId))
     const userData = useSelector(state => state.user.users);
+    console.log('userData', userData);
 
     const initialValues = {
         project_name: '',
@@ -630,11 +631,11 @@ const ProjectManagerEdit = () => {
                             </div>
                         </div>
                         <div className="delete_project_btn">
-                            <button className="btn_delete" disabled={projectId === 'add'} onClick={() => {
+                            {projectId !== 'add' && <button className="btn_delete" disabled={projectId === 'add'} onClick={() => {
                                 setIsDeleteConfirmPopupOpen(true);
                             }}>
                                 <img src={trashIcon} alt="Delete" /> Delete project
-                            </button>
+                            </button>}
                             {projectId !== 'add' && <button className="btn_gray" onClick={handleSaveChanges}>Save changes</button>}
                             {projectId === 'add' && <button className="btn_gray" onClick={handleAddProject}>Add Project</button>}
                         </div>

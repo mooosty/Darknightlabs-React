@@ -848,10 +848,6 @@
                             gap: 4px;
                             color: #ffffff;
 
-                            @media (min-width:1900px) {
-                                padding-inline: 10px;
-                            }
-
                             .angle_tag {
                                 display: flex;
                                 justify-content: center;
@@ -861,6 +857,11 @@
                                 border-radius: 6px;
                                 background: #191917;
                                 gap: 4px;
+
+                                .icon {
+                                    display: flex;
+                                    justify-content: center;
+                                }
 
                                 .text {
                                     overflow: hidden;
