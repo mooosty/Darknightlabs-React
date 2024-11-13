@@ -157,7 +157,6 @@ const Synergies = () => {
                                         placeholder={'All synergies angles'}
                                         onApply={(currentOptions) => {
                                             const synergiesAnglesValues = currentOptions?.map((option) => option.value)
-                                            console.log('synergiesAnglesValues', synergiesAnglesValues)
                                             setFilter({
                                                 ...filter,
                                                 synergyAngleValues: synergiesAnglesValues

@@ -5,7 +5,6 @@ import { chatAxiosApi } from './index'
 export const createGroupAPI = createAsyncThunk('chat/group/create',
     async (data, thunkAPI) => {
         const response = await chatAxiosApi.post(apiRoutes.CHAT_GROUP, data)
-        console.log('response :>> ', response);
         if (response?.status)
             return response.data;
         else return thunkAPI.rejectWithValue(response?.data)
@@ -24,7 +23,6 @@ export const getGroupsAPI = createAsyncThunk('chat/group/get',
 export const createUserAPI = createAsyncThunk('chat/user/create',
     async (data, thunkAPI) => {
         const response = await chatAxiosApi.post(apiRoutes.CREATE_CHAT_USER, data)
-        console.log('response --- :>> ', response);
         if (response?.status)
             return response.data;
         else return thunkAPI.rejectWithValue(response?.data)

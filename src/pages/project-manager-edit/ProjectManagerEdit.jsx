@@ -76,7 +76,6 @@ const ProjectManagerEdit = () => {
     const { projectId } = useParams();
     // const projectData = useSelector(state => state.project.projects.find(project => project.project_id == projectId))
     const userData = useSelector(state => state.user.users);
-    console.log('userData', userData);
 
     const initialValues = {
         project_name: '',
@@ -107,7 +106,6 @@ const ProjectManagerEdit = () => {
     })
 
     const { values, setFieldValue, setValues, handleChange } = formik
-    console.log('ini :>> ', values.synergy_angles);
 
 
     const handleUploadImage = (file) => {
@@ -631,11 +629,16 @@ const ProjectManagerEdit = () => {
                             </div>
                         </div>
                         <div className="delete_project_btn">
-                            {projectId !== 'add' && <button className="btn_delete" disabled={projectId === 'add'} onClick={() => {
-                                setIsDeleteConfirmPopupOpen(true);
-                            }}>
+                            {projectId !== 'add' && <button
+                                className="btn_delete"
+                                disabled={projectId === 'add'}
+                                onClick={() => {
+                                    setIsDeleteConfirmPopupOpen(true);
+                                }}
+                            >
                                 <img src={trashIcon} alt="Delete" /> Delete project
-                            </button>}
+                            </button>
+                            }
                             {projectId !== 'add' && <button className="btn_gray" onClick={handleSaveChanges}>Save changes</button>}
                             {projectId === 'add' && <button className="btn_gray" onClick={handleAddProject}>Add Project</button>}
                         </div>
@@ -656,7 +659,6 @@ const ProjectManagerEdit = () => {
             <AddAngelPopup
                 open={isAddAngelPopupOpen}
                 handleClose={() => setIsAddAngelPopupOpen(false)}
-
             />
 
             <Loader loading={projectApiLoading} />

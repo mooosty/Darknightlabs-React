@@ -34,7 +34,7 @@ const chatSlice = createSlice({
             }
         })
         builder.addCase(createGroupAPI.fulfilled, (state, action) => {
-            console.log('action.payload :>> ', action.payload);
+            ('action.payload :>> ', action.payload);
             // if ((state.groupMsg.messages.length < action.payload.response.length) || (action.payload.groupId !== state.groupMsg.groupId)) {
             //     return {
             //         ...state,

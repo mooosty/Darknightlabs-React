@@ -5,7 +5,7 @@ export const ROUTER = {
     projects: 'projects',
     synergies: 'synergies',
     synergyProject: 'synergies/project',
-    featuredProjects: 'projects/featured-projects',
+    featuredProjects: '/projects/featured-projects',
     chat: 'chat',
     pendingSynergies:'pending-synergies',
 }

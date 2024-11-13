@@ -16,8 +16,6 @@ const Card = ({
 }) => {
     const [isChoosePrioritySynergiesPopupOpen, setIsChoosePrioritySynergiesPopupOpen] = useState(false);
 
-    console.log('status', status)
-
     return (
         <>
             <div className="synergy_card">

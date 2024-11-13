@@ -187,7 +187,6 @@ const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
                                 <div className="search_box">
                                     <img className="search_icon" src={searchIcon} alt="Search" />
                                     <input type="text" placeholder="Search" onChange={(e) => {
-                                        console.log('searching :>> ', );
                                         handleSearch(e.target.value)
                                     }} />
                                 </div>

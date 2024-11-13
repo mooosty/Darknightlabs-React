@@ -238,12 +238,8 @@ const Chats = () => {
                 const elements = document.getElementsByClassName('chat_container');
                 if (elements.length > 0) {
                     const container = elements[0];
-                    console.log(container);
-
                     let lastElement = container.childNodes[container.childNodes.length - 2]
-                    console.log(lastElement);
-
-                    lastElement.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+                    lastElement.scrollIntoView();
                 }
             }, 0)
         }

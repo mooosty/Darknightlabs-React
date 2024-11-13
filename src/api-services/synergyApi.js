@@ -3,7 +3,6 @@ import { apiRoutes } from "../utils/constants/apiUrl"
 import { axiosApi } from './index'
 
 export const createSynergyApi = createAsyncThunk('synergy/create', async (data, thunkAPI) => {
-    console.log('data :>> ', data);
     const response = await axiosApi.post(apiRoutes.SYNERGY, data)
     if (response?.data?.success) return {
         data: data,

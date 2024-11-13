@@ -86,7 +86,6 @@ const synergySlice = createSlice({
 
         builder.addCase(
             updateSynergyApi.fulfilled, (state, action) => {
-                console.log('action.payload :>> ', action.payload);
                 return {
                     ...state,
                     isLoading: false,

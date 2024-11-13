@@ -88,7 +88,6 @@ const Projects = () => {
 
     const handleSearchChange = useCallback(
         debounce((value) => {
-            console.log('value', value)
             setFilter((prevFilter) => ({
                 ...prevFilter,
                 searchBy: value,
@@ -264,7 +263,6 @@ const Projects = () => {
                                             options={projectTypesOptions}
                                             placeholder={'All project types'}
                                             onApply={(currentOptions) => {
-                                                console.log('currentOptions', currentOptions)
                                                 setFilter({
                                                     ...filter,
                                                     types: currentOptions?.map((option) => option.value)

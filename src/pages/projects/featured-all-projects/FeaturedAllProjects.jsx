@@ -124,8 +124,6 @@ const FeaturedAllProjects = () => {
             );
         }
 
-        console.log('data', data)
-
         setFilterProject([...data])
     }, [filter])
 
@@ -203,7 +201,6 @@ const FeaturedAllProjects = () => {
                                         options={projectTypesOptions}
                                         placeholder={'All project types'}
                                         onApply={(currentOptions) => {
-                                            console.log('currentOptions', currentOptions)
                                             setFilter({
                                                 ...filter,
                                                 types: currentOptions?.map((option) => option.value)
