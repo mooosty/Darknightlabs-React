@@ -33,7 +33,7 @@ function App() {
             <Route path={ROUTER.profile} element={<UserProfile />} />
             <Route path={ROUTER.synergiesManager} element={<SynergiesManager />} />
             <Route path={ROUTER.projects} element={<Projects />} />
-            <Route path={`projects/${ROUTER.featuredProjects}`} element={<FeaturedAllProjects />} />
+            <Route path={ROUTER.featuredProjects} element={<FeaturedAllProjects />} />
             <Route path={ROUTER.synergies} element={<Synergies />} />
             <Route path={ROUTER.synergyProject} element={<SynergyProject />} />
             <Route path={ROUTER.chat} element={<Chats />} />

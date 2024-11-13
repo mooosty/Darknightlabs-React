@@ -34,6 +34,10 @@ export const synergyAnglesOptions = [
         value: 'Sharing early alpha',
         tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
     },
+    {
+        label: 'TEST1',
+        value: 'TEST1'
+    }
 ]
 
 export const projectTypesOptions = [
