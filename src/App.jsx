@@ -19,6 +19,8 @@ import "react-toastify/dist/ReactToastify.css";
 import ProjectDetails from './pages/projects/project-details/ProjectDetails'
 import Investment from './pages/investment/Investment'
 
+const userRole = 'ADMIN'
+
 function App() {
 
   injectStore(store)
@@ -28,22 +30,29 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path={'/'} element={<Navigate to={ROUTER.projectManager} />} />
-
           <Route element={<Layout />}>
-            <Route path={ROUTER.projectManager} element={<ProjectManager />} />
-            <Route path={`${ROUTER.projectManager}/:projectId`} element={<ProjectManagerEdit />} />
-            <Route path={ROUTER.profile} element={<UserProfile />} />
-            <Route path={ROUTER.synergiesManager} element={<SynergiesManager />} />
-            <Route path={ROUTER.projects} element={<Projects />} />
-            <Route path={ROUTER.featuredProjects} element={<FeaturedAllProjects />} />
-            <Route path={ROUTER.synergies} element={<Synergies />} />
+            {userRole == 'USER' &&
+              <>
+                <Route path={ROUTER.projects} element={<Projects />} />
+                <Route path={ROUTER.featuredProjects} element={<FeaturedAllProjects />} />
+                <Route path={ROUTER.synergies} element={<Synergies />} />
+                <Route path={ROUTER.projectDetails} element={<ProjectDetails />} />
+                <Route path={ROUTER.investment} element={<Investment />} />
+              </>
+            }
+            {
+              userRole == 'ADMIN' &&
+              <>
+                <Route path={ROUTER.projectManager} element={<ProjectManager />} />
+                <Route path={`${ROUTER.projectManager}/:projectId`} element={<ProjectManagerEdit />} />
+                <Route path={ROUTER.pendingSynergies} element={<PendingSynergies />} />
+                <Route path={ROUTER.synergiesManager} element={<SynergiesManager />} />
+              </>
+            }
             <Route path={ROUTER.synergyProject} element={<SynergyProject />} />
+            <Route path={ROUTER.profile} element={<UserProfile />} />
             <Route path={ROUTER.chat} element={<Chats />} />
-            <Route path={ROUTER.pendingSynergies} element={<PendingSynergies />} />
-            <Route path={ROUTER.projectDetails} element={<ProjectDetails />} />
-            <Route path={ROUTER.investment} element={<Investment />} />
           </Route>
-
           <Route path="*" element={<div>Not found</div>} />
         </Routes>
       </BrowserRouter>
