@@ -1,282 +1,134 @@
 import './synergies.scss'
 import searchIcon from "../../assets/search-icon.png"
-import cardImg1 from "../../assets/synergy1.png"
-import cardImg2 from "../../assets/synergy2.png"
-import cardImg3 from "../../assets/synergy3.png"
-import cardImg4 from "../../assets/synergy4.png"
-import cardImg5 from "../../assets/synergy5.png"
-import { GradientGraphIcon, GredientGlobalIcon, HealthIcon, StarIcon, GrammerlyIcon, LeftIcon, RightIcon } from '../../utils/SVGs/SVGs'
+import { GradientGraphIcon, GredientGlobalIcon } from '../../utils/SVGs/SVGs'
 import Card from '../../components/synergy-card/Card'
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import MultiselectDropDown from '../../components/multiselect-dropdwon/MultiselectDropDown'
-import cardImg from '../../assets/project-card-img-1.png'
-
-const allCardData = [
-    {
-        img: cardImg4,
-        name: 'Project Name',
-        synergiesAngles: [
-            {
-                icon: <GredientGlobalIcon />,
-                label: 'IP integration',
-                tooltip: 'Integrate your IP in our Comic Books',
-            },
-            {
-                icon: <GradientGraphIcon />,
-                label: 'Hosting AMAS',
-                tooltip: 'Hosting your AMAS in our Comic Books',
-            },
-            {
-                icon: <GrammerlyIcon />,
-                label: 'Angle48',
-                tooltip: 'Angle your 48 in our Comic Books',
-            },
-            {
-                icon: <HealthIcon />,
-                label: 'Angle49',
-                tooltip: 'Angle your 49 in our Comic Books',
-            },
-            {
-                icon: <StarIcon />,
-                label: 'Angle50',
-                tooltip: 'Angle your 50 in our Comic Books',
-            }],
-        status: 'Refused',
-        tags: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
-    },
-    {
-        img: cardImg2,
-        name: 'Project Name',
-        synergiesAngles: [
-            {
-                icon: <GredientGlobalIcon />,
-                label: 'IP integration',
-                tooltip: 'Integrate your IP in our Comic Books',
-            },
-            {
-                icon: <GradientGraphIcon />,
-                label: 'Hosting AMAS',
-                tooltip: 'Hosting your AMAS in our Comic Books',
-            },
-            {
-                icon: <GrammerlyIcon />,
-                label: 'Angle48',
-                tooltip: 'Angle your 48 in our Comic Books',
-            },
-            {
-                icon: <HealthIcon />,
-                label: 'Angle49',
-                tooltip: 'Angle your 49 in our Comic Books',
-            },
-            {
-                icon: <StarIcon />,
-                label: 'Angle50',
-                tooltip: 'Angle your 50 in our Comic Books',
-            }],
-        status: 'Live',
-        tags: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
-    },
-    {
-        img: cardImg3,
-        name: 'Project Name',
-        synergiesAngles: [
-            {
-                icon: <GredientGlobalIcon />,
-                label: 'IP integration',
-                tooltip: 'Integrate your IP in our Comic Books',
-            },
-            {
-                icon: <GradientGraphIcon />,
-                label: 'Hosting AMAS',
-                tooltip: 'Hosting your AMAS in our Comic Books',
-            },
-            {
-                icon: <GrammerlyIcon />,
-                label: 'Angle48',
-                tooltip: 'Angle your 48 in our Comic Books',
-            },
-            {
-                icon: <HealthIcon />,
-                label: 'Angle49',
-                tooltip: 'Angle your 49 in our Comic Books',
-            },
-            {
-                icon: <StarIcon />,
-                label: 'Angle50',
-                tooltip: 'Angle your 50 in our Comic Books',
-            }],
-        status: 'Pending',
-        tags: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
-    },
-    {
-        img: cardImg5,
-        name: 'Project Name',
-        synergiesAngles: [
-            {
-                icon: <GredientGlobalIcon />,
-                label: 'IP integration',
-                tooltip: 'Integrate your IP in our Comic Books',
-            },
-            {
-                icon: <GradientGraphIcon />,
-                label: 'Hosting AMAS',
-                tooltip: 'Hosting your AMAS in our Comic Books',
-            },
-            {
-                icon: <GrammerlyIcon />,
-                label: 'Angle48',
-                tooltip: 'Angle your 48 in our Comic Books',
-            },
-            {
-                icon: <HealthIcon />,
-                label: 'Angle49',
-                tooltip: 'Angle your 49 in our Comic Books',
-            },
-            {
-                icon: <StarIcon />,
-                label: 'Angle50',
-                tooltip: 'Angle your 50 in our Comic Books',
-            }],
-        status: 'Refused',
-        tags: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
-    },
-    {
-        img: cardImg1,
-        name: 'Project Name',
-        synergiesAngles: [
-            {
-                icon: <GredientGlobalIcon />,
-                label: 'IP integration',
-                tooltip: 'Integrate your IP in our Comic Books',
-            },
-            {
-                icon: <GradientGraphIcon />,
-                label: 'Hosting AMAS',
-                tooltip: 'Hosting your AMAS in our Comic Books',
-            },
-            {
-                icon: <GrammerlyIcon />,
-                label: 'Angle48',
-                tooltip: 'Angle your 48 in our Comic Books',
-            },
-            {
-                icon: <HealthIcon />,
-                label: 'Angle49',
-                tooltip: 'Angle your 49 in our Comic Books',
-            },
-            {
-                icon: <StarIcon />,
-                label: 'Angle50',
-                tooltip: 'Angle your 50 in our Comic Books',
-            }],
-        status: 'Refused',
-        tags: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
-    },
-    {
-        img: cardImg4,
-        name: 'Project Name',
-        synergiesAngles: [
-            {
-                icon: <GredientGlobalIcon />,
-                label: 'IP integration',
-                tooltip: 'Integrate your IP in our Comic Books',
-            },
-            {
-                icon: <GradientGraphIcon />,
-                label: 'Hosting AMAS',
-                tooltip: 'Hosting your AMAS in our Comic Books',
-            },
-            {
-                icon: <GrammerlyIcon />,
-                label: 'Angle48',
-                tooltip: 'Angle your 48 in our Comic Books',
-            },
-            {
-                icon: <HealthIcon />,
-                label: 'Angle49',
-                tooltip: 'Angle your 49 in our Comic Books',
-            },
-            {
-                icon: <StarIcon />,
-                label: 'Angle50',
-                tooltip: 'Angle your 50 in our Comic Books',
-            }],
-        status: 'Pending',
-        tags: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
-    },
-    {
-        img: cardImg2,
-        name: 'Project Name',
-        synergiesAngles: [
-            {
-                icon: <GredientGlobalIcon />,
-                label: 'IP integration',
-                tooltip: 'Integrate your IP in our Comic Books',
-            },
-            {
-                icon: <GradientGraphIcon />,
-                label: 'Hosting AMAS',
-                tooltip: 'Hosting your AMAS in our Comic Books',
-            },
-            {
-                icon: <GrammerlyIcon />,
-                label: 'Angle48',
-                tooltip: 'Angle your 48 in our Comic Books',
-            },
-            {
-                icon: <HealthIcon />,
-                label: 'Angle49',
-                tooltip: 'Angle your 49 in our Comic Books',
-            },
-            {
-                icon: <StarIcon />,
-                label: 'Angle50',
-                tooltip: 'Angle your 50 in our Comic Books',
-            }],
-        status: 'Pending',
-        tags: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
-    },
-    {
-        img: cardImg3,
-        name: 'Project Name',
-        synergiesAngles: [
-            {
-                icon: <GredientGlobalIcon />,
-                label: 'IP integration',
-                tooltip: 'Integrate your IP in our Comic Books',
-            },
-            {
-                icon: <GradientGraphIcon />,
-                label: 'Hosting AMAS',
-                tooltip: 'Hosting your AMAS in our Comic Books',
-            },
-            {
-                icon: <GrammerlyIcon />,
-                label: 'Angle48',
-                tooltip: 'Angle your 48 in our Comic Books',
-            },
-            {
-                icon: <HealthIcon />,
-                label: 'Angle49',
-                tooltip: 'Angle your 49 in our Comic Books',
-            },
-            {
-                icon: <StarIcon />,
-                label: 'Angle50',
-                tooltip: 'Angle your 50 in our Comic Books',
-            }],
-        status: 'Pending',
-        tags: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
-    },
-]
+import { useDispatch, useSelector } from 'react-redux'
+import { getSynergyApi } from '../../api-services/synergyApi'
+import { synergyAnglesOptions } from '../../utils/constants/options'
+import tableActor from "../../assets/tableActorImage.jpg";
+import { formatDate } from '../../utils/helper/helper'
+import { getStaticSynergyStatus } from '../../utils/constants/static'
+import debounce from 'lodash.debounce'
 
 
 const Synergies = () => {
+    const dispatch = useDispatch()
     const [activeLayout, setActiveLayout] = useState('TRENDING');
+
+    const [synergies, setSynergies] = useState([]);
+    const [filterSynergies, setFilterSynergies] = useState([]);
+
+    const [filter, setFilter] = useState({
+        synergyAngleValues: '',
+        types: '',
+        searchBy: ''
+    })
+
+
+    const data = useSelector((state) => state.synergies.synergies)
 
     const handleActive = (key) => {
         setActiveLayout(key);
     }
+
+    const handleSearchChange = useCallback(
+        debounce((value) => {
+            console.log('value', value)
+            setFilter((prevFilter) => ({
+                ...prevFilter,
+                searchBy: value,
+            }));
+        }, 500),
+        []
+    );
+
+    const getSynergyAngles = (angles) => {
+        console.log('angles', angles)
+
+        const selectedLabels = angles?.map((v, i) => {
+            if (i === 0) {
+                return {
+                    label: v,
+                    icon: < GredientGlobalIcon />
+                }
+            }
+
+            if (i === 1) {
+                return {
+                    label: v,
+                    icon: < GradientGraphIcon />
+                }
+            }
+
+            return {
+                label: v
+            }
+        })
+
+
+        return selectedLabels
+    }
+
+
+    useEffect(() => {
+        let data = synergies;
+        console.log('data', data)
+        // Filter by Synergy Angle Values (for multiple selected options)
+        if (filter.synergyAngleValues && filter.synergyAngleValues.length > 0) {
+            data = data.filter((synergy) =>
+                filter.synergyAngleValues.some((angleValue) =>
+                    synergy.synergiesAngles.some((synergy) => synergy.label === angleValue)
+                )
+            );
+        }
+
+        if (filter.searchBy !== '') {
+            const searchKeyword = filter.searchBy?.toLowerCase();
+            data = data.filter((synergy) =>
+                synergy.synergyName?.toLowerCase().includes(searchKeyword)
+            );
+
+        }
+
+        setFilterSynergies([...data])
+
+        console.log('filter>>', [...data])
+
+    }, [filter])
+
+    useEffect(() => {
+        let tempData = data.map((synergy) => {
+            const angles = getSynergyAngles(synergy.synergy_angles)
+
+            return {
+                key: synergy.id,
+                synergyName: synergy.synergy_name ?? "Synergy Name",
+                creatorImg: tableActor,
+                creator: 'Joan of Arc',
+                synergyImg: synergy.synergy_image,
+                price: synergy.price,
+                currency: synergy.currency,
+                synergiesAngles: angles,
+                date: formatDate(synergy.date),
+                projects: synergy?.['project2_id'] ? [synergy['_project_id'], synergy?.['project2_id']] : [synergy['_project_id']]
+            }
+        })
+        setSynergies([...tempData]);
+        setFilterSynergies([...tempData]);
+        setFilter({
+            synergyAngleValues: '',
+            types: [],
+            searchBy: ''
+        })
+
+    }, [data])
+
+    useEffect(() => {
+        dispatch(getSynergyApi())
+    }, [])
+
 
 
     return (
@@ -287,7 +139,7 @@ const Synergies = () => {
                         <h2>Synergies</h2>
                         <div className="search_box">
                             <img className="search_icon" src={searchIcon} alt="Search" />
-                            <input type="text" placeholder="Search" />
+                            <input type="text" placeholder="Search" onChange={(e) => handleSearchChange(e.target.value)} />
                         </div>
                     </div>
                     <div className="synergies_content_right">
@@ -307,19 +159,16 @@ const Synergies = () => {
                                 </div>
                                 <div className="selects">
                                     <MultiselectDropDown
-                                        options={[
-                                            { label: 'IP integration', value: 'iPIntegrations' },
-                                            { label: 'Hosting AMAS', value: 'hostingAMASs' },
-                                            { label: 'Angle48', value: 'angle48s' },
-                                            { label: 'Hosting AMAS', value: 'angle49s' },
-                                            { label: 'Angle48', value: 'angle50s' },
-                                            { label: 'Hosting AMAS', value: 'hostingAMAS1s' },
-                                            { label: 'Angle48', value: 'angle481s' },
-                                            { label: 'Hosting AMAS', value: 'hostingAMAS3s' },
-                                            { label: 'Angle49', value: 'angle491s' },
-                                            { label: 'IP integration', value: 'iPIntegration1s' }
-                                        ]}
+                                        options={synergyAnglesOptions}
                                         placeholder={'All synergies angles'}
+                                        onApply={(currentOptions) => {
+                                            const synergiesAnglesValues = currentOptions?.map((option) => option.value)
+                                            console.log('synergiesAnglesValues', synergiesAnglesValues)
+                                            setFilter({
+                                                ...filter,
+                                                synergyAngleValues: synergiesAnglesValues
+                                            })
+                                        }}
                                     >
                                     </MultiselectDropDown>
                                 </div>
@@ -328,15 +177,16 @@ const Synergies = () => {
 
                         <div className="synergies_cards">
                             {
-                                allCardData.map((data) => {
+                                filterSynergies.map((data, index) => {
                                     return (
                                         <>
                                             <Card
-                                                img={data.img === '' ? cardImg : data.img}
-                                                name={data.name}
+                                                key={index}
+                                                img={data.synergyImg}
+                                                name={data.synergyName}
                                                 price={data.price}
-                                                tags={data.tags}
-                                                status={data.status}
+                                                tags={data.tags || ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming']}
+                                                status={getStaticSynergyStatus(index)}
                                                 synergiesAngles={data.synergiesAngles}
                                                 description='lorem Reprehenderit aliqua sit quis cillum dolor Lorem incididunt reprehenderit est elit et.'
                                             />
@@ -347,7 +197,8 @@ const Synergies = () => {
                         </div>
                     </div>
 
-                    <div className="pagination">
+                    {/* pagination  */}
+                    {/* <div className="pagination">
                         <div className="pagination_content">
                             <div className="pagination_content_text">
                                 <span className='pagination_head'>Row per page:</span>
@@ -368,7 +219,7 @@ const Synergies = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </>
