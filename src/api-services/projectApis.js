@@ -5,15 +5,15 @@ import { axiosApi } from './index'
 export const getProjectsAPI = createAsyncThunk('project/get',
     async (data, thunkAPI) => {
         const response = await axiosApi.get(apiRoutes.PROJECT, data)
-        if (!response?.data?.success||response?.data?.success!==0) return response?.data
+        if (!response?.data?.success || response?.data?.success !== 0) return response?.data
         else return thunkAPI.rejectWithValue(response?.data)
     }
 )
 
 export const getProjectsApiById = createAsyncThunk('project/get/:id',
     async (data, thunkAPI) => {
-        const response = await axiosApi.get(`${apiRoutes.PROJECT}/${data}`)
-        if (!response?.data?.success||response?.data?.success!==0) return response?.data
+        const response = await axiosApi.get(`${apiRoutes.PROJECT}/${data}`);
+        if (!response?.data?.success || response?.data?.success !== 0) return response?.data
         else return thunkAPI.rejectWithValue(response?.data)
     }
 )
@@ -35,8 +35,8 @@ export const updateProjectAPI = createAsyncThunk('project/update',
     async (data, thunkAPI) => {
         const response = await axiosApi.patch(apiRoutes.PROJECT, data)
         if (response?.data?.success) return {
-            response:response?.data,
-            projectData:data
+            response: response?.data,
+            projectData: data
         }
         else return thunkAPI.rejectWithValue(response?.data)
     }

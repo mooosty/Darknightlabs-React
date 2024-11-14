@@ -58,8 +58,6 @@
         }
 
         .synergies_content_Wraper {
-
-
             .synergies_content_header {
                 display: flex;
                 align-items: center;
@@ -78,7 +76,6 @@
                     margin-bottom: 0px;
                 }
 
-
                 .synergies_content_left {
                     display: flex;
                     align-items: center;
@@ -91,13 +88,13 @@
                     }
 
                     h2 {
-                        font-size: 28px;
+                        font-size: 42px;
                         color: #fff;
                         font-weight: 500;
                         font-family: "MedievalSharp", cursive;
 
                         @media (max-width: 1600px) {
-                            font-size: 24px;
+                            font-size: 28px;
                         }
                     }
 
@@ -285,7 +282,7 @@
                         row-gap: 32px;
                         padding-inline: 30px;
 
-                        .card {
+                        .synergy_card {
                             width: 23.7%;
 
                             @media (min-width:1200px) and (max-width:1350px) {

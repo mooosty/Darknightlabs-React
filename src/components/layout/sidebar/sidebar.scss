@@ -6,6 +6,8 @@
     height: calc(100vh - 132px);
     min-height: 600px;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
     transition: 0.5s;
     width: 300px;
     flex-shrink: 0;

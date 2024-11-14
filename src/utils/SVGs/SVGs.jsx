@@ -415,3 +415,47 @@ export const LoadingIcon = () => {
         </svg>
     )
 }
+
+export const ShareOutlineIcon = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+<path d="M7.50033 18.3332H12.5003C16.667 18.3332 18.3337 16.6665 18.3337 12.4998V7.49984C18.3337 3.33317 16.667 1.6665 12.5003 1.6665H7.50033C3.33366 1.6665 1.66699 3.33317 1.66699 7.49984V12.4998C1.66699 16.6665 3.33366 18.3332 7.50033 18.3332Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M8.8252 6.3999H12.3585V9.94157" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M12.3583 6.3999L7.6416 11.1166" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M5 13.7583C8.24167 14.8416 11.7583 14.8416 15 13.7583" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+</svg>
+    )
+}
+
+export const ShareLinkIcon = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M12.4912 14.5832H13.7495C16.2662 14.5832 18.3329 12.5248 18.3329 9.99984C18.3329 7.48317 16.2745 5.4165 13.7495 5.4165H12.4912" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M7.50033 5.4165H6.25033C3.72533 5.4165 1.66699 7.47484 1.66699 9.99984C1.66699 12.5165 3.72533 14.5832 6.25033 14.5832H7.50033" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M6.66699 10H13.3337" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+    )
+}
+
+export const DescriptionIcon = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M2.5 3.75H17.5" stroke="#F5EFDB" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M9.6084 7.9165H17.5001" stroke="#F5EFDB" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M2.5 12.0835H17.5" stroke="#F5EFDB" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M9.6084 16.25H17.5001" stroke="#F5EFDB" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+    )
+}
+
+export const InvestmentIcon = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+<path d="M5.90024 17.5H18.0902C19.9902 17.5 20.9902 16.5 20.9902 14.6V2.5H2.99023V14.6C3.00023 16.5 4.00024 17.5 5.90024 17.5Z" stroke="#F5EFDB" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M2 2.5H22" stroke="#F5EFDB" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M8 22.5L12 20.5V17.5" stroke="#F5EFDB" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M16 22.5L12 20.5" stroke="#F5EFDB" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M7.5 11.5L10.65 8.87C10.9 8.66 11.23 8.72 11.4 9L12.6 11C12.77 11.28 13.1 11.33 13.35 11.13L16.5 8.5" stroke="#F5EFDB" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+</svg>
+    )
+}

@@ -45,7 +45,7 @@
         }
     }
 
-    .pending_synergies_content_header {
+    .investments_content_header {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -161,7 +161,7 @@
         }
     }
 
-    .pending_synergies_page_data {
+    .investments_page_data {
         padding-block: 30px 20px;
         border-radius: 20px;
         background-color: #191917;
@@ -188,22 +188,24 @@
             height: 100%;
             overflow-y: auto;
 
-
-            @media (max-width: 767px) {
-                height: calc(100vh - 272px);
-            }
-
-            .synergies_page_header {
+            .investment_page_header {
                 padding: 0px 34px 21px 34px;
                 display: flex;
                 align-items: center;
+                justify-content: space-between;
+
+                @media (max-width:1200px) {
+                    flex-direction: column;
+                    align-items: start;
+                    gap: 15px;
+                }
 
                 @media (max-width: 767px) {
                     padding: 4px 24px 24px 24px;
                     border-bottom: 1px solid #f5efdb26;
                 }
 
-                .synergies_toggleWrap {
+                .investment_toggleWrap {
                     display: flex;
                     align-items: center;
                     font-size: 24px;
@@ -212,7 +214,7 @@
                     font-weight: 500;
                     font-family: "MedievalSharp", cursive;
 
-                    .synergies_toggle_btn {
+                    .investment_toggle_btn {
                         height: 44px;
                         width: 65px;
                         padding: 10px;
@@ -236,10 +238,28 @@
                         }
                     }
                 }
+
+                .selects {
+                    min-width: 550px;
+                    display: flex;
+                    gap: 10px;
+
+                    @media (max-width:1200px) {
+                        min-width: 100%;
+                    }
+
+                    @media (max-width:450px) {
+                        flex-direction: column;
+                        gap: 15px;
+                        align-items: start;
+                        min-width: 100%;
+                    }
+                }
             }
 
-            .synergies_page_body {
+            .investment_page_body {
                 padding-inline: 34px;
+                // padding-bottom: 15px;
 
                 @media (max-width: 767px) {
                     padding-top: 24px;
@@ -267,7 +287,9 @@
                         display: flex;
                         flex-direction: column;
                         gap: 16px;
-                        background-color: #242623;
+                        border-radius: 10px;
+                        background-color: #24262396;
+                        ;
 
                         &:hover {
                             box-shadow: 1px 0px 20px 1px rgba(255, 138, 28, 0.35);
@@ -312,8 +334,6 @@
                                 height: 100%;
                                 width: 100%;
                             }
-
-
                         }
 
                         .card_body {
@@ -329,11 +349,12 @@
 
                             .tabs {
                                 display: flex;
+                                align-items: center;
                                 flex-wrap: wrap;
                                 gap: 4px;
                                 color: #ffffff;
 
-                                .angle_tag {
+                                .investment_tag {
                                     display: flex;
                                     justify-content: center;
                                     align-items: center;
@@ -341,87 +362,35 @@
                                     font-size: 12px;
                                     border-radius: 6px;
                                     background: #191917;
-                                    gap: 4px;
-
-                                    .text {
-                                        overflow: hidden;
-                                        text-overflow: ellipsis;
-                                        display: -webkit-box;
-                                        -webkit-line-clamp: 1;
-                                        -webkit-box-orient: vertical;
-                                        color: #f5efdb;
-                                    }
                                 }
 
-                                .global {
-                                    .angle_tag {
-                                        position: relative;
-
-                                        &::before {
-                                            content: "";
-                                            inset: 0;
-                                            position: absolute;
-                                            border-radius: 6px;
-                                            padding: 1px;
-                                            background: linear-gradient(to bottom right, #622BFD, #DA4370);
-                                            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-                                            -webkit-mask-composite: xor;
-                                            mask-composite: exclude;
-                                            pointer-events: none;
-                                        }
-
-                                        .text {
-                                            background-image: linear-gradient(to bottom right, #622BFD, #DA4370);
-                                            -webkit-background-clip: text;
-                                            -webkit-text-fill-color: transparent;
-                                        }
-                                    }
-                                }
-
-                                .graph {
-                                    .angle_tag {
-                                        position: relative;
-
-                                        &::before {
-                                            content: "";
-                                            inset: 0;
-                                            position: absolute;
-                                            top: 0;
-                                            left: 0;
-                                            border-radius: 6px;
-                                            padding: 1px;
-                                            background: linear-gradient(to bottom right, #E58A02, #DAB943);
-                                            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-                                            -webkit-mask-composite: xor;
-                                            mask-composite: exclude;
-                                            pointer-events: none;
-                                        }
-
-                                        .text {
-                                            background-image: linear-gradient(to bottom right, #E58A02, #DAB943);
-                                            -webkit-background-clip: text;
-                                            -webkit-text-fill-color: transparent;
-                                        }
-                                    }
+                                .meta_tag {
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    padding: 4px;
+                                    font-size: 12px;
+                                    border-radius: 3px;
+                                    background-color: #242623;
                                 }
                             }
                         }
                     }
                 }
 
-                .synergies_pagination {
+                .investment_pagination {
                     padding-right: 18px;
                     display: flex;
                     justify-content: end;
                     align-items: center;
                     margin-top: 25px;
 
-                    .synergies_pagination_content {
+                    .investment_pagination_content {
                         display: flex;
                         justify-content: space-between;
                         color: #BDBDBD;
 
-                        .synergies_pagination_content_text {
+                        .investment_pagination_content_text {
                             font-size: 14px;
                             color: #fff;
                             display: flex;
@@ -447,7 +416,7 @@
                                 }
                             }
 
-                            .synergies_pagination_content_arrows {
+                            .investment_pagination_content_arrows {
                                 display: flex;
                                 gap: 12px;
 

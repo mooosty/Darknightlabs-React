@@ -9,11 +9,12 @@ import { BackArrow, GradientGraphIcon, GredientGlobalIcon } from "../../../utils
 import { projectTypesOptions, synergyAnglesOptions } from "../../../utils/constants/options"
 import MultiselectDropDown from "../../../components/multiselect-dropdwon/MultiselectDropDown"
 import SynergyRequestSuccessfullySentPopup from "../../../components/popup/synergy-request-successfully-sent-popup/SynergyRequestSuccessfullySentPopup"
+import { useNavigate } from 'react-router-dom'
 
 const FeaturedAllProjects = () => {
     const [isSynergyRequestSuccessfullySentPopupOpen, setIsSynergyRequestSuccessfullySentPopupOpen] = useState(false);
 
-
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     // projects
@@ -57,6 +58,11 @@ const FeaturedAllProjects = () => {
 
 
         return selectedLabels
+    }
+    const handleCardClick = (projectId) => {
+        console.log(projectId);
+
+        // navigate(`/project-detail/${projectId}`); // Navigate to project detail page with projectId in the URL
     }
 
     const formatDate = (date) => {
@@ -216,13 +222,14 @@ const FeaturedAllProjects = () => {
                                 {
                                     filterProject.map((data) => {
                                         return (
-                                            <>
+                                            < >
                                                 <Card
                                                     isFeatured={data.isFeatured}
                                                     name={data.projectName}
                                                     img={data.synergyImg}
                                                     synergiesAngles={data.synergiesAngles}
                                                     price={data.price}
+                                                    onClick={() => handleCardClick(data.projectId)}
                                                 />
                                             </>
                                         )

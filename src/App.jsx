@@ -16,6 +16,8 @@ import { injectStore } from './store/injector'
 import { store } from './store/store'
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import ProjectDetails from './pages/projects/project-details/ProjectDetails'
+import Investment from './pages/investment/Investment'
 
 function App() {
 
@@ -38,6 +40,8 @@ function App() {
             <Route path={ROUTER.synergyProject} element={<SynergyProject />} />
             <Route path={ROUTER.chat} element={<Chats />} />
             <Route path={ROUTER.pendingSynergies} element={<PendingSynergies />} />
+            <Route path={ROUTER.projectDetails} element={<ProjectDetails />} />
+            <Route path={ROUTER.investment} element={<Investment />} />
           </Route>
 
           <Route path="*" element={<div>Not found</div>} />

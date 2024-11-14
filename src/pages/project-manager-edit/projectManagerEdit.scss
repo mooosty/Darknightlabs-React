@@ -500,12 +500,12 @@
 
                 input,
                 select {
-                  padding: 16px 24px;
+                  padding: 15px 24px;
                   border: 1px solid #ffffff80;
                   background-color: transparent;
                   width: 100%;
                   color: #f5efdb;
-                  line-height: 19.36px;
+                  line-height: 19px;
                   font-size: 16px;
                   font-weight: 500;
                   margin-bottom: 8px;
@@ -518,7 +518,7 @@
 
                 label {
                   color: #f5efdb;
-                  line-height: 19.36px;
+                  line-height: 19px;
                   font-size: 16px;
                   font-weight: 500;
                   margin-block: 5px;
@@ -546,7 +546,7 @@
                     background-color: transparent;
                     font-family: "Inter", sans-serif;
                     resize: vertical;
-                    padding: 16px 24px;
+                    padding: 15px 24px;
 
                     @media (max-width: 1600px) {
                       font-size: 14px;
@@ -558,7 +558,7 @@
                   }
 
                   .tag_box {
-                    padding: 16px 24px;
+                    padding: 15px 24px;
                     border: 1px solid #ffffff80;
                     background-color: transparent;
                     width: 100%;
@@ -757,8 +757,6 @@
             padding: 15px 20px 15px 15px;
 
             @media (max-width: 767px) {
-              display: flex;
-              justify-content: space-between;
               padding-bottom: 115px;
             }
 
