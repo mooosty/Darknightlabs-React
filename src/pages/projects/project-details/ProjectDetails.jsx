@@ -6,47 +6,45 @@ import autherProfile from "../../../assets/auther-profile.png"
 // import cardImg from '../../../assets/project-card-img-1.png'
 import { DescriptionIcon, GradientGraphIcon, GradientInfiniteIcon, GrammerlyIcon, GredientGlobalIcon, HealthIcon, InvestmentIcon, MoreIcon, ShareLinkIcon, ShareOutlineIcon, StarIcon, TableStatusIcon } from '../../../utils/SVGs/SVGs'
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getProjectsApiById } from '../../../api-services/projectApis';
+// import fallBackImage from "../../../assets/fallback-image.png";
+import fallBackImage from '../../../assets/project-card-img-1.png'
+import { toast } from 'react-toastify';
+import ChoosePrioritySynergiesPopup from '../../../components/popup/choose-priority-synergies-popup/ChoosePrioritySynergiesPopup';
 
-const synergiesAngles = [
-    {
-        icon: <GredientGlobalIcon />,
-        label: 'IP integration',
-        text: 'Integrate your IP in our Comic Books'
-    },
-    {
-        icon: <GradientGraphIcon />,
-        label: 'Hosting AMAS',
-        text: 'Norem ipsum dolor sit amet, consectetur adipiscing elit.'
-    },
-    {
-        icon: <GrammerlyIcon />,
-        label: 'Angle48',
-        text: 'Norem ipsum dolor sit amet, consectetur adipiscing elit.'
-    },
-    {
-        icon: <HealthIcon />,
-        label: 'Angle49',
-        text: 'Norem ipsum dolor sit amet, consectetur adipiscing elit.'
-    },
-    {
-        icon: <StarIcon />,
-        label: 'Angle50',
-        text: 'Norem ipsum dolor sit amet, consectetur adipiscing elit.'
-    }]
 
+const synergiesAnglesIcons = [
+    { icon: <GredientGlobalIcon /> },
+    { icon: <GradientGraphIcon /> },
+    { icon: <GrammerlyIcon /> },
+    { icon: <HealthIcon /> },
+    { icon: <StarIcon /> },
+]
 const ProjectDetails = () => {
-    const projectApiLoading = false;
-    const [activeLayout, setActiveLayout] = useState('SYNERGY');
-    const [data, setData] = useState({});
 
+    const { projectDetails } = useSelector((state) => state.project)
+
+    const projectApiLoading = false;
+
+    const [activeLayout, setActiveLayout] = useState('SYNERGY');
+    const [isChoosePrioritySynergiesPopupOpen, setIsChoosePrioritySynergiesPopupOpen] = useState(false);
+
+    const toggleChoosePrioritySynergiesPopupOpen = () => setIsChoosePrioritySynergiesPopupOpen(!isChoosePrioritySynergiesPopupOpen)
     const params = useParams();
     const dispatch = useDispatch();
 
-    console.log('Data', data);
-
-    // -- Used data in this page --
+    const copyText = () => {
+        const text = window.location.href
+        var textField = document.createElement('textarea')
+        textField.innerText = text
+        document.body.appendChild(textField)
+        textField.select()
+        document.execCommand('copy')
+        textField.remove()
+        toast.success('URL Copied')
+    }
+    // -- Used projectDetails in this page --
     // 1.  project_id 
     // 2.  project_name 
     // 3.  image
@@ -59,11 +57,8 @@ const ProjectDetails = () => {
     }
 
     useEffect(() => {
-        dispatch(getProjectsApiById(params.projectId)).then((res) => {
-            setData(res?.payload);
-        });
+        dispatch(getProjectsApiById(params.projectId))
     }, [])
-
 
     return (
         <>
@@ -83,31 +78,35 @@ const ProjectDetails = () => {
                             <span>
                                 <img src={arrowRight} alt="" />
                             </span>
-                            <p>Project name 111</p>
+                            <p>{projectDetails?.project_name}</p>
                         </div>
                     </div>
                     <div className="page_body">
                         <div className="page_content">
                             <div className="project_profile">
                                 <div className="project_image">
-                                    <img src={data?.image} alt="Project" />
+                                    <img
+                                        onError={e => {
+                                            e.target.src = fallBackImage
+                                            e.onerror = null
+                                        }} src={projectDetails?.image ?? fallBackImage} alt="Project" />
                                 </div>
                             </div>
                             <div className="project_page_content">
                                 <div className="header">
                                     <div className="left">
-                                        <p className="project_title">{data?.project_name}</p>
-                                        {data.featured ? <div className='featuredTag'>
+                                        <p className="project_title">{projectDetails?.project_name}</p>
+                                        {projectDetails?.featured ? <div className='featuredTag'>
                                             <TableStatusIcon /> Featured
                                         </div> : <></>}
                                     </div>
                                     <div className="right">
                                         <div className="buttonGroup">
-                                            <button className="button"><ShareLinkIcon /></button>
+                                            <button className="button" onClick={() => copyText()}><ShareLinkIcon /></button>
                                             <button className="button"><ShareOutlineIcon /></button>
                                             <button className="button"><MoreIcon /></button>
                                         </div>
-                                        <div className='synergizeTag'>
+                                        <div className='synergizeTag' onClick={() => toggleChoosePrioritySynergiesPopupOpen()}>
                                             <GradientInfiniteIcon /> <span className='text'>Synergize</span>
                                         </div>
                                     </div>
@@ -121,7 +120,7 @@ const ProjectDetails = () => {
                                     <GradientInfiniteIcon /> <span className='text'>Synergize</span>
                                 </div>
                                 <div className="tags">
-                                    <div className="tag">#{data?.project_info}</div>
+                                    <div className="tag">#{projectDetails?.project_info}</div>
                                     {/* <div className="tag">#AI</div> */}
                                     {/* <div className="tag">#Metaverse</div> */}
                                 </div>
@@ -130,7 +129,7 @@ const ProjectDetails = () => {
                                         <DescriptionIcon />
                                         <span>Description</span></div>
                                     <div className="description_body">
-                                        {data?.description}
+                                        {projectDetails?.description}
                                     </div>
                                 </div>
                                 <div className="toggleButtons">
@@ -146,14 +145,14 @@ const ProjectDetails = () => {
                                         <GradientInfiniteIcon />
                                         <span>Synergy angles</span></div>
                                     <div className="synergy_body">
-                                        {synergiesAngles.map((data, index) => {
+                                        {projectDetails?.synergy_angles?.map((data, index) => {
                                             return (
                                                 <div key={index} className="row">
                                                     <div className="left">
-                                                        <div className={`tag ${index == 0 ? 'global' : index == 1 ? 'graph' : 'white_icon'}`}> {data.icon}
-                                                            <span className="text"> {data.label}</span> </div>
+                                                        <div className={`tag ${index == 0 ? 'global' : index == 1 ? 'graph' : 'white_icon'}`}> {synergiesAnglesIcons[index % 5].icon}
+                                                            <span className="text"> {data[1]}</span> </div>
                                                     </div>
-                                                    <div className="right">{data.text}</div>
+                                                    <div className="right">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
                                                 </div>
                                             )
                                         })}
@@ -164,31 +163,20 @@ const ProjectDetails = () => {
                                         <InvestmentIcon />
                                         <span>Investment info</span></div>
                                     <div className="investment_body">
-                                        {data?.investments_access ? <>
-                                            <div className="row">
-                                                <div className="left">
-                                                    Token name:
-                                                </div>
-                                                <div className="right">$RIFT</div>
-                                            </div>
-                                            <div className="row">
-                                                <div className="left">
-                                                    Round:
-                                                </div>
-                                                <div className="right">Strategiv</div>
-                                            </div>
-                                            <div className="row">
-                                                <div className="left">
-                                                    Current backers:
-                                                </div>
-                                                <div className="right">Morningstar Ventures, lorem ipsum</div>
-                                            </div>
-                                            <div className="row">
-                                                <div className="left">
-                                                    Confirmed listings :
-                                                </div>
-                                                <div className="right">Kucoin, Binance</div>
-                                            </div>
+                                        {projectDetails?.investments_access ? <>
+                                            {
+                                                projectDetails?.investments?.map((data, index) => {
+                                                    return (
+
+                                                        <div key={index} className="row">
+                                                            <div className="left">
+                                                                {data[0]} :
+                                                            </div>
+                                                            <div className="right">{data[1]}</div>
+                                                        </div>
+                                                    )
+                                                })
+                                            }
                                         </>
                                             : <span>This project is not open for Investments at the moment</span>}
                                     </div>
@@ -201,6 +189,12 @@ const ProjectDetails = () => {
 
 
             <Loader loading={projectApiLoading} />
+            {isChoosePrioritySynergiesPopupOpen &&
+                <ChoosePrioritySynergiesPopup
+                    open={isChoosePrioritySynergiesPopupOpen}
+                    handleClose={() => toggleChoosePrioritySynergiesPopupOpen()}
+                />
+            }
         </>
     )
 }

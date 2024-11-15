@@ -6,6 +6,8 @@ import ChoosePrioritySynergiesPopup from '../popup/choose-priority-synergies-pop
 import { useState } from 'react';
 import { Tooltip } from 'react-tooltip'
 import defaultImage from '../../assets/project-card-img-1.png'
+import { useNavigate } from 'react-router-dom';
+import { ROUTER } from '../../utils/routes/routes';
 
 const Card = ({
     name,
@@ -13,14 +15,17 @@ const Card = ({
     synergiesAngles = [],
     isFeatured,
     price,
+    projectId
 }) => {
     const [isChoosePrioritySynergiesPopupOpen, setIsChoosePrioritySynergiesPopupOpen] = useState(false);
+    const navigate = useNavigate()
+
     const handleActive = () => {
         setIsChoosePrioritySynergiesPopupOpen(!isChoosePrioritySynergiesPopupOpen);
     }
     return (
         <>
-            <div className={`project_card ${isFeatured ? 'heighlighted' : ''}`}>
+            <div onClick={() => navigate(`/${ROUTER.projects}/${projectId}`)} className={`project_card ${isFeatured ? 'heighlighted' : ''}`}>
                 {isFeatured ?
                     <div className="isFeaturedCard"> <TableStatusIcon /></div> : ''}
                 <div className="card_img">
@@ -89,6 +94,7 @@ Card.propTypes = {
     synergiesAngles: PropTypes.array,
     price: PropTypes.string,
     isFeatured: PropTypes.bool,
+    projectId: PropTypes.string,
 }
 
 export default Card

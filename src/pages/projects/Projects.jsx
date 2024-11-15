@@ -223,6 +223,7 @@ const Projects = () => {
                                             return (
                                                 <>
                                                     <Card
+                                                        projectId={data.projectId}
                                                         isFeatured={data.isFeatured == 1}
                                                         name={data.projectName}
                                                         img={data.synergyImg}
@@ -280,6 +281,7 @@ const Projects = () => {
                                         return (
                                             <>
                                                 <Card
+                                                    projectId={data.projectId}
                                                     isFeatured={data.isFeatured == 1}
                                                     name={data.projectName}
                                                     img={data.synergyImg}

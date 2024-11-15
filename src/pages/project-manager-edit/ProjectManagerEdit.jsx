@@ -65,10 +65,14 @@ const ProjectManagerEdit = () => {
     const [whoAccessToSynergySide, setWhoAccessToSynergySide] = useState('All Users');
     const [whoAccessToInvestmentSide, setWhoAccessToInvestmentSide] = useState('All Users');
     const [isDeleteConfirmPopupOpen, setIsDeleteConfirmPopupOpen] = useState(false);
+    const [angelPopupIndex, setAngelPopupIndex] = useState()
+
+    const { projectDetails } = useSelector((state) => state.project)
     const projectApiLoading = useSelector((state) => state.project.isLoading)
     const projectSaveApiLoading = useSelector((state) => state.project.isSaveLoading)
 
 
+    const toggleAddAngelPopupOpen = () => setIsAddAngelPopupOpen(!isAddAngelPopupOpen)
     const [tags, setTags] = useState([]);
 
     const dispatch = useDispatch();
@@ -143,7 +147,7 @@ const ProjectManagerEdit = () => {
         });
 
         const formData = new FormData();
-        formData.append('file', values.image.file);
+        formData.append('file', values?.image?.file);
         const response = await axios.post(`${import.meta.env.VITE_IMAGE_UPLOAD_BASE_URL}/`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -238,17 +242,35 @@ const ProjectManagerEdit = () => {
         setIsDeleteConfirmPopupOpen(false);
     }
 
+    const handleAddNewAngel = (data) => {
+        toggleAddAngelPopupOpen()
+        if (data?.description) {
+            synergyAnglesOptions.push({
+                label: data?.description,
+                value: data?.description,
+                tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
+            })
+            setFieldValue('synergy_angles', [...values.synergy_angles.slice(0, angelPopupIndex), {
+                [`synergy_angle`]: data?.description
+            }, ...values.synergy_angles.slice(angelPopupIndex + 1)])
+        }
+    }
 
 
     useEffect(() => {
         if (projectId && projectId !== 'add') {
             dispatch(getProjectsApiById(projectId)).then((res) => {
                 let projectData = res.payload;
-
-                let synergy_angles = projectData?.synergy_angles.map((synergyAngle, index) => {
-                    return { [`synergy_angle${index}`]: synergyAngle[1] };
+                let synergy_angles = projectData?.synergy_angles.map((synergyAngle) => {
+                    if (!synergyAnglesOptions?.find(data => data.value == synergyAngle[1])) {
+                        synergyAnglesOptions.push({
+                            label: synergyAngle[1],
+                            value: synergyAngle[1],
+                            tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
+                        })
+                    }
+                    return { [`synergy_angle`]: synergyAngle[1] };
                 })
-
 
                 let investments = projectData.investments.map((investment) => {
                     return {
@@ -318,12 +340,12 @@ const ProjectManagerEdit = () => {
                         </div>
                         {projectId !== 'add' && <button className="btn_gray" onClick={handleSaveChanges} disabled={projectSaveApiLoading}>
                             {
-                                (projectSaveApiLoading) ? <> <Loader loading={projectSaveApiLoading} isItForbutton={true} /> <p>Save changes</p> </> : 'Save changes'
+                                (projectSaveApiLoading) ? <> <Loader loading={projectSaveApiLoading} isItForButton={true} /> <p>Save changes</p> </> : 'Save changes'
                             }
                         </button>}
                         {projectId === 'add' && <button className="btn_gray" onClick={handleAddProject} disabled={projectApiLoading}>
                             {
-                                (projectApiLoading) ? <> <Loader loading={projectApiLoading} isItForbutton={true} /> <p> Add Project</p> </> : ' Add Project'
+                                (projectApiLoading) ? <> <Loader loading={projectApiLoading} isItForButton={true} /> <p> Add Project</p> </> : ' Add Project'
                             }
                         </button>}
                     </div>
@@ -507,7 +529,7 @@ const ProjectManagerEdit = () => {
                                                             options={synergyAnglesOptions}
                                                             placeholder='Select synergy angel'
                                                             hasAddButton={true}
-                                                            onAdd={() => setIsAddAngelPopupOpen(true)}
+                                                            onAdd={() => { toggleAddAngelPopupOpen(); setAngelPopupIndex(index) }}
                                                             value={synergy_angle[`synergy_angle`]}
                                                             addButtonLabel='Add new angle'
                                                             onChange={(value) => {
@@ -627,20 +649,19 @@ const ProjectManagerEdit = () => {
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="delete_project_btn">
-                            {projectId !== 'add' && <button
-                                className="btn_delete"
-                                disabled={projectId === 'add'}
-                                onClick={() => {
-                                    setIsDeleteConfirmPopupOpen(true);
-                                }}
-                            >
-                                <img src={trashIcon} alt="Delete" /> Delete project
-                            </button>
-                            }
-                            {projectId !== 'add' && <button className="btn_gray" onClick={handleSaveChanges}>Save changes</button>}
-                            {projectId === 'add' && <button className="btn_gray" onClick={handleAddProject}>Add Project</button>}
+                            <div className="delete_project_btn">
+                                <button
+                                    className="btn_delete"
+                                    disabled={projectId === 'add'}
+                                    onClick={() => {
+                                        setIsDeleteConfirmPopupOpen(true);
+                                    }}
+                                >
+                                    <img src={trashIcon} alt="Delete" /> Delete project
+                                </button>
+                                {projectId !== 'add' && <button className="btn_gray" onClick={handleSaveChanges}>Save changes</button>}
+                                {projectId === 'add' && <button className="btn_gray" onClick={handleAddProject}>Add Project</button>}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -658,7 +679,9 @@ const ProjectManagerEdit = () => {
 
             <AddAngelPopup
                 open={isAddAngelPopupOpen}
-                handleClose={() => setIsAddAngelPopupOpen(false)}
+                handleClose={() => toggleAddAngelPopupOpen()}
+                handleAddNewAngel={handleAddNewAngel}
+                defaultValue={projectId == 'add' ? '' : projectDetails.project_name}
             />
 
             <Loader loading={projectApiLoading} />

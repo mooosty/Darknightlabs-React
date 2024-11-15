@@ -239,7 +239,7 @@
             }
 
             .synergies_page_body {
-                padding-inline: 34px;
+                padding-inline: 30px;
 
                 @media (max-width: 767px) {
                     padding-top: 24px;
@@ -251,6 +251,7 @@
                     display: flex;
                     gap: 24px;
                     flex-wrap: wrap;
+                    padding-bottom: 20px;
 
                     @media (max-width: 1300px) {
                         justify-content: space-between;
@@ -262,11 +263,12 @@
                     }
 
                     .card {
-                        width: 18%;
+                        width: 18.35%;
                         padding: 12px 16px;
                         display: flex;
                         flex-direction: column;
                         gap: 16px;
+                        border-radius: 10px;
                         background-color: #242623;
 
                         &:hover {

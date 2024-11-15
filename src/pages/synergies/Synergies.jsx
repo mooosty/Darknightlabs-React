@@ -11,6 +11,7 @@ import tableActor from "../../assets/tableActorImage.jpg";
 import { formatDate } from '../../utils/helper/helper'
 import { getStaticSynergyStatus } from '../../utils/constants/static'
 import debounce from 'lodash.debounce'
+import defaultImg from '../../assets/project-card-img-1.png'
 
 
 const Synergies = () => {
@@ -148,57 +149,58 @@ const Synergies = () => {
                 </div>
 
                 <div className="user_synergies_page_data">
-                    <div className="synergies_card_box">
-                        <div className="synergies_card_header">
-                            <div className="header_top"> Available synergies </div>
-                            <div className="header_bottom">
-                                <div className="btns">
-                                    <button className={`btn ${activeLayout === 'TRENDING' ? 'active' : ''}`} onClick={() => handleActive('TRENDING')} >Trending</button>
-                                    <button className={`btn ${activeLayout === 'NEWEST' ? 'active' : ''}`} onClick={() => handleActive('NEWEST')} >Newest</button>
-                                    <button className={`btn ${activeLayout === 'OLDEST' ? 'active' : ''}`} onClick={() => handleActive('OLDEST')} >Oldest</button>
+                    <div className="page_data">
+                        <div className="synergies_card_box">
+                            <div className="synergies_card_header">
+                                <div className="header_top"> Available synergies </div>
+                                <div className="header_bottom">
+                                    <div className="btns">
+                                        <button className={`btn ${activeLayout === 'TRENDING' ? 'active' : ''}`} onClick={() => handleActive('TRENDING')} >Trending</button>
+                                        <button className={`btn ${activeLayout === 'NEWEST' ? 'active' : ''}`} onClick={() => handleActive('NEWEST')} >Newest</button>
+                                        <button className={`btn ${activeLayout === 'OLDEST' ? 'active' : ''}`} onClick={() => handleActive('OLDEST')} >Oldest</button>
+                                    </div>
+                                    <div className="selects">
+                                        <MultiselectDropDown
+                                            options={synergyAnglesOptions}
+                                            placeholder={'All synergies angles'}
+                                            onApply={(currentOptions) => {
+                                                const synergiesAnglesValues = currentOptions?.map((option) => option.value)
+                                                console.log('synergiesAnglesValues', synergiesAnglesValues)
+                                                setFilter({
+                                                    ...filter,
+                                                    synergyAngleValues: synergiesAnglesValues
+                                                })
+                                            }}
+                                        >
+                                        </MultiselectDropDown>
+                                    </div>
                                 </div>
-                                <div className="selects">
-                                    <MultiselectDropDown
-                                        options={synergyAnglesOptions}
-                                        placeholder={'All synergies angles'}
-                                        onApply={(currentOptions) => {
-                                            const synergiesAnglesValues = currentOptions?.map((option) => option.value)
-                                            console.log('synergiesAnglesValues', synergiesAnglesValues)
-                                            setFilter({
-                                                ...filter,
-                                                synergyAngleValues: synergiesAnglesValues
-                                            })
-                                        }}
-                                    >
-                                    </MultiselectDropDown>
-                                </div>
+                            </div>
+
+                            <div className="synergies_cards">
+                                {
+                                    filterSynergies.map((data, index) => {
+                                        return (
+                                            <>
+                                                <Card
+                                                    key={index}
+                                                    img={(data.synergyImg === '' || !data.synergyImg) ? defaultImg : data.synergyImg}
+                                                    name={data.synergyName}
+                                                    price={data.price}
+                                                    tags={data.tags || ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming']}
+                                                    status={getStaticSynergyStatus(index)}
+                                                    synergiesAngles={data.synergiesAngles}
+                                                    description='lorem Reprehenderit aliqua sit quis cillum dolor Lorem incididunt reprehenderit est elit et.'
+                                                />
+                                            </>
+                                        )
+                                    })
+                                }
                             </div>
                         </div>
 
-                        <div className="synergies_cards">
-                            {
-                                filterSynergies.map((data, index) => {
-                                    return (
-                                        <>
-                                            <Card
-                                                key={index}
-                                                img={data.synergyImg}
-                                                name={data.synergyName}
-                                                price={data.price}
-                                                tags={data.tags || ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming']}
-                                                status={getStaticSynergyStatus(index)}
-                                                synergiesAngles={data.synergiesAngles}
-                                                description='lorem Reprehenderit aliqua sit quis cillum dolor Lorem incididunt reprehenderit est elit et.'
-                                            />
-                                        </>
-                                    )
-                                })
-                            }
-                        </div>
-                    </div>
-
-                    {/* pagination  */}
-                    {/* <div className="pagination">
+                        {/* pagination  */}
+                        {/* <div className="pagination">
                         <div className="pagination_content">
                             <div className="pagination_content_text">
                                 <span className='pagination_head'>Row per page:</span>
@@ -220,6 +222,7 @@ const Synergies = () => {
                             </div>
                         </div>
                     </div> */}
+                    </div>
                 </div>
             </div>
         </>

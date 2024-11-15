@@ -1,11 +1,16 @@
 import PropTypes from 'prop-types';
 import closeIcon from '../../../assets/X-icon.png'
-import addIcon from "../../../assets/add-icon.png"
 
 import './AddAngelPopup.scss'
-import Select from '../../select/Select';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
-const AddAngelPopup = ({ open, handleClose }) => {
+const AddAngelPopup = ({ open, handleClose, handleAddNewAngel, defaultValue }) => {
+    const [data, setData] = useState({})
+    const handleInputChange = (e) => {
+        setData({ ...data, [e.target.name]: e.target.value })
+    }
+    useEffect(() => { setData({ project_name: defaultValue }) }, [defaultValue])
     return (
         <>
             <div className={`model_bg ${open ? 'active' : ''} `}>
@@ -19,6 +24,7 @@ const AddAngelPopup = ({ open, handleClose }) => {
                                 <button
                                     onClick={() => {
                                         handleClose()
+                                        setData({})
                                     }}
                                 >
                                     <img src={closeIcon} alt="close" />
@@ -27,18 +33,18 @@ const AddAngelPopup = ({ open, handleClose }) => {
                             <p className='model_description'>Qorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                             <form action="#" className='model_form'>
                                 <div className="form_group">
-                                    <label htmlFor="projectName">Project Name</label>
-                                    <input type="text" id="projectName" defaultValue="Project 1581" placeholder="Add project name" />
+                                    <label htmlFor="project_name">Project Name</label>
+                                    <input onChange={handleInputChange} name='project_name' value={data?.project_name} type="text" id="projectName" placeholder="Add project name" />
                                 </div>
                                 <div className="form_group">
-                                    <label htmlFor="projectName">Description</label>
-                                    <input type="text" id="projectName" defaultValue="Project 1581" placeholder="Add description" />
+                                    <label htmlFor="description">Description</label>
+                                    <input onChange={handleInputChange} name='description' value={data?.description} type="text" id="projectName" placeholder="Add description" />
                                 </div>
                             </form>
                         </div>
                         <div className='model_footer'>
-                            <button className='cancel_btn'>Cancel</button>
-                            <button className='save_btn'>Save</button>
+                            <button className='cancel_btn' onClick={() => { handleClose(); setData({}) }}>Cancel</button>
+                            <button className='save_btn' onClick={() => { handleAddNewAngel(data); setData({}) }}>Save</button>
                         </div>
                     </div>
                 </div>
@@ -50,6 +56,8 @@ const AddAngelPopup = ({ open, handleClose }) => {
 AddAngelPopup.propTypes = {
     open: PropTypes.bool,
     handleClose: PropTypes.func,
+    handleAddNewAngel: PropTypes.func,
+    defaultValue: PropTypes.string
 }
 
 export default AddAngelPopup

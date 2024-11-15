@@ -58,6 +58,8 @@
         }
 
         .synergies_content_Wraper {
+            height: 100%;
+
             .synergies_content_header {
                 display: flex;
                 align-items: center;
@@ -176,12 +178,15 @@
             }
 
             .user_synergies_page_data {
+                min-height: 540px;
+                height: calc(100% - 80px);
                 border-radius: 20px;
                 background-color: #191917;
                 margin-bottom: 32px;
                 background-image: url('../../assets/model-frame.png');
                 background-repeat: no-repeat;
                 background-position: 8px 17px;
+                padding-block: 36px 28px ;
 
                 @media (max-width: 767px) {
                     padding: 0;
@@ -189,177 +194,182 @@
                     background-image: none;
                 }
 
-                .synergies_card_box {
-                    background-position: 8px 17px;
-                    padding: 36px 0 28px 0;
+                .page_data {
+                    height: 100%;
+                    overflow-y: auto;
 
-                    @media (max-width: 767px) {
-                        padding-top: 0;
-                    }
-
-                    .synergies_card_header {
-                        display: flex;
-                        flex-direction: column;
-                        gap: 16px;
-                        padding: 0 30px 12px 30px;
-                        margin-bottom: 12px;
+                    .synergies_card_box {
+                        background-position: 8px 17px;
 
                         @media (max-width: 767px) {
-                            padding-top: 40px;
+                            padding-top: 0;
                         }
 
-                        .header_top {
-                            color: #f5efdb;
-                            font-size: 24px;
-                            font-family: "MedievalSharp", cursive;
+                        .synergies_card_header {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 16px;
+                            padding: 0 30px 12px 30px;
+                            margin-bottom: 12px;
 
                             @media (max-width: 767px) {
-                                font-size: 20px;
-                            }
-                        }
-
-                        .header_bottom {
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-
-                            @media (max-width:1200px) {
-                                flex-direction: column;
-                                align-items: start;
-                                gap: 15px;
+                                padding-top: 40px;
                             }
 
-                            .btns {
-                                display: flex;
-                                background-color: #242623;
-                                padding: 4px;
+                            .header_top {
+                                color: #f5efdb;
+                                font-size: 24px;
+                                font-family: "MedievalSharp", cursive;
 
-                                .btn {
-                                    padding: 10px;
-                                    display: flex;
-                                    align-items: center;
-                                    justify-content: center;
-                                    background-color: transparent;
-                                    border: none;
-                                    color: rgba(230, 234, 238, 0.5);
-                                    font-family: MedievalSharp;
-
-                                    @media (max-width:1200px) {
-                                        padding: 10px 5px;
-                                    }
-
-                                    &.active {
-                                        background-color: rgba(78, 78, 78, 0.58);
-                                        color: #F5EFDB;
-                                    }
+                                @media (max-width: 767px) {
+                                    font-size: 20px;
                                 }
                             }
 
-                            .selects {
-                                min-width: 230px;
+                            .header_bottom {
                                 display: flex;
-                                gap: 10px;
+                                justify-content: space-between;
+                                align-items: center;
 
                                 @media (max-width:1200px) {
-                                    min-width: 100%;
-                                }
-
-                                @media (max-width:450px) {
                                     flex-direction: column;
-                                    gap: 15px;
                                     align-items: start;
-                                    min-width: 100%;
+                                    gap: 15px;
                                 }
-                            }
-                        }
-                    }
 
-                    .synergies_cards {
-                        height: 100%;
-                        display: flex;
-                        flex-wrap: wrap;
-                        gap: 16px;
-                        row-gap: 32px;
-                        padding-inline: 30px;
+                                .btns {
+                                    display: flex;
+                                    background-color: #242623;
+                                    padding: 4px;
 
-                        .synergy_card {
-                            width: 23.7%;
+                                    .btn {
+                                        padding: 10px;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        background-color: transparent;
+                                        border: none;
+                                        color: rgba(230, 234, 238, 0.5);
+                                        font-family: MedievalSharp;
 
-                            @media (min-width:1200px) and (max-width:1350px) {
-                                width: 32%;
-                            }
+                                        @media (max-width:1200px) {
+                                            padding: 10px 5px;
+                                        }
 
-                            @media (min-width:600px) and (max-width:1200px) {
-                                width: 48%;
-                            }
+                                        &.active {
+                                            background-color: rgba(78, 78, 78, 0.58);
+                                            color: #F5EFDB;
+                                        }
+                                    }
+                                }
 
-                            @media (max-width:600px) {
-                                width: 100%;
-                            }
-                        }
-                    }
-                }
+                                .selects {
+                                    min-width: 230px;
+                                    display: flex;
+                                    gap: 10px;
 
-                .pagination {
-                    padding: 0 20px 25px 0;
-                    display: flex;
-                    justify-content: end;
-                    align-items: center;
-                    margin-top: 25px;
+                                    @media (max-width:1200px) {
+                                        min-width: 100%;
+                                    }
 
-                    .pagination_content {
-                        display: flex;
-                        justify-content: space-between;
-                        color: #BDBDBD;
-
-                        .pagination_content_text {
-                            font-size: 14px;
-                            color: #fff;
-                            display: flex;
-                            gap: 8px;
-
-                            .pagination_head {
-                                color: #BDBDBD;
-                            }
-
-                            .pagination_dropdown {
-                                select {
-                                    border: none;
-                                    background: transparent;
-                                    color: #fff;
-                                    cursor: pointer;
-                                    font-family: "Inter", sans-serif;
-                                    font-size: 14px;
-                                    outline: 0px;
-
-                                    option {
-                                        background-color: #242623;
+                                    @media (max-width:450px) {
+                                        flex-direction: column;
+                                        gap: 15px;
+                                        align-items: start;
+                                        min-width: 100%;
                                     }
                                 }
                             }
+                        }
 
-                            .pagination_content_arrows {
+                        .synergies_cards {
+                            height: 100%;
+                            display: flex;
+                            flex-wrap: wrap;
+                            gap: 16px;
+                            row-gap: 32px;
+                            padding-inline: 30px;
+                            padding-bottom: 20px;
+
+                            .synergy_card {
+                                width: 23.7%;
+
+                                @media (min-width:1200px) and (max-width:1350px) {
+                                    width: 32%;
+                                }
+
+                                @media (min-width:600px) and (max-width:1200px) {
+                                    width: 48%;
+                                }
+
+                                @media (max-width:600px) {
+                                    width: 100%;
+                                }
+                            }
+                        }
+
+                        .pagination {
+                            padding-right: 30px;
+                            display: flex;
+                            justify-content: end;
+                            align-items: center;
+                            margin-top: 25px;
+
+                            .pagination_content {
                                 display: flex;
-                                gap: 12px;
+                                justify-content: space-between;
+                                color: #BDBDBD;
 
-                                .table_pagination_content_button {
-                                    background: transparent;
-                                    border: none;
+                                .pagination_content_text {
+                                    font-size: 14px;
+                                    color: #fff;
                                     display: flex;
-                                    justify-content: center;
-                                    align-items: center;
+                                    gap: 8px;
 
-                                    svg {
-                                        path {
-                                            height: 20px;
-                                            width: 20px;
+                                    .pagination_head {
+                                        color: #BDBDBD;
+                                    }
+
+                                    .pagination_dropdown {
+                                        select {
+                                            border: none;
+                                            background: transparent;
+                                            color: #fff;
+                                            cursor: pointer;
+                                            font-family: "Inter", sans-serif;
+                                            font-size: 14px;
+                                            outline: 0px;
+
+                                            option {
+                                                background-color: #242623;
+                                            }
                                         }
                                     }
 
-                                    &:focus {
-                                        svg {
-                                            path {
-                                                fill: #fff;
+                                    .pagination_content_arrows {
+                                        display: flex;
+                                        gap: 12px;
+
+                                        .table_pagination_content_button {
+                                            background: transparent;
+                                            border: none;
+                                            display: flex;
+                                            justify-content: center;
+                                            align-items: center;
+
+                                            svg {
+                                                path {
+                                                    height: 20px;
+                                                    width: 20px;
+                                                }
+                                            }
+
+                                            &:focus {
+                                                svg {
+                                                    path {
+                                                        fill: #fff;
+                                                    }
+                                                }
                                             }
                                         }
                                     }

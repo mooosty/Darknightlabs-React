@@ -12,6 +12,7 @@ import Loader from '../../components/loader/Loader';
 import searchIcon from "../../assets/search-icon.png"
 import { useSelector, useDispatch } from 'react-redux';
 import tableActorImage3 from "../../assets/avatar-3.jpg";
+import defaultImg from '../../assets/project-card-img-1.png'
 import cardImage from "../../assets//project-card-img-1.png";
 import { createSynergyApi } from '../../api-services/synergyApi';
 import BottomMenu from '../../components/buttom-menu/BottomMenu';
@@ -791,7 +792,7 @@ const ProjectManager = () => {
                                                             </td>
                                                             <td>
                                                                 <div className="table_image">
-                                                                    <img src={rowData.synergyImg} alt=" " />
+                                                                    <img src={rowData.synergyImg === '' || !rowData.synergyImg ? defaultImg : rowData.synergyImg} alt=" " onError={(e) => e.target.src = defaultImg} />
                                                                 </div>
                                                             </td>
                                                             <td>
@@ -1112,7 +1113,7 @@ const ProjectManager = () => {
                                     disabled={isLoading}
                                 >
                                     {
-                                        (isLoading) ? <> <Loader loading={isLoading} isItForbutton={true} /> <p>Create synergy </p> </> : 'Create synergy '
+                                        (isLoading) ? <> <Loader loading={isLoading} isItForButton={true} /> <p>Create synergy </p> </> : 'Create synergy '
                                     }
                                 </button>
                             </>

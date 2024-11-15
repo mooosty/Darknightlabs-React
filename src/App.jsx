@@ -31,15 +31,11 @@ function App() {
         <Routes>
           <Route path={'/'} element={<Navigate to={ROUTER.projectManager} />} />
           <Route element={<Layout />}>
-            {userRole == 'USER' &&
-              <>
-                <Route path={ROUTER.projects} element={<Projects />} />
-                <Route path={ROUTER.featuredProjects} element={<FeaturedAllProjects />} />
-                <Route path={ROUTER.synergies} element={<Synergies />} />
-                <Route path={ROUTER.projectDetails} element={<ProjectDetails />} />
-                <Route path={ROUTER.investment} element={<Investment />} />
-              </>
-            }
+            <Route path={ROUTER.projects} element={<Projects />} />
+            <Route path={ROUTER.featuredProjects} element={<FeaturedAllProjects />} />
+            <Route path={ROUTER.synergies} element={<Synergies />} />
+            <Route path={`${ROUTER.projects}/:projectId`} element={<ProjectDetails />} />
+            <Route path={ROUTER.investment} element={<Investment />} />
             {
               userRole == 'ADMIN' &&
               <>

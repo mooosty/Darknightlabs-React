@@ -7,6 +7,7 @@ import { AddUserIcon, LoadingIcon } from '../../../utils/SVGs/SVGs';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMemberIntoGroup } from '../../../api-services/chatApis';
+import Loader from '../../loader/Loader';
 
 const memberList = [
     {
@@ -163,8 +164,9 @@ const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
         setFilteredMember([...tmpArr])
         setInitialMember([...tmpArr])
     }, [memberList, groupUser.length])
-
-
+    useEffect(() => {
+        console.log(memberList);
+    }, [memberList, groupUser.length])
     return (
         <>
             <div className={`model_bg ${open ? 'active' : ''} `}>
@@ -215,7 +217,8 @@ const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
                                                             {isMemberInvited === index ?
                                                                 <span className='processing'>
                                                                     <span>Pending</span>
-                                                                    <LoadingIcon />
+                                                                    {/* <LoadingIcon /> */}
+                                                                    <Loader isItForButton={true} loading={true} />
                                                                 </span>
                                                                 :
                                                                 <span className='invite'>
@@ -248,7 +251,7 @@ const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
                                     <img className="search_icon" src={searchIcon} alt="Search" />
                                     <input type="text" placeholder="Search" onChange={(e) => {
                                         handleSearch(e.target.value)
-                                    }}/>
+                                    }} />
                                 </div>
                                 <div className="member_list_box">
                                     <div className="list">
@@ -275,7 +278,8 @@ const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
                                                             {isMemberInvited === index ?
                                                                 <span className='processing'>
                                                                     <span>Pending</span>
-                                                                    <LoadingIcon />
+                                                                    {/* <LoadingIcon /> */}
+                                                                    <Loader isItForButton={true} loading={true} />
                                                                 </span>
                                                                 :
                                                                 <span className='invite'>
@@ -304,7 +308,7 @@ const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
 }
 
 AddChatMemberPopup.propTypes = {
-    open: PropTypes.bool,   
+    open: PropTypes.bool,
     handleClose: PropTypes.func,
     chatId: PropTypes.string
 }

@@ -538,7 +538,7 @@
 
                   textarea {
                     width: 100%;
-                    border: 1px solid #ffffff;
+                    border: 1px solid #ffffff80;
                     color: #f5efdb;
                     font-size: 16px;
                     line-height: 19px;
@@ -747,40 +747,43 @@
                 }
               }
             }
-          }
 
-          .delete_project_btn {
-            display: flex;
-            justify-content: end;
-            background-color: #191917;
-            border-top: 1px solid #32312c;
-            padding: 15px 20px 15px 15px;
-
-            @media (max-width: 767px) {
-              padding-bottom: 115px;
-            }
-
-            button.btn_delete {
-              background-color: #242623;
-              border: none;
-              padding: 12px;
-              display: flex;
-              align-items: center;
-              gap: 12px;
-              color: #df8c87;
-              font-size: 18px;
-              line-height: 22px;
-
-              @media (max-width: 1600px) {
-                font-size: 14px;
-              }
-            }
-
-            .btn_gray {
+            .delete_project_btn {
+              width: 100%;
               display: none;
+              justify-content: space-between;
+              background-color: #191917;
+              border-top: 1px solid #32312c;
+              padding: 15px 20px 15px 15px;
 
               @media (max-width: 767px) {
-                display: block;
+                display: flex;
+                padding-bottom: 35px;
+                padding-inline: 0;
+              }
+
+              button.btn_delete {
+                background-color: rgba(255, 158, 152, 0.1490196078);
+                border: none;
+                padding: 12px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                color: #df8c87;
+                font-size: 18px;
+                line-height: 22px;
+
+                @media (max-width: 1600px) {
+                  font-size: 14px;
+                }
+              }
+
+              .btn_gray {
+                display: none;
+
+                @media (max-width: 767px) {
+                  display: block;
+                }
               }
             }
           }

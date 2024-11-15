@@ -35,7 +35,7 @@ const DeleteConfirmPopup = ({ open, title = '', description = '', handleClose, h
                             <button className='delete_btn' disabled={isLoading} onClick={() => {
                                 handleDelete()
                             }}>
-                                {isLoading ? <> <Loader loading={isLoading} isItForbutton={true} />  <p>Delete</p></> : 'Delete'}
+                                {isLoading ? <> <Loader loading={isLoading} isItForButton={true} />  <p>Delete</p></> : 'Delete'}
                             </button>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 .content_box {
   @media (max-width: 767px) {
-    margin-bottom: 70px !important;
+    margin-bottom: 100px !important;
   }
 
   .content_header {
@@ -165,13 +165,11 @@
 
         .channels_list_separator {
           height: 1px;
-          background-image: linear-gradient(
-            157.79deg,
-            rgba(157, 140, 83, 0.65) 14.5%,
-            rgba(245, 239, 219, 0.4) 64.2%,
-            rgba(245, 239, 219, 0.2) 84.2%,
-            rgba(245, 239, 219, 0)
-          );
+          background-image: linear-gradient(157.79deg,
+              rgba(157, 140, 83, 0.65) 14.5%,
+              rgba(245, 239, 219, 0.4) 64.2%,
+              rgba(245, 239, 219, 0.2) 84.2%,
+              rgba(245, 239, 219, 0));
         }
 
         .channels_list_data {
@@ -301,7 +299,7 @@
       }
 
       .chat_main_body {
-        height: calc(100% - 65px);
+        height: calc(100% - 60px);
         display: flex;
         position: relative;
 
@@ -309,7 +307,7 @@
           width: 100%;
           display: flex;
           flex-direction: column;
-          gap: 24px;
+          gap: 10px;
           padding-top: 12px;
           overflow-y: auto;
           padding-bottom: 76px;
@@ -319,20 +317,19 @@
           }
 
           .date_separator {
-            width: 100%;
+            width: 92%;
             height: 20px;
             display: flex;
             align-items: center;
             gap: 11px;
+            margin: 7px auto;
 
             .left {
               width: 42%;
               height: 1px;
-              background-image: linear-gradient(
-                157.79deg,
-                rgba(245, 239, 219, 0) 1.5%,
-                rgba(245, 239, 219, 0.5)
-              );
+              background-image: linear-gradient(157.79deg,
+                  rgba(245, 239, 219, 0) 1.5%,
+                  rgba(245, 239, 219, 0.5));
             }
 
             .date {
@@ -346,11 +343,9 @@
             .right {
               width: 42%;
               height: 1px;
-              background-image: linear-gradient(
-                157.79deg,
-                rgba(245, 239, 219, 0.5) 14.5%,
-                rgba(245, 239, 219, 0)
-              );
+              background-image: linear-gradient(157.79deg,
+                  rgba(245, 239, 219, 0.5) 14.5%,
+                  rgba(245, 239, 219, 0));
             }
           }
 
@@ -448,7 +443,7 @@
 
             &.active {
               width: calc(100% - 230px);
-              bottom: 8px;
+              bottom: 0px;
 
               @media (max-width: 1123px) {
                 width: 100%;

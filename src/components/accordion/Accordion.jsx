@@ -7,7 +7,7 @@ import bitCoinIcon from "../../assets/logosBitcoin.svg";
 import globalIcon from "../../assets/global.svg";
 import { useState } from 'react';
 import DeleteConfirmPopup from '../popup/delete-confirm-popup/DeleteConfirmaPopup';
-
+import defaultImage from '../../assets/project-card-img-1.png'
 
 const Accordion = ({
     synergyName,
@@ -20,7 +20,7 @@ const Accordion = ({
     checked,
     onEdit = () => { },
     onDelete = () => { },
-    onSelect=()=>{}
+    onSelect = () => { }
 }) => {
     const id = Math.round(Math.random() * 1000)
     const [open, setOpen] = useState(false);
@@ -48,13 +48,13 @@ const Accordion = ({
                                 <div className='left'>
                                     <div>
                                         <div className="costum_checkbox">
-                                            <input type="checkbox" id={`checkbox_${id}`} className='costum_checkbox_input' checked={checked} readOnly={true}/>
+                                            <input type="checkbox" id={`checkbox_${id}`} className='costum_checkbox_input' checked={checked} readOnly={true} />
                                             <label htmlFor={`checkbox_${id}`} className='costum_checkbox_label' onClick={onSelect}></label>
                                         </div>
                                     </div>
                                     <DownIcon className='table_arrow' onClick={() => setOpen(!open)} />
                                     <div className="creator_img">
-                                        <img src={synergyImg} alt="" />
+                                        <img src={synergyImg === '' || !synergyImg ? defaultImage : synergyImg} alt="" onError={(e) => e.target.src = defaultImage} />
                                     </div>
                                     <div className="table_name">{synergyName}</div>
                                 </div>
@@ -130,7 +130,7 @@ Accordion.propTypes = {
     onEdit: PropTypes.func,
     onDelete: PropTypes.func,
     onSelect: PropTypes.func,
-    checked:PropTypes.bool
+    checked: PropTypes.bool
 }
 
 export default Accordion

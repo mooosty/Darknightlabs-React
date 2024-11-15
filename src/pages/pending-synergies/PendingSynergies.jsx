@@ -520,7 +520,7 @@ const PendingSynergies = () => {
                 )
               })}
             </div>
-            <div className="synergies_pagination">
+            {/* <div className="synergies_pagination">
               <div className="synergies_pagination_content">
                 <div className="synergies_pagination_content_text">
                   <span className='pagination_head'>Row per page:</span>
@@ -540,7 +540,7 @@ const PendingSynergies = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

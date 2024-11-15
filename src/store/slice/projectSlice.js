@@ -3,6 +3,7 @@ import { getProjectsAPI, addProjectAPI, addMemberAPI, deleteProjectAPI, updatePr
 
 const initialState = {
     projects: [],
+    projectDetails: {},
     isLoading: false,
     isSaveLoading: false
 }
@@ -52,14 +53,16 @@ const projectSlice = createSlice({
             return {
                 ...state,
                 isLoading: true,
+                projectDetails: {}
             }
         })
 
         builder.addCase(
-            getProjectsApiById.fulfilled, (state) => {
+            getProjectsApiById.fulfilled, (state, action) => {
                 return {
                     ...state,
                     isLoading: false,
+                    projectDetails: action.payload
                 }
             }
         )
@@ -68,6 +71,7 @@ const projectSlice = createSlice({
             return {
                 ...state,
                 isLoading: false,
+                projectDetails: {}
             }
         })
 
