@@ -128,9 +128,11 @@ const ProjectDetails = () => {
                                     <GradientInfiniteIcon /> <span className='text'>Synergize</span>
                                 </div>
                                 <div className="tags">
-                                    <div className="tag">#{projectDetails?.project_info}</div>
-                                    {/* <div className="tag">#AI</div> */}
-                                    {/* <div className="tag">#Metaverse</div> */}
+                                    {
+                                        projectDetails?.project_info?.split('#')?.filter((item) => item)?.map((data, index) => {
+                                            return <div key={index} className="tag">#{data}</div>
+                                        })
+                                    }
                                 </div>
                                 <div className="description_container">
                                     <div className="description_header">
