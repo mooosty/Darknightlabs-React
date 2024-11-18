@@ -50,6 +50,7 @@ DeleteConfirmPopup.propTypes = {
     handleClose: PropTypes.func,
     handleDelete: PropTypes.func,
     title: PropTypes.string,
+    isLoading: PropTypes.bool,
     description: PropTypes.string
 }
 

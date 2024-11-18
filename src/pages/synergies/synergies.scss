@@ -186,7 +186,7 @@
                 background-image: url('../../assets/model-frame.png');
                 background-repeat: no-repeat;
                 background-position: 8px 17px;
-                padding-block: 36px 28px ;
+                padding-block: 36px 28px;
 
                 @media (max-width: 767px) {
                     padding: 0;
@@ -286,13 +286,21 @@
                             height: 100%;
                             display: flex;
                             flex-wrap: wrap;
-                            gap: 16px;
+                            column-gap: 20px;
                             row-gap: 32px;
                             padding-inline: 30px;
                             padding-bottom: 20px;
 
+                            @media (min-width:1471px) and (max-width:1655px) {
+                                column-gap: 18px;
+                            }
+
+                            @media (max-width:1470px) {
+                                column-gap: 16px;
+                            }
+
                             .synergy_card {
-                                width: 23.7%;
+                                width: 23.775%;
 
                                 @media (min-width:1200px) and (max-width:1350px) {
                                     width: 32%;

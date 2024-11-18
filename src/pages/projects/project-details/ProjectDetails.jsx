@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import arrowRight from "../../../assets/arrow-right.png"
 import autherProfile from "../../../assets/auther-profile.png"
 // import cardImg from '../../../assets/project-card-img-1.png'
-import { DescriptionIcon, GradientGraphIcon, GradientInfiniteIcon, GrammerlyIcon, GredientGlobalIcon, HealthIcon, InvestmentIcon, MoreIcon, ShareLinkIcon, ShareOutlineIcon, StarIcon, TableStatusIcon } from '../../../utils/SVGs/SVGs'
+import { DescriptionIcon, GradientGraphIcon, GradientInfiniteIcon, GrammerlyIcon, GredientGlobalIcon, HealthIcon, InvestmentIcon, MoreIcon, ShareLinkIcon, CheckIcon, ShareOutlineIcon, StarIcon, TableStatusIcon } from '../../../utils/SVGs/SVGs'
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProjectsApiById } from '../../../api-services/projectApis';
@@ -29,6 +29,7 @@ const ProjectDetails = () => {
 
     const [activeLayout, setActiveLayout] = useState('SYNERGY');
     const [isChoosePrioritySynergiesPopupOpen, setIsChoosePrioritySynergiesPopupOpen] = useState(false);
+    const [isCopyLink, setIsCopyLink] = useState(false);
 
     const toggleChoosePrioritySynergiesPopupOpen = () => setIsChoosePrioritySynergiesPopupOpen(!isChoosePrioritySynergiesPopupOpen)
     const params = useParams();
@@ -54,6 +55,13 @@ const ProjectDetails = () => {
 
     const handleActive = (key) => {
         setActiveLayout(key);
+    }
+
+    const handleCopyLink = () => {
+        copyText(); setIsCopyLink(true)
+        setTimeout(() => {
+            setIsCopyLink(false);
+        }, 1000);
     }
 
     useEffect(() => {
@@ -102,7 +110,7 @@ const ProjectDetails = () => {
                                     </div>
                                     <div className="right">
                                         <div className="buttonGroup">
-                                            <button className="button" onClick={() => copyText()}><ShareLinkIcon /></button>
+                                            <button className="button" onClick={handleCopyLink}>{isCopyLink ? <CheckIcon /> : <ShareLinkIcon />}</button>
                                             <button className="button"><ShareOutlineIcon /></button>
                                             <button className="button"><MoreIcon /></button>
                                         </div>

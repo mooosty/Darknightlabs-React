@@ -77,7 +77,7 @@ const MultiselectDropDown = ({
                                                 />
                                                 <label htmlFor={`tableName_${opt.value}`} className='costum_checkbox_label'>
                                                     <div className="mark"></div>
-                                                    <span>{opt.label}</span>
+                                                    <div className="opt_label">{opt.label}</div>
                                                 </label>
                                             </div>
                                         </li>

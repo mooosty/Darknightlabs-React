@@ -1,6 +1,6 @@
 import './synergies.scss'
 import searchIcon from "../../assets/search-icon.png"
-import { GradientGraphIcon, GredientGlobalIcon } from '../../utils/SVGs/SVGs'
+import { GradientGraphIcon, GrammerlyIcon, GredientGlobalIcon } from '../../utils/SVGs/SVGs'
 import Card from '../../components/synergy-card/Card'
 import { useCallback, useEffect, useState } from 'react'
 import MultiselectDropDown from '../../components/multiselect-dropdwon/MultiselectDropDown'
@@ -64,7 +64,8 @@ const Synergies = () => {
             }
 
             return {
-                label: v
+                label: v,
+                icon: <GrammerlyIcon />
             }
         })
 

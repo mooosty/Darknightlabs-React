@@ -186,7 +186,7 @@
         }
 
         .separator {
-            background: linear-gradient(90deg, #463600, #f5efdb50, #f5efdb25);
+            background: linear-gradient(to right, #463600 0%, rgba(245, 239, 219, 0.15) 45%, rgba(245, 239, 219, 0.03) 99%);
             display: block;
             height: 1px;
             width: 100%;
@@ -236,7 +236,10 @@
         height: 100%;
         display: flex;
         align-items: start;
-        justify-content: space-between;
+        flex-wrap: wrap;
+        overflow-y: auto;
+        gap: 20px 4px;
+        // justify-content: space-between;
         padding: 17px 24px;
 
         background-color: #191917;

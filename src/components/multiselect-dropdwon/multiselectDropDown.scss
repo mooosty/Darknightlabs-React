@@ -150,6 +150,7 @@
                     .costum_checkbox {
                         display: flex;
                         align-items: end;
+                        width: 100%;
 
                         .costum_checkbox_input {
                             display: none;
@@ -159,12 +160,20 @@
                             display: flex;
                             gap: 8px;
                             align-items: center;
+                            width: 100%;
 
                             .mark {
                                 height: 22px !important;
                                 width: 22px !important;
                                 background-color: rgba(78, 78, 78, 0.2);
                                 border: 1px solid #fff;
+                            }
+
+                            .opt_label {
+                                width: calc(100% - 30px);
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
                             }
                         }
 

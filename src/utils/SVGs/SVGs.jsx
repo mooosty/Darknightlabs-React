@@ -459,3 +459,11 @@ export const InvestmentIcon = () => {
 </svg>
     )
 }
+
+export const CheckIcon = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="10" viewBox="0 0 12 10" fill="none">
+        <path d="M1 6.13758L3.1 8.71371C3.17086 8.80156 3.26166 8.87295 3.36558 8.92252C3.46949 8.9721 3.58383 8.99857 3.7 8.99995C3.8143 9.00121 3.92746 8.97815 4.03125 8.93245C4.13504 8.88674 4.22685 8.81954 4.3 8.73573L11 1" stroke="#F5EFDB" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+    )
+}

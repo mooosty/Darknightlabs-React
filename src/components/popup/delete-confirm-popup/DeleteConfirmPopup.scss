@@ -137,7 +137,12 @@
                 .delete_btn {
                     background-color: rgba(255, 158, 152, 0.1490196078);
                     border: none;
-                    padding: 14px 44px;
+                    height: 44px;
+                    width: 130px;
+                    display: flex;
+                    gap: 4px;
+                    align-items: center;
+                    justify-content: center;
                     color: #ff9e98;
                     font-size: 16px;
 
@@ -161,7 +166,8 @@
                     justify-content: center;
                     gap: 5px;
                     border: none;
-                    padding: 14px 44px;
+                    height: 44px;
+                    width: 130px;
                     font-size: 16px;
 
                     @media (max-width: 1600px) {
