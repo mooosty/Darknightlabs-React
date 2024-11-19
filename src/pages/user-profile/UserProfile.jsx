@@ -9,6 +9,8 @@ import telegramIcon from "../../assets/basil_telegram-outline.svg"
 import closedEyeIcon from "../../assets/EyeSlash.svg"
 import openEyeIcon from "../../assets/OpenEyeSlash.svg"
 import calendarBlankIcon from "../../assets/CalendarBlank.svg"
+import SignUpPopup from '../../components/popup/sign-up-popup/SignupPopup';
+import LoginPopup from '../../components/popup/login-popup/LoginPopup';
 
 
 const InputPassword = (props) => {
@@ -39,7 +41,11 @@ const InputPassword = (props) => {
 const UserProfile = () => {
     const [active, setActive] = useState('INFORMATION');
     const [isEditMode, setIsEditMode] = useState(false);
+    const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
+    const [isSignUpPopupOpen, setIsSignUpPopupOpen] = useState(true);
 
+    console.log('Fire');
+    
     const handleActive = (key) => {
         setActive(key);
     }
@@ -263,6 +269,15 @@ const UserProfile = () => {
                     </div>
                 </div>
             }
+            
+            <LoginPopup
+                open={isLoginPopupOpen}
+                handleClose={() => setIsLoginPopupOpen(false)}
+            />
+            <SignUpPopup
+                open={isSignUpPopupOpen}
+                handleClose={() => setIsSignUpPopupOpen(false)}
+            />
         </>
     )
 }

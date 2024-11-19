@@ -18,6 +18,7 @@ import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import ProjectDetails from './pages/projects/project-details/ProjectDetails'
 import Investment from './pages/investment/Investment'
+import SynergiesDetails from './pages/synergies/synergies-details/SynergiesDetails'
 
 const userRole = 'ADMIN'
 
@@ -32,9 +33,10 @@ function App() {
           <Route path={'/'} element={<Navigate to={ROUTER.projectManager} />} />
           <Route element={<Layout />}>
             <Route path={ROUTER.projects} element={<Projects />} />
+            <Route path={`${ROUTER.projects}/:projectId`} element={<ProjectDetails />} />
             <Route path={ROUTER.featuredProjects} element={<FeaturedAllProjects />} />
             <Route path={ROUTER.synergies} element={<Synergies />} />
-            <Route path={`${ROUTER.projects}/:projectId`} element={<ProjectDetails />} />
+            <Route path={`${ROUTER.synergies}/:projectId`} element={<SynergiesDetails />} />
             <Route path={ROUTER.investment} element={<Investment />} />
             {
               userRole == 'ADMIN' &&
