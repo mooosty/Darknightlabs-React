@@ -1,36 +1,13 @@
 import './chats.scss';
-import chatSynergies1 from '../../assets/chat-synergies-1.png'
-import chatSynergies2 from '../../assets/chat-synergies-2.png'
-import chatSynergies3 from '../../assets/chat-synergies-3.png'
-import chatSynergies4 from '../../assets/chat-synergies-4.png'
-import chatSynergies5 from '../../assets/chat-synergies-5.png'
-import chatSynergies6 from '../../assets/chat-synergies-6.png'
-import chatSynergies7 from '../../assets/chat-synergies-7.png'
-import chatSynergies8 from '../../assets/chat-synergies-8.png'
 import synergy1 from '../../assets/synergy1.png'
 import synergy2 from '../../assets/synergy2.png'
 import synergy3 from '../../assets/synergy3.png'
 import synergy4 from '../../assets/synergy4.png'
 import synergy5 from '../../assets/synergy5.png'
 
-
 import member1 from '../../assets/member_img1.png'
 import member2 from '../../assets/member_img2.png'
-// import member3 from '../../assets/member_img3.png'
-// import member4 from '../../assets/member_img4.png'
-// import member5 from '../../assets/member_img5.png'
-// import member6 from '../../assets/member_img6.png'
-// import member7 from '../../assets/member_img7.png'
-// import member8 from '../../assets/member_img8.png'
-// import member9 from '../../assets/member_img9.png'
-// import member10 from '../../assets/member_img10.png'
-// import member11 from '../../assets/member_img11.png'
-// import member12 from '../../assets/member_img12.png'
-// import member13 from '../../assets/member_img13.png'
-import chatAvtar from '../../assets/chat-avtar.png'
 import chatMassageDP from '../../assets/chat-message-dp.png'
-// import chatMassageDP1 from '../../assets/chat-message-dp1.png'
-// import sharedImg from '../../assets/chat_shared-image.png'
 import { AddUserIcon, AttechmentIcon, DownAccordionIcon, EmojiFiiledIcon, HashTag, MicrophoneIcon, UserIcon } from '../../utils/SVGs/SVGs';
 import { Fragment, useEffect, useState } from 'react';
 import AddChatMemberPopup from '../../components/popup/add-chat-menber-popup/AddChatMemberPopup'
@@ -60,19 +37,7 @@ const chatSynergies = [
     {
         "img": synergy5,
         "message": null
-    },
-    {
-        "img": chatSynergies6,
-        "message": null
-    },
-    {
-        "img": chatSynergies7,
-        "message": null
-    },
-    {
-        "img": chatSynergies8,
-        "message": null
-    },
+    }
 ]
 
 
@@ -198,7 +163,7 @@ const Chats = () => {
                 const elements = document.getElementsByClassName('message_send');
                 if (elements.length > 0) {
                     const lastElement = elements[elements.length - 1];
-                    lastElement.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+                    lastElement?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
                 }
             }, 0)
         }
@@ -260,24 +225,21 @@ const Chats = () => {
             <div className="chat_wrap">
                 <div className="chat_conternt">
                     <div className={`synergies ${chatNumber ? 'active' : ''}`}>
-                        {
-                            chatSynergies.map((data, index) => {
-                                if (index < groupData.length) {
-                                    return (
-                                        <div key={index} className='avtar_img' onClick={() => {
-                                            handleChatOpen(index)
-                                        }}>
-                                            <img src={data.img} alt="" />
-                                            <div className={data.message ? "notification" : ''}>{data.message}</div>
-                                        </div>
-                                    )
-                                }
-                            })
-                        }
+                        {groupData.map((data, index) => {
+                            const imageIndex = index % chatSynergies.length
+                            return (
+                                <div key={index} className='avtar_img' onClick={() => {
+                                    handleChatOpen(index)
+                                }}>
+                                    <img src={chatSynergies[imageIndex].img} alt="" />
+                                    <div className={data.message ? "notification" : ''}>{data.message}</div>
+                                </div>
+                            )
+                        })}
                     </div>
                     <div className={`channels ${chatNumber ? 'active' : ''}`}>
                         <div className='channels_avatar'>
-                            <img src={chatSynergies[openChatIndex].img} alt="" />
+                            <img src={chatSynergies[openChatIndex % chatSynergies.length].img} alt="" />
                         </div>
                         <div className="channels_list">
                             <div className="channels_list_head">
