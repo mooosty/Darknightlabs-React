@@ -204,7 +204,7 @@ const Chats = () => {
                 if (elements.length > 0) {
                     const container = elements[0];
                     let lastElement = container.childNodes[container.childNodes.length - 2]
-                    lastElement.scrollIntoView();
+                    lastElement?.scrollIntoView();
                 }
             }, 0)
         }
