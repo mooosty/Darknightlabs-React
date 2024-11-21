@@ -44,8 +44,6 @@ const UserProfile = () => {
     const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
     const [isSignUpPopupOpen, setIsSignUpPopupOpen] = useState(true);
 
-    console.log('Fire');
-    
     const handleActive = (key) => {
         setActive(key);
     }

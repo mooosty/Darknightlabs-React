@@ -1,36 +1,36 @@
 export const synergyAnglesOptions = [
     {
-        label: 'whitelist spots',
+        label: 'Whitelist spots',
         value: 'Getting whitelist spots',
         tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
     },
     {
-        label: 'whitelists spots',
+        label: 'Whitelists spots',
         value: 'Giving whitelists spots',
         tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
     },
     {
-        label: 'Hosting AMAs',
+        label: 'AMAs',
         value: 'Hosting AMAs',
         tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
     },
     {
-        label: 'branded game assets',
+        label: 'Branded game assets',
         value: 'Integrating branded game assets',
         tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
     },
     {
-        label: 'your own branded assets',
+        label: 'Your own branded assets',
         value: 'Integrating your own branded assets',
         tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
     },
     {
-        label: 'early alpha',
+        label: 'Early alpha',
         value: 'Getting early alpha',
         tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
     },
     {
-        label: 'early alpha',
+        label: 'Early alpha',
         value: 'Sharing early alpha',
         tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
     },

@@ -164,9 +164,8 @@ const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
         setFilteredMember([...tmpArr])
         setInitialMember([...tmpArr])
     }, [memberList, groupUser.length])
-    useEffect(() => {
-        console.log(memberList);
-    }, [memberList, groupUser.length])
+
+    
     return (
         <>
             <div className={`model_bg ${open ? 'active' : ''} `}>

@@ -261,50 +261,39 @@
                     }
 
                     .featured_projects_card_body_main {
-                        // overflow-x: scroll;
-                        // padding: 4px;
+                        display: flex;
+                        padding-block: 20px;
 
-                        // &::-webkit-scrollbar {
-                        //     width: 4px;
-                        // }
-
-                        // &::-webkit-scrollbar-track {
-                        //     background: transparent;
-                        // }
-
-                        // &::-webkit-scrollbar-thumb {
-                        //     background: transparent;
-                        // }
 
                         .featured_projects_card_body {
-                            height: 100%;
                             display: flex;
                             flex-wrap: wrap;
-                            gap: 16px;
-                            row-gap: 32px;
-                            padding-bottom: 20px;
+                            flex-grow: 1;
+                            row-gap: 24px;
+                            padding-inline: 30px;
 
-                            .project_card {
-                                width: 23.7%;
+                            .card_wrap {
+                                padding-inline: 12px;
+                                flex-basis: calc(100% / 4);
+                                max-width: calc(100% / 4);
 
-                                @media (min-width:1200px) and (max-width:1350px) {
-                                    width: 32%;
+
+                                @media (max-width: 1300px) {
+                                    flex-basis: calc(100% / 3);
+                                    max-width: calc(100% / 3);
                                 }
 
-                                @media (min-width:600px) and (max-width:1200px) {
-                                    width: 48%;
+                                @media (max-width: 1000px) {
+                                    padding-inline: 8px;
+                                    flex-basis: calc(100% / 2);
+                                    max-width: calc(100% / 2);
                                 }
 
-                                @media (max-width:600px) {
-                                    width: 100%;
-                                }
-
-                                &.heighlighted {
-                                    background-color: rgba(218, 185, 67, 0.1);
-                                    border: 1px solid #ddc38c;
+                                @media (max-width: 500px) {
+                                    flex-basis: calc(100%);
+                                    max-width: calc(100%);
                                 }
                             }
-
                         }
                     }
                 }

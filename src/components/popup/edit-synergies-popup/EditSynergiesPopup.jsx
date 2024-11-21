@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { getProjectsAPI } from '../../../api-services/projectApis';
 
 const EditSynergiesPopup = ({ open, handleClose, synergy, onSave = () => { } }) => {
+    // open = true
     const projects = useSelector((state) => state.project.projects)
     const [synergyName, setSynergyName] = useState('');
     const [selectedProject, setSelectedProject] = useState([]);

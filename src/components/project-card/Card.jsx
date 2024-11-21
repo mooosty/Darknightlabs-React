@@ -73,13 +73,13 @@ const Card = ({
                             <span>{price}</span>
                         </div>
                     </div>}
-                    <div className="card_body_button" onClick={handleActive}>
+                </div>
+                    <div className="card_button" onClick={handleActive}>
                         <div className="button">
                             <GradientInfiniteIcon />
                             <span className='text'>Synergize</span>
                         </div>
                     </div>
-                </div>
             </div>
             <ChoosePrioritySynergiesPopup
                 open={isChoosePrioritySynergiesPopupOpen}

@@ -188,6 +188,10 @@
                 background-position: 8px 17px;
                 padding-block: 36px 28px;
 
+                @media(max-width: 1600px) {
+                    height: calc(100% - 65px);
+                }
+
                 @media (max-width: 767px) {
                     padding: 0;
                     border-radius: 0;
@@ -199,6 +203,8 @@
                     overflow-y: auto;
 
                     .synergies_card_box {
+                        display: flex;
+                        flex-direction: column;
                         background-position: 8px 17px;
 
                         @media (max-width: 767px) {
@@ -283,35 +289,41 @@
                         }
 
                         .synergies_cards {
-                            height: 100%;
                             display: flex;
                             flex-wrap: wrap;
-                            column-gap: 20px;
-                            row-gap: 32px;
-                            padding-inline: 30px;
                             padding-bottom: 20px;
+                            padding-inline: 30px;
+                            row-gap: 24px;
+                            margin-left: -12px;
+                            margin-right: -12px;
+                            flex-grow: 1;
 
-                            @media (min-width:1471px) and (max-width:1655px) {
-                                column-gap: 18px;
+                            @media (max-width: 767px) {
+                                margin-left: -8px;
+                                margin-right: -8px;
+                                row-gap: 16px;
                             }
 
-                            @media (max-width:1470px) {
-                                column-gap: 16px;
-                            }
+                            .card_wrap {
+                                padding-inline: 12px;
+                                flex-basis: calc(100% / 4);
+                                max-width: calc(100% / 4);
 
-                            .synergy_card {
-                                width: 23.775%;
 
-                                @media (min-width:1200px) and (max-width:1350px) {
-                                    width: 32%;
+                                @media (max-width: 1300px) {
+                                    flex-basis: calc(100% / 3);
+                                    max-width: calc(100% / 3);
                                 }
 
-                                @media (min-width:600px) and (max-width:1200px) {
-                                    width: 48%;
+                                @media (max-width: 1000px) {
+                                    padding-inline: 8px;
+                                    flex-basis: calc(100% / 2);
+                                    max-width: calc(100% / 2);
                                 }
 
-                                @media (max-width:600px) {
-                                    width: 100%;
+                                @media (max-width: 500px) {
+                                    flex-basis: calc(100%);
+                                    max-width: calc(100%);
                                 }
                             }
                         }

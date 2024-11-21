@@ -493,8 +493,8 @@ const PendingSynergies = () => {
             <div className="card_container">
               {cardData.map((data, index) => {
                 return (
-                  <>
-                    <div key={index} className="card" onClick={() => setIsEditPendingSynergiesAngelPopupOpen(true)}>
+                  <div className='card_wrap' key={index}>
+                    <div className="card" onClick={() => setIsEditPendingSynergiesAngelPopupOpen(true)}>
                       <div className="card_image">
                         <img src={data.creatorImg} alt="" />
                       </div>
@@ -516,7 +516,8 @@ const PendingSynergies = () => {
                           }
                         </div>
                       </div>
-                    </div></>
+                    </div>
+                  </div>
                 )
               })}
             </div>

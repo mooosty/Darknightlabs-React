@@ -23,110 +23,112 @@ const Sidebar = () => {
     }
     return (
         <>
-            <div className={`sidebar ${isCollapse ? 'sidebar_collapsed' : ''}`}>
-                <div className="profile_box">
-                    <div className="profile_image">
-                        <img src={profileImage} alt="Profile" />
+            <div className={`sidebar_container ${isCollapse ? 'sidebar_collapsed' : ''}`}>
+                <div className="sidebar">
+                    <div className="profile_box">
+                        <div className="profile_image">
+                            <img src={profileImage} alt="Profile" />
+                        </div>
+                        <div className="user_name">
+                            <h3>Username</h3>
+                            <p>Admin</p>
+                        </div>
+                        <button className="collapse_btn" onClick={handleCollapse} >
+                            {isCollapse ?
+                                <img src={collapseRightIcon} alt="Collapse" />
+                                :
+                                <img src={collapseLeftIcon} alt="Collapse" />
+                            }
+                        </button>
                     </div>
-                    <div className="user_name">
-                        <h3>Username</h3>
-                        <p>Admin</p>
-                    </div>
-                    <button className="collapse_btn" onClick={handleCollapse} >
-                        {isCollapse ?
-                            <img src={collapseRightIcon} alt="Collapse" />
-                            :
-                            <img src={collapseLeftIcon} alt="Collapse" />
-                        }
-                    </button>
-                </div>
-                <div className="menu-box">
-                    <ul>
-                        <li className={`${location.pathname.startsWith(`/${ROUTER.projects}`) ? 'active' : ''}`}>
-                            <Link to={ROUTER.projects}>
-                                <img src={projectIcon} alt="Project" />
-                                <span className='menu_text'>Projects</span>
-                            </Link>
-                        </li>
-                        {
-                            userRole == 'ADMIN' &&
-                            <li className={`${location.pathname.startsWith(`/${ROUTER.projectManager}`) ? 'active' : ''}`}>
-                                <Link to={ROUTER.projectManager}>
-                                    <img src={projectIcon} alt="Project Manager" />
-                                    <span className='menu_text'>Projects Manager</span>
+                    <div className="menu-box">
+                        <ul>
+                            <li className={`${location.pathname.startsWith(`/${ROUTER.projects}`) ? 'active' : ''}`}>
+                                <Link to={ROUTER.projects}>
+                                    <img src={projectIcon} alt="Project" />
+                                    <span className='menu_text'>Projects</span>
                                 </Link>
                             </li>
-                        }
-                    </ul>
-                </div>
-                <div className="menu-box">
-                    <span className="separator"></span>
-                    <ul>
-                        <>
-                            <li className={`${location.pathname === `/${ROUTER.synergies}` ? 'active' : ''}`}>
-                                <Link to={ROUTER.synergies}>
-                                    <img src={synergiesUserIcon} alt="Synergies" />
-                                    <span className='menu_text'>Synergies</span>
-                                </Link>
-                            </li>
-                            <li className={`${location.pathname === `/${ROUTER.investment}` ? 'active' : ''}`}>
-                                <Link to={ROUTER.investment}>
-                                    <img src={investmentIcon} alt="Investment" />
-                                    <span className='menu_text'>Investment </span>
-                                </Link>
-                            </li>
-                        </>
-
-                        {
-                            userRole == 'ADMIN' &&
-                            <>
-                                <li className={`${location.pathname === `/${ROUTER.pendingSynergies}` ? 'active' : ''}`}>
-                                    <Link to={ROUTER.pendingSynergies}>
-                                        <img src={pendingIcon} alt="Pending Synergies" />
-                                        <span className='menu_text'>Pending Synergies</span>
+                            {
+                                userRole == 'ADMIN' &&
+                                <li className={`${location.pathname.startsWith(`/${ROUTER.projectManager}`) ? 'active' : ''}`}>
+                                    <Link to={ROUTER.projectManager}>
+                                        <img src={projectIcon} alt="Project Manager" />
+                                        <span className='menu_text'>Projects Manager</span>
                                     </Link>
                                 </li>
-                                <li className={`${location.pathname === `/${ROUTER.synergiesManager}` ? 'active' : ''}`}>
-                                    <Link to={ROUTER.synergiesManager}>
-                                        <img src={synergiesIcon} alt="Synergies Manager" />
-                                        <span className='menu_text'>Synergies Manager </span>
+                            }
+                        </ul>
+                    </div>
+                    <div className="menu-box">
+                        <span className="separator"></span>
+                        <ul>
+                            <>
+                                <li className={`${location.pathname.startsWith(`/${ROUTER.synergies}`) ? 'active' : ''}`}>
+                                    <Link to={ROUTER.synergies}>
+                                        <img src={synergiesUserIcon} alt="Synergies" />
+                                        <span className='menu_text'>Synergies</span>
+                                    </Link>
+                                </li>
+                                <li className={`${location.pathname === `/${ROUTER.investment}` ? 'active' : ''}`}>
+                                    <Link to={ROUTER.investment}>
+                                        <img src={investmentIcon} alt="Investment" />
+                                        <span className='menu_text'>Investment </span>
                                     </Link>
                                 </li>
                             </>
-                        }
 
-                    </ul>
-                </div>
-                <div className="menu-box">
-                    <span className="separator"></span>
-                    <ul>
-                        <li className={`${location.pathname === `/${ROUTER.chat}` ? 'active' : ''} chat`}>
-                            <Link to={ROUTER.chat}>
-                                <img src={chatIcon} alt="Chat" />
-                                <span className='menu_text'>Chat</span>
-                                <span className="notification">
-                                    <span className="notification_text">1</span>
-                                </span>
-                            </Link>
-                        </li>
-                        <li className={`${location.pathname === `/${ROUTER.profile}` ? 'active' : ''}`}>
-                            <Link to={ROUTER.profile}>
-                                <img src={profileIcon} alt="Profile" />
-                                <span className='menu_text'>Profile</span>
-                            </Link>
-                        </li>
-                    </ul >
-                </div >
-                <div className="menu-box sidebar_bottom">
-                    <span className="separator"></span>
-                    <ul>
-                        <li>
-                            <Link href="#">
-                                <img src={logoutIcon} alt="Logout" />
-                                <span className='menu_text'>Logout</span>
-                            </Link>
-                        </li>
-                    </ul>
+                            {
+                                userRole == 'ADMIN' &&
+                                <>
+                                    <li className={`${location.pathname === `/${ROUTER.pendingSynergies}` ? 'active' : ''}`}>
+                                        <Link to={ROUTER.pendingSynergies}>
+                                            <img src={pendingIcon} alt="Pending Synergies" />
+                                            <span className='menu_text'>Pending Synergies</span>
+                                        </Link>
+                                    </li>
+                                    <li className={`${location.pathname === `/${ROUTER.synergiesManager}` ? 'active' : ''}`}>
+                                        <Link to={ROUTER.synergiesManager}>
+                                            <img src={synergiesIcon} alt="Synergies Manager" />
+                                            <span className='menu_text'>Synergies Manager </span>
+                                        </Link>
+                                    </li>
+                                </>
+                            }
+
+                        </ul>
+                    </div>
+                    <div className="menu-box">
+                        <span className="separator"></span>
+                        <ul>
+                            <li className={`${location.pathname === `/${ROUTER.chat}` ? 'active' : ''} chat`}>
+                                <Link to={ROUTER.chat}>
+                                    <img src={chatIcon} alt="Chat" />
+                                    <span className='menu_text'>Chat</span>
+                                    <span className="notification">
+                                        <span className="notification_text">1</span>
+                                    </span>
+                                </Link>
+                            </li>
+                            <li className={`${location.pathname === `/${ROUTER.profile}` ? 'active' : ''}`}>
+                                <Link to={ROUTER.profile}>
+                                    <img src={profileIcon} alt="Profile" />
+                                    <span className='menu_text'>Profile</span>
+                                </Link>
+                            </li>
+                        </ul >
+                    </div >
+                    <div className="menu-box sidebar_bottom">
+                        <span className="separator"></span>
+                        <ul>
+                            <li>
+                                <Link href="#">
+                                    <img src={logoutIcon} alt="Logout" />
+                                    <span className='menu_text'>Logout</span>
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div >
 

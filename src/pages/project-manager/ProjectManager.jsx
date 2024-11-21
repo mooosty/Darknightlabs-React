@@ -30,37 +30,37 @@ import { GridIcon, ListIcon, TableStatusIcon, GredientGlobalIcon, GradientGraphI
 
 const synergyAnglesOptions = [
     {
-        label: 'Getting whitelist spots',
+        label: 'Whitelist spots',
         value: 'Getting whitelist spots',
         tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
     },
     {
-        label: 'Giving whitelists spots',
+        label: 'Whitelists spots',
         value: 'Giving whitelists spots',
         tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
     },
     {
-        label: 'Hosting AMAs',
+        label: 'AMAs',
         value: 'Hosting AMAs',
         tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
     },
     {
-        label: 'Integrating branded game assets',
+        label: 'Branded game assets',
         value: 'Integrating branded game assets',
         tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
     },
     {
-        label: 'Integrating your own branded assets',
+        label: 'Your own branded assets',
         value: 'Integrating your own branded assets',
         tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
     },
     {
-        label: 'Getting early alpha',
+        label: 'Early alpha',
         value: 'Getting early alpha',
         tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
     },
     {
-        label: 'Sharing early alpha',
+        label: 'Early alpha',
         value: 'Sharing early alpha',
         tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
     },
@@ -666,51 +666,53 @@ const ProjectManager = () => {
                             {
                                 filterProject.map((rowData, index) => {
                                     return (
-                                        <div key={index} className={`card ${rowData.isFeatured ? 'heighlighted' : ''}`}>
+                                        <div key={index} className="card_wrap">
+                                            <div className={`card ${rowData.isFeatured ? 'heighlighted' : ''}`}>
 
-                                            {rowData.isFeatured ? <>
-                                                <div className="isFeaturedCard"> <TableStatusIcon /></div>
-                                            </> : ''}
-                                            <div className="card_image">
-                                                <img src={rowData.synergyImg} alt=" " onError={(e) => e.target.src = cardImage} />
-                                            </div>
-                                            <div className="card_body">
-                                                <div className="name">
-                                                    {rowData.projectName}
+                                                {rowData.isFeatured ? <>
+                                                    <div className="isFeaturedCard"> <TableStatusIcon /></div>
+                                                </> : ''}
+                                                <div className="card_image">
+                                                    <img src={rowData.synergyImg} alt=" " onError={(e) => e.target.src = cardImage} />
                                                 </div>
-                                                <div className='description'>
-                                                    {rowData.description}
-                                                </div>
-                                                <div className="tabs">
-                                                    {
-                                                        rowData.synergiesAngles.slice(0, 3).map((Angle, index) => (
-                                                            <div className={`${index === 0 ? 'global' : (index === 1 ? 'graph' : '')}`} key={index}>
-                                                                <div className='angle_tag'>
-                                                                    <>{index === 0 && <div className='icon'><GredientGlobalIcon /></div>}</>
-                                                                    <>{index === 1 && <div className='icon'><GradientGraphIcon /></div>}</>
+                                                <div className="card_body">
+                                                    <div className="name">
+                                                        {rowData.projectName}
+                                                    </div>
+                                                    <div className='description'>
+                                                        {rowData.description}
+                                                    </div>
+                                                    <div className="tabs">
+                                                        {
+                                                            rowData.synergiesAngles.slice(0, 3).map((Angle, index) => (
+                                                                <div className={`${index === 0 ? 'global' : (index === 1 ? 'graph' : '')}`} key={index}>
+                                                                    <div className='angle_tag'>
+                                                                        <>{index === 0 && <div className='icon'><GredientGlobalIcon /></div>}</>
+                                                                        <>{index === 1 && <div className='icon'><GradientGraphIcon /></div>}</>
+                                                                        <span className='text'>
+                                                                            <span>{Angle.label}</span>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            ))
+                                                        }
+                                                        {rowData.synergiesAngles.length > 3 ?
+                                                            <div className="angle_tag">
+                                                                <span className='angle_tag_count'>+{rowData.synergiesAngles.length - 3}</span>
+                                                            </div>
+                                                            : ''}
+                                                    </div>
+                                                    <div className='tabs'>
+                                                        {
+                                                            rowData.type.map((type, index) => (
+                                                                <div key={index} className='angle_tag'>
                                                                     <span className='text'>
-                                                                        <span>{Angle.label}</span>
+                                                                        <span>{type}</span>
                                                                     </span>
                                                                 </div>
-                                                            </div>
-                                                        ))
-                                                    }
-                                                    {rowData.synergiesAngles.length > 3 ?
-                                                        <div className="angle_tag">
-                                                            <span className='angle_tag_count'>+{rowData.synergiesAngles.length - 3}</span>
-                                                        </div>
-                                                        : ''}
-                                                </div>
-                                                <div className='tabs'>
-                                                    {
-                                                        rowData.type.map((type, index) => (
-                                                            <div key={index} className='angle_tag'>
-                                                                <span className='text'>
-                                                                    <span>{type}</span>
-                                                                </span>
-                                                            </div>
-                                                        ))
-                                                    }
+                                                            ))
+                                                        }
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { createSynergyApi, deleteSynergyApi, getSynergyApi, updateSynergyApi } from "../../api-services/synergyApi"
+import { createSynergyApi, deleteSynergyApi, getSynergyApi, getSynergyByIdApi, updateSynergyApi } from "../../api-services/synergyApi"
 
 
 const initialState = {
     synergies: [],
-    isLoading: false
+    isLoading: false,
+    synergyDetails:{}
 }
 
 const synergySlice = createSlice({
@@ -74,6 +75,32 @@ const synergySlice = createSlice({
                 ...state,
                 isLoading: false,
                 synergies: [],
+            }
+        })
+
+        builder.addCase(getSynergyByIdApi.pending, (state) => {
+            return {
+                ...state,
+                isLoading: true,
+                synergyDetails: {}
+            }
+        })
+
+        builder.addCase(
+            getSynergyByIdApi.fulfilled, (state, action) => {
+                return {
+                    ...state,
+                    isLoading: false,
+                    synergyDetails: action.payload
+                }
+            }
+        )
+
+        builder.addCase(getSynergyByIdApi.rejected, (state) => {
+            return {
+                ...state,
+                isLoading: false,
+                synergyDetails: {}
             }
         })
 

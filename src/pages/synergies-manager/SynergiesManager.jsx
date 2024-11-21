@@ -21,43 +21,43 @@ import { deleteSynergyApi, getSynergyApi, updateSynergyApi } from '../../api-ser
 import closeIcon from "../../assets/X-icon.png";
 import BottomMenu from '../../components/buttom-menu/BottomMenu';
 import Select from '../../components/select/Select';
-import Loader from '../../components/loader/Loader'; 
+import Loader from '../../components/loader/Loader';
 import defaultImg from '../../assets/project-card-img-1.png'
 
 
 const synergyAnglesOptions = [
   {
-    label: 'Getting whitelist spots',
+    label: 'Whitelist spots',
     value: 'Getting whitelist spots',
     tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
   },
   {
-    label: 'Giving whitelists spots',
+    label: 'Whitelists spots',
     value: 'Giving whitelists spots',
     tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
   },
   {
-    label: 'Hosting AMAs',
+    label: 'AMAs',
     value: 'Hosting AMAs',
     tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
   },
   {
-    label: 'Integrating branded game assets',
+    label: 'Branded game assets',
     value: 'Integrating branded game assets',
     tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
   },
   {
-    label: 'Integrating your own branded assets',
+    label: 'Your own branded assets',
     value: 'Integrating your own branded assets',
     tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
   },
   {
-    label: 'Getting early alpha',
+    label: 'Early alpha',
     value: 'Getting early alpha',
     tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
   },
   {
-    label: 'Sharing early alpha',
+    label: 'Early alpha',
     value: 'Sharing early alpha',
     tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
   },
@@ -286,7 +286,7 @@ const SynergiesManager = () => {
           </div>
         </div>
         <div className="synergies_content_right">
-        <a href="#">Darknight Labs</a>
+          <a href="#">Darknight Labs</a>
         </div>
       </div>
 
@@ -534,8 +534,8 @@ const SynergiesManager = () => {
               {filterSynergies.map((cardData, index) => {
                 const cardImage = cardData.synergyImg
                 return (
-                  <>
-                    <div key={index} className={`card `}>
+                  <div key={index} className="card_wrap">
+                    <div className={`card `}>
                       <div className="card_image">
                         {/* synergyImg */}
                         <img src={!cardImage ? defaultImg : cardImage} onError={(e) => e.target.src = defaultImg} alt=" " />
@@ -574,7 +574,7 @@ const SynergiesManager = () => {
                         </div> */}
                       </div>
                     </div>
-                  </>
+                  </div>
                 )
               })
               }

@@ -19,6 +19,14 @@ export const getSynergyApi = createAsyncThunk('synergy/get',
     }
 )
 
+export const getSynergyByIdApi=createAsyncThunk('synergy/get/:id',
+    async (data, thunkAPI) => {
+        const response = await axiosApi.get(`${apiRoutes.SYNERGY}/${data}`);
+        if (!response?.data?.success || response?.data?.success !== 0) return response?.data
+        else return thunkAPI.rejectWithValue(response?.data)
+    }
+)
+
 export const updateSynergyApi = createAsyncThunk('synergy/update',
     async (data, thunkAPI) => {
         const response = await axiosApi.patch(apiRoutes.SYNERGY, data)

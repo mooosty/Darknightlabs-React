@@ -1,16 +1,12 @@
-.sidebar {
+.sidebar_container {
     background-color: #191917;
     padding: 24px;
     border-radius: 9px;
-    position: relative;
-    height: calc(100vh - 132px);
-    min-height: 600px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
     transition: 0.5s;
     width: 300px;
     flex-shrink: 0;
+    height: calc(100vh - 132px);
+    min-height: 600px;
 
     @media(max-width: 1600px) {
         height: calc(100vh - 85px);
@@ -26,195 +22,213 @@
     }
 
     &.sidebar_collapsed {
-        width: 65px;
         padding: 10px 8px;
+        width: 65px;
+
+        @media(max-width: 1600px) {
+            height: calc(100vh - 45px);
+        }
+
+        .sidebar {
+
+            .profile_box {
+                align-items: center;
+                flex-direction: column;
+                padding-top: 45px;
+                margin-bottom: 14px;
+
+                .profile_image {
+                    height: 45px;
+                    width: 45px;
+                }
+
+                .user_name {
+                    text-align: center;
+
+                    h3 {
+                        font-size: 13px;
+                        max-width: 50px;
+                    }
+
+                    p {
+                        max-width: 50px;
+                        font-size: 12px
+                    }
+                }
+
+                .collapse_btn {
+                    right: auto;
+                    left: 25%;
+                }
+            }
+
+            .menu-box {
+                ul li a {
+                    gap: 0;
+                    justify-content: center;
+                    align-items: center;
+                    position: relative;
+
+                    .menu_text {
+                        display: none;
+                    }
+
+                    .notification {
+                        position: absolute;
+                        top: 5px;
+                        right: 10px;
+                        height: 8px;
+                        width: 8px;
+                        display: flex;
+                        justify-content: start;
+                        align-items: center;
+
+                        .notification_text {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .sidebar {
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+        position: relative;
+        overflow-y: auto;
+            height: 100%;
+
+        @media(max-width: 1600px) {
+            height: calc(100% + 10px);
+        }
+
+        .sidebar_menu {
+            height: 55vh;
+
+            @media (max-width: 1600px) {
+                height: auto;
+            }
+        }
 
         .profile_box {
-            align-items: center;
-            flex-direction: column;
-            padding-top: 45px;
-            margin-bottom: 14px;
+            display: flex;
+            gap: 10px;
+            margin-bottom: 40px;
+            align-items: flex-end;
+            position: relative;
 
             .profile_image {
-                height: 45px;
-                width: 45px;
+                border: 1px solid #868686;
+                height: 76px;
+                width: 76px;
+                border-radius: 6px;
+                overflow: hidden;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
             }
 
             .user_name {
-                text-align: center;
                 h3 {
-                    font-size: 13px;
-                    max-width: 50px;
+                    font-family: "MedievalSharp", cursive;
+                    color: #fff;
+                    font-size: 18px;
+                    line-height: 20.34px;
+                    font-weight: 700;
+                    margin-bottom: 5px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                 }
 
                 p {
-                    max-width: 50px;
-                    font-size: 12px
+                    color: #ffffff6c;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                 }
             }
 
             .collapse_btn {
-                right: auto;
-                left: 25%;
+                position: absolute;
+                top: 0;
+                right: 0;
+                background: transparent;
+                border: none;
             }
         }
 
         .menu-box {
-            ul li a {
-                gap: 0;
-                justify-content: center;
-                align-items: center;
+            ul {
+                li {
+                    &.active {
+                        a {
+                            opacity: 1;
+                        }
+                    }
+
+                    &:hover {
+                        a {
+                            opacity: 0.85;
+                        }
+                    }
+
+                    a {
+                        text-decoration: none;
+                        color: #F5EFDB;
+                        display: flex;
+                        align-items: center;
+                        padding: 8px 12px;
+                        gap: 12px;
+                        font-size: 18px;
+                        font-weight: 500;
+                        line-height: 21.78px;
+                        opacity: 0.5;
+                        margin-bottom: 16px;
+
+                        @media (max-width: 1600px) {
+                            font-size: 14px;
+                        }
+                    }
+                }
+            }
+
+            .separator {
+                background: linear-gradient(to right, #463600 0%, rgba(245, 239, 219, 0.15) 45%, rgba(245, 239, 219, 0.03) 99%);
+                display: block;
+                height: 1px;
+                width: 100%;
+                margin-bottom: 16px;
+            }
+
+            .chat {
                 position: relative;
 
-
-                .menu_text {
-                    display: none;
-                }
-
                 .notification {
-                    position: absolute;
-                    top: 5px;
-                    right: 10px;
-                    height: 8px;
-                    width: 8px;
+                    background-color: #a18527;
+                    height: 22px;
+                    width: 24px;
                     display: flex;
-                    justify-content: start;
+                    justify-content: center;
+                    border-radius: 21px;
                     align-items: center;
-
-                    .notification_text {
-                        display: none;
-                    }
-                }
-            }
-
-
-        }
-    }
-
-    .sidebar_menu {
-        height: 55vh;
-
-        @media (max-width: 1600px) {
-            height: auto;
-        }
-    }
-
-    .profile_box {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 40px;
-        align-items: flex-end;
-        position: relative;
-
-        .profile_image {
-            border: 1px solid #868686;
-            height: 76px;
-            width: 76px;
-            border-radius: 6px;
-            overflow: hidden;
-
-            img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-        }
-
-        .user_name {
-            h3 {
-                font-family: "MedievalSharp", cursive;
-                color: #fff;
-                font-size: 18px;
-                line-height: 20.34px;
-                font-weight: 700;
-                margin-bottom: 5px;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-
-            p {
-                color: #ffffff6c;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-        }
-
-        .collapse_btn {
-            position: absolute;
-            top: 0;
-            right: 0;
-            background: transparent;
-            border: none;
-        }
-    }
-
-    .menu-box {
-        ul {
-            li {
-                &.active {
-                    a {
-                        opacity: 1;
-                    }
-                }
-
-                &:hover {
-                    a {
-                        opacity: 0.85;
-                    }
-                }
-
-                a {
-                    text-decoration: none;
-                    color: #fff;
-                    display: flex;
-                    align-items: center;
-                    padding: 8px 12px;
-                    gap: 12px;
-                    font-size: 18px;
-                    font-weight: 500;
-                    line-height: 21.78px;
-                    opacity: 0.5;
-                    margin-bottom: 16px;
-
-                    @media (max-width: 1600px) {
-                        font-size: 14px;
-                    }
+                    font-size: 12px;
                 }
             }
         }
 
-        .separator {
-            background: linear-gradient(to right, #463600 0%, rgba(245, 239, 219, 0.15) 45%, rgba(245, 239, 219, 0.03) 99%);
-            display: block;
-            height: 1px;
-            width: 100%;
-            margin-bottom: 16px;
-        }
+        .sidebar_bottom {
+            margin-top: auto;
 
-        .chat {
-            position: relative;
-
-            .notification {
-                background-color: #a18527;
-                height: 22px;
-                width: 24px;
-                display: flex;
-                justify-content: center;
-                border-radius: 21px;
-                align-items: center;
-                font-size: 12px;
+            ul li a {
+                color: #ff9e98;
+                margin-bottom: 0;
             }
-        }
-    }
-
-    .sidebar_bottom {
-        margin-top: auto;
-
-        ul li a {
-            color: #ff9e98;
-            margin-bottom: 0;
         }
     }
 }
@@ -236,10 +250,9 @@
         height: 100%;
         display: flex;
         align-items: start;
-        flex-wrap: wrap;
-        overflow-y: auto;
-        gap: 20px 4px;
-        // justify-content: space-between;
+        overflow-x: auto;
+        gap: 25px;
+        justify-content: space-between;
         padding: 17px 24px;
 
         background-color: #191917;

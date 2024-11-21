@@ -220,9 +220,9 @@ const FeaturedAllProjects = () => {
                         <div className="featured_projects_card_body_main">
                             <div className="featured_projects_card_body">
                                 {
-                                    filterProject.map((data) => {
+                                    filterProject.map((data, index) => {
                                         return (
-                                            < >
+                                            <div className='card_wrap' key={index} >
                                                 <Card
                                                     isFeatured={data.isFeatured}
                                                     name={data.projectName}
@@ -231,7 +231,7 @@ const FeaturedAllProjects = () => {
                                                     price={data.price}
                                                     onClick={() => handleCardClick(data.projectId)}
                                                 />
-                                            </>
+                                            </div>
                                         )
                                     })
                                 }

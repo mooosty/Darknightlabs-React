@@ -259,6 +259,7 @@
 
             .investment_page_body {
                 padding-inline: 34px;
+                display: flex;
                 // padding-bottom: 15px;
 
                 @media (max-width: 767px) {
@@ -267,111 +268,116 @@
                 }
 
                 .card_container {
-                    width: 100%;
                     display: flex;
-                    gap: 24px;
+                    row-gap: 24px;
                     flex-wrap: wrap;
-
-                    @media (max-width: 1300px) {
-                        justify-content: space-between;
-                    }
+                    margin-left: -12px;
+                    margin-right: -12px;
+                    flex-grow: 1;
 
                     @media (max-width: 767px) {
-                        gap: 16px;
-                        justify-content: start;
+                        margin-left: -8px;
+                        margin-right: -8px;
+                        row-gap: 16px;
                     }
 
-                    .card {
-                        width: 18.35%;
-                        padding: 12px 16px;
-                        display: flex;
-                        flex-direction: column;
-                        gap: 16px;
-                        border-radius: 10px;
-                        background-color: #24262396;
-                        ;
-
-                        &:hover {
-                            box-shadow: 1px 0px 20px 1px rgba(255, 138, 28, 0.35);
-                        }
+                    .card_wrap {
+                        padding-inline: 12px;
+                        flex-basis: calc(100% / 5);
+                        max-width: calc(100% / 5);
 
                         @media (max-width: 1600px) {
-                            width: 23%;
+                            flex-basis: calc(100% / 4);
+                            max-width: calc(100% / 4);
                         }
 
                         @media (max-width: 1300px) {
-                            width: 30%;
+                            flex-basis: calc(100% / 3);
+                            max-width: calc(100% / 3);
                         }
 
                         @media (max-width: 1000px) {
-                            width: 47%;
-                        }
-
-                        @media (max-width: 767px) {
-                            width: 48%;
+                            padding-inline: 8px;
+                            flex-basis: calc(100% / 2);
+                            max-width: calc(100% / 2);
                         }
 
                         @media (max-width: 500px) {
-                            width: 100%;
+                            flex-basis: calc(100%);
+                            max-width: calc(100%);
                         }
 
-                        .card_image {
-                            object-fit: contain;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            overflow: hidden;
-                            border-radius: 8px;
-                            width: 100%;
-
-                            @media (max-width: 1300px) {
-                                width: 100%;
-                                max-width: none;
-                            }
-
-                            img {
-                                object-fit: cover;
-                                height: 100%;
-                                width: 100%;
-                            }
-                        }
-
-                        .card_body {
+                        .card {
+                            height: 100%;
+                            padding: 12px 16px;
                             display: flex;
                             flex-direction: column;
-                            gap: 10px;
+                            gap: 16px;
+                            border-radius: 10px;
+                            background-color: #24262396;
 
-                            .name {
-                                color: #F5EFDB;
-                                font-family: "MedievalSharp", cursive;
-                                font-size: 18px;
+                            &:hover {
+                                box-shadow: 1px 0px 20px 1px rgba(255, 138, 28, 0.35);
                             }
 
-                            .tabs {
+                            .card_image {
+                                object-fit: contain;
                                 display: flex;
                                 align-items: center;
-                                flex-wrap: wrap;
-                                gap: 4px;
-                                color: #ffffff;
+                                justify-content: center;
+                                overflow: hidden;
+                                border-radius: 8px;
+                                width: 100%;
 
-                                .investment_tag {
-                                    display: flex;
-                                    justify-content: center;
-                                    align-items: center;
-                                    padding: 4px 8px;
-                                    font-size: 12px;
-                                    border-radius: 6px;
-                                    background: #191917;
+                                @media (max-width: 1300px) {
+                                    width: 100%;
+                                    max-width: none;
                                 }
 
-                                .meta_tag {
+                                img {
+                                    object-fit: cover;
+                                    height: 100%;
+                                    width: 100%;
+                                }
+                            }
+
+                            .card_body {
+                                display: flex;
+                                flex-direction: column;
+                                gap: 10px;
+
+                                .name {
+                                    color: #F5EFDB;
+                                    font-family: "MedievalSharp", cursive;
+                                    font-size: 18px;
+                                }
+
+                                .tabs {
                                     display: flex;
-                                    justify-content: center;
                                     align-items: center;
-                                    padding: 4px;
-                                    font-size: 12px;
-                                    border-radius: 3px;
-                                    background-color: #242623;
+                                    flex-wrap: wrap;
+                                    gap: 4px;
+                                    color: #ffffff;
+
+                                    .investment_tag {
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                        padding: 4px 8px;
+                                        font-size: 12px;
+                                        border-radius: 6px;
+                                        background: #191917;
+                                    }
+
+                                    .meta_tag {
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                        padding: 4px;
+                                        font-size: 12px;
+                                        border-radius: 3px;
+                                        background-color: #242623;
+                                    }
                                 }
                             }
                         }

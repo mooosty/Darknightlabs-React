@@ -1,5 +1,6 @@
 .synergy_card {
     width: 100%;
+    height: 100%;
     border-radius: 10px;
     background-color: #242623;
     display: flex;
@@ -25,6 +26,7 @@
         color: #ffff;
         font-size: 12px;
         min-width: 65px;
+        text-transform: capitalize;
 
         &.refused {
             border-width: 0px 0px 1px 1px;

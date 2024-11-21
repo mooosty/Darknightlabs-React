@@ -14,7 +14,6 @@ import { addProjectAPI, deleteProjectAPI, addMemberAPI, getProjectsApiById } fro
 import { getUsersAPI } from "../../api-services/userApis"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams, Link } from "react-router-dom"
-// import { updateProject } from "../../store/slice/projectSlice"
 import { updateProjectAPI } from "../../api-services/projectApis"
 import DeleteConfirmPopup from "../../components/popup/delete-confirm-popup/DeleteConfirmaPopup"
 import axios from "axios"
@@ -23,37 +22,37 @@ import TagInput from "../../components/tags-input/TagInput"
 
 const synergyAnglesOptions = [
     {
-        label: 'Getting whitelist spots',
+        label: 'Whitelist spots',
         value: 'Getting whitelist spots',
         tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
     },
     {
-        label: 'Giving whitelists spots',
+        label: 'Whitelists spots',
         value: 'Giving whitelists spots',
         tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
     },
     {
-        label: 'Hosting AMAs',
+        label: 'AMAs',
         value: 'Hosting AMAs',
         tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
     },
     {
-        label: 'Integrating branded game assets',
+        label: 'Branded game assets',
         value: 'Integrating branded game assets',
         tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
     },
     {
-        label: 'Integrating your own branded assets',
+        label: 'Your own branded assets',
         value: 'Integrating your own branded assets',
         tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
     },
     {
-        label: 'Getting early alpha',
+        label: 'Early alpha',
         value: 'Getting early alpha',
         tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
     },
     {
-        label: 'Sharing early alpha',
+        label: 'Early alpha',
         value: 'Sharing early alpha',
         tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
     },
@@ -61,29 +60,23 @@ const synergyAnglesOptions = [
 
 
 const ProjectManagerEdit = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { projectId } = useParams();
+
     const [isAddAngelPopupOpen, setIsAddAngelPopupOpen] = useState(false)
     const [whoAccessToSynergySide, setWhoAccessToSynergySide] = useState('All Users');
     const [whoAccessToInvestmentSide, setWhoAccessToInvestmentSide] = useState('All Users');
     const [isDeleteConfirmPopupOpen, setIsDeleteConfirmPopupOpen] = useState(false);
     const [angelPopupIndex, setAngelPopupIndex] = useState()
 
-    const { projectDetails } = useSelector((state) => state.project)
-    const projectApiLoading = useSelector((state) => state.project.isLoading)
-    const projectSaveApiLoading = useSelector((state) => state.project.isSaveLoading)
 
-
-    const toggleAddAngelPopupOpen = () => setIsAddAngelPopupOpen(!isAddAngelPopupOpen)
-    const [tags, setTags] = useState([]);
-
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const { projectId } = useParams();
-    // const projectData = useSelector(state => state.project.projects.find(project => project.project_id == projectId))
     const userData = useSelector(state => state.user.users);
+    const { projectDetails, isLoading: projectApiLoading, isSaveLoading: projectSaveApiLoading } = useSelector((state) => state.project)
 
     const initialValues = {
         project_name: '',
-        tags: '',
+        tags: [],
         twitter_username: '',
         discord_username: '',
         members: [{
@@ -95,22 +88,31 @@ const ProjectManagerEdit = () => {
             synergy_angle: ''
         }],
         image: null,
-        invesments: [
+        investments: [
             {
                 property: '',
                 price: ''
             }
         ],
-        opentoinvest: false
+        open_to_invest: false
     }
 
 
     const formik = useFormik({
-        initialValues: initialValues
+        initialValues: initialValues,
+        onSubmit: () => {
+            if (projectId === 'add') {
+                handleAddProject()
+            }
+            else {
+                handleSaveChanges()
+            }
+        }
     })
 
-    const { values, setFieldValue, setValues, handleChange } = formik
+    const { values, setFieldValue, setValues, handleChange, handleSubmit } = formik
 
+    const toggleAddAngelPopupOpen = () => setIsAddAngelPopupOpen(!isAddAngelPopupOpen)
 
     const handleUploadImage = (file) => {
         let reader = new FileReader();
@@ -142,7 +144,7 @@ const ProjectManagerEdit = () => {
 
         const investment_obj = {};
 
-        values.invesments.forEach(({ property, price }) => {
+        values.investments.forEach(({ property, price }) => {
             investment_obj[property] = price;
         });
 
@@ -156,8 +158,7 @@ const ProjectManagerEdit = () => {
 
         const data = {
             "project_name": values.project_name,
-            // "project_info": values.tags,
-            "project_info": tags,
+            "project_info": values.tags.join('#'),
             "website": "",
             "discord_link": values.discord_username,
             "description": values.description,
@@ -188,7 +189,7 @@ const ProjectManagerEdit = () => {
         });
     }
 
-    const handleSaveChanges = () => {
+    const handleSaveChanges = async () => {
         const date = new Date();
 
         const synergy_obj = {};
@@ -200,17 +201,14 @@ const ProjectManagerEdit = () => {
 
         const investment_obj = {};
 
-        values.invesments.forEach(({ property, price }) => {
+        values.investments.forEach(({ property, price }) => {
             investment_obj[property] = price;
         });
 
-        const convertArrayToString = (arr) => arr.join(' ');
-        const tagsString = convertArrayToString(tags)
-
-        const data = {
+        let data = {
             "project_id": projectId - 0,
             "project_name": values.project_name,
-            "project_info": tagsString,
+            "project_info": values.tags.join('#'),
             "website": "",
             "discord_link": values.discord_username,
             "description": values.description,
@@ -224,11 +222,30 @@ const ProjectManagerEdit = () => {
             "investments": investment_obj
         }
 
+        if (values.image.file !== null) {
+            const formData = new FormData();
+            formData.append('file', values?.image?.file);
+            const response = await axios.post(`${import.meta.env.VITE_IMAGE_UPLOAD_BASE_URL}/`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+
+            data = {
+                ...data,
+                image: response.data.image_url,
+            }
+        }
+
         dispatch(updateProjectAPI({
-            "projectId": projectId - 0,
-            "projectData": data
-        }));
-        navigate('/project-manager');
+            projectId: projectId - 0,
+            projectData: data
+        })).then((res) => {
+            if (res.error) {
+                throw new Error(res.error.message);
+            }
+            navigate('/project-manager');
+        }).catch((err) => console.error(err));
     }
 
     const handleProjectDelete = () => {
@@ -281,7 +298,7 @@ const ProjectManagerEdit = () => {
 
                 const obj = {
                     project_name: projectData.project_name,
-                    tags: projectData.project_info,
+                    tags: projectData?.project_info?.split('#'),
                     twitter_username: projectData.twitter,
                     discord_username: projectData.discord_link,
                     members: [{
@@ -294,14 +311,9 @@ const ProjectManagerEdit = () => {
                         file: null,
                         base64Url: projectData.image,
                     },
-                    invesments: investments,
-                    opentoinvest: false
+                    investments: investments,
+                    open_to_invest: false
                 }
-                const convertStringToArray = (input) => input.split(' ')
-                const tagsArr = convertStringToArray(projectData.project_info)
-
-                setTags(tagsArr)
-
                 setValues(obj)
             })
         }
@@ -312,7 +324,6 @@ const ProjectManagerEdit = () => {
     useEffect(() => {
         dispatch(getUsersAPI());
     }, [])
-
 
     return (
         <>
@@ -382,7 +393,7 @@ const ProjectManagerEdit = () => {
                                             <img src={trashIcon} alt="" /> Delete</button>
                                     </div>
                                 </>}
-                                {!values.image && <>
+                                {!values.image?.base64Url && <>
                                     <div className="upload_profile">
                                         <img src={uploadIcon} alt="" />
                                         <input type="file" multiple={false} accept=".png, .jpeg, .svg, .jpg" onChange={(e) => {
@@ -420,7 +431,9 @@ const ProjectManagerEdit = () => {
                                     <span>#Metaverse</span> */}
                                             {/* <input type="text" name="tags" id="tag" value={values.tags} onChange={handleChange} /> */}
 
-                                            <TagInput tags={tags} setTags={setTags} />
+                                            <TagInput tags={values.tags} setTags={(value) => {
+                                                setFieldValue('tags', value);
+                                            }} />
                                         </div>
                                     </div>
                                     <div className="form_item_box">
@@ -568,7 +581,7 @@ const ProjectManagerEdit = () => {
                                             <h3>Open to investments</h3>
                                             <span className="switch">
                                                 <input id="switch-rounded" type="checkbox" onChange={(e) => {
-                                                    setFieldValue('opentoinvest', e.target.checked);
+                                                    setFieldValue('open_to_invest', e.target.checked);
                                                 }} />
                                                 <label htmlFor="switch-rounded"></label>
                                             </span>
@@ -589,7 +602,7 @@ const ProjectManagerEdit = () => {
                                         <div className="invostments-pro-wrap">
                                             <label htmlFor="arc">Investment properties</label>
                                             {
-                                                values.invesments.map((investment, index) => {
+                                                values.investments.map((investment, index) => {
                                                     return (
                                                         <>
                                                             <div className="form_item_box investment_item_box">
@@ -603,10 +616,10 @@ const ProjectManagerEdit = () => {
                                                                         ]}
                                                                         value={investment.property}
                                                                         onChange={(value) => {
-                                                                            setFieldValue('invesments', [...values.invesments.slice(0, index), {
+                                                                            setFieldValue('investments', [...values.investments.slice(0, index), {
                                                                                 property: value.value,
                                                                                 price: investment.price
-                                                                            }, ...values.invesments.slice(index + 1)])
+                                                                            }, ...values.investments.slice(index + 1)])
                                                                         }}
                                                                     />
                                                                 </div>
@@ -614,17 +627,17 @@ const ProjectManagerEdit = () => {
                                                                 <div className="form_group">
                                                                     <input type="text" id="property_price" name="property_price" value={investment.price}
                                                                         onChange={(e) => {
-                                                                            setFieldValue('invesments', [...values.invesments.slice(0, index), {
+                                                                            setFieldValue('investments', [...values.investments.slice(0, index), {
                                                                                 property: investment.property,
                                                                                 price: e.target.value
-                                                                            }, ...values.invesments.slice(index + 1)])
+                                                                            }, ...values.investments.slice(index + 1)])
                                                                         }}
                                                                     />
                                                                 </div>
 
                                                                 <button className="btn_delete" onClick={
                                                                     () => {
-                                                                        setFieldValue('invesments', [...values.invesments.slice(0, index), ...values.invesments.slice(index + 1)])
+                                                                        setFieldValue('investments', [...values.investments.slice(0, index), ...values.investments.slice(index + 1)])
                                                                     }
                                                                 }>
                                                                     <img src={trashIcon} alt="Delete" />
@@ -637,7 +650,7 @@ const ProjectManagerEdit = () => {
 
 
                                             <button className="btn_gray" onClick={() => {
-                                                setFieldValue('invesments', [...values.invesments, {
+                                                setFieldValue('investments', [...values.investments, {
                                                     property: '',
                                                     price: ''
                                                 }])
@@ -659,8 +672,8 @@ const ProjectManagerEdit = () => {
                                 >
                                     <img src={trashIcon} alt="Delete" /> Delete project
                                 </button>
-                                {projectId !== 'add' && <button className="btn_gray" onClick={handleSaveChanges}>Save changes</button>}
-                                {projectId === 'add' && <button className="btn_gray" onClick={handleAddProject}>Add Project</button>}
+                                <button type="submit" className="btn_gray" onClick={handleSubmit}> {projectId !== 'add' ? 'Save changes':'Add Project'}</button>
+
                             </div>
                         </div>
                     </div>

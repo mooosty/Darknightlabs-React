@@ -2,11 +2,13 @@ import './card.scss';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Tooltip } from 'react-tooltip'
+import { useNavigate } from 'react-router-dom';
 import ChoosePrioritySynergiesPopup from '../popup/choose-priority-synergies-popup/ChoosePrioritySynergiesPopup';
 import arrowRight from '../../assets/arrow-right.svg'
 import defaultImage from '../../assets/project-card-img-1.png'
 
 const Card = ({
+    synergyId,
     name,
     img,
     description,
@@ -14,13 +16,15 @@ const Card = ({
     tags = [],
     synergiesAngles = [],
 }) => {
+    const navigate = useNavigate();
+
     const [isChoosePrioritySynergiesPopupOpen, setIsChoosePrioritySynergiesPopupOpen] = useState(false);
 
     return (
         <>
             <div className="synergy_card">
                 <div className="card_img">
-                    <img src={img} alt=""  onError={(e) => e.target.src = defaultImage} />
+                    <img src={img} alt="" onError={(e) => e.target.src = defaultImage} />
                 </div>
                 <div className="card_body">
                     <div className="card_body_content">
@@ -66,12 +70,12 @@ const Card = ({
                     </div>
                     <div className='read_more'>
                         <button>
-                            <span>Read more</span>
+                            <span onClick={() => navigate(`/synergies/${synergyId}`)}>Read more</span>
                             <img src={arrowRight} alt='' />
                         </button>
                     </div>
                 </div>
-                <div className={`status ${status === 'Refused' ? 'refused' : ''} ${status === 'Live' ? 'live' : ''} ${status === 'Pending' ? 'pending' : ''}`}>
+                <div className={`status ${status}`}>
                     {status}
                 </div>
             </div>
@@ -83,6 +87,7 @@ const Card = ({
     )
 }
 Card.propTypes = {
+    synergyId: PropTypes.number,
     name: PropTypes.string,
     img: PropTypes.string,
     synergiesAngles: PropTypes.array,

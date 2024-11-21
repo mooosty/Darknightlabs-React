@@ -9,7 +9,6 @@ import { getSynergyApi } from '../../api-services/synergyApi'
 import { synergyAnglesOptions } from '../../utils/constants/options'
 import tableActor from "../../assets/tableActorImage.jpg";
 import { formatDate } from '../../utils/helper/helper'
-import { getStaticSynergyStatus } from '../../utils/constants/static'
 import debounce from 'lodash.debounce'
 import defaultImg from '../../assets/project-card-img-1.png'
 
@@ -27,7 +26,6 @@ const Synergies = () => {
         searchBy: ''
     })
 
-
     const data = useSelector((state) => state.synergies.synergies)
 
     const handleActive = (key) => {
@@ -36,7 +34,6 @@ const Synergies = () => {
 
     const handleSearchChange = useCallback(
         debounce((value) => {
-            console.log('value', value)
             setFilter((prevFilter) => ({
                 ...prevFilter,
                 searchBy: value,
@@ -46,8 +43,6 @@ const Synergies = () => {
     );
 
     const getSynergyAngles = (angles) => {
-        console.log('angles', angles)
-
         const selectedLabels = angles?.map((v, i) => {
             if (i === 0) {
                 return {
@@ -76,7 +71,6 @@ const Synergies = () => {
 
     useEffect(() => {
         let data = synergies;
-        console.log('data', data)
         // Filter by Synergy Angle Values (for multiple selected options)
         if (filter.synergyAngleValues && filter.synergyAngleValues.length > 0) {
             data = data.filter((synergy) =>
@@ -95,9 +89,6 @@ const Synergies = () => {
         }
 
         setFilterSynergies([...data])
-
-        console.log('filter>>', [...data])
-
     }, [filter])
 
     useEffect(() => {
@@ -105,7 +96,7 @@ const Synergies = () => {
             const angles = getSynergyAngles(synergy.synergy_angles)
 
             return {
-                key: synergy.id,
+                id: synergy.id,
                 synergyName: synergy.synergy_name ?? "Synergy Name",
                 creatorImg: tableActor,
                 creator: 'Joan of Arc',
@@ -114,7 +105,8 @@ const Synergies = () => {
                 currency: synergy.currency,
                 synergiesAngles: angles,
                 date: formatDate(synergy.date),
-                projects: synergy?.['project2_id'] ? [synergy['_project_id'], synergy?.['project2_id']] : [synergy['_project_id']]
+                projects: synergy?.['project2_id'] ? [synergy['_project_id'], synergy?.['project2_id']] : [synergy['_project_id']],
+                status: synergy.status === null ? 'pending' : synergy.status
             }
         })
         setSynergies([...tempData]);
@@ -166,7 +158,6 @@ const Synergies = () => {
                                             placeholder={'All synergies angles'}
                                             onApply={(currentOptions) => {
                                                 const synergiesAnglesValues = currentOptions?.map((option) => option.value)
-                                                console.log('synergiesAnglesValues', synergiesAnglesValues)
                                                 setFilter({
                                                     ...filter,
                                                     synergyAngleValues: synergiesAnglesValues
@@ -183,16 +174,17 @@ const Synergies = () => {
                                     filterSynergies.map((data, index) => {
                                         return (
                                             <>
-                                                <Card
-                                                    key={index}
-                                                    img={(data.synergyImg === '' || !data.synergyImg) ? defaultImg : data.synergyImg}
-                                                    name={data.synergyName}
-                                                    price={data.price}
-                                                    tags={data.tags || ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming']}
-                                                    status={getStaticSynergyStatus(index)}
-                                                    synergiesAngles={data.synergiesAngles}
-                                                    description='lorem Reprehenderit aliqua sit quis cillum dolor Lorem incididunt reprehenderit est elit et.'
-                                                />
+                                                <div key={index} className='card_wrap'>
+                                                    <Card img={(data.synergyImg === '' || !data.synergyImg) ? defaultImg : data.synergyImg}
+                                                        name={data.synergyName}
+                                                        price={data.price}
+                                                        tags={data.tags || ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming']}
+                                                        status={data.status}
+                                                        synergiesAngles={data.synergiesAngles}
+                                                        description='lorem Reprehenderit aliqua sit quis cillum dolor Lorem incididunt reprehenderit est elit et.'
+                                                        synergyId={data.id}
+                                                    />
+                                                </div>
                                             </>
                                         )
                                     })

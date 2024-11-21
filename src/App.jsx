@@ -9,7 +9,6 @@ import ProjectManagerEdit from './pages/project-manager-edit/ProjectManagerEdit'
 import FeaturedAllProjects from './pages/projects/featured-all-projects/FeaturedAllProjects'
 import Projects from './pages/projects/Projects'
 import Synergies from './pages/synergies/Synergies'
-import SynergyProject from './pages/synergies/synergy-project/SynergyProject'
 import Chats from './pages/chats/Chats'
 import PendingSynergies from './pages/pending-synergies/PendingSynergies'
 import { injectStore } from './store/injector'
@@ -36,7 +35,7 @@ function App() {
             <Route path={`${ROUTER.projects}/:projectId`} element={<ProjectDetails />} />
             <Route path={ROUTER.featuredProjects} element={<FeaturedAllProjects />} />
             <Route path={ROUTER.synergies} element={<Synergies />} />
-            <Route path={`${ROUTER.synergies}/:projectId`} element={<SynergiesDetails />} />
+            <Route path={`${ROUTER.synergies}/:synergyId`} element={<SynergiesDetails />} />
             <Route path={ROUTER.investment} element={<Investment />} />
             {
               userRole == 'ADMIN' &&
@@ -47,7 +46,6 @@ function App() {
                 <Route path={ROUTER.synergiesManager} element={<SynergiesManager />} />
               </>
             }
-            <Route path={ROUTER.synergyProject} element={<SynergyProject />} />
             <Route path={ROUTER.profile} element={<UserProfile />} />
             <Route path={ROUTER.chat} element={<Chats />} />
           </Route>

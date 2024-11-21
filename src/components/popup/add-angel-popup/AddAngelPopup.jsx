@@ -14,9 +14,7 @@ const AddAngelPopup = ({ open, handleClose, handleAddNewAngel, defaultValue }) =
     return (
         <>
             <div className={`model_bg ${open ? 'active' : ''} `}>
-                <div
-                    className={`add_angel_popup`}
-                >
+                <div className={`add_angel_popup`}>
                     <div className='model_box'>
                         <div className='model_body'>
                             <div className='model_header'>

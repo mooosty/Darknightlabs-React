@@ -338,7 +338,6 @@ const Investment = () => {
                 options={projectTypesOptions}
                 placeholder={'All types'}
                 onApply={(currentOptions) => {
-                  console.log('currentOptions', currentOptions)
                   setFilter({
                     ...filter,
                     types: currentOptions?.map((option) => option.value)
@@ -363,8 +362,8 @@ const Investment = () => {
             <div className="card_container">
               {cardData.map((data, index) => {
                 return (
-                  <>
-                    <div key={index} className="card" >
+                  <div className='card_wrap'key={index} >
+                    <div className="card" >
                       <div className="card_image">
                         <img src={data.investorImg} alt="" />
                       </div>
@@ -395,7 +394,8 @@ const Investment = () => {
                           }
                         </div>
                       </div>
-                    </div></>
+                    </div>
+                    </div>
                 )
               })}
             </div>
