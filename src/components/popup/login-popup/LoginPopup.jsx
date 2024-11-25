@@ -64,7 +64,7 @@ const LoginPopup = ({ open, handleClose }) => {
                                     <span><GoogleIcon /></span>
                                     <span><TwitterIcon /></span>
                                 </div>
-                                <img src={divider} alt=" " />
+                                <img src={divider} alt=" " className='divider'/>
                                 <div className="texts">
                                     <span>New here?</span>
                                     <div className="link">

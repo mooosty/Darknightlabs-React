@@ -41,8 +41,8 @@ const InputPassword = (props) => {
 const UserProfile = () => {
     const [active, setActive] = useState('INFORMATION');
     const [isEditMode, setIsEditMode] = useState(false);
-    const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
-    const [isSignUpPopupOpen, setIsSignUpPopupOpen] = useState(true);
+    const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(true);
+    const [isSignUpPopupOpen, setIsSignUpPopupOpen] = useState(false);
 
     const handleActive = (key) => {
         setActive(key);

@@ -81,7 +81,7 @@ const SignupPopup = ({ open, handleClose }) => {
                                     <span><GoogleIcon /></span>
                                     <span><TwitterIcon /></span>
                                 </div>
-                                <img src={divider} alt=" " />
+                                <img src={divider} alt=" " className='divider' />
                                 <div className="texts">
                                     <span>Have account?</span>
                                     <div className="link">

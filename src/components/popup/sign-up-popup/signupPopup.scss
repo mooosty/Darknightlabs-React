@@ -26,24 +26,25 @@
         height: 100%;
 
         .model_box {
-            width: 715px;
+            width: 600px;
             background-color: #191917;
             background-image: url("../../../assets/PopupBackground.png");
             background-repeat: no-repeat;
+            background-size: cover;
             background-position-x: 0px;
             background-position-y: 0px;
-
-            @media (max-width: 1600px) {
-                width: 600px;
-            }
 
             @media (max-width: 767px) {
                 width: 90%;
             }
 
             .model_body {
-                padding: 9px 24px;
+                padding: 22px 32px;
                 margin-block: 20px;
+
+                @media (max-width: 1600px) {
+                    height: 100%;
+                }
 
                 .form_group {
                     margin-bottom: 16px;
@@ -132,10 +133,10 @@
                         }
 
                         input {
-                            background-color: #191917;
+                            background-color: transparent;
                             padding: 15px 24px;
-                            border: 1px solid #3c3c3c;
-                            border-radius: 9px;
+                            border: 1px solid #ffffff80;
+                            border-radius: 0px;
                             width: 100%;
                             font-family: "MedievalSharp", cursive;
                             color: #f5efdb;
@@ -300,6 +301,12 @@
 
                             span {
                                 cursor: pointer;
+                            }
+                        }
+
+                        .divider {
+                            @media (max-width: 600px) {
+                                width: 100%;
                             }
                         }
 

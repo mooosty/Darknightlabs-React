@@ -239,6 +239,8 @@
             }
 
             .synergies_page_body {
+                display: flex;
+                flex-direction: column;
                 padding-inline: 30px;
 
                 @media (max-width: 767px) {
