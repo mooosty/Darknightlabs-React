@@ -5,70 +5,28 @@ import { useNavigate } from 'react-router-dom';
 import addIcon from "../../assets/add-icon.png";
 import closeIcon from "../../assets/X-icon.png";
 import filterIcon from "../../assets/filter.svg";
-import editIcon from "../../assets/edit-icon.svg";
 import Select from "../../components/select/Select"
 import trashIcon from "../../assets/trash-icon.png";
 import Loader from '../../components/loader/Loader';
 import searchIcon from "../../assets/search-icon.png"
+import { formatDate } from '../../utils/helper/helper';
 import { useSelector, useDispatch } from 'react-redux';
-import tableActorImage3 from "../../assets/avatar-3.jpg";
-import defaultImg from '../../assets/project-card-img-1.png'
-import cardImage from "../../assets//project-card-img-1.png";
 import { createSynergyApi } from '../../api-services/synergyApi';
 import BottomMenu from '../../components/buttom-menu/BottomMenu';
-import { Fragment, useCallback, useEffect, useState } from 'react';
-import CustomTooltip from '../../components/customTooltip/CustomTooltip';
+import { useCallback, useEffect, useState } from 'react';
+import { synergyAnglesOptions } from '../../utils/constants/options';
 import { createGroupAPI, createUserAPI } from '../../api-services/chatApis';
-import ProjectAccordion from '../../components/project-accordion/ProjectAccordion';
 import DeleteConfirmPopup from '../../components/popup/delete-confirm-popup/DeleteConfirmaPopup';
 import CreateSynergiesPopup from '../../components/popup/create-synergies-popup/CreateSynergiesPopup';
-import ConfirmSynergiesPopup from '../../components/popup/confirm-senergies-popup/ConfirmSynergiesPopup';
 import { getProjectsAPI, deleteProjectAPI, updateProjectAPI, getMemberApi } from '../../api-services/projectApis';
 import SynergieaCreatedSuccessfullyPopup from '../../components/popup/synergiea-created-successfully-popup/SynergieaCreatedSuccessfullyPopup';
-import { GridIcon, ListIcon, TableStatusIcon, GredientGlobalIcon, GradientGraphIcon, InfiniteIcon, MoreIcon, AddCircleIcon, CLeseCircleIcon, GlobalIcon, DownAccordionIcon } from '../../utils/SVGs/SVGs'
-
-
-const synergyAnglesOptions = [
-    {
-        label: 'Whitelist spots',
-        value: 'Getting whitelist spots',
-        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
-    },
-    {
-        label: 'Whitelists spots',
-        value: 'Giving whitelists spots',
-        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
-    },
-    {
-        label: 'AMAs',
-        value: 'Hosting AMAs',
-        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
-    },
-    {
-        label: 'Branded game assets',
-        value: 'Integrating branded game assets',
-        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
-    },
-    {
-        label: 'Your own branded assets',
-        value: 'Integrating your own branded assets',
-        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
-    },
-    {
-        label: 'Early alpha',
-        value: 'Getting early alpha',
-        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
-    },
-    {
-        label: 'Early alpha',
-        value: 'Sharing early alpha',
-        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
-    },
-]
+import { GridIcon, ListIcon, TableStatusIcon, InfiniteIcon, MoreIcon, AddCircleIcon, CLeseCircleIcon, GlobalIcon, DownAccordionIcon } from '../../utils/SVGs/SVGs'
+import ProjectManagerGridLayout from '../../components/project-manager/GridLayout';
+import ProjectManagerTableLayout from '../../components/project-manager/TableLayout';
 
 
 const ProjectManager = () => {
-    const [activeLayout, setActiveLayout] = useState('TAB');
+    const [activeLayout, setActiveLayout] = useState('TABLE');
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [isBottomMenuOpen, setIsBottomMenuOpen] = useState(false)
     const [selectedProjects, setSelectedProjects] = useState([])
@@ -100,20 +58,7 @@ const ProjectManager = () => {
     const [createSynergySuccessPopup, setCreateSynergySuccessPopup] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
-
-    const formatDate = (date) => {
-        var d = new Date(date),
-            month = '' + (d.getMonth() + 1),
-            day = '' + d.getDate(),
-            year = d.getFullYear();
-
-        if (month.length < 2)
-            month = '0' + month;
-        if (day.length < 2)
-            day = '0' + day;
-
-        return [day, month, year].join('/');
-    }
+    console.log('synergies', synergies)
 
     const handleActive = (key) => {
         setActiveLayout(key);
@@ -282,12 +227,12 @@ const ProjectManager = () => {
         }
 
         setIsLoading(true)
-        dispatch(createSynergyApi(data)).then(async () => {
+        dispatch(createSynergyApi(data)).unwrap().then(async () => {
             try {
                 const userPromises = users.map((user) => {
                     const payload = {
                         _id: user.id,
-                        name: user.username,
+                        name: `${user.first_name ?? ''} ${user.last_name ?? ''}`,
                         email: user.email,
                         password: `${user.id}@@@${user.email}`,
                     }
@@ -312,7 +257,7 @@ const ProjectManager = () => {
                     }
                     setIsLoading(false)
                 }).catch(() => {
-                    toast.error("Synergy Not Created");
+                    toast.error("Chat group not created");
                     setIsLoading(false)
                 })
             } catch (err) {
@@ -474,10 +419,10 @@ const ProjectManager = () => {
                     <div className="project_page_header">
                         <div className="project_page_header_top">
                             <div className="project_pagination">
-                                <button className={`project_pagination_btn ${activeLayout === 'TAB' ? 'active' : ''}`} onClick={() => handleActive('TAB')} >
+                                <button className={`project_pagination_btn ${activeLayout === 'TABLE' ? 'active' : ''}`} onClick={() => handleActive('TABLE')} >
                                     <ListIcon />
                                 </button>
-                                <button className={`project_pagination_btn ${activeLayout === 'LAYOUT' ? 'active' : ''}`} onClick={() => handleActive('LAYOUT')} >
+                                <button className={`project_pagination_btn ${activeLayout === 'GRID' ? 'active' : ''}`} onClick={() => handleActive('GRID')} >
                                     <GridIcon />
                                 </button>
                             </div>
@@ -601,7 +546,7 @@ const ProjectManager = () => {
                         </div>
                     </div>
                     <div className="project_page_body">
-                        {activeLayout === 'TAB' &&
+                        {activeLayout === 'TABLE' &&
                             <div className={`project_page_table_handler ${(!(createSynergyStep >= 1)) > 0 ? 'active' : ''}`}>
                                 <div className="selected_count">
                                     <div className="costum_checkbox">
@@ -662,245 +607,21 @@ const ProjectManager = () => {
                                 )}
                             </div>
                         }
-                        {activeLayout === 'LAYOUT' && <div className='card_container'>
-                            {
-                                filterProject.map((rowData, index) => {
-                                    return (
-                                        <div key={index} className="card_wrap">
-                                            <div className={`card ${rowData.isFeatured ? 'heighlighted' : ''}`}>
-
-                                                {rowData.isFeatured ? <>
-                                                    <div className="isFeaturedCard"> <TableStatusIcon /></div>
-                                                </> : ''}
-                                                <div className="card_image">
-                                                    <img src={rowData.synergyImg} alt=" " onError={(e) => e.target.src = cardImage} />
-                                                </div>
-                                                <div className="card_body">
-                                                    <div className="name">
-                                                        {rowData.projectName}
-                                                    </div>
-                                                    <div className='description'>
-                                                        {rowData.description}
-                                                    </div>
-                                                    <div className="tabs">
-                                                        {
-                                                            rowData.synergiesAngles.slice(0, 3).map((Angle, index) => (
-                                                                <div className={`${index === 0 ? 'global' : (index === 1 ? 'graph' : '')}`} key={index}>
-                                                                    <div className='angle_tag'>
-                                                                        <>{index === 0 && <div className='icon'><GredientGlobalIcon /></div>}</>
-                                                                        <>{index === 1 && <div className='icon'><GradientGraphIcon /></div>}</>
-                                                                        <span className='text'>
-                                                                            <span>{Angle.label}</span>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            ))
-                                                        }
-                                                        {rowData.synergiesAngles.length > 3 ?
-                                                            <div className="angle_tag">
-                                                                <span className='angle_tag_count'>+{rowData.synergiesAngles.length - 3}</span>
-                                                            </div>
-                                                            : ''}
-                                                    </div>
-                                                    <div className='tabs'>
-                                                        {
-                                                            rowData.type.map((type, index) => (
-                                                                <div key={index} className='angle_tag'>
-                                                                    <span className='text'>
-                                                                        <span>{type}</span>
-                                                                    </span>
-                                                                </div>
-                                                            ))
-                                                        }
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )
-                                })
-                            }
-                        </div>}
-                        {activeLayout === 'TAB' &&
-                            <>
-                                <div className="project_page_table">
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>Project name</th>
-                                                <th className='center'>Team members</th>
-                                                <th className='center'>Image</th>
-                                                <th className='center'>Description</th>
-                                                <th className='center'>Synergies</th>
-                                                <th className='center'>Type</th>
-                                                <th className='center'>Status</th>
-                                                <th className='center'>Date</th>
-                                                <th className='center'>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {
-                                                filterProject.map((rowData) => {
-                                                    return (
-                                                        <tr key={rowData.projectId} className={`${rowData.isFeatured ? 'heighlighted' : ''} ${selectedProjects.includes(rowData.projectId) ? 'selected' : ''} ${selectedProjects.includes(rowData.projectId) && createSynergyStep >= 2 ? 'disable' : ''}`}>
-                                                            <td>
-                                                                <div className='table_name'>
-                                                                    <div
-                                                                        className="costum_checkbox"
-                                                                    >
-                                                                        <input
-                                                                            type="checkbox"
-                                                                            className='costum_checkbox_input'
-                                                                            checked={selectedProjects.includes(rowData.projectId) || selectedProjectForSynergy === rowData.projectId}
-                                                                            readOnly
-                                                                        />
-                                                                        <label
-                                                                            className='costum_checkbox_label'
-                                                                            onClick={() => handleSelectProject(rowData)}
-                                                                        ></label>
-                                                                    </div>
-                                                                    <span className='label'> {rowData.projectName}</span>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div className='actor'>
-                                                                    <ul>
-                                                                        {rowData?.teamMembers?.map((member, index) => {
-                                                                            return (
-                                                                                <Fragment key={index}>
-                                                                                    <li
-                                                                                        id={`tooltip_team_member_${index}`}
-                                                                                    >
-                                                                                        <CustomTooltip text={member.twitter} place='top'>
-                                                                                            <img src={member.profile_picture ? member.profile_picture : tableActorImage3} alt="" title="Alexander - Founder and CEO" />
-                                                                                        </CustomTooltip>
-                                                                                    </li>
-                                                                                    {/* <Tooltip
-                                                                                place="top"
-                                                                                style={{
-                                                                                    maxWidth: '500px',
-                                                                                    boxShadow: '0px 3px 10.3px -4px rgba(229, 229, 229, 0.1)',
-                                                                                    background: 'rgba(79, 79, 79, 1)',
-                                                                                    opacity: '1',
-                                                                                }}
-                                                                                anchorSelect={`#tooltip_team_member_${index}`}
-                                                                            >
-                                                                                {member.twitter}
-                                                                            </Tooltip> */}
-                                                                                </Fragment>
-                                                                            )
-                                                                        })}
-                                                                    </ul>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div className="table_image">
-                                                                    <img src={rowData.synergyImg === '' || !rowData.synergyImg ? defaultImg : rowData.synergyImg} alt=" " onError={(e) => e.target.src = defaultImg} />
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div className="description">
-                                                                    <span>{rowData.description}</span>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div className='table_angles'>
-
-                                                                    {
-                                                                        rowData.synergiesAngles.slice(0, 3).map((Angle, index) => (
-                                                                            <div className={`${index === 0 ? 'global' : (index === 1 ? 'graph' : '')}`} key={index}>
-                                                                                <div className='angle_tag'>
-                                                                                    <>{index === 0 && <div className='icon'><GredientGlobalIcon /></div>}</>
-                                                                                    <>{index === 1 && <div className='icon'><GradientGraphIcon /></div>}</>
-                                                                                    <span className='text'>
-                                                                                        <span>{Angle.label}</span>
-                                                                                    </span>
-                                                                                </div>
-                                                                            </div>
-                                                                        ))
-                                                                    }
-                                                                    {rowData.synergiesAngles.length > 3 ?
-                                                                        <div className="angle_tag">
-                                                                            <span className='angle_tag_count'>+{rowData.synergiesAngles.length - 3}</span>
-                                                                        </div>
-                                                                        : ''}
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div className='table_type'>
-                                                                    {
-                                                                        rowData.type.map((type, index) => (
-                                                                            <div key={index} className='table_tag'>{type}</div>
-                                                                        ))
-                                                                    }
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div className="status">
-                                                                    {rowData.isFeatured ?
-                                                                        <div className="status_tabs">
-                                                                            <div className='status_tab'>
-                                                                                <TableStatusIcon />
-                                                                                <span>Featured</span>
-                                                                            </div>
-                                                                        </div>
-                                                                        : <span>{rowData.status}</span>}
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div className="date">{rowData.date}</div>
-                                                            </td>
-                                                            <td>
-                                                                <div className="actions">
-                                                                    <button className='btn' onClick={() => {
-                                                                        navigate(`/project-manager/${rowData.projectId}`)
-                                                                    }}>
-                                                                        <img src={editIcon} alt=" " />
-                                                                    </button>
-                                                                    <button className='btn' onClick={() => {
-                                                                        setIsDeleteConfirmPopupOpen(true);
-                                                                        setDltId(rowData.projectId)
-                                                                    }}>
-                                                                        <img src={trashIcon} alt=" " />
-                                                                    </button>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    )
-                                                })
-                                            }
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div className="project_page_accordion">
-                                    {
-                                        filterProject.map((rowData, index) => (
-                                            <ProjectAccordion
-                                                key={`${rowData.key}_${index}`}
-                                                projectName={rowData.projectName}
-                                                teamMembers={rowData?.teamMembers}
-                                                synergyImg={rowData.synergyImg}
-                                                description={rowData.description}
-                                                type={rowData.type}
-                                                status={rowData.status}
-                                                synergiesAngles={rowData.synergiesAngles}
-                                                date={rowData.date}
-                                                isFeatured={rowData.isFeatured}
-                                                checked={selectedProjects.includes(rowData.projectId) || selectedProjectForSynergy === rowData.projectId}
-                                                disabled={selectedProjects.includes(rowData.projectId) && createSynergyStep >= 2}
-                                                onDelete={() => {
-                                                    setIsDeleteConfirmPopupOpen(true);
-                                                    setDltId(rowData.projectId)
-                                                }}
-                                                onEdit={() => {
-                                                    navigate(`/project-manager/${rowData.projectId}`)
-                                                }}
-                                                onSelect={() => {
-                                                    handleSelectProject(rowData)
-                                                }}
-                                            />))
-                                    }
-                                </div>
-                            </>
+                        {activeLayout === 'TABLE' &&
+                            <ProjectManagerTableLayout
+                                filterProject={filterProject}
+                                selectedProjects={selectedProjects}
+                                selectedProjectForSynergy={selectedProjectForSynergy}
+                                createSynergyStep={createSynergyStep}
+                                handleSelectProject={handleSelectProject}
+                                setIsDeleteConfirmPopupOpen={setIsDeleteConfirmPopupOpen}
+                                setDltId={setDltId}
+                            />
+                        }
+                        {activeLayout === 'GRID' &&
+                            <ProjectManagerGridLayout
+                                filterProject={filterProject}   
+                            />
                         }
                     </div>
                 </div>
@@ -1061,14 +782,11 @@ const ProjectManager = () => {
                                                 </div>
                                             </div>
                                         </div>
-
                                     ))}
-
                                 </div>
                             </>
                         }
                     </>
-
                 }
                 footer={
                     <>
@@ -1123,14 +841,12 @@ const ProjectManager = () => {
                     </>
                 }
             />
+
             <SynergieaCreatedSuccessfullyPopup
                 open={createSynergySuccessPopup}
                 handleClose={() => {
                     setCreateSynergySuccessPopup(false);
                 }}
-            />
-            < ConfirmSynergiesPopup
-                open={false}
             />
 
             <BottomMenu

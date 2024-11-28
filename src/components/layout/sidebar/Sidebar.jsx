@@ -21,6 +21,7 @@ const Sidebar = () => {
     const handleCollapse = () => {
         setIsCollapse(!isCollapse);
     }
+
     return (
         <>
             <div className={`sidebar_container ${isCollapse ? 'sidebar_collapsed' : ''}`}>
@@ -64,7 +65,7 @@ const Sidebar = () => {
                         <span className="separator"></span>
                         <ul>
                             <>
-                                <li className={`${location.pathname.startsWith(`/${ROUTER.synergies}`) ? 'active' : ''}`}>
+                                <li className={`${(location.pathname.startsWith(`/${ROUTER.synergies}`) && location.pathname !== `/${ROUTER.synergiesManager}`) ? 'active' : ''}`}>
                                     <Link to={ROUTER.synergies}>
                                         <img src={synergiesUserIcon} alt="Synergies" />
                                         <span className='menu_text'>Synergies</span>
@@ -81,10 +82,10 @@ const Sidebar = () => {
                             {
                                 userRole == 'ADMIN' &&
                                 <>
-                                    <li className={`${location.pathname === `/${ROUTER.pendingSynergies}` ? 'active' : ''}`}>
-                                        <Link to={ROUTER.pendingSynergies}>
-                                            <img src={pendingIcon} alt="Pending Synergies" />
-                                            <span className='menu_text'>Pending Synergies</span>
+                                    <li className={`${location.pathname === `/${ROUTER.synergyRequests}` ? 'active' : ''}`}>
+                                        <Link to={ROUTER.synergyRequests}>
+                                            <img src={pendingIcon} alt="synergy requests" />
+                                            <span className='menu_text'>Synergy requests</span>
                                         </Link>
                                     </li>
                                     <li className={`${location.pathname === `/${ROUTER.synergiesManager}` ? 'active' : ''}`}>
@@ -164,8 +165,8 @@ const Sidebar = () => {
                     {
                         userRole == 'ADMIN' &&
                         <>
-                            <li className={`${location.pathname === `/${ROUTER.pendingSynergies}` ? 'active' : ''}`}>
-                                <Link to={ROUTER.pendingSynergies}>
+                            <li className={`${location.pathname === `/${ROUTER.synergyRequests}` ? 'active' : ''}`}>
+                                <Link to={ROUTER.synergyRequests}>
                                     <img src={pendingIcon} alt="" />
                                     <span>Pending Synergies</span>
                                 </Link>

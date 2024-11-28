@@ -8,23 +8,18 @@ import { getMemberApi, getProjectsAPI } from "../../../api-services/projectApis"
 import { BackArrow, GradientGraphIcon, GredientGlobalIcon } from "../../../utils/SVGs/SVGs"
 import { projectTypesOptions, synergyAnglesOptions } from "../../../utils/constants/options"
 import MultiselectDropDown from "../../../components/multiselect-dropdwon/MultiselectDropDown"
-import SynergyRequestSuccessfullySentPopup from "../../../components/popup/synergy-request-successfully-sent-popup/SynergyRequestSuccessfullySentPopup"
-import { useNavigate } from 'react-router-dom'
+import { formatDate } from '../../../utils/helper/helper'
 
 const FeaturedAllProjects = () => {
-    const [isSynergyRequestSuccessfullySentPopupOpen, setIsSynergyRequestSuccessfullySentPopupOpen] = useState(false);
 
-    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     // projects
     const data = useSelector((state) => state.project.projects)
-
     const featuredProjects = data.filter(project => project.featured === 1);
 
 
     const [initialProject, setInitialProject] = useState([])
-
     const [filterProject, setFilterProject] = useState([])
 
     const [filter, setFilter] = useState({
@@ -63,20 +58,6 @@ const FeaturedAllProjects = () => {
         console.log(projectId);
 
         // navigate(`/project-detail/${projectId}`); // Navigate to project detail page with projectId in the URL
-    }
-
-    const formatDate = (date) => {
-        var d = new Date(date),
-            month = '' + (d.getMonth() + 1),
-            day = '' + d.getDate(),
-            year = d.getFullYear();
-
-        if (month.length < 2)
-            month = '0' + month;
-        if (day.length < 2)
-            day = '0' + day;
-
-        return [day, month, year].join('/');
     }
 
     const handleSearchChange = useCallback(
@@ -264,11 +245,6 @@ const FeaturedAllProjects = () => {
                     </div>
                 </div>
             </div>
-
-            <SynergyRequestSuccessfullySentPopup
-                open={isSynergyRequestSuccessfullySentPopupOpen}
-                handleClose={() => setIsSynergyRequestSuccessfullySentPopupOpen(false)}
-            />
         </>
     )
 }

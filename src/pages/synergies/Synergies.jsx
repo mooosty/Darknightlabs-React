@@ -11,22 +11,22 @@ import tableActor from "../../assets/tableActorImage.jpg";
 import { formatDate } from '../../utils/helper/helper'
 import debounce from 'lodash.debounce'
 import defaultImg from '../../assets/project-card-img-1.png'
+import Loader from '../../components/loader/Loader'
 
 
 const Synergies = () => {
     const dispatch = useDispatch()
-    const [activeLayout, setActiveLayout] = useState('TRENDING');
 
+    const [activeLayout, setActiveLayout] = useState('TRENDING');
     const [synergies, setSynergies] = useState([]);
     const [filterSynergies, setFilterSynergies] = useState([]);
-
     const [filter, setFilter] = useState({
         synergyAngleValues: '',
         types: '',
         searchBy: ''
     })
 
-    const data = useSelector((state) => state.synergies.synergies)
+    const { synergies: synergiesData, isLoading: isSynergyLoading } = useSelector((state) => state.synergies)
 
     const handleActive = (key) => {
         setActiveLayout(key);
@@ -92,7 +92,7 @@ const Synergies = () => {
     }, [filter])
 
     useEffect(() => {
-        let tempData = data.map((synergy) => {
+        let tempData = synergiesData.map((synergy) => {
             const angles = getSynergyAngles(synergy.synergy_angles)
 
             return {
@@ -117,12 +117,11 @@ const Synergies = () => {
             searchBy: ''
         })
 
-    }, [data])
+    }, [synergiesData])
 
     useEffect(() => {
         dispatch(getSynergyApi())
     }, [])
-
 
 
     return (
@@ -173,19 +172,17 @@ const Synergies = () => {
                                 {
                                     filterSynergies.map((data, index) => {
                                         return (
-                                            <>
-                                                <div key={index} className='card_wrap'>
-                                                    <Card img={(data.synergyImg === '' || !data.synergyImg) ? defaultImg : data.synergyImg}
-                                                        name={data.synergyName}
-                                                        price={data.price}
-                                                        tags={data.tags || ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming']}
-                                                        status={data.status}
-                                                        synergiesAngles={data.synergiesAngles}
-                                                        description='lorem Reprehenderit aliqua sit quis cillum dolor Lorem incididunt reprehenderit est elit et.'
-                                                        synergyId={data.id}
-                                                    />
-                                                </div>
-                                            </>
+                                            <div key={index} className='card_wrap'>
+                                                <Card img={(data.synergyImg === '' || !data.synergyImg) ? defaultImg : data.synergyImg}
+                                                    name={data.synergyName}
+                                                    price={data.price}
+                                                    tags={data.tags || ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming']}
+                                                    status={data.status}
+                                                    synergiesAngles={data.synergiesAngles}
+                                                    description='lorem Reprehenderit aliqua sit quis cillum dolor Lorem incididunt reprehenderit est elit et.'
+                                                    synergyId={data.id}
+                                                />
+                                            </div>
                                         )
                                     })
                                 }
@@ -218,6 +215,8 @@ const Synergies = () => {
                     </div>
                 </div>
             </div>
+
+            <Loader loading={isSynergyLoading} />
         </>
     )
 }

@@ -456,7 +456,7 @@ const ProjectManagerEdit = () => {
                                                             <Select
                                                                 options={userData.map((user) => {
                                                                     return {
-                                                                        label: user.twitter,
+                                                                        label: `${user.firstname} ${user.lastname}`,
                                                                         value: user.id
                                                                     }
                                                                 })

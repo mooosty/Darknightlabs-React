@@ -9,7 +9,7 @@ import member1 from '../../assets/member_img1.png'
 import member2 from '../../assets/member_img2.png'
 import chatMassageDP from '../../assets/chat-message-dp.png'
 import { AddUserIcon, AttechmentIcon, DownAccordionIcon, EmojiFiiledIcon, HashTag, MicrophoneIcon, UserIcon } from '../../utils/SVGs/SVGs';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import AddChatMemberPopup from '../../components/popup/add-chat-menber-popup/AddChatMemberPopup'
 import ChatMembers from '../../components/chat-members/ChatMembers';
 import { getAllUsers, getGroupsAPI, getChatMessages, sendMsg } from '../../api-services/chatApis';
@@ -52,12 +52,14 @@ const Chats = () => {
     const [loading, setLoading] = useState(false);
 
     const groupData = useSelector((state) => state.group.groups)
-    const msgInfo = useSelector((state) => state.chat.groupMsg)
+    const messageDetails = useSelector((state) => state.chat.groupMsg)
     const userData = useSelector((state) => state.auth)
     const chatApiLoading = useSelector((state) => state.chat.isLoading)
     const groupApiLoading = useSelector((state) => state.group.isLoading)
 
     const dispatch = useDispatch();
+    const chatContainerRef = useRef(null);
+    const lastMessageRef = useRef(null);
 
 
     const handleChannelOpen = () => {
@@ -160,10 +162,9 @@ const Chats = () => {
             setMsg('')
 
             setTimeout(() => {
-                const elements = document.getElementsByClassName('message_send');
-                if (elements.length > 0) {
-                    const lastElement = elements[elements.length - 1];
-                    lastElement?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+                const elements = lastMessageRef.current;
+                if (elements) {
+                    elements.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
                 }
             }, 0)
         }
@@ -197,18 +198,16 @@ const Chats = () => {
         }
     }, [openChatIndex, groupData])
 
+
     useEffect(() => {
-        if (!loading) {
+        if (!loading && chatContainerRef.current) {
             setTimeout(() => {
-                const elements = document.getElementsByClassName('chat_container');
-                if (elements.length > 0) {
-                    const container = elements[0];
-                    let lastElement = container.childNodes[container.childNodes.length - 2]
-                    lastElement?.scrollIntoView();
-                }
-            }, 0)
+                const container = chatContainerRef.current;
+                let lastElement = container.childNodes[container.childNodes.length - 2];
+                lastElement?.scrollIntoView();
+            }, 200);
         }
-    }, [loading])
+    }, [loading]);
 
 
     return (
@@ -293,13 +292,13 @@ const Chats = () => {
                             </div>
                         </div>
                         <div className="chat_main_body">
-                            <div className="chat_container">
+                            <div className="chat_container" ref={chatContainerRef}>
                                 {
-                                    msgInfo.messages.map((msg, index) => {
+                                    messageDetails.messages.map((msg, index) => {
                                         return (
                                             <Fragment key={index}>
                                                 {
-                                                    (index === 0 || !isEqualDate(msg.createdAt, msgInfo.messages[index - 1].createdAt)) && <div className="date_separator ">
+                                                    (index === 0 || !isEqualDate(msg.createdAt, messageDetails.messages[index - 1].createdAt)) && <div className="date_separator ">
                                                         <div className="left"></div>
                                                         <div className="date">{formatDateTime(msg.createdAt)}</div>
                                                         <div className="right"></div>
@@ -307,7 +306,10 @@ const Chats = () => {
                                                 }
                                                 {
                                                     <div>
-                                                        <div className={`${userData.userId == msg.sender['_id'] ? 'message_send' : 'message_received'}`}>
+                                                        <div
+                                                            ref={index === messageDetails.messages.length - 1 ? lastMessageRef : null}
+                                                            className={`${userData.userId == msg.sender['_id'] ? 'message_send' : 'message_received'}`}
+                                                        >
                                                             <div className="message">
                                                                 <div className="message_left">
                                                                     <img src={chatMassageDP} alt="" />
@@ -321,21 +323,6 @@ const Chats = () => {
                                                                 </div>
                                                             </div>
                                                         </div>
-
-                                                        {/* <div className="message_send">
-                                                            <div className="message">
-                                                                <div className="message_left">
-                                                                    <img src={chatMassageDP} alt="" />
-                                                                </div>
-                                                                <div className="message_right">
-                                                                    <div className="messager_info">
-                                                                        <div className="messager_name">Joan of Arc</div>
-                                                                        <div className="time">Friday 2:20pm</div>
-                                                                    </div>
-                                                                    <div className="message_text"> Nunc vulputate libero et velit interdum, ac aliquet odio mattis.</div>
-                                                                </div>
-                                                            </div>
-                                                        </div> */}
                                                     </div>
                                                 }
                                             </Fragment>

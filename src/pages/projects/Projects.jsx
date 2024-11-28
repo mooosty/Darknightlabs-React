@@ -10,23 +10,19 @@ import { getProjectsAPI } from '../../api-services/projectApis'
 import { GradientGraphIcon, GredientGlobalIcon } from '../../utils/SVGs/SVGs'
 import { projectTypesOptions, synergyAnglesOptions } from '../../utils/constants/options'
 import MultiselectDropDown from '../../components/multiselect-dropdwon/MultiselectDropDown'
-import SynergyRequestSuccessfullySentPopup from '../../components/popup/synergy-request-successfully-sent-popup/SynergyRequestSuccessfullySentPopup'
+import { formatDate } from '../../utils/helper/helper'
 
 const Projects = () => {
-    const [activeLayout, setActiveLayout] = useState('TRENDING');
-    const [isSynergyRequestSuccessfullySentPopupOpen, setIsSynergyRequestSuccessfullySentPopupOpen] = useState(false);
-
     const dispatch = useDispatch();
 
-    // projects
-    const data = useSelector((state) => state.project.projects)
-
-    const featuredProjects = data.filter(project => project.featured === 1);
-
-
+    const [activeLayout, setActiveLayout] = useState('TRENDING');
+    const [initialFeaturedProject, setInitialFeaturedProject] = useState([])
+    const [filterFeaturedProject, setFilterFeaturedProject] = useState([])
     const [initialProject, setInitialProject] = useState([])
-
     const [filterProject, setFilterProject] = useState([])
+
+    const data = useSelector((state) => state.project.projects)
+    const featuredProjects = data.filter(project => project.featured === 1);
 
     const [filter, setFilter] = useState({
         synergyAngleValues: [],
@@ -35,12 +31,6 @@ const Projects = () => {
         types: [],
         searchBy: ''
     })
-
-
-
-    const [initialFeaturedProject, setInitialFeaturedProject] = useState([])
-
-    const [filterFeaturedProject, setFilterFeaturedProject] = useState([])
 
 
     const handleActive = (key) => {
@@ -68,22 +58,7 @@ const Projects = () => {
             }
         })
 
-
         return selectedLabels
-    }
-
-    const formatDate = (date) => {
-        var d = new Date(date),
-            month = '' + (d.getMonth() + 1),
-            day = '' + d.getDate(),
-            year = d.getFullYear();
-
-        if (month.length < 2)
-            month = '0' + month;
-        if (day.length < 2)
-            day = '0' + day;
-
-        return [day, month, year].join('/');
     }
 
     const handleSearchChange = useCallback(
@@ -95,6 +70,40 @@ const Projects = () => {
         }, 500),
         []
     );
+
+    const getProjectsData = (data) => {
+        const projectData = [
+            ...data.map((project, index) => {
+                let tags = project.project_info?.split('#') || [];
+                tags = tags.filter(tag => tag).map(tag => `#${tag}`);
+
+                // let synergy_angles = Object.keys(project.synergy_angles)
+                //     .map(key => project.synergy_angles[key] ? { label: project.synergy_angles[key] } : null)
+                //     .filter(item => item);
+
+
+                let synergy_angles = getSynergyAngles(project)
+
+                const row = {
+                    key: index,
+                    checked: false,
+                    projectName: project.project_name,
+                    teamMembers: project?.teamMembers ?? [],
+                    synergyImg: project.image ?? '',
+                    synergiesAngles: synergy_angles,
+                    type: tags,
+                    isFeatured: project.featured,
+                    date: formatDate(project.date),
+                    disabled: false,
+                    description: project.description,
+                    projectId: project.project_id,
+                }
+                return row;
+            })
+        ]
+
+        return projectData
+    }
 
 
     useEffect(() => {
@@ -144,40 +153,6 @@ const Projects = () => {
 
     }, [filter])
 
-    const getProjectsData = (data) => {
-        const projectData = [
-            ...data.map((project, index) => {
-                let tags = project.project_info?.split('#') || [];
-                tags = tags.filter(tag => tag).map(tag => `#${tag}`);
-
-                // let synergy_angles = Object.keys(project.synergy_angles)
-                //     .map(key => project.synergy_angles[key] ? { label: project.synergy_angles[key] } : null)
-                //     .filter(item => item);
-
-
-                let synergy_angles = getSynergyAngles(project)
-
-                const row = {
-                    key: index,
-                    checked: false,
-                    projectName: project.project_name,
-                    teamMembers: project?.teamMembers ?? [],
-                    synergyImg: project.image ?? '',
-                    synergiesAngles: synergy_angles,
-                    type: tags,
-                    isFeatured: project.featured,
-                    date: formatDate(project.date),
-                    disabled: false,
-                    description: project.description,
-                    projectId: project.project_id,
-                }
-                return row;
-            })
-        ]
-
-        return projectData
-    }
-
     useEffect(() => {
         const projectData = getProjectsData(data)
 
@@ -189,7 +164,6 @@ const Projects = () => {
         setInitialFeaturedProject([...featuredProjectData])
         setFilterFeaturedProject([...featuredProjectData])
     }, [data])
-
 
 
     return (
@@ -321,10 +295,6 @@ const Projects = () => {
                     </div>
                 </div>
             </div>
-            <SynergyRequestSuccessfullySentPopup
-                open={isSynergyRequestSuccessfullySentPopupOpen}
-                handleClose={() => setIsSynergyRequestSuccessfullySentPopupOpen(false)}
-            />
         </>
     )
 }

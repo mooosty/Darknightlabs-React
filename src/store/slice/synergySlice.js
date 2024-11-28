@@ -1,11 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { createSynergyApi, deleteSynergyApi, getSynergyApi, getSynergyByIdApi, updateSynergyApi } from "../../api-services/synergyApi"
+import { addSynergyRequest, createSynergyApi, deleteSynergyApi, getSynergyApi, getSynergyByIdApi, getSynergyRequestApi, updateSynergyApi } from "../../api-services/synergyApi"
 
 
 const initialState = {
     synergies: [],
     isLoading: false,
-    synergyDetails:{}
+    addSynergyRequestLoading: false,
+    getSynergyRequestLoading: false,
+    synergyRequests: [],
+    synergyDetails: {}
 }
 
 const synergySlice = createSlice({
@@ -53,21 +56,20 @@ const synergySlice = createSlice({
                     synergies: [],
                 }
             }
-            else{
+            else {
                 return {
                     ...state
                 }
             }
         })
 
-        builder.addCase(
-            getSynergyApi.fulfilled, (state, action) => {
-                return {
-                    ...state,
-                    isLoading: false,
-                    synergies: action.payload ?? [],
-                }
+        builder.addCase(getSynergyApi.fulfilled, (state, action) => {
+            return {
+                ...state,
+                isLoading: false,
+                synergies: action.payload ?? [],
             }
+        }
         )
 
         builder.addCase(getSynergyApi.rejected, (state) => {
@@ -160,6 +162,51 @@ const synergySlice = createSlice({
             return {
                 ...state,
                 isLoading: false
+            }
+        })
+
+        builder.addCase(addSynergyRequest.pending, (state) => {
+            return {
+                ...state,
+                addSynergyRequestLoading: true
+            }
+        })
+
+        builder.addCase(addSynergyRequest.fulfilled, (state) => {
+            return {
+                ...state,
+                addSynergyRequestLoading: false
+            }
+        })
+
+        builder.addCase(addSynergyRequest.rejected, (state) => {
+            return {
+                ...state,
+                addSynergyRequestLoading: false
+            }
+        })
+
+        builder.addCase(getSynergyRequestApi.pending, (state) => {
+            return {
+                ...state,
+                getSynergyRequestLoading: true,
+                synergyRequests: [],
+            }
+        })
+
+        builder.addCase(getSynergyRequestApi.fulfilled, (state, action) => {
+            return {
+                ...state,
+                synergyRequests: action.payload ?? [],
+                getSynergyRequestLoading: false
+            }
+        })
+
+        builder.addCase(getSynergyRequestApi.rejected, (state) => {
+            return {
+                ...state,
+                synergyRequests: [],
+                getSynergyRequestLoading: false
             }
         })
     }

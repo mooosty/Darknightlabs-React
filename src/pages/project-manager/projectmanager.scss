@@ -648,6 +648,11 @@
                     width: 24px;
                     border-radius: 30px;
                   }
+
+                  .tooltip {
+                    width: max-content;
+                    max-width: 250px;
+                  }
                 }
 
                 .table_image {

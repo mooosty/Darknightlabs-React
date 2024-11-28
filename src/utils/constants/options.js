@@ -35,8 +35,9 @@ export const synergyAnglesOptions = [
         tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
     },
     {
-        label: 'TEST1',
-        value: 'TEST1'
+        label: 'IP integration',
+        value: 'IP integration',
+        tooltip: 'IP integration'
     }
 ]
 

@@ -1,11 +1,9 @@
 import './card.scss';
-import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Tooltip } from 'react-tooltip'
 import { useNavigate } from 'react-router-dom';
-import ChoosePrioritySynergiesPopup from '../popup/choose-priority-synergies-popup/ChoosePrioritySynergiesPopup';
 import arrowRight from '../../assets/arrow-right.svg'
 import defaultImage from '../../assets/project-card-img-1.png'
+import CustomTooltip from '../customTooltip/CustomTooltip';
 
 const Card = ({
     synergyId,
@@ -18,8 +16,6 @@ const Card = ({
 }) => {
     const navigate = useNavigate();
 
-    const [isChoosePrioritySynergiesPopupOpen, setIsChoosePrioritySynergiesPopupOpen] = useState(false);
-
     return (
         <>
             <div className="synergy_card">
@@ -31,29 +27,26 @@ const Card = ({
                         <div className="tabs">
                             {
                                 synergiesAngles.map((angle, index) => {
-                                    const id = Math.floor((Math.random() * 10000))
-
                                     return (
-                                        <div className={`${index === 0 ? 'global' : (index === 1 ? 'graph' : '')}`} key={id}>
-                                            <div className='angle_tag' id={`tooltip_synergis_${id}`}>
-                                                <>{angle.icon} </>
-                                                <span className='text'>
-                                                    <span>{angle.label}</span>
-                                                </span>
-                                            </div>
-                                            <Tooltip
+                                        <div className={`${index === 0 ? 'global' : (index === 1 ? 'graph' : '')}`} key={index}>
+                                            <CustomTooltip
                                                 place="top"
                                                 style={{
                                                     zIndex: 99,
                                                     maxWidth: '200px',
+                                                    width: 'max-content',
                                                     boxShadow: '0px 3px 10.3px -4px rgba(229, 229, 229, 0.1)',
                                                     background: 'rgba(79, 79, 79, 1)',
                                                 }}
-                                                opacity={1}
-                                                anchorSelect={`#tooltip_synergis_${id}`}
+                                                text={angle.label}
                                             >
-                                                {angle.tooltip} {id}
-                                            </Tooltip>
+                                                <div className='angle_tag'>
+                                                    <>{angle.icon} </>
+                                                    <span className='text'>
+                                                        <span>{angle.label}</span>
+                                                    </span>
+                                                </div>
+                                            </CustomTooltip>
                                         </div>)
                                 })
                             }
@@ -79,10 +72,10 @@ const Card = ({
                     {status}
                 </div>
             </div>
-            <ChoosePrioritySynergiesPopup
+            {/* <ChoosePrioritySynergiesPopup
                 open={isChoosePrioritySynergiesPopupOpen}
                 handleClose={() => setIsChoosePrioritySynergiesPopupOpen(false)}
-            />
+            /> */}
         </>
     )
 }

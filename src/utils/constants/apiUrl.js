@@ -14,5 +14,9 @@ export const apiRoutes = {
     CHAT_MSG: '/message/all',
     SEND_MSG: '/message/send',
     PROJECT_USER: 'projectusers',
-    SYNERGY: '/synergies'
+    SYNERGY: '/synergies',
+
+    ADD_SYNERGY_REQUEST: '/synergyrequests/',
+    GET_SYNERGY_REQUEST: '/synergyrequests/'
+
 }

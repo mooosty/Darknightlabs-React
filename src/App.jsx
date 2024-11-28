@@ -42,7 +42,7 @@ function App() {
               <>
                 <Route path={ROUTER.projectManager} element={<ProjectManager />} />
                 <Route path={`${ROUTER.projectManager}/:projectId`} element={<ProjectManagerEdit />} />
-                <Route path={ROUTER.pendingSynergies} element={<PendingSynergies />} />
+                <Route path={ROUTER.synergyRequests} element={<PendingSynergies />} />
                 <Route path={ROUTER.synergiesManager} element={<SynergiesManager />} />
               </>
             }

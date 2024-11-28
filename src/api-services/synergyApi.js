@@ -19,7 +19,7 @@ export const getSynergyApi = createAsyncThunk('synergy/get',
     }
 )
 
-export const getSynergyByIdApi=createAsyncThunk('synergy/get/:id',
+export const getSynergyByIdApi = createAsyncThunk('synergy/get/:id',
     async (data, thunkAPI) => {
         const response = await axiosApi.get(`${apiRoutes.SYNERGY}/${data}`);
         if (!response?.data?.success || response?.data?.success !== 0) return response?.data
@@ -45,6 +45,22 @@ export const deleteSynergyApi = createAsyncThunk('synergy/delete',
             response: response?.data,
             synergyId: data['synergy_id']
         }
+        else return thunkAPI.rejectWithValue(response?.data)
+    }
+)
+
+export const addSynergyRequest = createAsyncThunk('api/addSynergyrequests/',
+    async (data, thunkAPI) => {
+        const response = await axiosApi.post(apiRoutes.ADD_SYNERGY_REQUEST, data)
+        if (response?.data?.success) return response?.data?.data
+        else return thunkAPI.rejectWithValue(response?.data)
+    }
+)
+
+export const getSynergyRequestApi = createAsyncThunk('api/getSynergyrequests/',
+    async (data, thunkAPI) => {
+        const response = await axiosApi.get(apiRoutes.GET_SYNERGY_REQUEST, data)
+        if (response?.data?.success) return response?.data?.data
         else return thunkAPI.rejectWithValue(response?.data)
     }
 )

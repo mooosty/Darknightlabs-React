@@ -1,26 +1,14 @@
 import './pendingSynergies.scss'
+import { useEffect, useState } from 'react';
+import Loader from '../../components/loader/Loader';
 import searchIcon from "../../assets/search-icon.png";
-import { useState } from 'react';
-import DeleteConfirmPopup from '../../components/popup/delete-confirm-popup/DeleteConfirmaPopup';
-import { GradientGraphIcon, GrammerlyIcon, GredientGlobalIcon, HealthIcon, LeftIcon, RightIcon, StarIcon, AddCircleIcon, CLeseCircleIcon, GlobalIcon } from '../../utils/SVGs/SVGs';
-import cardActor1 from '../../assets/pending-synergy-img1.png'
-import cardActor2 from '../../assets/pending-synergy-img2.png'
-import cardActor3 from '../../assets/pending-synergy-img3.png'
-import cardActor4 from '../../assets/pending-synergy-img4.png'
-import cardActor5 from '../../assets/pending-synergy-img5.png'
-import cardActor6 from '../../assets/pending-synergy-img6.png'
-import cardActor7 from '../../assets/pending-synergy-img7.png'
-import cardActor8 from '../../assets/pending-synergy-img8.png'
-import cardActor9 from '../../assets/pending-synergy-img9.png'
-import cardActor10 from '../../assets/pending-synergy-img10.png'
-import cardActor11 from '../../assets/pending-synergy-img11.png'
-import cardActor12 from '../../assets/pending-synergy-img12.png'
-import cardActor13 from '../../assets/pending-synergy-img13.png'
-import cardActor14 from '../../assets/pending-synergy-img14.png'
-import cardActor15 from '../../assets/pending-synergy-img15.png'
-import EditPendingSynergiesAngelPopup from '../../components/popup/edit-pending-synergies-angel-popup/EditPendingSynergiesAngelPopup';
-import CreateSynergiesPopup from '../../components/popup/create-synergies-popup/CreateSynergiesPopup';
+import { useDispatch, useSelector } from 'react-redux';
 import angelBg from '../../assets/edit-senergies-hero-image.png'
+import { getSynergyRequestApi } from '../../api-services/synergyApi';
+import CreateSynergiesPopup from '../../components/popup/create-synergies-popup/CreateSynergiesPopup';
+import { AddCircleIcon, CLeseCircleIcon, GlobalIcon } from '../../utils/SVGs/SVGs';
+import SynergyRequestCard from '../../components/synergy-request-card/Card';
+
 const buttons = [
   {
     id: 1,
@@ -74,454 +62,67 @@ const buttons = [
 
 ]
 
-const cardData = [
-  {
-    synergyName: 'Byte City X Neo Tokyo',
-    creatorImg: cardActor1,
-    synergiesAngles: [
-      {
-        icon: <GredientGlobalIcon />,
-        label: 'IP integration',
-      },
-      {
-        icon: <GradientGraphIcon />,
-        label: 'Hosting AMAS',
-      },
-      {
-        icon: <GrammerlyIcon />,
-        label: 'Angle48',
-      },
-      {
-        icon: <HealthIcon />,
-        label: 'Angle49',
-      },
-      {
-        icon: <StarIcon />,
-        label: 'Angle50',
-      }],
-  },
-  {
-    synergyName: 'Byte City X Neo Tokyo',
-    creatorImg: cardActor2,
-    synergiesAngles: [
-      {
-        icon: <GredientGlobalIcon />,
-        label: 'IP integration',
-      },
-      {
-        icon: <GradientGraphIcon />,
-        label: 'Hosting AMAS',
-      },
-      {
-        icon: <GrammerlyIcon />,
-        label: 'Angle48',
-      },
-      {
-        icon: <HealthIcon />,
-        label: 'Angle49',
-      },
-      {
-        icon: <StarIcon />,
-        label: 'Angle50',
-      }],
-  },
-  {
-    synergyName: 'Byte City X Neo Tokyo',
-    creatorImg: cardActor3,
-    synergiesAngles: [
-      {
-        icon: <GredientGlobalIcon />,
-        label: 'IP integration',
-      },
-      {
-        icon: <GradientGraphIcon />,
-        label: 'Hosting AMAS',
-      },
-      {
-        icon: <GrammerlyIcon />,
-        label: 'Angle48',
-      },
-      {
-        icon: <HealthIcon />,
-        label: 'Angle49',
-      },
-      {
-        icon: <StarIcon />,
-        label: 'Angle50',
-      }],
-  },
-  {
-    synergyName: 'Byte City X Neo Tokyo',
-    creatorImg: cardActor4,
-    synergiesAngles: [
-      {
-        icon: <GredientGlobalIcon />,
-        label: 'IP integration',
-      },
-      {
-        icon: <GradientGraphIcon />,
-        label: 'Hosting AMAS',
-      },
-      {
-        icon: <GrammerlyIcon />,
-        label: 'Angle48',
-      },
-      {
-        icon: <HealthIcon />,
-        label: 'Angle49',
-      },
-      {
-        icon: <StarIcon />,
-        label: 'Angle50',
-      }],
-  },
-  {
-    synergyName: 'Byte City X Neo Tokyo',
-    creatorImg: cardActor5,
-    synergiesAngles: [
-      {
-        icon: <GredientGlobalIcon />,
-        label: 'IP integration',
-      },
-      {
-        icon: <GradientGraphIcon />,
-        label: 'Hosting AMAS',
-      },
-      {
-        icon: <GrammerlyIcon />,
-        label: 'Angle48',
-      },
-      {
-        icon: <HealthIcon />,
-        label: 'Angle49',
-      },
-      {
-        icon: <StarIcon />,
-        label: 'Angle50',
-      }],
-  },
-  {
-    synergyName: 'Byte City X Neo Tokyo',
-    creatorImg: cardActor6,
-    synergiesAngles: [
-      {
-        icon: <GredientGlobalIcon />,
-        label: 'IP integration',
-      },
-      {
-        icon: <GradientGraphIcon />,
-        label: 'Hosting AMAS',
-      },
-      {
-        icon: <GrammerlyIcon />,
-        label: 'Angle48',
-      },
-      {
-        icon: <HealthIcon />,
-        label: 'Angle49',
-      },
-      {
-        icon: <StarIcon />,
-        label: 'Angle50',
-      }],
-  },
-  {
-    synergyName: 'Byte City X Neo Tokyo',
-    creatorImg: cardActor7,
-    synergiesAngles: [
-      {
-        icon: <GredientGlobalIcon />,
-        label: 'IP integration',
-      },
-      {
-        icon: <GradientGraphIcon />,
-        label: 'Hosting AMAS',
-      },
-      {
-        icon: <GrammerlyIcon />,
-        label: 'Angle48',
-      },
-      {
-        icon: <HealthIcon />,
-        label: 'Angle49',
-      },
-      {
-        icon: <StarIcon />,
-        label: 'Angle50',
-      }],
-  },
-  {
-    synergyName: 'Byte City X Neo Tokyo',
-    creatorImg: cardActor8,
-    synergiesAngles: [
-      {
-        icon: <GredientGlobalIcon />,
-        label: 'IP integration',
-      },
-      {
-        icon: <GradientGraphIcon />,
-        label: 'Hosting AMAS',
-      },
-      {
-        icon: <GrammerlyIcon />,
-        label: 'Angle48',
-      },
-      {
-        icon: <HealthIcon />,
-        label: 'Angle49',
-      },
-      {
-        icon: <StarIcon />,
-        label: 'Angle50',
-      }],
-  },
-  {
-    synergyName: 'Byte City X Neo Tokyo',
-    creatorImg: cardActor9,
-    synergiesAngles: [
-      {
-        icon: <GredientGlobalIcon />,
-        label: 'IP integration',
-      },
-      {
-        icon: <GradientGraphIcon />,
-        label: 'Hosting AMAS',
-      },
-      {
-        icon: <GrammerlyIcon />,
-        label: 'Angle48',
-      },
-      {
-        icon: <HealthIcon />,
-        label: 'Angle49',
-      },
-      {
-        icon: <StarIcon />,
-        label: 'Angle50',
-      }],
-  },
-  {
-    synergyName: 'Byte City X Neo Tokyo',
-    creatorImg: cardActor10,
-    synergiesAngles: [
-      {
-        icon: <GredientGlobalIcon />,
-        label: 'IP integration',
-      },
-      {
-        icon: <GradientGraphIcon />,
-        label: 'Hosting AMAS',
-      },
-      {
-        icon: <GrammerlyIcon />,
-        label: 'Angle48',
-      },
-      {
-        icon: <HealthIcon />,
-        label: 'Angle49',
-      },
-      {
-        icon: <StarIcon />,
-        label: 'Angle50',
-      }],
-  },
-  {
-    synergyName: 'Byte City X Neo Tokyo',
-    creatorImg: cardActor11,
-    synergiesAngles: [
-      {
-        icon: <GredientGlobalIcon />,
-        label: 'IP integration',
-      },
-      {
-        icon: <GradientGraphIcon />,
-        label: 'Hosting AMAS',
-      },
-      {
-        icon: <GrammerlyIcon />,
-        label: 'Angle48',
-      },
-      {
-        icon: <HealthIcon />,
-        label: 'Angle49',
-      },
-      {
-        icon: <StarIcon />,
-        label: 'Angle50',
-      }],
-  },
-  {
-    synergyName: 'Byte City X Neo Tokyo',
-    creatorImg: cardActor12,
-    synergiesAngles: [
-      {
-        icon: <GredientGlobalIcon />,
-        label: 'IP integration',
-      },
-      {
-        icon: <GradientGraphIcon />,
-        label: 'Hosting AMAS',
-      },
-      {
-        icon: <GrammerlyIcon />,
-        label: 'Angle48',
-      },
-      {
-        icon: <HealthIcon />,
-        label: 'Angle49',
-      },
-      {
-        icon: <StarIcon />,
-        label: 'Angle50',
-      }],
-  },
-  {
-    synergyName: 'Byte City X Neo Tokyo',
-    creatorImg: cardActor13,
-    synergiesAngles: [
-      {
-        icon: <GredientGlobalIcon />,
-        label: 'IP integration',
-      },
-      {
-        icon: <GradientGraphIcon />,
-        label: 'Hosting AMAS',
-      },
-      {
-        icon: <GrammerlyIcon />,
-        label: 'Angle48',
-      },
-      {
-        icon: <HealthIcon />,
-        label: 'Angle49',
-      },
-      {
-        icon: <StarIcon />,
-        label: 'Angle50',
-      }],
-  },
-  {
-    synergyName: 'Byte City X Neo Tokyo',
-    creatorImg: cardActor14,
-    synergiesAngles: [
-      {
-        icon: <GredientGlobalIcon />,
-        label: 'IP integration',
-      },
-      {
-        icon: <GradientGraphIcon />,
-        label: 'Hosting AMAS',
-      },
-      {
-        icon: <GrammerlyIcon />,
-        label: 'Angle48',
-      },
-      {
-        icon: <HealthIcon />,
-        label: 'Angle49',
-      },
-      {
-        icon: <StarIcon />,
-        label: 'Angle50',
-      }],
-  },
-  {
-    synergyName: 'Byte City X Neo Tokyo',
-    creatorImg: cardActor15,
-    synergiesAngles: [
-      {
-        icon: <GredientGlobalIcon />,
-        label: 'IP integration',
-      },
-      {
-        icon: <GradientGraphIcon />,
-        label: 'Hosting AMAS',
-      },
-      {
-        icon: <GrammerlyIcon />,
-        label: 'Angle48',
-      },
-      {
-        icon: <HealthIcon />,
-        label: 'Angle49',
-      },
-      {
-        icon: <StarIcon />,
-        label: 'Angle50',
-      }],
-  },
-]
 
 const PendingSynergies = () => {
+  const dispatch = useDispatch()
+
   const [activeLayout, setActiveLayout] = useState('TAB');
-  const [isDeleteConfirmPopupOpen, setIsDeleteConfirmPopupOpen] = useState(false);
-  const [isEditPendingSynergiesAngelPopupOpen, setIsEditPendingSynergiesAngelPopupOpen] = useState(false);
+  const [isEditSynergiesPopupOpen, setIsEditSynergiesPopupOpen] = useState(false);
+  const { getSynergyRequestLoading, synergyRequests } = useSelector(state => state.synergies)
+
+
   const handleActive = (key) => {
     setActiveLayout(key);
   }
 
 
+  useEffect(() => {
+    dispatch(getSynergyRequestApi())
+  }, [dispatch])
+
+
   return (
     <>
-      <div className="pending_synergies_content_header">
-        <div className="content_left">
-          <h2>Pending Synergies </h2>
-          <div className="search_box">
-            <img className="search_icon" src={searchIcon} alt="Search" />
-            <input type="text" placeholder="Search" />
-          </div>
-        </div>
-        <div className="content_right">
-          <a href="#">Darknight Labs</a>
-        </div>
-      </div>
-      <div className="pending_synergies_page_data">
-        <div className="page_data">
-          <div className="synergies_page_header">
-            <div className="synergies_toggleWrap">
-              <button className={`synergies_toggle_btn ${activeLayout === 'TAB' ? 'active' : ''}`} onClick={() => handleActive('TAB')} >
-                {/* <ListIcon /> */}
-                <span>Newest</span>
-              </button>
-              <button className={`synergies_toggle_btn ${activeLayout === 'LAYOUT' ? 'active' : ''}`} onClick={() => handleActive('LAYOUT')} >
-                {/* <GridIcon /> */}
-                <span>Oldest</span>
-              </button>
+      {getSynergyRequestLoading ? <Loader /> : <>
+        <div className="pending_synergies_content_header">
+          <div className="content_left">
+            <h2>Synergy requests </h2>
+            <div className="search_box">
+              <img className="search_icon" src={searchIcon} alt="Search" />
+              <input type="text" placeholder="Search" />
             </div>
           </div>
-          <div className="synergies_page_body">
-            <div className="card_container">
-              {cardData.map((data, index) => {
-                return (
-                  <div className='card_wrap' key={index}>
-                    <div className="card" onClick={() => setIsEditPendingSynergiesAngelPopupOpen(true)}>
-                      <div className="card_image">
-                        <img src={data.creatorImg} alt="" />
-                      </div>
-                      <div className="card_body">
-                        <div className="name">{data.synergyName} </div>
-                        <div className="tabs">
-                          {
-                            data.synergiesAngles.map((angle, index) => {
-                              return (
-                                <div className={`${index === 0 ? 'global' : (index === 1 ? 'graph' : '')}`} key={index}>
-                                  <div className='angle_tag' >
-                                    <>{angle.icon} </>
-                                    <span className='text'>
-                                      <span>{angle.label}</span>
-                                    </span>
-                                  </div>
-                                </div>)
-                            })
-                          }
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )
-              })}
+          <div className="content_right">
+            <a href="#">Darknight Labs</a>
+          </div>
+        </div>
+        <div className="pending_synergies_page_data">
+          <div className="page_data">
+            <div className="synergies_page_header">
+              <div className="synergies_toggleWrap">
+                <button className={`synergies_toggle_btn ${activeLayout === 'TAB' ? 'active' : ''}`} onClick={() => handleActive('TAB')} >
+                  {/* <ListIcon /> */}
+                  <span>Newest</span>
+                </button>
+                <button className={`synergies_toggle_btn ${activeLayout === 'LAYOUT' ? 'active' : ''}`} onClick={() => handleActive('LAYOUT')} >
+                  {/* <GridIcon /> */}
+                  <span>Oldest</span>
+                </button>
+              </div>
             </div>
-            {/* <div className="synergies_pagination">
+            <div className="synergies_page_body">
+              <div className="card_container">
+                {synergyRequests?.map((data, index) => {
+                  return (
+                    <SynergyRequestCard
+                      data={data}
+                      key={index}
+                      index={index}
+                      setIsEditSynergiesPopupOpen={setIsEditSynergiesPopupOpen}
+                    />)
+                })}
+              </div>
+              {/* <div className="synergies_pagination">
               <div className="synergies_pagination_content">
                 <div className="synergies_pagination_content_text">
                   <span className='pagination_head'>Row per page:</span>
@@ -542,72 +143,65 @@ const PendingSynergies = () => {
                 </div>
               </div>
             </div> */}
+            </div>
           </div>
         </div>
-      </div>
 
-      <DeleteConfirmPopup
-        open={isDeleteConfirmPopupOpen}
-        handleClose={() => setIsDeleteConfirmPopupOpen(false)}
-      />
 
-      {/* <EditPendingSynergiesAngelPopup
-        open={isEditPendingSynergiesAngelPopupOpen}
-        handleClose={() => setIsEditPendingSynergiesAngelPopupOpen(false)}
-      /> */}
-      <CreateSynergiesPopup
-        title={"Edit synergy angles"}
-        open={isEditPendingSynergiesAngelPopupOpen}
-        onClose={() => {
-          setIsEditPendingSynergiesAngelPopupOpen(false);
-        }}
-        body={
-          <>
-            <div className='model_body'>
-              <div className="model_data">
-                <div className="image">
-                  <img src={angelBg} alt="" />
-                </div>
-                <div className={`page active`}>
-                  <div className="angel_model_data_head">
-                    <div className="title">Synergy angles </div>
+        <CreateSynergiesPopup
+          title={"Edit synergy angles"}
+          open={isEditSynergiesPopupOpen}
+          onClose={() => {
+            setIsEditSynergiesPopupOpen(false);
+          }}
+          body={
+            <>
+              <div className='model_body'>
+                <div className="model_data">
+                  <div className="image">
+                    <img src={angelBg} alt="" />
                   </div>
-                  <div className="angel_model_data_body">
-                    <div className="angels_container">
-                      {buttons.map((data) => (
-                        <div key={data.id} className='angel_tab'>
-                          <input type="checkbox" defaultChecked={data.checked} name="angleName" id={`angle1+${data.id}`} className='checkbox_input' />
-                          <label htmlFor={`angle1+${data.id}`} className='checkbox_label'>
-                            <div className="checkbox_label_text" >
-                              <GlobalIcon />
-                              <span className='checkbox_label_text_head'>{data.name}</span>
-                            </div>
-                            <div className="angel_add">
-                              <AddCircleIcon />
-                            </div>
-                            <div className="angel_remove" >
-                              <CLeseCircleIcon />
-                            </div>
-                          </label>
-                        </div>
-                      ))}
+                  <div className={`page active`}>
+                    <div className="angel_model_data_head">
+                      <div className="title">Synergy angles </div>
+                    </div>
+                    <div className="angel_model_data_body">
+                      <div className="angels_container">
+                        {buttons.map((data) => (
+                          <div key={data.id} className='angel_tab'>
+                            <input type="checkbox" defaultChecked={data.checked} name="angleName" id={`angle1+${data.id}`} className='checkbox_input' />
+                            <label htmlFor={`angle1+${data.id}`} className='checkbox_label'>
+                              <div className="checkbox_label_text" >
+                                <GlobalIcon />
+                                <span className='checkbox_label_text_head'>{data.name}</span>
+                              </div>
+                              <div className="angel_add">
+                                <AddCircleIcon />
+                              </div>
+                              <div className="angel_remove" >
+                                <CLeseCircleIcon />
+                              </div>
+                            </label>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </>
-        }
+            </>
+          }
 
-        footer={<>
-          <button className='refuse_btn' onClick={() => {
-            setIsEditPendingSynergiesAngelPopupOpen(false);
-          }}>Refuse</button>
-          <button className='next_btn' onClick={() => {
-          }}>Confirm</button>
-        </>}
-      />
+          footer={<>
+            <button className='refuse_btn' onClick={() => {
+              setIsEditSynergiesPopupOpen(false);
+            }}>Refuse</button>
+            <button className='next_btn' onClick={() => {
+            }}>Confirm</button>
+          </>}
+        />
 
+      </>}
     </>
   )
 }
