@@ -2,7 +2,6 @@ import './projects.scss'
 import { Link } from 'react-router-dom'
 import debounce from 'lodash.debounce'
 import { ROUTER } from '../../utils/routes/routes'
-import searchIcon from "../../assets/search-icon.png"
 import Card from '../../components/project-card/Card'
 import { useDispatch, useSelector } from 'react-redux'
 import { useCallback, useEffect, useState } from 'react'
@@ -11,6 +10,7 @@ import { GradientGraphIcon, GredientGlobalIcon } from '../../utils/SVGs/SVGs'
 import { projectTypesOptions, synergyAnglesOptions } from '../../utils/constants/options'
 import MultiselectDropDown from '../../components/multiselect-dropdwon/MultiselectDropDown'
 import { formatDate } from '../../utils/helper/helper'
+import { searchIcon } from '../../utils/constants/images'
 
 const Projects = () => {
     const dispatch = useDispatch();

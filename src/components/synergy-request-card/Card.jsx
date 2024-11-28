@@ -1,10 +1,10 @@
 import './card.scss'
 import PropTypes from 'prop-types';
-import { synergyCardImages } from '../../utils/constants/images';
 import { GredientGlobalIcon, GradientGraphIcon, GrammerlyIcon, HealthIcon, StarIcon } from '../../utils/SVGs/SVGs';
+import { cardActor1, cardActor2, cardActor3, cardActor4, cardActor5, cardActor6, cardActor7, cardActor8, cardActor9, cardActor10, cardActor11, cardActor12, cardActor13, cardActor14, cardActor15 } from '../../utils/constants/images';
 
 
-const cardImages = [synergyCardImages.cardActor1, synergyCardImages.cardActor2, synergyCardImages.cardActor3, synergyCardImages.cardActor4, synergyCardImages.cardActor5, synergyCardImages.cardActor6, synergyCardImages.cardActor7, synergyCardImages.cardActor8, synergyCardImages.cardActor9, synergyCardImages.cardActor10, synergyCardImages.cardActor11, synergyCardImages.cardActor12, synergyCardImages.cardActor13, synergyCardImages.cardActor14, synergyCardImages.cardActor15]
+const cardImages = [cardActor1, cardActor2, cardActor3, cardActor4, cardActor5, cardActor6, cardActor7, cardActor8, cardActor9, cardActor10, cardActor11, cardActor12, cardActor13, cardActor14, cardActor15]
 const synergyIcons = [<GredientGlobalIcon key={0} />, <GradientGraphIcon key={1} />, <GrammerlyIcon key={2} />, <HealthIcon key={3} />, <StarIcon key={4} />]
 
 

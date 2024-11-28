@@ -16,44 +16,6 @@ const synergyOptions = [
     { label: 'All synergies angles', value: 'allSynergies' }
 ]
 
-// const demoData = [
-//     {
-//         head: 'IP integration',
-//         description: 'Integrate your IP in our Comic Books'
-//     },
-//     {
-//         head: 'Hosting AMAS',
-//         description: 'Norem ipsum dolor sit amet, consectetur adipiscing elit.'
-//     },
-//     {
-//         head: 'Angle48',
-//         description: 'Norem ipsum dolor sit amet, consectetur adipiscing elit.'
-//     },
-//     {
-//         head: 'Angle156',
-//         description: 'Norem ipsum dolor sit amet, consectetur adipiscing elit.'
-//     },
-//     {
-//         head: 'Angle11',
-//         description: 'Norem ipsum dolor sit amet, consectetur adipiscing elit.'
-//     },
-//     {
-//         head: 'Angle12',
-//         description: 'Norem ipsum dolor sit amet, consectetur adipiscing elit.'
-//     },
-//     {
-//         head: 'Angle23',
-//         description: 'Norem ipsum dolor sit amet, consectetur adipiscing elit.'
-//     },
-//     {
-//         head: 'Angle26',
-//         description: 'Norem ipsum dolor sit amet, consectetur adipiscing elit.'
-//     },
-//     {
-//         head: 'Angle36',
-//         description: 'Norem ipsum dolor sit amet, consectetur adipiscing elit.'
-//     },
-// ]
 const synergiesAnglesIcons = [
     { icon: <GredientGlobalIcon /> },
     { icon: <GradientGraphIcon /> },

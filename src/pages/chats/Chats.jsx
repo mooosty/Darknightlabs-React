@@ -1,13 +1,4 @@
 import './chats.scss';
-import synergy1 from '../../assets/synergy1.png'
-import synergy2 from '../../assets/synergy2.png'
-import synergy3 from '../../assets/synergy3.png'
-import synergy4 from '../../assets/synergy4.png'
-import synergy5 from '../../assets/synergy5.png'
-
-import member1 from '../../assets/member_img1.png'
-import member2 from '../../assets/member_img2.png'
-import chatMassageDP from '../../assets/chat-message-dp.png'
 import { AddUserIcon, AttechmentIcon, DownAccordionIcon, EmojiFiiledIcon, HashTag, MicrophoneIcon, UserIcon } from '../../utils/SVGs/SVGs';
 import { Fragment, useEffect, useRef, useState } from 'react';
 import AddChatMemberPopup from '../../components/popup/add-chat-menber-popup/AddChatMemberPopup'
@@ -16,29 +7,10 @@ import { getAllUsers, getGroupsAPI, getChatMessages, sendMsg } from '../../api-s
 import { useDispatch, useSelector } from 'react-redux';
 import { addMessage } from '../../store/slice/chatSlice';
 import Loader from '../../components/loader/Loader';
+import { formatDateTime, isEqualDate } from '../../utils/helper/helper';
+import { synergy1, synergy2, synergy3, synergy4, synergy5, member1, member2, chatMassageDP } from '../../utils/constants/images';
 
-const chatSynergies = [
-    {
-        "img": synergy1,
-        "message": null
-    },
-    {
-        "img": synergy2,
-        "message": null
-    },
-    {
-        "img": synergy3,
-        "message": null
-    },
-    {
-        "img": synergy4,
-        "message": null
-    },
-    {
-        "img": synergy5,
-        "message": null
-    }
-]
+const chatSynergies = [{ "img": synergy1 }, { "img": synergy2 }, { "img": synergy3 }, { "img": synergy4 }, { "img": synergy5 }]
 
 
 const Chats = () => {
@@ -82,20 +54,6 @@ const Chats = () => {
         setIsMenberListOpen(!isMenberListOpen);
     }
 
-    const isEqualDate = (isoString1, isoString2) => {
-        const date1 = new Date(isoString1);
-        const date2 = new Date(isoString2);
-
-        const year1 = date1.getUTCFullYear();
-        const month1 = date1.getUTCMonth();
-        const day1 = date1.getUTCDate();
-
-        const year2 = date2.getUTCFullYear();
-        const month2 = date2.getUTCMonth();
-        const day2 = date2.getUTCDate();
-
-        return year1 === year2 && month1 === month2 && day1 === day2;
-    }
 
     const dayWiseFormat = (isoString) => {
         const date = new Date(isoString);
@@ -108,30 +66,6 @@ const Chats = () => {
         const formattedTime = `${hours}:${minutes} ${period}`;
         const today = new Date();
         return isEqualDate(isoString, today.toISOString()) ? `${formattedTime}` : `${dayOfWeek} ${formattedTime}`;
-    }
-
-
-    const formatDateTime = (isoString) => {
-        const today = new Date();
-
-        if (isEqualDate(isoString, today.toISOString())) {
-            return 'Today';
-        }
-
-        const yesterday = new Date(today);
-        yesterday.setDate(today.getDate() - 1);
-
-        if (isEqualDate(isoString, yesterday.toISOString())) {
-            return 'Yesterday';
-        }
-
-        const date = new Date(isoString);
-
-        return date.toLocaleString('en-GB', {
-            day: '2-digit',
-            month: 'short',
-            year: 'numeric',
-        }).replace(',', '');
     }
 
     const handleSendMsg = (e) => {

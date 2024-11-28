@@ -1,5 +1,4 @@
 import './synergies.scss'
-import searchIcon from "../../assets/search-icon.png"
 import { GradientGraphIcon, GrammerlyIcon, GredientGlobalIcon } from '../../utils/SVGs/SVGs'
 import Card from '../../components/synergy-card/Card'
 import { useCallback, useEffect, useState } from 'react'
@@ -7,11 +6,10 @@ import MultiselectDropDown from '../../components/multiselect-dropdwon/Multisele
 import { useDispatch, useSelector } from 'react-redux'
 import { getSynergyApi } from '../../api-services/synergyApi'
 import { synergyAnglesOptions } from '../../utils/constants/options'
-import tableActor from "../../assets/tableActorImage.jpg";
 import { formatDate } from '../../utils/helper/helper'
-import debounce from 'lodash.debounce'
-import defaultImg from '../../assets/project-card-img-1.png'
 import Loader from '../../components/loader/Loader'
+import debounce from 'lodash.debounce'
+import { searchIcon, tableActor, defaultImg } from '../../utils/constants/images'
 
 
 const Synergies = () => {

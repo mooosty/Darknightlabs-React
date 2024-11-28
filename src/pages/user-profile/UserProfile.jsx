@@ -1,16 +1,8 @@
 import { useState } from 'react';
 import "./userProfile.scss";
-import soldierPhoto from "../../assets/Rectangle 3.png";
-import editIcon from "../../assets/edit-icon.svg";
-import sepratorImage from "../../assets/seprator-image.png"
-import twitterIcon from "../../assets/pajamas_twitter.svg"
-import discordIcon from "../../assets/teenyicons_discord-outline.svg"
-import telegramIcon from "../../assets/basil_telegram-outline.svg"
-import closedEyeIcon from "../../assets/EyeSlash.svg"
-import openEyeIcon from "../../assets/OpenEyeSlash.svg"
-import calendarBlankIcon from "../../assets/CalendarBlank.svg"
 import SignUpPopup from '../../components/popup/sign-up-popup/SignupPopup';
 import LoginPopup from '../../components/popup/login-popup/LoginPopup';
+import { closedEyeIcon, openEyeIcon, editIcon, soldierPhoto, sepratorImage, twitterIcon, discordIcon, telegramIcon, calendarBlankIcon } from '../../utils/constants/images';
 
 
 const InputPassword = (props) => {

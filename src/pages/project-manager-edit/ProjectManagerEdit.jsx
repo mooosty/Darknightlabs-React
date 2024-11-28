@@ -1,12 +1,6 @@
-import searchIcon from "../../assets/search-icon.png"
-import autherProfile from "../../assets/auther-profile.png"
-import trashIcon from "../../assets/trash-icon.png"
-import addIcon from "../../assets/add-icon.png"
-import sepratorImage from "../../assets/seprator-image.png"
-import uploadIcon from "../../assets/document-upload.png"
+
 import "./projectManagerEdit.scss"
 import Select from "../../components/select/Select"
-import arrowRight from "../../assets/arrow-right.png"
 import AddAngelPopup from "../../components/popup/add-angel-popup/AddAngelPopup"
 import { useEffect, useState } from "react"
 import { useFormik } from 'formik';
@@ -19,44 +13,9 @@ import DeleteConfirmPopup from "../../components/popup/delete-confirm-popup/Dele
 import axios from "axios"
 import Loader from "../../components/loader/Loader"
 import TagInput from "../../components/tags-input/TagInput"
-
-const synergyAnglesOptions = [
-    {
-        label: 'Whitelist spots',
-        value: 'Getting whitelist spots',
-        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
-    },
-    {
-        label: 'Whitelists spots',
-        value: 'Giving whitelists spots',
-        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
-    },
-    {
-        label: 'AMAs',
-        value: 'Hosting AMAs',
-        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
-    },
-    {
-        label: 'Branded game assets',
-        value: 'Integrating branded game assets',
-        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
-    },
-    {
-        label: 'Your own branded assets',
-        value: 'Integrating your own branded assets',
-        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
-    },
-    {
-        label: 'Early alpha',
-        value: 'Getting early alpha',
-        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
-    },
-    {
-        label: 'Early alpha',
-        value: 'Sharing early alpha',
-        tooltip: 'Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences'
-    },
-]
+import { synergyAnglesOptions } from "../../utils/constants/options"
+import ImageUploader from "../../components/project-manager-edit/ImageUploader"
+import { searchIcon, autherProfile, trashIcon, addIcon, sepratorImage, arrowRight } from "../../utils/constants/images"
 
 
 const ProjectManagerEdit = () => {
@@ -97,7 +56,6 @@ const ProjectManagerEdit = () => {
         open_to_invest: false
     }
 
-
     const formik = useFormik({
         initialValues: initialValues,
         onSubmit: () => {
@@ -114,28 +72,8 @@ const ProjectManagerEdit = () => {
 
     const toggleAddAngelPopupOpen = () => setIsAddAngelPopupOpen(!isAddAngelPopupOpen)
 
-    const handleUploadImage = (file) => {
-        let reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = function () {
-            const img = new Image();
-            img.onload = function () {
-                let base64Url = reader.result;
-                setFieldValue('image', {
-                    file: file,
-                    base64Url: base64Url,
-                })
-            }
-            img.src = reader.result;
-        };
-        reader.onerror = function (error) {
-            console.error('Error: ', error);
-        };
-    }
-
     const handleAddProject = async () => {
         const date = new Date();
-
         const synergy_obj = {};
 
         values.synergy_angles.forEach((synergy_angle, index) => {
@@ -143,7 +81,6 @@ const ProjectManagerEdit = () => {
         });
 
         const investment_obj = {};
-
         values.investments.forEach(({ property, price }) => {
             investment_obj[property] = price;
         });
@@ -191,7 +128,6 @@ const ProjectManagerEdit = () => {
 
     const handleSaveChanges = async () => {
         const date = new Date();
-
         const synergy_obj = {};
 
         values.synergy_angles.forEach((synergy_angle, index) => {
@@ -200,7 +136,6 @@ const ProjectManagerEdit = () => {
 
 
         const investment_obj = {};
-
         values.investments.forEach(({ property, price }) => {
             investment_obj[property] = price;
         });
@@ -226,15 +161,10 @@ const ProjectManagerEdit = () => {
             const formData = new FormData();
             formData.append('file', values?.image?.file);
             const response = await axios.post(`${import.meta.env.VITE_IMAGE_UPLOAD_BASE_URL}/`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
+                headers: { 'Content-Type': 'multipart/form-data', },
             });
 
-            data = {
-                ...data,
-                image: response.data.image_url,
-            }
+            data = { ...data, image: response.data.image_url }
         }
 
         dispatch(updateProjectAPI({
@@ -325,6 +255,7 @@ const ProjectManagerEdit = () => {
         dispatch(getUsersAPI());
     }, [])
 
+
     return (
         <>
             <div className="content_header">
@@ -350,14 +281,10 @@ const ProjectManagerEdit = () => {
                             <p>{values.project_name}</p>
                         </div>
                         {projectId !== 'add' && <button className="btn_gray" onClick={handleSaveChanges} disabled={projectSaveApiLoading}>
-                            {
-                                (projectSaveApiLoading) ? <> <Loader loading={projectSaveApiLoading} isItForButton={true} /> <p>Save changes</p> </> : 'Save changes'
-                            }
+                            {(projectSaveApiLoading) ? <> <Loader loading={projectSaveApiLoading} isItForButton={true} /> <p>Save changes</p> </> : 'Save changes'}
                         </button>}
                         {projectId === 'add' && <button className="btn_gray" onClick={handleAddProject} disabled={projectApiLoading}>
-                            {
-                                (projectApiLoading) ? <> <Loader loading={projectApiLoading} isItForButton={true} /> <p> Add Project</p> </> : ' Add Project'
-                            }
+                            {(projectApiLoading) ? <> <Loader loading={projectApiLoading} isItForButton={true} /> <p> Add Project</p> </> : ' Add Project'}
                         </button>}
                     </div>
                     <div className="page_body">
@@ -369,43 +296,8 @@ const ProjectManagerEdit = () => {
                                 <span className="auther_post_date">17/11/2023</span>
                                 <span className="auther_time">16:07</span>
                             </div>
-                            <div className="project_profile">
-                                {values.image?.base64Url && <>
-                                    <div className="project_image">
-                                        <img src={values.image.base64Url} alt="Project" />
-                                    </div>
-                                    <div className="project_profile_btn">
-                                        <button className="btn-gray" onClick={() => {
-                                            let input = document.createElement('input');
-                                            input.type = 'file';
-                                            input.multiple = false
-                                            input.accept = '.jpg, .png, .svg, .jpeg';
-                                            input.onchange = () => {
-                                                let files = Array.from(input.files);
-                                                handleUploadImage(files[0]);
-                                            }
-                                            input.click()
-                                        }}>
-                                            <img src={uploadIcon} alt="" /> Replace photo</button>
-                                        <button className="btn-red" onClick={() => {
-                                            setFieldValue('image', null);
-                                        }}>
-                                            <img src={trashIcon} alt="" /> Delete</button>
-                                    </div>
-                                </>}
-                                {!values.image?.base64Url && <>
-                                    <div className="upload_profile">
-                                        <img src={uploadIcon} alt="" />
-                                        <input type="file" multiple={false} accept=".png, .jpeg, .svg, .jpg" onChange={(e) => {
-                                            handleUploadImage(e.target.files[0]);
-                                        }} />
-                                        <p className="upload_document_title">Click to upload</p>
-                                        <span className="drag_file">or drag and drop</span>
-                                        <div className="file_type">SVG, PNG, JPG (max. 800x400px)</div>
-                                    </div>
-                                </>}
-                            </div>
 
+                            <ImageUploader image={values.image} setFieldValue={setFieldValue} />
 
                             <div className="project_description_form">
                                 <div className="project_author">
@@ -426,11 +318,6 @@ const ProjectManagerEdit = () => {
                                     <div className="form_group">
                                         <label>Tags</label>
                                         <div className="tag_box">
-                                            {/* <span>#Gaming</span>
-                                    <span>#AI</span>
-                                    <span>#Metaverse</span> */}
-                                            {/* <input type="text" name="tags" id="tag" value={values.tags} onChange={handleChange} /> */}
-
                                             <TagInput tags={values.tags} setTags={(value) => {
                                                 setFieldValue('tags', value);
                                             }} />
@@ -537,10 +424,7 @@ const ProjectManagerEdit = () => {
                                                 <div className="custom_select">
                                                     <div className="form_box synergy_selected">
                                                         {index === 0 && <label>Synergy angles</label>}
-                                                        <Select
-                                                            name='synergy_angles'
-                                                            options={synergyAnglesOptions}
-                                                            placeholder='Select synergy angel'
+                                                        <Select name='synergy_angles' options={synergyAnglesOptions} placeholder='Select synergy angel'
                                                             hasAddButton={true}
                                                             onAdd={() => { toggleAddAngelPopupOpen(); setAngelPopupIndex(index) }}
                                                             value={synergy_angle[`synergy_angle`]}
@@ -553,9 +437,7 @@ const ProjectManagerEdit = () => {
                                                         />
                                                     </div>
                                                     <button className="btn_delete"
-                                                        onClick={() => {
-                                                            setFieldValue('synergy_angles', [...values.synergy_angles.slice(0, index), ...values.synergy_angles.slice(index + 1)])
-                                                        }}
+                                                        onClick={() => { setFieldValue('synergy_angles', [...values.synergy_angles.slice(0, index), ...values.synergy_angles.slice(index + 1)]) }}
                                                     >
                                                         <img src={trashIcon} alt="Delete" />
                                                     </button>
@@ -568,9 +450,7 @@ const ProjectManagerEdit = () => {
                                         setFieldValue(`synergy_angles`, [...values.synergy_angles, {
                                             synergy_angle: ''
                                         }])
-                                    }}>
-                                        Add synergy angel
-                                        <img src={addIcon} alt="Add" />
+                                    }}> Add synergy angel <img src={addIcon} alt="Add" />
                                     </button>
                                     <div className="invostments-group">
                                         <div className="seprator-image">
@@ -636,9 +516,7 @@ const ProjectManagerEdit = () => {
                                                                 </div>
 
                                                                 <button className="btn_delete" onClick={
-                                                                    () => {
-                                                                        setFieldValue('investments', [...values.investments.slice(0, index), ...values.investments.slice(index + 1)])
-                                                                    }
+                                                                    () => { setFieldValue('investments', [...values.investments.slice(0, index), ...values.investments.slice(index + 1)]) }
                                                                 }>
                                                                     <img src={trashIcon} alt="Delete" />
                                                                 </button>
@@ -647,7 +525,6 @@ const ProjectManagerEdit = () => {
                                                     );
                                                 })
                                             }
-
 
                                             <button className="btn_gray" onClick={() => {
                                                 setFieldValue('investments', [...values.investments, {
@@ -662,18 +539,16 @@ const ProjectManagerEdit = () => {
                                     </div>
                                 </div>
                             </div>
+
                             <div className="delete_project_btn">
                                 <button
                                     className="btn_delete"
                                     disabled={projectId === 'add'}
-                                    onClick={() => {
-                                        setIsDeleteConfirmPopupOpen(true);
-                                    }}
+                                    onClick={() => { setIsDeleteConfirmPopupOpen(true); }}
                                 >
                                     <img src={trashIcon} alt="Delete" /> Delete project
                                 </button>
-                                <button type="submit" className="btn_gray" onClick={handleSubmit}> {projectId !== 'add' ? 'Save changes':'Add Project'}</button>
-
+                                <button type="submit" className="btn_gray" onClick={handleSubmit}> {projectId !== 'add' ? 'Save changes' : 'Add Project'}</button>
                             </div>
                         </div>
                     </div>
@@ -698,7 +573,6 @@ const ProjectManagerEdit = () => {
             />
 
             <Loader loading={projectApiLoading} />
-
         </>
     )
 }

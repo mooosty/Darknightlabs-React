@@ -11,3 +11,41 @@ export const formatDate = (date) => {
 
     return [day, month, year].join('/');
 }
+
+export const formatDateTime = (isoString) => {
+    const today = new Date();
+
+    if (isEqualDate(isoString, today.toISOString())) {
+        return 'Today';
+    }
+
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+
+    if (isEqualDate(isoString, yesterday.toISOString())) {
+        return 'Yesterday';
+    }
+
+    const date = new Date(isoString);
+
+    return date.toLocaleString('en-GB', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+    }).replace(',', '');
+}
+
+export const isEqualDate = (isoString1, isoString2) => {
+    const date1 = new Date(isoString1);
+    const date2 = new Date(isoString2);
+
+    const year1 = date1.getUTCFullYear();
+    const month1 = date1.getUTCMonth();
+    const day1 = date1.getUTCDate();
+
+    const year2 = date2.getUTCFullYear();
+    const month2 = date2.getUTCMonth();
+    const day2 = date2.getUTCDate();
+
+    return year1 === year2 && month1 === month2 && day1 === day2;
+}

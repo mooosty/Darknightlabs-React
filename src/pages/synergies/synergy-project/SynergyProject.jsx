@@ -1,11 +1,9 @@
-import searchIcon from "../../../assets/search-icon.png"
-import arrowDown from "../../../assets/arrow-down.png"
-import project from "../../../assets/synergy4.png"
-import infoCircle from "../../../assets/info-circle.png"
+
 import './synergyProject.scss'
 import Select from "../../../components/select/Select"
 import { Download, GradientGraphIcon, GredientGlobalIcon, HalfEmoji, Health, InfiniteIcon } from "../../../utils/SVGs/SVGs"
 import { Tooltip } from "react-tooltip"
+import { searchIcon, arrowDown, project, infoCircle } from '../../../utils/constants/images'
 
 
 const SynergyProject = () => {

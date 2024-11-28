@@ -1,8 +1,4 @@
 import './synergiesManager.scss'
-import searchIcon from "../../assets/search-icon.png";
-import filterIcon from "../../assets/filter.svg";
-import tableActor from "../../assets/tableActorImage.jpg";
-import trashIcon from "../../assets/trash-icon.png";
 import AddSynergiesPopup from '../../components/popup/add-synergies-popup/AddSynergiesPopup';
 import { GridIcon, ListIcon } from '../../utils/SVGs/SVGs';
 import { useCallback, useEffect, useState } from 'react';
@@ -14,7 +10,6 @@ import SynergieaCreatedSuccessfullyPopup from '../../components/popup/synergiea-
 import EditSynergiesPopup from '../../components/popup/edit-synergies-popup/EditSynergiesPopup';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteSynergyApi, getSynergyApi, updateSynergyApi } from '../../api-services/synergyApi';
-import closeIcon from "../../assets/X-icon.png";
 import BottomMenu from '../../components/buttom-menu/BottomMenu';
 import Select from '../../components/select/Select';
 import Loader from '../../components/loader/Loader';
@@ -23,6 +18,8 @@ import { formatDate } from '../../utils/helper/helper';
 import SynergyManagerGridLayout from '../../components/synergy-manager/GridLayout';
 import SynergyManagerTableLayout from '../../components/synergy-manager/TableLayout';
 import { synergyAnglesOptions } from '../../utils/constants/options';
+import { searchIcon, filterIcon, closeIcon, trashIcon, tableActor } from '../../utils/constants/images';
+
 
 
 const SynergiesManager = () => {

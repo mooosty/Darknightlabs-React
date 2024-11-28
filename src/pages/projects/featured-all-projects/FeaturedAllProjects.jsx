@@ -1,7 +1,6 @@
 import './featuredAllProjects.scss'
 import debounce from "lodash.debounce"
 import { useDispatch, useSelector } from "react-redux"
-import searchIcon from "../../../assets/search-icon.png"
 import { useCallback, useEffect, useState } from "react"
 import Card from "../../../components/project-card/Card"
 import { getMemberApi, getProjectsAPI } from "../../../api-services/projectApis"
@@ -9,6 +8,7 @@ import { BackArrow, GradientGraphIcon, GredientGlobalIcon } from "../../../utils
 import { projectTypesOptions, synergyAnglesOptions } from "../../../utils/constants/options"
 import MultiselectDropDown from "../../../components/multiselect-dropdwon/MultiselectDropDown"
 import { formatDate } from '../../../utils/helper/helper'
+import { searchIcon } from '../../../utils/constants/images'
 
 const FeaturedAllProjects = () => {
 

@@ -1,17 +1,13 @@
 import './projectDetails.scss'
 import Loader from '../../../components/loader/Loader';
 import { Link, useParams } from 'react-router-dom';
-import arrowRight from "../../../assets/arrow-right.png"
-import autherProfile from "../../../assets/auther-profile.png"
-// import cardImg from '../../../assets/project-card-img-1.png'
 import { DescriptionIcon, GradientGraphIcon, GradientInfiniteIcon, GrammerlyIcon, GredientGlobalIcon, HealthIcon, InvestmentIcon, MoreIcon, ShareLinkIcon, CheckIcon, ShareOutlineIcon, StarIcon, TableStatusIcon } from '../../../utils/SVGs/SVGs'
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProjectsApiById } from '../../../api-services/projectApis';
-// import fallBackImage from "../../../assets/fallback-image.png";
-import fallBackImage from '../../../assets/project-card-img-1.png'
 import { toast } from 'react-toastify';
 import ChoosePrioritySynergiesPopup from '../../../components/popup/choose-priority-synergies-popup/ChoosePrioritySynergiesPopup';
+import { arrowRight, autherProfile, fallBackImage } from '../../../utils/constants/images';
 
 
 const synergiesAnglesIcons = [

@@ -1,13 +1,12 @@
 import './pendingSynergies.scss'
 import { useEffect, useState } from 'react';
 import Loader from '../../components/loader/Loader';
-import searchIcon from "../../assets/search-icon.png";
 import { useDispatch, useSelector } from 'react-redux';
-import angelBg from '../../assets/edit-senergies-hero-image.png'
 import { getSynergyRequestApi } from '../../api-services/synergyApi';
 import CreateSynergiesPopup from '../../components/popup/create-synergies-popup/CreateSynergiesPopup';
 import { AddCircleIcon, CLeseCircleIcon, GlobalIcon } from '../../utils/SVGs/SVGs';
 import SynergyRequestCard from '../../components/synergy-request-card/Card';
+import { searchIcon, angelBg } from '../../utils/constants/images';
 
 const buttons = [
   {
