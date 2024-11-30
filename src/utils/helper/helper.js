@@ -49,3 +49,16 @@ export const isEqualDate = (isoString1, isoString2) => {
 
     return year1 === year2 && month1 === month2 && day1 === day2;
 }
+
+export const dayWiseFormat = (isoString) => {
+    const date = new Date(isoString);
+    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const dayOfWeek = daysOfWeek[date.getDay()];
+    let hours = date.getHours();
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const period = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12 || 12;
+    const formattedTime = `${hours}:${minutes} ${period}`;
+    const today = new Date();
+    return isEqualDate(isoString, today.toISOString()) ? `${formattedTime}` : `${dayOfWeek} ${formattedTime}`;
+}

@@ -3,112 +3,30 @@ import closeIcon from '../../../assets/X-icon.png'
 import searchIcon from "../../../assets/search-icon.png"
 import member from '../../../assets/member_img1.png'
 import './addChatMemberPopup.scss'
-import { AddUserIcon, LoadingIcon } from '../../../utils/SVGs/SVGs';
+import { AddUserIcon } from '../../../utils/SVGs/SVGs';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMemberIntoGroup } from '../../../api-services/chatApis';
 import Loader from '../../loader/Loader';
 
-const memberList = [
-    {
-        img: member,
-        name: 'James Rich',
-        mail: 'jamesrich@gmail.com'
-    },
-    {
-        img: member,
-        name: 'James Rich',
-        mail: 'jamesrich@gmail.com'
-    },
-    {
-        img: member,
-        name: 'James Rich',
-        mail: 'jamesrich@gmail.com'
-    },
-    {
-        img: member,
-        name: 'James Rich',
-        mail: 'jamesrich@gmail.com'
-    },
-    {
-        img: member,
-        name: 'James Rich',
-        mail: 'jamesrich@gmail.com'
-    },
-    {
-        img: member,
-        name: 'James Rich',
-        mail: 'jamesrich@gmail.com'
-    },
-    {
-        img: member,
-        name: 'James Rich',
-        mail: 'jamesrich@gmail.com'
-    },
-    {
-        img: member,
-        name: 'James Rich',
-        mail: 'jamesrich@gmail.com'
-    },
-    {
-        img: member,
-        name: 'James Rich',
-        mail: 'jamesrich@gmail.com'
-    },
-    {
-        img: member,
-        name: 'James Rich',
-        mail: 'jamesrich@gmail.com'
-    },
-    {
-        img: member,
-        name: 'James Rich',
-        mail: 'jamesrich@gmail.com'
-    },
-    {
-        img: member,
-        name: 'James Rich',
-        mail: 'jamesrich@gmail.com'
-    },
-    {
-        img: member,
-        name: 'James Rich',
-        mail: 'jamesrich@gmail.com'
-    },
-    {
-        img: member,
-        name: 'James Rich',
-        mail: 'jamesrich@gmail.com'
-    },
-    {
-        img: member,
-        name: 'James Rich',
-        mail: 'jamesrich@gmail.com'
-    },
-    {
-        img: member,
-        name: 'James Rich',
-        mail: 'jamesrich@gmail.com'
-    },
 
-]
 const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
+    const dispatch = useDispatch();
     const [isMemberInvited, setIsMemberInvited] = useState(null);
     const [selectedMember, setSelectedMember] = useState([]);
     const [searchUser, setSearchUser] = useState('');
     const [filteredMember, setFilteredMember] = useState([]);
     const [initialMember, setInitialMember] = useState([]);
-    const memberList = useSelector((state) => {
-        return state.group.users;
-    })
+    const [isLoading, setIsLoading] = useState(false);
+    console.log('isLoading', isLoading)
 
+    const memberList = useSelector((state) => state.group.users)
     const groupUser = useSelector((state) => {
         return state.group.groups.filter((group) => {
             return group['_id'] === chatId;
         });
     })
 
-    const dispatch = useDispatch();
 
     const handleSelcteMember = (userId) => {
         let tmpSelectedMember = [...selectedMember]
@@ -127,11 +45,17 @@ const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
                 "chatId": chatId,
                 "userId": memberId
             }
-            dispatch(addMemberIntoGroup(data));
+            return dispatch(addMemberIntoGroup(data));
         })
 
-        Promise.allSettled(responseArr).then(() => setSelectedMember([]));
-        handleClose();
+        setIsLoading(true);
+        Promise.allSettled(responseArr).then(() => {
+            setSelectedMember([])
+            handleClose();
+        }).finally(() => {
+            setIsLoading(false);
+        })
+
     }
 
     const handleInvite = (index) => {
@@ -157,7 +81,7 @@ const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
     }, [initialMember])
 
     useEffect(() => {
-        const userIdArr = groupUser?.[0]?.users?.map((user) => user['_id']);
+        const userIdArr = groupUser?.[0]?.users?.map((user) => user['_id']) ?? [];
         const tmpArr = memberList.filter((member) => {
             return !userIdArr?.includes(member?.['_id']);
         });
@@ -165,7 +89,7 @@ const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
         setInitialMember([...tmpArr])
     }, [memberList, groupUser.length])
 
-    
+
     return (
         <>
             <div className={`model_bg ${open ? 'active' : ''} `}>
@@ -236,7 +160,7 @@ const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
                         </div>
                         <div className='model_footer'>
                             <button className='cancel_btn' onClick={() => { handleClose() }}>Cancel</button>
-                            <button className='add_btn' onClick={handleAddmember}>Add members</button>
+                            <button className='add_btn' onClick={handleAddmember} disabled={isLoading}>{isLoading && <Loader isItForButton={true} loading={isLoading} />} Add members</button>
                         </div>
                     </div>
 
@@ -297,7 +221,9 @@ const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
                         </div>
                         <div className='model_footer'>
                             <button className='cancel_btn' onClick={() => { handleClose() }}>Cancel</button>
-                            <button className='add_btn' onClick={() => { handleClose() }}>Add members</button>
+                            <button className='add_btn' onClick={() => { handleClose() }} disabled={isLoading}>
+                                {isLoading && <Loader isItForButton={true} loading={isLoading} />} Add members
+                            </button>
                         </div>
                     </div>
                 </div>

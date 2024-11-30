@@ -58,6 +58,7 @@ export const getChatMessages = createAsyncThunk('chat/message/get',
     }
 )
 
+// Not in use (Integrated with socket)
 export const sendMsg = createAsyncThunk('chat/message/send',
     async (data, thunkAPI) => {
         const response = await chatAxiosApi.post(apiRoutes.SEND_MSG, data)

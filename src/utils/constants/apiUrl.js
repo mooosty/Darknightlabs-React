@@ -1,6 +1,6 @@
 export const apiRoutes = {
     BASE: import.meta.env.VITE_APP_BASE_URL,
-    CHAT_BASE_URL: import.meta.env.CHAT_VITE_APP_BASE_URL,
+    CHAT_BASE_URL: import.meta.env.VITE_CHAT_APP_BASE_URL,
     PROJECT: '/projects',
     USER_PROJECT: '/userprojects',
     USER: '/users',

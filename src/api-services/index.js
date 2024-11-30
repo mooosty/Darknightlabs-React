@@ -8,8 +8,8 @@ const axiosApi = Axios.create({
     responseType: 'json',
 })
 
-const chatAxiosApi= Axios.create({
-    baseURL: 'https://chat.winwinsocietyweb3.com/',
+const chatAxiosApi = Axios.create({
+    baseURL: apiRoutes.CHAT_BASE_URL,
     responseType: 'json'
 })
 
@@ -81,4 +81,4 @@ chatAxiosApi.interceptors.response.use((res) => {
     return Promise.reject(err)
 })
 
-export { axiosApi,chatAxiosApi } 
+export { axiosApi, chatAxiosApi } 
