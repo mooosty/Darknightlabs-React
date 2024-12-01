@@ -6,12 +6,12 @@ import { useSocket } from "../../../utils/socket-provider/SocketContext";
 import { getChatMessages } from "../../../api-services/chatApis";
 import { formatDateTime, isEqualDate, dayWiseFormat } from "../../../utils/helper/helper";
 import { chatMassageDP, member1, member2 } from "../../../utils/constants/images";
-import { MicrophoneIcon, AttechmentIcon, EmojiFiiledIcon, AddUserIcon, DeleteIcon } from "../../../utils/SVGs/SVGs";
+import { MicrophoneIcon, AttachmentIcon, EmojiFilledIcon, AddUserIcon, DeleteIcon } from "../../../utils/SVGs/SVGs";
 import { v4 as uuidv4 } from 'uuid';
 import './messagesPanel.scss'
-import DeleteConfirmPopup from '../../popup/delete-confirm-popup/DeleteConfirmaPopup';
+import DeleteConfirmPopup from '../../popup/delete-confirm-popup/DeleteConfirmPopup';
 
-const MessagesPanel = ({ openChatIndex, groupData, setIsAddChatMemberPopupOpen, isMenberListOpen, setIsMenberListOpen }) => {
+const MessagesPanel = ({ openChatIndex, groupData, setIsAddChatMemberPopupOpen, isMemberListOpen, setIsMemberListOpen }) => {
 
   const socket = useSocket();
   const dispatch = useDispatch();
@@ -33,12 +33,12 @@ const MessagesPanel = ({ openChatIndex, groupData, setIsAddChatMemberPopupOpen, 
 
   const handleMemberPopupOpen = () => {
     setIsAddChatMemberPopupOpen(true)
-    setIsMenberListOpen(!isMenberListOpen);
+    setIsMemberListOpen(!isMemberListOpen);
   }
 
   const getMessages = () => {
-    if (groupData[openChatIndex] && groupData[openChatIndex]['_id']) {
-      dispatch(getChatMessages(groupData[openChatIndex]['_id'])).then(() => {
+    if (groupId) {
+      dispatch(getChatMessages(groupId)).then(() => {
       }).finally(() => {
         scrollToBottom();
       })
@@ -83,7 +83,7 @@ const MessagesPanel = ({ openChatIndex, groupData, setIsAddChatMemberPopupOpen, 
 
       dispatch(addMessage({
         message: messageData,
-        groupId: groupData[openChatIndex]['_id']
+        groupId: groupId
       }));
 
       setMessage('');
@@ -99,7 +99,7 @@ const MessagesPanel = ({ openChatIndex, groupData, setIsAddChatMemberPopupOpen, 
     if (!isTyping) {
       setIsTyping(true);
       socket.emit('typing', {
-        room: groupData[openChatIndex]['_id'],
+        room: groupId,
         username: userData.name
       });
     }
@@ -111,7 +111,7 @@ const MessagesPanel = ({ openChatIndex, groupData, setIsAddChatMemberPopupOpen, 
 
     // Set new timeout
     typingTimeoutRef.current = setTimeout(() => {
-      socket.emit('stop typing', groupData[openChatIndex]['_id']);
+      socket.emit('stop typing', groupId);
       setIsTyping(false);
     }, 3000);
   };
@@ -126,11 +126,14 @@ const MessagesPanel = ({ openChatIndex, groupData, setIsAddChatMemberPopupOpen, 
     if (socket && groupData[openChatIndex]) {
 
       // Join the chat room
-      socket.emit('join chat', groupData[openChatIndex]['_id']);
+      socket.emit('join chat', groupId);
 
       // Listen for new messages
       socket.on('message received', (newMessage) => {
-        dispatch(addMessage(newMessage))
+        dispatch(addMessage({
+          message: newMessage,
+          groupId: groupId
+        }));
         scrollToBottom();
       });
 
@@ -191,8 +194,8 @@ const MessagesPanel = ({ openChatIndex, groupData, setIsAddChatMemberPopupOpen, 
                             <img src={chatMassageDP} alt="" />
                           </div>
                           <div className="message_right">
-                            <div className="messager_info">
-                              <div className="messager_name">{message.sender.name}</div>
+                            <div className="messenger_info">
+                              <div className="messenger_name">{message.sender.name}</div>
                               <div className="time">{dayWiseFormat(message.createdAt)}</div>
                               <div className='delete_icon' onClick={() => {
                                 setIsDeletingMessagePopupOpen(true)
@@ -225,8 +228,8 @@ const MessagesPanel = ({ openChatIndex, groupData, setIsAddChatMemberPopupOpen, 
                   <img src={chatMassageDP} alt="" />
                 </div>
                 <div className="message_right">
-                  <div className="messager_info">
-                    <div className="messager_name">Sir Lancelot</div>
+                  <div className="messenger_info">
+                    <div className="messenger_name">Sir Lancelot</div>
                     <div className="time">Friday 2:20pm</div>
                   </div>
                   <div className="message_text">Borem ipsum dolor sit amet, consectetur adipiscing elit.</div>
@@ -239,8 +242,8 @@ const MessagesPanel = ({ openChatIndex, groupData, setIsAddChatMemberPopupOpen, 
                   <img src={chatMassageDP} alt="" />
                 </div>
                 <div className="message_right">
-                  <div className="messager_info">
-                    <div className="messager_name">Robin Hood</div>
+                  <div className="messenger_info">
+                    <div className="messenger_name">Robin Hood</div>
                     <div className="time">Friday 2:20pm</div>
                   </div>
                   <div className="message_text">Borem ipsum dolor sit amet, consectetur adipiscing elit.</div>
@@ -257,8 +260,8 @@ const MessagesPanel = ({ openChatIndex, groupData, setIsAddChatMemberPopupOpen, 
                   <img src={chatMassageDP} alt="" />
                 </div>
                 <div className="message_right">
-                  <div className="messager_info">
-                    <div className="messager_name">Joan of Arc</div>
+                  <div className="messenger_info">
+                    <div className="messenger_name">Joan of Arc</div>
                     <div className="time">Friday 2:20pm</div>
                   </div>
                   <div className="message_text"> Nunc vulputate libero et velit interdum, ac aliquet odio mattis.</div>
@@ -279,8 +282,8 @@ const MessagesPanel = ({ openChatIndex, groupData, setIsAddChatMemberPopupOpen, 
                 <img src={chatMassageDP} alt="" />
               </div>
               <div className="message_right">
-                <div className="messager_info">
-                  <div className="messager_name">Sir Lancelot</div>
+                <div className="messenger_info">
+                  <div className="messenger_name">Sir Lancelot</div>
                   <div className="time">Friday 2:20pm</div>
                 </div>
                 <div className="message_text">Borem ipsum dolor sit amet, consectetur adipiscing elit.</div>
@@ -293,8 +296,8 @@ const MessagesPanel = ({ openChatIndex, groupData, setIsAddChatMemberPopupOpen, 
                 <img src={chatMassageDP1} alt="" />
               </div>
               <div className="message_right">
-                <div className="messager_info">
-                  <div className="messager_name">Phoenix </div>
+                <div className="messenger_info">
+                  <div className="messenger_name">Phoenix </div>
                   <div className="time">Friday 2:20pm</div>
                 </div>
                 <div className="message_text">Borem ipsum dolor sit amet, consectetur adipiscing elit.</div>
@@ -307,8 +310,8 @@ const MessagesPanel = ({ openChatIndex, groupData, setIsAddChatMemberPopupOpen, 
                 <img src={chatMassageDP} alt="" />
               </div>
               <div className="message_right">
-                <div className="messager_info">
-                  <div className="messager_name">Joan of Arc</div>
+                <div className="messenger_info">
+                  <div className="messenger_name">Joan of Arc</div>
                   <div className="time">Friday 2:20pm</div>
                 </div>
                 <div className="message_text">Borem ipsum dolor sit amet, consectetur adipiscing elit.</div>
@@ -328,8 +331,8 @@ const MessagesPanel = ({ openChatIndex, groupData, setIsAddChatMemberPopupOpen, 
                 <img src={chatMassageDP} alt="" />
               </div>
               <div className="message_right">
-                <div className="messager_info">
-                  <div className="messager_name">Sir Lancelot</div>
+                <div className="messenger_info">
+                  <div className="messenger_name">Sir Lancelot</div>
                   <div className="time">Friday 2:20pm</div>
                 </div>
                 <div className="message_text">Borem ipsum dolor sit amet, consectetur adipiscing elit.</div>
@@ -342,8 +345,8 @@ const MessagesPanel = ({ openChatIndex, groupData, setIsAddChatMemberPopupOpen, 
                 <img src={chatMassageDP1} alt="" />
               </div>
               <div className="message_right">
-                <div className="messager_info">
-                  <div className="messager_name">Phoenix </div>
+                <div className="messenger_info">
+                  <div className="messenger_name">Phoenix </div>
                   <div className="time">Friday 2:20pm</div>
                 </div>
                 <div className="message_text">Borem ipsum dolor sit amet, consectetur adipiscing elit.</div>
@@ -356,8 +359,8 @@ const MessagesPanel = ({ openChatIndex, groupData, setIsAddChatMemberPopupOpen, 
                 <img src={chatMassageDP} alt="" />
               </div>
               <div className="message_right">
-                <div className="messager_info">
-                  <div className="messager_name">Joan of Arc</div>
+                <div className="messenger_info">
+                  <div className="messenger_name">Joan of Arc</div>
                   <div className="time">Friday 2:20pm</div>
                 </div>
                 <div className="message_text">Borem ipsum dolor sit amet, consectetur adipiscing elit.</div>
@@ -377,8 +380,8 @@ const MessagesPanel = ({ openChatIndex, groupData, setIsAddChatMemberPopupOpen, 
                 <img src={chatMassageDP} alt="" />
               </div>
               <div className="message_right">
-                <div className="messager_info">
-                  <div className="messager_name">Sir Lancelot</div>
+                <div className="messenger_info">
+                  <div className="messenger_name">Sir Lancelot</div>
                   <div className="time">Friday 2:20pm</div>
                 </div>
                 <div className="message_text">Borem ipsum dolor sit amet, consectetur adipiscing elit.</div>
@@ -391,8 +394,8 @@ const MessagesPanel = ({ openChatIndex, groupData, setIsAddChatMemberPopupOpen, 
                 <img src={chatMassageDP1} alt="" />
               </div>
               <div className="message_right">
-                <div className="messager_info">
-                  <div className="messager_name">Phoenix </div>
+                <div className="messenger_info">
+                  <div className="messenger_name">Phoenix </div>
                   <div className="time">Friday 2:20pm</div>
                 </div>
                 <div className="message_text">Borem ipsum dolor sit amet, consectetur adipiscing elit.</div>
@@ -405,8 +408,8 @@ const MessagesPanel = ({ openChatIndex, groupData, setIsAddChatMemberPopupOpen, 
                 <img src={chatMassageDP} alt="" />
               </div>
               <div className="message_right">
-                <div className="messager_info">
-                  <div className="messager_name">Joan of Arc</div>
+                <div className="messenger_info">
+                  <div className="messenger_name">Joan of Arc</div>
                   <div className="time">Friday 2:20pm</div>
                 </div>
                 <div className="message_text">Borem ipsum dolor sit amet, consectetur adipiscing elit.</div>
@@ -417,7 +420,7 @@ const MessagesPanel = ({ openChatIndex, groupData, setIsAddChatMemberPopupOpen, 
               </div>
             </div> */}
 
-          <div className={`chat_input_container ${isMenberListOpen ? 'active' : ''}`}>
+          <div className={`chat_input_container ${isMemberListOpen ? 'active' : ''}`}>
             <div className="chat_input">
               <MicrophoneIcon />
               <input
@@ -429,8 +432,8 @@ const MessagesPanel = ({ openChatIndex, groupData, setIsAddChatMemberPopupOpen, 
                 onChange={handleTyping}
                 onKeyDown={(e) => { handleSendMsg(e) }}
               />
-              <AttechmentIcon />
-              <EmojiFiiledIcon />
+              <AttachmentIcon />
+              <EmojiFilledIcon />
 
               {isTyping && typingUser && <div className="typing_indicator">
                 <div><span className='typing_user'>{typingUser ?? 'Someone'}</span> is typing...</div>
@@ -438,7 +441,7 @@ const MessagesPanel = ({ openChatIndex, groupData, setIsAddChatMemberPopupOpen, 
             </div>
           </div>
         </div>
-        {isMenberListOpen ?
+        {isMemberListOpen ?
           <div className="members">
             <div className="head"> Chat members </div>
 
@@ -511,8 +514,8 @@ MessagesPanel.propTypes = {
   groupData: PropTypes.array,
   isAddChatMemberPopupOpen: PropTypes.bool,
   setIsAddChatMemberPopupOpen: PropTypes.func,
-  isMenberListOpen: PropTypes.bool,
-  setIsMenberListOpen: PropTypes.func,
+  isMemberListOpen: PropTypes.bool,
+  setIsMemberListOpen: PropTypes.func,
   setLoading: PropTypes.func,
   loading: PropTypes.bool,
 }

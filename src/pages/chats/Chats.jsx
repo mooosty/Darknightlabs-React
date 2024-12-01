@@ -15,9 +15,9 @@ const chatSynergies = [{ "img": synergy1 }, { "img": synergy2 }, { "img": synerg
 const Chats = () => {
     const [isChannelOpen, setIsChannelOpen] = useState(false);
     const [openChatIndex, setOpenChatIndex] = useState(0);
-    const [isMenberListOpen, setIsMenberListOpen] = useState(false);
+    const [isMemberListOpen, setIsMemberListOpen] = useState(false);
     const [isAddChatMemberPopupOpen, setIsAddChatMemberPopupOpen] = useState(false);
-    const [chatNumber, setchatNumber] = useState(false);
+    const [chatNumber, setChatNumber] = useState(false);
     const [isChatMembersOpen, setIsChatMembersOpen] = useState(false);
     const [loading, setLoading] = useState(false);
 
@@ -34,11 +34,11 @@ const Chats = () => {
 
     const handleChatOpen = (index) => {
         setOpenChatIndex(index);
-        setchatNumber(true)
+        setChatNumber(true)
     }
 
     const handleMenberListOpen = () => {
-        setIsMenberListOpen(!isMenberListOpen);
+        setIsMemberListOpen(!isMemberListOpen);
         setIsChatMembersOpen(true);
     }
 
@@ -139,8 +139,8 @@ const Chats = () => {
                             openChatIndex={openChatIndex}
                             groupData={groupData}
                             setIsAddChatMemberPopupOpen={setIsAddChatMemberPopupOpen}
-                            isMenberListOpen={isMenberListOpen}
-                            setIsMenberListOpen={setIsMenberListOpen}
+                            isMemberListOpen={isMemberListOpen}
+                            setIsMemberListOpen={setIsMemberListOpen}
                             setLoading={setLoading}
                             loading={loading}
                         />

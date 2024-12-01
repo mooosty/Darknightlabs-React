@@ -9,7 +9,7 @@ import { getUsersAPI } from "../../api-services/userApis"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams, Link } from "react-router-dom"
 import { updateProjectAPI } from "../../api-services/projectApis"
-import DeleteConfirmPopup from "../../components/popup/delete-confirm-popup/DeleteConfirmaPopup"
+import DeleteConfirmPopup from "../../components/popup/delete-confirm-popup/DeleteConfirmPopup"
 import axios from "axios"
 import Loader from "../../components/loader/Loader"
 import TagInput from "../../components/tags-input/TagInput"
@@ -341,7 +341,7 @@ const ProjectManagerEdit = () => {
                                                     <div className="form_item_box">
                                                         <div className="form_group">
                                                             <Select
-                                                                options={userData.map((user) => {
+                                                                options={userData?.map((user) => {
                                                                     return {
                                                                         label: `${user.firstname} ${user.lastname}`,
                                                                         value: user.id

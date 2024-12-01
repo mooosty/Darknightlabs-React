@@ -6,7 +6,7 @@ import { DownIcon } from '../../utils/SVGs/SVGs';
 import bitCoinIcon from "../../assets/logosBitcoin.svg";
 import globalIcon from "../../assets/global.svg";
 import { useState } from 'react';
-import DeleteConfirmPopup from '../popup/delete-confirm-popup/DeleteConfirmaPopup';
+import DeleteConfirmPopup from '../popup/delete-confirm-popup/DeleteConfirmPopup';
 import defaultImage from '../../assets/project-card-img-1.png'
 
 const Accordion = ({

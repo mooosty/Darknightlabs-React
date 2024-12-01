@@ -68,12 +68,12 @@
             .message_right {
                 width: 100%;
 
-                .messager_info {
+                .messenger_info {
                     display: flex;
                     gap: 8px;
                     align-items: center;
 
-                    .messager_name {
+                    .messenger_name {
                         color: #ffd1a6;
                         line-height: 20px;
                         font-size: 14px;
@@ -122,7 +122,7 @@
                     .message_right {
                         text-align: end;
 
-                        .messager_info {
+                        .messenger_info {
                             flex-direction: row-reverse;
                             display: flex;
                             align-items: center;

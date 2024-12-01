@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { apiRoutes } from "../utils/constants/apiUrl"
 import { axiosApi } from './index'
+import { getStore } from "../store/injector"
 
 export const createSynergyApi = createAsyncThunk('synergy/create', async (data, thunkAPI) => {
     const response = await axiosApi.post(apiRoutes.SYNERGY, data)
@@ -62,5 +63,25 @@ export const getSynergyRequestApi = createAsyncThunk('api/getSynergyrequests/',
         const response = await axiosApi.get(apiRoutes.GET_SYNERGY_REQUEST, data)
         if (response?.data?.success) return response?.data?.data
         else return thunkAPI.rejectWithValue(response?.data)
+    }
+)
+
+export const editSynergyRequest = createAsyncThunk('api/editSynergyrequests/',
+    async (data, thunkAPI) => {
+        const response = await axiosApi.patch(apiRoutes.EDIT_SYNERGY_REQUEST, data)
+        const store = getStore()?.getState()
+        const updatedData = store.synergies.synergyRequests?.map((items) => {
+            if (items.id == data.id) {
+                return {
+                    ...items,
+                    synergy_angles: data?.synergy_angles
+                }
+            }
+            else {
+                return items
+            }
+        })
+        if (response?.data?.success) return { ...response?.data?.data, updatedData: updatedData }
+        else return thunkAPI.rejectWithValue({ ...response?.data })
     }
 )

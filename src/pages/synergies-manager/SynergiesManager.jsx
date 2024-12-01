@@ -1,12 +1,7 @@
 import './synergiesManager.scss'
-import AddSynergiesPopup from '../../components/popup/add-synergies-popup/AddSynergiesPopup';
 import { GridIcon, ListIcon } from '../../utils/SVGs/SVGs';
 import { useCallback, useEffect, useState } from 'react';
-import DeleteConfirmPopup from '../../components/popup/delete-confirm-popup/DeleteConfirmaPopup';
-import CreateSynergiesPopup from '../../components/popup/create-synergies-popup/CreateSynergiesPopup';
-import EditSynergiesAngelPopup from '../../components/popup/edit-synergies-angel-popup/EditSynergiesAngelPopup';
-import ConfirmSynergiesPopup from '../../components/popup/confirm-senergies-popup/ConfirmSynergiesPopup';
-import SynergieaCreatedSuccessfullyPopup from '../../components/popup/synergiea-created-successfully-popup/SynergieaCreatedSuccessfullyPopup';
+import DeleteConfirmPopup from '../../components/popup/delete-confirm-popup/DeleteConfirmPopup';
 import EditSynergiesPopup from '../../components/popup/edit-synergies-popup/EditSynergiesPopup';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteSynergyApi, getSynergyApi, updateSynergyApi } from '../../api-services/synergyApi';
@@ -24,14 +19,9 @@ import { searchIcon, filterIcon, closeIcon, trashIcon, tableActor } from '../../
 
 const SynergiesManager = () => {
   const [activeLayout, setActiveLayout] = useState('TABLE');
-  const [isAddAngelPopupOpen, setIsAddAngelPopupOpen] = useState(false);
   const [isDeleteConfirmPopupOpen, setIsDeleteConfirmPopupOpen] = useState(false);
   const [isMultiDeleteConfirmPopupOpen, setIsMultiDeleteConfirmPopupOpen] = useState(false);
-  const [isEditSynergiesAngelPopupOpen, setIsEditSynergiesAngelPopupOpen] = useState(false);
   const [isEditSynergiesPopupOpen, setIsEditSynergiesPopupOpen] = useState(false);
-  const [isCreateSynergiesPopupOpen, setIsCreateSynergiesPopupOpen] = useState(false);
-  const [isConfirmSynergiesPopupOpen, setIsConfirmSynergiesPopupOpen] = useState(false);
-  const [isSynergieaCreatedSuccessfullyPopupOpen, setIsSynergieaCreatedSuccessfullyPopupOpen] = useState(false);
   const [isBottomMenuOpen, setIsBottomMenuOpen] = useState(false);
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -302,11 +292,6 @@ const SynergiesManager = () => {
         </div>
       </div>
 
-      <AddSynergiesPopup
-        open={isAddAngelPopupOpen}
-        handleClose={() => setIsAddAngelPopupOpen(false)}
-      />
-
       <DeleteConfirmPopup
         open={isDeleteConfirmPopupOpen}
         handleClose={() => {
@@ -332,26 +317,6 @@ const SynergiesManager = () => {
         }}
         description={`After once a delete project can't be recover...`}
         title={'Are You Sure?'}
-      />
-
-      <SynergieaCreatedSuccessfullyPopup
-        open={isSynergieaCreatedSuccessfullyPopupOpen}
-        handleClose={() => setIsSynergieaCreatedSuccessfullyPopupOpen(false)}
-      />
-
-      <CreateSynergiesPopup
-        open={isCreateSynergiesPopupOpen}
-        handleClose={() => setIsCreateSynergiesPopupOpen(false)}
-      />
-
-      <EditSynergiesAngelPopup
-        open={isEditSynergiesAngelPopupOpen}
-        handleClose={() => setIsEditSynergiesAngelPopupOpen(false)}
-      />
-
-      <ConfirmSynergiesPopup
-        open={isConfirmSynergiesPopupOpen}
-        handleClose={() => setIsConfirmSynergiesPopupOpen(false)}
       />
 
       <EditSynergiesPopup
