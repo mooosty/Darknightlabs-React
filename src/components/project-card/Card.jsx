@@ -1,14 +1,14 @@
-import { GradientInfiniteIcon, TableStatusIcon } from '../../utils/SVGs/SVGs';
 import './card.scss';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import cardCoin from "../../assets/Coins.svg"
-import CreateSynergyRequestPopup from '../popup/choose-priority-synergies-popup/CreateSynergyRequestPopup';
-import { useState } from 'react';
-import defaultImage from '../../assets/project-card-img-1.png'
 import { useNavigate } from 'react-router-dom';
 import { ROUTER } from '../../utils/routes/routes';
-import CustomTooltip from '../customTooltip/CustomTooltip';
 import useNoScroll from '../../utils/hooks/useNoScroll';
+import CustomTooltip from '../customTooltip/CustomTooltip';
+import { GradientInfiniteIcon, TableStatusIcon } from '../../utils/SVGs/SVGs';
+import CreateSynergyRequestPopup from '../popup/choose-priority-synergies-popup/CreateSynergyRequestPopup';
+import { defaultImg } from '../../utils/constants/images';
 
 const Card = ({
     name,
@@ -34,7 +34,7 @@ const Card = ({
                 {isFeatured ?
                     <div className="isFeaturedCard"> <TableStatusIcon /></div> : ''}
                 <div className="card_img">
-                    <img src={img} alt="" onError={(e) => e.target.src = defaultImage} />
+                    <img src={img} alt="" onError={(e) => e.target.src = defaultImg} />
                 </div>
                 <div className="card_body">
                     <div className="card_body_head">{name}</div>

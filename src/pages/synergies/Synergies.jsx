@@ -1,15 +1,13 @@
 import './synergies.scss'
-import { GradientGraphIcon, GrammerlyIcon, GredientGlobalIcon } from '../../utils/SVGs/SVGs'
-import Card from '../../components/synergy-card/Card'
-import { useCallback, useEffect, useState } from 'react'
-import MultiselectDropDown from '../../components/multiselect-dropdwon/MultiselectDropDown'
+import debounce from 'lodash.debounce'
+import { formatDate } from '../../utils/helper/helper'
 import { useDispatch, useSelector } from 'react-redux'
+import { useCallback, useEffect, useState } from 'react'
 import { getSynergyApi } from '../../api-services/synergyApi'
 import { synergyAnglesOptions } from '../../utils/constants/options'
-import { formatDate } from '../../utils/helper/helper'
-import Loader from '../../components/loader/Loader'
-import debounce from 'lodash.debounce'
 import { searchIcon, tableActor, defaultImg } from '../../utils/constants/images'
+import { GradientGraphIcon, GrammerlyIcon, GredientGlobalIcon } from '../../utils/SVGs/SVGs'
+import { Loader, MultiselectDropDown, SynergyCard } from '../../components'
 
 
 const Synergies = () => {
@@ -171,13 +169,13 @@ const Synergies = () => {
                                     filterSynergies.map((data, index) => {
                                         return (
                                             <div key={index} className='card_wrap'>
-                                                <Card img={(data.synergyImg === '' || !data.synergyImg) ? defaultImg : data.synergyImg}
+                                                <SynergyCard img={(data.synergyImg === '' || !data.synergyImg) ? defaultImg : data.synergyImg}
                                                     name={data.synergyName}
                                                     price={data.price}
                                                     tags={data.tags || ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming']}
                                                     status={data.status}
-                                                    synergiesAngles={data.synergiesAngles}
                                                     description='lorem Reprehenderit aliqua sit quis cillum dolor Lorem incididunt reprehenderit est elit et.'
+                                                    synergiesAngles={data.synergiesAngles}
                                                     synergyId={data.id}
                                                 />
                                             </div>

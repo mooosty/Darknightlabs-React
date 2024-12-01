@@ -1,13 +1,11 @@
 import './synergyRequest.scss'
 import debounce from 'lodash.debounce';
-import Loader from '../../components/loader/Loader';
 import { useDispatch, useSelector } from 'react-redux';
-import { useCallback, useEffect, useState } from 'react';
-import { getSynergyRequestApi } from '../../api-services/synergyApi';
-import SynergyRequestCard from '../../components/synergy-request-card/Card';
-import { searchIcon } from '../../utils/constants/images';
-import EditSynergyAnglePopup from '../../components/popup/edit-pending-synergy-angle-popup/EditSynergyAnglePopup';
 import useNoScroll from '../../utils/hooks/useNoScroll';
+import { useCallback, useEffect, useState } from 'react';
+import { searchIcon } from '../../utils/constants/images';
+import { getSynergyRequestApi } from '../../api-services/synergyApi';
+import { EditSynergyAnglePopup, Loader, SynergyRequestCard } from '../../components';
 
 
 const SynergyRequest = () => {

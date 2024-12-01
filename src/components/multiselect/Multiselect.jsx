@@ -1,9 +1,8 @@
+import './Multiselect.scss'
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
-import addIcon from "../../assets/add-icon.png"
-import arrowDown from "../../assets/arrow-down.png"
-import './Multiselect.scss'
 import { useClickOutside } from '../../utils/hooks/useClickOutside';
+import { addIcon, arrowDown } from '../../utils/constants/images';
 
 const Multiselect = ({
     options = [],

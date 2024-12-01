@@ -1,10 +1,9 @@
 import './signupPopup.scss';
-import closeIcon from '../../../assets/X-icon.png';
-import divider from '../../../assets/divider.png';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { CalendarIcon, CloseEyeIcon, FaceBookIcon, GoogleIcon, InstagramIcon, OpenEyeIcon, TwitterIcon } from '../../../utils/SVGs/SVGs';
-import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { closeIcon, divider } from '../../../utils/constants/images';
 
 const SignupPopup = ({ open, handleClose }) => {
     const [isPassEyeOpen, setIsPassEyeOpen] = useState(false);

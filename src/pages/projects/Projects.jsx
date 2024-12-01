@@ -2,15 +2,14 @@ import './projects.scss'
 import { Link } from 'react-router-dom'
 import debounce from 'lodash.debounce'
 import { ROUTER } from '../../utils/routes/routes'
-import Card from '../../components/project-card/Card'
 import { useDispatch, useSelector } from 'react-redux'
+import { formatDate } from '../../utils/helper/helper'
 import { useCallback, useEffect, useState } from 'react'
+import { searchIcon } from '../../utils/constants/images'
 import { getProjectsAPI } from '../../api-services/projectApis'
+import { MultiselectDropDown, ProjectCard } from '../../components'
 import { GradientGraphIcon, GredientGlobalIcon } from '../../utils/SVGs/SVGs'
 import { projectTypesOptions, synergyAnglesOptions } from '../../utils/constants/options'
-import MultiselectDropDown from '../../components/multiselect-dropdwon/MultiselectDropDown'
-import { formatDate } from '../../utils/helper/helper'
-import { searchIcon } from '../../utils/constants/images'
 
 const Projects = () => {
     const dispatch = useDispatch();
@@ -196,7 +195,7 @@ const Projects = () => {
                                         filterFeaturedProject.slice(0, 4).map((data, index) => {
                                             return (
                                                 <div className='card_wrap' key={index} >
-                                                    <Card
+                                                    <ProjectCard
                                                         projectId={data.projectId}
                                                         isFeatured={data.isFeatured == 1}
                                                         name={data.projectName}
@@ -254,7 +253,7 @@ const Projects = () => {
                                     filterProject.map((data, index) => {
                                         return (
                                             <div className='card_wrap' key={index} >
-                                                <Card
+                                                <ProjectCard
                                                     projectId={data.projectId}
                                                     isFeatured={data.isFeatured == 1}
                                                     name={data.projectName}

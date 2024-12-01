@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
-import closeIcon from '../../../assets/X-icon.png'
-import angelBg from '../../../assets/edit-senergies-hero-image.png'
 import './EditPendingSynergiesAngelPopup.scss';
 import { AddCircleIcon, CLeseCircleIcon, GlobalIcon, } from '../../../utils/SVGs/SVGs';
+import { angelBg, closeIcon } from '../../../utils/constants/images';
 
 const buttons = [
     {

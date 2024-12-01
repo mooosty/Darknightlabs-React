@@ -1,9 +1,8 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
-import closeIcon from '../../../assets/X-icon.png'
-import angelBg from '../../../assets/edit-senergies-hero-image.png'
 import './EditSynergiesAngelPopup.scss';
 import { AddCircleIcon, CLeseCircleIcon, GlobalIcon, RightCornerArrowIcon } from '../../../utils/SVGs/SVGs';
-import { useState } from 'react';
+import { angelBg, closeIcon } from '../../../utils/constants/images';
 
 const buttons = [
     {

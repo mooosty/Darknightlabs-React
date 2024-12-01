@@ -1,10 +1,9 @@
 import './loginPopup.scss';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
-import closeIcon from '../../../assets/X-icon.png'
-import divider from '../../../assets/divider.png'
 import { Link } from 'react-router-dom';
 import { CloseEyeIcon, FaceBookIcon, GoogleIcon, InstagramIcon, OpenEyeIcon, TwitterIcon } from '../../../utils/SVGs/SVGs';
-import { useState } from 'react';
+import { closeIcon, divider } from '../../../utils/constants/images';
 
 const LoginPopup = ({ open, handleClose }) => {
     const [isPassEyeOpen, setIsPassEyeOpen] = useState(false);
@@ -64,7 +63,7 @@ const LoginPopup = ({ open, handleClose }) => {
                                     <span><GoogleIcon /></span>
                                     <span><TwitterIcon /></span>
                                 </div>
-                                <img src={divider} alt=" " className='divider'/>
+                                <img src={divider} alt=" " className='divider' />
                                 <div className="texts">
                                     <span>New here?</span>
                                     <div className="link">

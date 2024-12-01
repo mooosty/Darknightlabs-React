@@ -1,22 +1,15 @@
 import './projectManager.scss'
 import debounce from 'lodash.debounce';
 import { useNavigate } from 'react-router-dom';
-import Select from "../../components/select/Select"
-import Loader from '../../components/loader/Loader';
 import { formatDate } from '../../utils/helper/helper';
 import { useSelector, useDispatch } from 'react-redux';
+import useNoScroll from '../../utils/hooks/useNoScroll';
 import { useCallback, useEffect, useState } from 'react';
-import BottomMenu from '../../components/buttom-menu/BottomMenu';
 import { synergyAnglesOptions } from '../../utils/constants/options';
-import ProjectManagerGridLayout from '../../components/project-manager/GridLayout';
-import ProjectManagerTableLayout from '../../components/project-manager/TableLayout';
-import CreateSynergySteps from '../../components/project-manager/CreateSynergySteps';
-import DeleteConfirmPopup from '../../components/popup/delete-confirm-popup/DeleteConfirmPopup';
 import { GridIcon, ListIcon, TableStatusIcon, InfiniteIcon, MoreIcon } from '../../utils/SVGs/SVGs'
 import { searchIcon, filterIcon, trashIcon, addIcon, closeIcon } from '../../utils/constants/images';
 import { getProjectsAPI, deleteProjectAPI, updateProjectAPI, getMemberApi } from '../../api-services/projectApis';
-import SynergieaCreatedSuccessfullyPopup from '../../components/popup/synergiea-created-successfully-popup/SynergieaCreatedSuccessfullyPopup';
-import useNoScroll from '../../utils/hooks/useNoScroll';
+import { ProjectManagerTableLayout, ProjectManagerGridLayout, CreateSynergySteps, Select, DeleteConfirmPopup, SynergieaCreatedSuccessfullyPopup, BottomMenu, Loader } from '../../components'
 
 
 const ProjectManager = () => {

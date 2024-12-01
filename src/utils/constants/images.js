@@ -62,4 +62,11 @@ import member11 from '../../assets/member_img11.png'
 import member12 from '../../assets/member_img12.png'
 import member13 from '../../assets/member_img13.png'
 
-export { searchIcon, autherProfile, trashIcon, addIcon, sepratorImage, arrowRight, closeIcon, filterIcon, synergy1, synergy2, synergy3, synergy4, synergy5, member1, member2, member3, member4, member5, member6, member7, member8, member9, member10, member11, member12, member13, chatMassageDP, cardActor1, cardActor2, cardActor3, cardActor4, cardActor5, cardActor6, cardActor7, cardActor8, cardActor9, cardActor10, cardActor11, cardActor12, cardActor13, cardActor14, cardActor15, angelBg, fallBackImage, arrowDown, project, infoCircle, defaultImg, tableActor, soldierPhoto, editIcon, twitterIcon, discordIcon, telegramIcon, closedEyeIcon, openEyeIcon, calendarBlankIcon }
+import divider from '../../assets/divider.png'
+import bitCoinIcon from "../../assets/logosBitcoin.svg";
+import tableActorImage3 from "../../assets/avatar-3.jpg";
+import uploadIcon from '../../assets/document-upload.png'
+
+
+
+export { divider,uploadIcon, tableActorImage3, bitCoinIcon, searchIcon, autherProfile, trashIcon, addIcon, sepratorImage, arrowRight, closeIcon, filterIcon, synergy1, synergy2, synergy3, synergy4, synergy5, member1, member2, member3, member4, member5, member6, member7, member8, member9, member10, member11, member12, member13, chatMassageDP, cardActor1, cardActor2, cardActor3, cardActor4, cardActor5, cardActor6, cardActor7, cardActor8, cardActor9, cardActor10, cardActor11, cardActor12, cardActor13, cardActor14, cardActor15, angelBg, fallBackImage, arrowDown, project, infoCircle, defaultImg, tableActor, soldierPhoto, editIcon, twitterIcon, discordIcon, telegramIcon, closedEyeIcon, openEyeIcon, calendarBlankIcon }

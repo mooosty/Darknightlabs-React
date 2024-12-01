@@ -1,13 +1,9 @@
 import './accordion.scss';
-import PropTypes from 'prop-types';
-import trashIcon from "../../assets/trash-icon.png";
-import editIcon from "../../assets/edit-icon.svg";
-import { DownIcon } from '../../utils/SVGs/SVGs';
-import bitCoinIcon from "../../assets/logosBitcoin.svg";
-import globalIcon from "../../assets/global.svg";
 import { useState } from 'react';
+import PropTypes from 'prop-types';
+import { DownIcon, GlobalIcon } from '../../utils/SVGs/SVGs';
+import { bitCoinIcon, defaultImg, editIcon, trashIcon } from '../../utils/constants/images';
 import DeleteConfirmPopup from '../popup/delete-confirm-popup/DeleteConfirmPopup';
-import defaultImage from '../../assets/project-card-img-1.png'
 
 const Accordion = ({
     synergyName,
@@ -25,15 +21,6 @@ const Accordion = ({
     const id = Math.round(Math.random() * 1000)
     const [open, setOpen] = useState(false);
     const [isDeleteConfirmPopupOpen, setIsDeleteConfirmPopupOpen] = useState(false);
-    const handleDelete = (e) => {
-        onDelete
-        e.stopPropagation()
-        setIsDeleteConfirmPopupOpen(true)
-    }
-    const handleEdit = (e) => {
-        onEdit
-        e.stopPropagation()
-    }
 
 
     return (
@@ -54,7 +41,7 @@ const Accordion = ({
                                     </div>
                                     <DownIcon className='table_arrow' onClick={() => setOpen(!open)} />
                                     <div className="creator_img">
-                                        <img src={synergyImg === '' || !synergyImg ? defaultImage : synergyImg} alt="" onError={(e) => e.target.src = defaultImage} />
+                                        <img src={synergyImg === '' || !synergyImg ? defaultImg : synergyImg} alt="" onError={(e) => e.target.src = defaultImg} />
                                     </div>
                                     <div className="table_name">{synergyName}</div>
                                 </div>
@@ -103,7 +90,7 @@ const Accordion = ({
                                 <span className='label'>Angles:</span>
                                 <div className='angle'>
                                     {synergiesAngles && synergiesAngles.map((data, index) => (
-                                        <span key={index}><img src={globalIcon} alt=" " />{data}</span>
+                                        <span key={index}><img src={GlobalIcon} alt=" " />{data}</span>
                                     ))}
                                 </div>
                             </div>

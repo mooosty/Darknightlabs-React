@@ -1,19 +1,19 @@
-import { useState } from 'react';
 import "./tagsInput.scss"
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 function TagInput({ tags, setTags }) {
-    const [input, setInput] = useState(''); // State to hold current input
+    const [input, setInput] = useState('');
 
-    // Handle key press event for 'Enter' and 'Backspace' keys
+
     const handleKeyPress = (e) => {
         if (e.key === 'Enter' && input.trim() !== '') {
-            e.preventDefault(); // Prevent form submission if inside a form
-            setTags([...tags, input.trim()]); // Add the new tag to the tags list
-            setInput(''); // Reset the input field
+            e.preventDefault();
+            setTags([...tags, input.trim()]);
+            setInput('');
         } else if (e.key === 'Backspace' && input === '' && tags.length > 0) {
             e.preventDefault();
-            setTags(tags?.slice(0, -1)); // Remove the last tag if input is empty
+            setTags(tags?.slice(0, -1));
         }
     };
 
@@ -26,12 +26,12 @@ function TagInput({ tags, setTags }) {
                         {tag}
                     </span>
                 ))}
-                
+
                 <input
                     type="text"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
-                    onKeyDown={handleKeyPress} // Detect 'Enter' key press
+                    onKeyDown={handleKeyPress}
                     placeholder="Type and press enter"
                     name='tags'
                 />
@@ -43,8 +43,8 @@ function TagInput({ tags, setTags }) {
 }
 
 TagInput.propTypes = {
-    tags: PropTypes.arrayOf(PropTypes.string).isRequired, // Enforce array of strings
-    setTags: PropTypes.func.isRequired                    // Enforce function
+    tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+    setTags: PropTypes.func.isRequired
 };
 
 export default TagInput;

@@ -1,11 +1,9 @@
-import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
-import infoCircle from "../../assets/info-circle.png"
-import addIcon from "../../assets/add-icon.png"
-import arrowDown from "../../assets/arrow-down.png"
 import './select.scss'
-import { useClickOutside } from '../../utils/hooks/useClickOutside';
+import PropTypes from 'prop-types';
 import { Tooltip } from 'react-tooltip';
+import { useEffect, useState } from 'react';
+import { useClickOutside } from '../../utils/hooks/useClickOutside';
+import { addIcon, arrowDown, infoCircle } from '../../utils/constants/images';
 
 const Select = ({
     name,
@@ -14,8 +12,8 @@ const Select = ({
     placeholder,
     hasAddButton,
     addButtonLabel,
-    showAllOption=false,
-    allOptionText='',
+    showAllOption = false,
+    allOptionText = '',
     onAdd = () => { },
     onChange = () => { },
 }) => {
@@ -105,8 +103,9 @@ const Select = ({
                             )
                         })
                     }
-                    {showAllOption && <li key={'all'} onClick={() => handleSelectOption({label:allOptionText,
-                        value:'All'
+                    {showAllOption && <li key={'all'} onClick={() => handleSelectOption({
+                        label: allOptionText,
+                        value: 'All'
                     })}>
                         {allOptionText}
                     </li>}

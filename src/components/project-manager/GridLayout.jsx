@@ -3,7 +3,7 @@ import { GredientGlobalIcon, GradientGraphIcon, TableStatusIcon } from '../../ut
 import cardImage from "../../assets//project-card-img-1.png";
 
 
-const ProjectManagerGridLayout = ({ filterProject=[] }) => {
+const ProjectManagerGridLayout = ({ filterProject = [] }) => {
 
     return (
         <div className='card_container'>

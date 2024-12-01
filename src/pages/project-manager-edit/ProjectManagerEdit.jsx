@@ -1,20 +1,14 @@
-
+import axios from "axios"
 import "./projectManagerEdit.scss"
-import Select from "../../components/select/Select"
-import AddAngelPopup from "../../components/popup/add-angel-popup/AddAngelPopup"
-import { useEffect, useState } from "react"
 import { useFormik } from 'formik';
-import { addProjectAPI, deleteProjectAPI, addMemberAPI, getProjectsApiById } from "../../api-services/projectApis"
-import { getUsersAPI } from "../../api-services/userApis"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { getUsersAPI } from "../../api-services/userApis"
 import { useNavigate, useParams, Link } from "react-router-dom"
 import { updateProjectAPI } from "../../api-services/projectApis"
-import DeleteConfirmPopup from "../../components/popup/delete-confirm-popup/DeleteConfirmPopup"
-import axios from "axios"
-import Loader from "../../components/loader/Loader"
-import TagInput from "../../components/tags-input/TagInput"
 import { synergyAnglesOptions } from "../../utils/constants/options"
-import ImageUploader from "../../components/project-manager-edit/ImageUploader"
+import { AddAngelPopup, DeleteConfirmPopup, ImageUploader, Loader, Select, TagInput } from "../../components";
+import { addProjectAPI, deleteProjectAPI, addMemberAPI, getProjectsApiById } from "../../api-services/projectApis"
 import { searchIcon, autherProfile, trashIcon, addIcon, sepratorImage, arrowRight } from "../../utils/constants/images"
 
 

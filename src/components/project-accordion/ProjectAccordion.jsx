@@ -1,11 +1,8 @@
+import { useState } from 'react';
 import './projectAccordion.scss';
 import PropTypes from 'prop-types';
-import trashIcon from "../../assets/trash-icon.png";
-import editIcon from "../../assets/edit-icon.svg";
 import { DownIcon, GlobalIcon, GradientGraphIcon, GredientGlobalIcon, TableStatusIcon } from '../../utils/SVGs/SVGs';
-import { useState } from 'react';
-import tableActorImage3 from "../../assets/avatar-3.jpg";
-import defaultImage from '../../assets/project-card-img-1.png'
+import { defaultImg, editIcon, tableActorImage3, trashIcon } from '../../utils/constants/images';
 
 const ProjectAccordion = ({
     projectName,
@@ -54,7 +51,7 @@ const ProjectAccordion = ({
                                     </div>
                                     <DownIcon className='table_arrow' onClick={() => setOpen(!open)} />
                                     <div className="creator_img">
-                                        <img src={synergyImg === '' || !synergyImg ? defaultImage : synergyImg} alt="" onError={(e) => e.target.src = defaultImage} />
+                                        <img src={synergyImg === '' || !synergyImg ? defaultImg : synergyImg} alt="" onError={(e) => e.target.src = defaultImg} />
                                     </div>
                                     <div className="table_name">{projectName}</div>
                                 </div>

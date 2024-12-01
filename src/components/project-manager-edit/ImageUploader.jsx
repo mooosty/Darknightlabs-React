@@ -1,6 +1,5 @@
-import uploadIcon from '../../assets/document-upload.png'
-import trashIcon from "../../assets/trash-icon.png"
 import PropTypes from 'prop-types'
+import { trashIcon, uploadIcon } from '../../utils/constants/images';
 
 const ImageUploader = ({ image, setFieldValue }) => {
 

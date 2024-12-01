@@ -1,14 +1,12 @@
 import './synergiesDetails.scss'
-import Loader from '../../../components/loader/Loader';
+import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import arrowRight from "../../../assets/arrow-right.png"
-import { GradientGraphIcon, GradientInfiniteIcon, GrammerlyIcon, GredientGlobalIcon, HealthIcon, StarIcon, InfoCircleIcon } from '../../../utils/SVGs/SVGs'
-import { useEffect, useState } from 'react';
 import { useDispatch, useSelector, } from 'react-redux';
 import fallBackImage from '../../../assets/DefaultImage.png'
-import MultiselectDropDown from '../../../components/multiselect-dropdwon/MultiselectDropDown';
-import CustomTooltip from '../../../components/customTooltip/CustomTooltip';
 import { getSynergyByIdApi } from '../../../api-services/synergyApi';
+import { GradientGraphIcon, GradientInfiniteIcon, GrammerlyIcon, GredientGlobalIcon, HealthIcon, StarIcon, InfoCircleIcon } from '../../../utils/SVGs/SVGs'
+import { CustomTooltip, Loader, MultiselectDropDown } from '../../../components';
 
 const synergyOptions = [
     { label: 'Selected', value: 'selected' },

@@ -1,13 +1,10 @@
-import PropTypes from 'prop-types';
 import { Fragment } from 'react';
-import CustomTooltip from '../../components/customTooltip/CustomTooltip';
-import trashIcon from "../../assets/trash-icon.png";
-import defaultImg from '../../assets/project-card-img-1.png';
-import tableActorImage3 from "../../assets/avatar-3.jpg";
-import ProjectAccordion from '../../components/project-accordion/ProjectAccordion';
+import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
+import CustomTooltip from '../../components/customTooltip/CustomTooltip';
+import ProjectAccordion from '../../components/project-accordion/ProjectAccordion';
 import { GredientGlobalIcon, GradientGraphIcon, TableStatusIcon } from '../../utils/SVGs/SVGs';
-import editIcon from '../../assets/edit-icon.svg';
+import { defaultImg, editIcon, tableActorImage3, trashIcon } from '../../utils/constants/images';
 
 
 const ProjectManagerTableLayout = ({ filterProject, selectedProjects, selectedProjectForSynergy, createSynergyStep, handleSelectProject, setIsDeleteConfirmPopupOpen, setDltId }) => {

@@ -1,5 +1,5 @@
+import './customTooltip.scss';
 import { useState } from 'react';
-import './customTooltip.scss'; // Optional: for styling
 import PropTypes from 'prop-types';
 
 const CustomTooltip = ({ children, text, place = 'top', style }) => {

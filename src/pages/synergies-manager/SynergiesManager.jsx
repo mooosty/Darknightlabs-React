@@ -1,20 +1,14 @@
 import './synergiesManager.scss'
-import { GridIcon, ListIcon } from '../../utils/SVGs/SVGs';
-import { useCallback, useEffect, useState } from 'react';
-import DeleteConfirmPopup from '../../components/popup/delete-confirm-popup/DeleteConfirmPopup';
-import EditSynergiesPopup from '../../components/popup/edit-synergies-popup/EditSynergiesPopup';
-import { useDispatch, useSelector } from 'react-redux';
-import { deleteSynergyApi, getSynergyApi, updateSynergyApi } from '../../api-services/synergyApi';
-import BottomMenu from '../../components/buttom-menu/BottomMenu';
-import Select from '../../components/select/Select';
-import Loader from '../../components/loader/Loader';
 import debounce from 'lodash.debounce';
 import { formatDate } from '../../utils/helper/helper';
-import SynergyManagerGridLayout from '../../components/synergy-manager/GridLayout';
-import SynergyManagerTableLayout from '../../components/synergy-manager/TableLayout';
-import { synergyAnglesOptions } from '../../utils/constants/options';
-import { searchIcon, filterIcon, closeIcon, trashIcon, tableActor } from '../../utils/constants/images';
 import useNoScroll from '../../utils/hooks/useNoScroll';
+import { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { GridIcon, ListIcon } from '../../utils/SVGs/SVGs';
+import { synergyAnglesOptions } from '../../utils/constants/options';
+import { deleteSynergyApi, getSynergyApi, updateSynergyApi } from '../../api-services/synergyApi';
+import { searchIcon, filterIcon, closeIcon, trashIcon, tableActor } from '../../utils/constants/images';
+import { BottomMenu, DeleteConfirmPopup, EditSynergiesPopup, Loader, Select, SynergyManagerGridLayout, SynergyManagerTableLayout } from '../../components';
 
 const SynergiesManager = () => {
   const [activeLayout, setActiveLayout] = useState('TABLE');

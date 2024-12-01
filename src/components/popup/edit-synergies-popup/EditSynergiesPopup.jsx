@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
-import closeIcon from '../../../assets/X-icon.png'
-import angelBg from '../../../assets/edit-senergies-hero-image.png'
 import './EditSynergiesPopup.scss';
-import Multiselect from '../../multiselect/Multiselect';
-import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import Multiselect from '../../multiselect/Multiselect';
 import { getProjectsAPI } from '../../../api-services/projectApis';
+import { angelBg, closeIcon } from '../../../utils/constants/images';
 
 const EditSynergiesPopup = ({ open, handleClose, synergy, onSave = () => { } }) => {
     // open = true

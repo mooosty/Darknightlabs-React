@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { apiRoutes } from "../utils/constants/apiUrl"
-import { axiosApi } from './index'
+import { axiosApi } from './service'
 
 export const createSynergyApi = createAsyncThunk('synergy/create', async (data, thunkAPI) => {
     const response = await axiosApi.post(apiRoutes.SYNERGY, data)

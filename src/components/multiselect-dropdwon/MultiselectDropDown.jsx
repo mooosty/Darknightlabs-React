@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
 import { useState } from 'react';
-import arrowDown from "../../assets/arrow-down.png";
+import PropTypes from 'prop-types';
 import './multiselectDropDown.scss';
 import { useClickOutside } from '../../utils/hooks/useClickOutside';
+import { arrowDown } from '../../utils/constants/images';
 
 const MultiselectDropDown = ({
     options = [],

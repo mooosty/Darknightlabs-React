@@ -1,13 +1,12 @@
-import PropTypes from 'prop-types';
-import closeIcon from '../../../assets/X-icon.png'
-import searchIcon from "../../../assets/search-icon.png"
-import member from '../../../assets/member_img1.png'
 import './addChatMemberPopup.scss'
-import { AddUserIcon } from '../../../utils/SVGs/SVGs';
+import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
+import Loader from '../../loader/Loader';
+import member from '../../../assets/member_img1.png'
+import { AddUserIcon } from '../../../utils/SVGs/SVGs';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMemberIntoGroup } from '../../../api-services/chatApis';
-import Loader from '../../loader/Loader';
+import { closeIcon, searchIcon } from '../../../utils/constants/images';
 
 
 const AddChatMemberPopup = ({ chatId, open, handleClose }) => {

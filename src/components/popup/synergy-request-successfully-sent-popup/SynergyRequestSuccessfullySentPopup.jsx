@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import closeIcon from '../../../assets/X-icon.png'
-
 import './synergyRequestSuccessfullySentPopup.scss';
+import { closeIcon } from '../../../utils/constants/images';
+
 
 const SynergyRequestSuccessfullySentPopup = ({ open, handleClose }) => {
 

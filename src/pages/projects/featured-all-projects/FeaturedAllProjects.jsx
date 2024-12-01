@@ -2,26 +2,20 @@ import './featuredAllProjects.scss'
 import debounce from "lodash.debounce"
 import { useDispatch, useSelector } from "react-redux"
 import { useCallback, useEffect, useState } from "react"
-import Card from "../../../components/project-card/Card"
+import { formatDate } from '../../../utils/helper/helper'
+import { searchIcon } from '../../../utils/constants/images'
 import { getMemberApi, getProjectsAPI } from "../../../api-services/projectApis"
 import { BackArrow, GradientGraphIcon, GredientGlobalIcon } from "../../../utils/SVGs/SVGs"
 import { projectTypesOptions, synergyAnglesOptions } from "../../../utils/constants/options"
-import MultiselectDropDown from "../../../components/multiselect-dropdwon/MultiselectDropDown"
-import { formatDate } from '../../../utils/helper/helper'
-import { searchIcon } from '../../../utils/constants/images'
+import { MultiselectDropDown, ProjectCard } from '../../../components'
 
 const FeaturedAllProjects = () => {
 
     const dispatch = useDispatch();
-
-    // projects
     const data = useSelector((state) => state.project.projects)
     const featuredProjects = data.filter(project => project.featured === 1);
-
-
     const [initialProject, setInitialProject] = useState([])
     const [filterProject, setFilterProject] = useState([])
-
     const [filter, setFilter] = useState({
         synergyAngleValues: [],
         status: '',
@@ -50,8 +44,6 @@ const FeaturedAllProjects = () => {
                 label: v
             }
         })
-
-
         return selectedLabels
     }
 
@@ -199,7 +191,7 @@ const FeaturedAllProjects = () => {
                                     filterProject.map((data, index) => {
                                         return (
                                             <div className='card_wrap' key={index} >
-                                                <Card
+                                                <ProjectCard
                                                     isFeatured={data.isFeatured}
                                                     name={data.projectName}
                                                     img={data.synergyImg}

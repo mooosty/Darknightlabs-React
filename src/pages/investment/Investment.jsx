@@ -1,9 +1,8 @@
 import './investment.scss'
-import searchIcon from "../../assets/search-icon.png";
 import { useState } from 'react';
-import MultiselectDropDown from '../../components/multiselect-dropdwon/MultiselectDropDown';
+import { MultiselectDropDown } from '../../components';
 import { projectTypesOptions, synergyAnglesOptions } from '../../utils/constants/options';
-import { cardActor1, cardActor2, cardActor3, cardActor4, cardActor5, cardActor6, cardActor7, cardActor8, cardActor9, cardActor10, cardActor11, cardActor12, cardActor13, cardActor14, cardActor15 } from '../../utils/constants/images';
+import { cardActor1, cardActor2, cardActor3, cardActor4, cardActor5, cardActor6, cardActor7, cardActor8, cardActor9, cardActor10, cardActor11, cardActor12, cardActor13, cardActor14, cardActor15, searchIcon } from '../../utils/constants/images';
 
 const cardData = [
   {
@@ -348,7 +347,7 @@ const Investment = () => {
             <div className="card_container">
               {cardData.map((data, index) => {
                 return (
-                  <div className='card_wrap'key={index} >
+                  <div className='card_wrap' key={index} >
                     <div className="card" >
                       <div className="card_image">
                         <img src={data.investorImg} alt="" />
@@ -381,7 +380,7 @@ const Investment = () => {
                         </div>
                       </div>
                     </div>
-                    </div>
+                  </div>
                 )
               })}
             </div>

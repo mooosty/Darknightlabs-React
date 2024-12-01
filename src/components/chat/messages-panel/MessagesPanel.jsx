@@ -1,15 +1,16 @@
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from "react-redux";
-import { addMessage, removeMessage } from "../../../store/slice/chatSlice";
-import { Fragment, useEffect, useRef, useState } from "react";
-import { useSocket } from "../../../utils/socket-provider/SocketContext";
-import { getChatMessages } from "../../../api-services/chatApis";
-import { formatDateTime, isEqualDate, dayWiseFormat } from "../../../utils/helper/helper";
-import { chatMassageDP, member1, member2 } from "../../../utils/constants/images";
-import { MicrophoneIcon, AttachmentIcon, EmojiFilledIcon, AddUserIcon, DeleteIcon } from "../../../utils/SVGs/SVGs";
-import { v4 as uuidv4 } from 'uuid';
 import './messagesPanel.scss'
+import PropTypes from 'prop-types';
+import { v4 as uuidv4 } from 'uuid';
+import { useDispatch, useSelector } from "react-redux";
+import { Fragment, useEffect, useRef, useState } from "react";
+import { getChatMessages } from "../../../api-services/chatApis";
+import { addMessage, removeMessage } from "../../../store/slice/chatSlice";
+import { useSocket } from "../../../utils/socket-provider/SocketContext";
+import { chatMassageDP, member1, member2 } from "../../../utils/constants/images";
+import { formatDateTime, isEqualDate, dayWiseFormat } from "../../../utils/helper/helper";
+import { MicrophoneIcon, AttachmentIcon, EmojiFilledIcon, AddUserIcon, DeleteIcon } from "../../../utils/SVGs/SVGs";
 import DeleteConfirmPopup from '../../popup/delete-confirm-popup/DeleteConfirmPopup';
+
 
 const MessagesPanel = ({ openChatIndex, groupData, setIsAddChatMemberPopupOpen, isMemberListOpen, setIsMemberListOpen }) => {
 

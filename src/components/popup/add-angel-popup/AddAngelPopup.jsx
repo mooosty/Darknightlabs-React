@@ -1,9 +1,8 @@
-import PropTypes from 'prop-types';
-import closeIcon from '../../../assets/X-icon.png'
-
 import './AddAngelPopup.scss'
 import { useState } from 'react';
 import { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { closeIcon } from '../../../utils/constants/images';
 
 const AddAngelPopup = ({ open, handleClose, handleAddNewAngel, defaultValue }) => {
     const [data, setData] = useState({})

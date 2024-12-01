@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
-import closeIcon from '../../../assets/X-icon.png'
-
 import './DeleteConformationPopup.scss'
+import { closeIcon } from '../../../utils/constants/images';
 
 const DeleteConformationPopup = ({ open, handleClose }) => {
     return (

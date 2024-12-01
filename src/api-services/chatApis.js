@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { apiRoutes } from "../utils/constants/apiUrl"
-import { chatAxiosApi } from './index'
+import { chatAxiosApi } from './service'
 
 export const createGroupAPI = createAsyncThunk('chat/group/create',
     async (data, thunkAPI) => {

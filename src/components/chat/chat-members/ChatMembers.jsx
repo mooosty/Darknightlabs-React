@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types';
 import './chatsMembers.scss'
-import { member1, member2 } from '../../../utils/constants/images'
+import PropTypes from 'prop-types';
 import { AddUserIcon } from '../../../utils/SVGs/SVGs'
+import { member1, member2 } from '../../../utils/constants/images';
 
 const ChatMembers = ({ open, groupData, openChatIndex, handleOpenAddMemberPopup }) => {
 

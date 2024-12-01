@@ -1,15 +1,12 @@
-import { useEffect, useState } from 'react';
+import axios from 'axios';
 import "./userProfile.scss";
-import SignUpPopup from '../../components/popup/sign-up-popup/SignupPopup';
-import LoginPopup from '../../components/popup/login-popup/LoginPopup';
-import { closedEyeIcon, openEyeIcon, editIcon, sepratorImage, twitterIcon, discordIcon, telegramIcon, calendarBlankIcon } from '../../utils/constants/images';
+import { useFormik } from 'formik';
+import { toast } from 'react-toastify';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { editUserProfileAPI, getUsersDetailsAPI, updatePasswordAPI } from '../../api-services/userApis';
-import { useFormik } from 'formik';
-import axios from 'axios';
-import Loader from '../../components/loader/Loader';
-import defaultImage from '../../assets/fallback-image.png'
-import { toast } from 'react-toastify';
+import { closedEyeIcon, openEyeIcon, editIcon, sepratorImage, twitterIcon, discordIcon, telegramIcon, calendarBlankIcon, defaultImg } from '../../utils/constants/images';
+import { Loader, LoginPopup, SignupPopup } from '../../components';
 
 const InputPassword = (props) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -197,9 +194,9 @@ const UserProfile = () => {
                                 <div className="project_profile">
                                     <div className="profile_upload_profile">
                                         <img
-                                            src={userDetails?.profile_picture === '' || !userDetails?.profile_picture ? defaultImage : userDetails?.profile_picture}
+                                            src={userDetails?.profile_picture === '' || !userDetails?.profile_picture ? defaultImg : userDetails?.profile_picture}
                                             alt=""
-                                            onError={(e) => e.target.src = defaultImage}
+                                            onError={(e) => e.target.src = defaultImg}
                                         />
                                     </div>
                                 </div>
@@ -281,9 +278,9 @@ const UserProfile = () => {
                             <div className="project_profile">
                                 <div className="profile_upload_profile">
                                     <img
-                                        src={values.profile_picture === '' || !values.profile_picture ? defaultImage : values.profile_picture}
+                                        src={values.profile_picture === '' || !values.profile_picture ? defaultImg : values.profile_picture}
                                         alt=""
-                                        onError={(e) => e.target.src = defaultImage}
+                                        onError={(e) => e.target.src = defaultImg}
                                     />
                                 </div>
                                 <div className='profile_upload_button'>
@@ -427,7 +424,7 @@ const UserProfile = () => {
                 open={isLoginPopupOpen}
                 handleClose={() => setIsLoginPopupOpen(false)}
             />
-            <SignUpPopup
+            <SignupPopup
                 open={isSignUpPopupOpen}
                 handleClose={() => setIsSignUpPopupOpen(false)}
             />

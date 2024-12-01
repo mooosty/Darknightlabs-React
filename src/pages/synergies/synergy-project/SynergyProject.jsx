@@ -1,9 +1,9 @@
 
 import './synergyProject.scss'
-import Select from "../../../components/select/Select"
-import { Download, GradientGraphIcon, GredientGlobalIcon, HalfEmoji, Health, InfiniteIcon } from "../../../utils/SVGs/SVGs"
 import { Tooltip } from "react-tooltip"
+import Select from "../../../components/select/Select"
 import { searchIcon, arrowDown, project, infoCircle } from '../../../utils/constants/images'
+import { Download, GradientGraphIcon, GredientGlobalIcon, HalfEmoji, Health, InfiniteIcon } from "../../../utils/SVGs/SVGs"
 
 
 const SynergyProject = () => {

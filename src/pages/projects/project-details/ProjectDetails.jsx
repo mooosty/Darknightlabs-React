@@ -1,14 +1,13 @@
 import './projectDetails.scss'
-import Loader from '../../../components/loader/Loader';
-import { Link, useParams } from 'react-router-dom';
-import { DescriptionIcon, GradientGraphIcon, GradientInfiniteIcon, GrammerlyIcon, GredientGlobalIcon, HealthIcon, InvestmentIcon, MoreIcon, ShareLinkIcon, CheckIcon, ShareOutlineIcon, StarIcon, TableStatusIcon } from '../../../utils/SVGs/SVGs'
+import { toast } from 'react-toastify'; 
 import { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProjectsApiById } from '../../../api-services/projectApis';
-import { toast } from 'react-toastify';
-import CreateSynergyRequestPopup from '../../../components/popup/choose-priority-synergies-popup/CreateSynergyRequestPopup';
-import { arrowRight, autherProfile, fallBackImage } from '../../../utils/constants/images';
 import useNoScroll from '../../../utils/hooks/useNoScroll';
+import { getProjectsApiById } from '../../../api-services/projectApis';
+import { CreateSynergyRequestPopup, Loader } from '../../../components';
+import { arrowRight, autherProfile, fallBackImage } from '../../../utils/constants/images';
+import { DescriptionIcon, GradientGraphIcon, GradientInfiniteIcon, GrammerlyIcon, GredientGlobalIcon, HealthIcon, InvestmentIcon, MoreIcon, ShareLinkIcon, CheckIcon, ShareOutlineIcon, StarIcon, TableStatusIcon } from '../../../utils/SVGs/SVGs'
 
 
 const synergiesAnglesIcons = [

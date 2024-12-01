@@ -1,13 +1,10 @@
 import './chats.scss';
-import { DownAccordionIcon, HashTag, UserIcon } from '../../utils/SVGs/SVGs';
 import { Fragment, useEffect, useState } from 'react';
-import AddChatMemberPopup from '../../components/popup/add-chat-menber-popup/AddChatMemberPopup'
-import ChatMembers from '../../components/chat/chat-members/ChatMembers';
-import { getAllUsers, getGroupsAPI } from '../../api-services/chatApis';
 import { useDispatch, useSelector } from 'react-redux';
-import Loader from '../../components/loader/Loader';
+import { getAllUsers, getGroupsAPI } from '../../api-services/chatApis';
+import { DownAccordionIcon, HashTag, UserIcon } from '../../utils/SVGs/SVGs';
 import { synergy1, synergy2, synergy3, synergy4, synergy5 } from '../../utils/constants/images';
-import MessagesPanel from '../../components/chat/messages-panel/MessagesPanel';
+import { AddChatMemberPopup, ChatMembers, Loader, MessagesPanel } from '../../components';
 
 const chatSynergies = [{ "img": synergy1 }, { "img": synergy2 }, { "img": synergy3 }, { "img": synergy4 }, { "img": synergy5 }]
 
@@ -120,7 +117,7 @@ const Chats = () => {
                     <div className={`chat_main ${chatNumber ? 'active' : ''}`} >
 
                         <div className="chat_main_head">
-                            <button className="back_arrow" onClick={() => setchatNumber(false)}>
+                            <button className="back_arrow" onClick={() => setChatNumber(false)}>
                                 <DownAccordionIcon />
                             </button>
                             <div className="head_left">
