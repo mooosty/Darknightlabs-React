@@ -16,6 +16,7 @@ import { GridIcon, ListIcon, TableStatusIcon, InfiniteIcon, MoreIcon } from '../
 import { searchIcon, filterIcon, trashIcon, addIcon, closeIcon } from '../../utils/constants/images';
 import { getProjectsAPI, deleteProjectAPI, updateProjectAPI, getMemberApi } from '../../api-services/projectApis';
 import SynergieaCreatedSuccessfullyPopup from '../../components/popup/synergiea-created-successfully-popup/SynergieaCreatedSuccessfullyPopup';
+import useNoScroll from '../../utils/hooks/useNoScroll';
 
 
 const ProjectManager = () => {
@@ -48,6 +49,7 @@ const ProjectManager = () => {
     });
     const [createSynergyStep, setCreateSynergyStep] = useState(0);
     const [createSynergySuccessPopup, setCreateSynergySuccessPopup] = useState(false);
+    useNoScroll([isDeleteConfirmPopupOpen, createSynergySuccessPopup, isMultiDltConfirmPopupOpen])
 
     const handleActive = (key) => {
         setActiveLayout(key);

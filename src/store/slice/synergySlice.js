@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { addSynergyRequest, createSynergyApi, deleteSynergyApi, getSynergyApi, getSynergyByIdApi, getSynergyRequestApi, updateSynergyApi } from "../../api-services/synergyApi"
+import { addSynergyRequest, createSynergyApi, deleteSynergyApi, editSynergyRequest, getSynergyApi, getSynergyByIdApi, getSynergyRequestApi, updateSynergyApi } from "../../api-services/synergyApi"
 
 
 const initialState = {
@@ -207,6 +207,38 @@ const synergySlice = createSlice({
                 ...state,
                 synergyRequests: [],
                 getSynergyRequestLoading: false
+            }
+        })
+
+        builder.addCase(editSynergyRequest.pending, (state) => {
+            return {
+                ...state,
+                editSynergyRequestLoading: true
+            }
+        })
+
+        builder.addCase(editSynergyRequest.fulfilled, (state, action) => {
+
+            const updatedSynergyRequests = state.synergyRequests.map((items) => {
+                if (items.id == action.payload.data.id) {
+                    return { ...items, synergy_angles: action.payload.data.synergy_angles }
+                }
+                else {
+                    return items
+                }
+            })
+
+            return {
+                ...state,
+                editSynergyRequestLoading: false,
+                synergyRequests: updatedSynergyRequests,
+            }
+        })
+
+        builder.addCase(editSynergyRequest.rejected, (state) => {
+            return {
+                ...state,
+                editSynergyRequestLoading: false
             }
         })
     }

@@ -136,7 +136,7 @@ const projectSlice = createSlice({
                 isLoading: true
             }
         })
-        builder.addCase(addMemberAPI.fulfilled, (state, action) => {
+        builder.addCase(addMemberAPI.fulfilled, (state) => {
             return {
                 ...state,
                 isLoading: false

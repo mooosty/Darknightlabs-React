@@ -4,12 +4,16 @@ import { GredientGlobalIcon, GradientGraphIcon, GrammerlyIcon, HealthIcon, StarI
 import { defaultImg } from '../../utils/constants/images';
 
 
-const synergyIcons = [<GredientGlobalIcon key={0} />, <GradientGraphIcon key={1} />, <GrammerlyIcon key={2} />, <HealthIcon key={3} />, <StarIcon key={4} />]
+const synergyIconsStart = [<GredientGlobalIcon key={0} />, <GradientGraphIcon key={1} />]
+const synergyIconsEnd = [<GrammerlyIcon key={2} />, <HealthIcon key={3} />, <StarIcon key={4} />]
 
-const SynergyRequestCard = ({ data, setIsEditSynergiesPopupOpen, setSelectedSynergyData, handleCheckSynergiesAngles = () => { } }) => {
+
+const SynergyRequestCard = ({ data, handleCardClick }) => {
+    const synergyAngles = data?.synergy_angles ? (typeof data.synergy_angles === 'string' ? [] : data?.synergy_angles) : []
+
     return (
         <div className='card_wrap'>
-            <div className="card" onClick={() => { setIsEditSynergiesPopupOpen(true); setSelectedSynergyData(data); handleCheckSynergiesAngles() }}>
+            <div className="card" onClick={() => handleCardClick(data)}>
                 <div className="card_image">
                     <img onError={(e) => e.target.src = defaultImg} src={data.synergy_image || defaultImg} alt="" />
                 </div>
@@ -17,11 +21,13 @@ const SynergyRequestCard = ({ data, setIsEditSynergiesPopupOpen, setSelectedSyne
                     <div className="name">{data.synergy_name ?? '-'} </div>
                     <div className="tabs">
                         {
-                            data?.synergy_angles?.map((angle, index) => {
+                            synergyAngles.map((angle, index) => {
                                 return (
                                     <div className={`${index === 0 ? 'global' : (index === 1 ? 'graph' : '')}`} key={index}>
                                         <div className='angle_tag' >
-                                            <>{synergyIcons[index % synergyIcons.length]} </>
+                                            <> {index === 0 ? <>{synergyIconsStart[0]} </> : null}</>
+                                            <>{index === 1 ? <>{synergyIconsStart[1]} </> : null}</>
+                                            <>{index >= 2 ? <>{synergyIconsEnd[index % synergyIconsEnd.length]} </> : null}</>
                                             <span className='text'>
                                                 <span>{angle}</span>
                                             </span>
@@ -38,10 +44,7 @@ const SynergyRequestCard = ({ data, setIsEditSynergiesPopupOpen, setSelectedSyne
 
 SynergyRequestCard.propTypes = {
     data: PropTypes.object.isRequired,
-    setIsEditSynergiesPopupOpen: PropTypes.func.isRequired,
-    setSelectedSynergyData: PropTypes.func.isRequired,
-    handleCheckSynergiesAngles: PropTypes.func,
-    index: PropTypes.number.isRequired,
+    handleCardClick: PropTypes.func,
 }
 
 export default SynergyRequestCard

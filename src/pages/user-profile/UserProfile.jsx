@@ -148,7 +148,6 @@ const UserProfile = () => {
 
         Promise.allSettled(profilePromises).then((response) => {
             const isSuccess = response.every((res) => res.status === 'fulfilled' && res.value?.payload?.success)
-            console.log('isSuccess', isSuccess,response)
             if (isSuccess) {
                 toast.success('Profile Updated Successfully')
                 cancelProfileEdit()

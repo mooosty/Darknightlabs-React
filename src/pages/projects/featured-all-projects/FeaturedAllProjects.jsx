@@ -54,11 +54,6 @@ const FeaturedAllProjects = () => {
 
         return selectedLabels
     }
-    const handleCardClick = (projectId) => {
-        console.log(projectId);
-
-        // navigate(`/project-detail/${projectId}`); // Navigate to project detail page with projectId in the URL
-    }
 
     const handleSearchChange = useCallback(
         debounce((value) => {
@@ -210,7 +205,7 @@ const FeaturedAllProjects = () => {
                                                     img={data.synergyImg}
                                                     synergiesAngles={data.synergiesAngles}
                                                     price={data.price}
-                                                    onClick={() => handleCardClick(data.projectId)}
+                                                    projectId={data.projectId}
                                                 />
                                             </div>
                                         )

@@ -15,12 +15,12 @@ export const SocketProvider = ({ children }) => {
             });
 
             newSocket.on('connect', () => {
-                console.log('Socket connected');
+                console.warn('Socket connected');
                 newSocket.emit('setup', { data: { _id: userData.userId } });
             });
 
             newSocket.on('connected', () => {
-                console.log('Socket.IO connection established');
+                console.warn('Socket.IO connection established');
             });
 
             setSocket(newSocket);

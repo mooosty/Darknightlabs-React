@@ -2,12 +2,13 @@ import { GradientInfiniteIcon, TableStatusIcon } from '../../utils/SVGs/SVGs';
 import './card.scss';
 import PropTypes from 'prop-types';
 import cardCoin from "../../assets/Coins.svg"
-import ChoosePrioritySynergiesPopup from '../popup/choose-priority-synergies-popup/ChoosePrioritySynergiesPopup';
+import CreateSynergyRequestPopup from '../popup/choose-priority-synergies-popup/CreateSynergyRequestPopup';
 import { useState } from 'react';
 import defaultImage from '../../assets/project-card-img-1.png'
 import { useNavigate } from 'react-router-dom';
 import { ROUTER } from '../../utils/routes/routes';
 import CustomTooltip from '../customTooltip/CustomTooltip';
+import useNoScroll from '../../utils/hooks/useNoScroll';
 
 const Card = ({
     name,
@@ -17,8 +18,9 @@ const Card = ({
     price,
     projectId
 }) => {
-    const [isChoosePrioritySynergiesPopupOpen, setIsChoosePrioritySynergiesPopupOpen] = useState(false);
     const navigate = useNavigate()
+    const [isChoosePrioritySynergiesPopupOpen, setIsChoosePrioritySynergiesPopupOpen] = useState(false);
+    useNoScroll([isChoosePrioritySynergiesPopupOpen])
 
     const handleAddSynergyRequest = (e) => {
         e?.stopPropagation()
@@ -82,10 +84,11 @@ const Card = ({
                     </div>
                 </div>
             </div>
-            <ChoosePrioritySynergiesPopup
+            <CreateSynergyRequestPopup
                 projectId={projectId}
                 open={isChoosePrioritySynergiesPopupOpen}
                 handleClose={() => setIsChoosePrioritySynergiesPopupOpen(false)}
+                data={{ name, img, projectId }}
             />
         </>
     )

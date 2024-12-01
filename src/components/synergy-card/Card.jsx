@@ -72,10 +72,6 @@ const Card = ({
                     {status}
                 </div>
             </div>
-            {/* <ChoosePrioritySynergiesPopup
-                open={isChoosePrioritySynergiesPopupOpen}
-                handleClose={() => setIsChoosePrioritySynergiesPopupOpen(false)}
-            /> */}
         </>
     )
 }

@@ -18,7 +18,6 @@ const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
     const [filteredMember, setFilteredMember] = useState([]);
     const [initialMember, setInitialMember] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    console.log('isLoading', isLoading)
 
     const memberList = useSelector((state) => state.group.users)
     const groupUser = useSelector((state) => {

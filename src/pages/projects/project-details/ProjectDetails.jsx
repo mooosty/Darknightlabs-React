@@ -6,8 +6,9 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProjectsApiById } from '../../../api-services/projectApis';
 import { toast } from 'react-toastify';
-import ChoosePrioritySynergiesPopup from '../../../components/popup/choose-priority-synergies-popup/ChoosePrioritySynergiesPopup';
+import CreateSynergyRequestPopup from '../../../components/popup/choose-priority-synergies-popup/CreateSynergyRequestPopup';
 import { arrowRight, autherProfile, fallBackImage } from '../../../utils/constants/images';
+import useNoScroll from '../../../utils/hooks/useNoScroll';
 
 
 const synergiesAnglesIcons = [
@@ -19,17 +20,16 @@ const synergiesAnglesIcons = [
 ]
 const ProjectDetails = () => {
 
-    const { projectDetails } = useSelector((state) => state.project)
-
-    const projectApiLoading = false;
-
-    const [activeLayout, setActiveLayout] = useState('SYNERGY');
-    const [isChoosePrioritySynergiesPopupOpen, setIsChoosePrioritySynergiesPopupOpen] = useState(false);
     const [isCopyLink, setIsCopyLink] = useState(false);
+    const [activeLayout, setActiveLayout] = useState('SYNERGY');
+    const { projectDetails, isLoading: projectApiLoading } = useSelector((state) => state.project)
+    const [isChoosePrioritySynergiesPopupOpen, setIsChoosePrioritySynergiesPopupOpen] = useState(false);
+    useNoScroll([isChoosePrioritySynergiesPopupOpen])
 
-    const toggleChoosePrioritySynergiesPopupOpen = () => setIsChoosePrioritySynergiesPopupOpen(!isChoosePrioritySynergiesPopupOpen)
+
     const params = useParams();
     const dispatch = useDispatch();
+    const toggleChoosePrioritySynergiesPopupOpen = () => setIsChoosePrioritySynergiesPopupOpen(!isChoosePrioritySynergiesPopupOpen)
 
     const copyText = () => {
         const text = window.location.href
@@ -63,6 +63,7 @@ const ProjectDetails = () => {
     useEffect(() => {
         dispatch(getProjectsApiById(params.projectId))
     }, [])
+
 
     return (
         <>
@@ -196,9 +197,14 @@ const ProjectDetails = () => {
 
             <Loader loading={projectApiLoading} />
             {isChoosePrioritySynergiesPopupOpen &&
-                <ChoosePrioritySynergiesPopup
+                <CreateSynergyRequestPopup
                     open={isChoosePrioritySynergiesPopupOpen}
                     handleClose={() => toggleChoosePrioritySynergiesPopupOpen()}
+                    data={{
+                        name: projectDetails?.project_name,
+                        projectId: projectDetails?.project_id,
+                        img: projectDetails?.image
+                    }}
                 />
             }
         </>

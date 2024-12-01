@@ -10,7 +10,7 @@ import FeaturedAllProjects from './pages/projects/featured-all-projects/Featured
 import Projects from './pages/projects/Projects'
 import Synergies from './pages/synergies/Synergies'
 import Chats from './pages/chats/Chats'
-import PendingSynergies from './pages/pending-synergies/PendingSynergies'
+import SynergyRequest from './pages/pending-synergies/SynergyRequest'
 import { injectStore } from './store/injector'
 import { store } from './store/store'
 import { ToastContainer } from 'react-toastify';
@@ -42,7 +42,7 @@ function App() {
               <>
                 <Route path={ROUTER.projectManager} element={<ProjectManager />} />
                 <Route path={`${ROUTER.projectManager}/:projectId`} element={<ProjectManagerEdit />} />
-                <Route path={ROUTER.synergyRequests} element={<PendingSynergies />} />
+                <Route path={ROUTER.synergyRequests} element={<SynergyRequest />} />
                 <Route path={ROUTER.synergiesManager} element={<SynergiesManager />} />
               </>
             }

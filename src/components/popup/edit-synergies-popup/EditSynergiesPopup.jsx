@@ -97,7 +97,10 @@ const EditSynergiesPopup = ({ open, handleClose, synergy, onSave = () => { } }) 
                                                         value={
                                                             projects.filter((project) => {
                                                                 return selectedProject?.includes(project.project_id);
-                                                            })
+                                                            })?.map((data) => ({
+                                                                label: data.project_name,
+                                                                value: data.project_id
+                                                            }))
                                                         }
                                                         onChange={handleSelectProjectChange}
                                                         limit={2}

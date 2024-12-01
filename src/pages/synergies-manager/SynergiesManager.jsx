@@ -14,8 +14,7 @@ import SynergyManagerGridLayout from '../../components/synergy-manager/GridLayou
 import SynergyManagerTableLayout from '../../components/synergy-manager/TableLayout';
 import { synergyAnglesOptions } from '../../utils/constants/options';
 import { searchIcon, filterIcon, closeIcon, trashIcon, tableActor } from '../../utils/constants/images';
-
-
+import useNoScroll from '../../utils/hooks/useNoScroll';
 
 const SynergiesManager = () => {
   const [activeLayout, setActiveLayout] = useState('TABLE');
@@ -36,10 +35,11 @@ const SynergiesManager = () => {
     searchBy: ''
   })
 
+  const dispatch = useDispatch();
+  useNoScroll([isEditSynergiesPopupOpen, isDeleteConfirmPopupOpen, isMultiDeleteConfirmPopupOpen])
   const synergiesData = useSelector((state) => state.synergies.synergies)
   const isSynergyLoading = useSelector((state) => state.synergies.isLoading)
 
-  const dispatch = useDispatch();
 
   const handleActive = (key) => {
     setActiveLayout(key);

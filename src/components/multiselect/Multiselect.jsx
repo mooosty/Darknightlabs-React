@@ -10,10 +10,10 @@ const Multiselect = ({
     placeholder,
     hasAddButton,
     addButtonLabel,
-    value=[],
+    value = [],
     onAdd = () => { },
     onChange = () => { },
-    limit=null
+    limit = null
 }) => {
     const [currentOptions, setCurrentOptions] = useState([])
     const [isOpen, setIsOpen] = useState(false)
@@ -24,30 +24,30 @@ const Multiselect = ({
     const handleClickLabel = () => {
         setIsOpen(!isOpen)
     }
-
     const handleSelectOption = (selectedOption) => {
         let selectedOptions = [...currentOptions]
         if (selectedOptions.find((item) => item.value === selectedOption.value)) {
+
             selectedOptions = selectedOptions.filter((item) => item.value !== selectedOption.value)
         } else {
-            if(limit!==null && selectedOptions.length<limit){
+            if (limit !== null && selectedOptions.length < limit) {
                 selectedOptions = [...selectedOptions, selectedOption]
-            }
+            } else if (limit == null)
+                selectedOptions = [...selectedOptions, selectedOption]
         }
-
         onChange(selectedOption.value)
         setCurrentOptions([...selectedOptions])
     }
 
-    useEffect(()=>{
-       setCurrentOptions([...value.map((item)=>{
-            return { 
-                label:item.project_name,
-                value:item.project_id
+    useEffect(() => {
+        setCurrentOptions([...value.map((item) => {
+            return {
+                label: item.label,
+                value: item.value
             }
-       })
-    ])
-    },[value])
+        })
+        ])
+    }, [JSON.stringify(value)])
 
     return (
         <div
@@ -120,7 +120,7 @@ Multiselect.propTypes = {
     hasAddButton: PropTypes.bool,
     addButtonLabel: PropTypes.string,
     onAdd: PropTypes.func,
-    value:PropTypes.array,
-    limit:PropTypes.number
+    value: PropTypes.array,
+    limit: PropTypes.number
 }
 export default Multiselect
