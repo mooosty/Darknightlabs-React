@@ -34,7 +34,7 @@ const Authentication = () => {
                 <DynamicContextProvider
                     theme={'dark'}
                     settings={{
-                        environmentId: "d1ffceea-89ce-4c8f-ba32-0b802fab8822",
+                        environmentId: import.meta.env.VITE_DYNAMIC_APP_ID,
                         events: {
                             onAuthSuccess: handleAuthResponse,
                             onLogout: ((data) => {
