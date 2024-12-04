@@ -2,6 +2,7 @@ import sidbarMenu from "../../../assets/menu.png"
 import './header.scss'
 
 const Header = () => {
+
     return (
         <header className="header_wrp">
             <h4 className='header_title'>Darknight Labs</h4>

@@ -8,5 +8,6 @@ export const ROUTER = {
     featuredProjects: 'featured-projects',
     chat: 'chat',
     synergyRequests: 'synergy-requests',
-    investment: 'investment'
+    investment: 'investment',
+    authentication:'authentication'
 }

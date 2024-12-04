@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import { ROUTER } from './utils/routes/routes'
 import './App.scss'
 import Layout from './components/layout/Layout'
@@ -18,6 +18,7 @@ import "react-toastify/dist/ReactToastify.css";
 import ProjectDetails from './pages/projects/project-details/ProjectDetails'
 import Investment from './pages/investment/Investment'
 import SynergiesDetails from './pages/synergies/synergies-details/SynergiesDetails'
+import Authentication from './pages/authentication/Authentication'
 
 const userRole = 'ADMIN'
 
@@ -29,12 +30,12 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path={'/'} element={<Navigate to={ROUTER.projectManager} />} />
+          <Route path={ROUTER.authentication} element={<Authentication />} />
           <Route element={<Layout />}>
             <Route path={ROUTER.projects} element={<Projects />} />
             <Route path={`${ROUTER.projects}/:projectId`} element={<ProjectDetails />} />
             <Route path={ROUTER.featuredProjects} element={<FeaturedAllProjects />} />
-            <Route path={ROUTER.synergies} element={<Synergies />} />
+            <Route path={ROUTER.synergies} element={<Synergies />} />\
             <Route path={`${ROUTER.synergies}/:synergyId`} element={<SynergiesDetails />} />
             <Route path={ROUTER.investment} element={<Investment />} />
             {
