@@ -1,14 +1,14 @@
 import './investment.scss'
 import { useState } from 'react';
 import { MultiselectDropDown } from '../../components';
-import { projectTypesOptions, synergyAnglesOptions } from '../../utils/constants/options';
-import { cardActor1, cardActor2, cardActor3, cardActor4, cardActor5, cardActor6, cardActor7, cardActor8, cardActor9, cardActor10, cardActor11, cardActor12, cardActor13, cardActor14, cardActor15, searchIcon } from '../../utils/constants/images';
-import WalletConnect from '../../components/investments/WalletConnect/WalletConnect';
 import { useDispatch, useSelector } from 'react-redux';
+import WalletConnect from '../../components/investments/WalletConnect/WalletConnect';
+import { projectTypesOptions, synergyAnglesOptions } from '../../utils/constants/options';
+import ContributionForm from '../../components/investments/ContributionForm/ContributionForm';
+import ContributionStatus from '../../components/investments/ContributionStatus/ContributionStatus';
 import { setMaxContributions, setWalletAddress, setWhitelistMessage } from '../../store/slice/authSlice';
 import WhitelistVerification from '../../components/investments/WhitelistVerification/WhitelistVerification';
-import ContributionStatus from '../../components/investments/ContributionStatus/ContributionStatus';
-import ContributionForm from '../../components/investments/ContributionForm/ContributionForm';
+import { cardActor1, cardActor2, cardActor3, cardActor4, cardActor5, cardActor6, cardActor7, cardActor8, cardActor9, cardActor10, cardActor11, cardActor12, cardActor13, cardActor14, cardActor15, searchIcon } from '../../utils/constants/images';
 
 const cardData = [
   {
