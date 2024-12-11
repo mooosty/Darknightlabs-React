@@ -242,7 +242,13 @@
                 .selects {
                     min-width: 550px;
                     display: flex;
+                    justify-content: end;
                     gap: 10px;
+
+                    .multiselect_wrapper {
+                        min-width: 150px;
+                        width: auto;
+                    }
 
                     @media (max-width:1200px) {
                         min-width: 100%;
@@ -259,12 +265,18 @@
 
             .investment_page_body {
                 padding-inline: 34px;
-                display: flex;
-                // padding-bottom: 15px;
 
                 @media (max-width: 767px) {
                     padding-top: 24px;
                     padding-inline: 15px;
+                }
+
+                .wallet_details_wrap {
+                    margin-bottom: 30px;
+                }
+
+                .contribution_status_wrap{
+                    margin-top: 30px;
                 }
 
                 .card_container {

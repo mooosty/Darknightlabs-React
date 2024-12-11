@@ -6,10 +6,8 @@ import { ROUTER } from "../../utils/routes/routes";
 import { useEffect } from "react";
 import { storeAuthData } from "../../store/slice/authSlice";
 import img from "../../assets/hero-phone.png";
-import { getAuthToken } from "@dynamic-labs/sdk-react-core";
 import axios from "axios";
 
-import TwitterLoginButton from "./TwitterLoginButton";
 import { createTwitterUserAPI, getTwitterUserAPI } from "../../api-services/userApis";
 import { createUserAPI } from "../../api-services";
 // import { createTwitterUserAPI } from "../../api-services/chatApis";
@@ -74,8 +72,6 @@ const Authentication = () => {
         dispatch(createUserAPI(chatPayload));
 
         payloadUser.id = twitterUser.insertId;
-        console.log("payloadUser------------------------------------");
-        console.log(payloadUser);
         dispatch(storeAuthData({ response, user: payloadUser }));
       } else {
         dispatch(storeAuthData({ response, user: existingUser[0] }));

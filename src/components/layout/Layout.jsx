@@ -7,7 +7,6 @@ import { ROUTER } from '../../utils/routes/routes'
 
 const Layout = () => {
     const { authDetails } = useSelector(state => state.auth)
-    console.log('authDetails', authDetails)
 
     if (!authDetails) {
         return <Navigate to={ROUTER.authentication} />

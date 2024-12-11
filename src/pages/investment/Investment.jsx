@@ -3,6 +3,12 @@ import { useState } from 'react';
 import { MultiselectDropDown } from '../../components';
 import { projectTypesOptions, synergyAnglesOptions } from '../../utils/constants/options';
 import { cardActor1, cardActor2, cardActor3, cardActor4, cardActor5, cardActor6, cardActor7, cardActor8, cardActor9, cardActor10, cardActor11, cardActor12, cardActor13, cardActor14, cardActor15, searchIcon } from '../../utils/constants/images';
+import WalletConnect from '../../components/investments/WalletConnect/WalletConnect';
+import { useDispatch, useSelector } from 'react-redux';
+import { setMaxContributions, setWalletAddress, setWhitelistMessage } from '../../store/slice/authSlice';
+import WhitelistVerification from '../../components/investments/WhitelistVerification/WhitelistVerification';
+import ContributionStatus from '../../components/investments/ContributionStatus/ContributionStatus';
+import ContributionForm from '../../components/investments/ContributionForm/ContributionForm';
 
 const cardData = [
   {
@@ -277,11 +283,13 @@ const cardData = [
   },
 ]
 
+const hasMaxContributions = false;
 const Investment = () => {
+
+  const dispatch = useDispatch();
+  const { walletAddress, isWalletVerified, whitelistMessage } = useSelector(state => state.auth);
   const [activeLayout, setActiveLayout] = useState('TRENDING');
-  const handleActive = (key) => {
-    setActiveLayout(key);
-  }
+  const handleActive = (key) => { setActiveLayout(key) }
 
   const [filter, setFilter] = useState({
     synergyAngleValues: [],
@@ -290,6 +298,20 @@ const Investment = () => {
     types: [],
     searchBy: ''
   })
+
+  const handleConnectWallet = (address) => {
+    dispatch(setWalletAddress({ walletAddress: address }));
+  }
+
+  const handleVerificationComplete = (message) => {
+    dispatch(setWhitelistMessage({ whitelistMessage: message }));
+  }
+
+  const handleMaxContributions = (isMaxContributions) => {
+    dispatch(setMaxContributions({ maxContributions: isMaxContributions }));
+  }
+
+
   return (
     <>
       <div className="investments_content_header">
@@ -328,8 +350,7 @@ const Investment = () => {
                     types: currentOptions?.map((option) => option.value)
                   })
                 }}
-              >
-              </MultiselectDropDown>
+              />
               <MultiselectDropDown
                 options={synergyAnglesOptions}
                 placeholder={'All synergies angles'}
@@ -339,11 +360,38 @@ const Investment = () => {
                     synergyAngleValues: currentOptions?.map((option) => option.value)
                   })
                 }}
-              >
-              </MultiselectDropDown>
+              />
+              <WalletConnect onConnect={handleConnectWallet} account={walletAddress ?? ''} />
             </div>
           </div>
           <div className="investment_page_body">
+
+            {walletAddress && !isWalletVerified && (
+              <div className='wallet_details_wrap'>
+                <WhitelistVerification
+                  walletAddress={walletAddress}
+                  onVerificationComplete={handleVerificationComplete}
+                />
+              </div>
+            )}
+
+            {walletAddress && isWalletVerified && !hasMaxContributions && (
+              <div className="md:col-span-3">
+                <ContributionForm
+                  walletAddress={walletAddress}
+                  whitelistSignature={whitelistMessage}
+                />
+              </div>
+            )}
+
+            {walletAddress && (
+              <div className="contribution_status_wrap">
+                <ContributionStatus
+                  walletAddress={walletAddress}
+                />
+              </div>
+            )}
+
             <div className="card_container">
               {cardData.map((data, index) => {
                 return (

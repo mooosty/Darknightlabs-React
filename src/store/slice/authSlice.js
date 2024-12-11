@@ -1,26 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  token:
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIwLCJpYXQiOjE3MzEzOTExNjUsImV4cCI6MTczMzk4MzE2NX0.5mFJ_6QusnqM86nljTnKwhtpOUbDR25elCBFnWYtFco",
-  userId: "66d803bb836702a60484f35e",
-  name: "Test",
-  email: "test123@gmail.com",
-  profile_picture: "",
+  // token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIwLCJpYXQiOjE3MzEzOTExNjUsImV4cCI6MTczMzk4MzE2NX0.5mFJ_6QusnqM86nljTnKwhtpOUbDR25elCBFnWYtFco",
+  userId: '',
+  name: '',
+  email: '',
+  profile_picture: '',
   authDetails: null,
+
+  walletAddress: '',
+  isWalletVerified: false,
+  whitelistMessage: '',
 };
 
-// const initialState = {
-//   user: {},
-//   authDetails: null,
-// };
 
 const authSlice = createSlice({
   name: "auth",
   initialState: initialState,
   reducers: {
     storeAuthData: (state, action) => {
-      const userId = action?.payload?.user.id   ;
+      const userId = action?.payload?.user.id;
       const name = action?.payload?.user.firstname;
       const email = action?.payload?.user.email;
       const profile_picture = action?.payload?.user.profile_picture;
@@ -34,8 +33,27 @@ const authSlice = createSlice({
         profile_picture,
       };
     },
+    setWalletAddress: (state, action) => {
+      return {
+        ...state,
+        walletAddress: action?.payload?.walletAddress,
+      };
+    },
+    setWhitelistMessage: (state, action) => {
+      return {
+        ...state,
+        whitelistMessage: action?.payload?.whitelistMessage,
+        isWalletVerified: true,
+      };
+    },
+    setMaxContributions: (state, action) => {
+      return {
+        ...state,
+        maxContributions: action?.payload?.maxContributions,
+      };
+    },
   },
 });
 
-export const { storeAuthData } = authSlice.actions;
+export const { storeAuthData, setWalletAddress, setWhitelistMessage, setMaxContributions } = authSlice.actions;
 export default authSlice.reducer;

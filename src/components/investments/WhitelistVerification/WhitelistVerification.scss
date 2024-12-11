@@ -1,0 +1,100 @@
+.card {
+    background-color: #242623;
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 24px;
+    font-family: "MedievalSharp", cursive;
+
+    @media (max-width: 1600px) {
+        padding: 20px;
+    }
+
+    .card_header {
+        margin-bottom: 20px;
+
+        h3 {
+            color: #f5efdb;
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 8px;
+
+            @media (max-width: 1600px) {
+                font-size: 20px;
+            }
+        }
+
+        .card_header_text {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            font-family: "Inter", sans-serif;
+        }
+    }
+
+    .card_body {
+        .card_body_input {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+
+            input {
+                padding: 15px 24px;
+                border: 1px solid #ffffff80;
+                background-color: transparent;
+                width: 100%;
+                color: #f5efdb;
+                line-height: 19px;
+                font-size: 16px;
+                font-weight: 500;
+                font-family: "Inter", sans-serif;
+
+                @media (max-width: 1600px) {
+                    padding: 10px 15px;
+                    font-size: 14px;
+                }
+
+                &::placeholder {
+                    color: rgba(245, 239, 219, 0.5);
+                }
+            }
+
+            .controls {
+                display: flex;
+                gap: 12px;
+
+                @media (max-width: 767px) {
+                    flex-direction: column;
+                }
+
+                button {
+                    background-color: rgba(78, 78, 78, 0.58);
+                    border: none;
+                    padding: 14px 24px;
+                    color: #f5efdb;
+                    font-size: 16px;
+                    font-weight: 500;
+                    font-family: "Inter", sans-serif;
+                    cursor: pointer;
+                    transition: opacity 0.2s;
+
+                    @media (max-width: 1600px) {
+                        font-size: 14px;
+                        padding: 10px 20px;
+                    }
+
+                    &:disabled {
+                        opacity: 0.5;
+                        cursor: not-allowed;
+                    }
+
+                    &:hover:not(:disabled) {
+                        background-color: rgba(78, 78, 78, 0.8);
+                    }
+                }
+
+                .flex-1 {
+                    flex: 1;
+                }
+            }
+        }
+    }
+}
