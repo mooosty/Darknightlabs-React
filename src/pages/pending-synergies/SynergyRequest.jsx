@@ -50,48 +50,49 @@ const SynergyRequest = () => {
 
   return (
     <>
-      {getSynergyRequestLoading ? <Loader /> : <>
-        <div className="pending_synergies_content_header">
-          <div className="content_left">
-            <h2>Synergy requests </h2>
-            <div className="search_box">
-              <img className="search_icon" src={searchIcon} alt="Search" />
-              <input type="text" placeholder="Search" onChange={(e) => handleSearchChange(e.target.value)} />
-            </div>
-          </div>
-          <div className="content_right">
-            <a href="#">Darknight Labs</a>
+      <div className="pending_synergies_content_header">
+        <div className="content_left">
+          <h2>Synergy requests </h2>
+          <div className="search_box">
+            <img className="search_icon" src={searchIcon} alt="Search" />
+            <input type="text" placeholder="Search" onChange={(e) => handleSearchChange(e.target.value)} />
           </div>
         </div>
-        <div className="pending_synergies_page_data">
-          <div className="page_data">
-            <div className="synergies_page_header">
-              <div className="synergies_toggleWrap">
-                <button className={`synergies_toggle_btn ${activeLayout === 'TAB' ? 'active' : ''}`} onClick={() => handleActive('TAB')} >
-                  {/* <ListIcon /> */}
-                  <span>Newest</span>
-                </button>
-                <button className={`synergies_toggle_btn ${activeLayout === 'LAYOUT' ? 'active' : ''}`} onClick={() => handleActive('LAYOUT')} >
-                  {/* <GridIcon /> */}
-                  <span>Oldest</span>
-                </button>
-              </div>
+        <div className="content_right">
+          <a href="#">Darknight Labs</a>
+        </div>
+      </div>
+      <div className="pending_synergies_page_data">
+        <div className="page_data">
+          <div className="synergies_page_header">
+            <div className="synergies_toggleWrap">
+              <button className={`synergies_toggle_btn ${activeLayout === 'TAB' ? 'active' : ''}`} onClick={() => handleActive('TAB')} >
+                {/* <ListIcon /> */}
+                <span>Newest</span>
+              </button>
+              <button className={`synergies_toggle_btn ${activeLayout === 'LAYOUT' ? 'active' : ''}`} onClick={() => handleActive('LAYOUT')} >
+                {/* <GridIcon /> */}
+                <span>Oldest</span>
+              </button>
             </div>
-            <div className="synergies_page_body">
-              <div className="card_container">
-                {filteredSynergyRequests?.map((data, index) => {
-                  return (
-                    <SynergyRequestCard
-                      data={data}
-                      key={index}
-                      index={index}
-                      setIsEditSynergiesPopupOpen={setIsEditSynergiesPopupOpen}
-                      setSelectedSynergyData={setSelectedSynergyData}
-                      handleCardClick={handleCardClick}
-                    />)
-                })}
-              </div>
-              {/* <div className="synergies_pagination">
+          </div>
+          {
+            getSynergyRequestLoading ? <Loader /> : <>
+              <div className="synergies_page_body">
+                <div className="card_container">
+                  {filteredSynergyRequests?.map((data, index) => {
+                    return (
+                      <SynergyRequestCard
+                        data={data}
+                        key={index}
+                        index={index}
+                        setIsEditSynergiesPopupOpen={setIsEditSynergiesPopupOpen}
+                        setSelectedSynergyData={setSelectedSynergyData}
+                        handleCardClick={handleCardClick}
+                      />)
+                  })}
+                </div>
+                {/* <div className="synergies_pagination">
                 <div className="synergies_pagination_content">
                   <div className="synergies_pagination_content_text">
                     <span className='pagination_head'>Row per page:</span>
@@ -112,16 +113,17 @@ const SynergyRequest = () => {
                   </div>
                 </div>
               </div> */}
-            </div>
-          </div>
+              </div>
+            </>
+          }
         </div>
+      </div>
 
-        <EditSynergyAnglePopup
-          isOpen={isEditSynergiesPopupOpen}
-          setIsOpen={setIsEditSynergiesPopupOpen}
-          selectedSynergyData={selectedSynergyData}
-        />
-      </>}
+      <EditSynergyAnglePopup
+        isOpen={isEditSynergiesPopupOpen}
+        setIsOpen={setIsEditSynergiesPopupOpen}
+        selectedSynergyData={selectedSynergyData}
+      />
     </>
   )
 }

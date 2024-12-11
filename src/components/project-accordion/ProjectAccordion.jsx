@@ -5,6 +5,7 @@ import { DownIcon, GlobalIcon, GradientGraphIcon, GredientGlobalIcon, TableStatu
 import { defaultImg, editIcon, tableActorImage3, trashIcon } from '../../utils/constants/images';
 
 const ProjectAccordion = ({
+    role,
     projectName,
     teamMembers,
     synergyImg,
@@ -130,6 +131,14 @@ const ProjectAccordion = ({
                                     {type.map((type, index) => (
                                         <div key={index} className='table_tag'>{type}</div>
                                     ))}
+                                </div>
+                            </div>
+                            <div className="data_container">
+                                <span className='label'>Role:</span>
+                                <div className='type'>
+                                   
+                                        <div  className='table_tag'>{role}</div>
+                              
                                 </div>
                             </div>
                             <div className="data_container angel_container">

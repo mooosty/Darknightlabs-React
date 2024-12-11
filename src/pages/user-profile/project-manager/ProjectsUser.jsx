@@ -1,14 +1,14 @@
-import "./projectManager.scss";
+import "./projectmanager.scss";
 import debounce from "lodash.debounce";
 import { useNavigate } from "react-router-dom";
-import { formatDate } from "../../utils/helper/helper";
+import { formatDate } from "../../../utils/helper/helper";
 import { useSelector, useDispatch } from "react-redux";
-import useNoScroll from "../../utils/hooks/useNoScroll";
+import useNoScroll from "../../../utils/hooks/useNoScroll";
 import { useCallback, useEffect, useState } from "react";
-import { synergyAnglesOptions } from "../../utils/constants/options";
-import { GridIcon, ListIcon, TableStatusIcon, InfiniteIcon, MoreIcon } from "../../utils/SVGs/SVGs";
-import { searchIcon, filterIcon, trashIcon, addIcon, closeIcon } from "../../utils/constants/images";
-import { getProjectsAPI, deleteProjectAPI, updateProjectAPI, getMemberApi } from "../../api-services/projectApis";
+import { synergyAnglesOptions } from "../../../utils/constants/options";
+import { GridIcon, ListIcon, TableStatusIcon, InfiniteIcon, MoreIcon } from "../../../utils/SVGs/SVGs";
+import { searchIcon, filterIcon, trashIcon, addIcon, closeIcon } from "../../../utils/constants/images";
+import { getProjectsAPI, deleteProjectAPI, updateProjectAPI, getMemberApi } from "../../../api-services/projectApis";
 import {
   ProjectManagerTableLayout,
   ProjectManagerGridLayout,
@@ -18,12 +18,15 @@ import {
   SynergieaCreatedSuccessfullyPopup,
   BottomMenu,
   Loader,
-} from "../../components";
+} from "../../../components";
+import TableLayout from "./project-manager-component/TableLayout";
+import img from "../../../assets/model-frame.png";
 
-const ProjectManager = () => {
+const ProjectsUser = ({ userProjects, setAddNewProject, handleActive, active }) => {
+  
   const [activeLayout, setActiveLayout] = useState("TABLE");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [isBottomMenuOpen, setIsBottomMenuOpen] = useState(false);
+
   const [selectedProjects, setSelectedProjects] = useState([]);
   const [selectedProjectForSynergy, setSelectedProjectForSynergy] = useState(null);
   const [isDeleteConfirmPopupOpen, setIsDeleteConfirmPopupOpen] = useState(false);
@@ -52,9 +55,9 @@ const ProjectManager = () => {
   const [createSynergySuccessPopup, setCreateSynergySuccessPopup] = useState(false);
   useNoScroll([isDeleteConfirmPopupOpen, createSynergySuccessPopup, isMultiDltConfirmPopupOpen]);
 
-  const handleActive = (key) => {
-    setActiveLayout(key);
-  };
+  // const handleActive = (key) => {
+  //   setActiveLayout(key);
+  // };
 
   const handleFilterOpen = () => {
     setIsFilterOpen(!isFilterOpen);
@@ -99,79 +102,6 @@ const ProjectManager = () => {
       }
     }
   };
-
-  const handleSelectAllProjects = () => {
-    if (selectedProjects.length === filterProject.length && filterProject.length !== 0) {
-      setSelectedProjects([]);
-    } else {
-      setSelectedProjects([...filterProject.map((project) => project.projectId)]);
-    }
-  };
-
-  const handleCancelSelection = () => {
-    setSelectedProjects([]);
-  };
-
-  const handleAddFeature = () => {
-    let projects = [
-      ...data.filter((project) => {
-        return selectedProjects.includes(project.project_id) && !project.featured;
-      }),
-    ];
-
-    const resArr = projects.map((project) => {
-      const data = {
-        projectId: project.project_id,
-        projectData: {
-          featured: 1,
-        },
-      };
-      return dispatch(updateProjectAPI(data));
-    });
-
-    Promise.allSettled(resArr).then(() => {
-      setSelectedProjects([]);
-    });
-  };
-
-  const handleCreateSynergy = () => {
-    setSelectedProjects([selectedProjects[0]]);
-    setCreateSynergyStep(createSynergyStep + 1);
-  };
-
-  const handleSynergize = () => {
-    setCreateSynergyStep(createSynergyStep + 1);
-    let synergyName = "";
-    let projects = [
-      ...data.filter((project) => {
-        if (selectedProjects[0] === project.project_id || selectedProjectForSynergy === project.project_id) {
-          if (synergyName === "") {
-            synergyName += project.project_name;
-          } else {
-            synergyName += " X " + project.project_name;
-          }
-          return true;
-        }
-        return false;
-      }),
-    ];
-    setSynergies({
-      ...synergies,
-      synergyName: synergyName,
-      groupName: synergyName,
-      projects: projects,
-    });
-  };
-
-  const handleSearchChange = useCallback(
-    debounce((value) => {
-      setFilter((prevFilter) => ({
-        ...prevFilter,
-        searchBy: value,
-      }));
-    }, 500),
-    []
-  );
 
   useEffect(() => {
     let data = initialProject;
@@ -248,7 +178,7 @@ const ProjectManager = () => {
 
   useEffect(() => {
     const projectData = [
-      ...data.map((project, index) => {
+      ...userProjects.map((project, index) => {
         let tags = project.project_info?.split("#") || [];
         tags = tags.filter((tag) => tag).map((tag) => `#${tag}`);
 
@@ -260,7 +190,7 @@ const ProjectManager = () => {
           key: index,
           checked: false,
           projectName: project.project_name,
-          teamMembers: project?.teamMembers ?? [],
+          role : project.job_desc,
           synergyImg: project.image ?? "",
           synergiesAngles: synergy_angles,
           type: tags,
@@ -274,8 +204,9 @@ const ProjectManager = () => {
       }),
     ];
     setInitialProject([...projectData]);
+    console.log("projectData", projectData);
     setFilterProject([...projectData]);
-  }, [data]);
+  }, [data , userProjects ]);
 
   useEffect(() => {
     if (data.length === 0)
@@ -292,11 +223,7 @@ const ProjectManager = () => {
     <>
       <div className="content_header">
         <div className="content_left">
-          <h2>Projects Manager</h2>
-          <div className="search_box">
-            <img className="search_icon" src={searchIcon} alt="Search" />
-            <input type="text" placeholder="Search" onChange={(e) => handleSearchChange(e.target.value)} />
-          </div>
+          <h2>Profile</h2>
         </div>
         <div className="content_right">
           <a href="#">Darknight Labs</a>
@@ -304,61 +231,99 @@ const ProjectManager = () => {
       </div>
       <div className="project_page_data">
         <div className="page_data">
+          {/* border-radius: 20px;
+            background-color: #191917;
+            background-image: url("../../assets/model-frame.png");
+            background-repeat: no-repeat;
+            background-position-x: 10px;
+            background-position-y: 10px;
+            min-height: 540px;
+            height: calc(100% - 80px); */}
+
           <div className="project_page_header">
-            <div className="project_page_header_top">
-              <div className="project_pagination">
-                <button
-                  className={`project_pagination_btn ${activeLayout === "TABLE" ? "active" : ""}`}
-                  onClick={() => handleActive("TABLE")}
-                >
-                  <ListIcon />
-                </button>
-                <button
-                  className={`project_pagination_btn ${activeLayout === "GRID" ? "active" : ""}`}
-                  onClick={() => handleActive("GRID")}
-                >
-                  <GridIcon />
-                </button>
-              </div>
-              <div className="project_page_header_button">
-                <button className="btn_gray btn_filter" onClick={handleFilterOpen}>
-                  Filters{" "}
-                  {Object.values(filter).filter((value) => value !== "").length > 0 &&
-                    `(${Object.values(filter).filter((value) => value !== "").length})`}
-                  <img src={filterIcon} alt=" " />
-                </button>
-                <button
-                  className={`btn_gray `}
-                  onClick={() => {
-                    navigate("/project-manager/add");
+            <div
+              style={{
+                backgroundImage: `url(${img})`,
+              backgroundRepeat: "no-repeat",
+                marginTop: "10px",
+               }}
+              className="project_page_header_top"
+            >
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: window.innerWidth < 768 ? "column" : "row",
+                  flexWrap: window.innerWidth < 768 ? "nowrap" : "wrap",
+                  backgroundColor: "transparent",
+                  height: "100%",
+                  overflowY: "auto",
+                  color: "white",
+                  gap: "20px",
+                  flexDirection: "column",
+                  padding: "20px",
+                  boxSizing: "border-box",
+                  maxWidth: "calc(100vw - 30px)",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    marginBottom: "25px",
+                    gap: "10px",
+                    justifyContent: "",
                   }}
                 >
-                  Add New Project
-                  <img src={addIcon} alt="" />
-                </button>
-                {createSynergyStep < 2 ? (
-                  <button
-                    className={`btn_gray ${createSynergyStep >= 1 ? "active" : ""}`}
-                    onClick={() => {
-                      setCreateSynergyStep(createSynergyStep + 1);
+                  <div
+                    style={{
+                      color: active !== "INFORMATION" ? "#ffffff80" : "white",
+                      padding: "15px 10px",
+                      display: "flex",
+                      justifyContent: "center",
+                      borderBottom: "1px solid #ffffff80",
+                      cursor: "pointer",
+                      alignItems: "center",
+                      textAlign: "center",
                     }}
-                    disabled={!(createSynergyStep >= 1)}
+                    onClick={() => handleActive("INFORMATION")}
                   >
-                    Next Step
-                  </button>
-                ) : (
-                  <button
-                    disabled={selectedProjectForSynergy === null}
-                    className={`btn_gray ${createSynergyStep >= 1 ? "active" : ""}`}
-                    onClick={handleSynergize}
+                    PERSONAL INFORMATION
+                  </div>
+                  <div
+                    style={{
+                      color: active !== "INVOLVEMENT" ? "#ffffff80" : "white",
+                      padding: "15px 10px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      borderBottom: "1px solid #ffffff80",
+                      cursor: "pointer",
+                      alignItems: "center",
+                      textAlign: "center",
+                    }}
+                    onClick={() => handleActive("INFORMATION")}
                   >
-                    Synergize
-                  </button>
-                )}
+                    PROJECT INVOLVEMENT
+                  </div>
+                </div>
+
+                <div style={{ display: "flex", justifyContent: "flex-end", width: "100%" }}>
+                  <div className="project_page_header_button">
+                    <button
+                      className={`btn_gray `}
+                      onClick={() => {
+                        setAddNewProject(true);
+                      }}
+                    >
+                      Add New Project
+                      <img src={addIcon} alt="" />
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
             <div className={`project_page_filter ${isFilterOpen ? "active" : ""}`}>
-              <div className="angels">
+              {/* <div className="angels">
                 <Select
                   options={synergyAnglesOptions}
                   placeholder={"All synergies angles"}
@@ -379,7 +344,7 @@ const ProjectManager = () => {
                   showAllOption={true}
                   allOptionText={"All synergies angles"}
                 />
-              </div>
+              </div> */}
               <div className="type">
                 <Select
                   options={[
@@ -452,78 +417,7 @@ const ProjectManager = () => {
           </div>
           <div className="project_page_body">
             {activeLayout === "TABLE" && (
-              <div className={`project_page_table_handler ${!(createSynergyStep >= 1) > 0 ? "active" : ""}`}>
-                <div className="selected_count">
-                  <div className="costum_checkbox">
-                    <input
-                      type="checkbox"
-                      id="checkboxSelected"
-                      className="costum_checkbox_input"
-                      checked={selectedProjects.length === filterProject.length && filterProject.length !== 0}
-                      readOnly
-                    />
-                    <label
-                      htmlFor="checkboxSelected"
-                      className="costum_checkbox_label"
-                      onClick={handleSelectAllProjects}
-                    ></label>
-                  </div>
-                  <span>{selectedProjects.length} Selected</span>
-                </div>
-                {selectedProjects.length > 0 && (
-                  <>
-                    <div className="table_actions">
-                      <button className="btn_cancle btn_gray" onClick={handleCancelSelection}>
-                        <img src={closeIcon} alt="Add" />
-                        <span>Cancel</span>
-                      </button>
-                      <button
-                        className="btn_featured btn_gray"
-                        onClick={() => {
-                          handleAddFeature();
-                        }}
-                      >
-                        <TableStatusIcon />
-                        <span>Add to Featured</span>
-                      </button>
-                      <button
-                        className="btn_create btn_gray"
-                        onClick={() => {
-                          handleCreateSynergy();
-                        }}
-                      >
-                        <InfiniteIcon />
-                        <span>Create Synergy</span>
-                      </button>
-                      <button
-                        className="btn_delete"
-                        onClick={() => {
-                          setIsMultiDltConfirmPopupOpen(true);
-                        }}
-                      >
-                        <img src={trashIcon} alt="Delete" />
-                        <span>Delete</span>
-                      </button>
-                    </div>
-                    <div className="table_actions_button">
-                      <button
-                        className="button_delete "
-                        onClick={() => {
-                          setIsMultiDltConfirmPopupOpen(true);
-                        }}
-                      >
-                        <img src={trashIcon} alt="Delete" />
-                      </button>
-                      <button className="menu_button" onClick={() => setIsBottomMenuOpen(true)}>
-                        <MoreIcon />
-                      </button>
-                    </div>
-                  </>
-                )}
-              </div>
-            )}
-            {activeLayout === "TABLE" && (
-              <ProjectManagerTableLayout
+              <TableLayout
                 filterProject={filterProject}
                 selectedProjects={selectedProjects}
                 selectedProjectForSynergy={selectedProjectForSynergy}
@@ -584,48 +478,9 @@ const ProjectManager = () => {
         }}
       />
 
-      <BottomMenu open={isBottomMenuOpen}>
-        <button
-          onClick={() => {
-            handleCancelSelection();
-            setIsBottomMenuOpen(false);
-          }}
-        >
-          <img src={closeIcon} alt="Add" />
-          <span>Cancel</span>
-        </button>
-        <button
-          onClick={() => {
-            handleAddFeature();
-            setIsBottomMenuOpen(false);
-          }}
-        >
-          <TableStatusIcon />
-          Add to Featured
-        </button>
-        <button
-          onClick={() => {
-            handleCreateSynergy();
-            setIsBottomMenuOpen(false);
-          }}
-        >
-          <InfiniteIcon />
-          <span>Create synergy</span>
-        </button>
-        <button
-          onClick={() => {
-            setIsMultiDltConfirmPopupOpen(true);
-            setIsBottomMenuOpen(false);
-          }}
-        >
-          <img src={trashIcon} alt="Delete" />
-          <span>Delete</span>
-        </button>
-      </BottomMenu>
-
       <Loader loading={projectApiLoading} />
     </>
   );
 };
 
-export default ProjectManager;
+export default ProjectsUser;

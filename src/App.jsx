@@ -35,7 +35,7 @@ function App() {
             <Route path={ROUTER.projects} element={<Projects />} />
             <Route path={`${ROUTER.projects}/:projectId`} element={<ProjectDetails />} />
             <Route path={ROUTER.featuredProjects} element={<FeaturedAllProjects />} />
-            <Route path={ROUTER.synergies} element={<Synergies />} />\
+            <Route path={ROUTER.synergies} element={<Synergies />} />
             <Route path={`${ROUTER.synergies}/:synergyId`} element={<SynergiesDetails />} />
             <Route path={ROUTER.investment} element={<Investment />} />
             {
@@ -50,7 +50,7 @@ function App() {
             <Route path={ROUTER.profile} element={<UserProfile />} />
             <Route path={ROUTER.chat} element={<Chats />} />
           </Route>
-          <Route path="*" element={<div>Not found</div>} />
+          <Route path="*" element={<Navigate to={ROUTER.authentication} />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer />
