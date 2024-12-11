@@ -45,7 +45,7 @@
     }
   }
 
-  .content_header {
+  .project_user_content_header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -60,84 +60,30 @@
     }
 
     @media (max-width: 767px) {
-      margin-bottom: 0px;
-      background-color: #191917;
+      display: none;
     }
 
-    .content_left {
+    .project_user_content_left {
       display: flex;
       align-items: center;
       gap: 10px;
 
-      @media (max-width: 767px) {
-        padding-inline: 24px;
-        padding-top: 15px;
-      }
-
       h2 {
+        font-size: 42px;
         color: #fff;
         font-weight: 500;
         font-family: "MedievalSharp", cursive;
-        font-size: 42px;
 
         @media (max-width: 1600px) {
           font-size: 28px;
         }
       }
-
-      .search_box {
-        position: relative;
-        min-width: 450px;
-
-        @media (max-width: 1199px) {
-          min-width: 230px;
-        }
-
-        @media (max-width: 767px) {
-          display: none;
-        }
-
-        input {
-          background-color: #191917;
-          padding: 10px 24px 10px 52px;
-          border: 1px solid #3c3c3c;
-          border-radius: 9px;
-          width: 100%;
-          font-size: 16px;
-          color: #f5efdb;
-
-          &::placeholder {
-            color: #f5efdb;
-            font-size: 18px;
-            opacity: 0.5;
-
-            @media (max-width: 1199px) {
-              font-size: 14px;
-            }
-          }
-        }
-
-        .search_icon {
-          position: absolute;
-          left: 24px;
-          top: 50%;
-          transform: translateY(-50%);
-
-          @media (max-width: 1199px) {
-            left: 15px;
-          }
-        }
-      }
     }
 
-    .content_right {
+    .project_user_content_right {
       display: flex;
       align-items: center;
       gap: 10px;
-
-      @media (max-width: 767px) {
-        display: none;
-      }
 
       a {
         color: #f5efdb;
@@ -154,194 +100,182 @@
     }
   }
 
-  .project_page_data {
-    padding: 20px 0px;
+  .project_user_page_data {
+    padding: 35px;
     border-radius: 20px;
     background-color: #191917;
-    // background-image: url("../../assets/model-frame.png");
-    // background-repeat: no-repeat;
-    // background-position-x: 10px;
-    // background-position-y: 10px;
+    background-image: url("../../../assets/model-frame.png");
+    background-repeat: no-repeat;
+    background-position-x: 10px;
+    background-position-y: 10px;
     min-height: 540px;
     height: calc(100% - 80px);
 
-    @media (max-width: 1600px) {
+    @media(max-width: 1600px) {
       height: calc(100% - 65px);
     }
 
+
     @media (max-width: 767px) {
       border-radius: 0;
+      padding: 20px;
+      padding-bottom: 0px;
+      background-color: #191917;
+      background-image: none;
+    }
+
+    &.edit_mode {
+      height: calc(100vh - 130px);
+      min-height: 600px;
+      min-height: none;
+
+      @media(max-width: 1600px) {
+        height: 100%;
+      }
+
+      .page_data {
+        height: 100%;
+        min-height: 540px;
+        overflow-y: auto;
+      }
     }
 
     .page_data {
-      height: 100%;
       background-color: transparent;
+      height: 100%;
       overflow-y: auto;
 
-      .project_page_header {
-        padding: 0px 14px 21px 14px;
+
+      .header_button {
         display: flex;
-        flex-direction: column;
-        border-bottom: 1px solid #f5efdb26;
+        margin-bottom: 25px;
 
-        .project_page_header_top {
+        .buttons {
           display: flex;
-          align-items: center;
-          justify-content: space-between;
+          justify-content: center;
+          color: #ffffff80;
+          border-bottom: 1px solid #ffffff80;
+          cursor: pointer;
+          padding: 10px 45px;
 
-          @media (max-width: 767px) {
-            padding: 0px;
+          @media (max-width: 1199px) {
+            min-width: auto;
+            padding: 10px 25px;
           }
-
-          .project_pagination {
-            display: flex;
-            align-items: center;
-            font-size: 24px;
-            color: #fff;
-            background-color: #242623;
-            font-weight: 500;
-            font-family: "MedievalSharp", cursive;
-
-            @media (max-width: 767px) {
-              gap: 4px;
-              display: none;
-            }
-
-            .project_pagination_btn {
-              padding: 10px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              background-color: transparent;
-              border: none;
-
-              &.active {
-                background-color: rgba(78, 78, 78, 0.58);
-                color: #f5efdb;
-
-                svg {
-                  path {
-                    stroke: #f5efdb;
-                  }
-                }
-              }
-
-              svg {
-                height: 24px;
-                width: 24px;
-              }
-            }
-          }
-        }
-
-        .project_page_filter {
-          display: none;
-
-          &.active {
-            margin-top: 24px;
-            display: flex;
-            align-items: center;
-            gap: 18px;
-
-            @media (max-width: 767px) {
-              flex-direction: column;
-            }
-          }
-
-          .angels {
-            flex-grow: 1;
-            max-width: 280px;
-
-            @media (max-width: 767px) {
-              max-width: none;
-              width: 100%;
-              flex-grow: none;
-            }
-          }
-
-          .type {
-            flex-grow: 1;
-            max-width: 280px;
-
-            @media (max-width: 767px) {
-              max-width: none;
-              width: 100%;
-              flex-grow: none;
-            }
-          }
-
-          .project {
-            flex-grow: 1;
-            max-width: 280px;
-
-            @media (max-width: 767px) {
-              max-width: none;
-              width: 100%;
-              flex-grow: none;
-            }
-          }
-
-          .status {
-            flex-grow: 1;
-            max-width: 280px;
-
-            @media (max-width: 767px) {
-              max-width: none;
-              width: 100%;
-              flex-grow: none;
-            }
-          }
-
-          .sort {
-            flex-grow: 1;
-            max-width: 280px;
-
-            @media (max-width: 767px) {
-              max-width: none;
-              width: 100%;
-              flex-grow: none;
-            }
-          }
-        }
-
-        .project_page_header_button {
-          display: flex;
-          gap: 10px;
 
           @media (max-width: 767px) {
             width: 100%;
-            justify-content: space-between;
+            text-align: center;
           }
+        }
 
-          @media (min-width: 1600px) {
-            .btn_gray {
-              padding-block: 12px;
-            }
-          }
+        .active {
+          color: #fff;
+          border-color: #fff;
+        }
+      }
 
-          .btn_filter {
-            img {
-              height: 22px;
-              width: 22px;
-            }
-          }
+      .project_user_page_header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border: none;
+        margin-block: 15px 30px;
 
-          .btn_gray.active {
-            background-color: #a18527;
-            color: white;
-          }
+        @media (max-width: 767px) {
+          margin-bottom: 24px;
+        }
 
-          .btn_gray:disabled {
-            cursor: no-drop;
-            background-color: rgba(78, 78, 78, 0.16);
-            color: rgba(255, 255, 255, 0.4);
+        .pagination {
+          gap: 15px;
+          font-size: 32px;
+          color: #fff;
+          font-weight: 500;
+          font-family: "MedievalSharp", cursive;
+        }
+
+        .add_project_btn {
+          img {
+            height: 20px;
+            width: 20px;
           }
         }
       }
 
-      .project_page_body {
+      .project_user_page_filter {
+        display: none;
+
+        &.active {
+          margin-top: 24px;
+          display: flex;
+          align-items: center;
+          gap: 18px;
+
+          @media (max-width: 767px) {
+            flex-direction: column;
+          }
+        }
+
+        .angels {
+          flex-grow: 1;
+          max-width: 280px;
+
+          @media (max-width: 767px) {
+            max-width: none;
+            width: 100%;
+            flex-grow: none;
+          }
+        }
+
+        .type {
+          flex-grow: 1;
+          max-width: 280px;
+
+          @media (max-width: 767px) {
+            max-width: none;
+            width: 100%;
+            flex-grow: none;
+          }
+        }
+
+        .project {
+          flex-grow: 1;
+          max-width: 280px;
+
+          @media (max-width: 767px) {
+            max-width: none;
+            width: 100%;
+            flex-grow: none;
+          }
+        }
+
+        .status {
+          flex-grow: 1;
+          max-width: 280px;
+
+          @media (max-width: 767px) {
+            max-width: none;
+            width: 100%;
+            flex-grow: none;
+          }
+        }
+
+        .sort {
+          flex-grow: 1;
+          max-width: 280px;
+
+          @media (max-width: 767px) {
+            max-width: none;
+            width: 100%;
+            flex-grow: none;
+          }
+        }
+      }
+
+      .project_user_page_body {
         display: flex;
         flex-direction: column;
+        margin: -20px -14px;
 
         .project_page_table_handler {
           overflow: hidden;
@@ -394,7 +328,7 @@
                 border: 1px solid #fff;
               }
 
-              .costum_checkbox_input:checked + .costum_checkbox_label {
+              .costum_checkbox_input:checked+.costum_checkbox_label {
                 position: relative;
 
                 &::after {
@@ -443,11 +377,9 @@
 
             .btn_featured {
               border: 1px solid;
-              border-image-source: linear-gradient(
-                157.79deg,
-                rgba(157, 140, 83, 0.6) 14.5%,
-                rgba(186, 168, 108, 0.350334) 32.43%
-              );
+              border-image-source: linear-gradient(157.79deg,
+                  rgba(157, 140, 83, 0.6) 14.5%,
+                  rgba(186, 168, 108, 0.350334) 32.43%);
               border-image-slice: 1;
 
               svg {
@@ -601,7 +533,7 @@
                       border: 1px solid #fff;
                     }
 
-                    .costum_checkbox_input:checked + .costum_checkbox_label {
+                    .costum_checkbox_input:checked+.costum_checkbox_label {
                       position: relative;
 
                       &::after {
