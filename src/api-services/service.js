@@ -14,14 +14,12 @@ const chatAxiosApi = Axios.create({
 
 axiosApi.interceptors.request.use(
   async (config) => {
-    const store = getStore()?.getState();
     let headers = {
       Accept: "application/json, */*",
       "Content-Type": "application/json",
     };
     const token = localStorage.getItem("dynamic_authentication_token").replace(/['"]+/g, '');
- 
-    const t = store?.auth?.token;
+
     if (token) {
       headers = {
         ...headers,
@@ -31,9 +29,6 @@ axiosApi.interceptors.request.use(
 
     config.headers = {
       ...headers,
-    };
-    config.params = {
-      id: 123,
     };
     return config;
   },

@@ -4,6 +4,7 @@ export const apiRoutes = {
     PROJECT: '/projects',
     USER_PROJECT: '/userprojects',
     USER: '/users',
+    USER_KEY: '/users/key',
     TWITTER_USER : "/users/key",
 
     CHAT: '/chat/group/fetch',

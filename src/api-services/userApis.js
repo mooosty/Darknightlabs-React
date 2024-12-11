@@ -31,7 +31,7 @@ export const getUsersDetailsAPI = createAsyncThunk(
     async (id, thunkAPI) => {
         const response = await axiosApi.get(`${apiRoutes.USER}/${id}`);
         if (response?.data?.success) return response?.data;
-        else return thunkAPI.rejectWithValue(response?.data);
+        else return thunkAPI.rejectWithValue(response?.data);   
     }
 );
 
