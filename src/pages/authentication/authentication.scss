@@ -631,6 +631,19 @@
     height: 100vh;
     width: 100vw;
 
+    background: url("../../assets/Hero-desktop.png") no-repeat;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+
+    @media (max-width: 767px) {
+        background: url("../../assets/hero-phone.png") no-repeat;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+
+
     .twitterLoginBody {
         // background-color: #434242cc;
         position: absolute;
@@ -640,15 +653,17 @@
         display: flex;
         align-items: center;
         justify-content: center;
-     
-      
+
+
         width: 90%;
         height: 90%;
 
         .widget-container {
             width: 600px;
+
             .embedded-widget {
                 display: inline;
+
                 .dynamic-shadow-dom-content {
                     .sandbox-indicator {
                         display: none !important;

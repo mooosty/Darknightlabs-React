@@ -21,6 +21,7 @@ const Authentication = () => {
   const navigate = useNavigate();
   const { authDetails } = useSelector((state) => state.auth);
   const userData = useSelector((state) => state.auth);
+
   const handleAuthResponse = async (response) => {
     if (response?.isAuthenticated) {
       //   const jwtToken = getAuthToken();
@@ -135,15 +136,7 @@ const Authentication = () => {
   }, [data, authDetails, didRun]);
 
   return (
-    <div
-      className="twitterLoginWrp"
-      style={{
-        background: `url(${img}) no-repeat  `,
-        backgroundRepeat: "no-repeat",
-        backgroundAttachment: "fixed",
-        backgroundSize: "cover",
-      }}
-    >
+    <div className="twitterLoginWrp">
       <div className="twitterLoginBody">
         <DynamicContextProvider
           theme={"dark"}

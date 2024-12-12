@@ -47,181 +47,128 @@ const Sidebar = () => {
     fetchProjects();
   }, []);
 
-  const name = "user";
   return (
     <>
-      {userProjects.length > 0 ? (
-        <div className={`sidebar_container ${isCollapse ? "sidebar_collapsed" : ""}`}>
-          <div className="sidebar">
-            <div className="profile_box">
-              <div className="profile_image">
-                <img src={userData.profile_picture} alt="Profile" />
-              </div>
-              <div className="user_name">
-                <h3>{userData.name.split(" ")[0]}</h3>
-                <p>User</p>
-              </div>
-              <button className="collapse_btn" onClick={handleCollapse}>
-                {isCollapse ? (
-                  <img src={collapseRightIcon} alt="Collapse" />
-                ) : (
-                  <img src={collapseLeftIcon} alt="Collapse" />
-                )}
-              </button>
+      <div className={`sidebar_container ${isCollapse ? "sidebar_collapsed" : ""}`}>
+        <div className="sidebar">
+          <div className="profile_box">
+            <div className="profile_image">
+              <img src={userData.profile_picture} alt="Profile" />
             </div>
-            <div className="menu-box">
-              <ul>
-                <li className={`${location.pathname.startsWith(`/${ROUTER.projects}`) ? "active" : ""}`}>
-                  <Link to={ROUTER.projects}>
-                    <img src={projectIcon} alt="Project" />
-                    <span className="menu_text">Projects</span>
+            <div className="user_name">
+              <h3>{userData.name.split(" ")[0]}</h3>
+              <p>User</p>
+            </div>
+            <button className="collapse_btn" onClick={handleCollapse}>
+              {isCollapse ? (
+                <img src={collapseRightIcon} alt="Collapse" />
+              ) : (
+                <img src={collapseLeftIcon} alt="Collapse" />
+              )}
+            </button>
+          </div>
+
+          <div className={`menu-box`}>
+            <ul>
+              <li className={`${location.pathname.startsWith(`/${ROUTER.projects}`) ? "active" : ""} ${userProjects.length === 0 ? "disabled" : ""}`}>
+                <Link to={ROUTER.projects}>
+                  <img src={projectIcon} alt="Project" />
+                  <span className="menu_text">Projects</span>
+                </Link>
+              </li>
+              {userRole == "ADMIN" && (
+                <li className={`${location.pathname.startsWith(`/${ROUTER.projectManager}`) ? "active" : ""} ${userProjects.length === 0 ? "disabled" : ""}`}>
+                  <Link to={ROUTER.projectManager}>
+                    <img src={projectIcon} alt="Project Manager" />
+                    <span className="menu_text">Projects Manager</span>
                   </Link>
                 </li>
-                {userRole == "ADMIN" && (
-                  <li className={`${location.pathname.startsWith(`/${ROUTER.projectManager}`) ? "active" : ""}`}>
-                    <Link to={ROUTER.projectManager}>
-                      <img src={projectIcon} alt="Project Manager" />
-                      <span className="menu_text">Projects Manager</span>
-                    </Link>
-                  </li>
-                )}
-              </ul>
-            </div>
-            <div className="menu-box">
-              <span className="separator"></span>
-              <ul>
+              )}
+            </ul>
+          </div>
+          <div className={`menu-box`}>
+            <span className="separator"></span>
+            <ul>
+              <>
+                <li
+                  className={`${location.pathname.startsWith(`/${ROUTER.synergies}`) &&
+                    location.pathname !== `/${ROUTER.synergiesManager}`
+                    ? "active"
+                    : ""
+                    }
+                    ${userProjects.length === 0 ? "disabled" : ""}`}
+                >
+                  <Link to={ROUTER.synergies}>
+                    <img src={synergiesUserIcon} alt="Synergies" />
+                    <span className="menu_text">Synergies</span>
+                  </Link>
+                </li>
+                <li className={`${location.pathname === `/${ROUTER.investment}` ? "active" : ""} ${userProjects.length === 0 ? "disabled" : ""}`}>
+                  <Link to={ROUTER.investment}>
+                    <img src={investmentIcon} alt="Investment" />
+                    <span className="menu_text">Investment </span>
+                  </Link>
+                </li>
+              </>
+
+              {userRole == "ADMIN" && (
                 <>
-                  <li
-                    className={`${
-                      location.pathname.startsWith(`/${ROUTER.synergies}`) &&
-                      location.pathname !== `/${ROUTER.synergiesManager}`
-                        ? "active"
-                        : ""
-                    }`}
-                  >
-                    <Link to={ROUTER.synergies}>
-                      <img src={synergiesUserIcon} alt="Synergies" />
-                      <span className="menu_text">Synergies</span>
+                  <li className={`${location.pathname === `/${ROUTER.synergyRequests}` ? "active" : ""} ${userProjects.length === 0 ? "disabled" : ""}`}>
+                    <Link to={ROUTER.synergyRequests}>
+                      <img src={pendingIcon} alt="synergy requests" />
+                      <span className="menu_text">Synergy requests</span>
                     </Link>
                   </li>
-                  <li className={`${location.pathname === `/${ROUTER.investment}` ? "active" : ""}`}>
-                    <Link to={ROUTER.investment}>
-                      <img src={investmentIcon} alt="Investment" />
-                      <span className="menu_text">Investment </span>
+                  <li className={`${location.pathname === `/${ROUTER.synergiesManager}` ? "active" : ""} ${userProjects.length === 0 ? "disabled" : ""}`}>
+                    <Link to={ROUTER.synergiesManager}>
+                      <img src={synergiesIcon} alt="Synergies Manager" />
+                      <span className="menu_text">Synergies Manager </span>
                     </Link>
                   </li>
                 </>
+              )}
+            </ul>
+          </div>
+          <div className={`menu-box`}>
+            <span className="separator"></span>
+            <ul>
+              <li className={`${location.pathname === `/${ROUTER.chat}` ? "active" : ""} chat ${userProjects.length === 0 ? "disabled" : ""}`}>
+                <Link to={ROUTER.chat}>
+                  <img src={chatIcon} alt="Chat" />
+                  <span className="menu_text">Chat</span>
+                  <span className="notification">
+                    <span className="notification_text">1</span>
+                  </span>
+                </Link>
+              </li>
+              <li className={`${location.pathname === `/${ROUTER.profile}` ? "active" : ""}`}>
+                <Link to={ROUTER.profile}>
+                  <img src={profileIcon} alt="Profile" />
+                  <span className="menu_text">Profile</span>
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div className={`menu-box sidebar_bottom`}>
+            <span className="separator"></span>
+            <ul>
+              <li>
+                <Link
+                  to="/"
+                  onClick={() => {
+                    localStorage.clear();
+                    window.location.href = "/";
+                  }}
+                >
+                  <img src={logoutIcon} alt="Logout" />
+                  <span className="menu_text">Logout</span>
+                </Link>
+              </li>
+            </ul>
+          </div>
 
-                {userRole == "ADMIN" && (
-                  <>
-                    <li className={`${location.pathname === `/${ROUTER.synergyRequests}` ? "active" : ""}`}>
-                      <Link to={ROUTER.synergyRequests}>
-                        <img src={pendingIcon} alt="synergy requests" />
-                        <span className="menu_text">Synergy requests</span>
-                      </Link>
-                    </li>
-                    <li className={`${location.pathname === `/${ROUTER.synergiesManager}` ? "active" : ""}`}>
-                      <Link to={ROUTER.synergiesManager}>
-                        <img src={synergiesIcon} alt="Synergies Manager" />
-                        <span className="menu_text">Synergies Manager </span>
-                      </Link>
-                    </li>
-                  </>
-                )}
-              </ul>
-            </div>
-            <div className="menu-box">
-              <span className="separator"></span>
-              <ul>
-                <li className={`${location.pathname === `/${ROUTER.chat}` ? "active" : ""} chat`}>
-                  <Link to={ROUTER.chat}>
-                    <img src={chatIcon} alt="Chat" />
-                    <span className="menu_text">Chat</span>
-                    <span className="notification">
-                      <span className="notification_text">1</span>
-                    </span>
-                  </Link>
-                </li>
-                <li className={`${location.pathname === `/${ROUTER.profile}` ? "active" : ""}`}>
-                  <Link to={ROUTER.profile}>
-                    <img src={profileIcon} alt="Profile" />
-                    <span className="menu_text">Profile</span>
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div className="menu-box sidebar_bottom">
-              <span className="separator"></span>
-              <ul>
-                <li>
-                  <Link
-                    to="/"
-                    onClick={() => {
-                      localStorage.clear();
-                      window.location.href = "/";
-                    }}
-                  >
-                    <img src={logoutIcon} alt="Logout" />
-                    <span className="menu_text">Logout</span>
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
         </div>
-      ) : (
-        <div className={`sidebar_container ${isCollapse ? "sidebar_collapsed" : ""}`}>
-          <div className="sidebar">
-            <div className="profile_box">
-              <div className="profile_image">
-                <img src={userData.profile_picture} alt="Profile" />
-              </div>
-              <div className="user_name">
-                <h3>{userData.name.split(" ")[0]}</h3>
-                <p>User</p>
-              </div>
-              <button className="collapse_btn" onClick={handleCollapse}>
-                {isCollapse ? (
-                  <img src={collapseRightIcon} alt="Collapse" />
-                ) : (
-                  <img src={collapseLeftIcon} alt="Collapse" />
-                )}
-              </button>
-            </div>
-          
-         
-            <div className="menu-box">
-              <span className="separator"></span>
-              <ul>
-            
-                <li className={`${location.pathname === `/${ROUTER.profile}` ? "active" : ""}`}>
-                  <Link to={ROUTER.profile}>
-                    <img src={profileIcon} alt="Profile" />
-                    <span className="menu_text">Profile</span>
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div className="menu-box sidebar_bottom">
-              <span className="separator"></span>
-              <ul>
-                <li>
-                  <Link
-                    to="/"
-                    onClick={() => {
-                      localStorage.clear();
-                      window.location.href = "/";
-                    }}
-                  >
-                    <img src={logoutIcon} alt="Logout" />
-                    <span className="menu_text">Logout</span>
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      )}
+      </div>
 
       <div className="mobile_bottom_footer">
         <ul>
