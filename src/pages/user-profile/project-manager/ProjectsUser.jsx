@@ -144,6 +144,12 @@ const ProjectsUser = ({ userProjects, setAddNewProject, handleActive, active }) 
             >
               PROJECT INVOLVEMENT
             </div>
+            <div
+              className={`buttons ${active === "AMBASSADORS" ? "active" : ""}`}
+              onClick={() => handleActive("AMBASSADORS")}
+            >
+              AMBASSADORS
+            </div>
           </div>
           <div className="project_user_page_header">
             <div className="pagination">

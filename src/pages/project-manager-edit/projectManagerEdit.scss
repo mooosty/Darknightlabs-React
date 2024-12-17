@@ -46,16 +46,6 @@
   }
 
   .content_box {
-    width: 80%;
-
-    @media (max-width: 1199px) {
-      width: 70%;
-    }
-
-    @media (max-width: 767px) {
-      width: 100%;
-    }
-
     .content_header {
       display: flex;
       align-items: center;

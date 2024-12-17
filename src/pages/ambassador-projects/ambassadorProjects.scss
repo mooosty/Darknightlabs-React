@@ -1,0 +1,394 @@
+.page_box {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 15px;
+
+    @media (max-width: 767px) {
+        margin-bottom: 0px;
+        background-color: #191917;
+    }
+
+    @media (max-width: 1199px) {
+        gap: 20px;
+    }
+
+    .btn_gray {
+        padding: 16px 24px;
+        border: none;
+        background-color: #4e4e4e94;
+        font-size: 16px;
+        font-weight: 500;
+        color: #f5efdb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+
+        @media (max-width: 1600px) {
+            font-size: 14px;
+            padding: 10px 20px;
+        }
+    }
+
+    .btn_delete {
+        background-color: #ff9e9826;
+        border: none;
+        padding: 13px;
+
+        @media (max-width: 1600px) {
+            padding: 10px;
+        }
+
+        img {
+            @media (max-width: 1600px) {
+                width: 17px;
+            }
+        }
+    }
+
+    .content_box {
+        .ambassador_content_Wraper {
+            height: 100%;
+
+            .ambassador_content_header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 32px;
+
+                @media (max-width: 1600px) {
+                    margin-bottom: 20px;
+                }
+
+                @media (max-width: 1199px) {
+                    flex-wrap: wrap;
+                }
+
+                @media (max-width: 767px) {
+                    margin-bottom: 0px;
+                }
+
+                .ambassador_content_left {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+
+                    @media (max-width: 767px) {
+                        width: 100%;
+                        padding: 15px 30px 0 30px;
+                        justify-content: space-between;
+                    }
+
+                    h2 {
+                        font-size: 42px;
+                        color: #fff;
+                        font-weight: 500;
+                        font-family: "MedievalSharp", cursive;
+
+                        @media (max-width: 1600px) {
+                            font-size: 28px;
+                        }
+                    }
+
+                    .search_box {
+                        position: relative;
+                        min-width: 450px;
+
+                        @media (max-width: 1199px) {
+                            min-width: 230px;
+                        }
+
+                        @media (max-width: 374px) {
+                            display: none;
+                        }
+
+                        input {
+                            background-color: #191917;
+                            padding: 10px 24px 10px 52px;
+                            border: 1px solid #3c3c3c;
+                            border-radius: 9px;
+                            width: 100%;
+                            font-size: 16px;
+                            color: #f5efdb;
+
+                            @media (max-width: 767px) {
+                                display: none;
+                            }
+
+                            &::placeholder {
+                                color: #f5efdb;
+                                font-size: 18px;
+                                opacity: 0.5;
+
+                                @media (max-width: 1199px) {
+                                    font-size: 14px;
+                                }
+                            }
+                        }
+
+                        .search_icon {
+                            position: absolute;
+                            left: 24px;
+                            top: 50%;
+                            transform: translateY(-50%);
+
+                            @media (max-width: 1199px) {
+                                left: 15px;
+                            }
+
+                            @media (max-width: 767px) {
+                                left: auto;
+                                right: 8px;
+                            }
+                        }
+                    }
+                }
+
+                .ambassador_content_right {
+                    display: flex;
+                    align-items: center;
+
+                    @media (max-width: 767px) {
+                        display: none;
+                    }
+
+                    a {
+                        color: #f5efdb;
+                        text-decoration: none;
+                        font-size: 24px;
+                        font-weight: 500;
+                        line-height: 27.12px;
+                        font-family: "MedievalSharp", cursive;
+
+                        @media (max-width: 1600px) {
+                            font-size: 18px;
+                        }
+                    }
+                }
+            }
+
+            .user_ambassador_page_data {
+                min-height: 450px;
+                height: calc(100% - 80px);
+                border-radius: 20px;
+                background-color: #191917;
+                margin-bottom: 32px;
+                background-image: url('../../assets/model-frame.png');
+                background-repeat: no-repeat;
+                background-position: 8px 17px;
+                padding-block: 36px 0px;
+
+                @media(max-width: 1600px) {
+                    height: calc(100% - 50px);
+                }
+
+                @media (max-width: 767px) {
+                    padding: 0;
+                    border-radius: 0;
+                    background-image: none;
+                }
+
+                .page_data {
+                    height: 100%;
+                    overflow-y: auto;
+
+                    .ambassador_card_box {
+                        display: flex;
+                        flex-direction: column;
+                        background-position: 8px 17px;
+
+                        @media (max-width: 767px) {
+                            padding-top: 0;
+                        }
+
+                        .ambassador_card_header {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 16px;
+                            padding: 0 30px 12px 30px;
+                            margin-bottom: 12px;
+
+                            @media (max-width: 767px) {
+                                padding-top: 40px;
+                            }
+
+                            .header_top {
+                                color: #f5efdb;
+                                font-size: 24px;
+                                font-family: "MedievalSharp", cursive;
+
+                                @media (max-width: 767px) {
+                                    font-size: 20px;
+                                }
+                            }
+
+                            .header_bottom {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+
+                                @media (max-width:1200px) {
+                                    flex-direction: column;
+                                    align-items: start;
+                                    gap: 15px;
+                                }
+
+                                .btns {
+                                    display: flex;
+                                    background-color: #242623;
+                                    padding: 4px;
+
+                                    .btn {
+                                        padding: 10px;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        background-color: transparent;
+                                        border: none;
+                                        color: rgba(230, 234, 238, 0.5);
+                                        font-family: MedievalSharp;
+
+                                        @media (max-width:1200px) {
+                                            padding: 10px 5px;
+                                        }
+
+                                        &.active {
+                                            background-color: rgba(78, 78, 78, 0.58);
+                                            color: #F5EFDB;
+                                        }
+                                    }
+                                }
+
+                                .selects {
+                                    min-width: 230px;
+                                    display: flex;
+                                    gap: 10px;
+
+                                    @media (max-width:1200px) {
+                                        min-width: 100%;
+                                    }
+
+                                    @media (max-width:450px) {
+                                        flex-direction: column;
+                                        gap: 15px;
+                                        align-items: start;
+                                        min-width: 100%;
+                                    }
+                                }
+                            }
+                        }
+
+                        .ambassador_cards {
+                            display: flex;
+                            flex-wrap: wrap;
+                            padding-bottom: 20px;
+                            padding-inline: 30px;
+                            row-gap: 24px;
+                            margin-left: -12px;
+                            margin-right: -12px;
+                            flex-grow: 1;
+
+                            @media (max-width: 767px) {
+                                margin-left: -8px;
+                                margin-right: -8px;
+                                row-gap: 16px;
+                            }
+
+                            .card_wrap {
+                                padding-inline: 12px;
+                                flex-basis: calc(100% / 4);
+                                max-width: calc(100% / 4);
+
+
+                                @media (max-width: 1300px) {
+                                    flex-basis: calc(100% / 3);
+                                    max-width: calc(100% / 3);
+                                }
+
+                                @media (max-width: 1000px) {
+                                    padding-inline: 8px;
+                                    flex-basis: calc(100% / 2);
+                                    max-width: calc(100% / 2);
+                                }
+
+                                @media (max-width: 500px) {
+                                    flex-basis: calc(100%);
+                                    max-width: calc(100%);
+                                }
+                            }
+                        }
+
+                        .pagination {
+                            padding-right: 30px;
+                            display: flex;
+                            justify-content: end;
+                            align-items: center;
+                            margin-top: 25px;
+
+                            .pagination_content {
+                                display: flex;
+                                justify-content: space-between;
+                                color: #BDBDBD;
+
+                                .pagination_content_text {
+                                    font-size: 14px;
+                                    color: #fff;
+                                    display: flex;
+                                    gap: 8px;
+
+                                    .pagination_head {
+                                        color: #BDBDBD;
+                                    }
+
+                                    .pagination_dropdown {
+                                        select {
+                                            border: none;
+                                            background: transparent;
+                                            color: #fff;
+                                            cursor: pointer;
+                                            font-family: "Inter", sans-serif;
+                                            font-size: 14px;
+                                            outline: 0px;
+
+                                            option {
+                                                background-color: #242623;
+                                            }
+                                        }
+                                    }
+
+                                    .pagination_content_arrows {
+                                        display: flex;
+                                        gap: 12px;
+
+                                        .table_pagination_content_button {
+                                            background: transparent;
+                                            border: none;
+                                            display: flex;
+                                            justify-content: center;
+                                            align-items: center;
+
+                                            svg {
+                                                path {
+                                                    height: 20px;
+                                                    width: 20px;
+                                                }
+                                            }
+
+                                            &:focus {
+                                                svg {
+                                                    path {
+                                                        fill: #fff;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

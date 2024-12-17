@@ -1,4 +1,12 @@
 .layout_container {
+    background: url('../../assets/body-bg.png');
+    background-size: cover;
+    min-height: 100vh;
+
+    &.ambassadorUser { 
+        background: url('../../assets/ambassadors-bg-img.png');
+    }
+
     .main_wrp {
         .container {
             max-width: 1820px;
@@ -12,11 +20,16 @@
             .page_box {
                 .content_box {
                     height: calc(100vh - 132px);
-                    width: 100%;
+                    width: 80%;
 
                     @media(max-width: 1600px) {
-                        height: calc(100vh - 85px);
-                    }                
+                        height: calc(100vh - 95px);
+                    }
+
+                    @media (max-width: 767px) {
+                        width: 100%;
+                        height: calc(100vh - 175px);
+                    }
                 }
             }
         }

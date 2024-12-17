@@ -2,7 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import './multiselectDropDown.scss';
 import { useClickOutside } from '../../utils/hooks/useClickOutside';
-import { arrowDown } from '../../utils/constants/images';
+import { arrowDown, closeIcon } from '../../utils/constants/images';
 
 const MultiselectDropDown = ({
     options = [],
@@ -61,7 +61,16 @@ const MultiselectDropDown = ({
                 >
                     <div className="mobile_multiselect_wrapper">
                         <ul>
-                            <div className="multiselect_header">Select synergies angles</div>
+                            <div className="multiselect_header">
+                                Select synergies angles
+                                <button
+                                onClick={() => {
+                                    setIsOpen(false);
+                                }}
+                            >
+                                <img src={closeIcon} alt="close" />
+                            </button>
+                            </div>
                             <div className='list_items'>
                                 {options.map((opt) => {
                                     const isChecked = currentOptions.some(item => item.value === opt.value);

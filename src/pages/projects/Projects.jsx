@@ -277,8 +277,8 @@ const Projects = () => {
                                     <div className="btns">
                                         <button
                                             className={`btn ${activeLayout === "TRENDING"
-                                                    ? "active"
-                                                    : ""
+                                                ? "active"
+                                                : ""
                                                 }`}
                                             onClick={() =>
                                                 handleActive("TRENDING")
@@ -288,8 +288,8 @@ const Projects = () => {
                                         </button>
                                         <button
                                             className={`btn ${activeLayout === "NEWEST"
-                                                    ? "active"
-                                                    : ""
+                                                ? "active"
+                                                : ""
                                                 }`}
                                             onClick={() =>
                                                 handleActive("NEWEST")
@@ -299,8 +299,8 @@ const Projects = () => {
                                         </button>
                                         <button
                                             className={`btn ${activeLayout === "OLDEST"
-                                                    ? "active"
-                                                    : ""
+                                                ? "active"
+                                                : ""
                                                 }`}
                                             onClick={() =>
                                                 handleActive("OLDEST")

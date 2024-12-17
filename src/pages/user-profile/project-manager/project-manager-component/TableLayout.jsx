@@ -1,10 +1,9 @@
 import { Fragment } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import CustomTooltip from "../../../../components/customTooltip/CustomTooltip";
-import ProjectAccordion from "../../../../components/project-accordion/ProjectAccordion";
-import { GredientGlobalIcon, GradientGraphIcon, TableStatusIcon } from "../../../../utils/SVGs/SVGs";
-import { defaultImg, editIcon, tableActorImage3, trashIcon } from "../../../../utils/constants/images";
+import { ProjectAccordion } from "../../../../components";
+import { GredientGlobalIcon, GradientGraphIcon } from "../../../../utils/SVGs/SVGs";
+import { defaultImg, editIcon, trashIcon } from "../../../../utils/constants/images";
 
 const ProjectManagerTableLayout = ({
   filterProject,
@@ -37,9 +36,8 @@ const ProjectManagerTableLayout = ({
               return (
                 <tr
                   key={rowData.projectId}
-                  className={`${rowData.isFeatured ? "heighlighted" : ""} ${
-                    selectedProjects.includes(rowData.projectId) ? "selected" : ""
-                  } ${selectedProjects.includes(rowData.projectId) && createSynergyStep >= 2 ? "disable" : ""}`}
+                  className={`${rowData.isFeatured ? "highlighted" : ""} ${selectedProjects.includes(rowData.projectId) ? "selected" : ""
+                    } ${selectedProjects.includes(rowData.projectId) && createSynergyStep >= 2 ? "disable" : ""}`}
                 >
                   <td>
                     <div className="table_name">
@@ -141,9 +139,9 @@ const ProjectManagerTableLayout = ({
             projectName={rowData.projectName}
             teamMembers={rowData?.teamMembers}
             synergyImg={rowData.synergyImg}
-         
-            role = {rowData.role} 
-            
+
+            role={rowData.role}
+
             description={rowData.description}
             type={rowData.type}
             status={rowData.status}

@@ -31,7 +31,7 @@
   border-radius: 20px;
   background-color: #191917;
   // height: calc(100vh - 188px);
-  min-height: 540px;
+  min-height: 450px;
   height: calc(100% - 80px);
   overflow: hidden;
 
@@ -39,7 +39,7 @@
   //     height: calc(100vh - 131px);
   // }
   @media (max-width: 1600px) {
-    height: calc(100% - 65px);
+    height: calc(100% - 45px);
   }
 
   @media (max-width: 767px) {

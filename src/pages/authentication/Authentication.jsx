@@ -5,7 +5,7 @@ import { DynamicContextProvider, DynamicEmbeddedWidget } from "@dynamic-labs/sdk
 import { ROUTER } from "../../utils/routes/routes";
 import { useEffect } from "react";
 import { storeAuthData } from "../../store/slice/authSlice";
-import img from "../../assets/hero-phone.png";
+// import img from "../../assets/hero-phone.png";
 import axios from "axios";
 
 import { createTwitterUserAPI, getTwitterUserAPI } from "../../api-services/userApis";
@@ -13,8 +13,7 @@ import { createUserAPI } from "../../api-services";
 // import { createTwitterUserAPI } from "../../api-services/chatApis";
 import { useState } from "react";
 const Authentication = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState([]);
+   const [data, setData] = useState([]);
   const [didRun, setdidRun] = useState(false);
 
   const dispatch = useDispatch();
@@ -91,7 +90,6 @@ const Authentication = () => {
   useEffect(() => {
     if (authDetails) {
       const fetchProjects = async () => {
-        setIsLoading(true);
         try {
           const response = await axios.get(`https://winwinsocietyweb3.com/api/userprojects/${userData.userId}`, {
             headers: {
@@ -116,8 +114,6 @@ const Authentication = () => {
           setdidRun(true);
         } catch (error) {
           console.log(error.message);
-        } finally {
-          setIsLoading(false);
         }
       };
       fetchProjects();

@@ -47,16 +47,6 @@
     }
 
     .content_box {
-        width: 80%;
-
-        @media (max-width: 1199px) {
-            width: 70%;
-        }
-
-        @media (max-width: 767px) {
-            width: 100%;
-        }
-
         .synergies_content_Wraper {
             height: 100%;
 
@@ -178,7 +168,7 @@
             }
 
             .user_synergies_page_data {
-                min-height: 540px;
+                min-height: 450px;
                 height: calc(100% - 80px);
                 border-radius: 20px;
                 background-color: #191917;
@@ -189,7 +179,7 @@
                 padding-block: 36px 28px;
 
                 @media(max-width: 1600px) {
-                    height: calc(100% - 65px);
+                    height: calc(100% - 50px);
                 }
 
                 @media (max-width: 767px) {

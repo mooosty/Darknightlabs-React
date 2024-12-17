@@ -30,7 +30,7 @@ const Card = ({
 
     return (
         <>
-            <div onClick={() => navigate(`/${ROUTER.projects}/${projectId}`)} className={`project_card ${isFeatured ? 'heighlighted' : ''}`}>
+            <div onClick={() => navigate(`/${ROUTER.projects}/${projectId}`)} className={`project_card ${isFeatured ? 'highlighted' : ''}`}>
                 {isFeatured ?
                     <div className="isFeaturedCard"> <TableStatusIcon /></div> : ''}
                 <div className="card_img">

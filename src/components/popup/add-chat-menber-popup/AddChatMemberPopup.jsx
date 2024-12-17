@@ -167,6 +167,14 @@ const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
                             <div className='model_header'>
                                 <h3>Add new member</h3>
                             </div>
+
+                            {/* <button
+                                    onClick={() => {
+                                        handleClose()
+                                    }}
+                                >
+                                    <img src={closeIcon} alt="close" />
+                                </button> */}
                             <div className="member_list_main">
                                 <div className="search_box">
                                     <img className="search_icon" src={searchIcon} alt="Search" />

@@ -6,9 +6,9 @@ import { Fragment, useEffect, useRef, useState } from "react";
 import { getChatMessages } from "../../../api-services/chatApis";
 import { addMessage, removeMessage } from "../../../store/slice/chatSlice";
 import { useSocket } from "../../../utils/socket-provider/SocketContext";
-import { chatMassageDP, member1, member2 } from "../../../utils/constants/images";
+import { member1, member2 } from "../../../utils/constants/images";
 import { formatDateTime, isEqualDate, dayWiseFormat } from "../../../utils/helper/helper";
-import { MicrophoneIcon, AttachmentIcon, EmojiFilledIcon, AddUserIcon, DeleteIcon } from "../../../utils/SVGs/SVGs";
+import { MicrophoneIcon, AttachmentIcon, EmojiFilledIcon, AddUserIcon, DeleteIcon, SendChatIcon } from "../../../utils/SVGs/SVGs";
 import DeleteConfirmPopup from "../../popup/delete-confirm-popup/DeleteConfirmPopup";
 
 const MessagesPanel = ({
@@ -23,7 +23,6 @@ const MessagesPanel = ({
 
   const typingTimeoutRef = useRef(null);
   const lastMessageRef = useRef(null);
-
   const [message, setMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [typingUser, setTypingUser] = useState("");
@@ -43,7 +42,7 @@ const MessagesPanel = ({
   const getMessages = () => {
     if (groupId) {
       dispatch(getChatMessages(groupId))
-        .then(() => {})
+        .then(() => { })
         .finally(() => {
           scrollToBottom();
         });
@@ -64,8 +63,8 @@ const MessagesPanel = ({
     }
   };
 
-  const handleSendMsg = (e) => {
-    if (e.key === "Enter" && message.trim() !== "") {
+  const handleSendMsg = () => {
+    if (message.trim() !== "") {
       const messageData = {
         content: message.trim(),
         chatId: groupId,
@@ -169,12 +168,12 @@ const MessagesPanel = ({
   useEffect(() => {
     getMessages();
   }, [openChatIndex, groupData]);
-
   return (
     <>
       <div className="chat_main_body">
         <div className="chat_container">
           {messages.map((message, index) => {
+            console.log('message', message.sender.name)
             return (
               <Fragment key={index}>
                 {(index === 0 || !isEqualDate(message.createdAt, messages[index - 1].createdAt)) && (
@@ -188,13 +187,15 @@ const MessagesPanel = ({
                   <div>
                     <div
                       ref={index === messages.length - 1 ? lastMessageRef : null}
-                      className={`message_wrap ${
-                        userData.userId == message.sender["_id"] ? "message_send" : "message_received"
-                      }`}
+                      className={`message_wrap ${userData.userId == message.sender["_id"] ? "message_send" : "message_received"
+                        }`}
                     >
                       <div className="message">
                         <div className="message_left">
-                          <img src={userData.profile_picture} alt="" />
+                          <div className='user_name'>
+                            {message.sender.name[0].toUpperCase()}
+                          </div>
+                          {/* <img src={userData.profile_picture} alt="" /> */}
                         </div>
                         <div className="message_right">
                           <div className="messenger_info">
@@ -436,11 +437,17 @@ const MessagesPanel = ({
                 value={message}
                 onChange={handleTyping}
                 onKeyDown={(e) => {
-                  handleSendMsg(e);
+                  if (e.key === "Enter")
+                    handleSendMsg()
                 }}
               />
               <AttachmentIcon />
               <EmojiFilledIcon />
+              <div className={'chat_icon_wrp'} onClick={() => {
+                handleSendMsg();
+              }}>
+                <SendChatIcon />
+              </div>
 
               {isTyping && typingUser && (
                 <div className="typing_indicator">

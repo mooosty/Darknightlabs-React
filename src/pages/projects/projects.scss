@@ -47,16 +47,6 @@
     }
 
     .content_box {
-        width: 80%;
-
-        @media (max-width: 1199px) {
-            width: 70%;
-        }
-
-        @media (max-width: 767px) {
-            width: 100%;
-        }
-
         .project_content_Wraper {
             height: 100%;
 
@@ -181,11 +171,11 @@
 
             .project_content_body {
                 overflow-y: auto;
-                min-height: 520px;
-                height: calc(100% - 80px);
+                min-height: 450px;
+                height: calc(100% - 65px);
 
                 @media (max-width: 1600px) {
-                    height: calc(100% - 15px);
+                    height: calc(100% - 35px);
                 }
 
                 .featured_project_page_data {

@@ -1,9 +1,9 @@
 import './chatsMembers.scss'
 import PropTypes from 'prop-types';
 import { AddUserIcon } from '../../../utils/SVGs/SVGs'
-import { member1, member2 } from '../../../utils/constants/images';
+import { closeIcon, member1, member2 } from '../../../utils/constants/images';
 
-const ChatMembers = ({ open, groupData, openChatIndex, handleOpenAddMemberPopup }) => {
+const ChatMembers = ({ open, handleClose, groupData, openChatIndex, handleOpenAddMemberPopup }) => {
 
     return (
         <>
@@ -11,8 +11,16 @@ const ChatMembers = ({ open, groupData, openChatIndex, handleOpenAddMemberPopup 
 
                 <div className="menu">
                     <div className="members">
-                        <div className="head"> Chat members </div>
-
+                        <div className="head">
+                            Chat members
+                            <button
+                                onClick={() => {
+                                    handleClose()
+                                }}
+                            >
+                                <img src={closeIcon} alt="close" />
+                            </button>
+                        </div>
                         <div className="members_list">
                             <div className="list_container">
                                 <div className="list_header"> Moderators - {1} </div>

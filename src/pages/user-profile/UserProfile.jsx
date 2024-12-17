@@ -19,6 +19,7 @@ import {
 import { Loader } from "../../components";
 import ProjectInvolvment from "./project-manager-edit/ProjectInvolvment";
 import ProjectsUser from "./project-manager/ProjectsUser";
+import Ambassadors from "./Ambassadors/Ambassadors";
 
 const InputPassword = (props) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -41,7 +42,6 @@ const UserProfile = () => {
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.auth);
   const { userDetails } = useSelector((state) => state.user);
-
   const [active, setActive] = useState("INFORMATION");
   const [isEditMode, setIsEditMode] = useState(false);
   const [image, setImage] = useState("");
@@ -221,7 +221,7 @@ const UserProfile = () => {
   const cancelProfileEdit = () => {
     setIsEditMode(false);
   };
-
+  console.log('values', values, userDetails)
 
   useEffect(() => {
     dispatch(getUsersDetailsAPI(userData?.userId));
@@ -250,7 +250,7 @@ const UserProfile = () => {
 
   return (
     <>
-      {active === "INFORMATION" ? (
+      {active === "INFORMATION" && (
         !isEditMode ? (
           // View mode
           <>
@@ -277,6 +277,12 @@ const UserProfile = () => {
                   >
                     PROJECT INVOLVEMENT
                   </div>
+                  <div
+                    className={`buttons ${active === "AMBASSADORS" ? "active" : ""}`}
+                    onClick={() => handleActive("AMBASSADORS")}
+                  >
+                    AMBASSADORS
+                  </div>
                 </div>
                 <div className="profile_page_header">
                   <div className="pagination">
@@ -291,7 +297,8 @@ const UserProfile = () => {
                   <div className="project_profile">
                     <div className="profile_upload_profile">
                       <img
-                        src={userData?.profile_picture}
+                        src={userData?.profile_picture.replace('_normal', '')}
+                      // src={userData?.profile_picture}
                       // src={userDetails?.profile_picture === '' || userData?.profile_picture || !userDetails?.profile_picture ? defaultImg : userDetails?.profile_picture}
                       // alt=""
                       // onError={(e) => e.target.src = defaultImg}
@@ -333,7 +340,7 @@ const UserProfile = () => {
                         </div>
 
                         <div className="profile_info">
-                          <div className="profile_head">Angel investor</div>
+                          <div className="profile_head">Angle investor</div>
                           <div className="profile_data">{userDetails?.question1 || "-"}</div>
                         </div>
                         <div className="profile_info">
@@ -381,17 +388,20 @@ const UserProfile = () => {
                         <div className="social_media_wrp">
                           <div className="social_media">
                             <h2 className="social_media_title">Connected accounts</h2>
-                            <button className="btn_gray">
-                              <img src={twitterIcon} alt="" />
-                              Conect with Twitter
-                            </button>
+                            {
+                              !userData?.authDetails?.isAuthenticated &&
+                              <button className="btn_gray">
+                                <img src={twitterIcon} alt="" />
+                                Connect with Twitter
+                              </button>
+                            }
                             <button className="btn_gray">
                               <img src={discordIcon} alt="" />
-                              Conect with Discord
+                              Connect with Discord
                             </button>
                             <button className="btn_gray">
                               <img src={telegramIcon} alt="" />
-                              Conect with Telegram
+                              Connect with Telegram
                             </button>
                           </div>
                         </div>
@@ -429,7 +439,7 @@ const UserProfile = () => {
                   <div className="profile_upload_profile">
                     <img
                       src={
-                        values.profile_picture === "" || !values.profile_picture ? defaultImg : values.profile_picture
+                        (values.profile_picture === "" || !values.profile_picture) ? defaultImg : values.profile_picture
                       }
                       alt=""
                       onError={(e) => (e.target.src = defaultImg)}
@@ -562,7 +572,7 @@ const UserProfile = () => {
                           <div className="check_box" onClick={() => handleRoleChange("An Angel Investor")} >
                             <input type="checkbox" readOnly name="roles" value="An Angel Investor" className="costum_checkbox_input" checked={values?.roles?.includes("An Angel Investor")} />
                             <label className="costum_checkbox_label"></label>
-                            <span className="label">An Angel Investor</span>
+                            <span className="label">An Angle Investor</span>
                           </div>
                           <div className="check_box" onClick={() => handleRoleChange("Other")}  >
                             <input type="checkbox" readOnly name="roles" value="Other" className="costum_checkbox_input" checked={values?.roles?.includes("Other")} />
@@ -578,7 +588,7 @@ const UserProfile = () => {
 
                       <div className="form_group_row">
                         <div className="profile_info full_width">
-                          <label>Are you a VC / Angel investor and do you invest in early stage rounds (seed, strategic, private) ? </label>
+                          <label>Are you a VC / Angle investor and do you invest in early stage rounds (seed, strategic, private) ? </label>
                           <div className="radio_box" onClick={() => handleQuestionChange("question1", "Yes, frequently")}>
                             <input type="radio" name="question1" value="Yes, frequently" checked={values?.question1 === "Yes, frequently"} />
                             <label></label>
@@ -615,7 +625,7 @@ const UserProfile = () => {
                             <label></label>
                             <span>Never</span>
                           </div>
-                          <span className="question_desc">(This will allow us to invite you to exclusive events we're co-hosting with our partners at Forbes, Karate Combat and others.)</span>
+                          <span className="question_desc">(This will allow us to invite you to exclusive events we&apos;re co-hosting with our partners at Forbes, Karate Combat and others.)</span>
                         </div>
                       </div>
 
@@ -682,17 +692,20 @@ const UserProfile = () => {
                       <div className="social_media_wrp">
                         <div className="social_media">
                           <h2 className="social_media_title">Connected accounts</h2>
-                          <button className="btn_gray">
-                            <img src={twitterIcon} alt="" />
-                            Conect with Twitter
-                          </button>
+                          {
+                            !userData?.authDetails?.isAuthenticated &&
+                            <button className="btn_gray">
+                              <img src={twitterIcon} alt="" />
+                              Connect with Twitter
+                            </button>
+                          }
                           <button className="btn_gray">
                             <img src={discordIcon} alt="" />
-                            Conect with Discord
+                            Connect with Discord
                           </button>
                           <button className="btn_gray">
                             <img src={telegramIcon} alt="" />
-                            Conect with Telegram
+                            Connect with Telegram
                           </button>
                         </div>
                       </div>
@@ -747,7 +760,7 @@ const UserProfile = () => {
                     </div>
                     <div className="submit_form">
                       <button className="btn_transparent" onClick={cancelProfileEdit}>
-                        Cancle
+                        Cancel
                       </button>
                       <button className="btn_gray" type="submit" onClick={handleSubmit}>
                         {isLoading ? (
@@ -766,7 +779,8 @@ const UserProfile = () => {
             </div>
           </div>
         )
-      ) : (addNewProject ? (
+      )}
+      {active === "INVOLVEMENT" && (addNewProject ? (
         <ProjectInvolvment setAddNewProject={setAddNewProject} />
       ) : (
         <ProjectsUser
@@ -776,6 +790,12 @@ const UserProfile = () => {
           active={active}
         />
       ))}
+      {active === "AMBASSADORS" && (
+        <Ambassadors
+          handleActive={handleActive}
+          active={active} />
+      )}
+
 
 
       {/* <LoginPopup open={isLoginPopupOpen} handleClose={() => setIsLoginPopupOpen(false)} />

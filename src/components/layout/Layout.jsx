@@ -13,8 +13,8 @@ const Layout = () => {
     }
 
     return (
-        <div className='layout_container'>
-            <Header />
+        <div className={`layout_container`}>
+              <Header />
             <main className="main_wrp">
                 <div className="container">
                     <div className="page_box">

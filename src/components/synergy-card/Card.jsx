@@ -17,7 +17,7 @@ const Card = ({
 
     return (
         <>
-            <div className="synergy_card">
+            <div className="synergy_card"  onClick={() => navigate(`/synergies/${synergyId}`)}>
                 <div className="card_img">
                     <img src={img} alt="" onError={(e) => e.target.src = defaultImg} />
                 </div>

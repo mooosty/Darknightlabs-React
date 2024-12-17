@@ -1,7 +1,7 @@
 
 import './synergyProject.scss'
 import { Tooltip } from "react-tooltip"
-import Select from "../../../components/select/Select"
+import {Select} from "../../../components"
 import { searchIcon, arrowDown, project, infoCircle } from '../../../utils/constants/images'
 import { Download, GradientGraphIcon, GredientGlobalIcon, HalfEmoji, Health, InfiniteIcon } from "../../../utils/SVGs/SVGs"
 

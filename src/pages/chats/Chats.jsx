@@ -5,6 +5,8 @@ import { getAllUsers, getGroupsAPI } from '../../api-services/chatApis';
 import { DownAccordionIcon, HashTag, UserIcon } from '../../utils/SVGs/SVGs';
 import { synergy1, synergy2, synergy3, synergy4, synergy5 } from '../../utils/constants/images';
 import { AddChatMemberPopup, ChatMembers, Loader, MessagesPanel } from '../../components';
+import { useNavigate, useParams } from 'react-router-dom';
+import { ROUTER } from '../../utils/routes/routes';
 
 const chatSynergies = [{ "img": synergy1 }, { "img": synergy2 }, { "img": synergy3 }, { "img": synergy4 }, { "img": synergy5 }]
 
@@ -17,6 +19,8 @@ const Chats = () => {
     const [chatNumber, setChatNumber] = useState(false);
     const [isChatMembersOpen, setIsChatMembersOpen] = useState(false);
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate()
+    const { id } = useParams()
 
     const groupData = useSelector((state) => state.group.groups)
     const chatApiLoading = useSelector((state) => state.chat.isLoading)
@@ -30,15 +34,20 @@ const Chats = () => {
     }
 
     const handleChatOpen = (index) => {
-        setOpenChatIndex(index);
-        setChatNumber(true)
+        navigate(`/${ROUTER.chat}/${index}`)
     }
-
     const handleMenberListOpen = () => {
         setIsMemberListOpen(!isMemberListOpen);
         setIsChatMembersOpen(true);
     }
-
+    useEffect(() => {
+        if (id) {
+            setOpenChatIndex(id);
+            setChatNumber(true)
+        } else {
+            setChatNumber(false)
+        }
+    }, [id])
 
     useEffect(() => {
         dispatch(getGroupsAPI())
@@ -77,7 +86,7 @@ const Chats = () => {
                     </div>
                     <div className={`channels ${chatNumber ? 'active' : ''}`}>
                         <div className='channels_avatar'>
-                            <img src={chatSynergies[openChatIndex % chatSynergies.length].img} alt="" />
+                            <img src={chatSynergies[openChatIndex % chatSynergies?.length].img} alt="" />
                         </div>
                         <div className="channels_list">
                             <div className="channels_list_head">

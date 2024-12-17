@@ -6,7 +6,7 @@ import WalletConnect from '../../components/investments/WalletConnect/WalletConn
 import { projectTypesOptions, synergyAnglesOptions } from '../../utils/constants/options';
 import ContributionForm from '../../components/investments/ContributionForm/ContributionForm';
 import ContributionStatus from '../../components/investments/ContributionStatus/ContributionStatus';
-import { setMaxContributions, setWalletAddress, setWhitelistMessage } from '../../store/slice/authSlice';
+import { setWalletAddress, setWhitelistMessage } from '../../store/slice/authSlice';
 import WhitelistVerification from '../../components/investments/WhitelistVerification/WhitelistVerification';
 import { cardActor1, cardActor2, cardActor3, cardActor4, cardActor5, cardActor6, cardActor7, cardActor8, cardActor9, cardActor10, cardActor11, cardActor12, cardActor13, cardActor14, cardActor15, searchIcon } from '../../utils/constants/images';
 
@@ -307,9 +307,9 @@ const Investment = () => {
     dispatch(setWhitelistMessage({ whitelistMessage: message }));
   }
 
-  const handleMaxContributions = (isMaxContributions) => {
-    dispatch(setMaxContributions({ maxContributions: isMaxContributions }));
-  }
+  // const handleMaxContributions = (isMaxContributions) => {
+  //   dispatch(setMaxContributions({ maxContributions: isMaxContributions }));
+  // }
 
 
   return (

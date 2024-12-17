@@ -42,6 +42,22 @@
                 font-size: 24px;
                 font-family: "MedievalSharp", cursive;
                 padding-block: 24px 19px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                button {
+                    background-color: transparent;
+                    border: gainsboro;
+
+                    img {
+                        width: 32px;
+
+                        @media (max-width: 1600px) {
+                            width: 24px;
+                        }
+                    }
+                }
             }
 
             .members_list {
@@ -96,8 +112,8 @@
                             padding-block: 3px;
 
                             .img {
-                                height: 40px;
-                                width: 40px;
+                                // height: 40px;
+                                // width: 40px;
                                 overflow: hidden;
                                 border-radius: 50%;
 

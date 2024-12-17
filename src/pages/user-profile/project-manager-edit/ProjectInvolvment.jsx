@@ -9,10 +9,11 @@ import { updateProjectAPI } from "../../../api-services/projectApis"
 import { synergyAnglesOptions } from "../../../utils/constants/options"
 import { AddAngelPopup, DeleteConfirmPopup, ImageUploader, Loader, Select, TagInput } from "../../../components";
 import { addProjectAPI, deleteProjectAPI, addMemberAPI, getProjectsApiById } from "../../../api-services/projectApis"
-import { searchIcon, autherProfile, trashIcon, addIcon, sepratorImage, arrowRight } from "../../../utils/constants/images"
+import { trashIcon, addIcon, sepratorImage, arrowRight } from "../../../utils/constants/images"
+import PropTypes from "prop-types";
 
 
-const ProjectInvolvment = ({setAddNewProject}) => {
+const ProjectInvolvment = ({ setAddNewProject }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { projectId } = useParams();
@@ -268,7 +269,7 @@ const ProjectInvolvment = ({setAddNewProject}) => {
                 <div className="page_data">
                     <div className="page_header">
                         <div className="pagination">
-                            <div onClick={() => setAddNewProject(true) }>
+                            <div onClick={() => setAddNewProject(true)}>
 
                                 <Link to={'/profile'}>Project involvment</Link>
                             </div>
@@ -447,7 +448,7 @@ const ProjectInvolvment = ({setAddNewProject}) => {
                                         setFieldValue(`synergy_angles`, [...values.synergy_angles, {
                                             synergy_angle: ''
                                         }])
-                                    }}> Add synergy angel <img src={addIcon} alt="Add" />
+                                    }}> Add Synergy Angle <img src={addIcon} alt="Add" />
                                     </button>
                                     <div className="invostments-group">
                                         <div className="seprator-image">
@@ -572,6 +573,10 @@ const ProjectInvolvment = ({setAddNewProject}) => {
             <Loader loading={projectApiLoading} />
         </>
     )
+}
+
+ProjectInvolvment.propTypes = {
+    setAddNewProject: PropTypes.func,
 }
 
 export default ProjectInvolvment

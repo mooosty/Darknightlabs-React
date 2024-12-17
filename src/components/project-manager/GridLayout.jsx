@@ -11,7 +11,7 @@ const ProjectManagerGridLayout = ({ filterProject = [] }) => {
                 filterProject.map((rowData, index) => {
                     return (
                         <div key={index} className="card_wrap">
-                            <div className={`card ${rowData.isFeatured ? 'heighlighted' : ''}`}>
+                            <div className={`card ${rowData.isFeatured ? 'highlighted' : ''}`}>
 
                                 {rowData.isFeatured ? <>
                                     <div className="isFeaturedCard"> <TableStatusIcon /></div>

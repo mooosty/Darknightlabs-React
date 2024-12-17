@@ -1,0 +1,544 @@
+.page_box {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 15px;
+
+    @media (max-width: 767px) {
+        margin-bottom: 0px;
+        background-color: #191917;
+    }
+
+    @media (max-width: 1199px) {
+        gap: 20px;
+    }
+
+    .btn_gray {
+        padding: 16px 24px;
+        border: none;
+        background-color: #4e4e4e94;
+        font-size: 16px;
+        font-weight: 500;
+        color: #f5efdb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+
+        @media (max-width: 1600px) {
+            font-size: 14px;
+            padding: 10px 20px;
+        }
+    }
+
+    .btn_delete {
+        background-color: #ff9e9826;
+        border: none;
+        padding: 13px;
+
+        @media (max-width: 1600px) {
+            padding: 10px;
+        }
+
+        img {
+            @media (max-width: 1600px) {
+                width: 17px;
+            }
+        }
+    }
+
+    .content_box {
+        .my_content_Wraper {
+            height: 100%;
+
+            .my_content_header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 20px;
+
+                @media (max-width: 1199px) {
+                    flex-wrap: wrap;
+                }
+
+                @media (max-width: 767px) {
+                    margin-bottom: 0px;
+                }
+
+
+                .my_content_left {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+
+                    @media (max-width: 767px) {
+                        width: 100%;
+                        padding: 15px 25px 0 25px;
+                        justify-content: space-between;
+                    }
+
+                    h2 {
+                        color: #fff;
+                        font-weight: 500;
+                        font-family: "MedievalSharp", cursive;
+                        font-size: 42px;
+
+                        @media (max-width: 1600px) {
+                            font-size: 28px;
+                        }
+                    }
+
+                    .search_box {
+                        position: relative;
+                        min-width: 450px;
+
+                        @media (max-width: 1199px) {
+                            min-width: 230px;
+                        }
+
+                        @media (max-width: 374px) {
+                            display: none;
+                        }
+
+                        input {
+                            background-color: #191917;
+                            padding: 10px 24px 10px 52px;
+                            border: 1px solid #3c3c3c;
+                            border-radius: 9px;
+                            width: 100%;
+                            font-size: 16px;
+                            color: #f5efdb;
+
+                            @media (max-width: 767px) {
+                                display: none;
+                            }
+
+                            &::placeholder {
+                                color: #f5efdb;
+                                font-size: 18px;
+                                opacity: 0.5;
+
+                                @media (max-width: 1199px) {
+                                    font-size: 14px;
+                                }
+                            }
+                        }
+
+                        .search_icon {
+                            position: absolute;
+                            left: 24px;
+                            top: 50%;
+                            transform: translateY(-50%);
+
+                            @media (max-width: 1199px) {
+                                left: 15px;
+                            }
+
+                            @media (max-width: 767px) {
+                                left: auto;
+                                right: 8px;
+                            }
+                        }
+                    }
+                }
+
+                .my_content_right {
+                    display: flex;
+                    align-items: center;
+
+                    @media (max-width: 767px) {
+                        display: none;
+                    }
+
+                    a {
+                        color: #f5efdb;
+                        text-decoration: none;
+                        font-size: 24px;
+                        font-weight: 500;
+                        line-height: 27.12px;
+                        font-family: "MedievalSharp", cursive;
+
+                        @media (max-width: 1600px) {
+                            font-size: 18px;
+                        }
+                    }
+                }
+            }
+
+            .my_content_body {
+                overflow-y: auto;
+                min-height: 400px;
+                height: calc(100% - 70px);
+
+                @media (max-width: 1600px) {
+                    height: calc(100% - 50px);
+                }
+
+                .content_count_wrap {
+                    display: flex;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    gap: 15px;
+                    margin-bottom: 22px;
+
+                    @media (max-width: 767px) {
+                        padding: 15px 20px 0 20px;
+                    }
+
+                    .content_count_box_wrap {
+                        width: 49%;
+                        background-image: linear-gradient(to bottom left, #FDE7BB, #9E6D38, #E9B86E, #9D6933, #FEE9BF, #683E23);
+                        background-origin: border-box;
+                        background-clip: content-box, border-box;
+                        border: 1px solid transparent;
+                        flex-shrink: 0;
+                        border-radius: 10px;
+
+                        .content_count_box {
+                            display: flex;
+                            flex-shrink: 0;
+                            align-items: center;
+                            justify-content: space-between;
+                            background-color: #191917;
+                            padding: 12px 28px;
+                            border-radius: 10px;
+                            margin: 1px;
+
+                            @media (max-width: 1600px) {
+                                padding: 6px 18px;
+                            }
+
+                            @media (max-width: 767px) {
+                                padding: 10px 15px;
+                            }
+
+                            .text {
+                                color: #F5EFDB;
+                                font-weight: 500;
+                                font-size: 22px;
+
+                                @media (max-width: 1600px) {
+                                    font-size: 18px;
+                                }
+                            }
+
+                            .number {
+                                font-size: 28px;
+                                color: #fff;
+                                font-weight: 500;
+                                font-family: "MedievalSharp", cursive;
+                                font-size: 52px;
+
+                                @media (max-width: 1600px) {
+                                    font-size: 36px;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .all_my_page_data {
+                    border-radius: 20px;
+                    background-color: #191917;
+                    min-height: calc(100% - 108px);
+
+                    @media (max-width: 1600px) {
+                        min-height: calc(100% - 80px);
+                    }
+
+                    @media (max-width: 767px) {
+                        border-radius: 0;
+                        padding: 0;
+                    }
+
+                    .all_projects_card_box {
+                        background-position: 8px 17px;
+                        padding: 20px 0;
+
+                        @media (max-width: 767px) {
+                            padding-top: 0;
+                        }
+
+                        .all_projects_card_header {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 16px;
+                            padding: 0 20px 12px 20px;
+                            border-bottom: 1px solid rgba(245, 239, 219, 0.15);
+                            margin-bottom: 12px;
+
+                            .all_projects_card_header_top {
+                                color: #f5efdb;
+                                font-size: 24px;
+                                font-family: "MedievalSharp", cursive;
+                            }
+
+                            .all_projects_card_header_bottom {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                flex-wrap: wrap;
+                                gap: 10px;
+
+                                .btns {
+                                    display: flex;
+                                    background-color: #242623;
+                                    padding: 4px;
+
+                                    .btn {
+                                        padding: 10px;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        background-color: transparent;
+                                        border: none;
+                                        color: rgba(230, 234, 238, 0.5);
+                                        font-family: MedievalSharp;
+
+                                        @media (max-width:1200px) {
+                                            padding: 10px 5px;
+                                        }
+
+                                        &.active {
+                                            background-color: rgba(78, 78, 78, 0.58);
+                                            color: #F5EFDB;
+                                        }
+                                    }
+                                }
+
+                                .button {
+                                    display: flex;
+                                    gap: 10px;
+
+                                    .add_btn{
+                                        padding: 14px 18px;
+                                        @media (max-width: 1600px) {
+                                            padding:8px 10px;
+                                        }
+                                    }
+                                    @media (max-width:450px) {
+                                        flex-direction: column;
+                                        gap: 15px;
+                                        align-items: start;
+                                        min-width: 100%;
+                                    }
+                                }
+                            }
+                        }
+
+                        .my_content_table {
+                            display: flex;
+                            flex-wrap: wrap;
+                            padding-inline: 20px;
+
+                            table,
+                            tr,
+                            td {
+                                border-collapse: collapse;
+                            }
+
+                            table {
+                                width: 100%;
+
+                                @media (max-width: 1300px) {
+                                    display: none;
+                                }
+
+                                thead {
+                                    text-align: left;
+
+                                    th {
+                                        font-family: MedievalSharp;
+                                        font-size: 18px;
+                                        color: #f5efdb;
+                                        min-width: 110px;
+                                        font-weight: 400;
+                                        padding: 4px 12px;
+                                        border-bottom: 1px solid rgba(255, 239, 219, 0.15);
+
+                                        &.center {
+                                            text-align: center;
+                                        }
+                                    }
+                                }
+
+                                tbody {
+                                    color: rgba(245, 239, 219, 0.6);
+                                    font-size: 14px;
+                                    font-family: "Inter", sans-serif;
+
+                                    .highlighted {
+                                        background-color: rgba(218, 185, 67, 0.1);
+                                    }
+
+                                    td {
+                                        opacity: 1;
+                                        padding: 16px 8px;
+                                        border-bottom: 1px solid rgba(245, 239, 219, 0.15);
+                                        min-width: 110px;
+
+                                        .url {
+                                            display: flex;
+                                            justify-content: center;
+                                            align-items: center;
+
+                                            .text {
+                                                display: block;
+                                                max-width: 10vw;
+                                                white-space: nowrap;
+                                                overflow: hidden;
+                                                text-overflow: ellipsis;
+                                            }
+
+                                            .icon {
+                                                cursor: pointer;
+                                                height: 20px;
+                                                width: 20px;
+                                                margin-inline: 4px;
+
+                                                svg {
+                                                    height: 100%;
+                                                    width: 100%;
+                                                }
+                                            }
+                                        }
+
+                                        .status {
+                                            padding: 4px 8px 6px 8px;
+                                            border-radius: 4px;
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;
+                                            border: 1px solid;
+                                            text-transform: capitalize;
+
+                                            &.approved {
+                                                background-color: #3EAA2C1A;
+                                                color: #3EAA2C;
+                                                border-color: #3EAA2C;
+                                            }
+
+                                            &.submitted {
+                                                background-color: #C6A8441A;
+                                                color: #C6A844;
+                                                border-color: #C6A844;
+                                            }
+                                        }
+
+                                        .date {
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;
+                                            font-size: 14px;
+                                            color: rgba(255, 255, 255, 0.6);
+                                        }
+
+                                        .actions {
+                                            display: flex;
+                                            justify-content: center;
+                                            gap: 8px;
+
+                                            button {
+                                                background-color: transparent;
+                                                border: none;
+                                            }
+                                        }
+                                    }
+
+                                    tr.disable {
+                                        opacity: 0.4;
+
+                                        .table_angles {
+                                            .angle_tag {
+                                                border-radius: 8px;
+                                                background-color: rgba(245, 239, 219, 0.16);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            .accordion_warp {
+                                width: 100%;
+                                display: none;
+
+                                @media (max-width: 1300px) {
+                                    display: block;
+                                }
+
+                            }
+                        }
+                    }
+
+                    .my_page_pagination {
+                        padding: 0 20px 18px 0;
+                        display: flex;
+                        justify-content: end;
+                        align-items: center;
+                        margin-top: 25px;
+
+                        .my_page_pagination_content {
+                            display: flex;
+                            justify-content: space-between;
+                            color: #BDBDBD;
+
+                            .my_page_pagination_content_text {
+                                font-size: 14px;
+                                color: #fff;
+                                display: flex;
+                                gap: 8px;
+
+                                .pagination_head {
+                                    color: #BDBDBD;
+                                }
+
+                                .pagination_dropdown {
+                                    select {
+                                        border: none;
+                                        background: transparent;
+                                        color: #fff;
+                                        cursor: pointer;
+                                        font-family: "Inter", sans-serif;
+                                        font-size: 14px;
+                                        outline: 0px;
+
+                                        option {
+                                            background-color: #242623;
+                                        }
+                                    }
+                                }
+
+                                .my_page_pagination_content_arrows {
+                                    display: flex;
+                                    gap: 12px;
+
+                                    .table_pagination_content_button {
+                                        background: transparent;
+                                        border: none;
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+
+                                        svg {
+                                            path {
+                                                height: 20px;
+                                                width: 20px;
+                                            }
+                                        }
+
+                                        &:focus {
+                                            svg {
+                                                path {
+                                                    fill: #fff;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

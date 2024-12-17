@@ -575,3 +575,44 @@ export const DeleteIcon = () => {
         </svg>
     )
 }
+
+export const SendChatIcon = () => {
+    return (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.51002 4.23013L18.07 8.51013C21.91 10.4301 21.91 13.5701 18.07 15.4901L9.51002 19.7701C3.75002 22.6501 1.40002 20.2901 4.28002 14.5401L5.15002 12.8101C5.37002 12.3701 5.37002 11.6401 5.15002 11.2001L4.28002 9.46013C1.40002 3.71013 3.76002 1.35013 9.51002 4.23013Z" stroke="#F5EFDB" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M5.43994 12H10.8399" stroke="#F5EFDB" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+
+    )
+}
+
+export const CopyIcon = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></svg>
+    )
+}
+
+export const GradientTimerIcon = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
+            <path d="M10.66 1.33398H6.33998C3.83332 1.33398 3.63998 3.58732 4.99332 4.81398L12.0067 11.1873C13.36 12.414 13.1667 14.6673 10.66 14.6673H6.33998C3.83332 14.6673 3.63998 12.414 4.99332 11.1873L12.0067 4.81398C13.36 3.58732 13.1667 1.33398 10.66 1.33398Z" stroke="url(#paint0_linear_1670_39271)" strokeLinecap="round" strokeLinejoin="round" />
+            <defs>
+                <linearGradient id="paint0_linear_1670_39271" x1="4.37244" y1="2.66731" x2="13.5085" y2="2.98376" gradientUnits="userSpaceOnUse">
+                    <stop stopColor="#00D1FF" />
+                    <stop offset="1" stopColor="#31CB5C" />
+                </linearGradient>
+            </defs>
+        </svg>
+    )
+}
+
+export const RankingIcon = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M7.22502 11.666H3.33335C2.41669 11.666 1.66669 12.416 1.66669 13.3327V18.3327H7.22502V11.666Z" stroke="#F5EFDB" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M11.1083 8.33398H8.88334C7.96667 8.33398 7.21667 9.08398 7.21667 10.0007V18.334H12.775V10.0007C12.775 9.08398 12.0333 8.33398 11.1083 8.33398Z" stroke="#F5EFDB" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M16.6667 14.166H12.775V18.3327H18.3334V15.8327C18.3334 14.916 17.5834 14.166 16.6667 14.166Z" stroke="#F5EFDB" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M10.4333 1.72436L10.875 2.6077C10.9333 2.7327 11.0917 2.84936 11.225 2.86603L12.025 2.99936C12.5333 3.0827 12.6583 3.45768 12.2917 3.81601L11.6667 4.44101C11.5583 4.54935 11.5 4.74935 11.5333 4.89102L11.7083 5.6577C11.85 6.26603 11.525 6.49937 10.9917 6.1827L10.2417 5.74104C10.1083 5.6577 9.88334 5.6577 9.75001 5.74104L9.00001 6.1827C8.46667 6.49937 8.14167 6.26603 8.28334 5.6577L8.45834 4.89102C8.49168 4.74935 8.43334 4.54101 8.32501 4.44101L7.70834 3.82436C7.34167 3.45769 7.45834 3.09101 7.97501 3.00768L8.77501 2.87437C8.90834 2.84937 9.06668 2.7327 9.12501 2.61604L9.56667 1.73268C9.80834 1.24935 10.1917 1.24936 10.4333 1.72436Z" fill="#F5EFDB" stroke="#F5EFDB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+    )
+}

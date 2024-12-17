@@ -102,12 +102,25 @@
                 font-family: "MedievalSharp", cursive;
                 padding-bottom: 20px;
                 padding-left: 10px;
-                display: block;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
 
                 @media (min-width: 767px) {
                     display: none;
                 }
+                button {
+                    background-color: transparent;
+                    border: gainsboro;
 
+                    img {
+                        width: 32px;
+
+                        @media (max-width: 1600px) {
+                            width: 24px;
+                        }
+                    }
+                }
             }
 
             .list_items {

@@ -1,7 +1,7 @@
 import "./sidebar.scss";
-import profileImage from "../../../assets/profile-image.jpeg";
 import collapseLeftIcon from "../../../assets/collapse-left-icon.png";
 import collapseRightIcon from "../../../assets/collapse-right-icon.png";
+import myContentIcon from "../../../assets/my-content-icon.png";
 import projectIcon from "../../../assets/project-icon.png";
 import pendingIcon from "../../../assets/pending-icon.png";
 import synergiesIcon from "../../../assets/synergies-icon.png";
@@ -25,12 +25,10 @@ const Sidebar = () => {
   };
 
   const [userProjects, setUserProjects] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const userData = useSelector((state) => state.auth);
 
   useEffect(() => {
     const fetchProjects = async () => {
-      setIsLoading(true);
       try {
         const response = await axios.get(`https://winwinsocietyweb3.com/api/userprojects/all/${userData.userId}`, {
           headers: {
@@ -40,17 +38,18 @@ const Sidebar = () => {
         setUserProjects(response.data.data);
       } catch (error) {
         console.log(error.message);
-      } finally {
-        setIsLoading(false);
       }
     };
     fetchProjects();
   }, []);
 
+
   return (
     <>
       <div className={`sidebar_container ${isCollapse ? "sidebar_collapsed" : ""}`}>
         <div className="sidebar">
+          {/* <div className="ambassadors_text">Ambassadors</div>
+          <div className="separator">&nbsp;</div> */}
           <div className="profile_box">
             <div className="profile_image">
               <img src={userData.profile_picture} alt="Profile" />
@@ -132,7 +131,7 @@ const Sidebar = () => {
           <div className={`menu-box`}>
             <span className="separator"></span>
             <ul>
-              <li className={`${location.pathname === `/${ROUTER.chat}` ? "active" : ""} chat ${userProjects.length === 0 ? "disabled" : ""}`}>
+              <li className={`${location.pathname.includes(`/${ROUTER.chat}`) ? "active" : ""} chat ${userProjects.length === 0 ? "disabled" : ""}`}>
                 <Link to={ROUTER.chat}>
                   <img src={chatIcon} alt="Chat" />
                   <span className="menu_text">Chat</span>
@@ -145,6 +144,23 @@ const Sidebar = () => {
                 <Link to={ROUTER.profile}>
                   <img src={profileIcon} alt="Profile" />
                   <span className="menu_text">Profile</span>
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div className={`menu-box`}>
+            <span className="separator"></span>
+            <ul>
+              <li className={`${location.pathname.startsWith(`/${ROUTER.myContent}`) ? "active" : ""} ${userProjects?.length === 0 ? "disabled" : ""}`}>
+                <Link to={ROUTER.myContent}>
+                  <img src={myContentIcon} alt="Project" />
+                  <span className="menu_text">My Content</span>
+                </Link>
+              </li>
+              <li className={`${location.pathname.startsWith(`/${ROUTER.ambassadorProjects}`) ? "active" : ""} ${userProjects?.length === 0 ? "disabled" : ""}`}>
+                <Link to={ROUTER.ambassadorProjects}>
+                  <img src={projectIcon} alt="Project" />
+                  <span className="menu_text">A Projects</span>
                 </Link>
               </li>
             </ul>
@@ -170,65 +186,68 @@ const Sidebar = () => {
         </div>
       </div>
 
-      <div className="mobile_bottom_footer">
-        <ul>
-          <li className={`${location.pathname === `/${ROUTER.projects}` ? "active" : ""}`}>
-            <Link to={ROUTER.projects}>
-              <img src={projectIcon} alt="" />
-              <span>Projects</span>
-            </Link>
-          </li>
-          {userRole == "ADMIN" && (
-            <li className={`${location.pathname === `/${ROUTER.projectManager}` ? "active" : ""}`}>
-              <Link to={ROUTER.projectManager}>
+      {/* Mobile view */}
+      <div className="mobile_bottom_footer_wrap">
+        <div className="mobile_bottom_footer">
+          <ul>
+            <li className={`${location.pathname === `/${ROUTER.projects}` ? "active" : ""} ${userProjects?.length === 0 ? "disabled" : ""}`}>
+              <Link to={ROUTER.projects}>
                 <img src={projectIcon} alt="" />
-                <span>Projects manager</span>
+                <span>Projects</span>
               </Link>
             </li>
-          )}
-          <li className={`${location.pathname === `/${ROUTER.synergies}` ? "active" : ""}`}>
-            <Link to={ROUTER.synergies}>
-              <img src={synergiesUserIcon} alt="" />
-              <span>Synergies</span>
-            </Link>
-          </li>
-          <li className={`${location.pathname === `/${ROUTER.investment}` ? "active" : ""}`}>
-            <Link to={ROUTER.investment}>
-              <img src={investmentIcon} alt="" />
-              <span>Investment</span>
-            </Link>
-          </li>
-          {userRole == "ADMIN" && (
-            <>
-              <li className={`${location.pathname === `/${ROUTER.synergyRequests}` ? "active" : ""}`}>
-                <Link to={ROUTER.synergyRequests}>
-                  <img src={pendingIcon} alt="" />
-                  <span>Pending Synergies</span>
+            {userRole == "ADMIN" && (
+              <li className={`${location.pathname === `/${ROUTER.projectManager}` ? "active" : ""}  ${userProjects?.length === 0 ? "disabled" : ""}`}>
+                <Link to={ROUTER.projectManager}>
+                  <img src={projectIcon} alt="" />
+                  <span>Projects manager</span>
                 </Link>
               </li>
-              <li className={`${location.pathname === `/${ROUTER.synergiesManager}` ? "active" : ""}`}>
-                <Link to={ROUTER.synergiesManager}>
-                  <img src={synergiesIcon} alt="" />
-                  <span>Synergies Manager</span>
-                </Link>
-              </li>
-            </>
-          )}
-          <li className={`${location.pathname === `/${ROUTER.chat}` ? "active" : ""}`}>
-            <Link to={ROUTER.chat}>
-              <img src={chatIcon} alt="" />
-              <span className="chat">
-                Chat <p className="chat_count">1</p>
-              </span>
-            </Link>
-          </li>
-          <li className={`${location.pathname === `/${ROUTER.profile}` ? "active" : ""}`}>
-            <Link to={ROUTER.profile}>
-              <img src={profileIcon} alt="" />
-              <span>Profile</span>
-            </Link>
-          </li>
-        </ul>
+            )}
+            <li className={`${location.pathname === `/${ROUTER.synergies}` ? "active" : ""}  ${userProjects?.length === 0 ? "disabled" : ""}`}>
+              <Link to={ROUTER.synergies}>
+                <img src={synergiesUserIcon} alt="" />
+                <span>Synergies</span>
+              </Link>
+            </li>
+            <li className={`${location.pathname === `/${ROUTER.investment}` ? "active" : ""}  ${userProjects?.length === 0 ? "disabled" : ""}`}>
+              <Link to={ROUTER.investment}>
+                <img src={investmentIcon} alt="" />
+                <span>Investment</span>
+              </Link>
+            </li>
+            {userRole == "ADMIN" && (
+              <>
+                <li className={`${location.pathname === `/${ROUTER.synergyRequests}` ? "active" : ""}  ${userProjects?.length === 0 ? "disabled" : ""}`}>
+                  <Link to={ROUTER.synergyRequests}>
+                    <img src={pendingIcon} alt="" />
+                    <span>Pending Synergies</span>
+                  </Link>
+                </li>
+                <li className={`${location.pathname === `/${ROUTER.synergiesManager}` ? "active" : ""}  ${userProjects?.length === 0 ? "disabled" : ""}`}>
+                  <Link to={ROUTER.synergiesManager}>
+                    <img src={synergiesIcon} alt="" />
+                    <span>Synergies Manager</span>
+                  </Link>
+                </li>
+              </>
+            )}
+            <li className={`${location.pathname === `/${ROUTER.chat}` ? "active" : ""}  ${userProjects?.length === 0 ? "disabled" : ""}`}>
+              <Link to={ROUTER.chat}>
+                <img src={chatIcon} alt="" />
+                <span className="chat">
+                  Chat <p className="chat_count">1</p>
+                </span>
+              </Link>
+            </li>
+            <li className={`${location.pathname === `/${ROUTER.profile}` ? "active" : ""}`}>
+              <Link to={ROUTER.profile}>
+                <img src={profileIcon} alt="" />
+                <span>Profile</span>
+              </Link>
+            </li>
+          </ul>
+        </div>
       </div>
     </>
   );

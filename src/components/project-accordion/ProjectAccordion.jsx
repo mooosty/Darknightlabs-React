@@ -39,7 +39,7 @@ const ProjectAccordion = ({
             <div
                 className={`project_accordion_conrtainer ${open ? 'active' : ''} ${disabled ? 'disable' : ''}`}
             >
-                <div className={`project_accordion ${isFeatured ? 'heighlighted' : ''} ${checked ? 'selected' : ''} `}>
+                <div className={`project_accordion ${isFeatured ? 'highlighted' : ''} ${checked ? 'selected' : ''} `}>
                     <div className='project_accordion_label' >
                         <div className="table_row">
                             <div className='content'>
