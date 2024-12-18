@@ -51,7 +51,7 @@ const AmbassadorProjects = () => {
         types: '',
         searchBy: ''
     })
-    console.log(filter);
+    
 
 
     const handleActive = (key) => {

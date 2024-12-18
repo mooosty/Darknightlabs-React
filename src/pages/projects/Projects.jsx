@@ -20,7 +20,7 @@ const Projects = () => {
         const token = localStorage.getItem("dynamic_authentication_token");
 
         if (token) {
-            console.log("token", token);
+            
         }
     }, []);
 
@@ -189,7 +189,7 @@ const Projects = () => {
                 return data.length;
             };
             const length = await fetchTwitterUser();
-            console.log("length", length);
+            
         })();
     }, []);
 

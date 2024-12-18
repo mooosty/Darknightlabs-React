@@ -32,7 +32,7 @@ const WhitelistVerification = ({ walletAddress, onVerificationComplete }) => {
 
     setIsVerifying(true);
     try {
-      console.log('1. Getting provider and signer...');
+      
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
 
@@ -40,14 +40,14 @@ const WhitelistVerification = ({ walletAddress, onVerificationComplete }) => {
       const message = `Requesting whitelist verification for ${walletAddress}`;
       const signature = await signer.signMessage(message);
 
-      console.log('2. Making API call with authorization...');
+      
       const response = await fetch(`/api/whitelist/${walletAddress}`, {
         headers: {
           'Authorization': `Bearer ${signature}`,
           'X-Signed-Message': message
         }
       });
-      console.log('API Response Status:', response.status);
+      
 
       // Add this block to handle text responses
       const contentType = response.headers.get("content-type");
@@ -65,7 +65,7 @@ const WhitelistVerification = ({ walletAddress, onVerificationComplete }) => {
       }
 
       const data = await response.json();
-      console.log('API Response Data:', data);
+      
 
       if (data.whitelisted && data.signature) {
         // Verify the signature matches our expected format
@@ -73,7 +73,7 @@ const WhitelistVerification = ({ walletAddress, onVerificationComplete }) => {
           ["address", "address"],
           [walletAddress, PRESALE_CONTRACT.address]
         );
-        console.log('Expected Message Hash:', messageHash);
+        
 
         onVerificationComplete(data.signature);
         toast({

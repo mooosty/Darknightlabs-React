@@ -112,7 +112,7 @@ const MyContent = () => {
         types: [],
         searchBy: "",
     });
-    console.log(filter);
+    
 
     const handleActive = (key) => {
         setActiveLayout(key);

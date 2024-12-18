@@ -108,9 +108,9 @@ const ProjectManagerEdit = () => {
       investments_access: true,
       investments: investment_obj,
     };
-    console.log(data);
+    
     dispatch(addProjectAPI(data)).then((res) => {
-      console.log(values.members);
+      
       const resArr = values.members.map((member) => {
         const data = {
           userId: member.userId,

@@ -19,7 +19,7 @@ export const getTwitterUserAPI = createAsyncThunk(
 export const createTwitterUserAPI = createAsyncThunk(
     "/users/key",
     async (data, thunkAPI) => {
-        console.log("data", data);
+        
         const response = await axiosApi.post(apiRoutes.TWITTER_USER, data);
         if (response?.status) return response.data;
         else return thunkAPI.rejectWithValue(response?.data);

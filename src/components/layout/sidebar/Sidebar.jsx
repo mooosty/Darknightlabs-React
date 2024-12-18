@@ -37,7 +37,7 @@ const Sidebar = () => {
         });
         setUserProjects(response.data.data);
       } catch (error) {
-        console.log(error.message);
+        
       }
     };
     fetchProjects();
@@ -48,8 +48,6 @@ const Sidebar = () => {
     <>
       <div className={`sidebar_container ${isCollapse ? "sidebar_collapsed" : ""}`}>
         <div className="sidebar">
-          {/* <div className="ambassadors_text">Ambassadors</div>
-          <div className="separator">&nbsp;</div> */}
           <div className="profile_box">
             <div className="profile_image">
               <img src={userData.profile_picture} alt="Profile" />
@@ -75,14 +73,6 @@ const Sidebar = () => {
                   <span className="menu_text">Projects</span>
                 </Link>
               </li>
-              {userRole == "ADMIN" && (
-                <li className={`${location.pathname.startsWith(`/${ROUTER.projectManager}`) ? "active" : ""} ${userProjects.length === 0 ? "disabled" : ""}`}>
-                  <Link to={ROUTER.projectManager}>
-                    <img src={projectIcon} alt="Project Manager" />
-                    <span className="menu_text">Projects Manager</span>
-                  </Link>
-                </li>
-              )}
             </ul>
           </div>
           <div className={`menu-box`}>
@@ -118,12 +108,6 @@ const Sidebar = () => {
                       <span className="menu_text">Synergy requests</span>
                     </Link>
                   </li>
-                  <li className={`${location.pathname === `/${ROUTER.synergiesManager}` ? "active" : ""} ${userProjects.length === 0 ? "disabled" : ""}`}>
-                    <Link to={ROUTER.synergiesManager}>
-                      <img src={synergiesIcon} alt="Synergies Manager" />
-                      <span className="menu_text">Synergies Manager </span>
-                    </Link>
-                  </li>
                 </>
               )}
             </ul>
@@ -148,23 +132,6 @@ const Sidebar = () => {
               </li>
             </ul>
           </div>
-          <div className={`menu-box`}>
-            <span className="separator"></span>
-            <ul>
-              <li className={`${location.pathname.startsWith(`/${ROUTER.myContent}`) ? "active" : ""} ${userProjects?.length === 0 ? "disabled" : ""}`}>
-                <Link to={ROUTER.myContent}>
-                  <img src={myContentIcon} alt="Project" />
-                  <span className="menu_text">My Content</span>
-                </Link>
-              </li>
-              <li className={`${location.pathname.startsWith(`/${ROUTER.ambassadorProjects}`) ? "active" : ""} ${userProjects?.length === 0 ? "disabled" : ""}`}>
-                <Link to={ROUTER.ambassadorProjects}>
-                  <img src={projectIcon} alt="Project" />
-                  <span className="menu_text">A Projects</span>
-                </Link>
-              </li>
-            </ul>
-          </div>
           <div className={`menu-box sidebar_bottom`}>
             <span className="separator"></span>
             <ul>
@@ -182,7 +149,6 @@ const Sidebar = () => {
               </li>
             </ul>
           </div>
-
         </div>
       </div>
 
@@ -196,14 +162,6 @@ const Sidebar = () => {
                 <span>Projects</span>
               </Link>
             </li>
-            {userRole == "ADMIN" && (
-              <li className={`${location.pathname === `/${ROUTER.projectManager}` ? "active" : ""}  ${userProjects?.length === 0 ? "disabled" : ""}`}>
-                <Link to={ROUTER.projectManager}>
-                  <img src={projectIcon} alt="" />
-                  <span>Projects manager</span>
-                </Link>
-              </li>
-            )}
             <li className={`${location.pathname === `/${ROUTER.synergies}` ? "active" : ""}  ${userProjects?.length === 0 ? "disabled" : ""}`}>
               <Link to={ROUTER.synergies}>
                 <img src={synergiesUserIcon} alt="" />
@@ -222,12 +180,6 @@ const Sidebar = () => {
                   <Link to={ROUTER.synergyRequests}>
                     <img src={pendingIcon} alt="" />
                     <span>Pending Synergies</span>
-                  </Link>
-                </li>
-                <li className={`${location.pathname === `/${ROUTER.synergiesManager}` ? "active" : ""}  ${userProjects?.length === 0 ? "disabled" : ""}`}>
-                  <Link to={ROUTER.synergiesManager}>
-                    <img src={synergiesIcon} alt="" />
-                    <span>Synergies Manager</span>
                   </Link>
                 </li>
               </>

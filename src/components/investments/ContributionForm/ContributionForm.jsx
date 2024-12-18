@@ -54,17 +54,17 @@ const ContributionForm = ({ walletAddress, whitelistSignature }) => {
 
     setIsContributing(true);
     try {
-      console.log("Debug Info:");
-      console.log("Wallet Address:", walletAddress);
-      console.log("Contract Address:", PRESALE_CONTRACT.address);
-      console.log("Signature from DB:", whitelistSignature);
+      
+      
+      
+      
 
       // Create the same message hash as the bot and contract
       const messageHash = ethers.solidityPackedKeccak256(
         ["address", "address"],
         [walletAddress, PRESALE_CONTRACT.address]
       );
-      console.log("Message Hash:", messageHash);
+      
 
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();

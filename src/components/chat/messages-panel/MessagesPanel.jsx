@@ -173,7 +173,7 @@ const MessagesPanel = ({
       <div className="chat_main_body">
         <div className="chat_container">
           {messages.map((message, index) => {
-            console.log('message', message.sender.name)
+            
             return (
               <Fragment key={index}>
                 {(index === 0 || !isEqualDate(message.createdAt, messages[index - 1].createdAt)) && (

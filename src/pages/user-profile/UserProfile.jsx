@@ -106,7 +106,7 @@ const UserProfile = () => {
   };
 
   const handleUpdateDetails = async (values) => {
-    console.log('values', values)
+    
 
     setIsLoading(true);
     let updated_profile_picture = values?.profile_picture;
@@ -209,19 +209,22 @@ const UserProfile = () => {
   };
 
   const handleEditProfile = () => {
-    console.log('userDetails', userDetails, userDetails?.roles ? userDetails?.roles?.split(',') : [])
     setIsEditMode(true);
     setValues({
       ...initialValues,
-      ...userDetails,
-      roles: userDetails?.roles ? userDetails?.roles?.split(',') : [],
+      firstname: userDetails?.firstname || "",
+      lastname: userDetails?.lastname || "",
+      email: userDetails?.email || "",
+      bio: userDetails?.bio || "",
+      birthday: userDetails?.birthday || "",
+      username: userDetails?.username || "",
     });
   };
 
   const cancelProfileEdit = () => {
     setIsEditMode(false);
   };
-  console.log('values', values, userDetails)
+  
 
   useEffect(() => {
     dispatch(getUsersDetailsAPI(userData?.userId));
@@ -239,7 +242,7 @@ const UserProfile = () => {
 
         setUserProjects(response.data.data ?? []);
       } catch (error) {
-        console.log(error.message);
+        
       } finally {
         setIsLoading(false);
       }

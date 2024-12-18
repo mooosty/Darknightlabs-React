@@ -35,7 +35,7 @@ const ContributionStatus = ({
 
       // Get user contribution
       const contribution = await contract.getContribution(walletAddress);
-      console.log('User contribution:', contribution.toString());
+      
       setUserContribution(contribution);
     } catch (error) {
       console.error('Error fetching contribution status:', error);
@@ -45,7 +45,7 @@ const ContributionStatus = ({
   };
 
   useEffect(() => {
-    console.log('Wallet address changed:', walletAddress);
+    
     fetchData();
 
     // Set up event listener for contributions
@@ -65,7 +65,7 @@ const ContributionStatus = ({
         });
 
         if (contributor.toLowerCase() === walletAddress.toLowerCase()) {
-          console.log('Updating user contribution');
+          
           setUserContribution(prev => prev + amount);
         }
         // Update total contributions
