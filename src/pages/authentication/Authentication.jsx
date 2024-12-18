@@ -1,6 +1,6 @@
 import "./authentication.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { DynamicContextProvider, DynamicEmbeddedWidget } from "@dynamic-labs/sdk-react-core";
 import { ROUTER } from "../../utils/routes/routes";
 import { useEffect } from "react";
@@ -8,18 +8,26 @@ import { storeAuthData } from "../../store/slice/authSlice";
 // import img from "../../assets/hero-phone.png";
 import axios from "axios";
 
-import { createTwitterUserAPI, getTwitterUserAPI } from "../../api-services/userApis";
+import { createTwitterUserAPI, getTwitterUserAPI, createInviteAPI, updateUserWalletAPI } from "../../api-services/userApis";
 import { createUserAPI } from "../../api-services";
 // import { createTwitterUserAPI } from "../../api-services/chatApis";
 import { useState } from "react";
 const Authentication = () => {
    const [data, setData] = useState([]);
   const [didRun, setdidRun] = useState(false);
+  const [searchParams] = useSearchParams();
+  const refId = searchParams.get('ref');
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { authDetails } = useSelector((state) => state.auth);
   const userData = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (refId) {
+      localStorage.setItem('referral_id', refId);
+    }
+  }, [refId]);
 
   const handleAuthResponse = async (response) => {
     if (response?.isAuthenticated) {
@@ -73,6 +81,27 @@ const Authentication = () => {
 
         payloadUser.id = twitterUser.insertId;
         dispatch(storeAuthData({ response, user: payloadUser }));
+
+        const referralId = localStorage.getItem('referral_id');
+        if (referralId) {
+          try {
+            // Create invite
+            await dispatch(createInviteAPI({
+              invited_user: twitterUser.insertId,
+              invite_user: parseInt(referralId)
+            }));
+
+            // Update wallet
+            await dispatch(updateUserWalletAPI({
+              invited_user: twitterUser.insertId
+            }));
+
+            // Clear referral ID
+            localStorage.removeItem('referral_id');
+          } catch (error) {
+            console.error('Error processing referral:', error);
+          }
+        }
       } else {
         dispatch(storeAuthData({ response, user: existingUser[0] }));
       }

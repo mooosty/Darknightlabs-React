@@ -23,4 +23,6 @@ export const apiRoutes = {
     EDIT_SYNERGY_REQUEST: '/synergyrequests/',
 
     CHANGE_PASSWORD: '/users/change-password',
+    USER_WALLET: '/users/wallet',
+    INVITES: '/invites',
 }
