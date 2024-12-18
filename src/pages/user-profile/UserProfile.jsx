@@ -49,7 +49,8 @@ const UserProfile = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [userProjects, setUserProjects] = useState([]);
   const [addNewProject, setAddNewProject] = useState(false);
-
+  const [showInvitePopup, setShowInvitePopup] = useState(false);
+  const [inviteLink, setInviteLink] = useState("");
 
   const initialValues = {
     id: 9,
@@ -250,12 +251,22 @@ const UserProfile = () => {
     fetchProjects();
   }, [dispatch]);
 
+  const handleGenerateLink = async () => {
+    try {
+      const response = await axios.post('https://winwinsocietyweb3.com/api/tiny-url/', {
+        alias: userData?.userId.toString()
+      });
+      setInviteLink(response.data.tiny_url);
+      setShowInvitePopup(true);
+    } catch (error) {
+      toast.error("Failed to generate invite link");
+    }
+  };
 
   return (
     <>
       {active === "INFORMATION" && (
         !isEditMode ? (
-          // View mode
           <>
             <div className="profile_content_header">
               <div className="profile_content_left">
@@ -291,10 +302,15 @@ const UserProfile = () => {
                   <div className="pagination">
                     <span>Profile</span>
                   </div>
-                  <button className="btn_gray" onClick={handleEditProfile}>
-                    <img src={editIcon} alt="" />
-                    Edit profile
-                  </button>
+                  <div className="profile_actions">
+                    <button className="btn_gray" onClick={handleGenerateLink}>
+                      Generate Link
+                    </button>
+                    <button className="btn_gray" onClick={handleEditProfile}>
+                      <img src={editIcon} alt="" />
+                      Edit profile
+                    </button>
+                  </div>
                 </div>
                 <div className="profile_page_content">
                   <div className="project_profile">
@@ -799,7 +815,15 @@ const UserProfile = () => {
           active={active} />
       )}
 
-
+      {showInvitePopup && (
+        <div className="popup_overlay">
+          <div className="popup_content">
+            <h3>Here is your invite link, share it to receive karma points</h3>
+            <p>{inviteLink}</p>
+            <button className="btn_gray" onClick={() => setShowInvitePopup(false)}>Close</button>
+          </div>
+        </div>
+      )}
 
       {/* <LoginPopup open={isLoginPopupOpen} handleClose={() => setIsLoginPopupOpen(false)} />
       <SignupPopup open={isSignUpPopupOpen} handleClose={() => setIsSignUpPopupOpen(false)} /> */}
