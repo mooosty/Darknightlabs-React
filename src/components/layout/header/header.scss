@@ -2,7 +2,8 @@
     background-color: #191917;
     padding: 22px 24px;
     margin-bottom: 30px;
-
+    display: flex;
+    align-items: center;
 
     @media(max-width: 1600px) {
         padding: 10px 15px;
@@ -23,10 +24,17 @@
         font-family: "MedievalSharp", cursive;
         font-size: 24px;
         display: none;
+        margin-left: auto;
 
         @media(max-width: 767px) {
             display: block;
         }
+    }
+
+    .currency {
+        color: #FFDF76;
+        font-family: "MedievalSharp";
+        font-size: 16px;
     }
 
     .sidbar_btn {
@@ -38,7 +46,6 @@
             display: block;
         }
     }
-
 
     .header_btn {
         margin-left: auto;
@@ -58,16 +65,5 @@
         @media(max-width: 767px) {
             display: none;
         }
-    }
-
-    .wallet-balance {
-        color: #FFDF76;
-        font-family: "MedievalSharp";
-        margin-left: auto;
-        margin-right: 20px;
-        padding: 8px 16px;
-        background: rgba(36, 38, 34, 0.788);
-        border-radius: 6px;
-        font-size: 16px;
     }
 }

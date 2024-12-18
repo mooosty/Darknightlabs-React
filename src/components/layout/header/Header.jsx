@@ -1,10 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import sidbarMenu from "../../../assets/menu.png"
 import CustomDropdown from "../../custom-dropdown/CustomDropdown"
 import profileIcon from "../../../assets/profile-icon.png";
 import logoutIcon from "../../../assets/logout-icon.png";
-import { useDispatch, useSelector } from 'react-redux';
-import { getUserWalletAPI } from '../../../api-services/userApis';
+import { useSelector } from 'react-redux';
 
 import './header.scss'
 
@@ -26,23 +25,14 @@ const Header = () => {
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
     };
-    const dispatch = useDispatch();
-    const { userId } = useSelector(state => state.auth);
-    const { currency_b, loading } = useSelector(state => state.wallet);
-
-    useEffect(() => {
-        if (userId) {
-            dispatch(getUserWalletAPI(userId));
-        }
-    }, [userId, dispatch]);
+    
+    const { userDetails } = useSelector((state) => state.user);
 
     return (
         <header className="header_wrp">
+            <span className="currency">Balance: {userDetails?.currency_b || 0} KP</span>
             <h4 className='header_title'>Darknight Labs</h4>
             <button className="header_btn">Home page</button>
-            <div className="wallet-balance">
-                {loading ? 'Loading...' : `Balance: ${currency_b || 0} B`}
-            </div>
             {/* <CustomDropdown
                 isOpen={isOpen}
                 toggleDropdown={toggleDropdown}
