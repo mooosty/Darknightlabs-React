@@ -310,9 +310,6 @@ const Investment = () => {
   }
 
   const [filter, setFilter] = useState({
-    synergyAngleValues: [],
-    status: '',
-    sortBy: '',
     types: [],
     searchBy: ''
   })
@@ -693,16 +690,6 @@ const Investment = () => {
                       setFilter({
                         ...filter,
                         types: currentOptions?.map((option) => option.value)
-                      })
-                    }}
-                  />
-                  <MultiselectDropDown
-                    options={synergyAnglesOptions}
-                    placeholder={'All synergies angles'}
-                    onApply={(currentOptions) => {
-                      setFilter({
-                        ...filter,
-                        synergyAngleValues: currentOptions?.map((option) => option.value)
                       })
                     }}
                   />

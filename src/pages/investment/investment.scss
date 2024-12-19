@@ -162,31 +162,23 @@
     }
 
     .investments_page_data {
-        padding-block: 30px 20px;
+        padding: 20px 0px;
         border-radius: 20px;
         background-color: #191917;
-        background-image: url("../../assets/model-frame.png");
-        background-repeat: no-repeat;
-        background-position-x: 10px;
-        background-position-y: 10px;
         min-height: 450px;
         height: calc(100% - 80px);
 
-        @media(max-width: 1600px) {
-            height: calc(100% - 50px);
+        @media (max-width: 1600px) {
+            height: calc(100% - 40px);
         }
 
         @media (max-width: 767px) {
             border-radius: 0;
-            padding-block: 20px 0px;
-            background-color: #191917;
-            background-image: none;
-            height: calc(100% - 60px);
         }
 
         .page_data {
-            background-color: transparent;
             height: 100%;
+            background-color: transparent;
             overflow-y: auto;
 
             .investment_page_header {
@@ -489,47 +481,50 @@
 }
 
 .investment_details {
-    .investments_content_header {
-        .content_left {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-
-            .btn_gray {
-                padding: 12px 20px;
-                background-color: #4e4e4e94;
-                border: none;
-                color: #f5efdb;
-                cursor: pointer;
-                font-size: 16px;
-                border-radius: 8px;
-                transition: background-color 0.2s ease;
-
-                &:hover {
-                    background-color: #5e5e5e94;
-                }
-            }
-        }
-    }
-
+    height: 100%;
+    
     .investments_page_data {
         background-color: #191917;
         border-radius: 20px;
-        height: calc(100vh - 210px);
-        margin-top: 20px;
-        padding: 30px;
-        overflow: hidden;
+        height: calc(100% - 80px);
+        padding: 20px 0px;
+        min-height: 450px;
+
+        @media (max-width: 1600px) {
+            height: calc(100% - 40px);
+        }
+
+        @media (max-width: 767px) {
+            border-radius: 0;
+        }
+
+        @media (max-height: 600px) {
+            padding-block: 0px 110px;
+        }
 
         .investment_details_content {
-            display: flex;
-            gap: 30px;
             height: 100%;
+            background-color: transparent;
+            overflow-y: auto;
+            display: flex;
+            gap: 32px;
+            padding: 0 30px;
+
+            @media (max-width: 1024px) {
+                flex-direction: column;
+                gap: 20px;
+                padding: 0 15px;
+            }
 
             .details_left {
                 flex: 0 0 65%;
                 color: #f5efdb;
-                overflow-y: auto;
                 padding-right: 20px;
+
+                @media (max-width: 1024px) {
+                    flex: 1;
+                    padding-right: 0;
+                }
 
                 &::-webkit-scrollbar {
                     width: 8px;
@@ -638,11 +633,15 @@
                 display: flex;
                 flex-direction: column;
 
+                @media (max-width: 1024px) {
+                    flex: 1;
+                    max-width: 100%;
+                }
+
                 .form_container {
                     background: #242623;
                     border-radius: 12px;
                     flex: 1;
-                    overflow: hidden;
 
                     .investment-form {
                         padding: 20px;
