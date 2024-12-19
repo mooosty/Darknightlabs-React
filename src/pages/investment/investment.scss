@@ -299,6 +299,24 @@
                         flex-basis: calc(100% / 5);
                         max-width: calc(100% / 5);
 
+                        &:first-child {
+                            .card {
+                                background-color: #242623;
+                                cursor: pointer;
+                                transition: transform 0.2s ease;
+
+                                &:hover {
+                                    transform: translateY(-5px);
+                                }
+                            }
+                        }
+
+                        &:not(:first-child) {
+                            .card {
+                                filter: blur(12px);
+                            }
+                        }
+
                         @media (max-width: 1600px) {
                             flex-basis: calc(100% / 4);
                             max-width: calc(100% / 4);
@@ -460,6 +478,324 @@
                                             }
                                         }
                                     }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.investment_details {
+    .investments_content_header {
+        .content_left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+
+            .btn_gray {
+                padding: 12px 20px;
+                background-color: #4e4e4e94;
+                border: none;
+                color: #f5efdb;
+                cursor: pointer;
+                font-size: 16px;
+                border-radius: 8px;
+                transition: background-color 0.2s ease;
+
+                &:hover {
+                    background-color: #5e5e5e94;
+                }
+            }
+        }
+    }
+
+    .investments_page_data {
+        background-color: #191917;
+        border-radius: 20px;
+        height: calc(100vh - 210px);
+        margin-top: 20px;
+        padding: 30px;
+        overflow: hidden;
+
+        .investment_details_content {
+            display: flex;
+            gap: 30px;
+            height: 100%;
+
+            .details_left {
+                flex: 0 0 65%;
+                color: #f5efdb;
+                overflow-y: auto;
+                padding-right: 20px;
+
+                &::-webkit-scrollbar {
+                    width: 8px;
+                }
+
+                &::-webkit-scrollbar-track {
+                    background: #191917;
+                    border-radius: 4px;
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background: #4e4e4e94;
+                    border-radius: 4px;
+
+                    &:hover {
+                        background: #5e5e5e94;
+                    }
+                }
+
+                .title {
+                    font-size: 32px;
+                    font-weight: 600;
+                    margin-bottom: 24px;
+                    font-family: "MedievalSharp", cursive;
+                }
+
+                .description {
+                    font-size: 16px;
+                    line-height: 1.6;
+                    margin-bottom: 30px;
+                }
+
+                .section {
+                    margin-bottom: 30px;
+
+                    h3 {
+                        font-size: 24px;
+                        font-weight: 500;
+                        margin-bottom: 16px;
+                        color: #f5efdb;
+                    }
+
+                    ul {
+                        list-style: none;
+                        padding: 0;
+
+                        li {
+                            margin-bottom: 12px;
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+
+                            a {
+                                color: rgba(245, 239, 219, 0.7);
+                                text-decoration: none;
+                                transition: color 0.2s ease;
+
+                                &:hover {
+                                    color: #ff8a1c;
+                                }
+                            }
+                        }
+                    }
+
+                    &.movement_section {
+                        text-align: center;
+                        padding: 30px 0;
+                        border-top: 1px solid rgba(245, 239, 219, 0.1);
+
+                        h3 {
+                            font-size: 28px;
+                            margin-bottom: 20px;
+                        }
+
+                        p {
+                            font-size: 18px;
+                            line-height: 1.6;
+                            margin-bottom: 20px;
+                        }
+
+                        .stars {
+                            font-size: 24px;
+                            letter-spacing: 4px;
+                            color: #ff8a1c;
+                        }
+                    }
+                }
+
+                .links {
+                    a {
+                        color: rgba(245, 239, 219, 0.7);
+                        text-decoration: none;
+                        margin-right: 20px;
+                        transition: color 0.2s ease;
+
+                        &:hover {
+                            color: #ff8a1c;
+                        }
+                    }
+                }
+            }
+
+            .details_right {
+                flex: 0 0 35%;
+                max-width: 35%;
+                display: flex;
+                flex-direction: column;
+
+                .form_container {
+                    background: #242623;
+                    border-radius: 12px;
+                    flex: 1;
+                    overflow: hidden;
+
+                    .investment-form {
+                        padding: 20px;
+                        height: 100%;
+                        overflow-y: auto;
+
+                        &::-webkit-scrollbar {
+                            width: 8px;
+                        }
+
+                        &::-webkit-scrollbar-track {
+                            background: #191917;
+                            border-radius: 4px;
+                        }
+
+                        &::-webkit-scrollbar-thumb {
+                            background: #4e4e4e94;
+                            border-radius: 4px;
+
+                            &:hover {
+                                background: #5e5e5e94;
+                            }
+                        }
+
+                        .form-group {
+                            margin-bottom: 20px;
+                            
+                            label {
+                                display: block;
+                                margin-bottom: 8px;
+                                font-size: 14px;
+                                color: rgba(245, 239, 219, 0.9);
+                            }
+
+                            input[type="text"],
+                            input[type="number"],
+                            input[type="url"] {
+                                width: 100%;
+                                padding: 10px;
+                                background: rgba(36, 38, 35, 0.8);
+                                border: 1px solid rgba(245, 239, 219, 0.2);
+                                border-radius: 8px;
+                                color: #f5efdb;
+                                font-size: 14px;
+                                box-sizing: border-box;
+
+                                &:focus {
+                                    outline: none;
+                                    border-color: #ff8a1c;
+                                }
+
+                                &::placeholder {
+                                    color: rgba(245, 239, 219, 0.4);
+                                }
+                            }
+
+                            .radio-group {
+                                display: flex;
+                                flex-direction: column;
+                                gap: 10px;
+
+                                label {
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 8px;
+                                    cursor: pointer;
+                                    font-size: 14px;
+                                    margin: 0;
+                                    color: rgba(245, 239, 219, 0.9);
+
+                                    input[type="radio"] {
+                                        appearance: none;
+                                        width: 18px;
+                                        height: 18px;
+                                        border: 2px solid rgba(245, 239, 219, 0.4);
+                                        border-radius: 50%;
+                                        margin: 0;
+                                        position: relative;
+                                        cursor: pointer;
+
+                                        &:checked {
+                                            border-color: #ff8a1c;
+                                            
+                                            &:after {
+                                                content: '';
+                                                position: absolute;
+                                                width: 10px;
+                                                height: 10px;
+                                                background: #ff8a1c;
+                                                border-radius: 50%;
+                                                top: 50%;
+                                                left: 50%;
+                                                transform: translate(-50%, -50%);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            .error {
+                                color: #ff4d4f;
+                                font-size: 12px;
+                                margin-top: 4px;
+                            }
+                        }
+
+                        .error-message {
+                            background-color: rgba(255, 77, 79, 0.1);
+                            border: 1px solid rgba(255, 77, 79, 0.2);
+                            color: #ff4d4f;
+                            padding: 12px;
+                            border-radius: 8px;
+                            margin-bottom: 20px;
+                            font-size: 14px;
+                        }
+
+                        .success-message {
+                            background-color: rgba(82, 196, 26, 0.1);
+                            border: 1px solid rgba(82, 196, 26, 0.2);
+                            color: #52c41a;
+                            padding: 12px;
+                            border-radius: 8px;
+                            margin-bottom: 20px;
+                            font-size: 14px;
+                        }
+
+                        .submit-button {
+                            width: 100%;
+                            padding: 12px;
+                            background: #ff8a1c;
+                            border: none;
+                            border-radius: 8px;
+                            color: #191917;
+                            font-weight: 600;
+                            font-size: 16px;
+                            cursor: pointer;
+                            transition: all 0.2s ease;
+                            margin-top: 20px;
+
+                            &:hover {
+                                background: #ff9e33;
+                            }
+
+                            &:active {
+                                transform: translateY(1px);
+                            }
+
+                            &:disabled {
+                                opacity: 0.7;
+                                cursor: not-allowed;
+                                
+                                &:hover {
+                                    background: #ff8a1c;
                                 }
                             }
                         }

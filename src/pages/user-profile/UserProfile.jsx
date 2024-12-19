@@ -254,7 +254,8 @@ const UserProfile = () => {
   const handleGenerateLink = async () => {
     try {
       const response = await axios.post('https://winwinsocietyweb3.com/api/tiny-url/', {
-        alias: userData?.userId.toString()
+        alias: userData?.userId.toString(),
+        username: userDetails?.username
       });
       setInviteLink(response.data.tiny_url);
       setShowInvitePopup(true);

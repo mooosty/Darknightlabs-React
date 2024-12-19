@@ -102,8 +102,6 @@
 
                 .disabled {
                     position: relative;
-                    // backdrop-filter: blur(10px);
-                    background-color: red;
 
                     &::before {
                         content: "";
