@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import './karma.scss';
 import { toast } from 'react-toastify';
+import copyIcon from '../../assets/copy-icon.svg';
 
 const Karma = () => {
     const [showInvitePopup, setShowInvitePopup] = useState(false);
@@ -34,6 +35,16 @@ const Karma = () => {
         } catch (error) {
             toast.error("Failed to generate invite link");
         }
+    };
+
+    const handleCopyLink = () => {
+        navigator.clipboard.writeText(inviteLink)
+            .then(() => {
+                toast.success("Link copied to clipboard");
+            })
+            .catch(() => {
+                toast.error("Failed to copy link");
+            });
     };
 
     return (
@@ -105,7 +116,12 @@ const Karma = () => {
                 <div className="popup_overlay">
                     <div className="popup_content">
                         <h3>Here is your invite link, share it to receive karma points</h3>
-                        <p>{inviteLink}</p>
+                        <div className="link_container">
+                            <p>{inviteLink}</p>
+                            <button className="copy_btn" onClick={handleCopyLink}>
+                                <img src={copyIcon} alt="Copy" />
+                            </button>
+                        </div>
                         <button className="btn_gray" onClick={() => setShowInvitePopup(false)}>Close</button>
                     </div>
                 </div>
