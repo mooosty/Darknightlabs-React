@@ -1,0 +1,132 @@
+.card_wrap {
+    .card {
+        height: 100%;
+        padding: 12px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        border-radius: 10px;
+        background-color: #242623;
+        margin-bottom: 0;
+
+        &:hover {
+            box-shadow: 1px 0px 20px 1px rgba(255, 138, 28, 0.35);
+        }
+
+        .card_image {
+            flex-shrink: 0;
+            height: 110px;
+            object-fit: contain;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 8px;
+            width: 100%;
+
+            @media (max-width: 1300px) {
+                width: 100%;
+                max-width: none;
+            }
+
+            img {
+                object-fit: cover;
+                height: 100%;
+                width: 100%;
+            }
+
+
+        }
+
+        .card_body {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            .name {
+                color: #F5EFDB;
+                font-family: "MedievalSharp", cursive;
+                font-size: 18px;
+            }
+
+            .tabs {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 4px;
+                color: #ffffff;
+
+                .angle_tag {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 4px 8px;
+                    font-size: 12px;
+                    border-radius: 6px;
+                    background: #191917;
+                    gap: 4px;
+
+                    .text {
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        display: -webkit-box;
+                        -webkit-line-clamp: 1;
+                        -webkit-box-orient: vertical;
+                        color: #f5efdb;
+                    }
+                }
+
+                .global {
+                    .angle_tag {
+                        position: relative;
+
+                        &::before {
+                            content: "";
+                            inset: 0;
+                            position: absolute;
+                            border-radius: 6px;
+                            padding: 1px;
+                            background: linear-gradient(to bottom right, #622BFD, #DA4370);
+                            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                            -webkit-mask-composite: xor;
+                            mask-composite: exclude;
+                            pointer-events: none;
+                        }
+
+                        .text {
+                            background-image: linear-gradient(to bottom right, #622BFD, #DA4370);
+                            -webkit-background-clip: text;
+                            -webkit-text-fill-color: transparent;
+                        }
+                    }
+                }
+
+                .graph {
+                    .angle_tag {
+                        position: relative;
+
+                        &::before {
+                            content: "";
+                            inset: 0;
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            border-radius: 6px;
+                            padding: 1px;
+                            background: linear-gradient(to bottom right, #E58A02, #DAB943);
+                            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                            -webkit-mask-composite: xor;
+                            mask-composite: exclude;
+                            pointer-events: none;
+                        }
+
+                        .text {
+                            background-image: linear-gradient(to bottom right, #E58A02, #DAB943);
+                            -webkit-background-clip: text;
+                            -webkit-text-fill-color: transparent;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,7 +1,6 @@
 import './chatsMembers.scss'
 import PropTypes from 'prop-types';
-import { AddUserIcon } from '../../../utils/SVGs/SVGs'
-import { closeIcon, member1, member2 } from '../../../utils/constants/images';
+import { AddUserIcon, closeIcon, member1, member2 } from '../../../utils/constants/images';
 
 const ChatMembers = ({ open, handleClose, groupData, openChatIndex, handleOpenAddMemberPopup }) => {
 
@@ -63,7 +62,7 @@ const ChatMembers = ({ open, handleClose, groupData, openChatIndex, handleOpenAd
                             </div>
                             <button className="btn_gray" onClick={handleOpenAddMemberPopup}>
                                 <span>Add user</span>
-                                < AddUserIcon />
+                                <AddUserIcon />
                             </button>
                         </div>
                     </div>

@@ -1,50 +1,4 @@
 .page_box {
-    display: flex;
-    gap: 40px;
-    margin-bottom: 15px;
-
-    @media (max-width: 767px) {
-        margin-bottom: 0px;
-    }
-
-    @media (max-width: 1199px) {
-        gap: 20px;
-    }
-
-    .btn_gray {
-        padding: 16px 24px;
-        border: none;
-        background-color: #4e4e4e94;
-        font-size: 16px;
-        font-weight: 500;
-        color: #f5efdb;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 5px;
-
-        @media (max-width: 1600px) {
-            font-size: 14px;
-            padding-block: 12px;
-        }
-    }
-
-    .btn_delete {
-        background-color: #ff9e9826;
-        border: none;
-        padding: 13px;
-
-        @media (max-width: 1600px) {
-            padding: 10px;
-        }
-
-        img {
-            @media (max-width: 1600px) {
-                width: 17px;
-            }
-        }
-    }
-
     .synergies_content_header {
         display: flex;
         align-items: center;
@@ -70,8 +24,7 @@
             gap: 10px;
 
             @media (max-width: 767px) {
-                padding-inline: 24px;
-                padding-top: 15px;
+                padding: 15px 24px;
             }
 
             h2 {
@@ -155,7 +108,7 @@
     }
 
     .synergies_page_data {
-        border-radius: 20px;
+        border-radius: 9px;
         background-color: #191917;
         // background-image: url("../../assets/model-frame.png");
         // background-repeat: no-repeat;
@@ -171,7 +124,7 @@
 
         @media (max-width: 767px) {
             border-radius: 0;
-            padding-block: 20px 0px;
+            padding-block: 0px;
         }
 
         .page_data {
@@ -186,7 +139,7 @@
                 border-bottom: 1px solid #f5efdb26;
 
                 @media (max-width: 767px) {
-                    padding: 24px 24px;
+                    padding: 10px 24px 24px 24px;
                 }
 
                 .synergy_page_header_top {
@@ -752,190 +705,193 @@
                     margin-right: -8px;
                     row-gap: 16px;
                 }
+
                 .card_wrap {
                     padding-inline: 12px;
                     flex-basis: calc(100% / 5);
                     max-width: calc(100% / 5);
-        
+
                     @media (max-width: 1600px) {
-                      flex-basis: calc(100% / 4);
-                      max-width: calc(100% / 4);
+                        flex-basis: calc(100% / 4);
+                        max-width: calc(100% / 4);
                     }
-        
+
                     @media (max-width: 1300px) {
-                      flex-basis: calc(100% / 3);
-                      max-width: calc(100% / 3);
+                        flex-basis: calc(100% / 3);
+                        max-width: calc(100% / 3);
                     }
-        
+
                     @media (max-width: 1000px) {
-                      padding-inline: 8px;
-                      flex-basis: calc(100% / 2);
-                      max-width: calc(100% / 2);
+                        padding-inline: 8px;
+                        flex-basis: calc(100% / 2);
+                        max-width: calc(100% / 2);
                     }
-        
+
                     @media (max-width: 500px) {
-                      flex-basis: calc(100%);
-                      max-width: calc(100%);
-                    }
-        
-                .card {
-                    width: 100%;
-                    height: 100%;
-                    padding: 12px 16px;
-                    display: flex;
-                    flex-direction: column;
-                    gap: 16px;
-                    background-color: #242623;
-                    border-radius: 10px;
-                    min-height: 300px;
-
-                    &:hover {
-                        box-shadow: 1px 0px 20px 1px rgba(255, 138, 28, 0.35);
+                        flex-basis: calc(100%);
+                        max-width: calc(100%);
                     }
 
-                    .card_image {
-                        object-fit: contain;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        overflow: hidden;
-                        border-radius: 8px;
+                    .card {
                         width: 100%;
-                        height: 140px;
-
-                        @media (max-width: 1300px) {
-                            width: 100%;
-                            max-width: none;
-                        }
-
-                        img {
-                            object-fit: cover;
-                            height: 100%;
-                            width: 100%;
-                        }
-                    }
-
-                    .card_body {
+                        height: 100%;
+                        padding: 12px 16px;
                         display: flex;
                         flex-direction: column;
-                        gap: 10px;
+                        gap: 16px;
+                        background-color: #242623;
+                        border-radius: 10px;
+                        min-height: 300px;
 
-                        .name {
-                            color: #F5EFDB;
-                            font-family: "MedievalSharp", cursive;
-                            font-size: 18px;
-                            max-width: 100%;
-                            white-space: nowrap;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
+                        &:hover {
+                            box-shadow: 1px 0px 20px 1px rgba(255, 138, 28, 0.35);
                         }
 
-                        .creator {
+                        .card_image {
+                            object-fit: contain;
+                            flex-shrink: 0;
                             display: flex;
-                            gap: 8px;
                             align-items: center;
-                            color: rgba(255, 209, 166, 0.8);
-                            font-size: 15px;
+                            justify-content: center;
+                            overflow: hidden;
+                            border-radius: 8px;
+                            width: 100%;
+                            height: 140px;
 
-                            img {
-                                height: 24px;
-                                width: 24px;
-                                border-radius: 30px;
+                            @media (max-width: 1300px) {
+                                width: 100%;
+                                max-width: none;
                             }
 
-                            .creator_name {
+                            img {
+                                object-fit: cover;
+                                height: 100%;
+                                width: 100%;
+                            }
+                        }
+
+                        .card_body {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 10px;
+
+                            .name {
+                                color: #F5EFDB;
+                                font-family: "MedievalSharp", cursive;
+                                font-size: 18px;
                                 max-width: 100%;
                                 white-space: nowrap;
                                 overflow: hidden;
                                 text-overflow: ellipsis;
                             }
-                        }
 
-                        .tabs {
-                            display: flex;
-                            flex-wrap: wrap;
-                            gap: 4px;
-                            color: #ffffff;
-
-                            .angle_tag {
+                            .creator {
                                 display: flex;
-                                justify-content: center;
+                                gap: 8px;
                                 align-items: center;
-                                padding: 4px 8px;
-                                font-size: 12px;
-                                border-radius: 6px;
-                                background: #191917;
-                                gap: 4px;
+                                color: rgba(255, 209, 166, 0.8);
+                                font-size: 15px;
 
-                                .icon {
-                                    display: flex;
-                                    justify-content: center;
+                                img {
+                                    height: 24px;
+                                    width: 24px;
+                                    border-radius: 30px;
                                 }
 
-                                .text {
+                                .creator_name {
+                                    max-width: 100%;
+                                    white-space: nowrap;
                                     overflow: hidden;
                                     text-overflow: ellipsis;
-                                    display: -webkit-box;
-                                    -webkit-line-clamp: 1;
-                                    -webkit-box-orient: vertical;
-                                    color: #f5efdb;
                                 }
                             }
 
-                            .global {
-                                .angle_tag {
-                                    position: relative;
+                            .tabs {
+                                display: flex;
+                                flex-wrap: wrap;
+                                gap: 4px;
+                                color: #ffffff;
 
-                                    &::before {
-                                        content: "";
-                                        inset: 0;
-                                        position: absolute;
-                                        border-radius: 6px;
-                                        padding: 1px;
-                                        background: linear-gradient(to bottom right, #622BFD, #DA4370);
-                                        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-                                        -webkit-mask-composite: xor;
-                                        mask-composite: exclude;
-                                        pointer-events: none;
+                                .angle_tag {
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    padding: 4px 8px;
+                                    font-size: 12px;
+                                    border-radius: 6px;
+                                    background: #191917;
+                                    gap: 4px;
+
+                                    .icon {
+                                        display: flex;
+                                        justify-content: center;
                                     }
 
                                     .text {
-                                        background-image: linear-gradient(to bottom right, #622BFD, #DA4370);
-                                        -webkit-background-clip: text;
-                                        -webkit-text-fill-color: transparent;
+                                        overflow: hidden;
+                                        text-overflow: ellipsis;
+                                        display: -webkit-box;
+                                        -webkit-line-clamp: 1;
+                                        -webkit-box-orient: vertical;
+                                        color: #f5efdb;
                                     }
                                 }
-                            }
 
-                            .graph {
-                                .angle_tag {
-                                    position: relative;
+                                .global {
+                                    .angle_tag {
+                                        position: relative;
 
-                                    &::before {
-                                        content: "";
-                                        inset: 0;
-                                        position: absolute;
-                                        top: 0;
-                                        left: 0;
-                                        border-radius: 6px;
-                                        padding: 1px;
-                                        background: linear-gradient(to bottom right, #E58A02, #DAB943);
-                                        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-                                        -webkit-mask-composite: xor;
-                                        mask-composite: exclude;
-                                        pointer-events: none;
+                                        &::before {
+                                            content: "";
+                                            inset: 0;
+                                            position: absolute;
+                                            border-radius: 6px;
+                                            padding: 1px;
+                                            background: linear-gradient(to bottom right, #622BFD, #DA4370);
+                                            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                                            -webkit-mask-composite: xor;
+                                            mask-composite: exclude;
+                                            pointer-events: none;
+                                        }
+
+                                        .text {
+                                            background-image: linear-gradient(to bottom right, #622BFD, #DA4370);
+                                            -webkit-background-clip: text;
+                                            -webkit-text-fill-color: transparent;
+                                        }
                                     }
+                                }
 
-                                    .text {
-                                        background-image: linear-gradient(to bottom right, #E58A02, #DAB943);
-                                        -webkit-background-clip: text;
-                                        -webkit-text-fill-color: transparent;
+                                .graph {
+                                    .angle_tag {
+                                        position: relative;
+
+                                        &::before {
+                                            content: "";
+                                            inset: 0;
+                                            position: absolute;
+                                            top: 0;
+                                            left: 0;
+                                            border-radius: 6px;
+                                            padding: 1px;
+                                            background: linear-gradient(to bottom right, #E58A02, #DAB943);
+                                            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                                            -webkit-mask-composite: xor;
+                                            mask-composite: exclude;
+                                            pointer-events: none;
+                                        }
+
+                                        .text {
+                                            background-image: linear-gradient(to bottom right, #E58A02, #DAB943);
+                                            -webkit-background-clip: text;
+                                            -webkit-text-fill-color: transparent;
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                }}
+                }
             }
         }
     }

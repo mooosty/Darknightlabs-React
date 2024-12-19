@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { ProjectAccordion } from "../../../../components";
-import { GredientGlobalIcon, GradientGraphIcon } from "../../../../utils/SVGs/SVGs";
+import { GredientGlobalIcon, GradientGraphIcon } from "../../../../utils/constants/images";
 import { defaultImg, editIcon, trashIcon } from "../../../../utils/constants/images";
 
 const ProjectManagerTableLayout = ({

@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import './ambassadorsCard.scss'
-import { defaultImg } from '../../utils/constants/images';
-import { GradientTimerIcon } from '../../utils/SVGs/SVGs';
+import { defaultImg, GradientTimerIcon } from '../../utils/constants/images';
 import { ROUTER } from '../../utils/routes/routes';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,7 +12,7 @@ const AmbassadorsCard = ({ projectId, name, img, synergiesAngles, isTimeFramed }
     return (<>
         <div className="ambassador_card">
             <div className="card_img">
-                <img src={img} alt="" onError={(e) => e.target.src = defaultImg} />
+                <img src={img || defaultImg} alt="" onError={(e) => e.target.src = defaultImg} />
             </div>
             <div className="card_body">
                 <div className="card_body_head">{name}</div>
@@ -26,27 +25,16 @@ const AmbassadorsCard = ({ projectId, name, img, synergiesAngles, isTimeFramed }
                     </div>}
                     <div className="tabs">
                         {
-                            synergiesAngles.map((angle, index) => {
+                            Object.values(synergiesAngles)?.map((angle, index) => {
                                 return (
                                     <div className={`${index === 0 ? 'global' : (index === 1 ? 'graph' : '')}`} key={index}>
-                                        {/* <CustomTooltip
-                                            place="top"
-                                            style={{
-                                                zIndex: 99,
-                                                maxWidth: '200px',
-                                                width: 'max-content',
-                                                boxShadow: '0px 3px 10.3px -4px rgba(229, 229, 229, 0.1)',
-                                                background: 'rgba(79, 79, 79, 1)',
-                                            }}
-                                            text={angle.label}
-                                        > */}
+
                                         <div className='angle_tag'>
-                                            <>{angle.icon} </>
+                                            <>{angle?.icon} </>
                                             <span className='text'>
                                                 <span>{angle}</span>
                                             </span>
                                         </div>
-                                        {/* </CustomTooltip> */}
                                     </div>)
                             })
                         }

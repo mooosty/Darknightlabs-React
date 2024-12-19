@@ -2,8 +2,7 @@ import './signupPopup.scss';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { CalendarIcon, CloseEyeIcon, FaceBookIcon, GoogleIcon, InstagramIcon, OpenEyeIcon, TwitterIcon } from '../../../utils/SVGs/SVGs';
-import { closeIcon, divider } from '../../../utils/constants/images';
+import { CalendarIcon, CloseEyeIcon, closeIcon, divider, FaceBookIcon, GoogleIcon, InstagramIcon, OpenEyeIcon, TwitterIcon } from '../../../utils/constants/images';
 
 const SignupPopup = ({ open, handleClose }) => {
     const [isPassEyeOpen, setIsPassEyeOpen] = useState(false);

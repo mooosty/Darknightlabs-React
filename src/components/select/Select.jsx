@@ -16,6 +16,7 @@ const Select = ({
     allOptionText = '',
     onAdd = () => { },
     onChange = () => { },
+    disable = false
 }) => {
     const [currentOption, setcurrentOption] = useState(null)
     const [isOpen, setIsOpen] = useState(false)
@@ -23,9 +24,9 @@ const Select = ({
         setIsOpen(false)
     })
     const optionData = options?.find((item) => item.value === currentOption)
-
     const handleClickLabel = () => {
-        setIsOpen(!isOpen)
+        if (!disable)
+            setIsOpen(!isOpen)
     }
 
     const handleSelectOption = (selectedOption) => {
@@ -41,7 +42,8 @@ const Select = ({
 
     return (
         <div
-            className="select_wrapper"
+            className={`select_wrapper ${disable && 'disable'}`}
+            ref={listRef}
         >
             <div
                 className="custom_select_field"
@@ -76,7 +78,6 @@ const Select = ({
             </div>
             <div
                 className={`custom_select_list ${isOpen ? 'active' : ''}`}
-                ref={listRef}
             >
                 <ul>
                     {
@@ -133,5 +134,6 @@ Select.propTypes = {
     onAdd: PropTypes.func,
     showAllOption: PropTypes.bool,
     allOptionText: PropTypes.string,
+    disable: PropTypes.bool
 }
 export default Select

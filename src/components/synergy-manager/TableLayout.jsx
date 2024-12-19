@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
 import defaultImg from '../../assets/project-card-img-1.png'
 import Accordion from '../accordion/Accordion'
-import { MoreIcon } from '../../utils/SVGs/SVGs'
 import globalIcon from '../../assets/global.svg'
 import editIcon from '../../assets/edit-icon.svg'
 import closeIcon from '../../assets//X-icon.png'
 import trashIcon from '../../assets/trash-icon.png'
+import { MoreIcon } from '../../utils/constants/images'
 
 
 const SynergyManagerTableLayout = ({ filterSynergies, selectedSynergy, handleSelectAllProjects, handleCancelSelection, setIsMultiDeleteConfirmPopupOpen, setIsBottomMenuOpen, setEditId, setIsEditSynergiesPopupOpen, setDeleteId, setIsDeleteConfirmPopupOpen, handleSelectedSynergy }) => {

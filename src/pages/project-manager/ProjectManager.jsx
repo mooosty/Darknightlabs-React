@@ -6,8 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import useNoScroll from "../../utils/hooks/useNoScroll";
 import { useCallback, useEffect, useState } from "react";
 import { synergyAnglesOptions } from "../../utils/constants/options";
-import { GridIcon, ListIcon, TableStatusIcon, InfiniteIcon, MoreIcon } from "../../utils/SVGs/SVGs";
-import { searchIcon, filterIcon, trashIcon, addIcon, closeIcon } from "../../utils/constants/images";
+import { searchIcon, filterIcon, trashIcon, addIcon, closeIcon, ListIcon, GridIcon, TableStatusIcon, InfiniteIcon, MoreIcon } from "../../utils/constants/images";
 import { getProjectsAPI, deleteProjectAPI, updateProjectAPI, getMemberApi } from "../../api-services/projectApis";
 import {
   ProjectManagerTableLayout,
@@ -112,10 +111,10 @@ const ProjectManager = () => {
     setSelectedProjects([]);
   };
 
-  const handleAddFeature = () => {
+  const handleAddFeature = (isAdd) => {
     let projects = [
       ...data.filter((project) => {
-        return selectedProjects.includes(project.project_id) && !project.featured;
+        return selectedProjects.includes(project.project_id) && (isAdd ? !project.featured : project.featured);
       }),
     ];
 
@@ -123,7 +122,7 @@ const ProjectManager = () => {
       const data = {
         projectId: project.project_id,
         projectData: {
-          featured: 1,
+          featured: isAdd ? 1 : 0,
         },
       };
       return dispatch(updateProjectAPI(data));
@@ -477,15 +476,33 @@ const ProjectManager = () => {
                         <img src={closeIcon} alt="Add" />
                         <span>Cancel</span>
                       </button>
-                      <button
-                        className="btn_featured btn_gray"
-                        onClick={() => {
-                          handleAddFeature();
-                        }}
-                      >
-                        <TableStatusIcon />
-                        <span>Add to Featured</span>
-                      </button>
+                      {
+                        data
+                          .filter((project) => selectedProjects.includes(project.project_id))
+                          .every((items) => items?.featured == 1) ? (
+                          <button
+                            className="btn_cancle btn_gray"
+                            onClick={() => {
+                              handleAddFeature(false);
+                            }}
+                          >
+                            <img src={closeIcon} alt="Remove" />
+                            <span>Remove Featured</span>
+                          </button>
+                        ) : (
+                          <button
+                            className="btn_featured btn_gray"
+                            onClick={() => {
+                              handleAddFeature(true);
+                            }}
+                          >
+                            <TableStatusIcon />
+                            <span>Add to Featured</span>
+                          </button>
+                        )
+                      }
+
+
                       <button
                         className="btn_create btn_gray"
                         onClick={() => {

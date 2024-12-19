@@ -1,9 +1,9 @@
 import './ambassadorAccordion.scss';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { CopyIcon, DownIcon } from '../../utils/SVGs/SVGs';
-import { editIcon, trashIcon } from '../../utils/constants/images';
+import { CopyIcon, DownIcon, editIcon, trashIcon } from '../../utils/constants/images';
 import DeleteConfirmPopup from '../popup/delete-confirm-popup/DeleteConfirmPopup';
+import { toast } from 'react-toastify';
 
 const AmbassadorAccordion = ({
     tweetText,
@@ -16,7 +16,17 @@ const AmbassadorAccordion = ({
 }) => {
     const [open, setOpen] = useState(false);
     const [isDeleteConfirmPopupOpen, setIsDeleteConfirmPopupOpen] = useState(false);
-
+    
+    const copySelectedText = (url) => {
+        if (url) {
+            navigator.clipboard.writeText(url)
+                .then(() => {
+                    toast.success('URL Copied')
+                })
+        } else {
+            toast.error('URL Not Found')
+        }
+    }
 
     return (
         <>
@@ -34,7 +44,7 @@ const AmbassadorAccordion = ({
                                 <div className="right">
                                     <div className="url">
                                         <span className='text'>{URL}</span>
-                                        <div className="icon"><CopyIcon /></div>
+                                        <div className="icon" onClick={() => copySelectedText(URL)}><CopyIcon /></div>
                                     </div>
                                     <div className={`status ${status === 'approved' ? 'approved' : 'submitted'}`}>
                                         <span> {status}</span>
@@ -68,9 +78,9 @@ const AmbassadorAccordion = ({
                                     <div className="icon"><CopyIcon /></div>
                                 </div>
                             </div>
-                            <div className={`data_container status ${status === 'approved' ? 'approved' : 'submitted'}`}>
+                            <div className={`data_container status `}>
                                 <span className='label'>Status:</span>
-                                <span> {status}</span>
+                                <span className={`status_tab ${status === 'approved' ? 'approved' : 'submitted'}`}> {status}</span>
                             </div>
                             <div className="data_container">
                                 <span className='label'>Created at:</span>

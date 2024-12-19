@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
-import { GredientGlobalIcon, GradientGraphIcon, GrammerlyIcon } from '../../utils/SVGs/SVGs'
-import { defaultImg } from '../../utils/constants/images'
+import { defaultImg, GradientGraphIcon, GrammerlyIcon, GredientGlobalIcon } from '../../utils/constants/images'
 
 const SynergyManagerGridLayout = ({ filterSynergies}) => {
     return (

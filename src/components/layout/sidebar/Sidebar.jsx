@@ -1,20 +1,12 @@
 import "./sidebar.scss";
 import collapseLeftIcon from "../../../assets/collapse-left-icon.png";
 import collapseRightIcon from "../../../assets/collapse-right-icon.png";
-import myContentIcon from "../../../assets/my-content-icon.png";
-import projectIcon from "../../../assets/project-icon.png";
-import pendingIcon from "../../../assets/pending-icon.png";
-import synergiesIcon from "../../../assets/synergies-icon.png";
-import synergiesUserIcon from "../../../assets/synergies-user-icon.png";
-import investmentIcon from "../../../assets/investment-icon.png";
-import chatIcon from "../../../assets/chat-icon.png";
-import profileIcon from "../../../assets/profile-icon.png";
-import logoutIcon from "../../../assets/logout-icon.png";
 import { Link, useLocation } from "react-router-dom";
 import { ROUTER } from "../../../utils/routes/routes";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { ProfileNavTabIcon, ChatNavTabIcon, LogoutNavTabIcon, ProjectNavTabIcon, MyContentNavTabIcon, SynergiesNavTabIcon, InvestmentNavTabIcon, PendingSynergiesNavTabIcon, SynergiesManagerNavTabIcon } from "../../../utils/SVGs/SVGs";
 
 const userRole = "ADMIN";
 const Sidebar = () => {
@@ -71,14 +63,14 @@ const Sidebar = () => {
             <ul>
               <li className={`${location.pathname.startsWith(`/${ROUTER.projects}`) ? "active" : ""} ${userProjects.length === 0 ? "disabled" : ""}`}>
                 <Link to={ROUTER.projects}>
-                  <img src={projectIcon} alt="Project" />
+                  <ProfileNavTabIcon />
                   <span className="menu_text">Projects</span>
                 </Link>
               </li>
               {userRole == "ADMIN" && (
                 <li className={`${location.pathname.startsWith(`/${ROUTER.projectManager}`) ? "active" : ""} ${userProjects.length === 0 ? "disabled" : ""}`}>
                   <Link to={ROUTER.projectManager}>
-                    <img src={projectIcon} alt="Project Manager" />
+                    <ProjectNavTabIcon />
                     <span className="menu_text">Projects Manager</span>
                   </Link>
                 </li>
@@ -98,13 +90,13 @@ const Sidebar = () => {
                     ${userProjects.length === 0 ? "disabled" : ""}`}
                 >
                   <Link to={ROUTER.synergies}>
-                    <img src={synergiesUserIcon} alt="Synergies" />
+                    <SynergiesNavTabIcon />
                     <span className="menu_text">Synergies</span>
                   </Link>
                 </li>
                 <li className={`${location.pathname === `/${ROUTER.investment}` ? "active" : ""} ${userProjects.length === 0 ? "disabled" : ""}`}>
                   <Link to={ROUTER.investment}>
-                    <img src={investmentIcon} alt="Investment" />
+                    <InvestmentNavTabIcon />
                     <span className="menu_text">Investment </span>
                   </Link>
                 </li>
@@ -114,13 +106,13 @@ const Sidebar = () => {
                 <>
                   <li className={`${location.pathname === `/${ROUTER.synergyRequests}` ? "active" : ""} ${userProjects.length === 0 ? "disabled" : ""}`}>
                     <Link to={ROUTER.synergyRequests}>
-                      <img src={pendingIcon} alt="synergy requests" />
+                      <SynergiesNavTabIcon />
                       <span className="menu_text">Synergy requests</span>
                     </Link>
                   </li>
                   <li className={`${location.pathname === `/${ROUTER.synergiesManager}` ? "active" : ""} ${userProjects.length === 0 ? "disabled" : ""}`}>
                     <Link to={ROUTER.synergiesManager}>
-                      <img src={synergiesIcon} alt="Synergies Manager" />
+                      <SynergiesManagerNavTabIcon />
                       <span className="menu_text">Synergies Manager </span>
                     </Link>
                   </li>
@@ -133,7 +125,7 @@ const Sidebar = () => {
             <ul>
               <li className={`${location.pathname.includes(`/${ROUTER.chat}`) ? "active" : ""} chat ${userProjects.length === 0 ? "disabled" : ""}`}>
                 <Link to={ROUTER.chat}>
-                  <img src={chatIcon} alt="Chat" />
+                  <ChatNavTabIcon />
                   <span className="menu_text">Chat</span>
                   <span className="notification">
                     <span className="notification_text">1</span>
@@ -142,7 +134,7 @@ const Sidebar = () => {
               </li>
               <li className={`${location.pathname === `/${ROUTER.profile}` ? "active" : ""}`}>
                 <Link to={ROUTER.profile}>
-                  <img src={profileIcon} alt="Profile" />
+                  <ProfileNavTabIcon />
                   <span className="menu_text">Profile</span>
                 </Link>
               </li>
@@ -153,13 +145,13 @@ const Sidebar = () => {
             <ul>
               <li className={`${location.pathname.startsWith(`/${ROUTER.myContent}`) ? "active" : ""} ${userProjects?.length === 0 ? "disabled" : ""}`}>
                 <Link to={ROUTER.myContent}>
-                  <img src={myContentIcon} alt="Project" />
+                  <MyContentNavTabIcon />
                   <span className="menu_text">My Content</span>
                 </Link>
               </li>
               <li className={`${location.pathname.startsWith(`/${ROUTER.ambassadorProjects}`) ? "active" : ""} ${userProjects?.length === 0 ? "disabled" : ""}`}>
                 <Link to={ROUTER.ambassadorProjects}>
-                  <img src={projectIcon} alt="Project" />
+                  <ProjectNavTabIcon />
                   <span className="menu_text">A Projects</span>
                 </Link>
               </li>
@@ -176,7 +168,7 @@ const Sidebar = () => {
                     window.location.href = "/";
                   }}
                 >
-                  <img src={logoutIcon} alt="Logout" />
+                  <LogoutNavTabIcon />
                   <span className="menu_text">Logout</span>
                 </Link>
               </li>
@@ -192,27 +184,27 @@ const Sidebar = () => {
           <ul>
             <li className={`${location.pathname === `/${ROUTER.projects}` ? "active" : ""} ${userProjects?.length === 0 ? "disabled" : ""}`}>
               <Link to={ROUTER.projects}>
-                <img src={projectIcon} alt="" />
+                <ProjectNavTabIcon />
                 <span>Projects</span>
               </Link>
             </li>
             {userRole == "ADMIN" && (
               <li className={`${location.pathname === `/${ROUTER.projectManager}` ? "active" : ""}  ${userProjects?.length === 0 ? "disabled" : ""}`}>
                 <Link to={ROUTER.projectManager}>
-                  <img src={projectIcon} alt="" />
+                  <ProfileNavTabIcon />
                   <span>Projects manager</span>
                 </Link>
               </li>
             )}
             <li className={`${location.pathname === `/${ROUTER.synergies}` ? "active" : ""}  ${userProjects?.length === 0 ? "disabled" : ""}`}>
               <Link to={ROUTER.synergies}>
-                <img src={synergiesUserIcon} alt="" />
+                <SynergiesNavTabIcon />
                 <span>Synergies</span>
               </Link>
             </li>
             <li className={`${location.pathname === `/${ROUTER.investment}` ? "active" : ""}  ${userProjects?.length === 0 ? "disabled" : ""}`}>
               <Link to={ROUTER.investment}>
-                <img src={investmentIcon} alt="" />
+                <InvestmentNavTabIcon />
                 <span>Investment</span>
               </Link>
             </li>
@@ -220,29 +212,29 @@ const Sidebar = () => {
               <>
                 <li className={`${location.pathname === `/${ROUTER.synergyRequests}` ? "active" : ""}  ${userProjects?.length === 0 ? "disabled" : ""}`}>
                   <Link to={ROUTER.synergyRequests}>
-                    <img src={pendingIcon} alt="" />
+                    <PendingSynergiesNavTabIcon />
                     <span>Pending Synergies</span>
                   </Link>
                 </li>
                 <li className={`${location.pathname === `/${ROUTER.synergiesManager}` ? "active" : ""}  ${userProjects?.length === 0 ? "disabled" : ""}`}>
                   <Link to={ROUTER.synergiesManager}>
-                    <img src={synergiesIcon} alt="" />
-                    <span>Synergies Manager</span>
+                  <SynergiesManagerNavTabIcon />
+                  <span>Synergies Manager</span>
                   </Link>
                 </li>
               </>
             )}
             <li className={`${location.pathname === `/${ROUTER.chat}` ? "active" : ""}  ${userProjects?.length === 0 ? "disabled" : ""}`}>
               <Link to={ROUTER.chat}>
-                <img src={chatIcon} alt="" />
-                <span className="chat">
+              <ChatNavTabIcon />
+              <span className="chat">
                   Chat <p className="chat_count">1</p>
                 </span>
               </Link>
             </li>
             <li className={`${location.pathname === `/${ROUTER.profile}` ? "active" : ""}`}>
               <Link to={ROUTER.profile}>
-                <img src={profileIcon} alt="" />
+                <ProfileNavTabIcon />
                 <span>Profile</span>
               </Link>
             </li>

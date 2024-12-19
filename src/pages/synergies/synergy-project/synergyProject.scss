@@ -1,51 +1,4 @@
 .page_box {
-    display: flex;
-    gap: 40px;
-    margin-bottom: 15px;
-
-    @media (max-width: 767px) {
-        margin-bottom: 0px;
-        background-color: #191917;
-    }
-
-    @media (max-width: 1199px) {
-        gap: 20px;
-    }
-
-    .btn_gray {
-        padding: 16px 24px;
-        border: none;
-        background-color: #4e4e4e94;
-        font-size: 16px;
-        font-weight: 500;
-        color: #f5efdb;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 5px;
-
-        @media (max-width: 1600px) {
-            font-size: 14px;
-            padding: 10px 20px;
-        }
-    }
-
-    .btn_delete {
-        background-color: #ff9e9826;
-        border: none;
-        padding: 13px;
-
-        @media (max-width: 1600px) {
-            padding: 10px;
-        }
-
-        img {
-            @media (max-width: 1600px) {
-                width: 17px;
-            }
-        }
-    }
-
     .content_box {
         .synergies_projects_content_Wrapper {
             .synergies_content_header {
@@ -74,7 +27,7 @@
 
                     @media (max-width: 767px) {
                         width: 100%;
-                        padding: 15px 30px 0 30px;
+                        padding: 15px 24px;
                         justify-content: space-between;
                     }
 
@@ -167,7 +120,7 @@
             }
 
             .synergies_project_page_data {
-                border-radius: 20px;
+                border-radius: 9px;
                 background-color: #191917;
                 margin-bottom: 32px;
 

@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
-import { GredientGlobalIcon, GradientGraphIcon, TableStatusIcon } from '../../utils/SVGs/SVGs';
-import cardImage from "../../assets//project-card-img-1.png";
+import { cardImage, GradientGraphIcon, GredientGlobalIcon, TableStatusIcon } from '../../utils/constants/images';
 
 
 const ProjectManagerGridLayout = ({ filterProject = [] }) => {

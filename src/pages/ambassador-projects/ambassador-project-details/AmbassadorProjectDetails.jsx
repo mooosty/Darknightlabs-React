@@ -3,10 +3,12 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProjectsApiById } from '../../../api-services/projectApis';
-import { AmbassadorAccordion, Loader } from '../../../components';
-import { addIcon, arrowRight, autherProfile, editIcon, fallBackImage, infoCircle, trashIcon } from '../../../utils/constants/images';
-import { DescriptionIcon, GradientGraphIcon, GradientInfiniteIcon, GrammerlyIcon, GredientGlobalIcon, HealthIcon, InvestmentIcon, StarIcon, RankingIcon, CopyIcon } from '../../../utils/SVGs/SVGs'
+import { AmbassadorAccordion, DeleteConfirmPopup, Loader, SuccessfullyPopup } from '../../../components';
+import { DescriptionIcon, GradientGraphIcon, GradientInfiniteIcon, GrammerlyIcon, GredientGlobalIcon, HealthIcon, InvestmentIcon, RankingIcon, CopyIcon, StarIcon, arrowRight, fallBackImage, autherProfile, addIcon, infoCircle, editIcon, trashIcon } from '../../../utils/constants/images'
 import { AddContentPopup } from '../../../components';
+import { deleteContentAPI, getProjectContentAPI } from '../../../api-services/contentApis';
+import { toast } from 'react-toastify';
+import { ROUTER } from '../../../utils/routes/routes';
 
 
 const synergiesAnglesIcons = [
@@ -17,120 +19,23 @@ const synergiesAnglesIcons = [
     { icon: <StarIcon /> },
 ]
 
-const tweetsData = [
-    {
-        id: 1,
-        subject: "React Development",
-        tweetText: "Just finished building a new React app! #ReactJS #Frontend",
-        URL: "https://twitter.com/example1",
-        status: "approved",
-        date: "2024-12-15T10:00:00Z",
-        label: "Development"
-    },
-    {
-        id: 2,
-        subject: "JavaScript Tips",
-        tweetText: "Check out these JavaScript tips for cleaner code! #JavaScript #Coding",
-        URL: "https://twitter.com/example2",
-        status: "submitted",
-        date: "2024-12-14T15:30:00Z",
-        label: "JavaScript"
-    },
-    {
-        id: 3,
-        subject: "Tech News",
-        tweetText: "Excited about the latest tech trends in 2024! #TechNews #Innovation",
-        URL: "https://twitter.com/example3",
-        status: "submitted",
-        date: "2024-12-13T08:45:00Z",
-        label: "News"
-    },
-    {
-        id: 4,
-        subject: "React Hooks",
-        tweetText: "Learn the basics of React Hooks in this new tutorial! #ReactHooks #WebDev",
-        URL: "https://twitter.com/example4",
-        status: "approved",
-        date: "2024-12-12T12:00:00Z",
-        label: "React"
-    },
-    {
-        id: 5,
-        subject: "Tech News",
-        tweetText: "Excited about the latest tech trends in 2024! #TechNews #Innovation",
-        URL: "https://twitter.com/example3",
-        status: "submitted",
-        date: "2024-12-13T08:45:00Z",
-        label: "News"
-    },
-    {
-        id: 6,
-        subject: "Web Development",
-        tweetText: "Web development trends you should know about in 2024! #WebDev #Trends",
-        URL: "https://twitter.com/example5",
-        status: "approved",
-        date: "2024-12-11T18:20:00Z",
-        label: "Web"
-    }
-];
-
-const videosData = [
-    {
-        id: 1,
-        subject: "React Development",
-        tweetText: "Just finished building a new React app! #ReactJS #Frontend",
-        URL: "https://twitter.com/example1",
-        status: "approved",
-        date: "2024-12-15T10:00:00Z",
-        label: "Development"
-    },
-    {
-        id: 2,
-        subject: "JavaScript Tips",
-        tweetText: "Check out these JavaScript tips for cleaner code! #JavaScript #Coding",
-        URL: "https://twitter.com/example2",
-        status: "submitted",
-        date: "2024-12-14T15:30:00Z",
-        label: "JavaScript"
-    },
-    {
-        id: 3,
-        subject: "Tech News",
-        tweetText: "Excited about the latest tech trends in 2024! #TechNews #Innovation",
-        URL: "https://twitter.com/example3",
-        status: "submitted",
-        date: "2024-12-13T08:45:00Z",
-        label: "News"
-    },
-    {
-        id: 4,
-        subject: "React Hooks",
-        tweetText: "Learn the basics of React Hooks in this new tutorial! #ReactHooks #WebDev",
-        URL: "https://twitter.com/example4",
-        status: "approved",
-        date: "2024-12-12T12:00:00Z",
-        label: "React"
-    }
-];
-
 
 const AmbassadorProjectDetails = () => {
 
     const [isAddContentPopupOpen, setIsAddContentPopupOpen] = useState(false);
     const [activeLayout, setActiveLayout] = useState('DESCRIPTION');
-    const [activeContentLayout, setActiveContentLayout] = useState('TWEETS');
+    const [activeContentLayout, setActiveContentLayout] = useState('Tweet');
     const { projectDetails, isLoading: projectApiLoading } = useSelector((state) => state.project)
-
+    const { contents } = useSelector((state) => state.content)
     const params = useParams();
     const dispatch = useDispatch();
 
-    // -- Used projectDetails in this page --
-    // 1.  project_id 
-    // 2.  project_name 
-    // 3.  image
-    // 4.  featured 
-    // 5.  description
-    // 6.  investments_access 
+    const [isEditContent, setIsEditContent] = useState(false)
+    const [editableContentData, setEditableContentData] = useState({})
+    const [isDeleteConfirmPopupOpen, setIsDeleteConfirmPopupOpen] = useState(false);
+    const [deleteContentId, setDeleteContentId] = useState('')
+    const [isSuccessfullyPopupOpen, setIsSuccessfullyPopupOpen] = useState(false);
+
 
     const handleActive = (key) => {
         setActiveLayout(key);
@@ -143,10 +48,38 @@ const AmbassadorProjectDetails = () => {
         return `${day}/${month}/${year}`;
     };
 
+    const handleDeleteContentData = () => {
+        dispatch(deleteContentAPI(deleteContentId))
+            .then((response) => {
+                setIsDeleteConfirmPopupOpen(false);
+                if (response?.payload) {
+                    toast.success('Content Deleted Successfully')
+                } else {
+                    toast.error('Content Not Deleted')
+
+                }
+            })
+            .catch((error) => {
+                toast.error(error)
+            })
+    }
+
+    const copySelectedText = (url) => {
+        if (url) {
+            navigator.clipboard.writeText(url)
+                .then(() => {
+                    toast.success('URL Copied')
+                })
+        } else {
+            toast.error('URL Not Found')
+        }
+    }
+
+
     useEffect(() => {
         dispatch(getProjectsApiById(params.projectId))
+        dispatch(getProjectContentAPI(params.projectId))
     }, [])
-
 
     return (
         <>
@@ -162,7 +95,7 @@ const AmbassadorProjectDetails = () => {
                 <div className="page_data">
                     <div className="page_header">
                         <div className="pagination">
-                            <Link to={'/projects'}>Ambassador-exclusive projects</Link>
+                            <Link to={`/${ROUTER.ambassadorProjects}`}>Ambassador-exclusive projects</Link>
                             <span>
                                 <img src={arrowRight} alt="" />
                             </span>
@@ -203,9 +136,6 @@ const AmbassadorProjectDetails = () => {
                                     <img className="auther_profile" src={autherProfile} alt="Author" />
                                     <span className="auther_name">Joan of Arc</span>
                                 </div>
-                                <div className='synergize_btn'>
-                                    <GradientInfiniteIcon /> <span className='text'>Synergize</span>
-                                </div>
                                 <div className="tags">
                                     {
                                         projectDetails?.project_info?.split('#')?.filter((item) => item)?.map((data, index) => {
@@ -239,7 +169,10 @@ const AmbassadorProjectDetails = () => {
                                                 <RankingIcon />
                                                 <span>Сontent requirements</span>
                                             </div>
-                                            <div className="btn_gray" onClick={() => setIsAddContentPopupOpen(true)}>
+                                            <div className="btn_gray" onClick={() => {
+                                                setIsAddContentPopupOpen(true);
+                                                setIsEditContent(false)
+                                            }}>
                                                 Add Content
                                                 <img src={addIcon} alt="" />
                                             </div>
@@ -249,23 +182,23 @@ const AmbassadorProjectDetails = () => {
                                             <div className="content_body_top">
                                                 <div className="toggle_btns">
                                                     <button
-                                                        className={`btn ${activeContentLayout === "TWEETS"
+                                                        className={`btn ${activeContentLayout === "Tweet"
                                                             ? "active"
                                                             : ""
                                                             }`}
                                                         onClick={() =>
-                                                            setActiveContentLayout("TWEETS")
+                                                            setActiveContentLayout("Tweet")
                                                         }
                                                     >
                                                         Tweets
                                                     </button>
                                                     <button
-                                                        className={`btn ${activeContentLayout === "VIDEOS"
+                                                        className={`btn ${activeContentLayout === "Video"
                                                             ? "active"
                                                             : ""
                                                             }`}
                                                         onClick={() =>
-                                                            setActiveContentLayout("VIDEOS")
+                                                            setActiveContentLayout("Video")
                                                         }
                                                     >
                                                         Videos
@@ -306,169 +239,98 @@ const AmbassadorProjectDetails = () => {
                                             </div>
 
                                             <div className="content_body_table">
-                                                {activeContentLayout === 'TWEETS' && <>
-                                                    <table>
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Subject</th>
-                                                                <th>Tweet text</th>
-                                                                <th className='center'>URL</th>
-                                                                <th className='center'>Status</th>
-                                                                <th className='center'>Created at</th>
-                                                                <th className='center'>Actions</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            {
-                                                                tweetsData.map((rowData) => {
-                                                                    return (
-                                                                        <tr key={rowData.id} className={`${rowData.id === 1 || rowData.id === 3 || rowData.id === 6 ? 'highlighted' : ''}`}>
-                                                                            <td>
-                                                                                <div className='subject'>
-                                                                                    <span>{rowData.subject}</span>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div className='tweetText'>
-                                                                                    <span>{rowData.tweetText}</span>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div className="url">
-                                                                                    <span className='text'>{rowData.URL}</span>
-                                                                                    <div className='icon'><CopyIcon /></div>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div className={`status ${rowData.status === 'approved' ? 'approved' : 'submitted'}`}>
-                                                                                    <span> {rowData.status}</span>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <span className='date'>{formatDate(rowData.date)}</span>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div className="actions">
-                                                                                    <button className='btn'
-                                                                                    // onClick={() => {
-                                                                                    // navigate(`/project-manager/${rowData.projectId}`)
-                                                                                    // }}
-                                                                                    >
-                                                                                        <img src={editIcon} alt=" " />
-                                                                                    </button>
-                                                                                    <button className='btn'
-                                                                                    //  onClick={() => {
-                                                                                    // setIsDeleteConfirmPopupOpen(true);
-                                                                                    // setDltId(rowData.projectId)
-                                                                                    // }}
-                                                                                    >
-                                                                                        <img src={trashIcon} alt=" " />
-                                                                                    </button>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                    )
-                                                                })
-                                                            }
-                                                        </tbody>
-                                                    </table>
 
-                                                    <div className="accordion_warp">
+                                                <table>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Subject</th>
+                                                            <th>Tweet text</th>
+                                                            <th className='center'>URL</th>
+                                                            <th className='center'>Status</th>
+                                                            <th className='center'>Created at</th>
+                                                            <th className='center'>Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
                                                         {
-                                                            tweetsData.map((rowData) => {
-                                                                return (<>
-                                                                    <AmbassadorAccordion
-                                                                        URL={rowData.URL}
-                                                                        date={formatDate(rowData.date)}
-                                                                        subject={rowData.subject}
-                                                                        tweetText={rowData.tweetText}
-                                                                        status={rowData.status}
-                                                                    /> </>)
-                                                            })}
-                                                    </div>
-                                                </>
-                                                }
+                                                            contents?.filter((item) => item.type == activeContentLayout).map((rowData) => {
+                                                                return (
+                                                                    <tr key={rowData.id} className={`${rowData.id === 1 || rowData.id === 3 || rowData.id === 6 ? 'highlighted' : ''}`}>
+                                                                        <td>
+                                                                            <div className='subject'>
+                                                                                <span>{rowData?.subject || '-'}</span>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div className='tweetText'>
+                                                                                <span>{rowData?.tweetText || '-'}</span>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div className="url">
+                                                                                <span className='text'>{rowData?.url || '-'}</span>
+                                                                                <div className='icon' onClick={() => copySelectedText(rowData?.url)}><CopyIcon /></div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div className={`status ${rowData.status == 'Approved' ? 'approved' : 'submitted'}`}>
+                                                                                <span> {rowData.status}</span>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span className='date'>{formatDate(rowData?.created_at)}</span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div className="actions">
+                                                                                <button className='btn'
+                                                                                    onClick={() => {
+                                                                                        setEditableContentData(rowData)
+                                                                                        setIsEditContent(true)
+                                                                                        setIsAddContentPopupOpen(true);
+                                                                                    }}
+                                                                                >
+                                                                                    <img src={editIcon} alt=" " />
+                                                                                </button>
+                                                                                <button className='btn'
+                                                                                    onClick={() => {
+                                                                                        setIsDeleteConfirmPopupOpen(true);
+                                                                                        setDeleteContentId(rowData.content_id)
+                                                                                    }}
+                                                                                >
+                                                                                    <img src={trashIcon} alt=" " />
+                                                                                </button>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                )
+                                                            })
+                                                        }
+                                                    </tbody>
+                                                </table>
 
-                                                {activeContentLayout === 'VIDEOS' && <>
-                                                    <table>
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Title</th>
-                                                                <th>Description</th>
-                                                                <th className='center'>URL</th>
-                                                                <th className='center'>Status</th>
-                                                                <th className='center'>Created at</th>
-                                                                <th className='center'>Actions</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            {
-                                                                videosData.map((rowData) => {
-                                                                    return (
-                                                                        <tr key={rowData.id} className={`${rowData.id === 1 || rowData.id === 3 || rowData.id === 6 ? 'highlighted' : ''}`}>
-                                                                            <td>
-                                                                                <div className='subject'>
-                                                                                    <span>{rowData.subject}</span>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div className='tweetText'>
-                                                                                    <span>{rowData.tweetText}</span>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div className="url">
-                                                                                    <span className='text'>{rowData.URL}</span>
-                                                                                    <div className='icon'><CopyIcon /></div>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div className={`status ${rowData.status === 'approved' ? 'approved' : 'submitted'}`}>
-                                                                                    <span> {rowData.status}</span>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <span className='date'>{formatDate(rowData.date)}</span>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div className="actions">
-                                                                                    <button className='btn'
-                                                                                    // onClick={() => {
-                                                                                    // navigate(`/project-manager/${rowData.projectId}`)
-                                                                                    // }}
-                                                                                    >
-                                                                                        <img src={editIcon} alt=" " />
-                                                                                    </button>
-                                                                                    <button className='btn'
-                                                                                    //  onClick={() => {
-                                                                                    // setIsDeleteConfirmPopupOpen(true);
-                                                                                    // setDltId(rowData.projectId)
-                                                                                    // }}
-                                                                                    >
-                                                                                        <img src={trashIcon} alt=" " />
-                                                                                    </button>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                    )
-                                                                })
-                                                            }
-                                                        </tbody>
-                                                    </table>
-                                                    <div className="accordion_warp">
-                                                        {
-                                                            videosData.map((rowData) => {
-                                                                return (<>
-                                                                    <AmbassadorAccordion
-                                                                        URL={rowData.URL}
-                                                                        date={formatDate(rowData.date)}
-                                                                        subject={rowData.subject}
-                                                                        tweetText={rowData.tweetText}
-                                                                        status={rowData.status}
-                                                                    /> </>)
-                                                            })}
-                                                    </div>
-                                                </>}
+                                                <div className="accordion_warp">
+                                                    {
+                                                        contents?.filter((item) => item.type == activeContentLayout).map((rowData) => {
+                                                            return (<>
+                                                                <AmbassadorAccordion
+                                                                    URL={rowData.url}
+                                                                    date={formatDate(rowData.created_at)}
+                                                                    subject={rowData.subject}
+                                                                    tweetText={rowData?.tweetText ?? '-'}
+                                                                    status={rowData.status}
+                                                                    onEdit={() => {
+                                                                        setEditableContentData(rowData)
+                                                                        setIsEditContent(true)
+                                                                        setIsAddContentPopupOpen(true);
+                                                                    }}
+                                                                    onDelete={() => {
+                                                                        setIsDeleteConfirmPopupOpen(true);
+                                                                        setDeleteContentId(rowData.content_id)
+                                                                    }}
+                                                                /> </>)
+                                                        })}
+                                                </div>
+
                                             </div>
                                             {/* pagination  */}
                                             {/* <div className="my_page_pagination">
@@ -550,8 +412,29 @@ const AmbassadorProjectDetails = () => {
                 <AddContentPopup
                     open={isAddContentPopupOpen}
                     handleClose={() => setIsAddContentPopupOpen(false)}
+                    isEdit={isEditContent}
+                    editableData={editableContentData}
+                    getData={() => { dispatch(getProjectContentAPI(params.projectId)) }}
+                    openSuccessPopup={() => setIsSuccessfullyPopupOpen(true)}
+                    isDisableProjectSelect={true}
                 />
             }
+            <DeleteConfirmPopup
+                title="Are You Sure ?"
+                description={`After once a delete content can't be recover...`}
+                open={isDeleteConfirmPopupOpen}
+                handleClose={() => {
+                    setIsDeleteConfirmPopupOpen(false);
+                }}
+                handleDelete={() => handleDeleteContentData()}
+                isLoading={projectApiLoading && isDeleteConfirmPopupOpen}
+            />
+            <SuccessfullyPopup
+                description={'The team will review and validate it. Feedback will be sent to your inbox.'}
+                header={'Thank you for your contribution'}
+                open={isSuccessfullyPopupOpen}
+                handleClose={() => setIsSuccessfullyPopupOpen(false)}
+            />
         </>
     )
 }

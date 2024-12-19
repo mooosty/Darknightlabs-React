@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import './EditSynergiesAngelPopup.scss';
-import { AddCircleIcon, CLeseCircleIcon, GlobalIcon, RightCornerArrowIcon } from '../../../utils/SVGs/SVGs';
+import { AddCircleIcon, CLeseCircleIcon, GlobalIcon, RightCornerArrowIcon } from '../../../utils/constants/images';
 import { angelBg, closeIcon } from '../../../utils/constants/images';
 
 const buttons = [

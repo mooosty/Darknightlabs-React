@@ -1,11 +1,7 @@
 import PropTypes from 'prop-types';
-import { StarIcon, GlobalIcon, GrammerlyIcon, GraphIcon, HealthIcon } from "../../../utils/SVGs/SVGs";
-
-
-
 import './AddSynergiesPopup.scss'
 import Select from '../../select/Select';
-import { addIcon, closeIcon, sepratorImage, trashIcon } from '../../../utils/constants/images';
+import { addIcon, closeIcon, GlobalIcon, GrammerlyIcon, GraphIcon, HealthIcon, sepratorImage, StarIcon, trashIcon } from '../../../utils/constants/images';
 
 const AddSynergiesPopup = ({ open, handleClose }) => {
 

@@ -6,9 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { ROUTER } from '../../utils/routes/routes';
 import useNoScroll from '../../utils/hooks/useNoScroll';
 import CustomTooltip from '../customTooltip/CustomTooltip';
-import { GradientInfiniteIcon, TableStatusIcon } from '../../utils/SVGs/SVGs';
 import CreateSynergyRequestPopup from '../popup/choose-priority-synergies-popup/CreateSynergyRequestPopup';
-import { defaultImg } from '../../utils/constants/images';
+import { defaultImg, GradientInfiniteIcon, TableStatusIcon } from '../../utils/constants/images';
 
 const Card = ({
     name,

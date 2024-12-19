@@ -4,6 +4,13 @@
     align-items: center;
     width: 100%;
     gap: 12px;
+    cursor: pointer;
+
+    &.disable {
+        opacity: 0.4;
+        background-color: rgba(245, 239, 219, 0.16);
+        cursor: not-allowed;
+    }
 
     .custom_select_field {
         padding: 15px 24px;

@@ -1,49 +1,16 @@
 import './ambassadorProjects.scss'
 import debounce from 'lodash.debounce'
-import { useCallback, useState } from 'react'
+import { useCallback, useState, useEffect } from 'react'
 import { searchIcon, } from '../../utils/constants/images'
 import { AmbassadorsCard } from '../../components'
-
-const projectsData = [
-    {
-        projectId: 1,
-        timeFramed: false,
-        projectName: "AI Research",
-        synergyImg: "https://example.com/ai-research.jpg",
-        synergiesAngles: ["Machine Learning", "Data Analysis", "Artificial Intelligence"]
-    },
-    {
-        projectId: 2,
-        timeFramed: true,
-        projectName: "Blockchain Development",
-        synergyImg: "https://example.com/blockchain.jpg",
-        synergiesAngles: ["Decentralization", "Smart Contracts", "Cryptocurrency"]
-    },
-    {
-        projectId: 3,
-        timeFramed: false,
-        projectName: "Healthcare Innovation",
-        synergyImg: "https://example.com/healthcare.jpg",
-        synergiesAngles: ["Telemedicine", "Wearable Tech", "AI in Healthcare"]
-    },
-    {
-        projectId: 4,
-        timeFramed: false,
-        projectName: "Smart Cities",
-        synergyImg: "https://example.com/smart-cities.jpg",
-        synergiesAngles: ["IoT", "Urban Planning", "Sustainability"]
-    },
-    {
-        projectId: 5,
-        timeFramed: true,
-        projectName: "E-commerce Solutions",
-        synergyImg: "https://example.com/e-commerce.jpg",
-        synergiesAngles: ["Online Shopping", "Payment Solutions", "Logistics"]
-    }
-];
+import { useDispatch, useSelector } from 'react-redux';
+import { getProjectsAPI } from "../../api-services/projectApis";
 
 
 const AmbassadorProjects = () => {
+    const dispatch = useDispatch()
+    const { projects } = useSelector(state => state.project)
+    const [filterProject, setFilterProject] = useState([]);
 
     const [activeLayout, setActiveLayout] = useState('TRENDING');
     const [filter, setFilter] = useState({
@@ -51,8 +18,6 @@ const AmbassadorProjects = () => {
         types: '',
         searchBy: ''
     })
-    console.log(filter);
-
 
     const handleActive = (key) => {
         setActiveLayout(key);
@@ -67,6 +32,24 @@ const AmbassadorProjects = () => {
         }, 500),
         []
     );
+
+    useEffect(() => {
+        let data = projects;
+        if (filter.searchBy !== "") {
+            const searchKeyword = filter.searchBy.toLowerCase();
+            data = data.filter(
+                (project) =>
+                    project?.project_name?.toLowerCase().includes(searchKeyword) ||
+                    project?.description?.toLowerCase().includes(searchKeyword)
+            );
+        }
+        setFilterProject([...data]);
+    }, [filter]);
+
+
+    useEffect(() => {
+        dispatch(getProjectsAPI());
+    }, []);
 
     return (
         <>
@@ -99,24 +82,23 @@ const AmbassadorProjects = () => {
                             </div>
 
                             <div className="ambassador_cards">
-                                {projectsData
-                                    .map((data, index) => {
-                                        return (
-                                            <div
-                                                className="card_wrap"
-                                                key={index}
-                                            >
-                                                <AmbassadorsCard
-                                                    isTimeFramed={data.timeFramed}
-                                                    key={data.projectId}
-                                                    projectId={data.projectId}
-                                                    name={data.projectName}
-                                                    img={data.synergyImg}
-                                                    synergiesAngles={data.synergiesAngles}
-                                                />
-                                            </div>
-                                        );
-                                    })}
+                                {filterProject?.map((data, index) => {
+                                    return (
+                                        <div
+                                            className="card_wrap"
+                                            key={index}
+                                        >
+                                            <AmbassadorsCard
+                                                isTimeFramed={data?.timeFramed}
+                                                key={data?.project_id}
+                                                projectId={data?.project_id}
+                                                name={data?.project_name}
+                                                img={data?.image}
+                                                synergiesAngles={data?.synergy_angles}
+                                            />
+                                        </div>
+                                    );
+                                })}
                             </div>
                         </div>
 

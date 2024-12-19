@@ -2,7 +2,9 @@
     background-color: #191917;
     padding: 22px 24px;
     margin-bottom: 30px;
-
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
     @media(max-width: 1600px) {
         padding: 10px 15px;
@@ -30,8 +32,6 @@
     }
 
     .sidbar_btn {
-        background-color: transparent;
-        border: none;
         display: none;
 
         @media(max-width: 767px) {
@@ -41,7 +41,7 @@
 
 
     .header_btn {
-        margin-left: auto;
+        // margin-left: auto;
         font-family: "MedievalSharp", cursive;
         background-color: transparent;
         border: 1px solid #f5efdb;
@@ -58,5 +58,19 @@
         @media(max-width: 767px) {
             display: none;
         }
+    }
+
+    .dropdown_tab {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+        background-color: transparent;
+        color: #f5efdb;
+        border: none;
+    }
+
+    .logout_tab {
+        color: #ff9e98;
     }
 }

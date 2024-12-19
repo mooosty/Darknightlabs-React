@@ -68,6 +68,206 @@ import tableActorImage3 from "../../assets/avatar-3.jpg";
 import uploadIcon from '../../assets/document-upload.png'
 import linkedinIcon from '../../assets/linkedin.svg'
 
+// SVG
+import { ListIcon } from '../SVGs/SVGs';
+import { GridIcon } from '../SVGs/SVGs';
+import { StarIcon } from '../SVGs/SVGs';
+import { HealthIcon } from '../SVGs/SVGs';
+import { GraphIcon } from '../SVGs/SVGs';
+import { GradientGraphIcon } from '../SVGs/SVGs';
+import { GrammerlyIcon } from '../SVGs/SVGs';
+import { GlobalIcon } from '../SVGs/SVGs';
+import { GredientGlobalIcon } from '../SVGs/SVGs';
+import { UpIcon } from '../SVGs/SVGs';
+import { DownIcon } from '../SVGs/SVGs';
+import { DownAccordionIcon } from '../SVGs/SVGs';
+import { RightIcon } from '../SVGs/SVGs';
+import { LeftIcon } from '../SVGs/SVGs';
+import { RightCornerArrowIcon } from '../SVGs/SVGs';
+import { CLeseCircleIcon } from '../SVGs/SVGs';
+import { AddCircleIcon } from '../SVGs/SVGs';
+import { TypeGamingIcon } from '../SVGs/SVGs';
+import { TypeMeteverseIcon } from '../SVGs/SVGs';
+import { TypeAIIcon } from '../SVGs/SVGs';
+import { TableStatusIcon } from '../SVGs/SVGs';
+import { InfiniteIcon } from '../SVGs/SVGs';
+import { GradientInfiniteIcon } from '../SVGs/SVGs';
+import { MoreIcon } from '../SVGs/SVGs';
+import { BackArrow } from '../SVGs/SVGs';
+import { HalfEmoji } from '../SVGs/SVGs';
+import { Health } from '../SVGs/SVGs';
+import { Download } from '../SVGs/SVGs';
+import { HashTag } from '../SVGs/SVGs';
+import { UserIcon } from '../SVGs/SVGs';
+import { AddUserIcon } from '../SVGs/SVGs';
+import { MicrophoneIcon } from '../SVGs/SVGs';
+import { AttachmentIcon } from '../SVGs/SVGs';
+import { EmojiFilledIcon } from '../SVGs/SVGs';
+import { LoadingIcon } from '../SVGs/SVGs';
+import { ShareOutlineIcon } from '../SVGs/SVGs';
+import { ShareLinkIcon } from '../SVGs/SVGs';
+import { DescriptionIcon } from '../SVGs/SVGs';
+import { InvestmentIcon } from '../SVGs/SVGs';
+import { CheckIcon } from '../SVGs/SVGs';
+import { InfoCircleIcon } from '../SVGs/SVGs';
+import { FaceBookIcon } from '../SVGs/SVGs';
+import { InstagramIcon } from '../SVGs/SVGs';
+import { GoogleIcon } from '../SVGs/SVGs';
+import { TwitterIcon } from '../SVGs/SVGs';
+import { OpenEyeIcon } from '../SVGs/SVGs';
+import { CloseEyeIcon } from '../SVGs/SVGs';
+import { CalendarIcon } from '../SVGs/SVGs';
+import { DeleteIcon } from '../SVGs/SVGs';
+import { SendChatIcon } from '../SVGs/SVGs';
+import { CopyIcon } from '../SVGs/SVGs';
+import { GradientTimerIcon } from '../SVGs/SVGs';
+import { RankingIcon } from '../SVGs/SVGs';
 
+// IMAGES
+import profileIcon from "../../assets/profile-icon.png";
+import logoutIcon from "../../assets/logout-icon.png";
 
-export { linkedinIcon, divider, uploadIcon, tableActorImage3, bitCoinIcon, searchIcon, autherProfile, trashIcon, addIcon, sepratorImage, arrowRight, closeIcon, filterIcon, synergy1, synergy2, synergy3, synergy4, synergy5, member1, member2, member3, member4, member5, member6, member7, member8, member9, member10, member11, member12, member13, chatMassageDP, cardActor1, cardActor2, cardActor3, cardActor4, cardActor5, cardActor6, cardActor7, cardActor8, cardActor9, cardActor10, cardActor11, cardActor12, cardActor13, cardActor14, cardActor15, angelBg, fallBackImage, arrowDown, project, infoCircle, defaultImg, tableActor, soldierPhoto, editIcon, twitterIcon, discordIcon, telegramIcon, closedEyeIcon, openEyeIcon, calendarBlankIcon }
+import collapseLeftIcon from "../../assets/collapse-left-icon.png";
+import collapseRightIcon from "../../assets/collapse-right-icon.png";
+import myContentIcon from "../../assets/my-content-icon.png";
+import projectIcon from "../../assets/project-icon.png";
+import pendingIcon from "../../assets/pending-icon.png";
+import synergiesIcon from "../../assets/synergies-icon.png";
+import synergiesUserIcon from "../../assets/synergies-user-icon.png";
+import investmentIcon from "../../assets/investment-icon.png";
+import chatIcon from "../../assets/chat-icon.png";
+import member from '../../assets/member_img1.png'
+import cardImage from "../../assets//project-card-img-1.png";
+import DefaultImage from '../../assets/DefaultImage.png'
+
+export {
+    linkedinIcon,
+    divider,
+    uploadIcon,
+    tableActorImage3,
+    bitCoinIcon,
+    searchIcon,
+    autherProfile,
+    trashIcon,
+    addIcon,
+    sepratorImage,
+    arrowRight,
+    closeIcon,
+    filterIcon,
+    synergy1,
+    synergy2,
+    synergy3,
+    synergy4,
+    synergy5,
+    member1,
+    member2,
+    member3,
+    member4,
+    member5,
+    member6,
+    member7,
+    member8,
+    member9,
+    member10,
+    member11,
+    member12,
+    member13,
+    chatMassageDP,
+    cardActor1,
+    cardActor2,
+    cardActor3,
+    cardActor4,
+    cardActor5,
+    cardActor6,
+    cardActor7,
+    cardActor8,
+    cardActor9,
+    cardActor10,
+    cardActor11,
+    cardActor12,
+    cardActor13,
+    cardActor14,
+    cardActor15,
+    angelBg,
+    fallBackImage,
+    arrowDown,
+    project,
+    infoCircle,
+    defaultImg,
+    tableActor,
+    soldierPhoto,
+    editIcon,
+    twitterIcon,
+    discordIcon,
+    telegramIcon,
+    closedEyeIcon,
+    openEyeIcon,
+    calendarBlankIcon,
+    ListIcon,
+    GridIcon,
+    StarIcon,
+    HealthIcon,
+    GraphIcon,
+    GradientGraphIcon,
+    GrammerlyIcon,
+    GlobalIcon,
+    GredientGlobalIcon,
+    UpIcon,
+    DownIcon,
+    DownAccordionIcon,
+    RightIcon,
+    LeftIcon,
+    RightCornerArrowIcon,
+    CLeseCircleIcon,
+    AddCircleIcon,
+    TypeGamingIcon,
+    TypeMeteverseIcon,
+    TypeAIIcon,
+    TableStatusIcon,
+    InfiniteIcon,
+    GradientInfiniteIcon,
+    MoreIcon,
+    BackArrow,
+    HalfEmoji,
+    Health,
+    Download,
+    HashTag,
+    UserIcon,
+    AddUserIcon,
+    MicrophoneIcon,
+    AttachmentIcon,
+    EmojiFilledIcon,
+    LoadingIcon,
+    ShareOutlineIcon,
+    ShareLinkIcon,
+    DescriptionIcon,
+    InvestmentIcon,
+    CheckIcon,
+    InfoCircleIcon,
+    FaceBookIcon,
+    InstagramIcon,
+    GoogleIcon,
+    TwitterIcon,
+    OpenEyeIcon,
+    CloseEyeIcon,
+    CalendarIcon,
+    DeleteIcon,
+    SendChatIcon,
+    CopyIcon,
+    GradientTimerIcon,
+    RankingIcon,
+    profileIcon,
+    logoutIcon,
+    collapseLeftIcon,
+    collapseRightIcon,
+    myContentIcon,
+    projectIcon,
+    pendingIcon,
+    synergiesIcon,
+    synergiesUserIcon,
+    investmentIcon,
+    chatIcon,
+    member,
+    cardImage,
+    DefaultImage
+}

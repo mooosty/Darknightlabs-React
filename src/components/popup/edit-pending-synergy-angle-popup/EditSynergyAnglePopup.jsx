@@ -2,10 +2,9 @@ import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { angelBg } from '../../../utils/constants/images';
+import { AddCircleIcon, angelBg, CLeseCircleIcon, GlobalIcon } from '../../../utils/constants/images';
 import { editSynergyRequest } from '../../../api-services/synergyApi';
 import CreateSynergiesPopup from '../create-synergies-popup/CreateSynergiesPopup';
-import { GlobalIcon, AddCircleIcon, CLeseCircleIcon } from '../../../utils/SVGs/SVGs';
 import { synergyAnglesOptions } from '../../../utils/constants/options';
 import Loader from '../../loader/Loader';
 

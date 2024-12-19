@@ -2,8 +2,18 @@
 import { useState } from "react";
 import "./customDropdown.scss";
 import PropTypes from "prop-types";
+import { useClickOutside } from "../../utils/hooks/useClickOutside";
 
-const CustomDropdown = ({ isOpen, toggleDropdown, items }) => {
+const CustomDropdown = ({ items, toggleButton }) => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    const listRef = useClickOutside(() => {
+        setIsOpen(false); // Close dropdown when clicking outside
+    });
+
+    const toggleDropdown = () => {
+        setIsOpen(!isOpen);
+    };
 
     const handleClick = (index) => {
         if (items && items[index] && items[index].onClick) {
@@ -13,14 +23,16 @@ const CustomDropdown = ({ isOpen, toggleDropdown, items }) => {
     };
 
     return (
-
-        <div className="dropdown">
+        <div className="dropdown" ref={listRef}>
+            <button className='dropdown_btn' onClick={toggleDropdown}>
+                {toggleButton}
+            </button>
             {isOpen && (
-                <div className="dropdown-content">
+                <div className="dropdown_content">
                     {items && items.map((item, index) => (
                         <div
                             key={index}
-                            className="dropdown-box"
+                            className="dropdown_box"
                             onClick={() => handleClick(index)}
                         >
                             <span> {item.icon}</span>
@@ -34,11 +46,10 @@ const CustomDropdown = ({ isOpen, toggleDropdown, items }) => {
 };
 
 CustomDropdown.propTypes = {
-    isOpen: PropTypes.bool,
-    toggleDropdown: PropTypes.func,
+    toggleButton: PropTypes.element,
     items: PropTypes.arrayOf(
         PropTypes.shape({
-            label: PropTypes.string,
+            label: PropTypes.element,
             onClick: PropTypes.func,
         })
     ),

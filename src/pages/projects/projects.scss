@@ -1,51 +1,4 @@
 .page_box {
-    display: flex;
-    gap: 40px;
-    margin-bottom: 15px;
-
-    @media (max-width: 767px) {
-        margin-bottom: 0px;
-        background-color: #191917;
-    }
-
-    @media (max-width: 1199px) {
-        gap: 20px;
-    }
-
-    .btn_gray {
-        padding: 16px 24px;
-        border: none;
-        background-color: #4e4e4e94;
-        font-size: 16px;
-        font-weight: 500;
-        color: #f5efdb;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 5px;
-
-        @media (max-width: 1600px) {
-            font-size: 14px;
-            padding: 10px 20px;
-        }
-    }
-
-    .btn_delete {
-        background-color: #ff9e9826;
-        border: none;
-        padding: 13px;
-
-        @media (max-width: 1600px) {
-            padding: 10px;
-        }
-
-        img {
-            @media (max-width: 1600px) {
-                width: 17px;
-            }
-        }
-    }
-
     .content_box {
         .project_content_Wraper {
             height: 100%;
@@ -76,7 +29,7 @@
 
                     @media (max-width: 767px) {
                         width: 100%;
-                        padding: 15px 25px 0 25px;
+                        padding: 15px 24px;
                         justify-content: space-between;
                     }
 
@@ -172,14 +125,14 @@
             .project_content_body {
                 overflow-y: auto;
                 min-height: 450px;
-                height: calc(100% - 65px);
+                height: calc(100% - 80px);
 
                 @media (max-width: 1600px) {
-                    height: calc(100% - 35px);
+                    height: calc(100% - 50px);
                 }
 
                 .featured_project_page_data {
-                    border-radius: 20px;
+                    border-radius: 9px;
                     background-color: #191917;
                     margin-bottom: 32px;
 
@@ -197,6 +150,7 @@
 
                         @media (max-width: 767px) {
                             padding-bottom: 0;
+                            padding-top: 8px;
                             background-image: none;
                         }
 
@@ -220,10 +174,14 @@
                             }
                         }
 
+                        .contributeForm {
+                            padding: 20px;
+                        }
+
                         .featured_projects_card_body_main {
                             display: flex;
                             padding-block: 20px;
-
+                            overflow-x: hidden;
 
                             .featured_projects_card_body {
                                 display: flex;
@@ -268,8 +226,9 @@
                 }
 
                 .all_project_page_data {
-                    border-radius: 20px;
+                    border-radius: 9px;
                     background-color: #191917;
+                    overflow-x: hidden;
 
                     @media (max-width: 767px) {
                         border-radius: 0;

@@ -2,8 +2,7 @@ import { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { CustomTooltip, ProjectAccordion } from '../../components';
-import { GredientGlobalIcon, GradientGraphIcon, TableStatusIcon } from '../../utils/SVGs/SVGs';
-import { defaultImg, editIcon, tableActorImage3, trashIcon } from '../../utils/constants/images';
+import { defaultImg, editIcon, GradientGraphIcon, GredientGlobalIcon, tableActorImage3, TableStatusIcon, trashIcon } from '../../utils/constants/images';
 
 
 const ProjectManagerTableLayout = ({ filterProject, selectedProjects, selectedProjectForSynergy, createSynergyStep, handleSelectProject, setIsDeleteConfirmPopupOpen, setDltId }) => {

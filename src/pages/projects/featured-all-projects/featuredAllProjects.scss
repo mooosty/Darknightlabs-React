@@ -76,7 +76,7 @@
 
                     @media (max-width: 767px) {
                         width: 100%;
-                        padding: 15px 25px 0 25px;
+                        padding: 15px 24px;
                     }
 
                     h2 {
@@ -125,7 +125,7 @@
             .featured_project_page_data {
                 min-height: 450px;
                 height: calc(100% - 80px);
-                border-radius: 20px;
+                border-radius: 9px;
                 background-color: #191917;
                 margin-bottom: 32px;
                 padding: 30px 30px 28px 28px;
@@ -139,7 +139,8 @@
 
                 @media (max-width: 767px) {
                     border-radius: 0;
-                    padding: 0;
+                    padding: 0 20px;
+                    background-image: none;
                 }
 
                 .featured_projects_card_box {
@@ -253,6 +254,7 @@
                     .featured_projects_card_body_main {
                         display: flex;
                         padding-block: 20px;
+                        overflow-x: hidden;
 
 
                         .featured_projects_card_body {
@@ -260,6 +262,14 @@
                             flex-wrap: wrap;
                             flex-grow: 1;
                             row-gap: 24px;
+                            margin-left: -12px;
+                            margin-right: -12px;
+
+                            @media (max-width: 767px) {
+                                margin-left: -8px;
+                                margin-right: -8px;
+                                row-gap: 16px;
+                            }
 
                             .card_wrap {
                                 padding-inline: 12px;

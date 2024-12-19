@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { getSynergyApi } from '../../api-services/synergyApi'
 import { synergyAnglesOptions } from '../../utils/constants/options'
 import { searchIcon, tableActor, defaultImg } from '../../utils/constants/images'
-import { GradientGraphIcon, GrammerlyIcon, GredientGlobalIcon } from '../../utils/SVGs/SVGs'
+import { CheckCircleIcon } from '../../utils/SVGs/SVGs'
 import { Loader, MultiselectDropDown, SynergyCard } from '../../components'
 
 
@@ -21,6 +21,7 @@ const Synergies = () => {
         types: '',
         searchBy: ''
     })
+    console.log(filterSynergies);
 
     const { synergies: synergiesData, isLoading: isSynergyLoading } = useSelector((state) => state.synergies)
 
@@ -39,24 +40,24 @@ const Synergies = () => {
     );
 
     const getSynergyAngles = (angles) => {
-        const selectedLabels = angles?.map((v, i) => {
-            if (i === 0) {
-                return {
-                    label: v,
-                    icon: < GredientGlobalIcon />
-                }
-            }
+        const selectedLabels = angles?.map((v) => {
+            // if (i === 0) {
+            //     return {
+            //         label: v,
+            //         icon: < CheckCircleIcon />
+            //     }
+            // }
 
-            if (i === 1) {
-                return {
-                    label: v,
-                    icon: < GradientGraphIcon />
-                }
-            }
+            // if (i === 1) {
+            //     return {
+            //         label: v,
+            //         icon: < CheckCircleIcon />
+            //     }
+            // }
 
             return {
                 label: v,
-                icon: <GrammerlyIcon />
+                icon: <CheckCircleIcon />
             }
         })
 
@@ -118,7 +119,7 @@ const Synergies = () => {
     useEffect(() => {
         dispatch(getSynergyApi())
     }, [])
-console.log('filterSynergies', filterSynergies)
+    console.log('filterSynergies', filterSynergies)
 
     return (
         <>
@@ -172,7 +173,8 @@ console.log('filterSynergies', filterSynergies)
                                                 <SynergyCard img={(data.synergyImg === '' || !data.synergyImg) ? defaultImg : data.synergyImg}
                                                     name={data.synergyName}
                                                     price={data.price}
-                                                    tags={data.tags || ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming']}
+                                                    tags={data.tags || ['#Metaverse', '#AI', '#Gaming']}
+                                                    // tags={data.tags || ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming']}
                                                     status={data.status}
                                                     description='lorem Reprehenderit aliqua sit quis cillum dolor Lorem incididunt reprehenderit est elit et.'
                                                     synergiesAngles={data.synergiesAngles}

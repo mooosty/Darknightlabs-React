@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { createSynergyApi } from '../../api-services/synergyApi';
 import { createGroupAPI, createUserAPI } from '../../api-services/chatApis';
 import CreateSynergiesPopup from '../popup/create-synergies-popup/CreateSynergiesPopup';
-import { GlobalIcon, AddCircleIcon, CLeseCircleIcon, DownAccordionIcon } from '../../utils/SVGs/SVGs';
+import { AddCircleIcon, CLeseCircleIcon, GlobalIcon } from '../../utils/constants/images';
 
 
 const CreateSynergySteps = ({ createSynergyStep, setCreateSynergyStep, synergies, setSynergies, setSelectedProjects, setSelectedProjectForSynergy, setCreateSynergySuccessPopup }) => {

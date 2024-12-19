@@ -4,90 +4,85 @@ import { toast } from 'react-toastify';
 import './addContentPopup.scss'
 import Select from '../../select/Select';
 import Loader from '../../loader/Loader';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Multiselect from '../../multiselect/Multiselect';
 import { getProjectsAPI } from '../../../api-services/projectApis';
-import { addSynergyRequest } from '../../../api-services/synergyApi';
-import { synergyAnglesOptions } from '../../../utils/constants/options';
 import { closeIcon } from '../../../utils/constants/images';
-import SuccessfullyPopup from '../synergy-request-successfully-sent-popup/SuccessfullyPopup';
+import { createContentAPI, updateContentAPI } from '../../../api-services/contentApis';
+import { useParams } from 'react-router-dom';
 
-const synergyAngles = synergyAnglesOptions.map((data) => ({
-    label: data.label,
-    value: data.label
-}))
 
-const AddContentPopup = ({ open, handleClose }) => {
+const AddContentPopup = ({ open, handleClose, isEdit, editableData, getData, openSuccessPopup, isDisableProjectSelect }) => {
 
     const dispatch = useDispatch()
-    const [isSuccessfullyPopupOpen, setIsSuccessfullyPopupOpen] = useState(false);
-    const { addSynergyRequestLoading } = useSelector(state => state.synergies)
+    const { projectId } = useParams()
     const { projects } = useSelector(state => state.project)
-    const [selectedSynergyAngles, setSelectedSynergyAngles] = useState([]);
+    const { isLoading } = useSelector(state => state.content)
+    const userData = useSelector(state => state.auth)
 
     const formik = useFormik({
         initialValues: {
-            coin: '',
-            synergyAngles: [],
-            projects: '',
-            projectName: ''
+            project_id: '',
+            type: '',
+            subject: '',
+            url: '',
+            user_id: userData?.userId,
+            status: 'Submitted'
         },
-        onSubmit: () => {
-            setIsSuccessfullyPopupOpen(true)
-            const payload = {
-                //     coin: values.coin,
-                //     _project_id: data?.projectId,
-                //     project2_id: values?.projects,
-                //     synergy_angles: [...selectedSynergyAngles ?? ['asdf']],
-                //     synergy_image: data?.img,
-                //     synergy_name: `${data?.name} X ${values?.projectName} `
-            }
-            const isValid = Object.values(payload).every(value => value)
-
+        onSubmit: (values) => {
+            const isValid = Object.values(values).every(value => value)
             if (isValid) {
-                dispatch(addSynergyRequest(payload)).unwrap().then((response) => {
-                    if (response.success) {
-                        resetPopup()
-                        toast.success('Synergy Requests Created Successfully')
-                    } else {
-                        toast.success('Synergy Requests Not Created')
+                if (isEdit) {
+                    dispatch(updateContentAPI(values)).unwrap().then((response) => {
+                        if (response) {
+                            handleClose()
+                            resetForm()
+                            toast.success('Content Updated Successfully')
+                            getData()
+                        } else {
+                            toast.error('Content Not Updated')
+                        }
+                    })
+                } else {
+                    dispatch(createContentAPI(values)).then((response) => {
+                        if (response) {
+                            handleClose()
+                            openSuccessPopup()
+                            resetForm()
+                            getData()
+                            toast.success('Content Created Successfully')
+                        } else {
+                            toast.error('Content Not Created')
 
-                    }
-                })
+                        }
+                    })
+                }
+            } else {
+                toast.error('Please Enter All Required Fields.')
             }
         }
     })
+
     const { values, setFieldValue, submitForm, resetForm } = formik
 
-    const resetPopup = () => {
-        handleClose()
-        resetForm()
-        setSelectedSynergyAngles([])
-    }
-    const handleSelectSynergyAnglesChange = (value) => {
-        if (selectedSynergyAngles.includes(value)) {
-            const data = selectedSynergyAngles.filter((data) => data !== value);
-            setSelectedSynergyAngles(data);
-        } else {
-            setSelectedSynergyAngles([...selectedSynergyAngles, value]);
-        }
-    }
-
-
     useEffect(() => {
-        resetForm()
-        setSelectedSynergyAngles([])
+        if (isEdit) {
+            setFieldValue('project_id', editableData?.project_id)
+            setFieldValue('subject', editableData?.subject)
+            setFieldValue('url', editableData?.url)
+            setFieldValue('type', editableData?.type)
+            setFieldValue('content_id', editableData?.content_id)
+        } else
+            resetForm()
     }, [open])
 
     useEffect(() => {
-        if (!projects || projects.length === 0) {
-            dispatch(getProjectsAPI())
-        }
-    }, [])
-
-
-
+        dispatch(getProjectsAPI())
+            .then(() => {
+                if (!isEdit && isDisableProjectSelect)
+                    setFieldValue('project_id', parseInt(projectId))
+            })
+    }, [projectId]);
     return (
         <>
             <div className={`synergies_model_bg ${open ? 'active' : ''} `}>
@@ -97,10 +92,10 @@ const AddContentPopup = ({ open, handleClose }) => {
                     <div className='add_content_model_box'>
                         <div className='add_content_model_body'>
                             <div className='add_content_model_header'>
-                                <h3>Add content</h3>
+                                <h3>{isEdit ? "Edit" : 'Add'} content</h3>
                                 <button
                                     className='close'
-                                    onClick={resetPopup}
+                                    onClick={handleClose}
                                 >
                                     <img src={closeIcon} alt="close" />
                                 </button>
@@ -110,19 +105,16 @@ const AddContentPopup = ({ open, handleClose }) => {
                                 <div className="form_group">
                                     <label htmlFor="project_name">Select project</label>
 
-                                    <Multiselect
-                                        options={[
-                                            ...synergyAngles
-                                        ]}
-                                        placeholder={'Project name 111'}
-                                        value={
-                                            synergyAngles.filter((project) => {
-                                                return selectedSynergyAngles?.includes(project.value);
-                                            })
-                                        }
-                                        onChange={(option) => {
-                                            handleSelectSynergyAnglesChange(option);
-                                        }}
+                                    <Select
+                                        options={projects?.map((data) => {
+                                            return {
+                                                label: data?.project_name, value: data?.project_id
+                                            }
+                                        })}
+                                        disable={isDisableProjectSelect}
+                                        placeholder={'Select Project'}
+                                        value={values.project_id}
+                                        onChange={(data) => { setFieldValue('project_id', data.value) }}
                                     />
                                 </div>
 
@@ -130,12 +122,13 @@ const AddContentPopup = ({ open, handleClose }) => {
                                     <label htmlFor="project_name" >Select type of content</label>
                                     <div className="project_name">
                                         <Select
+                                            placeholder={'Select type of content'}
                                             options={[
-                                                { label: 'Tweet', value: 'tweet' },
-                                                { label: 'Video', value: 'video' },
+                                                { label: 'Tweet', value: 'Tweet' },
+                                                { label: 'Video', value: 'Video' },
                                             ]}
-                                            value={values.coin}
-                                            onChange={(data) => { setFieldValue('coin', data.value) }}
+                                            value={values.type}
+                                            onChange={(data) => { setFieldValue('type', data.value) }}
                                         />
                                     </div>
                                 </div>
@@ -143,12 +136,14 @@ const AddContentPopup = ({ open, handleClose }) => {
                                     <label htmlFor="project_name" >Select subject</label>
                                     <div className="project_name">
                                         <Select
+                                            placeholder={'Select subject'}
                                             options={[
-                                                { label: 'Subject 1', value: 'Subject1' },
-                                                { label: 'Subject 2', value: 'Subject2' },
+                                                { label: 'Discuss the upcoming fight of Mario Nawfal', value: 'Discuss the upcoming fight of Mario Nawfal' },
+                                                { label: 'Cover the $karate', value: 'Cover the $karate' },
+                                                { label: 'Cover the $lorem', value: 'Cover the $lorem' },
                                             ]}
-                                            value={values.coin}
-                                            onChange={(data) => { setFieldValue('coin', data.value) }}
+                                            value={values.subject}
+                                            onChange={(data) => { setFieldValue('subject', data.value) }}
                                         />
                                     </div>
                                 </div>
@@ -156,21 +151,21 @@ const AddContentPopup = ({ open, handleClose }) => {
                                     <label htmlFor="project_name" >Paste URL</label>
                                     <div className="project_name">
                                         <input
-                                            // onChange={handleInputChange} 
-                                            name='description'
-                                            // value={data?.description} 
+                                            onChange={(e) => setFieldValue('url', e.target.value)}
+                                            name='url'
+                                            value={values?.url}
                                             type="text"
                                             id="projectName"
-                                            placeholder="Add description" />
+                                            placeholder="Paste URL" />
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div className='add_content_model_footer'>
-                            <button className='cancel_btn' onClick={resetPopup}>Cancel</button>
-                            <button className='save_btn' onClick={submitForm} disabled={addSynergyRequestLoading}>
+                            <button className='cancel_btn' onClick={handleClose}>Cancel</button>
+                            <button className='save_btn' onClick={submitForm} disabled={isLoading}>
                                 {
-                                    (addSynergyRequestLoading) ? <> <Loader loading={addSynergyRequestLoading} isItForButton={true} /> <span>Next project</span> </> : 'Next project'
+                                    isLoading ? <> <Loader loading={isLoading} isItForButton={true} /> <span>{isEdit ? 'Save' : 'Submit'}</span> </> : `${isEdit ? 'Save' : 'Submit'}`
                                 }
                             </button>
                         </div>
@@ -178,12 +173,7 @@ const AddContentPopup = ({ open, handleClose }) => {
                 </div>
             </div>
 
-            <SuccessfullyPopup
-                description={'The team will review and validate it. Feedback will be sent to your inbox.'}
-                header={'Thank you for your contribution'}
-                open={isSuccessfullyPopupOpen}
-                handleClose={() => setIsSuccessfullyPopupOpen(false)}
-            />
+
         </>
     )
 }
@@ -192,6 +182,11 @@ AddContentPopup.propTypes = {
     open: PropTypes.bool,
     handleClose: PropTypes.func,
     data: PropTypes.object,
+    isEdit: PropTypes.bool,
+    editableData: PropTypes.object,
+    getData: PropTypes.func,
+    openSuccessPopup: PropTypes.func,
+    isDisableProjectSelect: PropTypes.bool
 }
 
 export default AddContentPopup

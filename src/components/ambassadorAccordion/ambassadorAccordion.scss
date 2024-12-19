@@ -120,6 +120,14 @@
                     .table_name {
                         font-family: "MedievalSharp";
                         color: #fff;
+                        width: 15vw;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+
+                        @media (max-width: 499px) {
+                            width: 50vw;
+                        }
                     }
                 }
 
@@ -134,8 +142,9 @@
                     }
 
                     .url {
+                        width: 50%;
                         display: flex;
-                        gap: 0px;
+                        gap: 8px;
                         align-items: center;
                         color: #f5efdb;
 
@@ -150,6 +159,7 @@
                             height: 18px;
                             width: 18px;
                             color: #fff;
+                            flex-shrink: 0;
 
                             svg {
                                 height: 100%;
@@ -275,12 +285,26 @@
                         display: flex;
                     }
 
-                    &.approved {
-                        color: #3EAA2C;
-                    }
+                    .status_tab {
+                        padding: 0px 8px 2px 8px;
+                        border-radius: 4px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border: 1px solid;
+                        text-transform: capitalize;
 
-                    &.submitted {
-                        color: #C6A844;
+                        &.approved {
+                            background-color: #3EAA2C1A;
+                            color: #3EAA2C;
+                            border-color: #3EAA2C;
+                        }
+
+                        &.submitted {
+                            background-color: #C6A8441A;
+                            color: #C6A844;
+                            border-color: #C6A844;
+                        }
                     }
                 }
 

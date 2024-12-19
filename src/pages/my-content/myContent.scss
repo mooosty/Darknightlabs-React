@@ -1,51 +1,4 @@
 .page_box {
-    display: flex;
-    gap: 40px;
-    margin-bottom: 15px;
-
-    @media (max-width: 767px) {
-        margin-bottom: 0px;
-        background-color: #191917;
-    }
-
-    @media (max-width: 1199px) {
-        gap: 20px;
-    }
-
-    .btn_gray {
-        padding: 16px 24px;
-        border: none;
-        background-color: #4e4e4e94;
-        font-size: 16px;
-        font-weight: 500;
-        color: #f5efdb;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 5px;
-
-        @media (max-width: 1600px) {
-            font-size: 14px;
-            padding: 10px 20px;
-        }
-    }
-
-    .btn_delete {
-        background-color: #ff9e9826;
-        border: none;
-        padding: 13px;
-
-        @media (max-width: 1600px) {
-            padding: 10px;
-        }
-
-        img {
-            @media (max-width: 1600px) {
-                width: 17px;
-            }
-        }
-    }
-
     .content_box {
         .my_content_Wraper {
             height: 100%;
@@ -72,7 +25,7 @@
 
                     @media (max-width: 767px) {
                         width: 100%;
-                        padding: 15px 25px 0 25px;
+                        padding: 15px 24px;
                         justify-content: space-between;
                     }
 
@@ -177,6 +130,7 @@
                     display: flex;
                     align-items: center;
                     flex-wrap: wrap;
+                    justify-content: space-between;
                     gap: 15px;
                     margin-bottom: 22px;
 
@@ -185,7 +139,7 @@
                     }
 
                     .content_count_box_wrap {
-                        width: 49%;
+                        width: 48%;
                         background-image: linear-gradient(to bottom left, #FDE7BB, #9E6D38, #E9B86E, #9D6933, #FEE9BF, #683E23);
                         background-origin: border-box;
                         background-clip: content-box, border-box;
@@ -237,7 +191,7 @@
                 }
 
                 .all_my_page_data {
-                    border-radius: 20px;
+                    border-radius: 9px;
                     background-color: #191917;
                     min-height: calc(100% - 108px);
 
@@ -309,12 +263,14 @@
                                     display: flex;
                                     gap: 10px;
 
-                                    .add_btn{
+                                    .add_btn {
                                         padding: 14px 18px;
+
                                         @media (max-width: 1600px) {
-                                            padding:8px 10px;
+                                            padding: 8px 10px;
                                         }
                                     }
+
                                     @media (max-width:450px) {
                                         flex-direction: column;
                                         gap: 15px;

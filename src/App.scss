@@ -6,3 +6,16 @@
     overflow: hidden !important;
     padding-right: var(--scrollbar-width);
 }
+
+.Toastify__toast-theme--light {
+    background-color: #242623 !important;
+
+    .Toastify__toast-body {
+        font-family: "MedievalSharp", cursive;
+        color: white !important;
+    }
+
+    .Toastify__close-button--light {
+        color: #fff !important;
+    }
+}

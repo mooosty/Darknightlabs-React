@@ -1,7 +1,6 @@
 import './card.scss'
 import PropTypes from 'prop-types';
-import { defaultImg } from '../../utils/constants/images';
-import { GredientGlobalIcon, GradientGraphIcon, GrammerlyIcon, HealthIcon, StarIcon } from '../../utils/SVGs/SVGs';
+import { defaultImg, GradientGraphIcon, GrammerlyIcon, GredientGlobalIcon, HealthIcon, StarIcon } from '../../utils/constants/images';
 
 
 const synergyIconsStart = [<GredientGlobalIcon key={0} />, <GradientGraphIcon key={1} />]

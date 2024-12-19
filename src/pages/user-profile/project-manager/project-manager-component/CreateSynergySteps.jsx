@@ -1,15 +1,13 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types'
 import Loader from '../loader/Loader';
-import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { createSynergyApi } from '../../api-services/synergyApi';
-import { createGroupAPI, createUserAPI } from '../../api-services/chatApis';
 import CreateSynergiesPopup from '../popup/create-synergies-popup/CreateSynergiesPopup';
-import { GlobalIcon, AddCircleIcon, CLeseCircleIcon, DownAccordionIcon } from '../../utils/SVGs/SVGs';
+import { GlobalIcon, AddCircleIcon, CLeseCircleIcon, DownAccordionIcon } from '../../utils/constants/images';
 
 
-const CreateSynergySteps = ({ createSynergyStep, setCreateSynergyStep, synergies, setSynergies, setSelectedProjects, setSelectedProjectForSynergy, setCreateSynergySuccessPopup }) => {
+const CreateSynergySteps = ({ createSynergyStep, setCreateSynergyStep, synergies, setSynergies, setSelectedProjects, setSelectedProjectForSynergy }) => {
     const dispatch = useDispatch();
     const [projectCounter, setProjectCounter] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
@@ -62,10 +60,10 @@ const CreateSynergySteps = ({ createSynergyStep, setCreateSynergyStep, synergies
             }
         })
 
-        const groupData = {
-            name: synergies.groupName,
-            users: [...users.map((item) => item.id)]
-        }
+        // const groupData = {
+        //     name: synergies.groupName,
+        //     users: [...users.map((item) => item.id)]
+        // }
 
         setIsLoading(true)
         dispatch(createSynergyApi(data)).unwrap().then(z).catch((err) => {

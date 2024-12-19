@@ -3,7 +3,7 @@
     background-size: cover;
     min-height: 100vh;
 
-    &.ambassadorUser { 
+    &.ambassadorUser {
         background: url('../../assets/ambassadors-bg-img.png');
     }
 
@@ -18,6 +18,48 @@
             }
 
             .page_box {
+                display: flex;
+                gap: 15px;
+                margin-bottom: 15px;
+
+                @media (max-width: 767px) {
+                    margin-bottom: 0px;
+                }
+
+                .btn_gray {
+                    padding: 16px 24px;
+                    border: none;
+                    background-color: #4e4e4e94;
+                    font-size: 16px;
+                    font-weight: 500;
+                    color: #f5efdb;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 5px;
+
+                    @media (max-width: 1600px) {
+                        font-size: 14px;
+                        padding: 10px 20px;
+                    }
+                }
+
+                .btn_delete {
+                    background-color: #ff9e9826;
+                    border: none;
+                    padding: 13px;
+
+                    @media (max-width: 1600px) {
+                        padding: 10px;
+                    }
+
+                    img {
+                        @media (max-width: 1600px) {
+                            width: 17px;
+                        }
+                    }
+                }
+
                 .content_box {
                     height: calc(100vh - 132px);
                     width: 80%;

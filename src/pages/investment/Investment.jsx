@@ -396,11 +396,11 @@ const Investment = () => {
               {cardData.map((data, index) => {
                 return (
                   <div className='card_wrap' key={index} >
-                    <div className="card" >
-                      <div className="card_image">
+                    <div className="iv_card" >
+                      <div className="iv_card_image">
                         <img src={data.investorImg} alt="" />
                       </div>
-                      <div className="card_body">
+                      <div className="iv_card_body">
                         <div className="name">{data.investmentName} </div>
                         <div className="tabs">
                           {

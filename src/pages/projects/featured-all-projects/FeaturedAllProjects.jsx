@@ -3,9 +3,8 @@ import debounce from "lodash.debounce"
 import { useDispatch, useSelector } from "react-redux"
 import { useCallback, useEffect, useState } from "react"
 import { formatDate } from '../../../utils/helper/helper'
-import { searchIcon } from '../../../utils/constants/images'
 import { getMemberApi, getProjectsAPI } from "../../../api-services/projectApis"
-import { BackArrow, GradientGraphIcon, GredientGlobalIcon } from "../../../utils/SVGs/SVGs"
+import { BackArrow, GradientGraphIcon, GredientGlobalIcon, searchIcon } from "../../../utils/constants/images"
 import { projectTypesOptions, synergyAnglesOptions } from "../../../utils/constants/options"
 import { MultiselectDropDown, ProjectCard } from '../../../components'
 

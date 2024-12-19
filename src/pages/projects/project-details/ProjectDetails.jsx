@@ -6,8 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import useNoScroll from '../../../utils/hooks/useNoScroll';
 import { getProjectsApiById } from '../../../api-services/projectApis';
 import { CreateSynergyRequestPopup, Loader } from '../../../components';
-import { arrowRight, autherProfile, fallBackImage } from '../../../utils/constants/images';
-import { DescriptionIcon, GradientGraphIcon, GradientInfiniteIcon, GrammerlyIcon, GredientGlobalIcon, HealthIcon, InvestmentIcon, MoreIcon, ShareLinkIcon, CheckIcon, ShareOutlineIcon, StarIcon, TableStatusIcon } from '../../../utils/SVGs/SVGs'
+import { DescriptionIcon, GradientGraphIcon, GradientInfiniteIcon, GrammerlyIcon, GredientGlobalIcon, HealthIcon, InvestmentIcon, MoreIcon, ShareLinkIcon, CheckIcon, ShareOutlineIcon, StarIcon, TableStatusIcon, arrowRight, fallBackImage, autherProfile } from '../../../utils/constants/images'
 
 
 const synergiesAnglesIcons = [

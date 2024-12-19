@@ -5,10 +5,9 @@ import { ROUTER } from "../../utils/routes/routes";
 import { useDispatch, useSelector } from "react-redux";
 import { formatDate } from "../../utils/helper/helper";
 import { useCallback, useEffect, useState } from "react";
-import { searchIcon } from "../../utils/constants/images";
 import { getProjectsAPI } from "../../api-services/projectApis";
 import { MultiselectDropDown, ProjectCard } from "../../components";
-import { GradientGraphIcon, GredientGlobalIcon } from "../../utils/SVGs/SVGs";
+import { GradientGraphIcon, GredientGlobalIcon, searchIcon } from "../../utils/constants/images";
 import {
     projectTypesOptions,
     synergyAnglesOptions,
@@ -235,6 +234,12 @@ const Projects = () => {
                                     </Link>
                                 </div>
                             </div>
+                            {/* <div className="contributeForm">
+                                <ContributionForm
+                                    walletAddress={walletAddress}
+                                    whitelistSignature={whitelistMessage}
+                                />
+                            </div> */}
                             <div className="featured_projects_card_body_main">
                                 <div className="featured_projects_card_body">
                                     {filterFeaturedProject

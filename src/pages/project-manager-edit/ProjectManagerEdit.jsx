@@ -500,7 +500,7 @@ const ProjectManagerEdit = () => {
                             <Select
                               name="synergy_angles"
                               options={synergyAnglesOptions}
-                              placeholder="Select synergy angel"
+                              placeholder="Select synergy angle"
                               hasAddButton={true}
                               onAdd={() => {
                                 toggleAddAngelPopupOpen();
@@ -547,7 +547,7 @@ const ProjectManagerEdit = () => {
                     }}
                   >
                     {" "}
-                    Add synergy angel <img src={addIcon} alt="Add" />
+                    Add synergy angle <img src={addIcon} alt="Add" />
                   </button>
                   <div className="invostments-group">
                     <div className="seprator-image">

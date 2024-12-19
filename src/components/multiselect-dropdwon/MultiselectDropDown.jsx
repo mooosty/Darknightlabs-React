@@ -41,7 +41,7 @@ const MultiselectDropDown = ({
     };
 
     return (
-        <div className="multiselect_wrapper">
+        <div className="multiselect_wrapper" ref={listRef}>
             {/* Dropdown field to display placeholder and open dropdown */}
             <div
                 className="multiselect_field"
@@ -57,19 +57,18 @@ const MultiselectDropDown = ({
             {isOpen && (
                 <div
                     className={`multiselect_list ${isOpen ? 'active' : ''}`}
-                    ref={listRef}
                 >
                     <div className="mobile_multiselect_wrapper">
                         <ul>
                             <div className="multiselect_header">
                                 Select synergies angles
                                 <button
-                                onClick={() => {
-                                    setIsOpen(false);
-                                }}
-                            >
-                                <img src={closeIcon} alt="close" />
-                            </button>
+                                    onClick={() => {
+                                        setIsOpen(false);
+                                    }}
+                                >
+                                    <img src={closeIcon} alt="close" />
+                                </button>
                             </div>
                             <div className='list_items'>
                                 {options.map((opt) => {

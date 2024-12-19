@@ -1,8 +1,7 @@
 import './accordion.scss';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { DownIcon, GlobalIcon } from '../../utils/SVGs/SVGs';
-import { bitCoinIcon, defaultImg, editIcon, trashIcon } from '../../utils/constants/images';
+import { bitCoinIcon, defaultImg, DownIcon, editIcon, GlobalIcon, trashIcon } from '../../utils/constants/images';
 import DeleteConfirmPopup from '../popup/delete-confirm-popup/DeleteConfirmPopup';
 
 const Accordion = ({

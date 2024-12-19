@@ -6,9 +6,8 @@ import { Fragment, useEffect, useRef, useState } from "react";
 import { getChatMessages } from "../../../api-services/chatApis";
 import { addMessage, removeMessage } from "../../../store/slice/chatSlice";
 import { useSocket } from "../../../utils/socket-provider/SocketContext";
-import { member1, member2 } from "../../../utils/constants/images";
+import { AddUserIcon, AttachmentIcon, DeleteIcon, EmojiFilledIcon, member1, member2, MicrophoneIcon, SendChatIcon } from "../../../utils/constants/images";
 import { formatDateTime, isEqualDate, dayWiseFormat } from "../../../utils/helper/helper";
-import { MicrophoneIcon, AttachmentIcon, EmojiFilledIcon, AddUserIcon, DeleteIcon, SendChatIcon } from "../../../utils/SVGs/SVGs";
 import DeleteConfirmPopup from "../../popup/delete-confirm-popup/DeleteConfirmPopup";
 
 const MessagesPanel = ({

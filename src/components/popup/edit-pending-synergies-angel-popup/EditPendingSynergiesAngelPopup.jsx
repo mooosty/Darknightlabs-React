@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import './EditPendingSynergiesAngelPopup.scss';
-import { AddCircleIcon, CLeseCircleIcon, GlobalIcon, } from '../../../utils/SVGs/SVGs';
-import { angelBg, closeIcon } from '../../../utils/constants/images';
+import { AddCircleIcon, angelBg, CLeseCircleIcon, closeIcon, GlobalIcon } from '../../../utils/constants/images';
 
 const buttons = [
     {

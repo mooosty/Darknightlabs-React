@@ -80,16 +80,15 @@ const SynergyRequest = () => {
             getSynergyRequestLoading ? <Loader /> : <>
               <div className="synergies_page_body">
                 <div className="card_container">
-                  {filteredSynergyRequests?.map((data, index) => {
+                  {filteredSynergyRequests?.map((data) => {
                     return (
-                      <SynergyRequestCard
-                        data={data}
-                        key={index}
-                        index={index}
-                        setIsEditSynergiesPopupOpen={setIsEditSynergiesPopupOpen}
-                        setSelectedSynergyData={setSelectedSynergyData}
-                        handleCardClick={handleCardClick}
-                      />)
+                      <>
+                        <SynergyRequestCard
+                          data={data}
+                          handleCardClick={handleCardClick}
+                        />
+                      </>
+                    )
                   })}
                 </div>
                 {/* <div className="synergies_pagination">

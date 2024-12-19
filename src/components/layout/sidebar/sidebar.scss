@@ -6,7 +6,7 @@
     width: 300px;
     flex-shrink: 0;
     height: calc(100vh - 132px);
-    min-height: 550px;
+    min-height: 500px;
 
     @media(max-width: 1600px) {
         height: calc(100vh - 85px);

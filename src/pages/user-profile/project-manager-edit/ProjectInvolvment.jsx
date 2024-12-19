@@ -9,7 +9,7 @@ import { updateProjectAPI } from "../../../api-services/projectApis"
 import { synergyAnglesOptions } from "../../../utils/constants/options"
 import { AddAngelPopup, DeleteConfirmPopup, ImageUploader, Loader, Select, TagInput } from "../../../components";
 import { addProjectAPI, deleteProjectAPI, addMemberAPI, getProjectsApiById } from "../../../api-services/projectApis"
-import { trashIcon, addIcon, sepratorImage, arrowRight } from "../../../utils/constants/images"
+import { trashIcon, addIcon, sepratorImage, arrowRight, searchIcon } from "../../../utils/constants/images"
 import PropTypes from "prop-types";
 
 
@@ -256,10 +256,10 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
             <div className="content_header">
                 <div className="content_left">
                     <h2>Profile</h2>
-                    {/* <div className="search_box">
+                    <div className="search_box">
                         <img className="search_icon" src={searchIcon} alt="Search" />
                         <input type="text" placeholder="Search" />
-                    </div> */}
+                    </div>
                 </div>
                 <div className="content_right">
                     <a href="#">Darknight Labs</a>
@@ -422,7 +422,7 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
                                                 <div className="custom_select">
                                                     <div className="form_box synergy_selected">
                                                         {index === 0 && <label>Synergy angles</label>}
-                                                        <Select name='synergy_angles' options={synergyAnglesOptions} placeholder='Select synergy angel'
+                                                        <Select name='synergy_angles' options={synergyAnglesOptions} placeholder='Select synergy angle'
                                                             hasAddButton={true}
                                                             onAdd={() => { toggleAddAngelPopupOpen(); setAngelPopupIndex(index) }}
                                                             value={synergy_angle[`synergy_angle`]}

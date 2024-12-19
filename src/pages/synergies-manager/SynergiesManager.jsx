@@ -4,10 +4,9 @@ import { formatDate } from '../../utils/helper/helper';
 import useNoScroll from '../../utils/hooks/useNoScroll';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { GridIcon, ListIcon } from '../../utils/SVGs/SVGs';
 import { synergyAnglesOptions } from '../../utils/constants/options';
 import { deleteSynergyApi, getSynergyApi, updateSynergyApi } from '../../api-services/synergyApi';
-import { searchIcon, filterIcon, closeIcon, trashIcon, tableActor } from '../../utils/constants/images';
+import { searchIcon, filterIcon, closeIcon, trashIcon, tableActor, ListIcon, GridIcon } from '../../utils/constants/images';
 import { BottomMenu, DeleteConfirmPopup, EditSynergiesPopup, Loader, Select, SynergyManagerGridLayout, SynergyManagerTableLayout } from '../../components';
 
 const SynergiesManager = () => {

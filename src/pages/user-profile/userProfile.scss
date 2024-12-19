@@ -1,16 +1,4 @@
 .page_box {
-    display: flex;
-    gap: 40px;
-    margin-bottom: 15px;
-
-    @media (max-width: 767px) {
-        margin-bottom: 0px;
-        flex-direction: column;
-    }
-
-    @media (max-width: 1199px) {
-        gap: 20px;
-    }
 
     .btn_gray,
     .btn_transparent {
@@ -101,7 +89,7 @@
 
         .profile_page_data {
             padding: 35px;
-            border-radius: 20px;
+            border-radius: 9px;
             background-color: #191917;
             background-image: url("../../assets/model-frame.png");
             background-repeat: no-repeat;
@@ -111,7 +99,7 @@
             height: calc(100% - 80px);
 
             @media(max-width: 1600px) {
-                height: calc(100% - 45px);
+                height: calc(100% - 42px);
             }
 
 
@@ -231,27 +219,16 @@
 
 
                         .profile_upload_profile {
-                            width: 100%;
                             background-color: rgba(255, 255, 255, 0.0509803922);
-                            // border-radius: 20px;
                             border-radius: 50%;
                             background-color: #ffffff0d;
                             position: relative;
                             width: 100%;
-                            border-radius: 50%;
-                            // border-radius: 12px;
+                            height: 180px;
+                            flex-shrink: 0;
                             overflow: hidden;
                             max-height: 200px;
                             max-width: 200px;
-
-                            @media (max-width: 1199px) {
-                                width: 50%;
-                            }
-
-                            @media (max-width: 767px) {
-                                width: 50%;
-                            }
-
 
                             img {
                                 width: 100%;

@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import './projectAccordion.scss';
 import PropTypes from 'prop-types';
-import { DownIcon, GlobalIcon, GradientGraphIcon, GredientGlobalIcon, TableStatusIcon } from '../../utils/SVGs/SVGs';
-import { defaultImg, editIcon, tableActorImage3, trashIcon } from '../../utils/constants/images';
+import { defaultImg, DownIcon, editIcon, GlobalIcon, GradientGraphIcon, GredientGlobalIcon, tableActorImage3, TableStatusIcon, trashIcon } from '../../utils/constants/images';
 
 const ProjectAccordion = ({
     role,

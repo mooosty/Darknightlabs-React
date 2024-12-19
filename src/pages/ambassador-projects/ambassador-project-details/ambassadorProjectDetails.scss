@@ -1,50 +1,4 @@
 .page_box {
-  display: flex;
-  gap: 40px;
-  margin-bottom: 15px;
-
-  @media (max-width: 767px) {
-    margin-bottom: 0px;
-  }
-
-  @media (max-width: 1199px) {
-    gap: 20px;
-  }
-
-  .btn_gray {
-    padding: 16px 24px;
-    border: none;
-    background-color: #4e4e4e94;
-    font-size: 16px;
-    font-weight: 500;
-    color: #f5efdb;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-
-    @media (max-width: 1600px) {
-      font-size: 14px;
-      padding: 10px 20px;
-    }
-  }
-
-  .btn_delete {
-    background-color: #ff9e9826;
-    border: none;
-    padding: 13px;
-
-    @media (max-width: 1600px) {
-      padding: 10px;
-    }
-
-    img {
-      @media (max-width: 1600px) {
-        width: 17px;
-      }
-    }
-  }
-
   .ambassador_content_header {
     display: flex;
     align-items: center;
@@ -152,7 +106,7 @@
 
   .ambassador_project_page_data {
     padding: 20px 0px;
-    border-radius: 20px;
+    border-radius: 9px;
     background-color: #191917;
     // background-image: url("../../assets/model-frame.png");
     // background-repeat: no-repeat;
@@ -162,7 +116,7 @@
     height: calc(100% - 60px);
 
     @media (max-width: 1600px) {
-      height: calc(100% - 40px);
+      height: calc(100% - 42px);
     }
 
     @media (max-width: 767px) {
@@ -351,10 +305,7 @@
 
           .ambassador_project_page_content {
             width: 70%;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-
+           
             @media(max-width: 1200px) {
               width: 100%;
             }
@@ -362,6 +313,7 @@
             @media (max-width: 767px) {
               gap: 0px;
               padding-inline: 16px;
+              margin-bottom: auto;
             }
 
             .header {
@@ -369,6 +321,7 @@
               flex-wrap: wrap;
               justify-content: space-between;
               align-items: center;
+              margin-bottom: 16px;
 
               @media (max-width: 767px) {
                 align-items: end;
@@ -483,6 +436,7 @@
               display: flex;
               gap: 7px;
               align-items: center;
+              margin-bottom: 16px;
 
               @media (max-width: 1600px) {
                 font-size: 12px;
@@ -511,54 +465,11 @@
 
             }
 
-            .synergize_btn {
-              display: none;
-              justify-content: center;
-              align-items: center;
-              gap: 4px;
-              font-size: 14px;
-              background-color: 191917;
-              border-radius: 10px;
-              padding: 7px 10px 8px 10px;
-              position: relative;
-              margin-block: 8px 24px;
-              cursor: pointer;
-
-              @media (max-width: 767px) {
-                display: flex;
-              }
-
-              .text {
-                background-image: linear-gradient(to bottom right, #FDCC2B, #DAB943);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-              }
-
-              &::after {
-                content: '';
-                display: block;
-                inset: 0;
-                position: absolute;
-                top: 0;
-                left: 0;
-                padding: 1px;
-                background: linear-gradient(to bottom right, #FDCC2B, #DAB943);
-                -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-                -webkit-mask-composite: xor;
-                mask-composite: exclude;
-                pointer-events: none;
-              }
-
-              svg {
-                height: 18px;
-                width: 15px;
-              }
-            }
-
             .tags {
               display: flex;
               align-items: center;
               gap: 4px;
+              margin-bottom: 16px;
 
               @media (max-width: 767px) {
                 margin-bottom: 16px;
@@ -569,6 +480,48 @@
                 background-color: #2e2d2977;
                 color: #fff;
                 padding: 4px;
+              }
+            }
+
+            .toggleButtons {
+              display: flex;
+              align-items: center;
+              margin-bottom: 16px;
+
+              @media (max-width: 767px) {
+                width: 100%;
+                margin-bottom: 16px;
+              }
+
+              .toggle_btn {
+                height: 38px;
+                width: 200px;
+                padding: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: transparent;
+                text-transform: uppercase;
+                border: none;
+                font-size: 16px;
+                border-bottom: 1px solid #f5efdb75;
+
+                @media (max-width: 950px) {
+                  width: 100%;
+                }
+
+                span {
+                  font-family: "MedievalSharp", cursive;
+                  color: #e6eaee81;
+                }
+
+                &.active {
+                  border-color: #F5EFDB;
+
+                  span {
+                    color: #F5EFDB;
+                  }
+                }
               }
             }
 
@@ -885,47 +838,6 @@
                       }
 
                     }
-                  }
-                }
-              }
-            }
-
-            .toggleButtons {
-              display: flex;
-              align-items: center;
-
-              @media (max-width: 767px) {
-                width: 100%;
-                margin-bottom: 16px;
-              }
-
-              .toggle_btn {
-                height: 38px;
-                width: 200px;
-                padding: 10px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background-color: transparent;
-                text-transform: uppercase;
-                border: none;
-                font-size: 16px;
-                border-bottom: 1px solid #f5efdb75;
-
-                @media (max-width: 950px) {
-                  width: 100%;
-                }
-
-                span {
-                  font-family: "MedievalSharp", cursive;
-                  color: #e6eaee81;
-                }
-
-                &.active {
-                  border-color: #F5EFDB;
-
-                  span {
-                    color: #F5EFDB;
                   }
                 }
               }

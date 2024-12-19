@@ -1,11 +1,9 @@
 import './synergiesDetails.scss'
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import arrowRight from "../../../assets/arrow-right.png"
 import { useDispatch, useSelector, } from 'react-redux';
-import fallBackImage from '../../../assets/DefaultImage.png'
 import { getSynergyByIdApi } from '../../../api-services/synergyApi';
-import { GradientGraphIcon, GradientInfiniteIcon, GrammerlyIcon, GredientGlobalIcon, HealthIcon, StarIcon, InfoCircleIcon } from '../../../utils/SVGs/SVGs'
+import { GradientGraphIcon, GradientInfiniteIcon, GrammerlyIcon, GredientGlobalIcon, HealthIcon, StarIcon, InfoCircleIcon, arrowRight, DefaultImage } from '../../../utils/constants/images'
 import { CustomTooltip, Loader, MultiselectDropDown } from '../../../components';
 
 const synergyOptions = [
@@ -63,9 +61,9 @@ const SynergiesDetails = () => {
                                 <div className="project_image">
                                     <img
                                         onError={e => {
-                                            e.target.src = fallBackImage
+                                            e.target.src = DefaultImage
                                             e.onerror = null
-                                        }} src={!synergyApiLoading ? (synergyDetail.synergy_image ?? fallBackImage) : null} alt="Project" />
+                                        }} src={!synergyApiLoading ? (synergyDetail.synergy_image ?? DefaultImage) : null} alt="Project" />
                                 </div>
                             </div>
                             <div className="project_page_content">

@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import './ConfirmSynergiesPopup.scss';
-import { DownAccordionIcon, GlobalIcon } from '../../../utils/SVGs/SVGs';
-import { closeIcon } from '../../../utils/constants/images';
+import { closeIcon, DownAccordionIcon, GlobalIcon } from '../../../utils/constants/images';
 
 const accordion = [
     {
