@@ -1,3 +1,11 @@
+* {
+    scrollbar-width: none !important;  /* Firefox */
+    -ms-overflow-style: none !important;  /* IE and Edge */
+    &::-webkit-scrollbar {
+        display: none !important;  /* Chrome, Safari and Opera */
+    }
+}
+
 .page_box {
     display: flex;
     gap: 40px;
@@ -180,6 +188,11 @@
             height: 100%;
             background-color: transparent;
             overflow-y: auto;
+            scrollbar-width: none;  /* Firefox */
+            -ms-overflow-style: none;  /* IE and Edge */
+            &::-webkit-scrollbar {
+                display: none;  /* Chrome, Safari and Opera */
+            }
 
             .investment_page_header {
                 padding: 0px 34px 21px 34px;
@@ -498,14 +511,9 @@
             border-radius: 0;
         }
 
-        @media (max-height: 600px) {
-            padding-block: 0px 110px;
-        }
-
         .investment_details_content {
             height: 100%;
             background-color: transparent;
-            overflow-y: auto;
             display: flex;
             gap: 32px;
             padding: 0 30px;
@@ -514,16 +522,26 @@
                 flex-direction: column;
                 gap: 20px;
                 padding: 0 15px;
+                overflow-y: auto;
             }
 
             .details_left {
                 flex: 0 0 65%;
                 color: #f5efdb;
                 padding-right: 20px;
+                overflow-y: auto;
+                height: 100%;
+                scrollbar-width: none;  /* Firefox */
+                -ms-overflow-style: none;  /* IE and Edge */
+                &::-webkit-scrollbar {
+                    display: none;  /* Chrome, Safari and Opera */
+                }
 
                 @media (max-width: 1024px) {
                     flex: 1;
                     padding-right: 0;
+                    height: auto;
+                    overflow: visible;
                 }
 
                 &::-webkit-scrollbar {
@@ -630,41 +648,25 @@
             .details_right {
                 flex: 0 0 35%;
                 max-width: 35%;
-                display: flex;
-                flex-direction: column;
+                height: fit-content;
+                position: sticky;
+                top: 20px;
 
                 @media (max-width: 1024px) {
                     flex: 1;
                     max-width: 100%;
+                    position: static;
                 }
 
                 .form_container {
                     background: #242623;
                     border-radius: 12px;
-                    flex: 1;
 
                     .investment-form {
                         padding: 20px;
-                        height: 100%;
-                        overflow-y: auto;
-
-                        &::-webkit-scrollbar {
-                            width: 8px;
-                        }
-
-                        &::-webkit-scrollbar-track {
-                            background: #191917;
-                            border-radius: 4px;
-                        }
-
-                        &::-webkit-scrollbar-thumb {
-                            background: #4e4e4e94;
-                            border-radius: 4px;
-
-                            &:hover {
-                                background: #5e5e5e94;
-                            }
-                        }
+                        display: flex;
+                        flex-direction: column;
+                        gap: 20px;
 
                         .form-group {
                             margin-bottom: 20px;

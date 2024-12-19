@@ -10,6 +10,7 @@ import investmentIcon from "../../../assets/investment-icon.png";
 import chatIcon from "../../../assets/chat-icon.png";
 import profileIcon from "../../../assets/profile-icon.png";
 import logoutIcon from "../../../assets/logout-icon.png";
+import karmaIcon from "../../../assets/karma-icon.svg";
 import { Link, useLocation } from "react-router-dom";
 import { ROUTER } from "../../../utils/routes/routes";
 import { useEffect, useState } from "react";
@@ -114,13 +115,19 @@ const Sidebar = () => {
           <div className={`menu-box`}>
             <span className="separator"></span>
             <ul>
-              <li className={`${location.pathname.includes(`/${ROUTER.chat}`) ? "active" : ""} chat ${userProjects.length === 0 ? "disabled" : ""}`}>
+              <li className={`${location.pathname === `/${ROUTER.chat}` ? "active" : ""} chat ${userProjects.length === 0 ? "disabled" : ""}`}>
                 <Link to={ROUTER.chat}>
                   <img src={chatIcon} alt="Chat" />
                   <span className="menu_text">Chat</span>
                   <span className="notification">
                     <span className="notification_text">1</span>
                   </span>
+                </Link>
+              </li>
+              <li className={`${location.pathname === `/${ROUTER.karma}` ? "active" : ""}`}>
+                <Link to={ROUTER.karma}>
+                  <img src={karmaIcon} alt="Karma" />
+                  <span className="menu_text">Karma</span>
                 </Link>
               </li>
               <li className={`${location.pathname === `/${ROUTER.profile}` ? "active" : ""}`}>
@@ -189,6 +196,12 @@ const Sidebar = () => {
                 <span className="chat">
                   Chat <p className="chat_count">1</p>
                 </span>
+              </Link>
+            </li>
+            <li className={`${location.pathname === `/${ROUTER.karma}` ? "active" : ""}`}>
+              <Link to={ROUTER.karma}>
+                <img src={karmaIcon} alt="" />
+                <span>Karma</span>
               </Link>
             </li>
             <li className={`${location.pathname === `/${ROUTER.profile}` ? "active" : ""}`}>
