@@ -568,7 +568,7 @@ const ProjectManagerEdit = () => {
                       </span>
                     </div>
                     <div className="form_box synergy">
-                      <label htmlFor="synergy">Who has access to investments side?</label>
+                      <label htmlFor="synergy">Who has access to investment side?</label>
                       <Select
                         options={[
                           { label: "All Users", value: "All Users" },
@@ -581,7 +581,7 @@ const ProjectManagerEdit = () => {
                       />
                     </div>
                     <div className="invostments-pro-wrap">
-                      <label htmlFor="arc">Investment properties</label>
+                      <label htmlFor="arc">Investment terms</label>
                       {values.investments.map((investment, index) => {
                         return (
                           <>

@@ -991,3 +991,18 @@
     }
   }
 }
+
+.profile_data {
+  .twitter-link {
+    color: #c4b998;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 3px;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #f5efdb;
+      text-decoration-style: solid;
+    }
+  }
+}

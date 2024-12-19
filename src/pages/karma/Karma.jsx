@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import './karma.scss';
@@ -8,8 +8,28 @@ import copyIcon from '../../assets/copy-icon.svg';
 const Karma = () => {
     const [showInvitePopup, setShowInvitePopup] = useState(false);
     const [inviteLink, setInviteLink] = useState("");
+    const [isLoading, setIsLoading] = useState(true);
     const userData = useSelector((state) => state.auth);
     const { userDetails } = useSelector((state) => state.user);
+
+    useEffect(() => {
+        // Simple check to ensure we have user details
+        const checkUserDetails = () => {
+            if (userDetails) {
+                setIsLoading(false);
+            } else {
+                // If no user details, you might want to redirect to login
+                toast.error("Please login to view karma points");
+                setIsLoading(false);
+            }
+        };
+
+        checkUserDetails();
+    }, [userDetails]);
+
+    if (isLoading) {
+        return <div className="karma_page">Loading...</div>;
+    }
 
     // Use currency_b as karma points
     const karmaStats = {
@@ -26,13 +46,19 @@ const Karma = () => {
 
     const handleGenerateLink = async () => {
         try {
+            if (!userDetails?.username) {
+                toast.error("Username not found. Please complete your profile first.");
+                return;
+            }
+            
             const response = await axios.post('https://winwinsocietyweb3.com/api/tiny-url/', {
                 alias: userData?.userId.toString(),
-                username: userDetails?.username
+                username: userDetails.username
             });
             setInviteLink(response.data.tiny_url);
             setShowInvitePopup(true);
         } catch (error) {
+            console.error('Error generating link:', error);
             toast.error("Failed to generate invite link");
         }
     };
