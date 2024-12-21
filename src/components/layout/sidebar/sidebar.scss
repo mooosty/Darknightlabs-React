@@ -102,8 +102,6 @@
 
                 .disabled {
                     position: relative;
-                    // backdrop-filter: blur(10px);
-                    background-color: red;
 
                     &::before {
                         content: "";
@@ -223,15 +221,22 @@
         .menu-box {
             ul {
                 li {
-                    &.active {
-                        a {
-                            opacity: 1;
-                        }
+                    position: relative;
+
+                    &.active a {
+                        opacity: 1;
                     }
 
-                    &:hover {
+                    &:hover:not(.disabled) a {
+                        opacity: 0.85;
+                    }
+
+                    &.disabled {
+                        opacity: 0.5;
+                        cursor: not-allowed;
+
                         a {
-                            opacity: 0.85;
+                            pointer-events: none;
                         }
                     }
 
@@ -257,19 +262,21 @@
             }
 
             .disabled {
-                cursor: not-allowed;
                 position: relative;
-                opacity: 0.5;
+            }
 
-                &::before {
-                    content: "";
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    z-index: 99;
-                }
+            .disabled:hover:after {
+                content: 'Complete your profile first to unlock this feature';
+                position: fixed;
+                background: #000;
+                color: #F5EFDB;
+                padding: 8px 12px;
+                border-radius: 4px;
+                font-size: 14px;
+                width: max-content;
+                z-index: 10000;
+                left: 00px;
+                transform: translateY(-50%);
             }
 
             .separator {
@@ -336,8 +343,91 @@
             padding-inline: 12px;
 
             li {
-                height: 100%;
-                width: 66px;
+                position: relative;
+
+                &.disabled {
+                    opacity: 0.5;
+                    cursor: not-allowed;
+
+                    a {
+                        pointer-events: none;
+                    }
+
+                    &:hover {
+                        &::after {
+                            content: 'Complete your profile first to unlock this feature';
+                            position: absolute;
+                            background: #000000;
+                            color: #F5EFDB;
+                            padding: 8px 12px;
+                            border-radius: 6px;
+                            font-size: 14px;
+                            white-space: nowrap;
+                            left: 50%;
+                            bottom: calc(100% + 10px);
+                            transform: translateX(-50%);
+                            z-index: 9999;
+                            border: 1px solid rgba(245, 239, 219, 0.2);
+                        }
+
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            top: -10px;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            border-width: 6px;
+                            border-style: solid;
+                            border-color: #000000 transparent transparent transparent;
+                            z-index: 9999;
+                        }
+                    }
+                }
+
+                &.active {
+                    a {
+                        color: #ffffff;
+                    }
+                }
+
+                &.tooltip {
+                    position: relative;
+                    
+                    .tooltip-text {
+                        display: none;
+                        position: absolute;
+                        background: rgba(0, 0, 0, 0.9);
+                        color: #F5EFDB;
+                        padding: 8px 12px;
+                        border-radius: 6px;
+                        font-size: 14px;
+                        line-height: 1.4;
+                        white-space: nowrap;
+                        z-index: 1000;
+                        bottom: 100%;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        margin-bottom: 10px;
+                        border: 1px solid rgba(245, 239, 219, 0.2);
+
+                        &::after {
+                            content: '';
+                            position: absolute;
+                            left: 50%;
+                            top: 100%;
+                            transform: translateX(-50%);
+                            width: 0;
+                            height: 0;
+                            border-left: 6px solid transparent;
+                            border-right: 6px solid transparent;
+                            border-top: 6px solid rgba(0, 0, 0, 0.9);
+                        }
+                    }
+                }
+
+                &.disabled:hover .tooltip-text {
+                    display: block;
+                }
 
                 a {
                     height: 100%;
@@ -376,29 +466,18 @@
                         margin-bottom: 8px;
                     }
                 }
-
-                &.disabled {
-                    cursor: not-allowed;
-                    position: relative;
-                    opacity: 0.5;
-
-                    &::before {
-                        content: "";
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        z-index: 99;
-                    }
-                }
-
-                &.active {
-                    a {
-                        color: #ffffff;
-                    }
-                }
             }
         }
+    }
+}
+
+/* Mobile styles */
+@media (max-width: 767px) {
+    .disabled:hover:after {
+        position: absolute;
+        left: 50%;
+        bottom: 100%;
+        transform: translateX(-50%);
+        margin-bottom: 10px;
     }
 }

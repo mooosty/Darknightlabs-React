@@ -119,7 +119,6 @@ const Synergies = () => {
     useEffect(() => {
         dispatch(getSynergyApi())
     }, [])
-    console.log('filterSynergies', filterSynergies)
 
     return (
         <>

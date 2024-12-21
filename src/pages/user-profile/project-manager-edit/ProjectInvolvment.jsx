@@ -454,9 +454,9 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
                                         <div className="seprator-image">
                                             <img src={sepratorImage} alt="Separator" />
                                         </div>
-                                        <h3 className="project_title">Investments</h3>
+                                        <h3 className="project_title">Investment</h3>
                                         <div className="toogle-switch">
-                                            <h3>Open to investments</h3>
+                                            <h3>Open to investment</h3>
                                             <span className="switch">
                                                 <input id="switch-rounded" type="checkbox" onChange={(e) => {
                                                     setFieldValue('open_to_invest', e.target.checked);
@@ -478,7 +478,7 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
                                             />
                                         </div>
                                         <div className="invostments-pro-wrap">
-                                            <label htmlFor="arc">Investment properties</label>
+                                            <label htmlFor="arc">Investment side</label>
                                             {
                                                 values.investments.map((investment, index) => {
                                                     return (

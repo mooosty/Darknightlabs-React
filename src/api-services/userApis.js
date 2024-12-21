@@ -19,7 +19,7 @@ export const getTwitterUserAPI = createAsyncThunk(
 export const createTwitterUserAPI = createAsyncThunk(
     "/users/key",
     async (data, thunkAPI) => {
-        console.log("data", data);
+        
         const response = await axiosApi.post(apiRoutes.TWITTER_USER, data);
         if (response?.status) return response.data;
         else return thunkAPI.rejectWithValue(response?.data);
@@ -49,6 +49,33 @@ export const updatePasswordAPI = createAsyncThunk(
     async (data, thunkAPI) => {
         const response = await axiosApi.patch(apiRoutes.CHANGE_PASSWORD, data);
         if (response?.data?.success) return response?.data;
+        else return thunkAPI.rejectWithValue(response?.data);
+    }
+);
+
+export const getUserWalletAPI = createAsyncThunk(
+    "/users/:id",
+    async (id, thunkAPI) => {
+        const response = await axiosApi.get(`${apiRoutes.USER}/${id}`);
+        if (response?.status) return response.data;
+        else return thunkAPI.rejectWithValue(response?.data);
+    }
+);
+
+export const updateUserWalletAPI = createAsyncThunk(
+    "/users/wallet",
+    async (data, thunkAPI) => {
+        const response = await axiosApi.patch(apiRoutes.USER_WALLET, data);
+        if (response?.status) return response.data;
+        else return thunkAPI.rejectWithValue(response?.data);
+    }
+);
+
+export const createInviteAPI = createAsyncThunk(
+    "/invites",
+    async (data, thunkAPI) => {
+        const response = await axiosApi.post(apiRoutes.INVITES, data);
+        if (response?.status) return response.data;
         else return thunkAPI.rejectWithValue(response?.data);
     }
 );

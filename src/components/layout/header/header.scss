@@ -25,10 +25,17 @@
         font-family: "MedievalSharp", cursive;
         font-size: 24px;
         display: none;
+        margin-left: auto;
 
         @media(max-width: 767px) {
             display: block;
         }
+    }
+
+    .currency {
+        color: #FFDF76;
+        font-family: "MedievalSharp";
+        font-size: 16px;
     }
 
     .sidbar_btn {
@@ -38,7 +45,6 @@
             display: block;
         }
     }
-
 
     .header_btn {
         // margin-left: auto;

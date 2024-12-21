@@ -29,7 +29,7 @@ const MyContent = () => {
         types: [],
         searchBy: "",
     });
-
+    
     const handleActive = (key) => {
         setActiveContentLayout(key);
     };

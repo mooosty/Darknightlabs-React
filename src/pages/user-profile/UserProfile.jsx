@@ -50,7 +50,6 @@ const UserProfile = () => {
   const [userProjects, setUserProjects] = useState([]);
   const [addNewProject, setAddNewProject] = useState(false);
 
-
   const initialValues = {
     id: 9,
     firstname: "",
@@ -106,7 +105,7 @@ const UserProfile = () => {
   };
 
   const handleUpdateDetails = async (values) => {
-    console.log('values', values)
+    
 
     setIsLoading(true);
     let updated_profile_picture = values?.profile_picture;
@@ -181,14 +180,25 @@ const UserProfile = () => {
   const handleRoleChange = (role) => {
     let tmpRoles = values?.roles;
 
+    tmpRoles = tmpRoles.map(r => {
+      switch(r) {
+        case 'A Founder': return 'Founder';
+        case 'A C-level': return 'C-level';
+        case 'A Web3 employee': return 'Web3 employee';
+        case 'A KOL / Ambassador / Content Creator': return 'KOL / Ambassador / Content Creator';
+        case 'An Angel Investor': return 'Angel Investor';
+        default: return r;
+      }
+    });
+
     if (role === "Other") {
-      if (values?.roles.includes(role)) {
+      if (tmpRoles.includes(role)) {
         setFieldValue("roles", []);
         setFieldValue("other", "");
       } else {
         setFieldValue("roles", [role]);
       }
-      return
+      return;
     } else {
       if (tmpRoles.includes(role)) {
         tmpRoles = tmpRoles.filter((r) => r !== role);
@@ -209,19 +219,22 @@ const UserProfile = () => {
   };
 
   const handleEditProfile = () => {
-    console.log('userDetails', userDetails, userDetails?.roles ? userDetails?.roles?.split(',') : [])
     setIsEditMode(true);
     setValues({
       ...initialValues,
-      ...userDetails,
-      roles: userDetails?.roles ? userDetails?.roles?.split(',') : [],
+      firstname: userDetails?.firstname || "",
+      lastname: userDetails?.lastname || "",
+      email: userDetails?.email || "",
+      bio: userDetails?.bio || "",
+      birthday: userDetails?.birthday || "",
+      username: userDetails?.username || "",
     });
   };
 
   const cancelProfileEdit = () => {
     setIsEditMode(false);
   };
-  console.log('values', values, userDetails)
+  
 
   useEffect(() => {
     dispatch(getUsersDetailsAPI(userData?.userId));
@@ -239,7 +252,7 @@ const UserProfile = () => {
 
         setUserProjects(response.data.data ?? []);
       } catch (error) {
-        console.log(error.message);
+        
       } finally {
         setIsLoading(false);
       }
@@ -247,12 +260,31 @@ const UserProfile = () => {
     fetchProjects();
   }, [dispatch]);
 
+  useEffect(() => {
+    if (userDetails) {
+      const roles = userDetails.roles?.split(',').map(r => {
+        switch(r.trim()) {
+          case 'A Founder': return 'Founder';
+          case 'A C-level': return 'C-level';
+          case 'A Web3 employee': return 'Web3 employee';
+          case 'A KOL / Ambassador / Content Creator': return 'KOL / Ambassador / Content Creator';
+          case 'An Angel Investor': return 'Angel Investor';
+          default: return r.trim();
+        }
+      }) || [];
+
+      setValues({
+        ...initialValues,
+        ...userDetails,
+        roles: roles
+      });
+    }
+  }, [userDetails]);
 
   return (
     <>
       {active === "INFORMATION" && (
         !isEditMode ? (
-          // View mode
           <>
             <div className="profile_content_header">
               <div className="profile_content_left">
@@ -288,10 +320,12 @@ const UserProfile = () => {
                   <div className="pagination">
                     <span>Profile</span>
                   </div>
-                  <button className="btn_gray" onClick={handleEditProfile}>
-                    <img src={editIcon} alt="" />
-                    Edit profile
-                  </button>
+                  <div className="profile_actions">
+                    <button className="btn_gray" onClick={handleEditProfile}>
+                      <img src={editIcon} alt="" />
+                      Edit profile
+                    </button>
+                  </div>
                 </div>
                 <div className="profile_page_content">
                   <div className="project_profile">
@@ -338,6 +372,21 @@ const UserProfile = () => {
                           <div className="profile_head">Telegram</div>
                           <div className="profile_data">{userDetails?.telegram_username || "-"}</div>
                         </div>
+                        <div className="profile_info">
+                          <div className="profile_head">Twitter</div>
+                          <div className="profile_data">
+                            {userDetails?.username ? (
+                              <a 
+                                href={`https://twitter.com/${userDetails.username}`} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="twitter-link"
+                              >
+                                {userDetails.username}
+                              </a>
+                            ) : "-"}
+                          </div>
+                        </div>
 
                         <div className="profile_info">
                           <div className="profile_head">Angel investor</div>
@@ -360,7 +409,18 @@ const UserProfile = () => {
 
                         <div className="profile_info">
                           <div className="profile_head">Role</div>
-                          <div className="profile_data">{userDetails?.roles || "-"}</div>
+                          <div className="profile_data">
+                            {userDetails?.roles?.split(',').map(role => {
+                              switch(role.trim()) {
+                                case 'A Founder': return 'Founder';
+                                case 'A C-level': return 'C-level';
+                                case 'A Web3 employee': return 'Web3 employee';
+                                case 'A KOL / Ambassador / Content Creator': return 'KOL / Ambassador / Content Creator';
+                                case 'An Angel Investor': return 'Angel Investor';
+                                default: return role.trim();
+                              }
+                            }).join(', ') || "-"}
+                          </div>
                         </div>
 
                       </div>
@@ -549,30 +609,30 @@ const UserProfile = () => {
                       <div className="form_group_row">
                         <div className="profile_info full_width">
                           <label>Role</label>
-                          <div className="check_box" onClick={() => handleRoleChange("A Founder")} >
-                            <input type="checkbox" readOnly name="roles" value="A Founder" className="costum_checkbox_input" checked={values?.roles?.includes("A Founder")} />
+                          <div className="check_box" onClick={() => handleRoleChange("Founder")} >
+                            <input type="checkbox" readOnly name="roles" value="Founder" className="costum_checkbox_input" checked={values?.roles?.includes("Founder")} />
                             <label className="costum_checkbox_label"></label>
-                            <span className="label">A Founder</span>
+                            <span className="label">Founder</span>
                           </div>
-                          <div className="check_box" onClick={() => handleRoleChange("A C-level")} >
-                            <input type="checkbox" readOnly name="roles" value="A C-level" className="costum_checkbox_input" checked={values?.roles?.includes("A C-level")} />
+                          <div className="check_box" onClick={() => handleRoleChange("C-level")} >
+                            <input type="checkbox" readOnly name="roles" value="C-level" className="costum_checkbox_input" checked={values?.roles?.includes("C-level")} />
                             <label className="costum_checkbox_label"></label>
-                            <span className="label">A C-level</span>
+                            <span className="label">C-level</span>
                           </div>
-                          <div className="check_box" onClick={() => handleRoleChange("A Web3 employee")}  >
-                            <input type="checkbox" readOnly name="roles" value="A Web3 employee" className="costum_checkbox_input" checked={values?.roles?.includes("A Web3 employee")} />
+                          <div className="check_box" onClick={() => handleRoleChange("Web3 employee")}  >
+                            <input type="checkbox" readOnly name="roles" value="Web3 employee" className="costum_checkbox_input" checked={values?.roles?.includes("Web3 employee")} />
                             <label className="costum_checkbox_label"></label>
-                            <span className="label">A Web3 employee (BD, collab manager, project manager, etc.)</span>
+                            <span className="label">Web3 employee (BD, collab manager, project manager, etc.)</span>
                           </div>
-                          <div className="check_box" onClick={() => handleRoleChange("A KOL / Ambassador / Content Creator")} >
-                            <input type="checkbox" readOnly name="roles" value="A KOL / Ambassador / Content Creator" className="costum_checkbox_input" checked={values?.roles?.includes("A KOL / Ambassador / Content Creator")} />
+                          <div className="check_box" onClick={() => handleRoleChange("KOL / Ambassador / Content Creator")} >
+                            <input type="checkbox" readOnly name="roles" value="KOL / Ambassador / Content Creator" className="costum_checkbox_input" checked={values?.roles?.includes("KOL / Ambassador / Content Creator")} />
                             <label className="costum_checkbox_label"></label>
-                            <span className="label">A KOL / Ambassador / Content Creator</span>
+                            <span className="label">KOL / Ambassador / Content Creator</span>
                           </div>
-                          <div className="check_box" onClick={() => handleRoleChange("An Angel Investor")} >
-                            <input type="checkbox" readOnly name="roles" value="An Angel Investor" className="costum_checkbox_input" checked={values?.roles?.includes("An Angel Investor")} />
+                          <div className="check_box" onClick={() => handleRoleChange("Angel Investor")} >
+                            <input type="checkbox" readOnly name="roles" value="Angel Investor" className="costum_checkbox_input" checked={values?.roles?.includes("Angel Investor")} />
                             <label className="costum_checkbox_label"></label>
-                            <span className="label">An Angel Investor</span>
+                            <span className="label">Angel Investor</span>
                           </div>
                           <div className="check_box" onClick={() => handleRoleChange("Other")}  >
                             <input type="checkbox" readOnly name="roles" value="Other" className="costum_checkbox_input" checked={values?.roles?.includes("Other")} />
@@ -795,11 +855,6 @@ const UserProfile = () => {
           handleActive={handleActive}
           active={active} />
       )}
-
-
-
-      {/* <LoginPopup open={isLoginPopupOpen} handleClose={() => setIsLoginPopupOpen(false)} />
-      <SignupPopup open={isSignUpPopupOpen} handleClose={() => setIsSignUpPopupOpen(false)} /> */}
     </>
   );
 };

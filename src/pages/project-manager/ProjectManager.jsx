@@ -1,4 +1,4 @@
-import "./projectManager.scss";
+import "./projectmanager.scss";
 import debounce from "lodash.debounce";
 import { useNavigate } from "react-router-dom";
 import { formatDate } from "../../utils/helper/helper";
