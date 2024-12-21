@@ -27,6 +27,10 @@
         padding: 15px 24px;
       }
 
+      @media (max-width: 500px) {
+        padding-inline: 20px;
+      }
+
       h2 {
         color: #fff;
         font-weight: 500;
@@ -136,6 +140,10 @@
         display: flex;
         flex-direction: column;
         border-bottom: 1px solid #f5efdb26;
+
+        @media (max-width: 500px) {
+          padding-inline: 20px;
+        }
 
         .project_page_header_top {
           display: flex;

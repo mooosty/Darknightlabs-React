@@ -14,7 +14,7 @@
         }
 
         @media (max-width: 767px) {
-            text-align: center;
+            display: none;
         }
 
         .ambassadors_content_left {
@@ -122,11 +122,19 @@
                 align-items: center;
                 justify-content: center;
 
-                .ambassadors_content_header {
+                .ambassadors_content_title {
+                    width: 100%;
                     font-size: 30px;
                     color: #F5EFDB;
                     font-weight: 500;
                     font-family: "MedievalSharp", cursive;
+                    text-align: center;
+                    margin-bottom: 14px;
+
+                    @media (max-width: 767px) {
+                        font-size: 24px;
+                        margin-bottom: 8px;
+                    }
                 }
 
                 .ambassadors_content_btn {

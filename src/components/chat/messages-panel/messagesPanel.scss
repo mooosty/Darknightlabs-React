@@ -212,7 +212,7 @@
 
             .chat_input {
                 width: 100%;
-                padding: 14px 12px 14px 16px;
+                padding: 10px 12px 10px 16px;
                 background-color: #4d4d4d;
                 border-radius: 8px;
                 display: flex;
@@ -221,7 +221,7 @@
                 margin-bottom: 12px;
 
                 @media (max-width: 1600px) {
-                    padding: 8px 12px 8px 16px;
+                    padding: 6px 12px 6px 16px;
                 }
 
                 svg {
@@ -266,7 +266,6 @@
                         height: 20px;
                         width: 20px;
                         margin-left: 1px;
-                        rotate: -10deg;
                     }
                 }
 

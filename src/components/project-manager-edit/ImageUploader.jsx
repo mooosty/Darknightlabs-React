@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { trashIcon, uploadIcon } from '../../utils/constants/images';
+import { DeleteIcon, uploadIcon } from '../../utils/constants/images';
 
 const ImageUploader = ({ image, setFieldValue }) => {
 
@@ -45,7 +45,7 @@ const ImageUploader = ({ image, setFieldValue }) => {
                     <button className="btn-red" onClick={() => {
                         setFieldValue('image', null);
                     }}>
-                        <img src={trashIcon} alt="" /> Delete</button>
+                        <DeleteIcon /> Delete</button>
                 </div>
             </>}
             {!image?.base64Url && <>

@@ -1,3 +1,8 @@
+// IMAGES
+
+import member from '../../assets/member_img1.png'
+import cardImage from "../../assets//project-card-img-1.png";
+import DefaultImage from '../../assets/DefaultImage.png'
 import cardActor1 from '../../assets/pending-synergy-img1.png'
 import cardActor2 from '../../assets/pending-synergy-img2.png'
 import cardActor3 from '../../assets/pending-synergy-img3.png'
@@ -14,14 +19,9 @@ import cardActor13 from '../../assets/pending-synergy-img13.png'
 import cardActor14 from '../../assets/pending-synergy-img14.png'
 import cardActor15 from '../../assets/pending-synergy-img15.png'
 
-import searchIcon from "../../assets/search-icon.png"
 import autherProfile from "../../assets/auther-profile.png"
-import trashIcon from "../../assets/trash-icon.png"
-import addIcon from "../../assets/add-icon.png"
 import sepratorImage from "../../assets/seprator-image.png"
-import arrowRight from "../../assets/arrow-right.png"
-import closeIcon from "../../assets/X-icon.png";
-import filterIcon from "../../assets/filter.svg";
+import arrowRight from "../../assets/arrow-right.svg"
 
 import synergy1 from '../../assets/synergy1.png'
 import synergy2 from '../../assets/synergy2.png'
@@ -32,11 +32,8 @@ import chatMassageDP from '../../assets/chat-message-dp.png'
 
 import angelBg from '../../assets/edit-senergies-hero-image.png'
 import fallBackImage from '../../assets/project-card-img-1.png'
-import arrowDown from "../../assets/arrow-down.png"
 import project from "../../assets/synergy4.png"
-import infoCircle from "../../assets/info-circle.png"
-import tableActor from "../../assets/tableActorImage.jpg";
-
+import tableActor from "../../assets/tableActorImage.jpg"
 import defaultImg from '../../assets/project-card-img-1.png'
 
 import soldierPhoto from "../../assets/Rectangle 3.png";
@@ -68,7 +65,17 @@ import tableActorImage3 from "../../assets/avatar-3.jpg";
 import uploadIcon from '../../assets/document-upload.png'
 import linkedinIcon from '../../assets/linkedin.svg'
 
+
 // SVG
+import { ProjectNavTabIcon } from '../SVGs/SVGs';
+import { SynergiesNavTabIcon } from '../SVGs/SVGs';
+import { InvestmentNavTabIcon } from '../SVGs/SVGs';
+import { ChatNavTabIcon } from '../SVGs/SVGs';
+import { ProfileNavTabIcon } from '../SVGs/SVGs';
+import { LogoutNavTabIcon } from '../SVGs/SVGs';
+import { PendingSynergiesNavTabIcon } from '../SVGs/SVGs';
+import { SynergiesManagerNavTabIcon } from '../SVGs/SVGs';
+import { MyContentNavTabIcon } from '../SVGs/SVGs';
 import { ListIcon } from '../SVGs/SVGs';
 import { GridIcon } from '../SVGs/SVGs';
 import { StarIcon } from '../SVGs/SVGs';
@@ -92,7 +99,11 @@ import { TypeAIIcon } from '../SVGs/SVGs';
 import { TableStatusIcon } from '../SVGs/SVGs';
 import { InfiniteIcon } from '../SVGs/SVGs';
 import { GradientInfiniteIcon } from '../SVGs/SVGs';
+import { PlusIcon } from '../SVGs/SVGs';
+import { CloseIcon } from '../SVGs/SVGs';
 import { MoreIcon } from '../SVGs/SVGs';
+import { FilterIcon } from '../SVGs/SVGs';
+import { SearchIcon } from '../SVGs/SVGs';
 import { BackArrow } from '../SVGs/SVGs';
 import { HalfEmoji } from '../SVGs/SVGs';
 import { Health } from '../SVGs/SVGs';
@@ -122,23 +133,9 @@ import { SendChatIcon } from '../SVGs/SVGs';
 import { CopyIcon } from '../SVGs/SVGs';
 import { GradientTimerIcon } from '../SVGs/SVGs';
 import { RankingIcon } from '../SVGs/SVGs';
+import { CollapseRightIcon } from '../SVGs/SVGs';
+import { CollapseLeftIcon } from '../SVGs/SVGs';
 
-// IMAGES
-import profileIcon from "../../assets/profile-icon.png";
-import logoutIcon from "../../assets/logout-icon.png";
-
-import collapseLeftIcon from "../../assets/collapse-left-icon.png";
-import collapseRightIcon from "../../assets/collapse-right-icon.png";
-import myContentIcon from "../../assets/my-content-icon.png";
-import projectIcon from "../../assets/project-icon.png";
-import pendingIcon from "../../assets/pending-icon.png";
-import synergiesIcon from "../../assets/synergies-icon.png";
-import synergiesUserIcon from "../../assets/synergies-user-icon.png";
-import investmentIcon from "../../assets/investment-icon.png";
-import chatIcon from "../../assets/chat-icon.png";
-import member from '../../assets/member_img1.png'
-import cardImage from "../../assets//project-card-img-1.png";
-import DefaultImage from '../../assets/DefaultImage.png'
 
 export {
     linkedinIcon,
@@ -146,14 +143,9 @@ export {
     uploadIcon,
     tableActorImage3,
     bitCoinIcon,
-    searchIcon,
     autherProfile,
-    trashIcon,
-    addIcon,
     sepratorImage,
     arrowRight,
-    closeIcon,
-    filterIcon,
     synergy1,
     synergy2,
     synergy3,
@@ -190,9 +182,7 @@ export {
     cardActor15,
     angelBg,
     fallBackImage,
-    arrowDown,
     project,
-    infoCircle,
     defaultImg,
     tableActor,
     soldierPhoto,
@@ -203,6 +193,20 @@ export {
     closedEyeIcon,
     openEyeIcon,
     calendarBlankIcon,
+    member,
+    cardImage,
+    DefaultImage,
+
+
+    ProjectNavTabIcon,
+    SynergiesNavTabIcon,
+    InvestmentNavTabIcon,
+    ChatNavTabIcon,
+    ProfileNavTabIcon,
+    LogoutNavTabIcon,
+    PendingSynergiesNavTabIcon,
+    SynergiesManagerNavTabIcon,
+    MyContentNavTabIcon,
     ListIcon,
     GridIcon,
     StarIcon,
@@ -226,7 +230,11 @@ export {
     TableStatusIcon,
     InfiniteIcon,
     GradientInfiniteIcon,
+    PlusIcon,
+    CloseIcon,
     MoreIcon,
+    FilterIcon,
+    SearchIcon,
     BackArrow,
     HalfEmoji,
     Health,
@@ -256,18 +264,6 @@ export {
     CopyIcon,
     GradientTimerIcon,
     RankingIcon,
-    profileIcon,
-    logoutIcon,
-    collapseLeftIcon,
-    collapseRightIcon,
-    myContentIcon,
-    projectIcon,
-    pendingIcon,
-    synergiesIcon,
-    synergiesUserIcon,
-    investmentIcon,
-    chatIcon,
-    member,
-    cardImage,
-    DefaultImage
+    CollapseRightIcon,
+    CollapseLeftIcon,
 }

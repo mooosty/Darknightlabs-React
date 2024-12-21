@@ -3,13 +3,13 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector, } from 'react-redux';
 import { getSynergyByIdApi } from '../../../api-services/synergyApi';
-import { GradientGraphIcon, GradientInfiniteIcon, GrammerlyIcon, GredientGlobalIcon, HealthIcon, StarIcon, InfoCircleIcon, arrowRight, DefaultImage } from '../../../utils/constants/images'
+import { GradientGraphIcon, GradientInfiniteIcon, GrammerlyIcon, GredientGlobalIcon, HealthIcon, StarIcon, InfoCircleIcon, RightIcon, DefaultImage } from '../../../utils/constants/images'
 import { CustomTooltip, Loader, MultiselectDropDown } from '../../../components';
 
 const synergyOptions = [
     { label: 'Selected', value: 'selected' },
     { label: 'Unselected', value: 'unselected' },
-    { label: 'All synergies angles', value: 'allSynergies' }
+    { label: 'All synergies angels', value: 'allSynergies' }
 ]
 
 const synergiesAnglesIcons = [
@@ -50,7 +50,7 @@ const SynergiesDetails = () => {
                         <div className="pagination">
                             <Link to={'/synergies'}>Synergies</Link>
                             <span>
-                                <img src={arrowRight} alt="" />
+                                <RightIcon />
                             </span>
                             <p>{synergyDetail.synergy_name}</p>
                         </div>
@@ -89,13 +89,13 @@ const SynergiesDetails = () => {
                                     <div className="synergy_header">
                                         <div className="left">
                                             <GradientInfiniteIcon />
-                                            <span>Synergy angles</span>
+                                            <span>Synergy angels</span>
                                         </div>
                                         <div className="right">
                                             <div className="selects">
                                                 <MultiselectDropDown
                                                     options={synergyOptions}
-                                                    placeholder={'All synergies angles'}
+                                                    placeholder={'All synergies angels'}
                                                 // onApply={(currentOptions) => {
                                                 // const synergiesAnglesValues = currentOptions?.map((option) => option.value)
                                                 // setFilter({

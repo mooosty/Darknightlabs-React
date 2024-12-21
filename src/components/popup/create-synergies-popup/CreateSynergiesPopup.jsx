@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import './CreateSynergiesPopup.scss';
-import { closeIcon } from '../../../utils/constants/images';
+import { CloseIcon } from '../../../utils/constants/images';
 
 const CreateSynergiesPopup = ({ open, footer, body, title, onClose }) => {
 
@@ -18,7 +18,7 @@ const CreateSynergiesPopup = ({ open, footer, body, title, onClose }) => {
                                         onClose()
                                     }}
                                 >
-                                    <img src={closeIcon} alt="close" />
+                                    <CloseIcon />
                                 </button>
                             </div>
                             {body}

@@ -1,11 +1,6 @@
 import PropTypes from 'prop-types'
-import defaultImg from '../../assets/project-card-img-1.png'
 import Accordion from '../accordion/Accordion'
-import globalIcon from '../../assets/global.svg'
-import editIcon from '../../assets/edit-icon.svg'
-import closeIcon from '../../assets//X-icon.png'
-import trashIcon from '../../assets/trash-icon.png'
-import { MoreIcon } from '../../utils/constants/images'
+import { MoreIcon, CloseIcon, editIcon, DeleteIcon, defaultImg, GlobalIcon } from '../../utils/constants/images'
 
 
 const SynergyManagerTableLayout = ({ filterSynergies, selectedSynergy, handleSelectAllProjects, handleCancelSelection, setIsMultiDeleteConfirmPopupOpen, setIsBottomMenuOpen, setEditId, setIsEditSynergiesPopupOpen, setDeleteId, setIsDeleteConfirmPopupOpen, handleSelectedSynergy }) => {
@@ -36,13 +31,13 @@ const SynergyManagerTableLayout = ({ filterSynergies, selectedSynergy, handleSel
                     selectedSynergy.length > 0 && <>
                         <div className="table_actions">
                             <button className="btn_cancle btn_gray" onClick={handleCancelSelection}>
-                                <img src={closeIcon} alt="Add" />
+                                <CloseIcon />
                                 <span>Cancel</span>
                             </button>
                             <button className="btn_delete" onClick={() => {
                                 setIsMultiDeleteConfirmPopupOpen(true);
                             }}>
-                                <img src={trashIcon} alt="Delete" />
+                                <DeleteIcon />
                                 <span>Delete</span>
                             </button>
                         </div>
@@ -51,7 +46,7 @@ const SynergyManagerTableLayout = ({ filterSynergies, selectedSynergy, handleSel
                             <button className="button_delete " onClick={() => {
                                 setIsMultiDeleteConfirmPopupOpen(true);
                             }}>
-                                <img src={trashIcon} alt="Delete" />
+                                <DeleteIcon />
                             </button>
                             <button className="menu_button" onClick={() => setIsBottomMenuOpen(true)}>
                                 <MoreIcon />
@@ -67,7 +62,7 @@ const SynergyManagerTableLayout = ({ filterSynergies, selectedSynergy, handleSel
                             <th>Synergy name</th>
                             <th className='center'>Creator</th>
                             <th className='center'>Image</th>
-                            <th className='center'>Synergies angles</th>
+                            <th className='center'>Synergies angels</th>
                             <th className='center'>Date</th>
                             <th className='center'>Actions</th>
                         </tr>
@@ -106,7 +101,7 @@ const SynergyManagerTableLayout = ({ filterSynergies, selectedSynergy, handleSel
                                                 {
                                                     rowData.synergiesAngles.map((angle, index) => (
                                                         <span className='angle_tag' key={index}>
-                                                            <img src={globalIcon} alt=" " />
+                                                            <GlobalIcon />
                                                             <span>{angle}</span>
                                                         </span>
                                                     ))
@@ -133,7 +128,7 @@ const SynergyManagerTableLayout = ({ filterSynergies, selectedSynergy, handleSel
                                                     }
                                                     }
                                                 >
-                                                    <img src={trashIcon} alt=" " />
+                                                    <DeleteIcon />
                                                 </button>
                                             </div>
                                         </td>

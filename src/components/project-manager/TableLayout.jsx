@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { CustomTooltip, ProjectAccordion } from '../../components';
-import { defaultImg, editIcon, GradientGraphIcon, GredientGlobalIcon, tableActorImage3, TableStatusIcon, trashIcon } from '../../utils/constants/images';
+import { defaultImg, editIcon, GradientGraphIcon, GredientGlobalIcon, tableActorImage3, TableStatusIcon, DeleteIcon } from '../../utils/constants/images';
 
 
 const ProjectManagerTableLayout = ({ filterProject, selectedProjects, selectedProjectForSynergy, createSynergyStep, handleSelectProject, setIsDeleteConfirmPopupOpen, setDltId }) => {
@@ -136,7 +136,7 @@ const ProjectManagerTableLayout = ({ filterProject, selectedProjects, selectedPr
                                                     setIsDeleteConfirmPopupOpen(true);
                                                     setDltId(rowData.projectId)
                                                 }}>
-                                                    <img src={trashIcon} alt=" " />
+                                                    <DeleteIcon />
                                                 </button>
                                             </div>
                                         </td>

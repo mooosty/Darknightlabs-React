@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Tooltip } from 'react-tooltip';
 import { useEffect, useState } from 'react';
 import { useClickOutside } from '../../utils/hooks/useClickOutside';
-import { addIcon, arrowDown, infoCircle } from '../../utils/constants/images';
+import { PlusIcon, DownIcon, InfoCircleIcon } from '../../utils/constants/images';
 
 const Select = ({
     name,
@@ -57,7 +57,7 @@ const Select = ({
                         className='label_tooltip'
                         id={`select_${name ?? ''}_label`}
                     >
-                        <img src={infoCircle} alt="" />
+                        <InfoCircleIcon />
                         <Tooltip
                             place="top"
                             style={{
@@ -73,7 +73,7 @@ const Select = ({
                     </div>
                 }
                 <div className='down-arrow'>
-                    <img src={arrowDown} alt="" />
+                    <DownIcon />
                 </div>
             </div>
             <div
@@ -86,7 +86,7 @@ const Select = ({
                                 <li key={opt.value} onClick={() => handleSelectOption(opt)}>
                                     {opt.label}
                                     {opt.tooltip && <div id={`select_${name ?? ''}_${index}`} className="tooltip">
-                                        <img src={infoCircle} alt="" />
+                                        <InfoCircleIcon />
                                         <Tooltip
                                             place="top"
                                             style={{
@@ -116,7 +116,7 @@ const Select = ({
                     onClick={onAdd}
                 >
                     {addButtonLabel ?? 'Add'}
-                    <img src={addIcon} alt="" />
+                    <PlusIcon />
                 </button>}
             </div>
         </div >

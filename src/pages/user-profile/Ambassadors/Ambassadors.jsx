@@ -37,7 +37,7 @@ const Ambassadors = ({ handleActive, active }) => {
 
                     <div className="ambassadors_content_box">
                         <div>
-                            <span className="ambassadors_content_header"> You need to activate the ambassadors section.</span>
+                            <div className="ambassadors_content_title"> You need to activate the ambassadors section.</div>
                             <button className="btn_gray ambassadors_content_btn"> Activate now</button>
                         </div>
                     </div>

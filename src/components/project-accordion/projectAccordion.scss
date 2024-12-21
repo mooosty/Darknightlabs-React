@@ -2,6 +2,10 @@
     margin: 5px 24px;
     background-color: #242623eb;
 
+    @media (max-width: 500px) {
+        margin-inline: 20px;
+    }
+
     .project_accordion {
         border-radius: 5px;
         overflow: hidden;
@@ -37,10 +41,10 @@
         }
     }
 
-    &.disable{
+    &.disable {
         opacity: 0.4;
         background-color: rgba(245, 239, 219, 0.16);
-        
+
     }
 
     .project_accordion_label {
@@ -160,13 +164,15 @@
                     .center {
                         display: flex;
                         justify-content: center;
-                        min-width: 120px;
+                        min-width: 10vw;
 
                         @media (max-width: 898px) and (min-width: 768px) {
                             display: none;
+                            min-width: 0px;
                         }
 
                         @media (max-width: 570px) {
+                            min-width: 0px;
                             display: none;
                         }
 

@@ -1,42 +1,42 @@
 import PropTypes from 'prop-types';
 import './ConfirmSynergiesPopup.scss';
-import { closeIcon, DownAccordionIcon, GlobalIcon } from '../../../utils/constants/images';
+import { CloseIcon, DownAccordionIcon, GlobalIcon } from '../../../utils/constants/images';
 
 const accordion = [
     {
         id: 1,
         name: 'Project Name 1',
         angel1: 'IP integration',
-        angel2: 'Angle48',
+        angel2: 'Angel48',
         angel3: 'Hosting AMAS',
-        angel4: 'IP Angle48',
+        angel4: 'IP Angel48',
         angel5: 'IP integration',
     },
     {
         id: 2,
         name: 'Project Name 2',
         angel1: 'IP integration',
-        angel2: 'Angle48',
+        angel2: 'Angel48',
         angel3: 'Hosting AMAS',
-        angel4: 'IP Angle48',
+        angel4: 'IP Angel48',
         angel5: 'IP integration',
     },
     {
         id: 3,
         name: 'Project Name 3',
         angel1: 'IP integration',
-        angel2: 'Angle48',
+        angel2: 'Angel48',
         angel3: 'Hosting AMAS',
-        angel4: 'IP Angle48',
+        angel4: 'IP Angel48',
         angel5: 'IP integration',
     },
     {
         id: 4,
         name: 'Project Name 4',
         angel1: 'IP integration',
-        angel2: 'Angle48',
+        angel2: 'Angel48',
         angel3: 'Hosting AMAS',
-        angel4: 'IP Angle48',
+        angel4: 'IP Angel48',
         angel5: 'IP integration',
     },
 ]
@@ -59,7 +59,7 @@ const ConfirmSynergiesPopup = ({ open, handleClose }) => {
                                         handleClose()
                                     }}
                                 >
-                                    <img src={closeIcon} alt="close" />
+                                    <CloseIcon />
                                 </button>
                             </div>
                             <div className="confirm_synergies_data_body">
@@ -74,27 +74,27 @@ const ConfirmSynergiesPopup = ({ open, handleClose }) => {
                                         </label>
 
                                         <div className='accordion_content'>
-                                            <div className="header_name">Synergy angles</div>
+                                            <div className="header_name">Synergy angels</div>
                                             <div className="checkboxs">
                                                 <span className='checkbox_angles'>
                                                     <input type="checkbox" name="angleName" id={`angles_+${data.angel1}+${data.id}`} className='checkbox_input' />
-                                                    <label htmlFor={`angles_+${data.angel1}+${data.id}`} className='checkbox_label' ><GlobalIcon />{data.angel1} </label>
+                                                    <label htmlFor={`angles_+${data.angel1}+${data.id}`} className='checkbox_label' ><GlobalIcon />{data.angel1}</label>
                                                 </span>
                                                 <span className='checkbox_angles'>
                                                     <input type="checkbox" name="angleName" id={`angle_+${data.angel2}+${data.id}`} className='checkbox_input' />
-                                                    <label htmlFor={`angle_+${data.angel2}+${data.id}`} className='checkbox_label' ><GlobalIcon />{data.angel2} </label>
+                                                    <label htmlFor={`angle_+${data.angel2}+${data.id}`} className='checkbox_label' ><GlobalIcon />{data.angel2}</label>
                                                 </span>
                                                 <span className='checkbox_angles'>
                                                     <input type="checkbox" name="angleName" id={`angle_+${data.angel3}+${data.id}`} className='checkbox_input' />
-                                                    <label htmlFor={`angle_+${data.angel3}+${data.id}`} className='checkbox_label' ><GlobalIcon />{data.angel3} </label>
+                                                    <label htmlFor={`angle_+${data.angel3}+${data.id}`} className='checkbox_label' ><GlobalIcon />{data.angel3}</label>
                                                 </span>
                                                 <span className='checkbox_angles'>
                                                     <input type="checkbox" name="angleName" id={`angle_+${data.angel4}+${data.id}`} className='checkbox_input' />
-                                                    <label htmlFor={`angle_+${data.angel4}+${data.id}`} className='checkbox_label' ><GlobalIcon />{data.angel4} </label>
+                                                    <label htmlFor={`angle_+${data.angel4}+${data.id}`} className='checkbox_label' ><GlobalIcon />{data.angel4}</label>
                                                 </span>
                                                 <span className='checkbox_angles'>
                                                     <input type="checkbox" name="angleName" id={`angle_+${data.angel5}+${data.id}`} className='checkbox_input' />
-                                                    <label htmlFor={`angle_+${data.angel5}+${data.id}`} className='checkbox_label' ><GlobalIcon />{data.angel5} </label>
+                                                    <label htmlFor={`angle_+${data.angel5}+${data.id}`} className='checkbox_label' ><GlobalIcon />{data.angel5}</label>
                                                 </span>
                                             </div>
                                         </div>

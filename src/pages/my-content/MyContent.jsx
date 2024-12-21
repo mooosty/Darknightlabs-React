@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import './myContent.scss'
-import { addIcon, editIcon, searchIcon, trashIcon } from "../../utils/constants/images";
+import { PlusIcon, CopyIcon, editIcon, SearchIcon, DeleteIcon } from "../../utils/constants/images";
 import debounce from 'lodash.debounce';
-import { CopyIcon } from '../../utils/constants/images';
 import { AmbassadorAccordion, AddContentPopup, DeleteConfirmPopup, SuccessfullyPopup, Loader } from '../../components';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -115,11 +114,9 @@ const MyContent = () => {
                     <div className="my_content_left">
                         <h2>My Content</h2>
                         <div className="search_box">
-                            <img
-                                className="search_icon"
-                                src={searchIcon}
-                                alt="Search"
-                            />
+                            <span className="search_icon">
+                                <SearchIcon />
+                            </span>
                             <input
                                 type="text"
                                 placeholder="Search"
@@ -184,19 +181,27 @@ const MyContent = () => {
                                             }}
                                         >
                                             Add New {activeContentLayout === 'Tweet' && <>Tweet</>} {activeContentLayout === 'Video' && <>Video</>}
-                                            <img src={addIcon} alt="" />
+                                            <PlusIcon />
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                             <div className="my_content_table">
-
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th>Subject</th>
-                                            <th>Tweet text</th>
+                                            <th>
+                                                {activeContentLayout === "Tweet"
+                                                    ? "Subject"
+                                                    : "Title"
+                                                }
+                                            </th>
+                                            <th>
+                                                {activeContentLayout === "Tweet"
+                                                    ? "Tweet text"
+                                                    : "Description"
+                                                }
+                                            </th>
                                             <th className='center'>URL</th>
                                             <th className='center'>Status</th>
                                             <th className='center'>Created at</th>
@@ -249,7 +254,7 @@ const MyContent = () => {
                                                                         setDeleteContentId(rowData.content_id)
                                                                     }}
                                                                 >
-                                                                    <img src={trashIcon} alt=" " />
+                                                                    <DeleteIcon />
                                                                 </button>
                                                             </div>
                                                         </td>
@@ -281,7 +286,6 @@ const MyContent = () => {
                                                 /> </>)
                                         })}
                                 </div>
-
                             </div>
                         </div>
 

@@ -3,9 +3,9 @@ import debounce from 'lodash.debounce';
 import { useDispatch, useSelector } from 'react-redux';
 import useNoScroll from '../../utils/hooks/useNoScroll';
 import { useCallback, useEffect, useState } from 'react';
-import { searchIcon } from '../../utils/constants/images';
 import { getSynergyRequestApi } from '../../api-services/synergyApi';
 import { EditSynergyAnglePopup, Loader, SynergyRequestCard } from '../../components';
+import { SearchIcon } from '../../utils/constants/images';
 
 
 const SynergyRequest = () => {
@@ -54,7 +54,7 @@ const SynergyRequest = () => {
         <div className="content_left">
           <h2>Synergy requests </h2>
           <div className="search_box">
-            <img className="search_icon" src={searchIcon} alt="Search" />
+            <span className="search_icon"><SearchIcon /></span>
             <input type="text" placeholder="Search" onChange={(e) => handleSearchChange(e.target.value)} />
           </div>
         </div>

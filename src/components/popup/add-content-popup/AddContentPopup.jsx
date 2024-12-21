@@ -2,12 +2,11 @@ import PropTypes from 'prop-types';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
 import './addContentPopup.scss'
-import Select from '../../select/Select';
-import Loader from '../../loader/Loader';
+import {Select, Loader} from '../../../components';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProjectsAPI } from '../../../api-services/projectApis';
-import { closeIcon } from '../../../utils/constants/images';
+import { CloseIcon } from '../../../utils/constants/images';
 import { createContentAPI, updateContentAPI } from '../../../api-services/contentApis';
 import { useParams } from 'react-router-dom';
 
@@ -97,7 +96,7 @@ const AddContentPopup = ({ open, handleClose, isEdit, editableData, getData, ope
                                     className='close'
                                     onClick={handleClose}
                                 >
-                                    <img src={closeIcon} alt="close" />
+                                    <CloseIcon />
                                 </button>
                             </div>
 

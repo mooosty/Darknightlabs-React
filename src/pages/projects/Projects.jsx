@@ -7,7 +7,7 @@ import { formatDate } from "../../utils/helper/helper";
 import { useCallback, useEffect, useState } from "react";
 import { getProjectsAPI } from "../../api-services/projectApis";
 import { MultiselectDropDown, ProjectCard } from "../../components";
-import { GradientGraphIcon, GredientGlobalIcon, searchIcon } from "../../utils/constants/images";
+import { GradientGraphIcon, GredientGlobalIcon, SearchIcon } from "../../utils/constants/images";
 import {
     projectTypesOptions,
     synergyAnglesOptions,
@@ -199,11 +199,9 @@ const Projects = () => {
                     <div className="project_content_left">
                         <h2>Projects</h2>
                         <div className="search_box">
-                            <img
-                                className="search_icon"
-                                src={searchIcon}
-                                alt="Search"
-                            />
+                            <span className="search_icon">
+                                <SearchIcon />
+                            </span>
                             <input
                                 type="text"
                                 placeholder="Search"
@@ -317,7 +315,7 @@ const Projects = () => {
                                     <div className="selects">
                                         <MultiselectDropDown
                                             options={synergyAnglesOptions}
-                                            placeholder={"All synergies angles"}
+                                            placeholder={"All synergies angels"}
                                             onApply={(currentOptions) => {
                                                 setFilter({
                                                     ...filter,

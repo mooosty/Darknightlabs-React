@@ -1,7 +1,7 @@
 import './ambassadorAccordion.scss';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { CopyIcon, DownIcon, editIcon, trashIcon } from '../../utils/constants/images';
+import { CopyIcon, DownIcon, editIcon, DeleteIcon } from '../../utils/constants/images';
 import DeleteConfirmPopup from '../popup/delete-confirm-popup/DeleteConfirmPopup';
 import { toast } from 'react-toastify';
 
@@ -54,7 +54,7 @@ const AmbassadorAccordion = ({
 
                             <div className="actions">
                                 <button className='delete_btn' onClick={onDelete}>
-                                    <img src={trashIcon} alt=" " />
+                                    <DeleteIcon />
                                 </button>
                                 <button onClick={onEdit}>
                                     <img src={editIcon} alt=" " />

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './projectAccordion.scss';
 import PropTypes from 'prop-types';
-import { defaultImg, DownIcon, editIcon, GlobalIcon, GradientGraphIcon, GredientGlobalIcon, tableActorImage3, TableStatusIcon, trashIcon } from '../../utils/constants/images';
+import { defaultImg, DownIcon, editIcon, GlobalIcon, GradientGraphIcon, GredientGlobalIcon, tableActorImage3, TableStatusIcon, DeleteIcon } from '../../utils/constants/images';
 
 const ProjectAccordion = ({
     role,
@@ -89,7 +89,7 @@ const ProjectAccordion = ({
                             </div>
                             <div className="actions">
                                 <button className='delete_btn' onClick={handleDelete}>
-                                    <img src={trashIcon} alt=" " />
+                                    <DeleteIcon />
                                 </button>
                                 <button onClick={handleEdit}>
                                     <img src={editIcon} alt=" " />
@@ -141,7 +141,7 @@ const ProjectAccordion = ({
                                 </div>
                             </div>
                             <div className="data_container angel_container">
-                                <span className='label'>Angles:</span>
+                                <span className='label'>Angels:</span>
                                 <div className='angle'>
                                     {synergiesAngles && synergiesAngles.slice(0, 3).map((data, index) => (
                                         <div className={`${index === 0 ? 'global' : (index === 1 ? 'graph' : '')}`} key={index}>

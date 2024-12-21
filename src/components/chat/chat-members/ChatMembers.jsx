@@ -1,6 +1,6 @@
 import './chatsMembers.scss'
 import PropTypes from 'prop-types';
-import { AddUserIcon, closeIcon, member1, member2 } from '../../../utils/constants/images';
+import { AddUserIcon, CloseIcon, member1, member2 } from '../../../utils/constants/images';
 
 const ChatMembers = ({ open, handleClose, groupData, openChatIndex, handleOpenAddMemberPopup }) => {
 
@@ -17,7 +17,7 @@ const ChatMembers = ({ open, handleClose, groupData, openChatIndex, handleOpenAd
                                     handleClose()
                                 }}
                             >
-                                <img src={closeIcon} alt="close" />
+                                <CloseIcon />
                             </button>
                         </div>
                         <div className="members_list">

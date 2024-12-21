@@ -340,7 +340,7 @@ const UserProfile = () => {
                         </div>
 
                         <div className="profile_info">
-                          <div className="profile_head">Angle investor</div>
+                          <div className="profile_head">Angel investor</div>
                           <div className="profile_data">{userDetails?.question1 || "-"}</div>
                         </div>
                         <div className="profile_info">
@@ -572,7 +572,7 @@ const UserProfile = () => {
                           <div className="check_box" onClick={() => handleRoleChange("An Angel Investor")} >
                             <input type="checkbox" readOnly name="roles" value="An Angel Investor" className="costum_checkbox_input" checked={values?.roles?.includes("An Angel Investor")} />
                             <label className="costum_checkbox_label"></label>
-                            <span className="label">An Angle Investor</span>
+                            <span className="label">An Angel Investor</span>
                           </div>
                           <div className="check_box" onClick={() => handleRoleChange("Other")}  >
                             <input type="checkbox" readOnly name="roles" value="Other" className="costum_checkbox_input" checked={values?.roles?.includes("Other")} />
@@ -588,7 +588,7 @@ const UserProfile = () => {
 
                       <div className="form_group_row">
                         <div className="profile_info full_width">
-                          <label>Are you a VC / Angle investor and do you invest in early stage rounds (seed, strategic, private) ? </label>
+                          <label>Are you a VC / Angel investor and do you invest in early stage rounds (seed, strategic, private) ? </label>
                           <div className="radio_box" onClick={() => handleQuestionChange("question1", "Yes, frequently")}>
                             <input type="radio" name="question1" value="Yes, frequently" checked={values?.question1 === "Yes, frequently"} />
                             <label></label>

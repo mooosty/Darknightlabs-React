@@ -1,7 +1,7 @@
 import './ambassadorProjects.scss'
 import debounce from 'lodash.debounce'
 import { useCallback, useState, useEffect } from 'react'
-import { searchIcon, } from '../../utils/constants/images'
+import { SearchIcon } from '../../utils/constants/images'
 import { AmbassadorsCard } from '../../components'
 import { useDispatch, useSelector } from 'react-redux';
 import { getProjectsAPI } from "../../api-services/projectApis";
@@ -58,7 +58,7 @@ const AmbassadorProjects = () => {
                     <div className="ambassador_content_left">
                         <h2>Projects</h2>
                         <div className="search_box">
-                            <img className="search_icon" src={searchIcon} alt="Search" />
+                            <span className="search_icon"><SearchIcon /></span>
                             <input type="text" placeholder="Search" onChange={(e) => handleSearchChange(e.target.value)} />
                         </div>
                     </div>

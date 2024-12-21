@@ -29,7 +29,11 @@
                     @media (max-width: 767px) {
                         width: 100%;
                         padding: 15px 24px;
-                        justify-content: space-between;
+                        // justify-content: space-between;
+                    }
+
+                    @media (max-width: 500px) {
+                        padding-inline: 20px;
                     }
 
                     h2 {
@@ -166,6 +170,10 @@
                                 padding-top: 10px;
                             }
 
+                            @media (max-width: 500px) {
+                                padding-inline: 20px;
+                            }
+
                             .header_top {
                                 color: #f5efdb;
                                 font-size: 24px;
@@ -248,27 +256,31 @@
                                 row-gap: 16px;
                             }
 
+                            @media (max-width: 500px) {
+                                padding-inline: 20px;
+                            }
+
                             .card_wrap {
                                 padding-inline: 12px;
                                 flex-basis: calc(100% / 5);
                                 max-width: calc(100% / 5);
-            
+
                                 @media (max-width: 1600px) {
                                     flex-basis: calc(100% / 4);
                                     max-width: calc(100% / 4);
                                 }
-            
+
                                 @media (max-width: 1300px) {
                                     flex-basis: calc(100% / 3);
                                     max-width: calc(100% / 3);
                                 }
-            
+
                                 @media (max-width: 1000px) {
                                     padding-inline: 8px;
                                     flex-basis: calc(100% / 2);
                                     max-width: calc(100% / 2);
                                 }
-            
+
                                 @media (max-width: 500px) {
                                     flex-basis: calc(100%);
                                     max-width: calc(100%);

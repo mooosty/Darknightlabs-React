@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import useNoScroll from '../../../utils/hooks/useNoScroll';
 import { getProjectsApiById } from '../../../api-services/projectApis';
 import { CreateSynergyRequestPopup, Loader } from '../../../components';
-import { DescriptionIcon, GradientGraphIcon, GradientInfiniteIcon, GrammerlyIcon, GredientGlobalIcon, HealthIcon, InvestmentIcon, MoreIcon, ShareLinkIcon, CheckIcon, ShareOutlineIcon, StarIcon, TableStatusIcon, arrowRight, fallBackImage, autherProfile } from '../../../utils/constants/images'
+import { DescriptionIcon, GradientGraphIcon, GradientInfiniteIcon, GrammerlyIcon, GredientGlobalIcon, HealthIcon, InvestmentIcon, MoreIcon, ShareLinkIcon, CheckIcon, ShareOutlineIcon, StarIcon, TableStatusIcon, RightIcon, fallBackImage, autherProfile } from '../../../utils/constants/images'
 
 
 const synergiesAnglesIcons = [
@@ -79,7 +79,7 @@ const ProjectDetails = () => {
                         <div className="pagination">
                             <Link to={'/projects'}>All projects</Link>
                             <span>
-                                <img src={arrowRight} alt="" />
+                                <RightIcon />
                             </span>
                             <p>{projectDetails?.project_name}</p>
                         </div>
@@ -148,7 +148,7 @@ const ProjectDetails = () => {
                                 {activeLayout === 'SYNERGY' && <div className="synergy_container">
                                     <div className="synergy_header">
                                         <GradientInfiniteIcon />
-                                        <span>Synergy angles</span></div>
+                                        <span>Synergy angels</span></div>
                                     <div className="synergy_body">
                                         {projectDetails?.synergy_angles?.map((data, index) => {
                                             return (

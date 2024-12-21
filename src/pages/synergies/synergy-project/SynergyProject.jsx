@@ -2,7 +2,7 @@
 import './synergyProject.scss'
 import { Tooltip } from "react-tooltip"
 import { Select } from "../../../components"
-import { arrowDown, Download, GradientGraphIcon, GredientGlobalIcon, HalfEmoji, Health, InfiniteIcon, infoCircle, project, searchIcon } from "../../../utils/constants/images"
+import { DownIcon, Download, GradientGraphIcon, GredientGlobalIcon, HalfEmoji, Health, InfiniteIcon, InfoCircleIcon, project, SearchIcon } from "../../../utils/constants/images"
 
 
 const SynergyProject = () => {
@@ -14,7 +14,7 @@ const SynergyProject = () => {
                     <div className="synergies_content_left">
                         <h2>Synergies</h2>
                         <div className="search_box">
-                            <img className="search_icon" src={searchIcon} alt="Search" />
+                            <span className="search_icon"><SearchIcon /></span>
                             <input type="text" placeholder="Search" />
                         </div>
                     </div>
@@ -27,7 +27,7 @@ const SynergyProject = () => {
                     <div className="page_header">
                         <div className='bread_crumb'>
                             <span className="parent">Synergies</span>
-                            <img className="arrow_right" src={arrowDown} alt=" " />
+                            <DownIcon className="arrow_right" />
                             <span>Project name </span>
                         </div>
                     </div>
@@ -44,7 +44,7 @@ const SynergyProject = () => {
                                     <div className="info_container">
                                         <span className="status_tag refused">Refused</span>
                                         <span className="info" id="refuse_tooltip">
-                                            <img src={infoCircle} alt="" />
+                                            <InfoCircleIcon />
                                         </span>
                                         <Tooltip
                                             place="top"
@@ -68,10 +68,10 @@ const SynergyProject = () => {
                                 <div className='angel_data_header'>
                                     <span className="table_title">
                                         <InfiniteIcon />
-                                        <span>Synergy angles</span>
+                                        <span>Synergy angels</span>
                                     </span>
                                     <Select
-                                        placeholder={'All synergies angles'}
+                                        placeholder={'All synergies angels'}
                                         options={[
                                             { label: 'Description', value: 'description' },
                                             { label: 'Description 2', value: 'description 2' }

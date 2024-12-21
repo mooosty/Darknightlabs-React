@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import useNoScroll from "../../utils/hooks/useNoScroll";
 import { useCallback, useEffect, useState } from "react";
 import { synergyAnglesOptions } from "../../utils/constants/options";
-import { searchIcon, filterIcon, trashIcon, addIcon, closeIcon, ListIcon, GridIcon, TableStatusIcon, InfiniteIcon, MoreIcon } from "../../utils/constants/images";
+import { SearchIcon, FilterIcon, DeleteIcon, PlusIcon, CloseIcon, ListIcon, GridIcon, TableStatusIcon, InfiniteIcon, MoreIcon } from "../../utils/constants/images";
 import { getProjectsAPI, deleteProjectAPI, updateProjectAPI, getMemberApi } from "../../api-services/projectApis";
 import {
   ProjectManagerTableLayout,
@@ -293,7 +293,7 @@ const ProjectManager = () => {
         <div className="content_left">
           <h2>Projects Manager</h2>
           <div className="search_box">
-            <img className="search_icon" src={searchIcon} alt="Search" />
+            <span className="search_icon"><SearchIcon /></span>
             <input type="text" placeholder="Search" onChange={(e) => handleSearchChange(e.target.value)} />
           </div>
         </div>
@@ -324,7 +324,7 @@ const ProjectManager = () => {
                   Filters{" "}
                   {Object.values(filter).filter((value) => value !== "").length > 0 &&
                     `(${Object.values(filter).filter((value) => value !== "").length})`}
-                  <img src={filterIcon} alt=" " />
+                  <FilterIcon />
                 </button>
                 <button
                   className={`btn_gray `}
@@ -333,7 +333,7 @@ const ProjectManager = () => {
                   }}
                 >
                   Add New Project
-                  <img src={addIcon} alt="" />
+                  <PlusIcon />
                 </button>
                 {createSynergyStep < 2 ? (
                   <button
@@ -360,7 +360,7 @@ const ProjectManager = () => {
               <div className="angels">
                 <Select
                   options={synergyAnglesOptions}
-                  placeholder={"All synergies angles"}
+                  placeholder={"All synergies angels"}
                   onChange={(value) => {
                     setSelectedProjects([]);
                     if (value.value === "All") {
@@ -376,7 +376,7 @@ const ProjectManager = () => {
                     }
                   }}
                   showAllOption={true}
-                  allOptionText={"All synergies angles"}
+                  allOptionText={"All synergies angels"}
                 />
               </div>
               <div className="type">
@@ -473,7 +473,7 @@ const ProjectManager = () => {
                   <>
                     <div className="table_actions">
                       <button className="btn_cancle btn_gray" onClick={handleCancelSelection}>
-                        <img src={closeIcon} alt="Add" />
+                        <CloseIcon />
                         <span>Cancel</span>
                       </button>
                       {
@@ -486,7 +486,7 @@ const ProjectManager = () => {
                               handleAddFeature(false);
                             }}
                           >
-                            <img src={closeIcon} alt="Remove" />
+                            <CloseIcon />
                             <span>Remove Featured</span>
                           </button>
                         ) : (
@@ -518,7 +518,7 @@ const ProjectManager = () => {
                           setIsMultiDltConfirmPopupOpen(true);
                         }}
                       >
-                        <img src={trashIcon} alt="Delete" />
+                        <DeleteIcon />
                         <span>Delete</span>
                       </button>
                     </div>
@@ -529,7 +529,7 @@ const ProjectManager = () => {
                           setIsMultiDltConfirmPopupOpen(true);
                         }}
                       >
-                        <img src={trashIcon} alt="Delete" />
+                        <DeleteIcon />
                       </button>
                       <button className="menu_button" onClick={() => setIsBottomMenuOpen(true)}>
                         <MoreIcon />
@@ -608,7 +608,7 @@ const ProjectManager = () => {
             setIsBottomMenuOpen(false);
           }}
         >
-          <img src={closeIcon} alt="Add" />
+          <CloseIcon />
           <span>Cancel</span>
         </button>
         <button
@@ -635,7 +635,7 @@ const ProjectManager = () => {
             setIsBottomMenuOpen(false);
           }}
         >
-          <img src={trashIcon} alt="Delete" />
+          <DeleteIcon />
           <span>Delete</span>
         </button>
       </BottomMenu>

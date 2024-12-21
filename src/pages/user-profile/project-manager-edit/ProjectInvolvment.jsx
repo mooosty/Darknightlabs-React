@@ -9,7 +9,7 @@ import { updateProjectAPI } from "../../../api-services/projectApis"
 import { synergyAnglesOptions } from "../../../utils/constants/options"
 import { AddAngelPopup, DeleteConfirmPopup, ImageUploader, Loader, Select, TagInput } from "../../../components";
 import { addProjectAPI, deleteProjectAPI, addMemberAPI, getProjectsApiById } from "../../../api-services/projectApis"
-import { trashIcon, addIcon, sepratorImage, arrowRight, searchIcon } from "../../../utils/constants/images"
+import { DeleteIcon, PlusIcon, sepratorImage, RightIcon, SearchIcon } from "../../../utils/constants/images"
 import PropTypes from "prop-types";
 
 
@@ -257,7 +257,7 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
                 <div className="content_left">
                     <h2>Profile</h2>
                     <div className="search_box">
-                        <img className="search_icon" src={searchIcon} alt="Search" />
+                        <span className="search_icon"><SearchIcon /></span>
                         <input type="text" placeholder="Search" />
                     </div>
                 </div>
@@ -274,7 +274,7 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
                                 <Link to={'/profile'}>Project involvment</Link>
                             </div>
                             <span>
-                                <img src={arrowRight} alt="" />
+                                <RightIcon />
                             </span>
                             <p>{values.project_name}</p>
                         </div>
@@ -375,7 +375,7 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
                                                         <button className="btn_delete" onClick={() => {
                                                             setFieldValue('members', [...values.members.slice(0, index), ...values.members.slice(index + 1)])
                                                         }}>
-                                                            <img src={trashIcon} alt="Delete" />
+                                                            <DeleteIcon />
                                                         </button>
                                                     </div>
                                                 </>
@@ -389,7 +389,7 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
                                         }])
                                     }}>
                                         Add member
-                                        <img src={addIcon} alt="Add" />
+                                        <PlusIcon />
                                     </button>
                                     <br />
                                     <div className="form_group">
@@ -421,8 +421,8 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
                                             return (<>
                                                 <div className="custom_select">
                                                     <div className="form_box synergy_selected">
-                                                        {index === 0 && <label>Synergy angles</label>}
-                                                        <Select name='synergy_angles' options={synergyAnglesOptions} placeholder='Select synergy angle'
+                                                        {index === 0 && <label>Synergy angels</label>}
+                                                        <Select name='synergy_angles' options={synergyAnglesOptions} placeholder='Select synergy angel'
                                                             hasAddButton={true}
                                                             onAdd={() => { toggleAddAngelPopupOpen(); setAngelPopupIndex(index) }}
                                                             value={synergy_angle[`synergy_angle`]}
@@ -437,7 +437,7 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
                                                     <button className="btn_delete"
                                                         onClick={() => { setFieldValue('synergy_angles', [...values.synergy_angles.slice(0, index), ...values.synergy_angles.slice(index + 1)]) }}
                                                     >
-                                                        <img src={trashIcon} alt="Delete" />
+                                                        <DeleteIcon />
                                                     </button>
                                                 </div>
                                             </>)
@@ -448,7 +448,7 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
                                         setFieldValue(`synergy_angles`, [...values.synergy_angles, {
                                             synergy_angle: ''
                                         }])
-                                    }}> Add Synergy Angle <img src={addIcon} alt="Add" />
+                                    }}> Add Synergy Angel<iPlusIcon />
                                     </button>
                                     <div className="invostments-group">
                                         <div className="seprator-image">
@@ -516,7 +516,7 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
                                                                 <button className="btn_delete" onClick={
                                                                     () => { setFieldValue('investments', [...values.investments.slice(0, index), ...values.investments.slice(index + 1)]) }
                                                                 }>
-                                                                    <img src={trashIcon} alt="Delete" />
+                                                                    <DeleteIcon />
                                                                 </button>
                                                             </div>
                                                         </>
@@ -531,7 +531,7 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
                                                 }])
                                             }}>
                                                 Add property
-                                                <img src={addIcon} alt="Add" />
+                                                <PlusIcon />
                                             </button>
                                         </div>
                                     </div>
@@ -544,7 +544,7 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
                                     disabled={projectId === 'add'}
                                     onClick={() => { setIsDeleteConfirmPopupOpen(true); }}
                                 >
-                                    <img src={trashIcon} alt="Delete" /> Delete project
+                                    <DeleteIcon /> Delete project
                                 </button>
                                 <button type="submit" className="btn_gray" onClick={handleSubmit}> {projectId !== 'add' ? 'Save changes' : 'Add Project'}</button>
                             </div>

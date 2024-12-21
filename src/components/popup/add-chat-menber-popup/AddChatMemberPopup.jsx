@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Loader from '../../loader/Loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMemberIntoGroup } from '../../../api-services/chatApis';
-import { AddUserIcon, closeIcon, member, searchIcon } from '../../../utils/constants/images';
+import { AddUserIcon, CloseIcon, member, SearchIcon } from '../../../utils/constants/images';
 
 
 const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
@@ -101,12 +101,12 @@ const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
                                         handleClose()
                                     }}
                                 >
-                                    <img src={closeIcon} alt="close" />
+                                    <CloseIcon />
                                 </button>
                             </div>
                             <div className="member_list_main">
                                 <div className="search_box">
-                                    <img className="search_icon" src={searchIcon} alt="Search" />
+                                    <span className="search_icon"><SearchIcon /></span>
                                     <input type="text" placeholder="Search" onChange={(e) => {
                                         handleSearch(e.target.value)
                                     }} />
@@ -171,11 +171,11 @@ const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
                                         handleClose()
                                     }}
                                 >
-                                    <img src={closeIcon} alt="close" />
+                                    <CloseIcon />
                                 </button> */}
                             <div className="member_list_main">
                                 <div className="search_box">
-                                    <img className="search_icon" src={searchIcon} alt="Search" />
+                                    <span className="search_icon"><SearchIcon /></span>
                                     <input type="text" placeholder="Search" onChange={(e) => {
                                         handleSearch(e.target.value)
                                     }} />

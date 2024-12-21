@@ -3,14 +3,9 @@ import { formatDate } from "../../../utils/helper/helper";
 import { useSelector, useDispatch } from "react-redux";
 import useNoScroll from "../../../utils/hooks/useNoScroll";
 import { useEffect, useState } from "react";
-import { addIcon } from "../../../utils/constants/images";
+import { PlusIcon } from "../../../utils/constants/images";
 import { getProjectsAPI, deleteProjectAPI, getMemberApi } from "../../../api-services/projectApis";
-import {
-  CreateSynergySteps,
-  DeleteConfirmPopup,
-  SynergieaCreatedSuccessfullyPopup,
-  Loader,
-} from "../../../components";
+import { CreateSynergySteps, DeleteConfirmPopup, SynergieaCreatedSuccessfullyPopup, Loader, } from "../../../components";
 import TableLayout from "./project-manager-component/TableLayout";
 import PropTypes from "prop-types";
 
@@ -157,7 +152,7 @@ const ProjectsUser = ({ userProjects, setAddNewProject, handleActive, active }) 
             </div>
             <button className="btn_gray add_project_btn" onClick={() => { setAddNewProject(true); }}>
               Add New Project
-              <img src={addIcon} alt="" />
+              <PlusIcon />
             </button>
           </div>
 

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import './multiselectDropDown.scss';
 import { useClickOutside } from '../../utils/hooks/useClickOutside';
-import { arrowDown, closeIcon } from '../../utils/constants/images';
+import { CloseIcon, DownIcon } from '../../utils/constants/images';
 
 const MultiselectDropDown = ({
     options = [],
@@ -49,7 +49,7 @@ const MultiselectDropDown = ({
             >
                 <span>{placeholder}</span>
                 <div className='down-arrow'>
-                    <img src={arrowDown} alt="arrow down" />
+                    <DownIcon />
                 </div>
             </div>
 
@@ -61,13 +61,13 @@ const MultiselectDropDown = ({
                     <div className="mobile_multiselect_wrapper">
                         <ul>
                             <div className="multiselect_header">
-                                Select synergies angles
+                                Select synergies angels
                                 <button
                                     onClick={() => {
                                         setIsOpen(false);
                                     }}
                                 >
-                                    <img src={closeIcon} alt="close" />
+                                    <CloseIcon />
                                 </button>
                             </div>
                             <div className='list_items'>

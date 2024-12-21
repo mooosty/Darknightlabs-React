@@ -1,7 +1,7 @@
 import './accordion.scss';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { bitCoinIcon, defaultImg, DownIcon, editIcon, GlobalIcon, trashIcon } from '../../utils/constants/images';
+import { bitCoinIcon, defaultImg, DownIcon, editIcon, GlobalIcon, DeleteIcon } from '../../utils/constants/images';
 import DeleteConfirmPopup from '../popup/delete-confirm-popup/DeleteConfirmPopup';
 
 const Accordion = ({
@@ -54,7 +54,7 @@ const Accordion = ({
 
                             <div className="actions">
                                 <button className='delete_btn' onClick={onDelete}>
-                                    <img src={trashIcon} alt=" " />
+                                    <DeleteIcon />
                                 </button>
                                 <button onClick={onEdit}>
                                     <img src={editIcon} alt=" " />
@@ -86,7 +86,7 @@ const Accordion = ({
                                 </div>
                             </div>
                             <div className="data_container angel_container">
-                                <span className='label'>Angles:</span>
+                                <span className='label'>Angels:</span>
                                 <div className='angle'>
                                     {synergiesAngles && synergiesAngles.map((data, index) => (
                                         <span key={index}><img src={GlobalIcon} alt=" " />{data}</span>

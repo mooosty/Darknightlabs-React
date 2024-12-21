@@ -2,7 +2,7 @@ import './Multiselect.scss'
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { useClickOutside } from '../../utils/hooks/useClickOutside';
-import { addIcon, arrowDown } from '../../utils/constants/images';
+import { PlusIcon, DownIcon } from '../../utils/constants/images';
 
 const Multiselect = ({
     options = [],
@@ -76,7 +76,7 @@ const Multiselect = ({
                     : ''}
 
                 <div className='down-arrow'>
-                    <img src={arrowDown} alt="" />
+                    <DownIcon />
                 </div>
             </div>
             <div
@@ -103,7 +103,7 @@ const Multiselect = ({
                     onClick={onAdd}
                 >
                     {addButtonLabel ?? 'Add'}
-                    <img src={addIcon} alt="" />
+                    <PlusIcon />
                 </button>
                 }
             </div>

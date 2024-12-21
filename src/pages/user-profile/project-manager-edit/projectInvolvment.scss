@@ -102,13 +102,15 @@
       min-height: 450px;
       overflow-y: auto;
       background-color: #191917;
+
       // background-image: url("../../assets/model-frame.png");
       // background-repeat: no-repeat;
       // background-position-x: 10px;
       // background-position-y: 10px;
-      @media (max-width: 1600px) {      
+      @media (max-width: 1600px) {
         height: calc(100% - 50px);
       }
+
       @media (max-width: 767px) {
         border-radius: 0;
         padding-block: 20px 0px;
@@ -151,8 +153,12 @@
             }
 
             span {
-              img {
-                width: 15px;
+              height: 25px;
+
+              svg {
+                margin-top: -3px;
+                width: 25px;
+                height: 30px;
               }
             }
 

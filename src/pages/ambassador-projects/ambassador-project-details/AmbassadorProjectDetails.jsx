@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProjectsApiById } from '../../../api-services/projectApis';
 import { AmbassadorAccordion, DeleteConfirmPopup, Loader, SuccessfullyPopup } from '../../../components';
-import { DescriptionIcon, GradientGraphIcon, GradientInfiniteIcon, GrammerlyIcon, GredientGlobalIcon, HealthIcon, InvestmentIcon, RankingIcon, CopyIcon, StarIcon, arrowRight, fallBackImage, autherProfile, addIcon, infoCircle, editIcon, trashIcon } from '../../../utils/constants/images'
+import { DescriptionIcon, GradientGraphIcon, GradientInfiniteIcon, GrammerlyIcon, GredientGlobalIcon, HealthIcon, InvestmentIcon, RankingIcon, CopyIcon, StarIcon, RightIcon, fallBackImage, autherProfile, PlusIcon, InfoCircleIcon, editIcon, DeleteIcon } from '../../../utils/constants/images'
 import { AddContentPopup } from '../../../components';
 import { deleteContentAPI, getProjectContentAPI } from '../../../api-services/contentApis';
 import { toast } from 'react-toastify';
@@ -97,7 +97,7 @@ const AmbassadorProjectDetails = () => {
                         <div className="pagination">
                             <Link to={`/${ROUTER.ambassadorProjects}`}>Ambassador-exclusive projects</Link>
                             <span>
-                                <img src={arrowRight} alt="" />
+                                <RightIcon />
                             </span>
                             <p>{projectDetails?.project_name}</p>
                         </div>
@@ -174,7 +174,7 @@ const AmbassadorProjectDetails = () => {
                                                 setIsEditContent(false)
                                             }}>
                                                 Add Content
-                                                <img src={addIcon} alt="" />
+                                                <PlusIcon />
                                             </div>
                                         </div>
                                         <div className="content_body">
@@ -212,7 +212,7 @@ const AmbassadorProjectDetails = () => {
                                                                 <div className="bottom">Each week</div>
                                                             </div>
                                                             <div className="icon">
-                                                                <img src={infoCircle} alt="" />
+                                                                <InfoCircleIcon />
                                                             </div>
                                                         </div>
                                                         <div className="right">
@@ -227,7 +227,7 @@ const AmbassadorProjectDetails = () => {
                                                                 <div className="bottom">Each month</div>
                                                             </div>
                                                             <div className="icon">
-                                                                <img src={infoCircle} alt="" />
+                                                                <InfoCircleIcon />
                                                             </div>
                                                         </div>
                                                         <div className="right">
@@ -243,8 +243,18 @@ const AmbassadorProjectDetails = () => {
                                                 <table>
                                                     <thead>
                                                         <tr>
-                                                            <th>Subject</th>
-                                                            <th>Tweet text</th>
+                                                            <th>
+                                                                {activeContentLayout === "Tweet"
+                                                                    ? "Subject"
+                                                                    : "Title"
+                                                                }
+                                                            </th>
+                                                            <th>
+                                                                {activeContentLayout === "Tweet"
+                                                                    ? "Tweet text"
+                                                                    : "Description"
+                                                                }
+                                                            </th>
                                                             <th className='center'>URL</th>
                                                             <th className='center'>Status</th>
                                                             <th className='center'>Created at</th>
@@ -297,7 +307,7 @@ const AmbassadorProjectDetails = () => {
                                                                                         setDeleteContentId(rowData.content_id)
                                                                                     }}
                                                                                 >
-                                                                                    <img src={trashIcon} alt=" " />
+                                                                                    <DeleteIcon />
                                                                                 </button>
                                                                             </div>
                                                                         </td>
@@ -362,7 +372,7 @@ const AmbassadorProjectDetails = () => {
                                 {activeLayout === 'SYNERGY' && <div className="synergy_container">
                                     <div className="synergy_header">
                                         <GradientInfiniteIcon />
-                                        <span>Synergy angles</span></div>
+                                        <span>Synergy angels</span></div>
                                     <div className="synergy_body">
                                         {projectDetails?.synergy_angles?.map((data, index) => {
                                             return (

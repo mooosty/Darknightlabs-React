@@ -2,7 +2,7 @@ import './AddAngelPopup.scss'
 import { useState } from 'react';
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { closeIcon } from '../../../utils/constants/images';
+import { CloseIcon } from '../../../utils/constants/images';
 
 const AddAngelPopup = ({ open, handleClose, handleAddNewAngel, defaultValue }) => {
     const [data, setData] = useState({})
@@ -17,14 +17,14 @@ const AddAngelPopup = ({ open, handleClose, handleAddNewAngel, defaultValue }) =
                     <div className='model_box'>
                         <div className='model_body'>
                             <div className='model_header'>
-                                <h3>Add new angle</h3>
+                                <h3>Add new angel</h3>
                                 <button
                                     onClick={() => {
                                         handleClose()
                                         setData({})
                                     }}
                                 >
-                                    <img src={closeIcon} alt="close" />
+                                    <CloseIcon />
                                 </button>
                             </div>
                             <p className='model_description'>Qorem ipsum dolor sit amet, consectetur adipiscing elit.</p>

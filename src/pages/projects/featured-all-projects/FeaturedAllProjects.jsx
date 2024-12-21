@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useCallback, useEffect, useState } from "react"
 import { formatDate } from '../../../utils/helper/helper'
 import { getMemberApi, getProjectsAPI } from "../../../api-services/projectApis"
-import { BackArrow, GradientGraphIcon, GredientGlobalIcon, searchIcon } from "../../../utils/constants/images"
+import { BackArrow, GradientGraphIcon, GredientGlobalIcon, SearchIcon } from "../../../utils/constants/images"
 import { projectTypesOptions, synergyAnglesOptions } from "../../../utils/constants/options"
 import { MultiselectDropDown, ProjectCard } from '../../../components'
 
@@ -153,7 +153,7 @@ const FeaturedAllProjects = () => {
                         <div className="featured_projects_card_header">
                             <div className="featured_projects_card_header_left">
                                 <div className="search_box">
-                                    <img className="search_icon" src={searchIcon} alt="Search" />
+                                    <span className="search_icon"><SearchIcon /></span>
                                     <input type="text" placeholder="Search" onChange={(e) => handleSearchChange(e.target.value)} />
                                 </div>
                             </div>
@@ -161,7 +161,7 @@ const FeaturedAllProjects = () => {
                                 <div className="selects">
                                     <MultiselectDropDown
                                         options={synergyAnglesOptions}
-                                        placeholder={'All synergies angles'}
+                                        placeholder={'All synergies angels'}
                                         onApply={(currentOptions) => {
                                             setFilter({
                                                 ...filter,

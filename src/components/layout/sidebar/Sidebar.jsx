@@ -1,12 +1,10 @@
 import "./sidebar.scss";
-import collapseLeftIcon from "../../../assets/collapse-left-icon.png";
-import collapseRightIcon from "../../../assets/collapse-right-icon.png";
 import { Link, useLocation } from "react-router-dom";
 import { ROUTER } from "../../../utils/routes/routes";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { ProfileNavTabIcon, ChatNavTabIcon, LogoutNavTabIcon, ProjectNavTabIcon, MyContentNavTabIcon, SynergiesNavTabIcon, InvestmentNavTabIcon, PendingSynergiesNavTabIcon, SynergiesManagerNavTabIcon } from "../../../utils/SVGs/SVGs";
+import { ProfileNavTabIcon, CollapseRightIcon, CollapseLeftIcon, ChatNavTabIcon, LogoutNavTabIcon, ProjectNavTabIcon, MyContentNavTabIcon, SynergiesNavTabIcon, InvestmentNavTabIcon, PendingSynergiesNavTabIcon, SynergiesManagerNavTabIcon } from "../../../utils/SVGs/SVGs";
 
 const userRole = "ADMIN";
 const Sidebar = () => {
@@ -52,9 +50,9 @@ const Sidebar = () => {
             </div>
             <button className="collapse_btn" onClick={handleCollapse}>
               {isCollapse ? (
-                <img src={collapseRightIcon} alt="Collapse" />
+                <CollapseRightIcon />
               ) : (
-                <img src={collapseLeftIcon} alt="Collapse" />
+                <CollapseLeftIcon />
               )}
             </button>
           </div>
@@ -152,7 +150,7 @@ const Sidebar = () => {
               <li className={`${location.pathname.startsWith(`/${ROUTER.ambassadorProjects}`) ? "active" : ""} ${userProjects?.length === 0 ? "disabled" : ""}`}>
                 <Link to={ROUTER.ambassadorProjects}>
                   <ProjectNavTabIcon />
-                  <span className="menu_text">A Projects</span>
+                  <span className="menu_text">Exclusive Projects</span>
                 </Link>
               </li>
             </ul>
@@ -218,16 +216,16 @@ const Sidebar = () => {
                 </li>
                 <li className={`${location.pathname === `/${ROUTER.synergiesManager}` ? "active" : ""}  ${userProjects?.length === 0 ? "disabled" : ""}`}>
                   <Link to={ROUTER.synergiesManager}>
-                  <SynergiesManagerNavTabIcon />
-                  <span>Synergies Manager</span>
+                    <SynergiesManagerNavTabIcon />
+                    <span>Synergies Manager</span>
                   </Link>
                 </li>
               </>
             )}
             <li className={`${location.pathname === `/${ROUTER.chat}` ? "active" : ""}  ${userProjects?.length === 0 ? "disabled" : ""}`}>
               <Link to={ROUTER.chat}>
-              <ChatNavTabIcon />
-              <span className="chat">
+                <ChatNavTabIcon />
+                <span className="chat">
                   Chat <p className="chat_count">1</p>
                 </span>
               </Link>

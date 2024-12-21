@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import './DeleteConfirmPopup.scss';
 import Loader from '../../loader/Loader';
-import { closeIcon } from '../../../utils/constants/images';
+import { CloseIcon } from '../../../utils/constants/images';
 
 const DeleteConfirmPopup = ({ open, title = '', description = '', handleClose, handleDelete, isLoading = false }) => {
 
@@ -19,7 +19,7 @@ const DeleteConfirmPopup = ({ open, title = '', description = '', handleClose, h
                                         handleClose()
                                     }}
                                 >
-                                    <img src={closeIcon} alt="close" />
+                                    <CloseIcon />
                                 </button>
                             </div>
 

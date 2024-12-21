@@ -8,7 +8,7 @@ import ContributionForm from '../../components/investments/ContributionForm/Cont
 import ContributionStatus from '../../components/investments/ContributionStatus/ContributionStatus';
 import { setWalletAddress, setWhitelistMessage } from '../../store/slice/authSlice';
 import WhitelistVerification from '../../components/investments/WhitelistVerification/WhitelistVerification';
-import { cardActor1, cardActor2, cardActor3, cardActor4, cardActor5, cardActor6, cardActor7, cardActor8, cardActor9, cardActor10, cardActor11, cardActor12, cardActor13, cardActor14, cardActor15, searchIcon } from '../../utils/constants/images';
+import { cardActor1, cardActor2, cardActor3, cardActor4, cardActor5, cardActor6, cardActor7, cardActor8, cardActor9, cardActor10, cardActor11, cardActor12, cardActor13, cardActor14, cardActor15, SearchIcon } from '../../utils/constants/images';
 
 const cardData = [
   {
@@ -318,7 +318,7 @@ const Investment = () => {
         <div className="content_left">
           <h2>Investment</h2>
           <div className="search_box">
-            <img className="search_icon" src={searchIcon} alt="Search" />
+          <span className="search_icon"><SearchIcon /></span>
             <input type="text" placeholder="Search" />
           </div>
         </div>
@@ -353,7 +353,7 @@ const Investment = () => {
               />
               <MultiselectDropDown
                 options={synergyAnglesOptions}
-                placeholder={'All synergies angles'}
+                placeholder={'All synergies angels'}
                 onApply={(currentOptions) => {
                   setFilter({
                     ...filter,

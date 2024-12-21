@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useCallback, useEffect, useState } from 'react'
 import { getSynergyApi } from '../../api-services/synergyApi'
 import { synergyAnglesOptions } from '../../utils/constants/options'
-import { searchIcon, tableActor, defaultImg } from '../../utils/constants/images'
+import { SearchIcon, tableActor, defaultImg } from '../../utils/constants/images'
 import { CheckCircleIcon } from '../../utils/SVGs/SVGs'
 import { Loader, MultiselectDropDown, SynergyCard } from '../../components'
 
@@ -128,7 +128,7 @@ const Synergies = () => {
                     <div className="synergies_content_left">
                         <h2>Synergies</h2>
                         <div className="search_box">
-                            <img className="search_icon" src={searchIcon} alt="Search" />
+                            <span className="search_icon"><SearchIcon /></span>
                             <input type="text" placeholder="Search" onChange={(e) => handleSearchChange(e.target.value)} />
                         </div>
                     </div>
@@ -151,7 +151,7 @@ const Synergies = () => {
                                     <div className="selects">
                                         <MultiselectDropDown
                                             options={synergyAnglesOptions}
-                                            placeholder={'All synergies angles'}
+                                            placeholder={'All synergies angels'}
                                             onApply={(currentOptions) => {
                                                 const synergiesAnglesValues = currentOptions?.map((option) => option.value)
                                                 setFilter({

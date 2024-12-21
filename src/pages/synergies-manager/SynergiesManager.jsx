@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { synergyAnglesOptions } from '../../utils/constants/options';
 import { deleteSynergyApi, getSynergyApi, updateSynergyApi } from '../../api-services/synergyApi';
-import { searchIcon, filterIcon, closeIcon, trashIcon, tableActor, ListIcon, GridIcon } from '../../utils/constants/images';
+import { SearchIcon, FilterIcon, CloseIcon, DeleteIcon, tableActor, ListIcon, GridIcon } from '../../utils/constants/images';
 import { BottomMenu, DeleteConfirmPopup, EditSynergiesPopup, Loader, Select, SynergyManagerGridLayout, SynergyManagerTableLayout } from '../../components';
 
 const SynergiesManager = () => {
@@ -203,7 +203,7 @@ const SynergiesManager = () => {
         <div className="synergies_content_left">
           <h2>Synergies Manager</h2>
           <div className="search_box">
-            <img className="search_icon" src={searchIcon} alt="Search" />
+            <span className="search_icon"><SearchIcon /></span>
             <input type="text" placeholder="Search" onChange={(e) => handleSearchChange(e.target.value)} />
           </div>
         </div>
@@ -227,7 +227,7 @@ const SynergiesManager = () => {
               <div className='synergies_page_header_button'>
                 <button className="btn_gray btn_filter" onClick={() => setIsFilterOpen(!isFilterOpen)}>
                   Filters{Object.values(filter).filter(value => value !== '').length > 0 && `(${Object.values(filter).filter(value => value !== '').length})`}
-                  <img src={filterIcon} alt=" " />
+                  <FilterIcon />
                 </button>
               </div>
             </div>
@@ -235,12 +235,12 @@ const SynergiesManager = () => {
               <div className="angels">
                 <Select
                   options={synergyAnglesOptions}
-                  placeholder={'All synergies angles'}
+                  placeholder={'All synergies angels'}
                   onChange={(value) => {
                     handleSynergyAngleChange(value);
                   }}
                   showAllOption={true}
-                  allOptionText={"All synergies angles"}
+                  allOptionText={"All synergies angels"}
                 />
               </div>
               <div className="sort">
@@ -331,7 +331,7 @@ const SynergiesManager = () => {
           handleCancelSelection()
           setIsBottomMenuOpen(false)
         }}>
-          <img src={closeIcon} alt="Add" />
+          <CloseIcon />
           <span>Cancel </span>
         </button>
 
@@ -339,7 +339,7 @@ const SynergiesManager = () => {
           setIsMultiDeleteConfirmPopupOpen(true);
           setIsBottomMenuOpen(false);
         }}>
-          <img src={trashIcon} alt="Delete" />
+          <DeleteIcon />
           <span>Delete</span>
         </button>
       </BottomMenu>

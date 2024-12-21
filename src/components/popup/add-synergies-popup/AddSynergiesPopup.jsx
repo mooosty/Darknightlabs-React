@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import './AddSynergiesPopup.scss'
 import Select from '../../select/Select';
-import { addIcon, closeIcon, GlobalIcon, GrammerlyIcon, GraphIcon, HealthIcon, sepratorImage, StarIcon, trashIcon } from '../../../utils/constants/images';
+import { PlusIcon, CloseIcon, GlobalIcon, GrammerlyIcon, GraphIcon, HealthIcon, sepratorImage, StarIcon, DeleteIcon } from '../../../utils/constants/images';
 
 const AddSynergiesPopup = ({ open, handleClose }) => {
 
@@ -22,7 +22,7 @@ const AddSynergiesPopup = ({ open, handleClose }) => {
                                         handleClose()
                                     }}
                                 >
-                                    <img src={closeIcon} alt="close" />
+                                    <CloseIcon />
                                 </button>
                             </div>
                             <p className='synergies_model_description'>Qorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -53,12 +53,12 @@ const AddSynergiesPopup = ({ open, handleClose }) => {
                                             ]}
                                         />
                                         <button className="project_name_btn">
-                                            <img src={trashIcon} alt="Delete" />
+                                            <DeleteIcon />
                                         </button>
                                     </div>
                                 </div>
                                 <div className="form_group">
-                                    <label htmlFor="project_name">Synergy Angles</label>
+                                    <label htmlFor="project_name">Synergy Angels</label>
                                     <div className="checkboxs">
 
                                         <span className='checkbox_angles'>
@@ -68,7 +68,7 @@ const AddSynergiesPopup = ({ open, handleClose }) => {
 
                                         <span className='checkbox_angles'>
                                             <input type="checkbox" name="angleName" id="angle2" className='checkbox_input' />
-                                            <label htmlFor="angle2" className='checkbox_label' ><GrammerlyIcon /> Angle48</label>
+                                            <label htmlFor="angle2" className='checkbox_label' ><GrammerlyIcon /> Angel48</label>
                                         </span>
 
                                         <span className='checkbox_angles'>
@@ -78,12 +78,12 @@ const AddSynergiesPopup = ({ open, handleClose }) => {
 
                                         <span className='checkbox_angles'>
                                             <input type="checkbox" name="angleName" id="angle4" className='checkbox_input' />
-                                            <label htmlFor="angle4" className='checkbox_label' ><HealthIcon /> Angle49</label>
+                                            <label htmlFor="angle4" className='checkbox_label' ><HealthIcon /> Angel49</label>
                                         </span>
 
                                         <span className='checkbox_angles'>
                                             <input type="checkbox" name="angleName" id="angle5" className='checkbox_input' />
-                                            <label htmlFor="angle5" className='checkbox_label' ><StarIcon /> Angle50</label>
+                                            <label htmlFor="angle5" className='checkbox_label' ><StarIcon /> Angel50</label>
                                         </span>
                                     </div>
                                 </div>
@@ -92,7 +92,7 @@ const AddSynergiesPopup = ({ open, handleClose }) => {
                                     <input type="text" id="description" placeholder="Description" />
                                 </div>
                                 <button className='add_more_btn'>Add synergy
-                                    <img src={addIcon} alt="" />
+                                    <PlusIcon />
                                 </button>
                             </form>
                         </div>

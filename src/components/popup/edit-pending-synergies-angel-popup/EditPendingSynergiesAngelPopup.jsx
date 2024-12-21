@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import './EditPendingSynergiesAngelPopup.scss';
-import { AddCircleIcon, angelBg, CLeseCircleIcon, closeIcon, GlobalIcon } from '../../../utils/constants/images';
+import { AddCircleIcon, angelBg, CLeseCircleIcon, CloseIcon, GlobalIcon } from '../../../utils/constants/images';
 
 const buttons = [
     {
@@ -10,7 +10,7 @@ const buttons = [
     },
     {
         id: 2,
-        name: 'Angle48',
+        name: 'Angel48',
         checked: true
     },
     {
@@ -19,7 +19,7 @@ const buttons = [
     },
     {
         id: 4,
-        name: 'IP Angle48',
+        name: 'IP Angel48',
         checked: true
     },
     {
@@ -33,7 +33,7 @@ const buttons = [
     },
     {
         id: 7,
-        name: 'Angle48',
+        name: 'Angel48',
     },
     {
         id: 8,
@@ -41,7 +41,7 @@ const buttons = [
     },
     {
         id: 9,
-        name: 'IP Angle48',
+        name: 'IP Angel48',
         checked: true
     },
     {
@@ -72,7 +72,7 @@ const EditPendingSynergiesAngelPopup = ({ open, handleClose }) => {
                                             handleClose()
                                         }}
                                     >
-                                        <img src={closeIcon} alt="close" />
+                                        <CloseIcon />
                                     </button>
                                 </div>
                                 <div className="model_data">
@@ -81,7 +81,7 @@ const EditPendingSynergiesAngelPopup = ({ open, handleClose }) => {
                                     </div>
                                     <div className={`page active`}>
                                         <div className="angel_model_data_head">
-                                            <div className="title">Synergy angles </div>
+                                            <div className="title">Synergy angels </div>
                                         </div>
                                         <div className="angel_model_data_body">
                                             <div className="angels_container">
@@ -121,7 +121,7 @@ const EditPendingSynergiesAngelPopup = ({ open, handleClose }) => {
                 </div>
                 <div className={`page active`}>
                     <div className="angel_model_data_head">
-                        <div className="title">Synergy angles </div>
+                        <div className="title">Synergy angels</div>
                     </div>
                     <div className="angel_model_data_body">
                         <div className="angels_container">

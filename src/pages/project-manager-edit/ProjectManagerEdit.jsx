@@ -9,7 +9,7 @@ import { updateProjectAPI } from "../../api-services/projectApis";
 import { synergyAnglesOptions } from "../../utils/constants/options";
 import { AddAngelPopup, DeleteConfirmPopup, ImageUploader, Loader, Select, TagInput } from "../../components";
 import { addProjectAPI, deleteProjectAPI, addMemberAPI, getProjectsApiById } from "../../api-services/projectApis";
-import { searchIcon, autherProfile, trashIcon, addIcon, sepratorImage, arrowRight } from "../../utils/constants/images";
+import { SearchIcon, autherProfile, DeleteIcon, PlusIcon, sepratorImage, RightIcon } from "../../utils/constants/images";
 
 const ProjectManagerEdit = () => {
   const dispatch = useDispatch();
@@ -271,7 +271,7 @@ const ProjectManagerEdit = () => {
         <div className="content_left">
           <h2>Projects Manager</h2>
           <div className="search_box">
-            <img className="search_icon" src={searchIcon} alt="Search" />
+            <span className="search_icon"><SearchIcon /></span>
             <input type="text" placeholder="Search" />
           </div>
         </div>
@@ -285,7 +285,7 @@ const ProjectManagerEdit = () => {
             <div className="pagination">
               <Link to={"/project-manager"}>Project manager</Link>
               <span>
-                <img src={arrowRight} alt="" />
+                <RightIcon />
               </span>
               <p>{values.project_name}</p>
             </div>
@@ -437,7 +437,7 @@ const ProjectManagerEdit = () => {
                               ]);
                             }}
                           >
-                            <img src={trashIcon} alt="Delete" />
+                            <DeleteIcon />
                           </button>
                         </div>
                       </>
@@ -456,7 +456,7 @@ const ProjectManagerEdit = () => {
                     }}
                   >
                     Add member
-                    <img src={addIcon} alt="Add" />
+                    <PlusIcon />
                   </button>
                   <br />
                   <div className="form_group">
@@ -496,11 +496,11 @@ const ProjectManagerEdit = () => {
                       <>
                         <div className="custom_select">
                           <div className="form_box synergy_selected">
-                            {index === 0 && <label>Synergy angles</label>}
+                            {index === 0 && <label>Synergy angels</label>}
                             <Select
                               name="synergy_angles"
                               options={synergyAnglesOptions}
-                              placeholder="Select synergy angle"
+                              placeholder="Select synergy angel"
                               hasAddButton={true}
                               onAdd={() => {
                                 toggleAddAngelPopupOpen();
@@ -528,7 +528,7 @@ const ProjectManagerEdit = () => {
                               ]);
                             }}
                           >
-                            <img src={trashIcon} alt="Delete" />
+                            <DeleteIcon />
                           </button>
                         </div>
                       </>
@@ -547,7 +547,7 @@ const ProjectManagerEdit = () => {
                     }}
                   >
                     {" "}
-                    Add synergy angle <img src={addIcon} alt="Add" />
+                    Add synergy angel<PlusIcon />
                   </button>
                   <div className="invostments-group">
                     <div className="seprator-image">
@@ -635,7 +635,7 @@ const ProjectManagerEdit = () => {
                                   ]);
                                 }}
                               >
-                                <img src={trashIcon} alt="Delete" />
+                                <DeleteIcon />
                               </button>
                             </div>
                           </>
@@ -655,7 +655,7 @@ const ProjectManagerEdit = () => {
                         }}
                       >
                         Add property
-                        <img src={addIcon} alt="Add" />
+                        <PlusIcon />
                       </button>
                     </div>
                   </div>
@@ -670,7 +670,7 @@ const ProjectManagerEdit = () => {
                     setIsDeleteConfirmPopupOpen(true);
                   }}
                 >
-                  <img src={trashIcon} alt="Delete" /> Delete project
+                  <DeleteIcon /> Delete project
                 </button>
                 <button type="submit" className="btn_gray" onClick={handleSubmit}>
                   {" "}

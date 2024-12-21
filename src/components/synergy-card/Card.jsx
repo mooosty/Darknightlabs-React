@@ -2,8 +2,7 @@ import './card.scss';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import CustomTooltip from '../customTooltip/CustomTooltip';
-import { arrowRight, defaultImg } from '../../utils/constants/images';
-import { GradientGraphIcon, GredientGlobalIcon } from '../../utils/SVGs/SVGs';
+import { arrowRight, defaultImg, GradientGraphIcon, GredientGlobalIcon } from '../../utils/constants/images';
 
 const headTags = [
     {
@@ -81,9 +80,8 @@ const Card = ({
                                 ))
                             }
                         </div>
-                        <button>
-                            <span onClick={() => navigate(`/synergies/${synergyId}`)}></span>
-                            <img src={arrowRight} alt='' />
+                        <button onClick={() => navigate(`/synergies/${synergyId}`)}>
+                            <img src={arrowRight} alt=' '/>
                         </button>
                     </div>
                 </div>

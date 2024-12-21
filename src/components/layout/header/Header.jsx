@@ -3,26 +3,30 @@ import './header.scss'
 import sidbarMenu from "../../../assets/menu.png"
 import CustomDropdown from "../../custom-dropdown/CustomDropdown"
 import { ProfileNavTabIcon, LogoutNavTabIcon } from "../../../utils/SVGs/SVGs";
-import { searchIcon } from '../../../utils/constants/images';
+import { useNavigate } from 'react-router-dom';
+import { ROUTER } from '../../../utils/routes/routes';
 
-const dropdownItems = [
-    {
-        label: <button className="dropdown_tab">
-            <ProfileNavTabIcon />
-            <span>Profile</span>
-        </button>,
-        onClick: () => console.log('Item 1 clicked'),
-    },
-    {
-        label: <button className="dropdown_tab logout_tab">
-            <LogoutNavTabIcon />
-            <span>Logout</span>
-        </button>,
-        onClick: () => console.log('Item 2 clicked'),
-    },
-];
 
 const Header = () => {
+    const navigate = useNavigate();
+
+    const dropdownItems = [
+        {
+            label: <button className="dropdown_tab">
+                <ProfileNavTabIcon />
+                <span>Profile</span>
+            </button>,
+            onClick: () => navigate(ROUTER.profile),
+        },
+        {
+            label: <button className="dropdown_tab logout_tab">
+                <LogoutNavTabIcon />
+                <span>Logout</span>
+            </button>,
+            onClick: () => { localStorage.clear(); window.location.href = "/"; },
+        },
+    ];
+    
     return (
         <header className="header_wrp">
             <div className=""></div>

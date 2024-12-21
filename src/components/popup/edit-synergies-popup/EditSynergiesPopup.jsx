@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Multiselect from '../../multiselect/Multiselect';
 import { getProjectsAPI } from '../../../api-services/projectApis';
-import { angelBg, closeIcon } from '../../../utils/constants/images';
+import { angelBg, CloseIcon } from '../../../utils/constants/images';
 
 const EditSynergiesPopup = ({ open, handleClose, synergy, onSave = () => { } }) => {
     // open = true
@@ -57,7 +57,7 @@ const EditSynergiesPopup = ({ open, handleClose, synergy, onSave = () => { } }) 
                                             handleClose()
                                         }}
                                     >
-                                        <img src={closeIcon} alt="close" />
+                                        <CloseIcon />
                                     </button>
                                 </div>
                                 <div className="edit_synergies_model_data">

@@ -55,7 +55,7 @@
   }
 
   .project_user_page_data {
-    padding: 35px;
+    padding: 35px 0px;
     border-radius: 9px;
     background-color: #191917;
     background-image: url("../../../assets/model-frame.png");
@@ -69,11 +69,9 @@
       height: calc(100% - 42px);
     }
 
-
     @media (max-width: 767px) {
       border-radius: 0;
-      padding: 20px;
-      padding-bottom: 0px;
+      padding-block: 20px 0px;
       background-color: #191917;
       background-image: none;
     }
@@ -103,6 +101,11 @@
       .header_button {
         display: flex;
         margin-bottom: 25px;
+        padding-inline: 35px;
+
+        @media (max-width: 767px) {
+          padding-inline: 20px;
+        }
 
         .buttons {
           display: flex;
@@ -137,8 +140,10 @@
         justify-content: space-between;
         border: none;
         margin-block: 15px 30px;
+        padding-inline: 35px;
 
         @media (max-width: 767px) {
+          padding-inline: 20px;
           margin-bottom: 24px;
         }
 
@@ -231,7 +236,13 @@
       .project_user_page_body {
         display: flex;
         flex-direction: column;
-        margin: -20px -14px;
+        margin: -20px 0px;
+        padding-inline: 12px;
+
+        @media (max-width: 767px) {
+          padding-inline: 0px;
+        }
+
 
         .project_page_table_handler {
           overflow: hidden;
@@ -406,14 +417,8 @@
         }
 
         .project_page_table {
-          margin: 20px 14px;
+          margin: 20px 0px;
           padding-bottom: 20px;
-          // height: calc(100vh - 394px);
-          // overflow-y: auto;
-
-          // @media(max-width: 1600px) {
-          //     height: calc(100vh - 357px);
-          // }
 
           @media (max-width: 1300px) {
             display: none;
