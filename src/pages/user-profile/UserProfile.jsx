@@ -237,10 +237,6 @@ const UserProfile = () => {
   
 
   useEffect(() => {
-    dispatch(getUsersDetailsAPI(userData?.userId));
-  }, [userData?.userId]);
-
-  useEffect(() => {
     const fetchProjects = async () => {
       setIsLoading(true);
       try {

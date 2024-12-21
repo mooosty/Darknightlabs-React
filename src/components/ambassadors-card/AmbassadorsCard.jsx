@@ -10,8 +10,8 @@ const AmbassadorsCard = ({ projectId, name, img, synergiesAngles, isTimeFramed }
         navigate(`/${ROUTER.ambassadorProjects}/${id}`)
     }
     return (<>
-        <div className="ambassador_card">
-            <div className="card_img">
+     <div className="ambassador_card"  onClick={() => handleClick(projectId)}>
+        <div className="card_img">
                 <img src={img || defaultImg} alt="" onError={(e) => e.target.src = defaultImg} />
             </div>
             <div className="card_body">
@@ -41,11 +41,11 @@ const AmbassadorsCard = ({ projectId, name, img, synergiesAngles, isTimeFramed }
 
                     </div>
                 </div>
-                <div className="card_button" onClick={() => handleClick(projectId)}>
+                {/* <div className="card_button" onClick={() => handleClick(projectId)}>
                     <div className="button">
                         <span className='text'>Learn more</span>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     </>

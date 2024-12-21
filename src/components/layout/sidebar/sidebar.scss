@@ -264,10 +264,9 @@
             .disabled {
                 position: relative;
             }
-
             .disabled:hover:after {
-                content: 'Complete your profile first to unlock this feature';
-                position: fixed;
+                content: "You need to complete profile ";
+                position: absolute;
                 background: #000;
                 color: #F5EFDB;
                 padding: 8px 12px;
@@ -275,8 +274,8 @@
                 font-size: 14px;
                 width: max-content;
                 z-index: 10000;
-                left: 00px;
-                transform: translateY(-50%);
+                left: 50%;
+                transform: translate(-50%, -125%);
             }
 
             .separator {

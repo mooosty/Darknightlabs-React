@@ -8,4 +8,9 @@ export const ROUTER = {
     investment: "investment",
     profile: "profile",
     karma: "karma",
+    chat: "chat",
+    synergyRequests: "synergy-requests",
+    synergiesManager: "synergies-manager",
+    myContent: "my-content",
+    ambassadorProjects: "ambassador-projects"
 };
