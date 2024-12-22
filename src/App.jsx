@@ -19,6 +19,8 @@ import AmbassadorProjectDetails from './pages/ambassador-projects/ambassador-pro
 import { ROUTER } from "./utils/routes/routes";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SynergyRequest from "./pages/pending-synergies/SynergyRequest";
+import SynergiesManager from "./pages/synergies-manager/SynergiesManager";
 
 function App() {
   return (
@@ -36,6 +38,9 @@ function App() {
           <Route path={`/${ROUTER.projectManagerEdit}/:id`} element={<ProjectManagerEdit />} />
           <Route path={`/${ROUTER.synergies}`} element={<Synergies />} />
           <Route path={`${ROUTER.synergies}/:synergyId`} element={<SynergiesDetails />} />
+          <Route path={`/${ROUTER.synergyRequests}`} element={<SynergyRequest />} />
+          <Route path={`/${ROUTER.synergiesManager}`} element={<SynergiesManager />} />
+
 
           <Route path={`/${ROUTER.investment}`} element={<Investment />} />
           <Route path={`/${ROUTER.profile}`} element={<UserProfile />} />
