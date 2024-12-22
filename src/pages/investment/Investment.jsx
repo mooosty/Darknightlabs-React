@@ -31,7 +31,9 @@ const cardData = [
       {
         head: 'Launch',
         data: 'Winter 2024',
-      },],
+      },
+    ],
+    karmaNeeded: 0
   },
   {
     investmentName: 'Investment name',
@@ -762,31 +764,34 @@ const Investment = () => {
                             <img src={data.investorImg} alt="" />
                           </div>
                           <div className="card_body">
-                            <div className="name">{data.investmentName} </div>
+                            <div className="name">{data.investmentName}</div>
                             <div className="tabs">
-                              {
-                                data.investments.map((tag, index) => {
-                                  return (
-                                    <div className={``} key={index}>
-                                      <div className='investment_tag' >
-                                        <>{tag.head}:{tag.data} </>
-                                      </div>
-                                    </div>)
-                                })
-                              }
+                              {data.investments.map((tag, index) => {
+                                return (
+                                  <div className={``} key={index}>
+                                    <div className='investment_tag'>
+                                      <>{tag.head}:{tag.data}</>
+                                    </div>
+                                  </div>
+                                )
+                              })}
                             </div>
                             <div className="tabs">
-                              {
-                                data.tags.map((data, index) => {
-                                  return (
-                                    <div className={``} key={index}>
-                                      <div className='meta_tag' >
-                                        <>{data} </>
-                                      </div>
-                                    </div>)
-                                })
-                              }
+                              {data.tags.map((data, index) => {
+                                return (
+                                  <div className={``} key={index}>
+                                    <div className='meta_tag'>
+                                      <>{data}</>
+                                    </div>
+                                  </div>
+                                )
+                              })}
                             </div>
+                            {data.karmaNeeded !== undefined && (
+                              <div className="karma_needed">
+                                Karma needed: {data.karmaNeeded}
+                              </div>
+                            )}
                           </div>
                         </div>
                       </div>

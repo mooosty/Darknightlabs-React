@@ -5,18 +5,13 @@ import { ROUTER } from "../../../utils/routes/routes";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { ProfileNavTabIcon, CollapseRightIcon, CollapseLeftIcon, ChatNavTabIcon, LogoutNavTabIcon, ProjectNavTabIcon, MyContentNavTabIcon, SynergiesNavTabIcon, InvestmentNavTabIcon, PendingSynergiesNavTabIcon, SynergiesManagerNavTabIcon } from "../../../utils/SVGs/SVGs";
+import { ProfileNavTabIcon, ChatNavTabIcon, LogoutNavTabIcon, ProjectNavTabIcon, MyContentNavTabIcon, SynergiesNavTabIcon, InvestmentNavTabIcon, PendingSynergiesNavTabIcon, SynergiesManagerNavTabIcon } from "../../../utils/SVGs/SVGs";
 
 const userRole = "ADMINa";
 const Sidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [isCollapse, setIsCollapse] = useState(false);
   const [isAmbassadorMode, setIsAmbassadorMode] = useState(false);
-  const handleCollapse = () => {
-    setIsCollapse(!isCollapse);
-  };
-
   const [userProjects, setUserProjects] = useState([]);
   const userData = useSelector((state) => state.auth);
 
@@ -47,7 +42,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className={`sidebar_container ${isCollapse ? "sidebar_collapsed" : ""}`}>
+      <div className="sidebar_container">
         <div className="sidebar">
           {isAmbassadorMode && (
             <>
@@ -65,13 +60,6 @@ const Sidebar = () => {
               <h3>{userData.name.split(" ")[0]}</h3>
               <p>User</p>
             </div>
-            <button className="collapse_btn" onClick={handleCollapse}>
-              {isCollapse ? (
-                <CollapseRightIcon />
-              ) : (
-                <CollapseLeftIcon />
-              )}
-            </button>
           </div>
 
           {!isAmbassadorMode ? (
