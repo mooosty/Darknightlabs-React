@@ -123,9 +123,9 @@ const Sidebar = () => {
                 <Link to={ROUTER.chat}>
                   <ChatNavTabIcon />
                   <span className="menu_text">Chat</span>
-                  <span className="notification">
+                  {/* <span className="notification">
                     <span className="notification_text">1</span>
-                  </span>
+                  </span> */}
                 </Link>
               </li>
               <li className={`${location.pathname === `/${ROUTER.karma}` ? "active" : ""}`}>
@@ -229,7 +229,8 @@ const Sidebar = () => {
               <Link to={ROUTER.chat}>
                 <ChatNavTabIcon />
                 <span className="chat">
-                  Chat <p className="chat_count">1</p>
+                  Chat 
+                  {/* <p className="chat_count">1</p> */}
                 </span>
               </Link>
             </li>

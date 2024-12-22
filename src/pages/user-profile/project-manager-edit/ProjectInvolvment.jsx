@@ -80,14 +80,14 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
 
     if (
       !values.project_name ||
-      !values.discord_username ||
+    //   !values.discord_username ||
       !values.description ||
       !values.twitter_username ||
       !values.image ||
       !values.tags.length ||
-      !values.synergy_angles[0].synergy_angle ||
-      !values.investments[0].property ||
-      !values.investments[0].price
+      !values.synergy_angles[0].synergy_angle 
+    //   !values.investments[0].property ||
+    //   !values.investments[0].price
     ) {
       return toast.error("Please fill in all the required fields");
     }
@@ -391,7 +391,9 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
                 <div className="form_box">
                   <h3 className="project_title">Project details</h3>
                   <div className="form_group">
-                    <label htmlFor="projectName">Project Name</label>
+                    <label htmlFor="projectName">
+                      Project Name <span className="required">*</span>
+                    </label>
                     <input
                       type="text"
                       id="projectName"
@@ -402,7 +404,9 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
                     />
                   </div>
                   <div className="form_group">
-                    <label>Tags</label>
+                    <label>
+                      Tags <span className="required">*</span>
+                    </label>
                     <div className="tag_box">
                       <TagInput
                         tags={values.tags}
@@ -514,7 +518,9 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
                   </button>
                   <br />
                   <div className="form_group">
-                    <label htmlFor="description">Project Description</label>
+                    <label htmlFor="description">
+                      Project Description <span className="required">*</span>
+                    </label>
                     <textarea
                       id="description"
                       value={values.description}
@@ -550,7 +556,11 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
                       <>
                         <div className="custom_select">
                           <div className="form_box synergy_selected">
-                            {index === 0 && <label>Synergy angels</label>}
+                            {index === 0 && (
+                              <label>
+                                Synergy angels <span className="required">*</span>
+                              </label>
+                            )}
                             <Select
                               name="synergy_angles"
                               options={synergyAnglesOptions}

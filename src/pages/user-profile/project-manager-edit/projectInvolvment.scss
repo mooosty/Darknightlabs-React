@@ -747,3 +747,17 @@
     }
   }
 }
+
+.required {
+  color: #ff4444;
+  margin-left: 4px;
+}
+
+// Optionally, make the input borders red when empty and touched
+.form_group {
+  input:invalid,
+  textarea:invalid,
+  .tag_box:invalid {
+    border-color: #ff4444;
+  }
+}
