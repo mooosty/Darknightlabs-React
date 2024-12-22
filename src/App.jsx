@@ -44,7 +44,18 @@ function App() {
           <Route path={`${ROUTER.chat}/:id`} element={<Chats />} />
         </Route>
       </Routes>
-      <ToastContainer />
+      <ToastContainer
+        position="bottom-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </BrowserRouter>
   );
 }

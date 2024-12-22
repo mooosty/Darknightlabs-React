@@ -12,6 +12,7 @@ import { cardActor1, cardActor2, cardActor3, cardActor4, cardActor5, cardActor6,
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { appendToSheet } from '../../utils/googleSheets';
+import { toast } from 'react-toastify';
 
 const cardData = [
   {
@@ -495,7 +496,29 @@ const Investment = () => {
           <div className="payment-details">
             <p><strong>COIN:</strong> $USDT</p>
             <p><strong>NETWORK:</strong> SOLANA</p>
-            <p><strong>ADDRESS:</strong> ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
+            <p className="address-line">
+              <strong>ADDRESS:</strong> 
+              <span 
+                className="copy-address"
+                onClick={async () => {
+                  try {
+                    await navigator.clipboard.writeText("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+                    toast.success("Address copied to clipboard!", {
+                      position: "bottom-center",
+                      autoClose: 3000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                    });
+                  } catch (err) {
+                    toast.error("Failed to copy address");
+                  }
+                }}
+              >
+                ABCDEFGHIJKLMNOPQRSTUVWXYZ
+              </span>
+            </p>
           </div>
           {formik.touched.investmentAmount && formik.errors.investmentAmount && (
             <div className="error">{formik.errors.investmentAmount}</div>
