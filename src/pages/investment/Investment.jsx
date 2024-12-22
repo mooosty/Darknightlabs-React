@@ -496,24 +496,23 @@ const Investment = () => {
           <div className="payment-details">
             <p><strong>COIN:</strong> $USDT</p>
             <p><strong>NETWORK:</strong> SOLANA</p>
-            <p className="address-line">
+            <p>
               <strong>ADDRESS:</strong> 
               <span 
                 className="copy-address"
-                onClick={async () => {
-                  try {
-                    await navigator.clipboard.writeText("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-                    toast.success("Address copied to clipboard!", {
-                      position: "bottom-center",
-                      autoClose: 3000,
-                      hideProgressBar: false,
-                      closeOnClick: true,
-                      pauseOnHover: true,
-                      draggable: true,
-                    });
-                  } catch (err) {
-                    toast.error("Failed to copy address");
-                  }
+                onClick={() => {
+                  navigator.clipboard.writeText("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+                  toast.success("Address copied!", {
+                    position: "bottom-center",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    style: {
+                      background: "#242623",
+                      color: "#fff",
+                      fontFamily: "MedievalSharp, cursive"
+                    }
+                  });
                 }}
               >
                 ABCDEFGHIJKLMNOPQRSTUVWXYZ
@@ -888,7 +887,7 @@ const Investment = () => {
                       <ul>
                         <li>🐈‍⬛ Shytoshi Kusama - <a href="https://x.com/shytoshikusama" target="_blank">@shytoshikusama</a></li>
                         <li>🐈‍⬛ Kaal Dhairya - <a href="https://x.com/Kaaldhairya" target="_blank">@Kaaldhairya</a></li>
-                        <li>🐈‍⬛ Ian Utile - <a href="https://x.com/IanUtile" target="_blank">@IanUtile</a></li>
+                        <li>🐈���⬛ Ian Utile - <a href="https://x.com/IanUtile" target="_blank">@IanUtile</a></li>
                         <li>🐈‍⬛ Tryke Gutierrez - <a href="https://instagram.com/trykegutierrez" target="_blank">@trykegutierrez</a></li>
                         <li>🐈‍⬛ James Afante - <a href="https://www.tiktok.com/@jmsfnt" target="_blank">@jmsfnt</a></li>
                         <li>🐈‍⬛ JBond - <a href="https://x.com/jbondwagon" target="_blank">@jbondwagon</a></li>
