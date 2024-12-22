@@ -150,7 +150,7 @@ const Synergies = () => {
                                     <div className="selects">
                                         <MultiselectDropDown
                                             options={synergyAnglesOptions}
-                                            placeholder={'All synergies angels'}
+                                            placeholder={'All synergies angles'}
                                             onApply={(currentOptions) => {
                                                 const synergiesAnglesValues = currentOptions?.map((option) => option.value)
                                                 setFilter({

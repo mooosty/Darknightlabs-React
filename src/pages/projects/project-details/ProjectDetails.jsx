@@ -148,7 +148,7 @@ const ProjectDetails = () => {
                                 {activeLayout === 'SYNERGY' && <div className="synergy_container">
                                     <div className="synergy_header">
                                         <GradientInfiniteIcon />
-                                        <span>Synergy angels</span></div>
+                                        <span>Synergy angles</span></div>
                                     <div className="synergy_body">
                                         {projectDetails?.synergy_angles?.map((data, index) => {
                                             return (

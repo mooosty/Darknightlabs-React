@@ -360,7 +360,7 @@ const ProjectManager = () => {
               <div className="angels">
                 <Select
                   options={synergyAnglesOptions}
-                  placeholder={"All synergies angels"}
+                  placeholder={"All synergies angles"}
                   onChange={(value) => {
                     setSelectedProjects([]);
                     if (value.value === "All") {
@@ -376,7 +376,7 @@ const ProjectManager = () => {
                     }
                   }}
                   showAllOption={true}
-                  allOptionText={"All synergies angels"}
+                  allOptionText={"All synergies angles"}
                 />
               </div>
               <div className="type">

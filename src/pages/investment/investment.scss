@@ -68,6 +68,32 @@
                     align-items: center;
                 }
 
+                .search_icon {
+                    position: absolute;
+                    left: 24px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 1;
+
+                    svg {
+                        width: 24px;
+                        height: 24px;
+                        color: #f5efdb;
+                        opacity: 0.5;
+                    }
+
+                    @media (max-width: 1199px) {
+                        left: 15px;
+                    }
+
+                    @media (max-width: 767px) {
+                        position: static;
+                        transform: none;
+                    }
+                }
 
                 input {
                     background-color: #191917;
@@ -86,17 +112,6 @@
                         color: #f5efdb;
                         font-size: 18px;
                         opacity: 0.5;
-                    }
-                }
-
-                .search_icon {
-                    position: absolute;
-                    left: 24px;
-                    top: 50%;
-                    transform: translateY(-50%);
-
-                    @media (max-width: 1199px) {
-                        left: 15px;
                     }
                 }
             }
@@ -794,6 +809,8 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    width: 100%;
+    overflow: hidden;
 
     &:last-child {
       margin-bottom: 0;
@@ -802,6 +819,7 @@
     strong {
       color: rgba(245, 239, 219, 0.7);
       min-width: 80px;
+      flex-shrink: 0;
     }
 
     .copy-address {
@@ -810,10 +828,16 @@
       position: relative;
       padding: 2px 4px;
       transition: all 0.2s ease;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex: 1;
+      border-bottom: 1px dashed rgba(245, 239, 219, 0.4);
 
       &:hover {
         background: rgba(255, 138, 28, 0.1);
         border-radius: 4px;
+        border-bottom-color: #ff8a1c;
       }
 
       &:active {

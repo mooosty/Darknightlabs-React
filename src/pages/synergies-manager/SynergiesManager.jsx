@@ -235,12 +235,12 @@ const SynergiesManager = () => {
               <div className="angels">
                 <Select
                   options={synergyAnglesOptions}
-                  placeholder={'All synergies angels'}
+                  placeholder={'All synergies angles'}
                   onChange={(value) => {
                     handleSynergyAngleChange(value);
                   }}
                   showAllOption={true}
-                  allOptionText={"All synergies angels"}
+                  allOptionText={"All synergies angles"}
                 />
               </div>
               <div className="sort">

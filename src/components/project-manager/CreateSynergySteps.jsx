@@ -118,7 +118,7 @@ const CreateSynergySteps = ({ createSynergyStep, setCreateSynergyStep, synergies
             open={createSynergyStep >= 3}
             title={createSynergyStep === 3 ? 'Create Synergy' :
                 createSynergyStep === 3 ? synergies.projects[projectCounter]['project_name'] :
-                    createSynergyStep === 4 ? 'Edit synergy angels' :
+                    createSynergyStep === 4 ? 'Edit synergy angles' :
                         createSynergyStep === 5 ? 'Confirm Synergy' : ''}
             onClose={() => {
                 setCreateSynergyStep(0);
@@ -149,7 +149,7 @@ const CreateSynergySteps = ({ createSynergyStep, setCreateSynergyStep, synergies
                                 </div>
                                 <div className={`page active`}>
                                     <div className="angel_model_data_head">
-                                        <div className="title">Synergy angels</div>
+                                        <div className="title">Synergy angles</div>
                                     </div>
                                     <div className="angel_model_data_body">
                                         <div className="angels_container">
@@ -220,7 +220,7 @@ const CreateSynergySteps = ({ createSynergyStep, setCreateSynergyStep, synergies
                                         </label>
 
                                         <div className='accordion_content'>
-                                            <div className="header_name">Synergy angels</div>
+                                            <div className="header_name">Synergy angles</div>
                                             <div className="checkboxs">
                                                 {data?.synergy ? data?.synergy?.map((item, index) => {
                                                     return (

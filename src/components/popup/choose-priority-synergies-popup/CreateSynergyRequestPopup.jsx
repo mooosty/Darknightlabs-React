@@ -94,7 +94,7 @@ const ChoosePrioritySynergiesPopup = ({ open, handleClose, data }) => {
                     <div className='synergies_model_box'>
                         <div className='synergies_model_body'>
                             <div className='synergies_model_header'>
-                                <h3>Choose your priority synergy angels with {data?.name}</h3>
+                                <h3>Choose your priority synergy angles with {data?.name}</h3>
                                 <button
                                     className='close'
                                     onClick={resetPopup}
@@ -102,7 +102,7 @@ const ChoosePrioritySynergiesPopup = ({ open, handleClose, data }) => {
                                     <CloseIcon />
                                 </button>
                             </div>
-                            <p className='synergies_model_description'>Choose your priority synergy angels with paired project</p>
+                            <p className='synergies_model_description'>Choose your priority synergy angles with paired project</p>
 
 
                             <div className="seprator-image">
@@ -110,7 +110,7 @@ const ChoosePrioritySynergiesPopup = ({ open, handleClose, data }) => {
                             </div>
                             <form action="#" className='synergies_model_form'>
                                 <div className="form_group">
-                                    <label htmlFor="project_name">Select synergy angels </label>
+                                    <label htmlFor="project_name">Select synergy angles </label>
 
                                     <Multiselect
                                         options={[

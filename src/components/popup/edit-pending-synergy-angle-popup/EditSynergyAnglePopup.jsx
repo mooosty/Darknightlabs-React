@@ -42,7 +42,7 @@ const EditSynergyAnglePopup = ({ isOpen, setIsOpen, selectedSynergyData }) => {
                 if (response?.payload?.response?.success) {
                     resetPopup()
                 } else {
-                    toast.error('Synergy Angels Not Updated')
+                    toast.error('Synergy Angles Not Updated')
                 }
             })
         }
@@ -105,7 +105,7 @@ const EditSynergyAnglePopup = ({ isOpen, setIsOpen, selectedSynergyData }) => {
                             </div>
                             <div className={`page active`}>
                                 <div className="angel_model_data_head">
-                                    <div className="title">Synergy angels </div>
+                                    <div className="title">Synergy angles </div>
                                 </div>
                                 <div className="angel_model_data_body">
                                     <div className="angels_container">

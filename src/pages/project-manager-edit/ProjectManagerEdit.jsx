@@ -496,11 +496,11 @@ const ProjectManagerEdit = () => {
                       <>
                         <div className="custom_select">
                           <div className="form_box synergy_selected">
-                            {index === 0 && <label>Synergy angels</label>}
+                            {index === 0 && <label>Synergy angles</label>}
                             <Select
                               name="synergy_angles"
                               options={synergyAnglesOptions}
-                              placeholder="Select synergy angel"
+                              placeholder="Select synergy angle"
                               hasAddButton={true}
                               onAdd={() => {
                                 toggleAddAngelPopupOpen();
@@ -547,7 +547,7 @@ const ProjectManagerEdit = () => {
                     }}
                   >
                     {" "}
-                    Add synergy angel<PlusIcon />
+                    Add synergy angle<PlusIcon />
                   </button>
                   <div className="invostments-group">
                     <div className="seprator-image">

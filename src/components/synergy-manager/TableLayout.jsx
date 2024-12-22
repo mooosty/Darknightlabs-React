@@ -62,7 +62,7 @@ const SynergyManagerTableLayout = ({ filterSynergies, selectedSynergy, handleSel
                             <th>Synergy name</th>
                             <th className='center'>Creator</th>
                             <th className='center'>Image</th>
-                            <th className='center'>Synergies angels</th>
+                            <th className='center'>Synergies angles</th>
                             <th className='center'>Date</th>
                             <th className='center'>Actions</th>
                         </tr>

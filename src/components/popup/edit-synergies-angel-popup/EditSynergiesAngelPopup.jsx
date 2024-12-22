@@ -99,7 +99,7 @@ const EditSynergiesAngelPopup = ({ open, handleClose }) => {
                         <div className="edit_engel_model_body_container">
                             <div className='edit_engel_model_body'>
                                 <div className='edit_engel_model_header'>
-                                    <h3>Edit synergy angels</h3>
+                                    <h3>Edit synergy angles</h3>
                                     <button
                                         className='close'
                                         onClick={() => {
@@ -121,7 +121,7 @@ const EditSynergiesAngelPopup = ({ open, handleClose }) => {
                                             </div>
                                         </div>
                                         <div className="angel_model_data_body">
-                                            <div className="title">Synergy angels </div>
+                                            <div className="title">Synergy angles </div>
                                             <div className="angels_container">
                                                 {buttons.map((data) => (
                                                     <div key={data.id} className='angel_tab'>
@@ -152,7 +152,7 @@ const EditSynergiesAngelPopup = ({ open, handleClose }) => {
                                             </div>
                                         </div>
                                         <div className="angel_model_data_body">
-                                            <div className="title">Synergy angels</div>
+                                            <div className="title">Synergy angles</div>
                                             <div className="angels_container">
                                                 {buttons2.map((data) => (
                                                     <div key={data.id} className='angel_tab'>
@@ -183,7 +183,7 @@ const EditSynergiesAngelPopup = ({ open, handleClose }) => {
                                             </div>
                                         </div>
                                         <div className="angel_model_data_body">
-                                            <div className="title">Synergy angels</div>
+                                            <div className="title">Synergy angles</div>
                                             <div className="angels_container">
                                                 {buttons.map((data) => (
                                                     <div key={data.id} className='angel_tab'>
@@ -214,7 +214,7 @@ const EditSynergiesAngelPopup = ({ open, handleClose }) => {
                                             </div>
                                         </div>
                                         <div className="angel_model_data_body">
-                                            <div className="title">Synergy angels</div>
+                                            <div className="title">Synergy angles</div>
                                             <div className="angels_container">
                                                 {buttons2.map((data) => (
                                                     <div key={data.id} className='angel_tab'>

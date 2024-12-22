@@ -81,7 +81,7 @@ const EditPendingSynergiesAngelPopup = ({ open, handleClose }) => {
                                     </div>
                                     <div className={`page active`}>
                                         <div className="angel_model_data_head">
-                                            <div className="title">Synergy angels </div>
+                                            <div className="title">Synergy angles </div>
                                         </div>
                                         <div className="angel_model_data_body">
                                             <div className="angels_container">
@@ -121,7 +121,7 @@ const EditPendingSynergiesAngelPopup = ({ open, handleClose }) => {
                 </div>
                 <div className={`page active`}>
                     <div className="angel_model_data_head">
-                        <div className="title">Synergy angels</div>
+                        <div className="title">Synergy angles</div>
                     </div>
                     <div className="angel_model_data_body">
                         <div className="angels_container">

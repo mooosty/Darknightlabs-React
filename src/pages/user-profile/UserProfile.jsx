@@ -448,16 +448,16 @@ const UserProfile = () => {
                               !userData?.authDetails?.isAuthenticated &&
                               <button className="btn_gray">
                                 <img src={twitterIcon} alt="" />
-                                Connect with Twitter
+                                Connect Twitter
                               </button>
                             }
                             <button className="btn_gray">
                               <img src={discordIcon} alt="" />
-                              Connect with Discord
+                              Connect Discord
                             </button>
                             <button className="btn_gray">
                               <img src={telegramIcon} alt="" />
-                              Connect with Telegram
+                              Connect Telegram
                             </button>
                           </div>
                         </div>
@@ -752,16 +752,16 @@ const UserProfile = () => {
                             !userData?.authDetails?.isAuthenticated &&
                             <button className="btn_gray">
                               <img src={twitterIcon} alt="" />
-                              Connect with Twitter
+                              Connect Twitter
                             </button>
                           }
                           <button className="btn_gray">
                             <img src={discordIcon} alt="" />
-                            Connect with Discord
+                            Connect Discord
                           </button>
                           <button className="btn_gray">
                             <img src={telegramIcon} alt="" />
-                            Connect with Telegram
+                            Connect Telegram
                           </button>
                         </div>
                       </div>

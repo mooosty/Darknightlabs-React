@@ -687,8 +687,10 @@ const Investment = () => {
             <div className="content_left">
               <h2>Investment</h2>
               <div className="search_box">
-                <img className="search_icon" src={SearchIcon} alt="Search" />
-                <input type="text" placeholder="Search" />
+                <span className="search_icon">
+                  <SearchIcon />
+                </span>
+                <input type="text" placeholder="Search" onChange={(e) => handleSearchChange(e.target.value)} />
               </div>
             </div>
             <div className="content_right">
@@ -887,7 +889,7 @@ const Investment = () => {
                       <ul>
                         <li>🐈‍⬛ Shytoshi Kusama - <a href="https://x.com/shytoshikusama" target="_blank">@shytoshikusama</a></li>
                         <li>🐈‍⬛ Kaal Dhairya - <a href="https://x.com/Kaaldhairya" target="_blank">@Kaaldhairya</a></li>
-                        <li>🐈���⬛ Ian Utile - <a href="https://x.com/IanUtile" target="_blank">@IanUtile</a></li>
+                        <li>🐈‍⬛ Ian Utile - <a href="https://x.com/IanUtile" target="_blank">@IanUtile</a></li>
                         <li>🐈‍⬛ Tryke Gutierrez - <a href="https://instagram.com/trykegutierrez" target="_blank">@trykegutierrez</a></li>
                         <li>🐈‍⬛ James Afante - <a href="https://www.tiktok.com/@jmsfnt" target="_blank">@jmsfnt</a></li>
                         <li>🐈‍⬛ JBond - <a href="https://x.com/jbondwagon" target="_blank">@jbondwagon</a></li>

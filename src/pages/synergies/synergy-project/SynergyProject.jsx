@@ -68,10 +68,10 @@ const SynergyProject = () => {
                                 <div className='angel_data_header'>
                                     <span className="table_title">
                                         <InfiniteIcon />
-                                        <span>Synergy angels</span>
+                                        <span>Synergy angles</span>
                                     </span>
                                     <Select
-                                        placeholder={'All synergies angels'}
+                                        placeholder={'All synergies angles'}
                                         options={[
                                             { label: 'Description', value: 'description' },
                                             { label: 'Description 2', value: 'description 2' }

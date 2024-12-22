@@ -9,7 +9,7 @@ import { CustomTooltip, Loader, MultiselectDropDown } from '../../../components'
 const synergyOptions = [
     { label: 'Selected', value: 'selected' },
     { label: 'Unselected', value: 'unselected' },
-    { label: 'All synergies angels', value: 'allSynergies' }
+    { label: 'All synergies angles', value: 'allSynergies' }
 ]
 
 const synergiesAnglesIcons = [
@@ -89,13 +89,13 @@ const SynergiesDetails = () => {
                                     <div className="synergy_header">
                                         <div className="left">
                                             <GradientInfiniteIcon />
-                                            <span>Synergy angels</span>
+                                            <span>Synergy angles</span>
                                         </div>
                                         <div className="right">
                                             <div className="selects">
                                                 <MultiselectDropDown
                                                     options={synergyOptions}
-                                                    placeholder={'All synergies angels'}
+                                                    placeholder={'All synergies angles'}
                                                 // onApply={(currentOptions) => {
                                                 // const synergiesAnglesValues = currentOptions?.map((option) => option.value)
                                                 // setFilter({

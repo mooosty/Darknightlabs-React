@@ -61,7 +61,7 @@ const MultiselectDropDown = ({
                     <div className="mobile_multiselect_wrapper">
                         <ul>
                             <div className="multiselect_header">
-                                Select synergies angels
+                                Select synergies angles
                                 <button
                                     onClick={() => {
                                         setIsOpen(false);

@@ -58,7 +58,7 @@ const AddSynergiesPopup = ({ open, handleClose }) => {
                                     </div>
                                 </div>
                                 <div className="form_group">
-                                    <label htmlFor="project_name">Synergy Angels</label>
+                                    <label htmlFor="project_name">Synergy Angles</label>
                                     <div className="checkboxs">
 
                                         <span className='checkbox_angles'>

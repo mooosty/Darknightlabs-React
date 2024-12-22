@@ -17,7 +17,7 @@ const AddAngelPopup = ({ open, handleClose, handleAddNewAngel, defaultValue }) =
                     <div className='model_box'>
                         <div className='model_body'>
                             <div className='model_header'>
-                                <h3>Add new angel</h3>
+                                <h3>Add new angle</h3>
                                 <button
                                     onClick={() => {
                                         handleClose()

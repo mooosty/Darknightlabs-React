@@ -74,7 +74,7 @@ const ConfirmSynergiesPopup = ({ open, handleClose }) => {
                                         </label>
 
                                         <div className='accordion_content'>
-                                            <div className="header_name">Synergy angels</div>
+                                            <div className="header_name">Synergy angles</div>
                                             <div className="checkboxs">
                                                 <span className='checkbox_angles'>
                                                     <input type="checkbox" name="angleName" id={`angles_+${data.angel1}+${data.id}`} className='checkbox_input' />

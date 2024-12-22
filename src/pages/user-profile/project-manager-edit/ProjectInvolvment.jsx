@@ -558,13 +558,13 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
                           <div className="form_box synergy_selected">
                             {index === 0 && (
                               <label>
-                                Synergy angels <span className="required">*</span>
+                                Synergy angles <span className="required">*</span>
                               </label>
                             )}
                             <Select
                               name="synergy_angles"
                               options={synergyAnglesOptions}
-                              placeholder="Select synergy angel"
+                              placeholder="Select synergy angle"
                               hasAddButton={true}
                               onAdd={() => {
                                 toggleAddAngelPopupOpen();
@@ -611,7 +611,7 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
                     }}
                   >
                     {" "}
-                    Add Synergy Angel
+                    Add Synergy Angle
                     <iPlusIcon />
                   </button>
                   <div className="invostments-group">
