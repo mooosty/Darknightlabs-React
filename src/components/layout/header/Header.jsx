@@ -1,8 +1,7 @@
-import sidbarMenu from "../../../assets/menu.png"
 import CustomDropdown from "../../custom-dropdown/CustomDropdown"
 import { useDispatch, useSelector } from 'react-redux';
 import './header.scss'
-import { ProfileNavTabIcon, LogoutNavTabIcon } from "../../../utils/SVGs/SVGs";
+import { ProfileNavTabIcon, LogoutNavTabIcon, BurgerMenuIcon } from "../../../utils/SVGs/SVGs";
 import { useNavigate } from 'react-router-dom';
 import { ROUTER } from '../../../utils/routes/routes';
 import { handleLogout } from "../../../store/slice/authSlice";
@@ -43,7 +42,7 @@ const Header = () => {
             <div className="sidebar_btn">
                 <CustomDropdown
                     toggleButton={
-                        <img src={sidbarMenu} alt="" />
+                        <BurgerMenuIcon />
                     }
                     items={dropdownItems}
                 />
