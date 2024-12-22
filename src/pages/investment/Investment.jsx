@@ -492,6 +492,11 @@ const Investment = () => {
             onBlur={formik.handleBlur}
             value={formik.values.investmentAmount}
           />
+          <div className="payment-details">
+            <p><strong>COIN:</strong> $USDT</p>
+            <p><strong>NETWORK:</strong> SOLANA</p>
+            <p><strong>ADDRESS:</strong> ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
+          </div>
           {formik.touched.investmentAmount && formik.errors.investmentAmount && (
             <div className="error">{formik.errors.investmentAmount}</div>
           )}

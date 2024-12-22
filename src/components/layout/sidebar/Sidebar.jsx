@@ -58,7 +58,7 @@ const Sidebar = () => {
 
           <div className={`menu-box`}>
             <ul>
-              <li className={`${location.pathname.startsWith(`/${ROUTER.projects}`) ? "active" : ""} ${userProjects.length === 0 ? "disabled" : ""}`}>
+              <li className={`${location.pathname.startsWith(`/${ROUTER.projects}`) ? "active" : ""} ${userProjects.length !== -1 ? "disabled" : ""}`}>
                 <Link to={ROUTER.projects}>
                   <ProfileNavTabIcon />
                   <span className="menu_text">Projects</span>
@@ -83,7 +83,7 @@ const Sidebar = () => {
                     location.pathname !== `/${ROUTER.synergiesManager}`
                     ? "active"
                     : ""
-                    } ${userProjects.length === 0 ? "disabled" : ""}`}
+                    } ${userProjects.length !== -1 ? "disabled" : ""}`}
                 >
                   <Link to={ROUTER.synergies}>
                     <SynergiesNavTabIcon />
@@ -119,8 +119,8 @@ const Sidebar = () => {
           <div className={`menu-box`}>
             <span className="separator"></span>
             <ul>
-              <li className={`${location.pathname === `/${ROUTER.chat}` ? "active" : ""} chat ${userProjects.length === 0 ? "disabled" : ""}`}>
-                <Link to={ROUTER.chat}>
+              <li className={`${location.pathname === `/${ROUTER.chat}` ? "active" : ""} chat ${userProjects?.length !== -1 ? "disabled" : ""}`}>
+                <Link to={userProjects?.length === 0 ? "#" : ROUTER.chat}>
                   <ChatNavTabIcon />
                   <span className="menu_text">Chat</span>
                   {/* <span className="notification">
@@ -145,13 +145,13 @@ const Sidebar = () => {
           <div className={`menu-box`}>
             <span className="separator"></span>
             <ul>
-              <li className={`${location.pathname.startsWith(`/${ROUTER.myContent}`) ? "active" : ""} ${userProjects?.length === 0 ? "disabled" : ""}`}>
+              <li className={`${location.pathname.startsWith(`/${ROUTER.myContent}`) ? "active" : ""} ${userProjects?.length !== -1 ? "disabled" : ""}`}>
                 <Link to={ROUTER.myContent}>
                   <MyContentNavTabIcon />
                   <span className="menu_text">My Content</span>
                 </Link>
               </li>
-              <li className={`${location.pathname.startsWith(`/${ROUTER.ambassadorProjects}`) ? "active" : ""} ${userProjects?.length === 0 ? "disabled" : ""}`}>
+              <li className={`${location.pathname.startsWith(`/${ROUTER.ambassadorProjects}`) ? "active" : ""} ${userProjects?.length !== -1 ? "disabled" : ""}`}>
                 <Link to={ROUTER.ambassadorProjects}>
                   <ProjectNavTabIcon />
                   <span className="menu_text">Exclusive Projects</span>
@@ -183,21 +183,21 @@ const Sidebar = () => {
       <div className="mobile_bottom_footer_wrap">
         <div className="mobile_bottom_footer">
           <ul>
-            <li className={`${location.pathname === `/${ROUTER.projects}` ? "active" : ""} ${userProjects?.length === 0 ? "disabled" : ""}`}>
+            <li className={`${location.pathname === `/${ROUTER.projects}` ? "active" : ""} ${userProjects?.length !== -1? "disabled" : ""}`}>
               <Link to={ROUTER.projects}>
                 <ProjectNavTabIcon />
                 <span>Projects</span>
               </Link>
             </li>
             {userRole == "ADMIN" && (
-              <li className={`${location.pathname === `/${ROUTER.projectManager}` ? "active" : ""}  ${userProjects?.length === 0 ? "disabled" : ""}`}>
+              <li className={`${location.pathname === `/${ROUTER.projectManager}` ? "active" : ""}  ${userProjects?.length !== -1 ? "disabled" : ""}`}>
                 <Link to={ROUTER.projectManager}>
                   <ProfileNavTabIcon />
                   <span>Projects manager</span>
                 </Link>
               </li>
             )}
-            <li className={`${location.pathname === `/${ROUTER.synergies}` ? "active" : ""}  ${userProjects?.length === 0 ? "disabled" : ""}`}>
+            <li className={`${location.pathname === `/${ROUTER.synergies}` ? "active" : ""}  ${userProjects?.length !== -1 ? "disabled" : ""}`}>
               <Link to={ROUTER.synergies}>
                 <SynergiesNavTabIcon />
                 <span>Synergies</span>
@@ -225,8 +225,8 @@ const Sidebar = () => {
                 </li>
               </>
             )}
-            <li className={`${location.pathname === `/${ROUTER.chat}` ? "active" : ""} ${userProjects?.length === 0 ? "disabled" : ""}`}>
-              <Link to={ROUTER.chat}>
+            <li className={`${location.pathname === `/${ROUTER.chat}` ? "active" : ""} ${userProjects?.length !== -1 ? "disabled" : ""}`}>
+              <Link to={userProjects?.length === 0 ? "#" : ROUTER.chat}>
                 <ChatNavTabIcon />
                 <span className="chat">
                   Chat 
