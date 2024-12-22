@@ -5,6 +5,7 @@ import "./karma.scss";
 // import { toast } from "react-toastify";
 import toast, { Toaster } from "react-hot-toast";
 import copyIcon from "../../assets/copy-icon.svg";
+import { KarmaIcon } from "../../utils/SVGs/SVGs";
  
 
 const Karma = () => {
@@ -114,7 +115,10 @@ const Karma = () => {
           <div className="karma_overview">
             <div className="karma_total">
               <h3>Total Karma Points</h3>
-              <div className="points">{karmaStats.totalKarmaPoints} KP</div>
+              <div className="points">
+                {karmaStats.totalKarmaPoints} 
+                <KarmaIcon style={{ width: '1em', height: '1em' }} />
+              </div>
             </div>
 
             <div className="karma_stats">
@@ -177,7 +181,7 @@ const Karma = () => {
       {showInvitePopup && (
         <div className="popup_overlay">
           <div className="popup_content">
-            <h3>Here is your invite link, share it to receive karma points</h3>
+            <h3>Here is your invite link, share it to receive Karma Points (KP)</h3>
             <div className="link_container">
               <p>{inviteLink}</p>
               <button className="copy_btn" onClick={handleCopyLink}>
