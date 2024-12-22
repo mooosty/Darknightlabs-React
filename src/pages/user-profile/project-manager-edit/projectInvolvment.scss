@@ -578,6 +578,55 @@
 
                   .form_group {
                     width: 100%;
+                    position: relative;
+
+                    input[type="email"] {
+                      padding: 15px 24px;
+                      border: 1px solid #ffffff80;
+                      background-color: transparent;
+                      width: 100%;
+                      color: #f5efdb;
+                      line-height: 19px;
+                      font-size: 16px;
+                      font-weight: 500;
+                      margin-bottom: 0;
+
+                      @media (max-width: 1600px) {
+                        padding: 10px 15px;
+                        font-size: 14px;
+                      }
+
+                      &:focus {
+                        outline: none;
+                      }
+
+                      &::placeholder {
+                        color: #f5efdb;
+                        opacity: 0.5;
+                      }
+                    }
+
+                    .validation-message {
+                      position: absolute;
+                      right: 24px;
+                      top: 50%;
+                      transform: translateY(-50%);
+                      font-size: 14px;
+                      white-space: nowrap;
+                      
+                      &.invalid {
+                        color: #ff4444;
+                      }
+                      
+                      &.valid {
+                        color: #52c41a;
+                      }
+
+                      @media (max-width: 1600px) {
+                        right: 15px;
+                        font-size: 12px;
+                      }
+                    }
                   }
 
                   .btn_delete {
