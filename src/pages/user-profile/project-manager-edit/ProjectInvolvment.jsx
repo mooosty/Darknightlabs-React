@@ -459,6 +459,7 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
                         setTags={(value) => {
                           setFieldValue("tags", value);
                         }}
+                        placeholder="Type a keyword and press Enter"
                       />
                     </div>
                   </div>
