@@ -12,17 +12,8 @@ import {
     projectTypesOptions,
     synergyAnglesOptions,
 } from "../../utils/constants/options";
-import { getTwitterUserAPI } from "../../api-services/userApis";
 
 const Projects = () => {
-    useEffect(() => {
-        const token = localStorage.getItem("dynamic_authentication_token");
-
-        if (token) {
-            
-        }
-    }, []);
-
     const dispatch = useDispatch();
 
     const [activeLayout, setActiveLayout] = useState("TRENDING");
@@ -177,20 +168,20 @@ const Projects = () => {
         setFilterFeaturedProject([...featuredProjectData]);
     }, [data]);
 
-    useEffect(() => {
-        (async () => {
-            const fetchTwitterUser = async () => {
-                const {
-                    payload: { data },
-                } = await dispatch(getTwitterUserAPI(233523232)).then(
-                    (res) => res
-                );
-                return data.length;
-            };
-            const length = await fetchTwitterUser();
-            
-        })();
-    }, []);
+    // useEffect(() => {
+    //     (async () => {
+    //         const fetchTwitterUser = async () => {
+    //             const {
+    //                 payload: { data },
+    //             } = await dispatch(getTwitterUserAPI(233523232)).then(
+    //                 (res) => res
+    //             );
+    //             return data.length;
+    //         };
+    //         const length = await fetchTwitterUser();
+
+    //     })();
+    // }, []);
 
     return (
         <>

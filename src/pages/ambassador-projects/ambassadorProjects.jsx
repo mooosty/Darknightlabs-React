@@ -34,7 +34,7 @@ const AmbassadorProjects = () => {
     );
 
     useEffect(() => {
-        let data = projects;
+        let data = [...projects];
         if (filter.searchBy !== "") {
             const searchKeyword = filter.searchBy.toLowerCase();
             data = data.filter(
@@ -44,12 +44,13 @@ const AmbassadorProjects = () => {
             );
         }
         setFilterProject([...data]);
-    }, [filter]);
+    }, [filter, projects]);
 
 
     useEffect(() => {
         dispatch(getProjectsAPI());
     }, []);
+
 
     return (
         <>

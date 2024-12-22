@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { ProfileNavTabIcon, CollapseRightIcon, CollapseLeftIcon, ChatNavTabIcon, LogoutNavTabIcon, ProjectNavTabIcon, MyContentNavTabIcon, SynergiesNavTabIcon, InvestmentNavTabIcon, PendingSynergiesNavTabIcon, SynergiesManagerNavTabIcon } from "../../../utils/SVGs/SVGs";
 
-const userRole = "ADMINa";
+const userRole = "ADMIN";
 const Sidebar = () => {
   const location = useLocation();
   const [isCollapse, setIsCollapse] = useState(false);

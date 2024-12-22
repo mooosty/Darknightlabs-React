@@ -5,12 +5,13 @@ import debounce from 'lodash.debounce';
 import { AmbassadorAccordion, AddContentPopup, DeleteConfirmPopup, SuccessfullyPopup, Loader } from '../../components';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { deleteContentAPI, getProjectContentAPI } from '../../api-services/contentApis';
+import { deleteContentAPI, getContentAPI } from '../../api-services/contentApis';
 
 
 const MyContent = () => {
 
     const dispatch = useDispatch()
+    const { userId } = useSelector((state) => state.auth)
     const { contents } = useSelector((state) => state.content)
     const { isLoading: projectApiLoading } = useSelector((state) => state.project)
 
@@ -29,7 +30,7 @@ const MyContent = () => {
         types: [],
         searchBy: "",
     });
-    
+
     const handleActive = (key) => {
         setActiveContentLayout(key);
     };
@@ -96,11 +97,10 @@ const MyContent = () => {
     );
 
     const handleGetProjectContent = () => {
-        dispatch(getProjectContentAPI(2))
+        dispatch(getContentAPI(userId))
             .then((response) => {
                 setFilteredContents(response?.payload ?? [])
             })
-
     }
 
     useEffect(() => {

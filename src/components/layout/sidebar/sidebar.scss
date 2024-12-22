@@ -315,13 +315,14 @@
 }
 
 .mobile_bottom_footer_wrap {
-    height: 100px;
+    max-height: 100px;
     position: fixed;
     bottom: 0;
     left: 0;
     display: none;
     width: 100vw;
     z-index: 99;
+    overflow: hidden;
 
     @media (max-width: 767px) {
         display: block;
@@ -461,7 +462,7 @@
                         font-size: 12px;
                     }
 
-                    img {
+                    img,svg {
                         width: 24px;
                         height: 24px;
                         margin-bottom: 8px;

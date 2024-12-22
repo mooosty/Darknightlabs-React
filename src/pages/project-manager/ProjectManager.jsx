@@ -611,15 +611,30 @@ const ProjectManager = () => {
           <CloseIcon />
           <span>Cancel</span>
         </button>
-        <button
-          onClick={() => {
-            handleAddFeature();
-            setIsBottomMenuOpen(false);
-          }}
-        >
-          <TableStatusIcon />
-          Add to Featured
-        </button>
+        {
+          data
+            .filter((project) => selectedProjects.includes(project.project_id))
+            .every((items) => items?.featured == 1) ?
+            <button
+              onClick={() => {
+                handleAddFeature(false);
+                setIsBottomMenuOpen(false);
+              }}
+            >
+              <CloseIcon />
+              <span>Remove Featured</span>
+            </button>
+            :
+            <button
+              onClick={() => {
+                handleAddFeature(true);
+                setIsBottomMenuOpen(false);
+              }}
+            >
+              <TableStatusIcon />
+              Add to Featured
+            </button>
+        }
         <button
           onClick={() => {
             handleCreateSynergy();

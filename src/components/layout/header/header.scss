@@ -16,7 +16,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 24px;
+        padding: 24px 20px;
         background-color: #090A0B;
     }
 
@@ -29,6 +29,7 @@
 
         @media(max-width: 767px) {
             display: block;
+            font-size: 20px;
         }
     }
 
@@ -38,11 +39,22 @@
         font-size: 16px;
     }
 
-    .sidbar_btn {
+    .sidebar_btn {
         display: none;
 
         @media(max-width: 767px) {
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 3px;
+
+            .dropdown {
+                .dropdown_btn {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
         }
     }
 

@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import "./karma.scss";
 // import { toast } from "react-toastify";
 import toast, { Toaster } from "react-hot-toast";
 import copyIcon from "../../assets/copy-icon.svg";
- 
+
 
 const Karma = () => {
   const [showInvitePopup, setShowInvitePopup] = useState(false);

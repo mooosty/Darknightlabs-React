@@ -1,15 +1,17 @@
-import { useState } from "react";
 import sidbarMenu from "../../../assets/menu.png"
 import CustomDropdown from "../../custom-dropdown/CustomDropdown"
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './header.scss'
 import { ProfileNavTabIcon, LogoutNavTabIcon } from "../../../utils/SVGs/SVGs";
 import { useNavigate } from 'react-router-dom';
 import { ROUTER } from '../../../utils/routes/routes';
+import { handleLogout } from "../../../store/slice/authSlice";
 
 
 const Header = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { userDetails } = useSelector((state) => state.user);
 
     const dropdownItems = [
         {
@@ -24,30 +26,28 @@ const Header = () => {
                 <LogoutNavTabIcon />
                 <span>Logout</span>
             </button>,
-            onClick: () => { localStorage.clear(); window.location.href = "/"; },
+            onClick: () => {
+                dispatch(handleLogout())
+                localStorage.clear();
+                navigate(ROUTER.authentication);
+            },
         },
     ];
 
-    const [isOpen, setIsOpen] = useState(false);
-    const toggleDropdown = () => {
-        setIsOpen(!isOpen);
-    };
-
-    const { userDetails } = useSelector((state) => state.user);
 
     return (
         <header className="header_wrp">
             <span className="currency">Balance: {userDetails?.currency_b || 0} KP</span>
             <h4 className='header_title'>Darknight Labs</h4>
             <button className="header_btn">Home page</button>
-            <div className="sidbar_btn">
+            <div className="sidebar_btn">
                 <CustomDropdown
                     toggleButton={
                         <img src={sidbarMenu} alt="" />
                     }
                     items={dropdownItems}
-                /></div>
-
+                />
+            </div>
         </header>
     )
 }

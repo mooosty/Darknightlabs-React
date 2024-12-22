@@ -1,5 +1,5 @@
 .page_box {
-  .content_header {
+  .synergy_details_content_header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -15,6 +15,7 @@
 
     @media (max-width: 767px) {
       margin-bottom: 0px;
+      background-color: #191917;
     }
 
 
@@ -26,11 +27,15 @@
       @media (max-width: 767px) {
         width: 100%;
         padding: 15px 24px;
+        gap: 10px;
         justify-content: space-between;
       }
 
+      @media (max-width: 500px) {
+        padding-inline: 20px;
+      }
+
       h2 {
-        font-size: 28px;
         color: #fff;
         font-weight: 500;
         font-family: "MedievalSharp", cursive;
@@ -65,7 +70,7 @@
     }
   }
 
-  .project_page_data {
+  .synergy_details_page_data {
     padding: 20px 0px;
     border-radius: 9px;
     background-color: #191917;
@@ -78,7 +83,7 @@
 
     @media (max-width: 767px) {
       border-radius: 0;
-      padding-block: 0px 40px;
+      padding-block: 0px 30px;
     }
 
     @media (max-height: 600px) {

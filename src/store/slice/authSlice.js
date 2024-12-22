@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  // token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIwLCJpYXQiOjE3MzEzOTExNjUsImV4cCI6MTczMzk4MzE2NX0.5mFJ_6QusnqM86nljTnKwhtpOUbDR25elCBFnWYtFco",
   userId: '',
   name: '',
   email: '',
@@ -52,8 +51,11 @@ const authSlice = createSlice({
         maxContributions: action?.payload?.maxContributions,
       };
     },
+    handleLogout: () => {
+      return initialState
+    },
   },
 });
 
-export const { storeAuthData, setWalletAddress, setWhitelistMessage, setMaxContributions } = authSlice.actions;
+export const { storeAuthData, setWalletAddress, setWhitelistMessage, setMaxContributions, handleLogout } = authSlice.actions;
 export default authSlice.reducer;

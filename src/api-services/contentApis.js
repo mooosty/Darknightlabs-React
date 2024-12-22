@@ -56,3 +56,11 @@ export const updateContentStatusAPI = createAsyncThunk('content/updateStatus',
         else return thunkAPI.rejectWithValue(response?.data)
     }
 )
+
+export const getContentAPI = createAsyncThunk('contentAll/get',
+    async (userId, thunkAPI) => {
+        const response = await axiosApi.get(`${apiRoutes.CONTENT_ALL}/${userId}`)
+        if (!response?.data?.success || response?.data?.success !== 0) return response?.data
+        else return thunkAPI.rejectWithValue(response?.data)
+    }
+)

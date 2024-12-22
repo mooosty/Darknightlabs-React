@@ -24,6 +24,7 @@ export const apiRoutes = {
 
     CHANGE_PASSWORD: '/users/change-password',
     CONTENT:'/content',
+    CONTENT_ALL:'/content/user',
     USER_WALLET: '/users/wallet',
     INVITES: '/invites',
 }

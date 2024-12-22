@@ -36,7 +36,7 @@ const SynergiesDetails = () => {
 
     return (
         <>
-            <div className="content_header">
+            <div className="synergy_details_content_header">
                 <div className="content_left">
                     <h2>Synergies</h2>
                 </div>
@@ -44,7 +44,7 @@ const SynergiesDetails = () => {
                     <a href="#">Darknight Labs</a>
                 </div>
             </div>
-            <div className="project_page_data">
+            <div className="synergy_details_page_data">
                 <div className="page_data">
                     <div className="page_header">
                         <div className="pagination">

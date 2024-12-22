@@ -11,10 +11,26 @@
             margin-bottom: 20px;
         }
 
+        @media (max-width: 767px) {
+            margin-bottom: 0px;
+            background-color: #191917;
+        }
+
         .karma_content_left {
             display: flex;
             align-items: center;
             gap: 10px;
+
+            @media (max-width: 767px) {
+                width: 100%;
+                padding: 15px 24px;
+                gap: 10px;
+                justify-content: space-between;
+            }
+
+            @media (max-width: 500px) {
+                padding-inline: 20px;
+            }
 
             h2 {
                 color: #fff;
@@ -42,6 +58,7 @@
 
         @media (max-width: 767px) {
             border-radius: 0;
+            padding-top: 0;
         }
 
         .page_data {
@@ -49,6 +66,10 @@
             background-color: transparent;
             overflow-y: auto;
             padding: 0 30px;
+
+            @media (max-width: 767px) {
+                padding: 0 20px;
+            }
 
             .karma_overview {
                 background: #242623;
@@ -314,4 +335,4 @@
             }
         }
     }
-} 
+}
