@@ -471,7 +471,10 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
                             <Select
                               options={[
                                 { label: "Owner", value: "Owner" },
-                                { label: "Joan of Arc", value: "Joan of Arc" },
+                                { label: "C-Level", value: "C-Level" },
+                                { label: "Web3 employee", value: "Web3 employee" },
+                                { label: "KOL / Ambassador / Content Creator", value: "KOL / Ambassador / Content Creator" },
+                                { label: "Angel Investor", value: "Angel Investor" },
                               ]}
                               value={member.position}
                               onChange={(value) => {

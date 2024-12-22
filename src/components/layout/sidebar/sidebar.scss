@@ -482,3 +482,47 @@
         margin-bottom: 10px;
     }
 }
+
+.back_button {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: #F5EFDB;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    margin-bottom: 16px;
+    transition: all 0.2s ease;
+    border-radius: 8px;
+
+    &:hover {
+        background: rgba(255, 138, 28, 0.1);
+    }
+
+    span {
+        font-size: 20px;
+    }
+}
+
+.ambassador_title {
+    text-align: center;
+    color: #F5EFDB;
+    font-family: "MedievalSharp", cursive;
+    font-size: 24px;
+    margin-bottom: 20px;
+    
+    @media (max-width: 1600px) {
+        font-size: 20px;
+    }
+}
+
+/* Mobile styles */
+@media (max-width: 767px) {
+    .back_button {
+        margin: 10px;
+        justify-content: center;
+    }
+}
