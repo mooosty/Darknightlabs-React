@@ -3,7 +3,7 @@ import sidbarMenu from "../../../assets/menu.png"
 import CustomDropdown from "../../custom-dropdown/CustomDropdown"
 import { useSelector } from 'react-redux';
 import './header.scss'
-import { ProfileNavTabIcon, LogoutNavTabIcon, KarmaIcon } from "../../../utils/SVGs/SVGs";
+import { ProfileNavTabIcon, LogoutNavTabIcon } from "../../../utils/SVGs/SVGs";
 import { useNavigate } from 'react-router-dom';
 import { ROUTER } from '../../../utils/routes/routes';
 
@@ -33,24 +33,22 @@ const Header = () => {
         setIsOpen(!isOpen);
     };
 
-    const { userDetails } = useSelector((state) => state.user);
-
     return (
         <header className="header_wrp">
-            <span className="currency">
-                Balance: {userDetails?.currency_b || 0} 
-                <KarmaIcon style={{ width: '1em', height: '1em' }} />
-            </span>
-            <h4 className='header_title'>Darknight Labs</h4>
-            <button className="header_btn">Home page</button>
-            <div className="sidbar_btn">
-                <CustomDropdown
-                    toggleButton={
-                        <img src={sidbarMenu} alt="" />
-                    }
-                    items={dropdownItems}
-                /></div>
-
+            <div className="header_left">
+                <h4 className='header_title'>Darknight Labs</h4>
+            </div>
+            <div className="header_right">
+                <button className="header_btn">Home page</button>
+                <div className="sidbar_btn">
+                    <CustomDropdown
+                        toggleButton={
+                            <img src={sidbarMenu} alt="" />
+                        }
+                        items={dropdownItems}
+                    />
+                </div>
+            </div>
         </header>
     )
 }

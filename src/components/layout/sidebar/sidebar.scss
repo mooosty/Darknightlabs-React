@@ -108,6 +108,20 @@
                     white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;
+                    margin-bottom: 5px;
+                }
+
+                .balance {
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+                    color: #F5EFDB;
+                    font-size: 14px;
+                    opacity: 0.8;
+
+                    svg {
+                        color: #F5EFDB;
+                    }
                 }
             }
         }

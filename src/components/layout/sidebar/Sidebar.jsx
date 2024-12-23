@@ -5,7 +5,7 @@ import { ROUTER } from "../../../utils/routes/routes";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { ProfileNavTabIcon, ChatNavTabIcon, LogoutNavTabIcon, ProjectNavTabIcon, MyContentNavTabIcon, SynergiesNavTabIcon, InvestmentNavTabIcon, PendingSynergiesNavTabIcon, SynergiesManagerNavTabIcon } from "../../../utils/SVGs/SVGs";
+import { ProfileNavTabIcon, ChatNavTabIcon, LogoutNavTabIcon, ProjectNavTabIcon, MyContentNavTabIcon, SynergiesNavTabIcon, InvestmentNavTabIcon, PendingSynergiesNavTabIcon, SynergiesManagerNavTabIcon, KarmaIcon } from "../../../utils/SVGs/SVGs";
 
 const userRole = "ADMINa";
 const Sidebar = () => {
@@ -14,6 +14,7 @@ const Sidebar = () => {
   const [isAmbassadorMode, setIsAmbassadorMode] = useState(false);
   const [userProjects, setUserProjects] = useState([]);
   const userData = useSelector((state) => state.auth);
+  const { userDetails } = useSelector((state) => state.user);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -59,6 +60,10 @@ const Sidebar = () => {
             <div className="user_name">
               <h3>{userData.name.split(" ")[0]}</h3>
               <p>User</p>
+              <div className="balance">
+                <span>Balance: {userDetails?.currency_b || 0}</span>
+                <KarmaIcon style={{ width: '1em', height: '1em' }} />
+              </div>
             </div>
           </div>
 
