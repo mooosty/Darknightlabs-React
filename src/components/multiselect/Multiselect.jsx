@@ -51,6 +51,7 @@ const Multiselect = ({
     return (
         <div
             className="multiselect_wrapper"
+                ref={listRef}
         >
             <div
                 className="custom_multiselect_field"
@@ -81,7 +82,6 @@ const Multiselect = ({
             </div>
             <div
                 className={`custom_multiselect_list ${isOpen ? 'active' : ''}`}
-                ref={listRef}
             >
                 <ul>
                     {

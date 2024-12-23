@@ -758,6 +758,13 @@ export const SynergiesNavTabIcon = () => {
     )
 }
 
+export const KarmaNavTabIcon = () => {
+    return (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L14.4 9.2H22L16 13.9L18.4 21.1L12 16.4L5.6 21.1L8 13.9L2 9.2H9.6L12 2Z" stroke="#F5EFDB" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+    )
+}
 
 export const ProjectNavTabIcon = () => {
     return (

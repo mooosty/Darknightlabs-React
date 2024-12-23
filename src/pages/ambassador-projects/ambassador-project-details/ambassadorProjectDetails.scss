@@ -159,6 +159,7 @@
 
           span {
             height: 25px;
+
             svg {
               margin-top: -3px;
               width: 25px;
@@ -204,7 +205,7 @@
           }
 
           @media (max-width: 767px) {
-            height: calc(100vh - 272px);
+            height: calc(100vh - 235px);
             gap: 10px;
             padding: 0px;
             position: relative;
@@ -308,7 +309,7 @@
 
           .ambassador_project_page_content {
             width: 70%;
-           
+
             @media(max-width: 1200px) {
               width: 100%;
             }

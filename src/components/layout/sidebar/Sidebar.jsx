@@ -1,21 +1,25 @@
 import "./sidebar.scss";
-import karmaIcon from "../../../assets/karma-icon.svg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ROUTER } from "../../../utils/routes/routes";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { ProfileNavTabIcon, ChatNavTabIcon, LogoutNavTabIcon, ProjectNavTabIcon, MyContentNavTabIcon, SynergiesNavTabIcon, InvestmentNavTabIcon, PendingSynergiesNavTabIcon, SynergiesManagerNavTabIcon, KarmaIcon } from "../../../utils/SVGs/SVGs";
+import { ProfileNavTabIcon, CollapseLeftIcon, CollapseRightIcon, ChatNavTabIcon, LogoutNavTabIcon, ProjectNavTabIcon, MyContentNavTabIcon, SynergiesNavTabIcon, InvestmentNavTabIcon, PendingSynergiesNavTabIcon, SynergiesManagerNavTabIcon, KarmaNavTabIcon } from "../../../utils/constants/images";
+import { KarmaIcon } from "../../../utils/SVGs/SVGs";
 
 const userRole = "ADMIN";
 const Sidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [isAmbassadorMode, setIsAmbassadorMode] = useState(false);
+  const [isCollapse, setIsCollapse] = useState(false);
   const [userProjects, setUserProjects] = useState([]);
   const userData = useSelector((state) => state.auth);
   const { userDetails } = useSelector((state) => state.user);
 
+  const handleCollapse = () => {
+    setIsCollapse(!isCollapse);
+  };
   useEffect(() => {
     const fetchProjects = async () => {
       try {
@@ -43,7 +47,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className="sidebar_container">
+      <div className={`sidebar_container ${isCollapse ? "sidebar_collapsed" : ""}`}>
         <div className="sidebar">
           {isAmbassadorMode && (
             <h2 className="ambassador_title">Ambassadorship</h2>
@@ -56,9 +60,17 @@ const Sidebar = () => {
               <h3>{userData.name.split(" ")[0]}</h3>
               <p>User</p>
               <div className="balance">
-                <span>Balance: {userDetails?.currency_b || 0}</span>
-                <KarmaIcon style={{ width: '1em', height: '1em' }} />
+                <span>Balance: </span>
+                <span>{userDetails?.currency_b || 0}
+                  <KarmaIcon style={{ width: '1em', height: '1em' }} /></span>
               </div>
+              <button className="collapse_btn" onClick={handleCollapse}>
+                {isCollapse ? (
+                  <CollapseRightIcon />
+                ) : (
+                  <CollapseLeftIcon />
+                )}
+              </button>
             </div>
           </div>
 
@@ -139,7 +151,7 @@ const Sidebar = () => {
                   </li>
                   <li className={`${location.pathname === `/${ROUTER.karma}` ? "active" : ""}`}>
                     <Link to={ROUTER.karma}>
-                      <img src={karmaIcon} alt="Karma" />
+                      <KarmaNavTabIcon />
                       <span className="menu_text">Karma</span>
                     </Link>
                   </li>
@@ -154,7 +166,7 @@ const Sidebar = () => {
               <div className="menu-box">
                 <span className="separator"></span>
                 <ul>
-                  <li 
+                  <li
                     className={`${location.pathname.includes('ambassador') || location.pathname.includes('my-content') ? "active" : ""}`}
                     onClick={handleAmbassadorClick}
                   >
@@ -192,7 +204,7 @@ const Sidebar = () => {
               {isAmbassadorMode ? (
                 <li>
                   <Link to="#" onClick={handleBackClick} style={{ color: '#e8efdb' }}>
-                    <span className="menu_text">← Back to Menu</span>
+                    ←<span className="menu_text"> Back to Menu</span>
                   </Link>
                 </li>
               ) : (
@@ -201,7 +213,7 @@ const Sidebar = () => {
                     to="/"
                     onClick={() => {
                       localStorage.clear();
-                      window.location.href = "/";
+                      navigate(ROUTER.authentication);
                     }}
                   >
                     <LogoutNavTabIcon />
@@ -220,7 +232,7 @@ const Sidebar = () => {
           <ul>
             {!isAmbassadorMode ? (
               <>
-                <li className={`${location.pathname === `/${ROUTER.projects}` ? "active" : ""} ${userProjects?.length !== -1? "disabled" : ""}`}>
+                <li className={`${location.pathname === `/${ROUTER.projects}` ? "active" : ""} ${userProjects?.length !== -1 ? "disabled" : ""}`}>
                   <Link to={ROUTER.projects}>
                     <ProjectNavTabIcon />
                     <span>Projects</span>
@@ -266,14 +278,14 @@ const Sidebar = () => {
                   <Link to={userProjects?.length === 0 ? "#" : ROUTER.chat}>
                     <ChatNavTabIcon />
                     <span className="chat">
-                      Chat 
+                      Chat
                       {/* <p className="chat_count">1</p> */}
                     </span>
                   </Link>
                 </li>
                 <li className={`${location.pathname === `/${ROUTER.karma}` ? "active" : ""}`}>
                   <Link to={ROUTER.karma}>
-                    <img src={karmaIcon} alt="" />
+                    <KarmaNavTabIcon />
                     <span>Karma</span>
                   </Link>
                 </li>

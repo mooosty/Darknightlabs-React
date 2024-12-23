@@ -450,107 +450,111 @@ const ProjectManager = () => {
             </div>
           </div>
           <div className="project_page_body">
-            {activeLayout === "TABLE" && (
-              <div className={`project_page_table_handler ${!(createSynergyStep >= 1) > 0 ? "active" : ""}`}>
-                <div className="selected_count">
-                  <div className="costum_checkbox">
-                    <input
-                      type="checkbox"
-                      id="checkboxSelected"
-                      className="costum_checkbox_input"
-                      checked={selectedProjects.length === filterProject.length && filterProject.length !== 0}
-                      readOnly
-                    />
-                    <label
-                      htmlFor="checkboxSelected"
-                      className="costum_checkbox_label"
-                      onClick={handleSelectAllProjects}
-                    ></label>
+            <div className="project_table_view">
+              {activeLayout === "TABLE" && (
+                <div className={`project_page_table_handler ${!(createSynergyStep >= 1) > 0 ? "active" : ""}`}>
+                  <div className="selected_count">
+                    <div className="costum_checkbox">
+                      <input
+                        type="checkbox"
+                        id="checkboxSelected"
+                        className="costum_checkbox_input"
+                        checked={selectedProjects.length === filterProject.length && filterProject.length !== 0}
+                        readOnly
+                      />
+                      <label
+                        htmlFor="checkboxSelected"
+                        className="costum_checkbox_label"
+                        onClick={handleSelectAllProjects}
+                      ></label>
+                    </div>
+                    <span>{selectedProjects.length} Selected</span>
                   </div>
-                  <span>{selectedProjects.length} Selected</span>
+                  {selectedProjects.length > 0 && (
+                    <>
+                      <div className="table_actions">
+                        <button className="btn_cancle btn_gray" onClick={handleCancelSelection}>
+                          <CloseIcon />
+                          <span>Cancel</span>
+                        </button>
+                        {
+                          data
+                            .filter((project) => selectedProjects.includes(project.project_id))
+                            .every((items) => items?.featured == 1) ? (
+                            <button
+                              className="btn_cancle btn_gray"
+                              onClick={() => {
+                                handleAddFeature(false);
+                              }}
+                            >
+                              <CloseIcon />
+                              <span>Remove Featured</span>
+                            </button>
+                          ) : (
+                            <button
+                              className="btn_featured btn_gray"
+                              onClick={() => {
+                                handleAddFeature(true);
+                              }}
+                            >
+                              <TableStatusIcon />
+                              <span>Add to Featured</span>
+                            </button>
+                          )
+                        }
+
+
+                        <button
+                          className="btn_create btn_gray"
+                          onClick={() => {
+                            handleCreateSynergy();
+                          }}
+                        >
+                          <InfiniteIcon />
+                          <span>Create Synergy</span>
+                        </button>
+                        <button
+                          className="btn_delete"
+                          onClick={() => {
+                            setIsMultiDltConfirmPopupOpen(true);
+                          }}
+                        >
+                          <DeleteIcon />
+                          <span>Delete</span>
+                        </button>
+                      </div>
+                      <div className="table_actions_button">
+                        <button
+                          className="button_delete "
+                          onClick={() => {
+                            setIsMultiDltConfirmPopupOpen(true);
+                          }}
+                        >
+                          <DeleteIcon />
+                        </button>
+                        <button className="menu_button" onClick={() => setIsBottomMenuOpen(true)}>
+                          <MoreIcon />
+                        </button>
+                      </div>
+                    </>
+                  )}
                 </div>
-                {selectedProjects.length > 0 && (
-                  <>
-                    <div className="table_actions">
-                      <button className="btn_cancle btn_gray" onClick={handleCancelSelection}>
-                        <CloseIcon />
-                        <span>Cancel</span>
-                      </button>
-                      {
-                        data
-                          .filter((project) => selectedProjects.includes(project.project_id))
-                          .every((items) => items?.featured == 1) ? (
-                          <button
-                            className="btn_cancle btn_gray"
-                            onClick={() => {
-                              handleAddFeature(false);
-                            }}
-                          >
-                            <CloseIcon />
-                            <span>Remove Featured</span>
-                          </button>
-                        ) : (
-                          <button
-                            className="btn_featured btn_gray"
-                            onClick={() => {
-                              handleAddFeature(true);
-                            }}
-                          >
-                            <TableStatusIcon />
-                            <span>Add to Featured</span>
-                          </button>
-                        )
-                      }
-
-
-                      <button
-                        className="btn_create btn_gray"
-                        onClick={() => {
-                          handleCreateSynergy();
-                        }}
-                      >
-                        <InfiniteIcon />
-                        <span>Create Synergy</span>
-                      </button>
-                      <button
-                        className="btn_delete"
-                        onClick={() => {
-                          setIsMultiDltConfirmPopupOpen(true);
-                        }}
-                      >
-                        <DeleteIcon />
-                        <span>Delete</span>
-                      </button>
-                    </div>
-                    <div className="table_actions_button">
-                      <button
-                        className="button_delete "
-                        onClick={() => {
-                          setIsMultiDltConfirmPopupOpen(true);
-                        }}
-                      >
-                        <DeleteIcon />
-                      </button>
-                      <button className="menu_button" onClick={() => setIsBottomMenuOpen(true)}>
-                        <MoreIcon />
-                      </button>
-                    </div>
-                  </>
-                )}
-              </div>
-            )}
-            {activeLayout === "TABLE" && (
-              <ProjectManagerTableLayout
-                filterProject={filterProject}
-                selectedProjects={selectedProjects}
-                selectedProjectForSynergy={selectedProjectForSynergy}
-                createSynergyStep={createSynergyStep}
-                handleSelectProject={handleSelectProject}
-                setIsDeleteConfirmPopupOpen={setIsDeleteConfirmPopupOpen}
-                setDltId={setDltId}
-              />
-            )}
-            {activeLayout === "GRID" && <ProjectManagerGridLayout filterProject={filterProject} />}
+              )}
+              {activeLayout === "TABLE" && (
+                <ProjectManagerTableLayout
+                  filterProject={filterProject}
+                  selectedProjects={selectedProjects}
+                  selectedProjectForSynergy={selectedProjectForSynergy}
+                  createSynergyStep={createSynergyStep}
+                  handleSelectProject={handleSelectProject}
+                  setIsDeleteConfirmPopupOpen={setIsDeleteConfirmPopupOpen}
+                  setDltId={setDltId}
+                />
+              )}
+            </div>
+            <div className="project_grid_view">
+              {activeLayout === "GRID" && <ProjectManagerGridLayout filterProject={filterProject} />}
+            </div>
           </div>
         </div>
       </div>

@@ -76,6 +76,7 @@ import { LogoutNavTabIcon } from '../SVGs/SVGs';
 import { PendingSynergiesNavTabIcon } from '../SVGs/SVGs';
 import { SynergiesManagerNavTabIcon } from '../SVGs/SVGs';
 import { MyContentNavTabIcon } from '../SVGs/SVGs';
+import { KarmaNavTabIcon } from '../SVGs/SVGs';
 import { ListIcon } from '../SVGs/SVGs';
 import { GridIcon } from '../SVGs/SVGs';
 import { StarIcon } from '../SVGs/SVGs';
@@ -207,6 +208,7 @@ export {
     PendingSynergiesNavTabIcon,
     SynergiesManagerNavTabIcon,
     MyContentNavTabIcon,
+    KarmaNavTabIcon,
     ListIcon,
     GridIcon,
     StarIcon,

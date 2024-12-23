@@ -147,7 +147,7 @@
 
 
             @media (max-width: 767px) {
-                height: calc(100vh - 272px);
+                height: calc(100vh - 235px);
             }
 
             .synergies_page_header {
@@ -197,7 +197,6 @@
 
             .synergies_page_body {
                 display: flex;
-                flex-direction: column;
                 padding-inline: 30px;
 
                 @media (max-width: 767px) {

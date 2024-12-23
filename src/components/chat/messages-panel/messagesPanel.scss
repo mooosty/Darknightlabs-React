@@ -96,6 +96,7 @@
                         overflow: hidden;
                         text-overflow: ellipsis;
                         white-space: nowrap;
+                        text-transform: capitalize;
 
                         @media (max-width: 900px) {
                             max-width: 25vw;
@@ -105,8 +106,9 @@
 
                     .time {
                         font-size: 12px;
+                        padding-top: 1px;
                         color: #ffffff80;
-                        line-height: 18px;
+                        line-height: 19px;
                     }
                 }
 

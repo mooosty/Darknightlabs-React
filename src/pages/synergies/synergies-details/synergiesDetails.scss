@@ -167,7 +167,6 @@
           }
 
           @media (max-width: 767px) {
-            height: calc(100vh - 272px);
             gap: 10px;
             padding: 0px;
             position: relative;
@@ -296,7 +295,7 @@
                 position: absolute;
                 width: 100%;
                 padding-inline: 16px;
-                top: 265px;
+                top: 220px;
                 left: 0;
               }
 
@@ -400,7 +399,7 @@
               color: #F5EFDB;
 
               @media (max-width: 767px) {
-                margin-top: 35px;
+                margin-top: 15px;
               }
 
               .synergy_header {
