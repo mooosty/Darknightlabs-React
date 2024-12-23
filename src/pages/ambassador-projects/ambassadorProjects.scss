@@ -252,7 +252,6 @@
                                 flex-basis: calc(100% / 4);
                                 max-width: calc(100% / 4);
 
-
                                 @media (max-width: 1300px) {
                                     flex-basis: calc(100% / 3);
                                     max-width: calc(100% / 3);
@@ -265,8 +264,17 @@
                                 }
 
                                 @media (max-width: 500px) {
-                                    flex-basis: calc(100%);
-                                    max-width: calc(100%);
+                                    flex-basis: calc(100% / 1);
+                                    max-width: calc(100% / 1);
+                                }
+
+                                .ambassador_card {
+                                    filter: blur(10px);
+                                    transition: filter 0.3s ease;
+
+                                    &:hover {
+                                        filter: blur(10px);
+                                    }
                                 }
                             }
                         }

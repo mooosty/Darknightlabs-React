@@ -638,7 +638,7 @@
                         transition: color 0.2s ease;
 
                         &:hover {
-                            color: #ff8a1c;
+                            color: #111010;
                         }
                     }
                 }
@@ -772,7 +772,7 @@
                         .submit-button {
                             width: 100%;
                             padding: 12px;
-                            background: #ff8a1c;
+                            background: #dbbf57;
                             border: none;
                             border-radius: 8px;
                             color: #191917;
@@ -783,7 +783,7 @@
                             margin-top: 20px;
 
                             &:hover {
-                                background: #ff9e33;
+                                background: #DCCA87;
                             }
 
                             &:active {
@@ -795,7 +795,7 @@
                                 cursor: not-allowed;
 
                                 &:hover {
-                                    background: #ff8a1c;
+                                    background: #dbbf57;
                                 }
                             }
                         }
@@ -857,4 +857,42 @@
             }
         }
     }
+
+    strong {
+        color: rgba(245, 239, 219, 0.7);
+        min-width: 80px;
+        flex-shrink: 0;
+    }
+
+    .copy-address {
+        cursor: pointer;
+        color: #F5EFDB;
+        position: relative;
+        padding: 2px 4px;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        flex: 1;
+        border-bottom: 1px dashed rgba(245, 239, 219, 0.4);
+
+        &:hover {
+            background: rgba(255, 138, 28, 0.1);
+            border-radius: 4px;
+            border-bottom-color: #ff8a1c;
+        }
+
+        &:active {
+            background: rgba(255, 138, 28, 0.2);
+        }
+    }
+}
+
+
+.karma_needed {
+    margin-top: 16px;
+    font-family: Arial, sans-serif; // Normal font
+    font-size: 14px;
+    color: #fff;
+    opacity: 0.8;
 }

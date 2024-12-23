@@ -151,11 +151,10 @@ const Authentication = () => {
 
   useEffect(() => {
     if (authDetails && didRun) {
-      
       if (data.length > 0) {
         navigate(`/${ROUTER.projects}`);
       } else {
-        navigate(`/${ROUTER.profile}`);
+        navigate(`/welcome`);
       }
     }
   }, [data, authDetails, didRun]);

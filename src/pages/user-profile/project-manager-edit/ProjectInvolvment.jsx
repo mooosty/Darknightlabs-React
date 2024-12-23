@@ -12,6 +12,8 @@ import { addProjectAPI, deleteProjectAPI, addMemberAPI, getProjectsApiById } fro
 import { DeleteIcon, PlusIcon, sepratorImage, RightIcon, SearchIcon } from "../../../utils/constants/images";
 import PropTypes from "prop-types";
 import toast, { Toaster } from "react-hot-toast";
+import debounce from 'lodash.debounce';
+import { axiosApi } from '../../../api-services/service';
 
 const ProjectInvolvment = ({ setAddNewProject }) => {
   const dispatch = useDispatch();
@@ -23,6 +25,7 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
   const [whoAccessToInvestmentSide, setWhoAccessToInvestmentSide] = useState("All Users");
   const [isDeleteConfirmPopupOpen, setIsDeleteConfirmPopupOpen] = useState(false);
   const [angelPopupIndex, setAngelPopupIndex] = useState();
+  const [emailValidationResults, setEmailValidationResults] = useState({});
 
   const userData = useSelector((state) => state.user.users);
   const {
@@ -291,6 +294,49 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
     dispatch(getUsersAPI());
   }, []);
 
+  const validateEmail = async (email, index) => {
+    if (!email) {
+      setEmailValidationResults(prev => ({
+        ...prev,
+        [index]: { isValid: false, message: '', username: '' }
+      }));
+      return;
+    }
+
+    try {
+      const response = await axiosApi.get(`/users/email/${email}`);
+
+      if (response.data?.success === 1) {
+        setEmailValidationResults(prev => ({
+          ...prev,
+          [index]: { 
+            isValid: true, 
+            message: `User: ${response.data.data.username}`,
+            username: response.data.data.username,
+            userId: response.data.data.id
+          }
+        }));
+        
+        setFieldValue("members", [
+          ...values.members.slice(0, index),
+          {
+            ...values.members[index],
+            userId: response.data.data.id,
+            name: response.data.data.username
+          },
+          ...values.members.slice(index + 1),
+        ]);
+      }
+    } catch (error) {
+      setEmailValidationResults(prev => ({
+        ...prev,
+        [index]: { isValid: false, message: "User doesn't exist" }
+      }));
+    }
+  };
+
+  const debouncedValidateEmail = debounce(validateEmail, 300);
+
   return (
     <>
 
@@ -413,6 +459,7 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
                         setTags={(value) => {
                           setFieldValue("tags", value);
                         }}
+                        placeholder="Type a keyword and press Enter"
                       />
                     </div>
                   </div>
@@ -443,62 +490,71 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
                   <label htmlFor="arc">Members</label>
                   {values.members.map((member, index) => {
                     return (
-                      <>
-                        <div className="form_item_box">
-                          <div className="form_group">
-                            <Select
-                              options={userData?.map((user) => {
-                                return {
-                                  label: `${user.firstname} ${user.lastname}`,
-                                  value: user.id,
-                                };
-                              })}
-                              value={member.userId}
-                              onChange={(value) => {
-                                setFieldValue("members", [
-                                  ...values.members.slice(0, index),
-                                  {
-                                    name: value.label,
-                                    userId: value.value,
-                                    position: member.position,
-                                  },
-                                  ...values.members.slice(index + 1),
-                                ]);
-                              }}
-                            />
-                          </div>
-                          <div className="form_group">
-                            <Select
-                              options={[
-                                { label: "Owner", value: "Owner" },
-                                { label: "Joan of Arc", value: "Joan of Arc" },
-                              ]}
-                              value={member.position}
-                              onChange={(value) => {
-                                setFieldValue("members", [
-                                  ...values.members.slice(0, index),
-                                  {
-                                    ...member,
-                                    position: value.value,
-                                  },
-                                  ...values.members.slice(index + 1),
-                                ]);
-                              }}
-                            />
-                          </div>
-                          <button
-                            className="btn_delete"
-                            onClick={() => {
+                      <div className="form_item_box" key={index}>
+                        <div className="form_group">
+                          <input
+                            type="email"
+                            placeholder="Member email"
+                            value={member.email || ''}
+                            onChange={(e) => {
+                              const email = e.target.value;
                               setFieldValue("members", [
                                 ...values.members.slice(0, index),
+                                {
+                                  ...member,
+                                  email: email
+                                },
+                                ...values.members.slice(index + 1),
+                              ]);
+                              debouncedValidateEmail(email, index);
+                            }}
+                          />
+                          {emailValidationResults[index] && (
+                            <div className={`validation-message ${emailValidationResults[index].isValid ? 'valid' : 'invalid'}`}>
+                              {emailValidationResults[index].message}
+                            </div>
+                          )}
+                        </div>
+                        <div className="form_group">
+                          <Select
+                            options={[
+                              { label: "Owner", value: "Owner" },
+                              { label: "C-Level", value: "C-Level" },
+                              { label: "Web3 employee", value: "Web3 employee" },
+                              { label: "KOL / Ambassador / Content Creator", value: "KOL / Ambassador / Content Creator" },
+                              { label: "Angel Investor", value: "Angel Investor" },
+                            ]}
+                            value={member.position}
+                            onChange={(value) => {
+                              setFieldValue("members", [
+                                ...values.members.slice(0, index),
+                                {
+                                  ...member,
+                                  position: value.value,
+                                },
                                 ...values.members.slice(index + 1),
                               ]);
                             }}
-                          >
-                            <DeleteIcon />
-                          </button>
+                          />
                         </div>
-                      </>
+                        <button
+                          className="btn_delete"
+                          onClick={() => {
+                            setFieldValue("members", [
+                              ...values.members.slice(0, index),
+                              ...values.members.slice(index + 1),
+                            ]);
+                            // Clear validation result for this index
+                            setEmailValidationResults(prev => {
+                              const newResults = { ...prev };
+                              delete newResults[index];
+                              return newResults;
+                            });
+                          }}
+                        >
+                          <DeleteIcon />
+                        </button>
+                      </div>
                     );
                   })}
                   <button

@@ -2,7 +2,6 @@
     background-color: #191917;
     padding: 24px;
     border-radius: 9px;
-    transition: 0.5s;
     width: 300px;
     flex-shrink: 0;
     height: calc(100vh - 132px);
@@ -19,102 +18,6 @@
 
     @media (max-width: 767px) {
         display: none;
-    }
-
-    &.sidebar_collapsed {
-        padding: 10px 8px;
-        width: 65px;
-
-        @media(max-width: 1600px) {
-            height: calc(100vh - 45px);
-        }
-
-        .sidebar {
-            .ambassadors_text {
-                margin-top: 8px;
-                font-size: 14px;
-                max-width: 50px;
-            }
-
-            .separator {
-                flex-shrink: 0;
-                margin-bottom: 0px;
-            }
-
-
-            .profile_box {
-                align-items: center;
-                flex-direction: column;
-                padding-top: 45px;
-                margin-bottom: 14px;
-
-                .profile_image {
-                    height: 45px;
-                    width: 45px;
-                }
-
-                .user_name {
-                    text-align: center;
-
-                    h3 {
-                        font-size: 13px;
-                        max-width: 50px;
-                    }
-
-                    p {
-                        max-width: 50px;
-                        font-size: 12px
-                    }
-                }
-
-                .collapse_btn {
-                    right: auto;
-                    left: 25%;
-                }
-            }
-
-            .menu-box {
-                ul li a {
-                    gap: 0;
-                    justify-content: center;
-                    align-items: center;
-                    position: relative;
-
-                    .menu_text {
-                        display: none;
-                    }
-
-                    .notification {
-                        position: absolute;
-                        top: 5px;
-                        right: 10px;
-                        height: 8px;
-                        width: 8px;
-                        display: flex;
-                        justify-content: start;
-                        align-items: center;
-
-                        .notification_text {
-                            display: none;
-                        }
-                    }
-                }
-
-                .disabled {
-                    position: relative;
-
-                    &::before {
-                        content: "";
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        z-index: 99;
-                    }
-                }
-            }
-        }
     }
 
     .sidebar {
@@ -205,15 +108,21 @@
                     white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;
+                    margin-bottom: 5px;
                 }
-            }
 
-            .collapse_btn {
-                position: absolute;
-                top: 0;
-                right: 0;
-                background: transparent;
-                border: none;
+                .balance {
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+                    color: #F5EFDB;
+                    font-size: 14px;
+                    opacity: 0.8;
+
+                    svg {
+                        color: #F5EFDB;
+                    }
+                }
             }
         }
 
@@ -481,5 +390,49 @@
         bottom: 100%;
         transform: translateX(-50%);
         margin-bottom: 10px;
+    }
+}
+
+.back_button {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: #F5EFDB;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    margin-bottom: 16px;
+    transition: all 0.2s ease;
+    border-radius: 8px;
+
+    &:hover {
+        background: rgba(255, 138, 28, 0.1);
+    }
+
+    span {
+        font-size: 20px;
+    }
+}
+
+.ambassador_title {
+    text-align: center;
+    color: #F5EFDB;
+    font-family: "MedievalSharp", cursive;
+    font-size: 24px;
+    margin-bottom: 20px;
+    
+    @media (max-width: 1600px) {
+        font-size: 20px;
+    }
+}
+
+/* Mobile styles */
+@media (max-width: 767px) {
+    .back_button {
+        margin: 10px;
+        justify-content: center;
     }
 }

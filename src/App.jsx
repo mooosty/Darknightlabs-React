@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./components/layout/Layout";
 import Authentication from "./pages/authentication/Authentication";
 import Projects from "./pages/projects/Projects";
@@ -21,32 +21,52 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SynergyRequest from "./pages/pending-synergies/SynergyRequest";
 import SynergiesManager from "./pages/synergies-manager/SynergiesManager";
+import ProtectedFeatureRoute from './components/routing/ProtectedFeatureRoute';
+import Welcome from './pages/welcome/Welcome';
 
 function App() {
   return (
     <BrowserRouter>
       <InitialDataLoader />
       <Routes>
+        <Route path="/" element={<Navigate to="/welcome" replace />} />
         <Route path={`/${ROUTER.authentication}`} element={<Authentication />} />
         <Route path="/" element={<Layout />}>
-          <Route path={`/${ROUTER.projects}`} element={<Projects />} />
+          <Route path="/welcome" element={<Welcome />} />
+          <Route path={`/${ROUTER.projects}`} element={<ProtectedFeatureRoute feature="PROJECTS">
+            <Projects />
+          </ProtectedFeatureRoute>} />
           <Route path={ROUTER.myContent} element={<MyContent />} />
           <Route path={ROUTER.ambassadorProjects} element={<AmbassadorProjects />} />
           <Route path={`${ROUTER.ambassadorProjects}/:projectId`} element={<AmbassadorProjectDetails />} />
           <Route path={`${ROUTER.projects}/:projectId`} element={<ProjectDetails />} />
           <Route path={`/${ROUTER.projectManager}`} element={<ProjectManager />} />
           <Route path={`/${ROUTER.projectManagerEdit}/:id`} element={<ProjectManagerEdit />} />
-          <Route path={`/${ROUTER.synergies}`} element={<Synergies />} />
-          <Route path={`${ROUTER.synergies}/:synergyId`} element={<SynergiesDetails />} />
           <Route path={`/${ROUTER.synergyRequests}`} element={<SynergyRequest />} />
           <Route path={`/${ROUTER.synergiesManager}`} element={<SynergiesManager />} />
 
+          <Route path={`/${ROUTER.synergies}`} element={<ProtectedFeatureRoute feature="SYNERGIES">
+            <Synergies />
+          </ProtectedFeatureRoute>} />
+          <Route path={`${ROUTER.synergies}/:synergyId`} element={
+            <ProtectedFeatureRoute feature="SYNERGIES">
+              <SynergiesDetails />
+            </ProtectedFeatureRoute>
+          } />
 
           <Route path={`/${ROUTER.investment}`} element={<Investment />} />
           <Route path={`/${ROUTER.profile}`} element={<UserProfile />} />
           <Route path={`/${ROUTER.karma}`} element={<Karma />} />
-          <Route path={ROUTER.chat} element={<Chats />} />
-          <Route path={`${ROUTER.chat}/:id`} element={<Chats />} />
+          <Route path={ROUTER.chat} element={
+            <ProtectedFeatureRoute feature="CHAT">
+              <Chats />
+            </ProtectedFeatureRoute>
+          } />
+          <Route path={`${ROUTER.chat}/:id`} element={
+            <ProtectedFeatureRoute feature="CHAT">
+              <Chats />
+            </ProtectedFeatureRoute>
+          } />
         </Route>
       </Routes>
       <ToastContainer
