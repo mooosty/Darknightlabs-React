@@ -75,7 +75,7 @@ ChatMembers.propTypes = {
     open: PropTypes.bool,
     handleClose: PropTypes.func,
     groupData: PropTypes.array,
-    openChatIndex: PropTypes.number,
+    openChatIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     handleOpenAddMemberPopup: PropTypes.func
 }
 

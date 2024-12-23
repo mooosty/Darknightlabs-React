@@ -248,7 +248,7 @@ const UserProfile = () => {
 
         setUserProjects(response.data.data ?? []);
       } catch (error) {
-        
+        console.error('error', error)
       } finally {
         setIsLoading(false);
       }

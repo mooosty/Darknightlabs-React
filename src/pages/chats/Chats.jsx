@@ -6,26 +6,31 @@ import { DownAccordionIcon, HashTag, synergy1, synergy2, synergy3, synergy4, syn
 import { AddChatMemberPopup, ChatMembers, Loader, MessagesPanel } from '../../components';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ROUTER } from '../../utils/routes/routes';
+import { useSocket } from '../../utils/socket-provider/SocketContext';
 
 const chatSynergies = [{ "img": synergy1 }, { "img": synergy2 }, { "img": synergy3 }, { "img": synergy4 }, { "img": synergy5 }]
 
 
 const Chats = () => {
-    const [isChannelOpen, setIsChannelOpen] = useState(false);
+    const { id } = useParams()
+    const socket = useSocket()
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
+    const [loading, setLoading] = useState(false);
+    const [chatNumber, setChatNumber] = useState(false);
     const [openChatIndex, setOpenChatIndex] = useState(0);
+    const [isChannelOpen, setIsChannelOpen] = useState(false);
     const [isMemberListOpen, setIsMemberListOpen] = useState(false);
     const [isAddChatMemberPopupOpen, setIsAddChatMemberPopupOpen] = useState(false);
-    const [chatNumber, setChatNumber] = useState(false);
     const [isChatMembersOpen, setIsChatMembersOpen] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const navigate = useNavigate()
-    const { id } = useParams()
+    const [unreadMessageCount, setUnreadMessageCount] = useState({});
 
     const groupData = useSelector((state) => state.group.groups)
     const chatApiLoading = useSelector((state) => state.chat.isLoading)
     const groupApiLoading = useSelector((state) => state.group.isLoading)
+    const userData = useSelector((state) => state.auth)
 
-    const dispatch = useDispatch();
+
 
 
     const handleChannelOpen = () => {
@@ -39,6 +44,8 @@ const Chats = () => {
         setIsMemberListOpen(!isMemberListOpen);
         setIsChatMembersOpen(true);
     }
+
+
     useEffect(() => {
         if (id) {
             setOpenChatIndex(id);
@@ -52,6 +59,64 @@ const Chats = () => {
         dispatch(getGroupsAPI())
         dispatch(getAllUsers())
     }, [])
+
+    useEffect(() => {
+
+        if (socket) {
+
+            socket.on('message count', ({ chatId, count }) => {
+                console.log('message count', chatId, count)
+                setUnreadMessageCount(prev => ({
+                    ...prev,
+                    [chatId]: count
+                }));
+            });
+
+            socket.on('new message count', ({ chatId, count }) => {
+                console.log('new message count', chatId, count)
+                setUnreadMessageCount(prev => ({
+                    ...prev,
+                    [chatId]: (prev[chatId] || 0) + count
+                }));
+            });
+
+            socket.on('messages marked read', ({ chatId }) => {
+                console.log('messages marked read', chatId)
+                setUnreadMessageCount(prev => ({
+                    ...prev,
+                    [chatId]: 0
+                }));
+            });
+
+
+            return () => {
+                socket.off('message count');
+                socket.off('new message count');
+                socket.off('messages marked read');
+            };
+        }
+    }, [socket]);
+
+    useEffect(() => {
+        if (socket && openChatIndex && groupData[openChatIndex]) {
+            socket.emit('mark messages read', {
+                chatId: groupData[openChatIndex]._id,
+                userId: userData.userId
+            });
+        }
+    }, [socket, openChatIndex, userData])
+
+    useEffect(() => {
+        if (socket && groupData.length > 0 && userData.userId) {
+            groupData.forEach(group => {
+                console.log('group', group)
+                socket.emit('fetch message count', {
+                    chatId: group._id,
+                    userId: userData.userId
+                });
+            });
+        }
+    }, [groupData.length, userData.userId])
 
 
     return (
@@ -106,12 +171,12 @@ const Chats = () => {
                                         {groupData.map((data, index) => {
                                             return (
                                                 <Fragment key={index}>
-                                                    <div key={index} className={`data_list_item ${openChatIndex === index ? 'active' : ''}`} onClick={() => {
+                                                    <div key={index} className={`data_list_item ${openChatIndex == index ? 'active' : ''}`} onClick={() => {
                                                         handleChatOpen(index)
                                                     }}>
                                                         <HashTag />
                                                         <span>{data.chatName}</span>
-                                                        {data.message ? <span className='notification'>{data.message}</span> : ''}
+                                                        {unreadMessageCount[data._id] > 0 ? <span className='notification'>{unreadMessageCount[data._id]}</span> : ''}
                                                     </div>
                                                 </Fragment>
                                             )

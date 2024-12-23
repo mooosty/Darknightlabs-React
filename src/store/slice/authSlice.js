@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { editUserProfileAPI } from "../../api-services/userApis";
 
 const initialState = {
   userId: '',
@@ -55,6 +56,17 @@ const authSlice = createSlice({
       return initialState
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(editUserProfileAPI.fulfilled, (state, action) => {
+      const updatedUser = action.payload.payload?.userData ?? {};
+      return {
+        ...state,
+        name: `${updatedUser.firstname} ${updatedUser.lastname}`,
+        email: updatedUser.email,
+        profile_picture: updatedUser.profile_picture,
+      };
+    })
+  }
 });
 
 export const { storeAuthData, setWalletAddress, setWhitelistMessage, setMaxContributions, handleLogout } = authSlice.actions;

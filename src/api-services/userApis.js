@@ -19,7 +19,7 @@ export const getTwitterUserAPI = createAsyncThunk(
 export const createTwitterUserAPI = createAsyncThunk(
     "/users/key",
     async (data, thunkAPI) => {
-        
+
         const response = await axiosApi.post(apiRoutes.TWITTER_USER, data);
         if (response?.status) return response.data;
         else return thunkAPI.rejectWithValue(response?.data);
@@ -31,7 +31,7 @@ export const getUsersDetailsAPI = createAsyncThunk(
     async (id, thunkAPI) => {
         const response = await axiosApi.get(`${apiRoutes.USER}/${id}`);
         if (response?.data?.success) return response?.data;
-        else return thunkAPI.rejectWithValue(response?.data);   
+        else return thunkAPI.rejectWithValue(response?.data);
     }
 );
 
@@ -39,7 +39,7 @@ export const editUserProfileAPI = createAsyncThunk(
     "/user",
     async (data, thunkAPI) => {
         const response = await axiosApi.patch(apiRoutes.USER, data);
-        if (response?.data?.success) return response?.data;
+        if (response?.data?.success) return { ...response?.data, payload: data };
         else return thunkAPI.rejectWithValue(response?.data);
     }
 );

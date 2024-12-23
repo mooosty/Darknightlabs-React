@@ -167,12 +167,13 @@ const MessagesPanel = ({
   useEffect(() => {
     getMessages();
   }, [openChatIndex, groupData]);
+
+
   return (
     <>
       <div className="chat_main_body">
         <div className="chat_container">
           {messages.map((message, index) => {
-            
             return (
               <Fragment key={index}>
                 {(index === 0 || !isEqualDate(message.createdAt, messages[index - 1].createdAt)) && (
@@ -192,7 +193,7 @@ const MessagesPanel = ({
                       <div className="message">
                         <div className="message_left">
                           <div className='user_name'>
-                            {message.sender.name[0].toUpperCase()}
+                            {message.sender.name[0]?.toUpperCase()}
                           </div>
                           {/* <img src={userData.profile_picture} alt="" /> */}
                         </div>
@@ -527,7 +528,7 @@ const MessagesPanel = ({
 };
 
 MessagesPanel.propTypes = {
-  openChatIndex: PropTypes.number,
+  openChatIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   groupData: PropTypes.array,
   isAddChatMemberPopupOpen: PropTypes.bool,
   setIsAddChatMemberPopupOpen: PropTypes.func,
