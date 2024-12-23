@@ -46,12 +46,7 @@ const Sidebar = () => {
       <div className="sidebar_container">
         <div className="sidebar">
           {isAmbassadorMode && (
-            <>
-              <button className="back_button" onClick={handleBackClick}>
-                <span>←</span> Back to Menu
-              </button>
-              <h2 className="ambassador_title">Ambassadorship</h2>
-            </>
+            <h2 className="ambassador_title">Ambassadorship</h2>
           )}
           <div className="profile_box">
             <div className="profile_image">
@@ -194,18 +189,26 @@ const Sidebar = () => {
           <div className="menu-box sidebar_bottom">
             <span className="separator"></span>
             <ul>
-              <li>
-                <Link
-                  to="/"
-                  onClick={() => {
-                    localStorage.clear();
-                    window.location.href = "/";
-                  }}
-                >
-                  <LogoutNavTabIcon />
-                  <span className="menu_text">Logout</span>
-                </Link>
-              </li>
+              {isAmbassadorMode ? (
+                <li>
+                  <Link to="#" onClick={handleBackClick} style={{ color: '#e8efdb' }}>
+                    <span className="menu_text">← Back to Menu</span>
+                  </Link>
+                </li>
+              ) : (
+                <li>
+                  <Link
+                    to="/"
+                    onClick={() => {
+                      localStorage.clear();
+                      window.location.href = "/";
+                    }}
+                  >
+                    <LogoutNavTabIcon />
+                    <span className="menu_text">Logout</span>
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
         </div>
