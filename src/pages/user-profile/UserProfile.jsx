@@ -428,10 +428,10 @@ const UserProfile = () => {
                       </div>
                     </div>
 
-                    <div className="profile_seprator_image">
+                    {/* <div className="profile_seprator_image">
                       <img src={sepratorImage} alt="Separator" />
-                    </div>
-                    <div className="form_box">
+                    </div> */}
+                    {/* <div className="form_box">
                       <h3 className="profile_title">Contact information</h3>
                       <div className="contact_info_data">
                         <div className="mail">
@@ -466,7 +466,7 @@ const UserProfile = () => {
 
                     <div className="profile_seprator_image ">
                       <img src={sepratorImage} alt="Separator" />
-                    </div>
+                    </div> */}
 
                     {/* <div className="form_box">
                                         <h3 className="profile_title">Password</h3>

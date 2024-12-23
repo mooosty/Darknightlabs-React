@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { ProfileNavTabIcon, ChatNavTabIcon, LogoutNavTabIcon, ProjectNavTabIcon, MyContentNavTabIcon, SynergiesNavTabIcon, InvestmentNavTabIcon, PendingSynergiesNavTabIcon, SynergiesManagerNavTabIcon, KarmaIcon } from "../../../utils/SVGs/SVGs";
 
-const userRole = "ADMIN";
+const userRole = "ADMINa";
 const Sidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -46,7 +46,9 @@ const Sidebar = () => {
       <div className="sidebar_container">
         <div className="sidebar">
           {isAmbassadorMode && (
-            <h2 className="ambassador_title">Ambassadorship</h2>
+            <>
+              <h2 className="ambassador_title">Ambassadorship</h2>
+            </>
           )}
           <div className="profile_box">
             <div className="profile_image">
