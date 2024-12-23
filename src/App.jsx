@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./components/layout/Layout";
 import Authentication from "./pages/authentication/Authentication";
 import Projects from "./pages/projects/Projects";
@@ -20,14 +20,17 @@ import { ROUTER } from "./utils/routes/routes";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ProtectedFeatureRoute from './components/routing/ProtectedFeatureRoute';
+import Welcome from './pages/welcome/Welcome';
 
 function App() {
   return (
     <BrowserRouter>
       <InitialDataLoader />
       <Routes>
+        <Route path="/" element={<Navigate to="/welcome" replace />} />
         <Route path={`/${ROUTER.authentication}`} element={<Authentication />} />
         <Route path="/" element={<Layout />}>
+          <Route path="/welcome" element={<Welcome />} />
           <Route path={`/${ROUTER.projects}`} element={<ProtectedFeatureRoute feature="PROJECTS">
             <Projects />
           </ProtectedFeatureRoute>} />
