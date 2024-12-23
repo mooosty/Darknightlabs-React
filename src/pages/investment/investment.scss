@@ -626,7 +626,7 @@
                         transition: color 0.2s ease;
 
                         &:hover {
-                            color: #ff8a1c;
+                            color: #111010;
                         }
                     }
                 }
@@ -760,7 +760,7 @@
                         .submit-button {
                             width: 100%;
                             padding: 12px;
-                            background: #ff8a1c;
+                            background:  #dbbf57;
                             border: none;
                             border-radius: 8px;
                             color: #191917;
@@ -771,7 +771,7 @@
                             margin-top: 20px;
 
                             &:hover {
-                                background: #ff9e33;
+                                background:  #DCCA87;
                             }
 
                             &:active {
@@ -783,7 +783,7 @@
                                 cursor: not-allowed;
                                 
                                 &:hover {
-                                    background: #ff8a1c;
+                                    background: #dbbf57;
                                 }
                             }
                         }
