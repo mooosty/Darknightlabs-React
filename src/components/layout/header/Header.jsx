@@ -6,11 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import { ROUTER } from '../../../utils/routes/routes';
 import { handleLogout } from "../../../store/slice/authSlice";
 
-
 const Header = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { userDetails } = useSelector((state) => state.user);
 
     const dropdownItems = [
         {
@@ -33,19 +31,19 @@ const Header = () => {
         },
     ];
 
-
     return (
         <header className="header_wrp">
-            <span className="currency">Balance: {userDetails?.currency_b || 0} KP</span>
             <h4 className='header_title'>Darknight Labs</h4>
-            <button className="header_btn">Home page</button>
-            <div className="sidebar_btn">
-                <CustomDropdown
-                    toggleButton={
-                        <BurgerMenuIcon />
-                    }
-                    items={dropdownItems}
-                />
+            <div className="header_right">
+                <button className="header_btn" disabled>Home page</button>
+                <div className="sidebar_btn">
+                    <CustomDropdown
+                        toggleButton={
+                            <BurgerMenuIcon />
+                        }
+                        items={dropdownItems}
+                    />
+                </div>
             </div>
         </header>
     )
