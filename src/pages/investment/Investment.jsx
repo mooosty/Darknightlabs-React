@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import WalletConnect from '../../components/investments/WalletConnect/WalletConnect';
 import { projectTypesOptions, synergyAnglesOptions } from '../../utils/constants/options';
 import ContributionForm from '../../components/investments/ContributionForm/ContributionForm';
+import PledgeForm from '../../components/investments/PledgeForm/PledgeForm';
 import ContributionStatus from '../../components/investments/ContributionStatus/ContributionStatus';
 import { setWalletAddress, setWhitelistMessage } from '../../store/slice/authSlice';
 import WhitelistVerification from '../../components/investments/WhitelistVerification/WhitelistVerification';
@@ -297,6 +298,7 @@ const Investment = () => {
   const [activeLayout, setActiveLayout] = useState('TRENDING');
   const [showDetails, setShowDetails] = useState(false);
   const [selectedInvestment, setSelectedInvestment] = useState(null);
+  const [isPhase2, setIsPhase2] = useState(true);
 
   const handleActive = (key) => { setActiveLayout(key) }
 
@@ -325,9 +327,9 @@ const Investment = () => {
     dispatch(setWhitelistMessage({ whitelistMessage: message }));
   }
 
-  // const handleMaxContributions = (isMaxContributions) => {
-  //   dispatch(setMaxContributions({ maxContributions: isMaxContributions }));
-  // }
+  const togglePhase = () => {
+    setIsPhase2(!isPhase2);
+  };
 
   const InvestmentForm = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -825,6 +827,24 @@ const Investment = () => {
         </>
       ) : (
         <div className="investment_details">
+          <button 
+            onClick={togglePhase} 
+            style={{ 
+              position: 'absolute',
+              top: '24px',
+              right: '24px',
+              padding: '8px 16px',
+              background: '#F5EFDB',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              fontFamily: '"MedievalSharp", cursive',
+              fontSize: '14px'
+            }}
+          >
+            Toggle Phase ({isPhase2 ? 'Investment' : 'Pledge'})
+          </button>
+
           <div className="investments_content_header">
             <div className="content_left">
               <button className="btn_gray" onClick={handleBackToList}>Back to Investments</button>
@@ -925,7 +945,21 @@ const Investment = () => {
                   </div>
                   <div className="details_right">
                     <div className="form_container">
-                      <InvestmentForm />
+                      {isPhase2 ? (
+                        <InvestmentForm />
+                      ) : (
+                        <PledgeForm 
+                          onSubmit={async (pledgeData) => {
+                            try {
+                              console.log('Pledge submitted:', pledgeData);
+                              toast.success('Pledge submitted successfully');
+                            } catch (error) {
+                              console.error('Error submitting pledge:', error);
+                              toast.error('Failed to submit pledge');
+                            }
+                          }} 
+                        />
+                      )}
                     </div>
                   </div>
                 </div>

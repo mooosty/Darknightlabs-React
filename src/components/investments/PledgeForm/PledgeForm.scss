@@ -1,0 +1,165 @@
+.pledge-form-card {
+  background: #191917;
+  padding: 32px;
+  border-radius: 8px;
+  border: 1px solid #3c3c3c;
+
+  .pledge-form-header {
+    margin-bottom: 32px;
+
+    .pledge-form-title {
+      color: #F5EFDB;
+      font-family: "MedievalSharp", cursive;
+      font-size: 32px;
+      font-weight: 500;
+    }
+  }
+
+  .form-group {
+    margin-bottom: 32px;
+
+    label {
+      color: #F5EFDB;
+      display: block;
+      font-size: 18px;
+      margin-bottom: 12px;
+      font-family: "MedievalSharp", cursive;
+      font-weight: 500;
+    }
+
+    input, textarea {
+      width: 100%;
+      background: #242623;
+      border: 1px solid #3c3c3c;
+      border-radius: 9px;
+      padding: 16px;
+      color: #F5EFDB;
+      font-size: 16px;
+
+      &:focus {
+        outline: none;
+        border-color: #F5EFDB;
+      }
+
+      &::placeholder {
+        color: #9A9A97;
+      }
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form-description {
+      color: #9A9A97;
+      font-size: 14px;
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+
+    .value-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 24px;
+      margin-top: 16px;
+
+      .value-button {
+        background: #242623;
+        border: 1px solid #3c3c3c;
+        border-radius: 20px;
+        color: #F5EFDB;
+        cursor: pointer;
+        font-size: 14px;
+        padding: 10px 20px;
+        transition: all 0.2s;
+        font-family: "MedievalSharp", cursive;
+
+        &:hover {
+          background: #2f312d;
+          border-color: #F5EFDB;
+        }
+
+        &.selected {
+          background: #F5EFDB;
+          color: #191917;
+          border-color: #F5EFDB;
+        }
+      }
+    }
+
+    .custom-value {
+      margin-bottom: 24px;
+
+      input {
+        margin-top: 12px;
+      }
+    }
+
+    .selected-values {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+
+      .value-tag {
+        background: #242623;
+        border: 1px solid #3c3c3c;
+        border-radius: 20px;
+        color: #F5EFDB;
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        padding: 8px 16px;
+        font-family: "MedievalSharp", cursive;
+
+        button {
+          background: none;
+          border: none;
+          color: #9A9A97;
+          cursor: pointer;
+          font-size: 18px;
+          margin-left: 12px;
+          padding: 0;
+          line-height: 1;
+          display: flex;
+          align-items: center;
+
+          &:hover {
+            color: #F5EFDB;
+          }
+        }
+      }
+    }
+  }
+
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 40px;
+
+    .form-button {
+      background: #F5EFDB;
+      color: #191917;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 18px;
+      padding: 14px 32px;
+      transition: all 0.2s;
+      font-family: "MedievalSharp", cursive;
+      font-weight: 500;
+
+      &:hover {
+        background: #E5DFC9;
+      }
+
+      &:disabled {
+        background: #3A3A37;
+        cursor: not-allowed;
+        color: #9A9A97;
+      }
+    }
+  }
+} 
