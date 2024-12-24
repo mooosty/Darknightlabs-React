@@ -10,7 +10,7 @@
     transition: 0.15s;
 
     &:hover {
-        box-shadow: 1px 0px 20px 1px rgba(255, 138, 28, 0.35);
+        box-shadow: 1px 0px 20px 1px #ff8a1c59;
     }
 
     .card_img {
@@ -37,7 +37,7 @@
         height: calc(100% - 160px);
 
         .card_body_head {
-            color: #F5EFDB;
+            color: var(--primary-text);
             font-size: 18px;
             font-family: "MedievalSharp", cursive;
             display: flex;
@@ -57,7 +57,7 @@
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    background-color: #191917;
+                    background-color: var(--primary-background);
                     padding: 2px 4px;
                     border-radius: 8px;
                     margin: 1px;
@@ -75,7 +75,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 4px;
-            color: #ffffff;
+            color: var(--primary-white);
             // position: relative;
 
             .angle_tag {
@@ -85,7 +85,7 @@
                 padding: 4px 8px;
                 font-size: 12px;
                 border-radius: 6px;
-                background: #191917;
+                background: var(--primary-background);
                 gap: 4px;
 
                 .text {
@@ -94,7 +94,7 @@
                     display: -webkit-box;
                     -webkit-line-clamp: 1;
                     -webkit-box-orient: vertical;
-                    color: #f5efdb;
+                    color: var(--primary-text);
                 }
             }
 

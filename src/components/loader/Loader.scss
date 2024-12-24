@@ -135,7 +135,7 @@
 
 // Variables for customization
 $loader-size: 13px;
-$loader-color: #ffffff;
+$loader-color: var(--primary-white);
 
 .loader_container_for_btn {
   height: 100%;

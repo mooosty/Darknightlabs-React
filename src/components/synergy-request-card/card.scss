@@ -10,7 +10,7 @@
         margin-bottom: 0;
 
         &:hover {
-            box-shadow: 1px 0px 20px 1px rgba(255, 138, 28, 0.35);
+            box-shadow: 1px 0px 20px 1px  #ff8a1c59;
         }
 
         .card_image {
@@ -44,7 +44,7 @@
             gap: 10px;
 
             .name {
-                color: #F5EFDB;
+                color: var(--primary-text);
                 font-family: "MedievalSharp", cursive;
                 font-size: 18px;
             }
@@ -53,7 +53,7 @@
                 display: flex;
                 flex-wrap: wrap;
                 gap: 4px;
-                color: #ffffff;
+                color: var(--primary-white);
 
                 .angle_tag {
                     display: flex;
@@ -62,7 +62,7 @@
                     padding: 4px 8px;
                     font-size: 12px;
                     border-radius: 6px;
-                    background: #191917;
+                    background: var(--primary-background);
                     gap: 4px;
 
                     .text {
@@ -71,7 +71,7 @@
                         display: -webkit-box;
                         -webkit-line-clamp: 1;
                         -webkit-box-orient: vertical;
-                        color: #f5efdb;
+                        color: var(--primary-text);
                     }
                 }
 

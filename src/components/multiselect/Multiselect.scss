@@ -7,7 +7,7 @@
 
     .custom_multiselect_field {
         padding: 12px 24px;
-        border: 1px solid rgba(255, 255, 255, 0.5019607843);
+        border: 1px solid #ffffff80;
         background-color: transparent;
         width: 100%;
         line-height: 19px;
@@ -16,7 +16,7 @@
         position: relative;
         display: flex;
         gap: 4px;
-        color: #fff;
+        color: var(--primary-white);
         // background-color: #383636;
         font-family: "Inter", sans-serif;
 
@@ -32,15 +32,15 @@
         }
 
         .custom_multiselect_label {
-            color: #fff;
+            color: var(--primary-white);
             padding: 2px 8px;
             border-radius: 8px;
             display: flex;
             font-size: 12px;
             align-items: center;
             font-family: "Inter", sans-serif;
-            background-color: #191917;
-            border: 1px solid rgba(255, 239, 219, 0.15);
+            background-color: var(--primary-background);
+            border: 1px solid #ffefdb26;
         }
 
         .custom_multiselect_placeholder {
@@ -94,7 +94,7 @@
                 font-weight: 500;
                 line-height: 19px;
                 font-family: "Inter", sans-serif;
-                color: #fff;
+                color: var(--primary-white);
 
                 @media (max-width: 1600px) {
                     font-size: 14px;
@@ -128,10 +128,10 @@
         .add_new_angle_btn {
             padding: 10px 24px;
             border: none;
-            background-color: rgba(78, 78, 78, 0.5803921569);
+            background-color: var(--btn-gray-bg);
             font-size: 16px;
             font-weight: 500;
-            color: #f5efdb;
+            color: var(--primary-text);
             display: flex;
             align-items: center;
             justify-content: center;

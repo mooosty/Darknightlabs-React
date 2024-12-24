@@ -5,7 +5,7 @@
 
     @media (max-width: 767px) {
         margin-bottom: 0px;
-        background-color: #191917;
+        background-color: var(--primary-background);
     }
 
     @media (max-width: 1199px) {
@@ -15,10 +15,10 @@
     .btn_gray {
         padding: 16px 24px;
         border: none;
-        background-color: #4e4e4e94;
+        background-color: var(--btn-gray-bg);
         font-size: 16px;
         font-weight: 500;
-        color: #f5efdb;
+        color: var(--primary-text);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -31,7 +31,7 @@
     }
 
     .btn_delete {
-        background-color: #ff9e9826;
+        background-color: var(--btn_delete-bg);
         border: none;
         padding: 13px;
 
@@ -80,7 +80,7 @@
                     }
 
                     h2 {
-                        color: #fff;
+                        color: var(--primary-white);
                         font-weight: 500;
                         font-family: "MedievalSharp", cursive;
                         font-size: 42px;
@@ -108,7 +108,7 @@
                     }
 
                     a {
-                        color: #f5efdb;
+                        color: var(--primary-text);
                         text-decoration: none;
                         font-size: 24px;
                         font-weight: 500;
@@ -126,7 +126,7 @@
                 min-height: 450px;
                 height: calc(100% - 80px);
                 border-radius: 9px;
-                background-color: #191917;
+                background-color: var(--primary-background);
                 margin-bottom: 32px;
                 padding: 30px 30px 28px 28px;
                 background-image: url('../../../assets/model-frame.png');
@@ -169,62 +169,13 @@
                         .featured_projects_card_header_left {
                             width: 50%;
                             max-width: 325px;
-                            color: #f5efdb;
+                            color: var(--primary-text);
                             font-size: 24px;
                             font-family: "MedievalSharp", cursive;
 
                             @media (max-width: 1115px) {
                                 width: 100%;
                                 max-width: none;
-                            }
-
-                            .search_box {
-                                position: relative;
-                                width: 100%;
-
-                                @media (max-width: 1199px) {
-                                    min-width: 230px;
-                                }
-
-                                @media (max-width: 1199px) {
-                                    min-width: none;
-                                    width: 100%;
-                                }
-
-
-                                input {
-                                    background-color: #191917;
-                                    padding: 10px 24px 10px 52px;
-                                    border: 1px solid #3c3c3c;
-                                    border-radius: 9px;
-                                    width: 100%;
-                                    font-size: 16px;
-                                    color: #f5efdb;
-
-                                    @media (max-width: 290px) {
-                                        padding: 10px 0px 10px 50px;
-                                        max-width: 240px;
-                                        width: 100%;
-                                    }
-
-                                    &::placeholder {
-                                        color: #f5efdb;
-                                        font-size: 18px;
-                                        opacity: 0.5;
-
-                                        @media (max-width: 1199px) {
-                                            font-size: 14px;
-                                        }
-                                    }
-                                }
-
-                                .search_icon {
-                                    position: absolute;
-                                    left: 24px;
-                                    top: 50%;
-                                    transform: translateY(-50%);
-
-                                }
                             }
                         }
 
@@ -314,7 +265,7 @@
 
             .project_page_pagination_content_text {
                 font-size: 14px;
-                color: #fff;
+                color: var(--primary-white);
                 display: flex;
                 gap: 8px;
 
@@ -326,7 +277,7 @@
                     select {
                         border: none;
                         background: transparent;
-                        color: #fff;
+                        color: var(--primary-white);
                         cursor: pointer;
                         font-family: "Inter", sans-serif;
                         font-size: 14px;
@@ -359,7 +310,7 @@
                         &:focus {
                             svg {
                                 path {
-                                    fill: #fff;
+                                    fill: var(--primary-white);
                                 }
                             }
                         }

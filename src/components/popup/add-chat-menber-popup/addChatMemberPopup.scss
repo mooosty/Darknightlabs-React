@@ -26,7 +26,7 @@
 
         .model_box {
             width: 715px;
-            background-color: #191917;
+            background-color: var(--primary-background);
             background-image: url("../../../assets/model-frame.png");
             background-repeat: no-repeat;
             background-position-x: 10px;
@@ -51,7 +51,7 @@
                     margin-left: 12px;
 
                     h3 {
-                        color: #f5efdb;
+                        color: var(--primary-text);
                         text-decoration: none;
                         font-size: 32px;
                         font-weight: 500;
@@ -92,19 +92,19 @@
                         }
 
                         input {
-                            background-color: #191917;
+                            background-color: var(--primary-background);
                             padding: 15px 24px 12px 52px;
                             border: 1px solid #3c3c3c;
                             border-radius: 9px;
                             width: 100%;
-                            color: #f5efdb;
+                            color: var(--primary-text);
 
                             // @media (max-width: 1199px) {
                             //     padding: 10px 15px 10px 40px;
                             // }
 
                             &::placeholder {
-                                color: #f5efdb;
+                                color: var(--primary-text);
                                 font-size: 16px;
                                 opacity: 0.5;
 
@@ -160,7 +160,7 @@
                                 display: flex;
                                 align-items: center;
                                 justify-content: space-between;
-                                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                                border-bottom: 1px solid #ffffff1a;
 
                                 .item_left {
                                     width: 100%;
@@ -181,8 +181,8 @@
                                             height: 24px !important;
                                             width: 24px !important;
                                             padding: 0.5px 5px;
-                                            background-color: rgba(78, 78, 78, 0.2);
-                                            border: 1px solid #fff;
+                                            background-color: #4e4e4e33;
+                                            border: 1px solid var(--primary-white);
                                         }
 
                                         .costum_checkbox_input:checked+.costum_checkbox_label {
@@ -245,7 +245,7 @@
                                 .item_right {
                                     .add_btn {
                                         border: none;
-                                        background-color: rgba(78, 78, 78, 0.5803921569);
+                                        background-color: var(--btn-gray-bg);
                                         border: none;
                                         padding: 8px 0;
                                         min-width: 120px;
@@ -256,7 +256,7 @@
                                             justify-content: center;
                                             font-weight: 500;
                                             font-size: 16px;
-                                            color: #fff;
+                                            color: var(--primary-white);
                                             gap: 18px;
                                             opacity: 0.5;
                                         }
@@ -267,7 +267,7 @@
                                             justify-content: center;
                                             font-weight: 500;
                                             font-size: 16px;
-                                            color: #fff;
+                                            color: var(--primary-white);
                                             gap: 10px;
                                         }
 
@@ -294,9 +294,9 @@
                     background-color: transparent;
                     border: none;
                     padding: 12px 24px;
-                    color: #f5efdb;
+                    color: var(--primary-text);
                     font-size: 16px;
-                    border: 1px solid #F5EFDB;
+                    border: 1px solid var(--primary-text);
 
                     @media (max-width: 1600px) {
                         font-size: 14px;
@@ -305,9 +305,9 @@
 
                 .add_btn {
                     border: none;
-                    background-color: rgba(78, 78, 78, 0.5803921569);
+                    background-color: var(--btn-gray-bg);
                     font-weight: 500;
-                    color: #f5efdb;
+                    color: var(--primary-text);
                     display: flex;
                     align-items: center;
                     justify-content: center;
@@ -349,7 +349,7 @@
                     margin-left: 12px;
 
                     h3 {
-                        color: #f5efdb;
+                        color: var(--primary-text);
                         text-decoration: none;
                         font-size: 32px;
                         font-weight: 500;
@@ -390,15 +390,15 @@
                         }
 
                         input {
-                            background-color: #191917;
+                            background-color: var(--primary-background);
                             padding: 17px 24px 17px 52px;
                             border: 1px solid #3c3c3c;
                             border-radius: 9px;
                             width: 100%;
-                            color: #f5efdb;
+                            color: var(--primary-text);
 
                             &::placeholder {
-                                color: #f5efdb;
+                                color: var(--primary-text);
                                 font-size: 16px;
                                 opacity: 0.5;
 
@@ -450,7 +450,7 @@
                                 display: flex;
                                 align-items: center;
                                 justify-content: space-between;
-                                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                                border-bottom: 1px solid #ffffff1a;
 
                                 .item_left {
                                     width: 100%;
@@ -471,8 +471,8 @@
                                             height: 24px !important;
                                             width: 24px !important;
                                             padding: 0.5px 5px;
-                                            background-color: rgba(78, 78, 78, 0.2);
-                                            border: 1px solid #fff;
+                                            background-color: #4e4e4e33;
+                                            border: 1px solid var(--primary-white);
                                         }
 
                                         .costum_checkbox_inputs:checked+.costum_checkbox_labels {
@@ -544,7 +544,7 @@
                                 .item_right {
                                     .add_btn {
                                         border: none;
-                                        background-color: rgba(78, 78, 78, 0.5803921569);
+                                        background-color: var(--btn-gray-bg);
                                         border: none;
                                         padding: 8px 0;
                                         min-width: 120px;
@@ -563,7 +563,7 @@
                                             justify-content: center;
                                             font-weight: 500;
                                             font-size: 16px;
-                                            color: #fff;
+                                            color: var(--primary-white);
                                             gap: 18px;
                                             opacity: 0.5;
                                         }
@@ -574,7 +574,7 @@
                                             justify-content: center;
                                             font-weight: 500;
                                             font-size: 16px;
-                                            color: #fff;
+                                            color: var(--primary-white);
                                             gap: 10px;
                                         }
 
@@ -614,9 +614,9 @@
                     background-color: transparent;
                     border: none;
                     padding: 12px 24px;
-                    color: #f5efdb;
+                    color: var(--primary-text);
                     font-size: 16px;
-                    border: 1px solid #F5EFDB;
+                    border: 1px solid var(--primary-text);
 
                     @media (max-width: 1600px) {
                         font-size: 14px;
@@ -625,9 +625,9 @@
 
                 .add_btn {
                     border: none;
-                    background-color: rgba(78, 78, 78, 0.5803921569);
+                    background-color: var(--btn-gray-bg);
                     font-weight: 500;
-                    color: #f5efdb;
+                    color: var(--primary-text);
                     display: flex;
                     align-items: center;
                     justify-content: center;

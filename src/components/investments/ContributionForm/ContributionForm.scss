@@ -3,7 +3,7 @@
     border-radius: 10px;
     padding: 24px;
     font-family: "MedievalSharp", cursive;
-    color: #f5efdb;
+    color: var(--primary-text);
 
     @media (max-width: 1600px) {
         padding: 20px;
@@ -13,7 +13,7 @@
         margin-bottom: 24px;
 
         .contribution-form-title {
-            color: #f5efdb;
+            color: var(--primary-text);
             font-size: 24px;
             font-weight: 500;
 
@@ -34,7 +34,7 @@
             gap: 8px;
 
             .form-label {
-                color: #f5efdb;
+                color: var(--primary-text);
                 font-size: 14px;
                 font-family: "Inter", sans-serif;
             }
@@ -44,7 +44,7 @@
                 border: 1px solid #ffffff80;
                 background-color: transparent;
                 width: 100%;
-                color: #f5efdb;
+                color: var(--primary-text);
                 line-height: 19px;
                 font-size: 16px;
                 font-weight: 500;
@@ -57,7 +57,7 @@
                 }
 
                 &::placeholder {
-                    color: rgba(245, 239, 219, 0.5);
+                    color: #f5efdb80;
                 }
 
                 &:disabled {
@@ -67,7 +67,7 @@
 
                 &:focus {
                     outline: none;
-                    border-color: #f5efdb;
+                    border-color: var(--primary-text);
                 }
             }
         }
@@ -97,21 +97,21 @@
 
                 &.outline {
                     background-color: transparent;
-                    border: 1px solid #f5efdb;
-                    color: #f5efdb;
+                    border: 1px solid var(--primary-text);
+                    color: var(--primary-text);
 
                     &:hover:not(.disabled) {
-                        background-color: rgba(245, 239, 219, 0.1);
+                        background-color: #f5efdb1a;
                     }
                 }
 
                 &.primary {
-                    background-color: rgba(78, 78, 78, 0.58);
+                    background-color: var(--btn-gray-bg);
                     border: none;
-                    color: #f5efdb;
+                    color: var(--primary-text);
 
                     &:hover:not(.disabled) {
-                        background-color: rgba(78, 78, 78, 0.8);
+                        background-color: #4e4e4ecc;
                     }
                 }
 

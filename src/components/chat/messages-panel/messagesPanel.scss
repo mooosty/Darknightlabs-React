@@ -33,14 +33,14 @@
                 width: 42%;
                 height: 1px;
                 background-image: linear-gradient(157.79deg,
-                        rgba(245, 239, 219, 0) 1.5%,
-                        rgba(245, 239, 219, 0.5));
+                        #f5efdb00 1.5%,
+                        #f5efdb80);
             }
 
             .date {
                 min-width: 120px;
                 font-size: 15px;
-                color: #fff;
+                color: var(--primary-white);
                 line-height: 20px;
                 text-align: center;
             }
@@ -49,8 +49,8 @@
                 width: 42%;
                 height: 1px;
                 background-image: linear-gradient(157.79deg,
-                        rgba(245, 239, 219, 0.5) 14.5%,
-                        rgba(245, 239, 219, 0));
+                        #f5efdb80 14.5%,
+                        #f5efdb00);
             }
         }
 
@@ -115,7 +115,7 @@
                 .message_text {
                     padding-block: 2px 6px;
                     font-size: 16px;
-                    color: #fff;
+                    color: var(--primary-white);
                     line-height: 24px;
                     display: flex;
                     justify-content: start;
@@ -188,7 +188,7 @@
         .chat_input_container {
             width: 100%;
             padding: 10px 24px 5px 24px;
-            background-color: #191917;
+            background-color: var(--primary-background);
             outline: none;
             border: none;
             position: absolute;
@@ -238,10 +238,10 @@
                     border: none;
                     outline: none;
                     margin-left: 8px;
-                    color: #fff;
+                    color: var(--primary-white);
 
                     &::placeholder {
-                        color: #fff;
+                        color: var(--primary-white);
                         font-size: 15px;
                         line-height: 20px;
                         letter-spacing: 1px;
@@ -280,7 +280,7 @@
                     font-size: 10px;
 
                     .typing_user {
-                        color: #fff;
+                        color: var(--primary-white);
                     }
 
                     @media (max-width: 767px) {
@@ -306,7 +306,7 @@
 
         .head {
             padding: 16px 12px 8px 12px;
-            color: #f5efdb;
+            color: var(--primary-text);
             font-size: 14px;
         }
 
@@ -333,7 +333,7 @@
                 }
 
                 .list_header {
-                    color: #fff;
+                    color: var(--primary-white);
                     font-size: 12px;
                     text-transform: uppercase;
                     padding: 4px 2px;

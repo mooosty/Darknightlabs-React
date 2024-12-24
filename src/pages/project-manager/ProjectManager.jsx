@@ -1,10 +1,9 @@
 import "./projectmanager.scss";
-import debounce from "lodash.debounce";
 import { useNavigate } from "react-router-dom";
 import { formatDate } from "../../utils/helper/helper";
 import { useSelector, useDispatch } from "react-redux";
 import useNoScroll from "../../utils/hooks/useNoScroll";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { synergyAnglesOptions } from "../../utils/constants/options";
 import { SearchIcon, FilterIcon, DeleteIcon, PlusIcon, CloseIcon, ListIcon, GridIcon, TableStatusIcon, InfiniteIcon, MoreIcon } from "../../utils/constants/images";
 import { getProjectsAPI, deleteProjectAPI, updateProjectAPI, getMemberApi } from "../../api-services/projectApis";
@@ -17,12 +16,14 @@ import {
   SynergieaCreatedSuccessfullyPopup,
   BottomMenu,
   Loader,
+  CustomSearch,
 } from "../../components";
 
 const ProjectManager = () => {
   const [activeLayout, setActiveLayout] = useState("TABLE");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isBottomMenuOpen, setIsBottomMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [selectedProjects, setSelectedProjects] = useState([]);
   const [selectedProjectForSynergy, setSelectedProjectForSynergy] = useState(null);
   const [isDeleteConfirmPopupOpen, setIsDeleteConfirmPopupOpen] = useState(false);
@@ -47,6 +48,7 @@ const ProjectManager = () => {
     synergyName: "",
     projects: [],
   });
+  const [searchStr, setSearchStr] = useState('')
   const [createSynergyStep, setCreateSynergyStep] = useState(0);
   const [createSynergySuccessPopup, setCreateSynergySuccessPopup] = useState(false);
   useNoScroll([isDeleteConfirmPopupOpen, createSynergySuccessPopup, isMultiDltConfirmPopupOpen]);
@@ -162,15 +164,19 @@ const ProjectManager = () => {
     });
   };
 
-  const handleSearchChange = useCallback(
-    debounce((value) => {
+  const handleSearchChange = (value) => {
+    setSearchStr(value)
+  }
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
       setFilter((prevFilter) => ({
         ...prevFilter,
-        searchBy: value,
+        searchBy: searchStr,
       }));
-    }, 500),
-    []
-  );
+    }, 500)
+    return () => clearTimeout(timer)
+  }, [searchStr])
 
   useEffect(() => {
     let data = initialProject;
@@ -292,17 +298,20 @@ const ProjectManager = () => {
       <div className="content_header">
         <div className="content_left">
           <h2>Projects Manager</h2>
-          <div className="search_box">
-            <span className="search_icon"><SearchIcon /></span>
-            <input type="text" placeholder="Search" onChange={(e) => handleSearchChange(e.target.value)} />
+          <div className="search_wrap">
+            <CustomSearch placeholder="Search" value={searchStr} onSearchChange={(e) => handleSearchChange(e.target.value)} isOpen={isSearchOpen} setIsOpen={setIsSearchOpen} />
           </div>
         </div>
+        {isSearchOpen && <div className="mobile_search">
+          <span className="icon"><SearchIcon /></span>
+          <input type="text" value={searchStr} placeholder="Search" onChange={(e) => handleSearchChange(e.target.value)} />
+        </div>}
         <div className="content_right">
           <a href="#">Darknight Labs</a>
         </div>
       </div>
       <div className="project_page_data">
-        <div className="page_data">
+        <div className={`page_data ${isSearchOpen ? 'search_open' : ''}`}>
           <div className="project_page_header">
             <div className="project_page_header_top">
               <div className="project_pagination">

@@ -4,7 +4,7 @@
   .project_content_body {
     padding: 20px 0px;
     border-radius: 20px;
-    background-color: #191917;
+    background-color: var(--primary-background);
     height: calc(100vh - 130px);
     overflow: hidden;
 
@@ -15,7 +15,7 @@
     @media (max-width: 767px) {
       border-radius: 0;
       padding-block: 0px;
-      background-color: #191917;
+      background-color: var(--primary-background);
       background-image: none;
       height: calc(100vh - 80px);
     }
@@ -39,11 +39,11 @@
       .popup {
         background-color: #242623;
         border-radius: 16px;
-        border: 1px solid rgba(245, 239, 219, 0.15);
+        border: 1px solid var(--border-color);
         height: 100%;
         width: 100%;
         padding: 32px;
-        color: #f5efdb;
+        color: var(--primary-text);
 
         .popup-content {
           width: 100%;
@@ -52,7 +52,7 @@
             margin-bottom: 32px;
             font-size: 36px;
             font-weight: 500;
-            color: #f5efdb;
+            color: var(--primary-text);
             text-align: center;
             font-family: "MedievalSharp", cursive;
           }
@@ -60,7 +60,7 @@
           p {
             margin-bottom: 24px;
             font-size: 18px;
-            color: rgba(245, 239, 219, 0.8);
+            color: #f5efdbcc;
             line-height: 1.6;
           }
 
@@ -72,25 +72,25 @@
             li {
               margin-bottom: 16px;
               font-size: 18px;
-              color: rgba(245, 239, 219, 0.8);
+              color: #f5efdbcc;
               display: flex;
               align-items: center;
               gap: 12px;
               
               strong {
-                color: #f5efdb;
+                color: var(--primary-text);
                 font-weight: 500;
               }
             }
           }
 
           button {
-            background-color: #191917;
+            background-color: var(--primary-background);
             border: none;
             padding: 14px 28px;
             border-radius: 8px;
             cursor: pointer;
-            color: #f5efdb;
+            color: var(--primary-text);
             font-weight: 500;
             font-size: 18px;
             display: block;
@@ -100,7 +100,7 @@
 
             &:hover {
               background-color: #242623;
-              box-shadow: 0 0 10px rgba(245, 239, 219, 0.1);
+              box-shadow: 0 0 10px #f5efdb1a;
             }
           }
         }

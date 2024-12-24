@@ -24,7 +24,7 @@
         }
 
         .accordion_content {
-            border: 1px solid rgba(245, 239, 219, 0.15);
+            border: 1px solid var(--border-color);
             border-top: none;
         }
     }
@@ -35,7 +35,7 @@
         padding: 5px 10px;
         cursor: pointer;
         border-radius: 5px;
-        border: 1px solid rgba(245, 239, 219, 0.15);
+        border: 1px solid var(--border-color);
 
         .table_row {
             display: flex;
@@ -66,8 +66,8 @@
                             height: 18px !important;
                             width: 18px !important;
                             padding: 0.5px 5px;
-                            background-color: rgba(78, 78, 78, 0.2);
-                            border: 1px solid #fff;
+                            background-color: #4e4e4e33;
+                            border: 1px solid var(--primary-white);
                         }
 
                         .costum_checkbox_input:checked+.costum_checkbox_label {
@@ -112,7 +112,7 @@
 
                     .table_name {
                         font-family: "MedievalSharp";
-                        color: #fff;
+                        color: var(--primary-white);
                     }
                 }
 
@@ -127,7 +127,7 @@
                         display: flex;
                         gap: 8px;
                         align-items: center;
-                        color: rgba(255, 209, 166, 0.8);
+                        color: #ffd1a6cc;
 
                         img {
                             height: 24px;
@@ -158,7 +158,7 @@
         padding-left: 24px;
         transition: all 0.2s;
         color: aliceblue;
-        border-color: rgba(245, 239, 219, 0.15);
+        border-color: var(--border-color);
         border-bottom-left-radius: 5px;
         border-bottom-right-radius: 5px;
 
@@ -171,7 +171,7 @@
                 padding-block: 8px;
 
                 .label {
-                    color: #fff;
+                    color: var(--primary-white);
                     display: block;
                     flex-basis: 60px;
                 }
@@ -180,7 +180,7 @@
                     display: flex;
                     gap: 8px;
                     align-items: center;
-                    color: rgba(255, 209, 166, 0.8);
+                    color: #ffd1a6cc;
 
                     img {
                         height: 24px;

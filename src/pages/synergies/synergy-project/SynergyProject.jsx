@@ -2,22 +2,24 @@
 import './synergyProject.scss'
 import { Tooltip } from "react-tooltip"
 import { Select } from "../../../components"
-import { DownIcon, Download, GradientGraphIcon, GredientGlobalIcon, HalfEmoji, Health, InfiniteIcon, InfoCircleIcon, project, SearchIcon } from "../../../utils/constants/images"
+import { DownIcon, Download, GradientGraphIcon, GredientGlobalIcon, HalfEmoji, Health, InfiniteIcon, InfoCircleIcon, project, } from "../../../utils/constants/images"
 
 
 const SynergyProject = () => {
-
     return (
         <>
             <div className="synergies_projects_content_Wrapper">
                 <div className="synergies_content_header">
                     <div className="synergies_content_left">
                         <h2>Synergies</h2>
-                        <div className="search_box">
-                            <span className="search_icon"><SearchIcon /></span>
-                            <input type="text" placeholder="Search" />
-                        </div>
+                        {/* <div className="search_wrap">
+                            <CustomSearch value={filter.searchBy} placeholder="Search" onSearchChange={(e) => handleSearchChange(e.target.value)} isOpen={isSearchOpen} setIsOpen={setIsSearchOpen} />
+                        </div> */}
                     </div>
+                    {/* {isSearchOpen && <div className="mobile_search">
+                        <span className="icon"><SearchIcon /></span>
+                        <input value={filter.searchBy} type="text" placeholder="Search" onChange={(e) => handleSearchChange(e.target.value)} />
+                    </div>} */}
                     <div className="synergies_content_right">
                         <a href="#">Darknight Labs</a>
                     </div>
@@ -50,8 +52,8 @@ const SynergyProject = () => {
                                             place="top"
                                             style={{
                                                 maxWidth: '200px',
-                                                boxShadow: '0px 3px 10.3px -4px rgba(229, 229, 229, 0.1)',
-                                                background: 'rgba(79, 79, 79, 1)',
+                                                boxShadow: '0px 3px 10.3px -4px #e5e5e5',
+                                                background: '#4f4f4f',
                                                 opacity: '1',
                                             }}
                                             anchorSelect={`#refuse_tooltip`}

@@ -12,11 +12,11 @@
     }
 
     .highlighted {
-        background-color: rgba(218, 185, 67, 0.1);
+        background-color: #dab9431a;
     }
 
     .selected {
-        background-color: rgba(245, 239, 219, 0.1);
+        background-color: #f5efdb1a;
     }
 
     &.active {
@@ -36,14 +36,14 @@
         }
 
         .accordion_content {
-            border: 1px solid rgba(245, 239, 219, 0.15);
+            border: 1px solid var(--border-color);
             border-top: none;
         }
     }
 
     &.disable {
         opacity: 0.4;
-        background-color: rgba(245, 239, 219, 0.16);
+        background-color: var(--border-color);
 
     }
 
@@ -53,7 +53,7 @@
         padding: 5px 10px;
         cursor: pointer;
         border-radius: 5px;
-        border: 1px solid rgba(245, 239, 219, 0.15);
+        border: 1px solid var(--border-color);
 
         .table_row {
             display: flex;
@@ -87,8 +87,8 @@
                             height: 18px !important;
                             width: 18px !important;
                             padding: 0.5px 5px;
-                            background-color: rgba(78, 78, 78, 0.2);
-                            border: 1px solid #fff;
+                            background-color:  #4e4e4e33;
+                            border: 1px solid var(--primary-white);
                         }
 
                         .costum_checkbox_input:checked+.costum_checkbox_label {
@@ -147,7 +147,7 @@
                     .table_name {
                         min-width: 100px;
                         font-family: "MedievalSharp";
-                        color: #fff;
+                        color: var(--primary-white);
                     }
                 }
 
@@ -180,7 +180,7 @@
                             display: flex;
                             gap: 8px;
                             align-items: center;
-                            color: rgba(255, 209, 166, 0.8);
+                            color: #ffd1a6cc;
 
                             ul {
                                 display: flex;
@@ -213,7 +213,7 @@
                             display: flex;
                             align-items: center;
                             justify-content: center;
-                            color: #F5EFDB;
+                            color: var(--primary-text);
 
                             .status_tabs {
                                 position: relative;
@@ -226,7 +226,7 @@
                                     left: 0;
                                     border-radius: 10px;
                                     padding: 1px;
-                                    background: linear-gradient(to bottom right, #9D8C53, rgba(186, 168, 108, 0.58));
+                                    background: linear-gradient(to bottom right, #9D8C53, #baa86c94);
                                     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
                                     -webkit-mask-composite: xor;
                                     mask-composite: exclude;
@@ -238,7 +238,7 @@
                                     justify-content: center;
                                     align-items: center;
                                     gap: 4px;
-                                    background: #191917;
+                                    background: var(--primary-background);
                                     border-radius: 10px;
                                     padding: 5px 10px;
 
@@ -273,7 +273,7 @@
         padding-left: 24px;
         transition: all 0.2s;
         color: aliceblue;
-        border-color: rgba(245, 239, 219, 0.15);
+        border-color: var(--border-color);
         border-bottom-left-radius: 5px;
         border-bottom-right-radius: 5px;
 
@@ -286,7 +286,7 @@
                 padding-block: 8px;
 
                 .label {
-                    color: #fff;
+                    color: var(--primary-white);
                     display: block;
                     flex-basis: 75px;
                 }
@@ -309,7 +309,7 @@
                             font-size: 12px;
                             border-radius: 10px;
                             gap: 4px;
-                            background: rgba(36, 38, 35, 0.92);
+                            background: #242623eb;
 
                             .text {
                                 overflow: hidden;
@@ -395,7 +395,7 @@
                         white-space: nowrap;
                         overflow: hidden;
                         text-overflow: ellipsis;
-                        background-color: rgba(47, 46, 42, 0.46);
+                        background-color: #2f2e2a75;
                         padding: 2px 5px;
                         border-radius: 3px;
                     }
@@ -420,7 +420,7 @@
                     display: flex;
                     gap: 8px;
                     align-items: center;
-                    color: rgba(255, 209, 166, 0.8);
+                    color: #ffd1a6cc;
 
                     ul {
                         display: flex;

@@ -1,7 +1,26 @@
 import PropTypes from 'prop-types';
 import './ambassadors.scss'
+import CustomDropdown from '../../../components/custom-dropdown/CustomDropdown';
+import { BurgerMenuIcon } from '../../../utils/SVGs/SVGs';
 
 const Ambassadors = ({ handleActive, active }) => {
+    const headerToggleButton = [
+        {
+            label: 'PERSONAL INFORMATION',
+            key: 'INFORMATION',
+            onClick: () => handleActive("INFORMATION")
+        },
+        {
+            label: ' PROJECT INVOLVEMENT',
+            key: 'INVOLVEMENT',
+            onClick: () => handleActive("INVOLVEMENT")
+        },
+        {
+            label: 'AMBASSADORS',
+            key: 'AMBASSADORS',
+            onClick: () => handleActive("AMBASSADORS")
+        },
+    ]
     return (
 
         <><div className="ambassadors_content_header">
@@ -15,23 +34,26 @@ const Ambassadors = ({ handleActive, active }) => {
             <div className="ambassadors_page_data">
                 <div className="page_data">
                     <div className="header_button">
-                        <div
-                            className={`buttons ${active === "INFORMATION" ? "active" : ""}`}
-                            onClick={() => handleActive("INFORMATION")}
-                        >
-                            PERSONAL INFORMATION
+                        <div className="header_toggle_button">
+                            {headerToggleButton.map((data) => {
+                                return (
+                                    <div
+                                        key={data.key}
+                                        className={`buttons ${active === data.key ? "active" : ""}`}
+                                        onClick={data.onClick}
+                                    >
+                                        {data.label}
+                                    </div>
+                                )
+                            })}
                         </div>
-                        <div
-                            className={`buttons ${active === "INVOLVEMENT" ? "active" : ""}`}
-                            onClick={() => handleActive("INVOLVEMENT")}
-                        >
-                            PROJECT INVOLVEMENT
-                        </div>
-                        <div
-                            className={`buttons ${active === "AMBASSADORS" ? "active" : ""}`}
-                            onClick={() => handleActive("AMBASSADORS")}
-                        >
-                            AMBASSADORS
+                        <div className="header_toggle_dropDown">
+                            <CustomDropdown
+                                toggleButton={
+                                    <BurgerMenuIcon />
+                                }
+                                items={headerToggleButton}
+                            />
                         </div>
                     </div>
 

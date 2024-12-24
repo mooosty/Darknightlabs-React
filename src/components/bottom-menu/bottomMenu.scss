@@ -22,7 +22,7 @@
         position: absolute;
         bottom: 0;
         left: 0;
-        border-top: 1px solid rgba(255, 255, 255, 0.5);
+        border-top: 1px solid var(--border-color);
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;
 
@@ -39,9 +39,9 @@
                 align-items: center;
                 gap: 8px;
                 padding: 8px 13px;
-                background-color: rgba(36, 38, 34, 0.788);
+                background-color: #242622c9;
                 border: none;
-                color: #fff;
+                color: var(--primary-white);
                 font-size: 16px;
 
                 img,

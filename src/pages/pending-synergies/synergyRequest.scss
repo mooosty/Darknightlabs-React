@@ -15,7 +15,8 @@
 
         @media (max-width: 767px) {
             margin-bottom: 0px;
-            background-color: #191917;
+            padding-bottom: 15px;
+            background-color: var(--primary-background);
         }
 
         .content_left {
@@ -26,6 +27,7 @@
             @media (max-width: 767px) {
                 width: 100%;
                 padding: 15px 24px;
+                padding-bottom: 0;
                 gap: 10px;
                 justify-content: space-between;
             }
@@ -35,61 +37,13 @@
             }
 
             h2 {
-                color: #fff;
+                color: var(--primary-white);
                 font-weight: 500;
                 font-family: "MedievalSharp", cursive;
                 font-size: 42px;
 
                 @media (max-width: 1600px) {
                     font-size: 28px;
-                }
-            }
-
-            .search_box {
-                position: relative;
-                min-width: 450px;
-
-                @media (max-width: 1199px) {
-                    min-width: 230px;
-                }
-
-                @media (max-width: 767px) {
-                    min-width: 30px;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                }
-
-
-                input {
-                    background-color: #191917;
-                    padding: 10px 24px 10px 52px;
-                    border: 1px solid #3c3c3c;
-                    border-radius: 9px;
-                    width: 100%;
-                    font-size: 16px;
-                    color: #f5efdb;
-
-                    @media (max-width: 767px) {
-                        display: none;
-                    }
-
-                    &::placeholder {
-                        color: #f5efdb;
-                        font-size: 18px;
-                        opacity: 0.5;
-                    }
-                }
-
-                .search_icon {
-                    position: absolute;
-                    left: 24px;
-                    top: 50%;
-                    transform: translateY(-50%);
-
-                    @media (max-width: 1199px) {
-                        left: 15px;
-                    }
                 }
             }
         }
@@ -104,7 +58,7 @@
             }
 
             a {
-                color: #f5efdb;
+                color: var(--primary-text);
                 text-decoration: none;
                 font-size: 24px;
                 font-weight: 500;
@@ -121,7 +75,7 @@
     .pending_synergies_page_data {
         padding-block: 30px 20px;
         border-radius: 9px;
-        background-color: #191917;
+        background-color: var(--primary-background);
         background-image: url("../../assets/model-frame.png");
         background-repeat: no-repeat;
         background-position-x: 10px;
@@ -136,7 +90,7 @@
         @media (max-width: 767px) {
             border-radius: 0;
             padding-block: 4px 0px;
-            background-color: #191917;
+            background-color: var(--primary-background);
             background-image: none;
         }
 
@@ -148,6 +102,10 @@
 
             @media (max-width: 767px) {
                 height: calc(100vh - 235px);
+
+                &.search_open {
+                height: calc(100vh - 285px);
+                }
             }
 
             .synergies_page_header {
@@ -157,14 +115,14 @@
 
                 @media (max-width: 767px) {
                     padding: 4px 24px 24px 24px;
-                    border-bottom: 1px solid #f5efdb26;
+                    border-bottom: 1px solid var(--border-color);
                 }
 
                 .synergies_toggleWrap {
                     display: flex;
                     align-items: center;
                     font-size: 24px;
-                    color: #fff;
+                    color: var(--primary-white);
                     background-color: #242623;
                     font-weight: 500;
                     font-family: "MedievalSharp", cursive;
@@ -185,10 +143,10 @@
                         }
 
                         &.active {
-                            background-color: rgba(78, 78, 78, 0.58);
+                            background-color: var(--btn-gray-bg);
 
                             span {
-                                color: #F5EFDB;
+                                color: var(--primary-text);
                             }
                         }
                     }
@@ -264,7 +222,7 @@
 
                         .synergies_pagination_content_text {
                             font-size: 14px;
-                            color: #fff;
+                            color: var(--primary-white);
                             display: flex;
                             gap: 8px;
 
@@ -276,7 +234,7 @@
                                 select {
                                     border: none;
                                     background: transparent;
-                                    color: #fff;
+                                    color: var(--primary-white);
                                     cursor: pointer;
                                     font-family: "Inter", sans-serif;
                                     font-size: 14px;
@@ -309,7 +267,7 @@
                                     &:focus {
                                         svg {
                                             path {
-                                                fill: #fff;
+                                                fill: var(--primary-white);
                                             }
                                         }
                                     }

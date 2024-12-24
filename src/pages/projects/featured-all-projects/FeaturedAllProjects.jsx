@@ -6,7 +6,7 @@ import { formatDate } from '../../../utils/helper/helper'
 import { getMemberApi, getProjectsAPI } from "../../../api-services/projectApis"
 import { BackArrow, GradientGraphIcon, GredientGlobalIcon, SearchIcon } from "../../../utils/constants/images"
 import { projectTypesOptions, synergyAnglesOptions } from "../../../utils/constants/options"
-import { MultiselectDropDown, ProjectCard } from '../../../components'
+import { CustomSearch, MultiselectDropDown, ProjectCard } from '../../../components'
 
 const FeaturedAllProjects = () => {
 
@@ -15,6 +15,9 @@ const FeaturedAllProjects = () => {
     const featuredProjects = data.filter(project => project.featured === 1);
     const [initialProject, setInitialProject] = useState([])
     const [filterProject, setFilterProject] = useState([])
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
+    const [searchStr, setSearchStr] = useState('')
+
     const [filter, setFilter] = useState({
         synergyAngleValues: [],
         status: '',
@@ -46,15 +49,19 @@ const FeaturedAllProjects = () => {
         return selectedLabels
     }
 
-    const handleSearchChange = useCallback(
-        debounce((value) => {
+    const handleSearchChange = (value) => {
+        setSearchStr(value)
+    }
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
             setFilter((prevFilter) => ({
                 ...prevFilter,
-                searchBy: value,
+                searchBy: searchStr,
             }));
-        }, 500),
-        []
-    );
+        }, 500)
+        return () => clearTimeout(timer)
+    }, [searchStr])
 
     useEffect(() => {
         if (data.length === 0)
@@ -149,14 +156,17 @@ const FeaturedAllProjects = () => {
                     </div>
                 </div>
                 <div className="featured_project_page_data">
-                    <div className="featured_projects_card_box">
+                    <div className={`featured_projects_card_box `}>
                         <div className="featured_projects_card_header">
                             <div className="featured_projects_card_header_left">
-                                <div className="search_box">
-                                    <span className="search_icon"><SearchIcon /></span>
-                                    <input type="text" placeholder="Search" onChange={(e) => handleSearchChange(e.target.value)} />
+                                <div className="search_wrap">
+                                    <CustomSearch value={searchStr} placeholder="Search" onSearchChange={(e) => handleSearchChange(e.target.value)} isOpen={isSearchOpen} setIsOpen={setIsSearchOpen} />
                                 </div>
                             </div>
+                            {isSearchOpen && <div className="mobile_search">
+                                <span className="icon"><SearchIcon /></span>
+                                <input value={searchStr} type="text" placeholder="Search" onChange={(e) => handleSearchChange(e.target.value)} />
+                            </div>}
                             <div className="featured_projects_card_header_right">
                                 <div className="selects">
                                     <MultiselectDropDown
@@ -221,16 +231,16 @@ const FeaturedAllProjects = () => {
                                                 <LeftIcon />
                                             </button>
                                             <button className={`table_pagination_content_button`}>
-                                                <RightIcon />
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> */}
-                        </div>
-                    </div>
-                </div>
+                    <RightIcon />
+                </button>
             </div>
+        </div >
+                                </div >
+                            </div > */}
+                        </div >
+                    </div >
+                </div >
+            </div >
         </>
     )
 }

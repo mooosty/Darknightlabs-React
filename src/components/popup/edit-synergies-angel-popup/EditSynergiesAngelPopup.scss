@@ -31,7 +31,7 @@
 
         .edit_engel_model_box {
             width: 488px;
-            background-color: #191917;
+            background-color: var(--primary-background);
             background-image: url("../../../assets/model-frame.png");
             background-size: contain;
             background-repeat: no-repeat;
@@ -63,7 +63,7 @@
                 }
 
                 h3 {
-                    color: #f5efdb;
+                    color: var(--primary-text);
                     text-decoration: none;
                     font-size: 32px;
                     font-weight: 500;
@@ -143,13 +143,13 @@
                     }
 
                     &::-webkit-scrollbar-thumb {
-                        background: rgba(78, 78, 78, 0.5);
+                        background: #4e4e4e80;
                     }
 
                     .edit_engel_model_data {
                         padding-right: 7px;
                         font-family: "MedievalSharp", cursive;
-                        color: #f5efdb;
+                        color: var(--primary-text);
                         overflow: hidden;
 
 
@@ -214,8 +214,8 @@
                                             text-align: center;
                                             gap: 12px;
                                             padding: 6px 10px;
-                                            border: 1px solid rgba(255, 255, 255, 0.2);
-                                            color: rgba(255, 255, 255, 0.32);
+                                            border: 1px solid #ffffff33;
+                                            color: #ffffff52;
                                             font-family: "Inter", sans-serif;
                                             border-radius: 8px;
 
@@ -239,7 +239,7 @@
                                                     margin-bottom: 2px;
 
                                                     path {
-                                                        stroke: rgba(255, 255, 255, 0.32);
+                                                        stroke: #ffffff52;
                                                     }
                                                 }
                                             }
@@ -258,7 +258,7 @@
                                                     width: 100%;
 
                                                     path {
-                                                        stroke: rgba(255, 255, 255, 0.32);
+                                                        stroke: #ffffff52;
                                                     }
                                                 }
                                             }
@@ -270,7 +270,7 @@
 
 
                                         .checkbox_input:checked+.checkbox_label {
-                                            background-color: rgba(255, 255, 255, 0.1);
+                                            background-color: #ffffff1a;
 
                                             .checkbox_label_text {
                                                 color: white;
@@ -305,7 +305,7 @@
 
             .edit_engel_model_footer {
                 padding: 0 16px 20px 16px;
-                background-color: #191917;
+                background-color: var(--primary-background);
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
@@ -316,10 +316,10 @@
                 }
 
                 .back_btn {
-                    background-color: rgba(255, 158, 152, 0.1490196078);
+                    background-color: var(--btn_delete-bg);
                     border: none;
                     padding: 14px 55px 14px 55px;
-                    color: #ff9e98;
+                    color: var(--primary-red);
                     font-size: 16px;
 
                     @media (max-width: 1600px) {
@@ -341,9 +341,9 @@
 
                 .cancel_btn {
                     border: none;
-                    background-color: rgba(78, 78, 78, 0.5803921569);
+                    background-color: var(--btn-gray-bg);
                     font-weight: 500;
-                    color: #f5efdb;
+                    color: var(--primary-text);
                     display: flex;
                     align-items: center;
                     justify-content: center;

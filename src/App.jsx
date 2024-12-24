@@ -1,3 +1,4 @@
+import './App.scss'
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./components/layout/Layout";
 import Authentication from "./pages/authentication/Authentication";

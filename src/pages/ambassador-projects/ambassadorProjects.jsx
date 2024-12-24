@@ -2,7 +2,7 @@ import './ambassadorProjects.scss'
 import debounce from 'lodash.debounce'
 import { useCallback, useState, useEffect } from 'react'
 import { SearchIcon } from '../../utils/constants/images'
-import { AmbassadorsCard } from '../../components'
+import { AmbassadorsCard, CustomSearch } from '../../components'
 import { useDispatch, useSelector } from 'react-redux';
 import { getProjectsAPI } from "../../api-services/projectApis";
 
@@ -11,6 +11,8 @@ const AmbassadorProjects = () => {
     const dispatch = useDispatch()
     const { projects } = useSelector(state => state.project)
     const [filterProject, setFilterProject] = useState([]);
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
+    const [searchStr, setSearchStr] = useState('')
 
     const [activeLayout, setActiveLayout] = useState('TRENDING');
     const [filter, setFilter] = useState({
@@ -23,15 +25,19 @@ const AmbassadorProjects = () => {
         setActiveLayout(key);
     }
 
-    const handleSearchChange = useCallback(
-        debounce((value) => {
+    const handleSearchChange = (value) => {
+        setSearchStr(value)
+    }
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
             setFilter((prevFilter) => ({
                 ...prevFilter,
-                searchBy: value,
+                searchBy: searchStr,
             }));
-        }, 500),
-        []
-    );
+        }, 500)
+        return () => clearTimeout(timer)
+    }, [searchStr])
 
     useEffect(() => {
         let data = [...projects];
@@ -58,18 +64,21 @@ const AmbassadorProjects = () => {
                 <div className="ambassador_content_header">
                     <div className="ambassador_content_left">
                         <h2>Projects</h2>
-                        <div className="search_box">
-                            <span className="search_icon"><SearchIcon /></span>
-                            <input type="text" placeholder="Search" onChange={(e) => handleSearchChange(e.target.value)} />
+                        <div className="search_wrap">
+                            <CustomSearch value={searchStr} placeholder="Search" onSearchChange={(e) => handleSearchChange(e.target.value)} isOpen={isSearchOpen} setIsOpen={setIsSearchOpen} />
                         </div>
                     </div>
+                    {isSearchOpen && <div className="mobile_search">
+                        <span className="icon"><SearchIcon /></span>
+                        <input value={searchStr} type="text" placeholder="Search" onChange={(e) => handleSearchChange(e.target.value)} />
+                    </div>}
                     <div className="ambassador_content_right">
                         <a href="#">Darknight Labs</a>
                     </div>
                 </div>
 
                 <div className="user_ambassador_page_data">
-                    <div className="page_data">
+                    <div className={`page_data ${isSearchOpen ? 'search_open' : ''}`}>
                         <div className="ambassador_card_box">
                             <div className="ambassador_card_header">
                                 <div className="header_top">Ambassador-exclusive projects</div>
@@ -128,7 +137,7 @@ const AmbassadorProjects = () => {
                             </div> */}
                     </div>
                 </div>
-            </div>
+            </div >
         </>
     )
 }

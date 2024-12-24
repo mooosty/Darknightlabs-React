@@ -1,5 +1,5 @@
 .header_wrp {
-    background-color: #191917;
+    background-color: var(--primary-background);
     padding: 22px 24px;
     margin-bottom: 30px;
     display: flex;
@@ -21,7 +21,7 @@
     }
 
     .header_title {
-        color: #F5EFDB;
+        color: var(--primary-text);
         font-family: "MedievalSharp", cursive;
         font-size: 24px;
         display: none;
@@ -62,10 +62,10 @@
         // margin-left: auto;
         font-family: "MedievalSharp", cursive;
         background-color: transparent;
-        border: 1px solid #f5efdb;
+        border: 1px solid var(--primary-text);
         font-size: 16px;
         font-weight: 500;
-        color: #f5efdb;
+        color: var(--primary-text);
         padding: 9px 17px;
         display: block;
 
@@ -84,11 +84,11 @@
         align-items: center;
         gap: 6px;
         background-color: transparent;
-        color: #f5efdb;
+        color: var(--primary-text);
         border: none;
     }
 
     .logout_tab {
-        color: #ff9e98;
+        color: var(--primary-red);
     }
 }

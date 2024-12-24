@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import './myContent.scss'
 import { PlusIcon, CopyIcon, editIcon, SearchIcon, DeleteIcon } from "../../utils/constants/images";
 import debounce from 'lodash.debounce';
-import { AmbassadorAccordion, AddContentPopup, DeleteConfirmPopup, SuccessfullyPopup, Loader } from '../../components';
+import { AmbassadorAccordion, AddContentPopup, DeleteConfirmPopup, SuccessfullyPopup, Loader, CustomSearch } from '../../components';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { deleteContentAPI, getContentAPI } from '../../api-services/contentApis';
@@ -14,6 +14,8 @@ const MyContent = () => {
     const { userId } = useSelector((state) => state.auth)
     const { contents } = useSelector((state) => state.content)
     const { isLoading: projectApiLoading } = useSelector((state) => state.project)
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
+    const [searchStr, setSearchStr] = useState('')
 
     const [isAddContentPopupOpen, setIsAddContentPopupOpen] = useState(false);
     const [activeContentLayout, setActiveContentLayout] = useState('Tweet');
@@ -86,15 +88,9 @@ const MyContent = () => {
         setFilteredContents([...contents]);
     }, [contents])
 
-    const handleSearchChange = useCallback(
-        debounce((value) => {
-            setFilter((prevFilter) => ({
-                ...prevFilter,
-                searchBy: value,
-            }));
-        }, 500),
-        []
-    );
+    const handleSearchChange = (value) => {
+        setSearchStr(value)
+    }
 
     const handleGetProjectContent = () => {
         dispatch(getContentAPI(userId))
@@ -102,6 +98,16 @@ const MyContent = () => {
                 setFilteredContents(response?.payload ?? [])
             })
     }
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setFilter((prevFilter) => ({
+                ...prevFilter,
+                searchBy: searchStr,
+            }));
+        }, 500)
+        return () => clearTimeout(timer)
+    }, [searchStr])
 
     useEffect(() => {
         handleGetProjectContent()
@@ -113,24 +119,19 @@ const MyContent = () => {
                 <div className="my_content_header">
                     <div className="my_content_left">
                         <h2>My Content</h2>
-                        <div className="search_box">
-                            <span className="search_icon">
-                                <SearchIcon />
-                            </span>
-                            <input
-                                type="text"
-                                placeholder="Search"
-                                onChange={(e) =>
-                                    handleSearchChange(e.target.value)
-                                }
-                            />
+                        <div className="search_wrap">
+                            <CustomSearch placeholder="Search" value={searchStr} onSearchChange={(e) => handleSearchChange(e.target.value)} isOpen={isSearchOpen} setIsOpen={setIsSearchOpen} />
                         </div>
                     </div>
+                    {isSearchOpen && <div className="mobile_search">
+                        <span className="icon"><SearchIcon /></span>
+                        <input type="text" value={searchStr} placeholder="Search" onChange={(e) => handleSearchChange(e.target.value)} />
+                    </div>}
                     <div className="my_content_right">
                         <a href="#">Darknight Labs</a>
                     </div>
                 </div>
-                <div className="my_content_body">
+                <div className={`my_content_body ${isSearchOpen ? 'search_open' : ''}`}>
                     <div className="content_count_wrap">
                         <div className="content_count_box_wrap">
                             <div className="content_count_box">

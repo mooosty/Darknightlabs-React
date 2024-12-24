@@ -9,7 +9,7 @@ import { updateProjectAPI } from "../../../api-services/projectApis";
 import { synergyAnglesOptions } from "../../../utils/constants/options";
 import { AddAngelPopup, DeleteConfirmPopup, ImageUploader, Loader, Select, TagInput } from "../../../components";
 import { addProjectAPI, deleteProjectAPI, addMemberAPI, getProjectsApiById } from "../../../api-services/projectApis";
-import { DeleteIcon, PlusIcon, sepratorImage, RightIcon, SearchIcon } from "../../../utils/constants/images";
+import { DeleteIcon, PlusIcon, sepratorImage, RightIcon } from "../../../utils/constants/images";
 import PropTypes from "prop-types";
 import toast, { Toaster } from "react-hot-toast";
 import debounce from 'lodash.debounce';
@@ -27,7 +27,7 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
   const [angelPopupIndex, setAngelPopupIndex] = useState();
   const [emailValidationResults, setEmailValidationResults] = useState({});
 
-  const userData = useSelector((state) => state.user.users);
+  // const userData = useSelector((state) => state.user.users);
   const {
     projectDetails,
     isLoading: projectApiLoading,
@@ -83,19 +83,19 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
 
     if (
       !values.project_name ||
-    //   !values.discord_username ||
+      //   !values.discord_username ||
       !values.description ||
       !values.twitter_username ||
       !values.image ||
       !values.tags.length ||
-      !values.synergy_angles[0].synergy_angle 
-    //   !values.investments[0].property ||
-    //   !values.investments[0].price
+      !values.synergy_angles[0].synergy_angle
+      //   !values.investments[0].property ||
+      //   !values.investments[0].price
     ) {
       return toast.error("Please fill in all the required fields");
     }
 
-  
+
 
     const date = new Date();
     const synergy_obj = {};
@@ -309,14 +309,14 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
       if (response.data?.success === 1) {
         setEmailValidationResults(prev => ({
           ...prev,
-          [index]: { 
-            isValid: true, 
+          [index]: {
+            isValid: true,
             message: `User: ${response.data.data.username}`,
             username: response.data.data.username,
             userId: response.data.data.id
           }
         }));
-        
+
         setFieldValue("members", [
           ...values.members.slice(0, index),
           {
@@ -340,14 +340,14 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
   return (
     <>
 
-<Toaster
+      <Toaster
         position="bottom-center"
         toastOptions={{
           className: "",
           duration: 5000,
           style: {
             background: "#242623",
-            color: "#fff",
+            color: "var(--primary-white)",
             textAlign: "center", // Center the text
             fontSize: "18px", // Increase the font size
             padding: "20px", // Add some padding
@@ -366,12 +366,6 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
       <div className="content_header">
         <div className="content_left">
           <h2>Profile</h2>
-          <div className="search_box">
-            <span className="search_icon">
-              <SearchIcon />
-            </span>
-            <input type="text" placeholder="Search" />
-          </div>
         </div>
         <div className="content_right">
           <a href="#">Darknight Labs</a>
@@ -381,9 +375,7 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
         <div className="page_data">
           <div className="page_header">
             <div className="pagination">
-              <div onClick={() => setAddNewProject(false)}>
-                <Link to={"/profile"}>Project involvment</Link>
-              </div>
+              <Link to={"/profile"} onClick={() => setAddNewProject(false)}>Project involvment</Link>
               <span>
                 <RightIcon />
               </span>

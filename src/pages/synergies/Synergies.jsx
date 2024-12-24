@@ -7,7 +7,7 @@ import { getSynergyApi } from '../../api-services/synergyApi'
 import { synergyAnglesOptions } from '../../utils/constants/options'
 import { SearchIcon, tableActor, defaultImg } from '../../utils/constants/images'
 import { CheckCircleIcon } from '../../utils/SVGs/SVGs'
-import { Loader, MultiselectDropDown, SynergyCard } from '../../components'
+import { CustomSearch, Loader, MultiselectDropDown, SynergyCard } from '../../components'
 
 
 const Synergies = () => {
@@ -16,6 +16,9 @@ const Synergies = () => {
     const [activeLayout, setActiveLayout] = useState('TRENDING');
     const [synergies, setSynergies] = useState([]);
     const [filterSynergies, setFilterSynergies] = useState([]);
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
+    const [searchStr, setSearchStr] = useState('')
+
     const [filter, setFilter] = useState({
         synergyAngleValues: '',
         types: '',
@@ -28,16 +31,6 @@ const Synergies = () => {
     const handleActive = (key) => {
         setActiveLayout(key);
     }
-
-    const handleSearchChange = useCallback(
-        debounce((value) => {
-            setFilter((prevFilter) => ({
-                ...prevFilter,
-                searchBy: value,
-            }));
-        }, 500),
-        []
-    );
 
     const getSynergyAngles = (angles) => {
         const selectedLabels = angles?.map((v) => {
@@ -65,6 +58,19 @@ const Synergies = () => {
         return selectedLabels
     }
 
+    const handleSearchChange = (value) => {
+        setSearchStr(value)
+    }
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setFilter((prevFilter) => ({
+                ...prevFilter,
+                searchBy: searchStr,
+            }));
+        }, 500)
+        return () => clearTimeout(timer)
+    }, [searchStr])
 
     useEffect(() => {
         let data = synergies;
@@ -126,18 +132,21 @@ const Synergies = () => {
                 <div className="synergies_content_header">
                     <div className="synergies_content_left">
                         <h2>Synergies</h2>
-                        <div className="search_box">
-                            <span className="search_icon"><SearchIcon /></span>
-                            <input type="text" placeholder="Search" onChange={(e) => handleSearchChange(e.target.value)} />
+                        <div className="search_wrap">
+                            <CustomSearch value={searchStr} placeholder="Search" onSearchChange={(e) => handleSearchChange(e.target.value)} isOpen={isSearchOpen} setIsOpen={setIsSearchOpen} />
                         </div>
                     </div>
+                    {isSearchOpen && <div className="mobile_search">
+                        <span className="icon"><SearchIcon /></span>
+                        <input value={searchStr} type="text" placeholder="Search" onChange={(e) => handleSearchChange(e.target.value)} />
+                    </div>}
                     <div className="synergies_content_right">
                         <a href="#">Darknight Labs</a>
                     </div>
                 </div>
 
                 <div className="user_synergies_page_data">
-                    <div className="page_data">
+                    <div className={`page_data ${isSearchOpen ? 'search_open' : ''}`}>
                         <div className="synergies_card_box">
                             <div className="synergies_card_header">
                                 <div className="header_top"> Available synergies </div>

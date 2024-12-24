@@ -15,6 +15,9 @@
 
                 @media (max-width: 767px) {
                     margin-bottom: 0px;
+                    padding-bottom: 15px;
+                    background-color: var(--primary-background);
+
                 }
 
 
@@ -26,70 +29,18 @@
                     @media (max-width: 767px) {
                         width: 100%;
                         padding: 15px 24px;
+                        padding-bottom: 0;
                         justify-content: space-between;
                     }
 
                     h2 {
-                        color: #fff;
+                        color: var(--primary-white);
                         font-weight: 500;
                         font-family: "MedievalSharp", cursive;
                         font-size: 42px;
 
                         @media (max-width: 1600px) {
                             font-size: 28px;
-                        }
-                    }
-
-                    .search_box {
-                        position: relative;
-                        min-width: 450px;
-
-                        @media (max-width: 1199px) {
-                            min-width: 230px;
-                        }
-
-                        @media (max-width: 374px) {
-                            display: none;
-                        }
-
-                        input {
-                            background-color: #191917;
-                            padding: 10px 24px 10px 52px;
-                            border: 1px solid #3c3c3c;
-                            border-radius: 9px;
-                            width: 100%;
-                            font-size: 16px;
-                            color: #f5efdb;
-
-                            @media (max-width: 767px) {
-                                display: none;
-                            }
-
-                            &::placeholder {
-                                color: #f5efdb;
-                                font-size: 18px;
-                                opacity: 0.5;
-
-                                @media (max-width: 1199px) {
-                                    font-size: 14px;
-                                }
-                            }
-                        }
-
-                        .search_icon {
-                            position: absolute;
-                            left: 24px;
-                            top: 50%;
-                            transform: translateY(-50%);
-
-                            @media (max-width: 1199px) {
-                                left: 15px;
-                            }
-
-                            @media (max-width: 767px) {
-                                left: auto;
-                                right: 8px;
-                            }
                         }
                     }
                 }
@@ -103,7 +54,7 @@
                     }
 
                     a {
-                        color: #f5efdb;
+                        color: var(--primary-text);
                         text-decoration: none;
                         font-size: 24px;
                         font-weight: 500;
@@ -126,6 +77,14 @@
                     height: calc(100% - 50px);
                 }
 
+                @media (max-width: 767px) {
+                    background-color: var(--primary-background);
+
+                    &.search_open {
+                        height: calc(100% - 100px);
+                    }
+                }
+
                 .content_count_wrap {
                     display: flex;
                     align-items: center;
@@ -136,6 +95,12 @@
 
                     @media (max-width: 767px) {
                         padding: 15px 20px 0 20px;
+                        background-color: var(--primary-background);
+                    }
+
+                    @media (max-width: 450px) {
+                        align-items: start;
+                        flex-direction: column;
                     }
 
                     .content_count_box_wrap {
@@ -147,12 +112,16 @@
                         flex-shrink: 0;
                         border-radius: 10px;
 
+                        @media (max-width: 450px) {
+                            width: 100%;
+                        }
+
                         .content_count_box {
                             display: flex;
                             flex-shrink: 0;
                             align-items: center;
                             justify-content: space-between;
-                            background-color: #191917;
+                            background-color: var(--primary-background);
                             padding: 12px 28px;
                             border-radius: 10px;
                             margin: 1px;
@@ -166,7 +135,7 @@
                             }
 
                             .text {
-                                color: #F5EFDB;
+                                color: var(--primary-text);
                                 font-weight: 500;
                                 font-size: 22px;
 
@@ -177,7 +146,7 @@
 
                             .number {
                                 font-size: 28px;
-                                color: #fff;
+                                color: var(--primary-white);
                                 font-weight: 500;
                                 font-family: "MedievalSharp", cursive;
                                 font-size: 52px;
@@ -192,7 +161,7 @@
 
                 .all_my_page_data {
                     border-radius: 9px;
-                    background-color: #191917;
+                    background-color: var(--primary-background);
                     min-height: calc(100% - 108px);
 
                     @media (max-width: 1600px) {
@@ -217,11 +186,11 @@
                             flex-direction: column;
                             gap: 16px;
                             padding: 0 20px 12px 20px;
-                            border-bottom: 1px solid rgba(245, 239, 219, 0.15);
+                            border-bottom: 1px solid var(--border-color);
                             margin-bottom: 12px;
 
                             .all_projects_card_header_top {
-                                color: #f5efdb;
+                                color: var(--primary-text);
                                 font-size: 24px;
                                 font-family: "MedievalSharp", cursive;
                             }
@@ -245,7 +214,7 @@
                                         justify-content: center;
                                         background-color: transparent;
                                         border: none;
-                                        color: rgba(230, 234, 238, 0.5);
+                                        color: #e6eaee80;
                                         font-family: MedievalSharp;
 
                                         @media (max-width:1200px) {
@@ -253,8 +222,8 @@
                                         }
 
                                         &.active {
-                                            background-color: rgba(78, 78, 78, 0.58);
-                                            color: #F5EFDB;
+                                            background-color: var(--btn-gray-bg);
+                                            color: var(--primary-text);
                                         }
                                     }
                                 }
@@ -305,11 +274,11 @@
                                     th {
                                         font-family: MedievalSharp;
                                         font-size: 18px;
-                                        color: #f5efdb;
+                                        color: var(--primary-text);
                                         min-width: 110px;
                                         font-weight: 400;
                                         padding: 4px 12px;
-                                        border-bottom: 1px solid rgba(255, 239, 219, 0.15);
+                                        border-bottom: 1px solid #ffefdb26;
 
                                         &.center {
                                             text-align: center;
@@ -318,18 +287,18 @@
                                 }
 
                                 tbody {
-                                    color: rgba(245, 239, 219, 0.6);
+                                    color: #f5efdb99;
                                     font-size: 14px;
                                     font-family: "Inter", sans-serif;
 
                                     .highlighted {
-                                        background-color: rgba(218, 185, 67, 0.1);
+                                        background-color: #dab9431a;
                                     }
 
                                     td {
                                         opacity: 1;
                                         padding: 16px 8px;
-                                        border-bottom: 1px solid rgba(245, 239, 219, 0.15);
+                                        border-bottom: 1px solid var(--border-color);
                                         min-width: 110px;
 
                                         .url {
@@ -385,7 +354,7 @@
                                             align-items: center;
                                             justify-content: center;
                                             font-size: 14px;
-                                            color: rgba(255, 255, 255, 0.6);
+                                            color: #ffffff99;
                                         }
 
                                         .actions {
@@ -406,7 +375,7 @@
                                         .table_angles {
                                             .angle_tag {
                                                 border-radius: 8px;
-                                                background-color: rgba(245, 239, 219, 0.16);
+                                                background-color: var(--border-color);
                                             }
                                         }
                                     }
@@ -439,7 +408,7 @@
 
                             .my_page_pagination_content_text {
                                 font-size: 14px;
-                                color: #fff;
+                                color: var(--primary-white);
                                 display: flex;
                                 gap: 8px;
 
@@ -451,7 +420,7 @@
                                     select {
                                         border: none;
                                         background: transparent;
-                                        color: #fff;
+                                        color: var(--primary-white);
                                         cursor: pointer;
                                         font-family: "Inter", sans-serif;
                                         font-size: 14px;
@@ -484,7 +453,7 @@
                                         &:focus {
                                             svg {
                                                 path {
-                                                    fill: #fff;
+                                                    fill: var(--primary-white);
                                                 }
                                             }
                                         }

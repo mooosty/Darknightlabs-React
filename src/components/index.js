@@ -4,7 +4,7 @@ import BottomMenu from './bottom-menu/BottomMenu'
 import ChatMembers from './chat/chat-members/ChatMembers'
 import MessagesPanel from './chat/messages-panel/MessagesPanel'
 import CustomTooltip from './customTooltip/CustomTooltip'
-
+import CustomSearch from './custom-search/CustomSearch'
 import Layout from './layout/Layout'
 import Loader from './loader/Loader'
 import ProjectCard from './project-card/Card'
@@ -69,7 +69,7 @@ export {
     ImageUploader,
     Select,
     SynergyCard,
-
+    CustomSearch,
 
     // Popups
     AddAngelPopup,

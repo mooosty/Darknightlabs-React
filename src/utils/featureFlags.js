@@ -1,7 +1,7 @@
 // Feature flags to control access to different features
 export const FEATURE_FLAGS = {
-  PROJECTS: false,
-  SYNERGIES: false,
+  PROJECTS: true,
+  SYNERGIES: true,
   CHAT: false,
   // Add other feature flags as needed
 };

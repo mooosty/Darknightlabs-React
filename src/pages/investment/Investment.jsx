@@ -1,6 +1,6 @@
 import './investment.scss'
 import { useState } from 'react';
-import { MultiselectDropDown } from '../../components';
+import { CustomSearch, MultiselectDropDown } from '../../components';
 import { useDispatch, useSelector } from 'react-redux';
 import WalletConnect from '../../components/investments/WalletConnect/WalletConnect';
 import { projectTypesOptions, synergyAnglesOptions } from '../../utils/constants/options';
@@ -297,6 +297,7 @@ const Investment = () => {
   const [activeLayout, setActiveLayout] = useState('TRENDING');
   const [showDetails, setShowDetails] = useState(false);
   const [selectedInvestment, setSelectedInvestment] = useState(null);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const handleActive = (key) => { setActiveLayout(key) }
 
@@ -499,8 +500,8 @@ const Investment = () => {
             <p><strong>COIN:</strong> $USDT</p>
             <p><strong>NETWORK:</strong> SOLANA</p>
             <p>
-              <strong>ADDRESS:</strong> 
-              <span 
+              <strong>ADDRESS:</strong>
+              <span
                 className="copy-address"
                 onClick={() => {
                   navigator.clipboard.writeText("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
@@ -511,7 +512,7 @@ const Investment = () => {
                     closeOnClick: true,
                     style: {
                       background: "#242623",
-                      color: "#fff",
+                      color: "var(--primary-white)",
                       fontFamily: "MedievalSharp, cursive"
                     }
                   });
@@ -670,9 +671,9 @@ const Investment = () => {
           </div>
         )}
 
-        <button 
-          type="submit" 
-          className="submit-button" 
+        <button
+          type="submit"
+          className="submit-button"
           disabled={isSubmitting}
         >
           {isSubmitting ? 'Submitting...' : 'Submit'}
@@ -688,19 +689,20 @@ const Investment = () => {
           <div className="investments_content_header">
             <div className="content_left">
               <h2>Investment</h2>
-              <div className="search_box">
-                <span className="search_icon">
-                  <SearchIcon />
-                </span>
-                <input type="text" placeholder="Search" onChange={(e) => handleSearchChange(e.target.value)} />
+              <div className="search_wrap">
+                <CustomSearch value={filter.searchBy} placeholder="Search" isOpen={isSearchOpen} setIsOpen={setIsSearchOpen} />
               </div>
             </div>
+            {isSearchOpen && <div className="mobile_search">
+              <span className="icon"><SearchIcon /></span>
+              <input value={filter.searchBy} type="text" placeholder="Search" />
+            </div>}
             <div className="content_right">
               <a href="#">Darknight Labs</a>
             </div>
           </div>
           <div className="investments_page_data">
-            <div className="page_data">
+            <div className={`page_data ${isSearchOpen ? 'search_open' : ''}`}>
               <div className="investment_page_header">
                 <div className="investment_toggleWrap">
                   <button className={`investment_toggle_btn ${activeLayout === 'TRENDING' ? 'active' : ''}`} onClick={() => handleActive('TRENDING')} >
@@ -840,7 +842,7 @@ const Investment = () => {
                     <div className="description">
                       Come join Kiki's journey from being a popular Giphy IP, to being a face of the newest AI agent x memecoin on Solana, backed by $SHIB
                     </div>
-                    
+
                     <div className="section">
                       <p>Powered by Solana, KIKI isn't just a token — it's a movement.</p>
                       <p>Once the World's meme sweetheart and a viral sensation with 10.6 billion Giphy views, KiKi's journey took an unexpected turn. Despite its global fame, challenges arose. He had no choice but to rely on the blockchain, sparking a transformation like no other: the ultimate glow-up.</p>

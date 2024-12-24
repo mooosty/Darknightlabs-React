@@ -4,9 +4,8 @@ import "./customDropdown.scss";
 import PropTypes from "prop-types";
 import { useClickOutside } from "../../utils/hooks/useClickOutside";
 
-const CustomDropdown = ({ items, toggleButton }) => {
+const CustomDropdown = ({ items, toggleButton, position = "bottom_right" }) => {
     const [isOpen, setIsOpen] = useState(false);
-
     const listRef = useClickOutside(() => {
         setIsOpen(false); // Close dropdown when clicking outside
     });
@@ -28,14 +27,15 @@ const CustomDropdown = ({ items, toggleButton }) => {
                 {toggleButton}
             </button>
             {isOpen && (
-                <div className="dropdown_content">
+                <div className={`dropdown_content ${position}`}
+                >
                     {items && items.map((item, index) => (
                         <div
                             key={index}
                             className="dropdown_box"
                             onClick={() => handleClick(index)}
                         >
-                            <span> {item.icon}</span>
+                            {item.icon && <span> {item.icon}</span>}
                             {item.label}
                         </div>
                     ))}
@@ -53,5 +53,6 @@ CustomDropdown.propTypes = {
             onClick: PropTypes.func,
         })
     ),
+    position: PropTypes.oneOf(['bottom_right', 'bottom_left', 'top_right', 'top_left'])
 };
 export default CustomDropdown;

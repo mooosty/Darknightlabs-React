@@ -31,7 +31,7 @@
 
         .confirm_synergies_model_box {
             width: 488px;
-            background-color: #191917;
+            background-color: var(--primary-background);
             background-image: url("../../../assets/model-frame.png");
             background-size: contain;
             background-repeat: no-repeat;
@@ -72,7 +72,7 @@
                 }
 
                 &::-webkit-scrollbar-thumb {
-                    background: rgba(78, 78, 78, 0.5);
+                    background: #4e4e4e80;
                 }
 
                 .confirm_synergies_data_header {
@@ -90,7 +90,7 @@
                     }
 
                     h3 {
-                        color: #f5efdb;
+                        color: var(--primary-text);
                         text-decoration: none;
                         font-size: 32px;
                         font-weight: 500;
@@ -117,7 +117,7 @@
 
                 .confirm_synergies_data_body {
                     font-family: "MedievalSharp", cursive;
-                    color: #f5efdb;
+                    color: var(--primary-text);
 
                     .accordion_input {
                         position: absolute;
@@ -139,7 +139,7 @@
                         padding-left: 0;
                         font-family: MedievalSharp;
                         cursor: pointer;
-                        color: #f5efdb;
+                        color: var(--primary-text);
 
                         .header {
                             width: 100%;
@@ -182,14 +182,14 @@
 
                                 .checkbox_label {
                                     margin: 0;
-                                    color: rgba(245, 245, 245, 0.5);
+                                    color: #f5f5f580;
                                     display: flex;
                                     align-items: center;
                                     gap: 6px;
                                     padding: 5px 7px;
                                     cursor: pointer;
                                     border-radius: 5px;
-                                    border: 1px solid rgba(255, 255, 255, 0.15);
+                                    border: 1px solid #ffffff26;
                                     font-size: 16px;
 
                                     @media (max-width: 1600px) {
@@ -198,7 +198,7 @@
 
                                     svg {
                                         path {
-                                            stroke: rgba(255, 255, 255, 0.5);
+                                            stroke: #ffffff80;
                                         }
                                     }
                                 }
@@ -208,8 +208,8 @@
                                 }
 
                                 .checkbox_input:checked+.checkbox_label {
-                                    background-color: rgba(245, 245, 245, 0.15);
-                                    color: rgb(245, 245, 245, );
+                                    background-color: #f5f5f526;
+                                    color: #f5f5f5;
                                     stroke: white;
 
                                     svg {
@@ -255,10 +255,10 @@
                 }
 
                 .back_btn {
-                    background-color: rgba(255, 158, 152, 0.1490196078);
+                    background-color: var(--btn_delete-bg);
                     border: none;
                     padding: 14px 56px 14px 55px;
-                    color: #ff9e98;
+                    color: var(--primary-red);
                     font-size: 16px;
                     max-width: 170px;
 
@@ -275,9 +275,9 @@
 
                 .create_btn {
                     border: none;
-                    background-color: rgba(78, 78, 78, 0.5803921569);
+                    background-color: var(--btn-gray-bg);
                     font-weight: 500;
-                    color: #f5efdb;
+                    color: var(--primary-text);
                     display: flex;
                     align-items: center;
                     justify-content: center;

@@ -8,13 +8,13 @@
 
     &.disable {
         opacity: 0.4;
-        background-color: rgba(245, 239, 219, 0.16);
+        background-color: var(--border-color);
         cursor: not-allowed;
     }
 
     .custom_select_field {
         padding: 15px 24px;
-        border: 1px solid rgba(255, 255, 255, 0.5019607843);
+        border: 1px solid #ffffff80;
         background-color: transparent;
         width: 100%;
         line-height: 19px;
@@ -36,7 +36,7 @@
         }
 
         .custom_select_label {
-            color: #f5efdb;
+            color: var(--primary-text);
         }
 
         .custom_select_placeholder {
@@ -90,7 +90,7 @@
         }
 
         &::-webkit-scrollbar-thumb {
-            background: #F5EFDB !important;
+            background: var(--primary-text) !important;
         }
 
         &.active {
@@ -108,7 +108,7 @@
                 font-size: 16px;
                 font-weight: 500;
                 line-height: 19px;
-                color: #f5efdb;
+                color: var(--primary-text);
 
                 @media (max-width: 1600px) {
                     font-size: 14px;
@@ -138,10 +138,10 @@
         .add_new_angle_btn {
             padding: 10px 24px;
             border: none;
-            background-color: rgba(78, 78, 78, 0.5803921569);
+            background-color: var(--btn-gray-bg);
             font-size: 16px;
             font-weight: 500;
-            color: #f5efdb;
+            color: var(--primary-text);
             display: flex;
             align-items: center;
             justify-content: center;

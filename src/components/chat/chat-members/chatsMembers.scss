@@ -28,7 +28,7 @@
             width: 100%;
             padding-inline: 16px;
             background-color: #242623;
-            border-top: 1px solid rgba(255, 255, 255, 0.5);
+            border-top: 1px solid #ffffff80;
             border-top-left-radius: 20px;
             border-top-right-radius: 20px;
 
@@ -37,7 +37,7 @@
             }
 
             .head {
-                color: #f5efdb;
+                color: var(--primary-text);
                 text-decoration: none;
                 font-size: 24px;
                 font-family: "MedievalSharp", cursive;
@@ -90,11 +90,11 @@
                     }
 
                     &::-webkit-scrollbar-thumb {
-                        background: #F5EFDB;
+                        background: var(--primary-text);
                     }
 
                     .list_header {
-                        color: #fff;
+                        color: var(--primary-white);
                         font-size: 12px;
                         text-transform: uppercase;
                         padding: 4px 2px;
@@ -141,7 +141,7 @@
                                     }
 
                                     .top_right {
-                                        color: #f5efdb99;
+                                        color: #f5efdb80;
                                         line-height: 20px;
                                         font-size: 10px;
                                         text-transform: uppercase;

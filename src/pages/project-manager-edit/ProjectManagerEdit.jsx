@@ -9,7 +9,7 @@ import { updateProjectAPI } from "../../api-services/projectApis";
 import { synergyAnglesOptions } from "../../utils/constants/options";
 import { AddAngelPopup, DeleteConfirmPopup, ImageUploader, Loader, Select, TagInput } from "../../components";
 import { addProjectAPI, deleteProjectAPI, addMemberAPI, getProjectsApiById } from "../../api-services/projectApis";
-import { SearchIcon, autherProfile, DeleteIcon, PlusIcon, sepratorImage, RightIcon } from "../../utils/constants/images";
+import { autherProfile, DeleteIcon, PlusIcon, sepratorImage, RightIcon } from "../../utils/constants/images";
 
 const ProjectManagerEdit = () => {
   const dispatch = useDispatch();
@@ -108,9 +108,9 @@ const ProjectManagerEdit = () => {
       investments_access: true,
       investments: investment_obj,
     };
-    
+
     dispatch(addProjectAPI(data)).then((res) => {
-      
+
       const resArr = values.members.map((member) => {
         const data = {
           userId: member.userId,
@@ -270,10 +270,6 @@ const ProjectManagerEdit = () => {
       <div className="content_header">
         <div className="content_left">
           <h2>Projects Manager</h2>
-          <div className="search_box">
-            <span className="search_icon"><SearchIcon /></span>
-            <input type="text" placeholder="Search" />
-          </div>
         </div>
         <div className="content_right">
           <a href="#">Darknight Labs</a>

@@ -1,5 +1,5 @@
 .sidebar_container {
-    background-color: #191917;
+    background-color: var(--primary-background);
     padding: 24px;
     border-radius: 9px;
     width: 300px;
@@ -132,7 +132,7 @@
 
         .ambassadors_text {
             font-size: 30px;
-            color: #fff;
+            color: var(--primary-white);
             font-weight: 500;
             font-family: "MedievalSharp", cursive;
             text-align: center;
@@ -151,7 +151,7 @@
         }
 
         .separator {
-            background: linear-gradient(to right, #463600 0%, rgba(245, 239, 219, 0.15) 45%, rgba(245, 239, 219, 0.03) 99%);
+            background: linear-gradient(to right, #463600 0%, #f5efdb26 45%, #f5efdb08 99%);
             display: block;
             height: 1px;
             width: 100%;
@@ -190,7 +190,7 @@
             .user_name {
                 h3 {
                     font-family: "MedievalSharp", cursive;
-                    color: #fff;
+                    color: var(--primary-white);
                     font-size: 18px;
                     line-height: 20.34px;
                     font-weight: 700;
@@ -212,12 +212,12 @@
                     display: flex;
                     align-items: center;
                     gap: 5px;
-                    color: #F5EFDB;
+                    color: var(--primary-text);
                     font-size: 14px;
                     opacity: 0.8;
 
                     svg {
-                        color: #F5EFDB;
+                        color: var(--primary-text);
                         margin-bottom: 1px;
                     }
                 }
@@ -258,7 +258,7 @@
 
                     a {
                         text-decoration: none;
-                        color: #F5EFDB;
+                        color: var(--primary-text);
                         display: flex;
                         align-items: center;
                         padding: 8px 12px;
@@ -285,7 +285,7 @@
                 content: "You need to complete profile ";
                 position: absolute;
                 background: #000;
-                color: #F5EFDB;
+                color: var(--primary-text);
                 padding: 8px 12px;
                 border-radius: 4px;
                 font-size: 14px;
@@ -296,7 +296,7 @@
             }
 
             .separator {
-                background: linear-gradient(to right, #463600 0%, rgba(245, 239, 219, 0.15) 45%, rgba(245, 239, 219, 0.03) 99%);
+                background: linear-gradient(to right, #463600 0%, #f5efdb26 45%, #f5efdb08 99%);
                 display: block;
                 height: 1px;
                 width: 100%;
@@ -323,7 +323,7 @@
             margin-top: auto;
 
             ul li a {
-                color: #ff9e98;
+                color: var(--primary-red);
                 margin-bottom: 0;
             }
         }
@@ -342,10 +342,23 @@
 
     @media (max-width: 767px) {
         display: block;
+
+        &::after {
+            content: '';
+            display: block;
+            position: fixed;
+            width: 100vw;
+            height: 40px;
+            left: 0;
+            bottom: 58px;
+            background-color: var(--primary-background);
+            z-index: -1;
+
+        }
     }
 
     .mobile_bottom_footer {
-        background-color: #191917;
+        background-color: var(--primary-background);
         border-radius: 24px 24px 0 0;
         border-top: 1px solid #e6a6406b;
         padding: 17px 12px;
@@ -376,7 +389,7 @@
                             content: 'Complete your profile first to unlock this feature';
                             position: absolute;
                             background: #000000;
-                            color: #F5EFDB;
+                            color: var(--primary-text);
                             padding: 8px 12px;
                             border-radius: 6px;
                             font-size: 14px;
@@ -385,7 +398,7 @@
                             bottom: calc(100% + 10px);
                             transform: translateX(-50%);
                             z-index: 9999;
-                            border: 1px solid rgba(245, 239, 219, 0.2);
+                            border: 1px solid var(--border-color);
                         }
 
                         &::before {
@@ -404,7 +417,7 @@
 
                 &.active {
                     a {
-                        color: #ffffff;
+                        color: var(--primary-white);
                     }
                 }
 
@@ -414,8 +427,8 @@
                     .tooltip-text {
                         display: none;
                         position: absolute;
-                        background: rgba(0, 0, 0, 0.9);
-                        color: #F5EFDB;
+                        background: #000000e6;
+                        color: var(--primary-text);
                         padding: 8px 12px;
                         border-radius: 6px;
                         font-size: 14px;
@@ -426,7 +439,7 @@
                         left: 50%;
                         transform: translateX(-50%);
                         margin-bottom: 10px;
-                        border: 1px solid rgba(245, 239, 219, 0.2);
+                        border: 1px solid var(--border-color);
 
                         &::after {
                             content: '';
@@ -438,7 +451,7 @@
                             height: 0;
                             border-left: 6px solid transparent;
                             border-right: 6px solid transparent;
-                            border-top: 6px solid rgba(0, 0, 0, 0.9);
+                            border-top: 6px solid #000000e6;
                         }
                     }
                 }
@@ -453,7 +466,7 @@
                     flex-direction: column;
                     align-items: center;
                     font-size: 12px;
-                    color: #f5efdb;
+                    color: var(--primary-text);
                     max-width: 90px;
                     padding-top: 2px;
 
@@ -505,7 +518,7 @@
     width: 100%;
     background: transparent;
     border: none;
-    color: #F5EFDB;
+    color: var(--primary-text);
     font-size: 16px;
     cursor: pointer;
     display: flex;
@@ -517,7 +530,7 @@
     border-radius: 8px;
 
     &:hover {
-        background: rgba(255, 138, 28, 0.1);
+        background: #ff8a1c1a;
     }
 
     span {
@@ -527,7 +540,7 @@
 
 .ambassador_title {
     text-align: center;
-    color: #F5EFDB;
+    color: var(--primary-text);
     font-family: "MedievalSharp", cursive;
     font-size: 24px;
     margin-bottom: 20px;

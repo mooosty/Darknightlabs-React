@@ -2,20 +2,24 @@ import "./sidebar.scss";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ROUTER } from "../../../utils/routes/routes";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { ProfileNavTabIcon, CollapseLeftIcon, CollapseRightIcon, ChatNavTabIcon, LogoutNavTabIcon, ProjectNavTabIcon, MyContentNavTabIcon, SynergiesNavTabIcon, InvestmentNavTabIcon, PendingSynergiesNavTabIcon, SynergiesManagerNavTabIcon, KarmaNavTabIcon } from "../../../utils/constants/images";
 import { KarmaIcon } from "../../../utils/SVGs/SVGs";
+import { handleLogout } from "../../../store/slice/authSlice";
+import { useWindowSize } from "@uidotdev/usehooks";
 
 const userRole = "ADMIN";
 const Sidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [isAmbassadorMode, setIsAmbassadorMode] = useState(false);
   const [isCollapse, setIsCollapse] = useState(false);
   const [userProjects, setUserProjects] = useState([]);
   const userData = useSelector((state) => state.auth);
   const { userDetails } = useSelector((state) => state.user);
+  const size = useWindowSize();
 
   const handleCollapse = () => {
     setIsCollapse(!isCollapse);
@@ -35,6 +39,7 @@ const Sidebar = () => {
     };
     fetchProjects();
   }, []);
+  console.log(size.width);
 
   const handleAmbassadorClick = () => {
     setIsAmbassadorMode(true);
@@ -44,6 +49,69 @@ const Sidebar = () => {
   const handleBackClick = () => {
     setIsAmbassadorMode(false);
   };
+
+  const mobileMenuData = [
+    {
+      href: ROUTER.projects,
+      label: 'Projects',
+      icon: <ProjectNavTabIcon />,
+      isDisabled: userProjects?.length !== -1
+    },
+    {
+      href: ROUTER.projectManager,
+      label: 'Projects manager',
+      icon: <ProjectNavTabIcon />,
+      isDisabled: userProjects?.length !== -1
+    },
+    {
+      href: ROUTER.synergies,
+      label: 'Synergies',
+      icon: <SynergiesNavTabIcon />,
+      isDisabled: userProjects?.length !== -1
+    },
+    {
+      href: ROUTER.investment,
+      label: 'Investment',
+      icon: <InvestmentNavTabIcon />,
+      isDisabled: false
+    },
+    {
+      href: ROUTER.synergyRequests,
+      label: 'Pending Synergies',
+      icon: <PendingSynergiesNavTabIcon />,
+      isDisabled: userProjects?.length !== 0
+    },
+    {
+      href: ROUTER.synergiesManager,
+      label: 'Synergies Manager',
+      icon: <SynergiesManagerNavTabIcon />,
+      isDisabled: userProjects?.length !== 0
+    },
+    {
+      href: ROUTER.chat,
+      label: 'Chat',
+      icon: <ChatNavTabIcon />,
+      isDisabled: (userProjects?.length !== -1 || userProjects?.length === 0)
+    },
+    {
+      href: ROUTER.karma,
+      label: 'Karma',
+      icon: <KarmaNavTabIcon />,
+      isDisabled: false
+    },
+    {
+      href: ROUTER.profile,
+      label: 'Profile',
+      icon: <ProfileNavTabIcon />,
+      isDisabled: false
+    },
+    {
+      href: null,
+      label: 'Ambassadorship',
+      icon: <ProjectNavTabIcon />,
+      isDisabled: false
+    }
+  ]
 
   return (
     <>
@@ -210,10 +278,10 @@ const Sidebar = () => {
               ) : (
                 <li>
                   <Link
-                    to="/"
+                    to={ROUTER.authentication}
                     onClick={() => {
+                      dispatch(handleLogout())
                       localStorage.clear();
-                      navigate(ROUTER.authentication);
                     }}
                   >
                     <LogoutNavTabIcon />
@@ -232,7 +300,7 @@ const Sidebar = () => {
           <ul>
             {!isAmbassadorMode ? (
               <>
-                <li className={`${location.pathname === `/${ROUTER.projects}` ? "active" : ""} ${userProjects?.length !== -1 ? "disabled" : ""}`}>
+                {/* <li className={`${location.pathname === `/${ROUTER.projects}` ? "active" : ""} ${userProjects?.length !== -1 ? "disabled" : ""}`}>
                   <Link to={ROUTER.projects}>
                     <ProjectNavTabIcon />
                     <span>Projects</span>
@@ -279,7 +347,7 @@ const Sidebar = () => {
                     <ChatNavTabIcon />
                     <span className="chat">
                       Chat
-                      {/* <p className="chat_count">1</p> */}
+                      // {/* <p className="chat_count">1</p> 
                     </span>
                   </Link>
                 </li>
@@ -289,18 +357,29 @@ const Sidebar = () => {
                     <span>Karma</span>
                   </Link>
                 </li>
-                <li className={`${location.pathname === `/${ROUTER.profile}` ? "active" : ""}`}>
-                  <Link to={ROUTER.profile}>
-                    <ProfileNavTabIcon />
-                    <span>Profile</span>
-                  </Link>
-                </li>
-                <li onClick={handleAmbassadorClick}>
+                 <li onClick={handleAmbassadorClick}>
                   <Link to="#">
                     <ProjectNavTabIcon />
                     <span>Ambassadorship</span>
                   </Link>
-                </li>
+                </li> 
+                */}
+                {
+                  mobileMenuData.map((data, index) => {
+                    return (
+                      <li
+                        key={index}
+                        className={`${location.pathname === `/${data.href}` ? "active" : ""} ${data.isDisabled ? "disabled" : ""} `}
+                        onClick={data.label === 'Ambassadorship' ? handleAmbassadorClick : ''}
+                      >
+                        <Link to={data.href}>
+                          {data.icon}
+                          <span>{data.label}</span>
+                        </Link>
+                      </li>
+                    )
+                  })
+                }
               </>
             ) : (
               <>

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { formatDate } from "../../utils/helper/helper";
 import { useCallback, useEffect, useState } from "react";
 import { getProjectsAPI } from "../../api-services/projectApis";
-import { MultiselectDropDown, ProjectCard } from "../../components";
+import { CustomSearch, MultiselectDropDown, ProjectCard } from "../../components";
 import { GradientGraphIcon, GredientGlobalIcon, SearchIcon } from "../../utils/constants/images";
 import {
     projectTypesOptions,
@@ -21,6 +21,8 @@ const Projects = () => {
     const [filterFeaturedProject, setFilterFeaturedProject] = useState([]);
     const [initialProject, setInitialProject] = useState([]);
     const [filterProject, setFilterProject] = useState([]);
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
+    const [searchStr, setSearchStr] = useState('')
 
     const data = useSelector((state) => state.project.projects);
     const featuredProjects = data.filter((project) => project.featured === 1);
@@ -63,15 +65,9 @@ const Projects = () => {
         return selectedLabels;
     };
 
-    const handleSearchChange = useCallback(
-        debounce((value) => {
-            setFilter((prevFilter) => ({
-                ...prevFilter,
-                searchBy: value,
-            }));
-        }, 500),
-        []
-    );
+    const handleSearchChange = (value) => {
+        setSearchStr(value)
+    }
 
     const getProjectsData = (data) => {
         const projectData = [
@@ -105,6 +101,17 @@ const Projects = () => {
 
         return projectData;
     };
+
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setFilter((prevFilter) => ({
+                ...prevFilter,
+                searchBy: searchStr,
+            }));
+        }, 500)
+        return () => clearTimeout(timer)
+    }, [searchStr])
 
     useEffect(() => {
         if (data.length === 0) dispatch(getProjectsAPI());
@@ -189,24 +196,20 @@ const Projects = () => {
                 <div className="project_content_header">
                     <div className="project_content_left">
                         <h2>Projects</h2>
-                        <div className="search_box">
-                            <span className="search_icon">
-                                <SearchIcon />
-                            </span>
-                            <input
-                                type="text"
-                                placeholder="Search"
-                                onChange={(e) =>
-                                    handleSearchChange(e.target.value)
-                                }
-                            />
+                        <div className="search_wrap">
+                            <CustomSearch value={searchStr} placeholder="Search" onSearchChange={(e) => handleSearchChange(e.target.value)} isOpen={isSearchOpen} setIsOpen={setIsSearchOpen} />
                         </div>
                     </div>
+                    {isSearchOpen && <div className="mobile_search">
+                        <span className="icon"><SearchIcon /></span>
+                        <input value={searchStr} type="text" placeholder="Search" onChange={(e) => handleSearchChange(e.target.value)} />
+                    </div>}
                     <div className="project_content_right">
                         <a href="#">Darknight Labs</a>
                     </div>
                 </div>
-                <div className="project_content_body">
+                <div className={`project_content_body ${isSearchOpen ? 'search_open' : ''}`}>
+
                     <div className="featured_project_page_data">
                         <div className="featured_projects_card_box">
                             <div className="featured_projects_card_header">

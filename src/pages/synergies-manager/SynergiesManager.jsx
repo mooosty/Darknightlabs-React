@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { synergyAnglesOptions } from '../../utils/constants/options';
 import { deleteSynergyApi, getSynergyApi, updateSynergyApi } from '../../api-services/synergyApi';
 import { SearchIcon, FilterIcon, CloseIcon, DeleteIcon, tableActor, ListIcon, GridIcon } from '../../utils/constants/images';
-import { BottomMenu, DeleteConfirmPopup, EditSynergiesPopup, Loader, Select, SynergyManagerGridLayout, SynergyManagerTableLayout } from '../../components';
+import { BottomMenu, CustomSearch, DeleteConfirmPopup, EditSynergiesPopup, Loader, Select, SynergyManagerGridLayout, SynergyManagerTableLayout } from '../../components';
 
 const SynergiesManager = () => {
   const [activeLayout, setActiveLayout] = useState('TABLE');
@@ -15,13 +15,15 @@ const SynergiesManager = () => {
   const [isMultiDeleteConfirmPopupOpen, setIsMultiDeleteConfirmPopupOpen] = useState(false);
   const [isEditSynergiesPopupOpen, setIsEditSynergiesPopupOpen] = useState(false);
   const [isBottomMenuOpen, setIsBottomMenuOpen] = useState(false);
-
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [synergies, setSynergies] = useState([]);
   const [filterSynergies, setFilterSynergies] = useState([]);
   const [selectedSynergy, setSelectedSynergy] = useState([]);
   const [deleteId, setDeleteId] = useState(null);
   const [editId, setEditId] = useState(null);
+  const [searchStr, setSearchStr] = useState('')
+
   const [filter, setFilter] = useState({
     synergyAngleValue: '',
     sortBy: '',
@@ -139,17 +141,6 @@ const SynergiesManager = () => {
     setFilterSynergies([...data]);
   }
 
-  const handleSearchChange = useCallback(
-    debounce((value) => {
-      setFilter((prevFilter) => ({
-        ...prevFilter,
-        searchBy: value,
-      }));
-    }, 500),
-    []
-  );
-
-
   const handleSynergyAngleChange = (value) => {
     if (value.value === 'All') {
       setFilter({
@@ -164,6 +155,20 @@ const SynergiesManager = () => {
       })
     }
   }
+
+  const handleSearchChange = (value) => {
+    setSearchStr(value)
+  }
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setFilter((prevFilter) => ({
+        ...prevFilter,
+        searchBy: searchStr,
+      }));
+    }, 500)
+    return () => clearTimeout(timer)
+  }, [searchStr])
 
   useEffect(() => {
     let tempData = synergiesData.map((synergy) => {
@@ -202,18 +207,21 @@ const SynergiesManager = () => {
       <div className="synergies_content_header">
         <div className="synergies_content_left">
           <h2>Synergies Manager</h2>
-          <div className="search_box">
-            <span className="search_icon"><SearchIcon /></span>
-            <input type="text" placeholder="Search" onChange={(e) => handleSearchChange(e.target.value)} />
+          <div className="search_wrap">
+            <CustomSearch value={searchStr} placeholder="Search" onSearchChange={(e) => handleSearchChange(e.target.value)} isOpen={isSearchOpen} setIsOpen={setIsSearchOpen} />
           </div>
         </div>
+        {isSearchOpen && <div className="mobile_search">
+          <span className="icon"><SearchIcon /></span>
+          <input value={searchStr} type="text" placeholder="Search" onChange={(e) => handleSearchChange(e.target.value)} />
+        </div>}
         <div className="synergies_content_right">
           <a href="#">Darknight Labs</a>
         </div>
       </div>
 
       <div className="synergies_page_data">
-        <div className="page_data">
+        <div className={`page_data ${isSearchOpen ? 'search_open' : ''}`}>
           <div className="synergies_page_header">
             <div className="synergy_page_header_top">
               <div className="synergies_toggleWrap">

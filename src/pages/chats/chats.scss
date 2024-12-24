@@ -29,7 +29,7 @@
 .chat_wrap {
   width: 100%;
   border-radius: 9px;
-  background-color: #191917;
+  background-color: var(--primary-background);
   min-height: 450px;
   height: calc(100% - 80px);
   overflow: hidden;
@@ -94,7 +94,7 @@
           justify-content: center;
           align-items: center;
           font-size: 12px;
-          color: #fff;
+          color: var(--primary-white);
         }
       }
     }
@@ -166,10 +166,10 @@
         .channels_list_separator {
           height: 1px;
           background-image: linear-gradient(157.79deg,
-              rgba(157, 140, 83, 0.65) 14.5%,
-              rgba(245, 239, 219, 0.4) 64.2%,
-              rgba(245, 239, 219, 0.2) 84.2%,
-              rgba(245, 239, 219, 0));
+              #9d8c53a6 14.5%,
+              #f5efdb66 64.2%,
+              #f5efdb33 84.2%,
+              #f5efdb00);
         }
 
         .channels_list_data {
@@ -213,7 +213,7 @@
               gap: 8px;
               padding-block: 11px;
               opacity: 0.5;
-              color: #fff;
+              color: var(--primary-white);
               cursor: pointer;
 
               svg {
@@ -232,7 +232,7 @@
               justify-content: center;
               align-items: center;
               font-size: 12px;
-              color: #fff;
+              color: var(--primary-white);
               padding: 3px 10px;
             }
           }
@@ -284,7 +284,7 @@
           display: flex;
           align-items: center;
           gap: 8px;
-          color: #fff;
+          color: var(--primary-white);
           font-size: 15px;
         }
 
@@ -316,7 +316,7 @@
 
     .head {
       padding: 16px 12px 8px 12px;
-      color: #f5efdb;
+      color: var(--primary-text);
       font-size: 14px;
     }
 
@@ -339,7 +339,7 @@
         overflow-y: auto;
 
         .list_header {
-          color: #fff;
+          color: var(--primary-white);
           font-size: 12px;
           text-transform: uppercase;
           padding: 4px 2px;
@@ -385,7 +385,7 @@
                 }
 
                 .top_right {
-                  color: #f5efdb99;
+                  color: #f5efdb80;
                   line-height: 20px;
                   font-size: 10px;
                   text-transform: uppercase;
@@ -408,10 +408,10 @@
 .btn_gray {
   padding: 16px 24px;
   border: none;
-  background-color: #4e4e4e94;
+  background-color: var(--btn-gray-bg);
   font-size: 16px;
   font-weight: 500;
-  color: #f5efdb;
+  color: var(--primary-text);
   display: flex;
   align-items: center;
   justify-content: center;

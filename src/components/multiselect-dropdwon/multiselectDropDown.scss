@@ -7,7 +7,7 @@
 
     .multiselect_field {
         padding: 12px 24px;
-        border: 1px solid rgba(255, 255, 255, 0.5019607843);
+        border: 1px solid #ffffff80;
         background-color: transparent;
         width: 100%;
         line-height: 19px;
@@ -17,7 +17,7 @@
         display: flex;
         padding-right: 35px !important;
         gap: 4px;
-        color: #fff;
+        color: var(--primary-white);
         background-color: #242623;
         font-family: "Inter", sans-serif;
 
@@ -90,7 +90,7 @@
                 position: absolute;
                 bottom: 0;
                 left: 0;
-                border-top: 1px solid rgba(255, 255, 255, 0.5);
+                border-top: 1px solid #ffffff80;
                 border-top-left-radius: 20px;
                 border-top-right-radius: 20px;
                 padding: 15px 10px;
@@ -101,7 +101,7 @@
             }
 
             .multiselect_header {
-                color: #f5efdb;
+                color: var(--primary-text);
                 font-size: 24px;
                 font-family: "MedievalSharp", cursive;
                 padding-bottom: 20px;
@@ -155,7 +155,7 @@
                     font-weight: 500;
                     line-height: 19px;
                     font-family: "Inter", sans-serif;
-                    color: #fff;
+                    color: var(--primary-white);
 
                     @media (max-width: 1600px) {
                         font-size: 14px;
@@ -183,8 +183,8 @@
                             .mark {
                                 height: 22px !important;
                                 width: 22px !important;
-                                background-color: rgba(78, 78, 78, 0.2);
-                                border: 1px solid #fff;
+                                background-color: #4e4e4e33;
+                                border: 1px solid var(--primary-white);
                             }
 
                             .opt_label {
@@ -243,9 +243,9 @@
                 .apply_btn {
                     width: 100%;
                     border: none;
-                    background-color: rgba(78, 78, 78, 0.8);
+                    background-color: #4e4e4ecc;
                     padding-block: 10px;
-                    color: #f5efdb;
+                    color: var(--primary-text);
                     font-size: 14px;
                     font-family: "MedievalSharp", cursive;
                     margin: 0 10px 10px 10px;

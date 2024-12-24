@@ -27,7 +27,7 @@
 
         .model_box {
             width: 600px;
-            background-color: #191917;
+            background-color: var(--primary-background);
             background-image: url("../../../assets/PopupBackground.png");
             background-repeat: no-repeat;
             background-size: cover;
@@ -46,7 +46,7 @@
                     margin-bottom: 16px;
 
                     label {
-                        color: #f5efdb;
+                        color: var(--primary-text);
                         line-height: 19px;
                         font-size: 16px;
                         font-weight: 500;
@@ -63,7 +63,7 @@
                         border: 1px solid #ffffff80;
                         background-color: transparent;
                         width: 100%;
-                        color: #f5efdb;
+                        color: var(--primary-text);
                         line-height: 19px;
                         font-size: 16px;
                         font-weight: 500;
@@ -83,7 +83,7 @@
                     margin-bottom: 24px;
 
                     h3 {
-                        color: #f5efdb;
+                        color: var(--primary-text);
                         text-decoration: none;
                         font-size: 32px;
                         font-weight: 500;
@@ -133,11 +133,11 @@
                             border: 1px solid #ffffff80;
                             border-radius: 0px;
                             width: 100%;
-                            color: #f5efdb;
+                            color: var(--primary-text);
                             font-family: "MedievalSharp", cursive;
 
                             &::placeholder {
-                                color: #f5efdb81;
+                                color: #f5efdb80;
                                 font-size: 16px;
                                 opacity: 0.5;
 
@@ -184,12 +184,12 @@
                                 height: 24px !important;
                                 width: 24px !important;
                                 padding: 0.5px 10px;
-                                background-color: rgba(78, 78, 78, 0.2);
-                                border: 1px solid #fff;
+                                background-color: #4e4e4e33;
+                                border: 1px solid var(--primary-white);
                             }
 
                             .checkbox_text {
-                                color: #F5EFDB;
+                                color: var(--primary-text);
                             }
 
                             .checkbox_input:checked+.checkbox_label {
@@ -233,12 +233,12 @@
 
                         button {
                             width: 100%;
-                            background-color: #4e4e4e94;
+                            background-color: var(--btn-gray-bg);
                             border: none;
                             padding: 16px 24px;
                             font-size: 14px;
                             font-weight: 500;
-                            color: #f5efdb;
+                            color: var(--primary-text);
                             display: flex;
                             align-items: center;
                             justify-content: center;
@@ -273,7 +273,7 @@
 
                         .texts {
                             text-align: center;
-                            color: #fff;
+                            color: var(--primary-white);
 
                             .link {
                                 display: flex;

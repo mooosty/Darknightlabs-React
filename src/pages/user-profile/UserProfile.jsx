@@ -20,6 +20,8 @@ import { Loader } from "../../components";
 import ProjectInvolvment from "./project-manager-edit/ProjectInvolvment";
 import ProjectsUser from "./project-manager/ProjectsUser";
 import Ambassadors from "./Ambassadors/Ambassadors";
+import CustomDropdown from "../../components/custom-dropdown/CustomDropdown";
+import { BurgerMenuIcon } from "../../utils/SVGs/SVGs";
 
 const InputPassword = (props) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -37,6 +39,7 @@ const InputPassword = (props) => {
     </div>
   );
 };
+
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -105,7 +108,7 @@ const UserProfile = () => {
   };
 
   const handleUpdateDetails = async (values) => {
-    
+
 
     setIsLoading(true);
     let updated_profile_picture = values?.profile_picture;
@@ -181,7 +184,7 @@ const UserProfile = () => {
     let tmpRoles = values?.roles;
 
     tmpRoles = tmpRoles.map(r => {
-      switch(r) {
+      switch (r) {
         case 'A Founder': return 'Founder';
         case 'A C-level': return 'C-level';
         case 'A Web3 employee': return 'Web3 employee';
@@ -234,7 +237,24 @@ const UserProfile = () => {
   const cancelProfileEdit = () => {
     setIsEditMode(false);
   };
-  
+
+  const headerToggleButton = [
+    {
+      label: 'PERSONAL INFORMATION',
+      key: 'INFORMATION',
+      onClick: () => handleActive("INFORMATION")
+    },
+    {
+      label: ' PROJECT INVOLVEMENT',
+      key: 'INVOLVEMENT',
+      onClick: () => handleActive("INVOLVEMENT")
+    },
+    {
+      label: 'AMBASSADORS',
+      key: 'AMBASSADORS',
+      onClick: () => handleActive("AMBASSADORS")
+    },
+  ]
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -259,7 +279,7 @@ const UserProfile = () => {
   useEffect(() => {
     if (userDetails) {
       const roles = userDetails.roles?.split(',').map(r => {
-        switch(r.trim()) {
+        switch (r.trim()) {
           case 'A Founder': return 'Founder';
           case 'A C-level': return 'C-level';
           case 'A Web3 employee': return 'Web3 employee';
@@ -293,23 +313,26 @@ const UserProfile = () => {
             <div className="profile_page_data">
               <div className="page_data">
                 <div className="header_button">
-                  <div
-                    className={`buttons ${active === "INFORMATION" ? "active" : ""}`}
-                    onClick={() => handleActive("INFORMATION")}
-                  >
-                    PERSONAL INFORMATION
+                  <div className="header_toggle_button">
+                    {headerToggleButton.map((data) => {
+                      return (
+                        <div
+                          key={data.key}
+                          className={`buttons ${active === data.key ? "active" : ""}`}
+                          onClick={data.onClick}
+                        >
+                          {data.label}
+                        </div>
+                      )
+                    })}
                   </div>
-                  <div
-                    className={`buttons ${active === "INVOLVEMENT" ? "active" : ""}`}
-                    onClick={() => handleActive("INVOLVEMENT")}
-                  >
-                    PROJECT INVOLVEMENT
-                  </div>
-                  <div
-                    className={`buttons ${active === "AMBASSADORS" ? "active" : ""}`}
-                    onClick={() => handleActive("AMBASSADORS")}
-                  >
-                    AMBASSADORS
+                  <div className="header_toggle_dropDown">
+                    <CustomDropdown
+                      toggleButton={
+                        <BurgerMenuIcon />
+                      }
+                      items={headerToggleButton}
+                    />
                   </div>
                 </div>
                 <div className="profile_page_header">
@@ -372,9 +395,9 @@ const UserProfile = () => {
                           <div className="profile_head">Twitter</div>
                           <div className="profile_data">
                             {userDetails?.username ? (
-                              <a 
-                                href={`https://twitter.com/${userDetails.username}`} 
-                                target="_blank" 
+                              <a
+                                href={`https://twitter.com/${userDetails.username}`}
+                                target="_blank"
                                 rel="noopener noreferrer"
                                 className="twitter-link"
                               >
@@ -407,7 +430,7 @@ const UserProfile = () => {
                           <div className="profile_head">Role</div>
                           <div className="profile_data">
                             {userDetails?.roles?.split(',').map(role => {
-                              switch(role.trim()) {
+                              switch (role.trim()) {
                                 case 'A Founder': return 'Founder';
                                 case 'A C-level': return 'C-level';
                                 case 'A Web3 employee': return 'Web3 employee';

@@ -62,8 +62,8 @@ const Select = ({
                             place="top"
                             style={{
                                 maxWidth: '200px',
-                                boxShadow: '0px 3px 10.3px -4px rgba(229, 229, 229, 0.1)',
-                                background: 'rgba(79, 79, 79, 1)',
+                                boxShadow: '0px 3px 10.3px -4px #e5e5e5',
+                                background: '#4f4f4f',
                                 opacity: '1',
                             }}
                             anchorSelect={`#select_${name ?? ''}_label`}
@@ -91,8 +91,8 @@ const Select = ({
                                             place="top"
                                             style={{
                                                 maxWidth: '200px',
-                                                boxShadow: '0px 3px 10.3px -4px rgba(229, 229, 229, 0.1)',
-                                                background: 'rgba(79, 79, 79, 1)',
+                                                boxShadow: '0px 3px 10.3px -4px #e5e5e5',
+                                                background: '#4f4f4f',
                                                 opacity: '1',
                                             }}
                                             anchorSelect={`#select_${name ?? ''}_${index}`}

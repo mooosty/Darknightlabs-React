@@ -24,7 +24,7 @@
 
             h2 {
                 font-size: 42px;
-                color: #fff;
+                color: var(--primary-white);
                 font-weight: 500;
                 font-family: "MedievalSharp", cursive;
 
@@ -40,7 +40,7 @@
             gap: 10px;
 
             a {
-                color: #f5efdb;
+                color: var(--primary-text);
                 text-decoration: none;
                 font-size: 24px;
                 font-weight: 500;
@@ -57,7 +57,7 @@
     .ambassadors_page_data {
         padding: 35px;
         border-radius: 9px;
-        background-color: #191917;
+        background-color: var(--primary-background);
         background-image: url("../../../assets/model-frame.png");
         background-repeat: no-repeat;
         background-position-x: 10px;
@@ -73,7 +73,8 @@
             border-radius: 0;
             padding: 20px;
             padding-bottom: 0px;
-            background-color: #191917;
+            background-color: var(--primary-background);
+            height: calc(100% + 20px);
             background-image: none;
         }
 
@@ -83,33 +84,51 @@
             overflow-y: auto;
 
             .header_button {
-                display: flex;
-                margin-bottom: 25px;
-
-                .buttons {
+                .header_toggle_button {
                     display: flex;
-                    justify-content: center;
-                    color: #ffffff80;
-                    border-bottom: 1px solid #ffffff80;
-                    cursor: pointer;
-                    padding: 10px 45px;
+                    margin-bottom: 25px;
 
-                    @media (max-width: 1199px) {
-                        min-width: auto;
-                        width: 100%;
-                        font-size: 12px;
-                        padding: 10px 25px;
+                    @media (max-width: 650px) {
+                        display: none;
                     }
 
-                    @media (max-width: 767px) {
-                        width: 100%;
-                        text-align: center;
+                    .buttons {
+                        display: flex;
+                        justify-content: center;
+                        color: #ffffff80;
+                        border-bottom: 1px solid #ffffff80;
+                        cursor: pointer;
+                        padding: 10px 45px;
+
+                        @media (max-width: 1199px) {
+                            min-width: auto;
+                            width: 100%;
+                            font-size: 12px;
+                            padding: 10px 25px;
+                        }
+
+                        @media (max-width: 767px) {
+                            width: 100%;
+                            text-align: center;
+                        }
+                    }
+
+                    .active {
+                        color: var(--primary-white);
+                        border-color: var(--primary-white);
                     }
                 }
 
-                .active {
-                    color: #fff;
-                    border-color: #fff;
+                .header_toggle_dropDown {
+                    margin-left: auto;
+                    width: 28px;
+                    display: none;
+                    align-items: center;
+                    justify-content: center;
+
+                    @media (max-width: 650px) {
+                        display: flex;
+                    }
                 }
             }
 
@@ -125,7 +144,7 @@
                 .ambassadors_content_title {
                     width: 100%;
                     font-size: 30px;
-                    color: #F5EFDB;
+                    color: var(--primary-text);
                     font-weight: 500;
                     font-family: "MedievalSharp", cursive;
                     text-align: center;

@@ -19,6 +19,8 @@
 
                 @media (max-width: 767px) {
                     margin-bottom: 0px;
+                    padding-bottom: 15px;
+                    background-color: var(--primary-background);
                 }
 
 
@@ -30,6 +32,7 @@
                     @media (max-width: 767px) {
                         width: 100%;
                         padding: 15px 24px;
+                        padding-bottom: 0;
                         justify-content: space-between;
                     }
 
@@ -39,70 +42,13 @@
 
                     h2 {
                         font-size: 28px;
-                        color: #fff;
+                        color: var(--primary-white);
                         font-weight: 500;
                         font-family: "MedievalSharp", cursive;
                         font-size: 42px;
 
                         @media (max-width: 1600px) {
                             font-size: 28px;
-                        }
-                    }
-
-                    .search_box {
-                        position: relative;
-                        min-width: 450px;
-
-                        @media (max-width: 1199px) {
-                            min-width: 230px;
-                        }
-
-                        @media (max-width: 500px) {
-                            min-width: 40px;
-                        }
-
-                        @media (max-width: 374px) {
-                            display: none;
-                        }
-
-                        input {
-                            background-color: #191917;
-                            padding: 10px 24px 10px 52px;
-                            border: 1px solid #3c3c3c;
-                            border-radius: 9px;
-                            width: 100%;
-                            font-size: 16px;
-                            color: #f5efdb;
-
-                            @media (max-width: 767px) {
-                                display: none;
-                            }
-
-                            &::placeholder {
-                                color: #f5efdb;
-                                font-size: 18px;
-                                opacity: 0.5;
-
-                                @media (max-width: 1199px) {
-                                    font-size: 14px;
-                                }
-                            }
-                        }
-
-                        .search_icon {
-                            position: absolute;
-                            left: 24px;
-                            top: 50%;
-                            transform: translateY(-50%);
-
-                            @media (max-width: 1199px) {
-                                left: 15px;
-                            }
-
-                            @media (max-width: 767px) {
-                                left: auto;
-                                right: 8px;
-                            }
                         }
                     }
                 }
@@ -116,7 +62,7 @@
                     }
 
                     a {
-                        color: #f5efdb;
+                        color: var(--primary-text);
                         text-decoration: none;
                         font-size: 24px;
                         font-weight: 500;
@@ -139,9 +85,17 @@
                     height: calc(100% - 50px);
                 }
 
+                @media (max-width: 767px) {
+                    background-color: var(--primary-background);
+
+                    &.search_open {
+                        height: calc(100% - 100px);
+                    }
+                }
+
                 .featured_project_page_data {
                     border-radius: 9px;
-                    background-color: #191917;
+                    background-color: var(--primary-background);
                     margin-bottom: 32px;
 
                     @media (max-width: 767px) {
@@ -174,7 +128,7 @@
                             }
 
                             .featured_projects_card_header_left {
-                                color: #f5efdb;
+                                color: var(--primary-text);
                                 font-size: 24px;
                                 font-family: "MedievalSharp", cursive;
                             }
@@ -243,7 +197,7 @@
 
                 .all_project_page_data {
                     border-radius: 9px;
-                    background-color: #191917;
+                    background-color: var(--primary-background);
                     overflow-x: hidden;
 
                     @media (max-width: 767px) {
@@ -264,7 +218,7 @@
                             flex-direction: column;
                             gap: 16px;
                             padding: 0 30px 12px 30px;
-                            border-bottom: 1px solid rgba(245, 239, 219, 0.15);
+                            border-bottom: 1px solid var(--border-color);
                             margin-bottom: 12px;
 
                             @media (max-width: 500px) {
@@ -272,7 +226,7 @@
                             }
 
                             .all_projects_card_header_top {
-                                color: #f5efdb;
+                                color: var(--primary-text);
                                 font-size: 24px;
                                 font-family: "MedievalSharp", cursive;
                             }
@@ -300,7 +254,7 @@
                                         justify-content: center;
                                         background-color: transparent;
                                         border: none;
-                                        color: rgba(230, 234, 238, 0.5);
+                                        color: #e6eaee80;
                                         font-family: MedievalSharp;
 
                                         @media (max-width:1200px) {
@@ -308,8 +262,8 @@
                                         }
 
                                         &.active {
-                                            background-color: rgba(78, 78, 78, 0.58);
-                                            color: #F5EFDB;
+                                            background-color: var(--btn-gray-bg);
+                                            color: var(--primary-text);
                                         }
                                     }
                                 }
@@ -391,7 +345,7 @@
 
                             .project_page_pagination_content_text {
                                 font-size: 14px;
-                                color: #fff;
+                                color: var(--primary-white);
                                 display: flex;
                                 gap: 8px;
 
@@ -403,7 +357,7 @@
                                     select {
                                         border: none;
                                         background: transparent;
-                                        color: #fff;
+                                        color: var(--primary-white);
                                         cursor: pointer;
                                         font-family: "Inter", sans-serif;
                                         font-size: 14px;
@@ -436,7 +390,7 @@
                                         &:focus {
                                             svg {
                                                 path {
-                                                    fill: #fff;
+                                                    fill: var(--primary-white);
                                                 }
                                             }
                                         }

@@ -1,5 +1,17 @@
 #root {
     min-height: 100vh;
+
+    --primary-white: #fff;
+    --primary-text: #f5efdb;
+    --primary-background: #191917;
+    --primary-red: #ff9e98;
+
+    --btn-gray-bg: #4e4e4e94;
+    --btn_delete-bg: #ff9e9826;
+    --border-color: #f5efdb26;
+    --card-background: #242623;
+    --card-shadow: #ff8a1c59;
+    --disable-gray: #242623;
 }
 
 .no-scroll {
@@ -16,6 +28,50 @@
     }
 
     .Toastify__close-button--light {
-        color: #fff !important;
+        color: var(--primary-white) !important;
+    }
+}
+
+.mobile_search {
+    margin-top: 10px;
+    padding-inline: 20px;
+    width: 100%;
+    position: relative;
+    display: none;
+    min-width: 450px;
+
+    @media (max-width: 1199px) {
+        min-width: 230px;
+    }
+
+    @media (max-width: 767px) {
+        display: block;
+    }
+
+    input {
+        background-color: var(--primary-background);
+        padding: 10px 24px 10px 42px;
+        border: 1px solid #3c3c3c;
+        border-radius: 9px;
+        width: 100%;
+        font-size: 16px;
+        color: var(--primary-text);
+
+        &::placeholder {
+            color: var(--primary-text);
+            font-size: 18px;
+            opacity: 0.5;
+
+            @media (max-width: 1199px) {
+                font-size: 14px;
+            }
+        }
+    }
+
+    .icon {
+        position: absolute;
+        left: 34px;
+        top: 50%;
+        transform: translateY(-50%);
     }
 }

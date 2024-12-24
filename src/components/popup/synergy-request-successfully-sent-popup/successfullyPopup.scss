@@ -31,7 +31,7 @@
 
         .success_model_box {
             width: 458px;
-            background-color: #191917;
+            background-color: var(--primary-background);
             background-image: url("../../../assets/model-frame.png");
             background-size: contain;
             background-repeat: no-repeat;
@@ -65,7 +65,7 @@
                     }
 
                     .title {
-                        color: #f5efdb;
+                        color: var(--primary-text);
                         text-decoration: none;
                         font-size: 32px;
                         font-weight: 500;
@@ -94,7 +94,7 @@
                 }
 
                 .success_model_text {
-                    color: #fff;
+                    color: var(--primary-white);
                     text-align: center;
                     font-size: 16px;
                     font-family: "Inter", sans-serif;

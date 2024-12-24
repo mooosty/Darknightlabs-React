@@ -29,10 +29,10 @@
                 .btn_gray {
                     padding: 16px 24px;
                     border: none;
-                    background-color: #4e4e4e94;
+                    background-color: var(--btn-gray-bg);
                     font-size: 16px;
                     font-weight: 500;
-                    color: #f5efdb;
+                    color: var(--primary-text);
                     display: flex;
                     align-items: center;
                     justify-content: center;
@@ -45,7 +45,7 @@
                 }
 
                 .btn_delete {
-                    background-color: #ff9e9826;
+                    background-color: var(--btn_delete-bg);
                     border: none;
                     padding: 13px;
 

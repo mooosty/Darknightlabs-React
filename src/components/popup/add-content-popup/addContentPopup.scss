@@ -13,7 +13,7 @@
     }
 
     .project_name_btn {
-        background-color: #ff9e9826;
+        background-color: var(--btn_delete-bg);
         border: none;
         padding: 12px;
 
@@ -43,7 +43,7 @@
         .add_content_model_box {
             position: relative;
             width: 715px;
-            background-color: #191917;
+            background-color: var(--primary-background);
             background-image: url("../../../assets/model-frame.png");
             background-repeat: no-repeat;
             background-attachment: scroll;
@@ -77,7 +77,7 @@
                 }
 
                 &::-webkit-scrollbar-thumb {
-                    background: rgba(78, 78, 78, 0.5);
+                    background: #4e4e4e80;
                 }
 
                 .add_content_model_header {
@@ -91,7 +91,7 @@
 
 
                     h3 {
-                        color: #f5efdb;
+                        color: var(--primary-text);
                         text-decoration: none;
                         font-size: 32px;
                         font-weight: 500;
@@ -121,7 +121,7 @@
                 }
 
                 .add_content_model_description {
-                    color: #f5efdb;
+                    color: var(--primary-text);
                 }
 
                 .add_content_model_form {
@@ -150,7 +150,7 @@
                         }
 
                         label {
-                            color: #fff;
+                            color: var(--primary-white);
                             line-height: 19px;
                             font-size: 15px;
                             font-weight: 500;
@@ -168,7 +168,7 @@
                             border: 1px solid #ffffff80;
                             background-color: transparent;
                             width: 100%;
-                            color: #f5efdb;
+                            color: var(--primary-text);
                             line-height: 19px;
                             font-size: 16px;
                             font-weight: 600;
@@ -213,7 +213,7 @@
                                 border: 1px solid #ffffff80;
                                 background-color: transparent;
                                 width: 100%;
-                                color: #f5efdb;
+                                color: var(--primary-text);
                                 line-height: 19px;
                                 font-size: 16px;
                                 font-weight: 500;
@@ -248,13 +248,13 @@
 
 
                 .cancel_btn {
-                    background-color: rgba(255, 158, 152, 0.1490196078);
+                    background-color: var(--btn_delete-bg);
                     border: none;
                     padding: 12px 30px;
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    color: #ff9e98;
+                    color: var(--primary-red);
                     font-size: 16px;
 
                     @media (max-width: 1600px) {
@@ -269,9 +269,9 @@
 
                 .save_btn {
                     border: none;
-                    background-color: rgba(78, 78, 78, 0.5803921569);
+                    background-color: var(--btn-gray-bg);
                     font-weight: 500;
-                    color: #f5efdb;
+                    color: var(--primary-text);
                     display: flex;
                     align-items: center;
                     justify-content: center;

@@ -31,7 +31,7 @@
 
         .edit_synergies_model_box {
             width: 488px;
-            background-color: #191917;
+            background-color: var(--primary-background);
             background-image: url("../../../assets/model-frame.png");
             background-size: contain;
             background-repeat: no-repeat;
@@ -57,7 +57,7 @@
                 }
 
                 h3 {
-                    color: #f5efdb;
+                    color: var(--primary-text);
                     text-decoration: none;
                     font-size: 32px;
                     font-weight: 500;
@@ -108,13 +108,13 @@
                     }
 
                     &::-webkit-scrollbar-thumb {
-                        background: rgba(78, 78, 78, 0.5);
+                        background: #4e4e4e80;
                     }
 
                     .edit_synergies_model_data {
                         padding-right: 7px;
                         font-family: "MedievalSharp", cursive;
-                        color: #f5efdb;
+                        color: var(--primary-text);
                         overflow: hidden;
 
 
@@ -160,7 +160,7 @@
                                         border: 1px solid #ffffff80;
                                         background-color: transparent;
                                         width: 100%;
-                                        color: #f5efdb;
+                                        color: var(--primary-text);
                                         line-height: 19px;
                                         font-size: 16px;
                                         font-weight: 500;
@@ -207,7 +207,7 @@
 
             .edit_synergies_model_footer {
                 padding: 0 18px 20px;
-                background-color: #191917;
+                background-color: var(--primary-background);
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
@@ -218,10 +218,10 @@
                 }
 
                 .back_btn {
-                    background-color: rgba(255, 158, 152, 0.1490196078);
+                    background-color: var(--btn_delete-bg);
                     border: none;
                     padding: 14px 40px;
-                    color: #ff9e98;
+                    color: var(--primary-red);
                     font-size: 16px;
 
                     @media (max-width: 1600px) {
@@ -245,9 +245,9 @@
 
                 .cancel_btn {
                     border: none;
-                    background-color: rgba(78, 78, 78, 0.5803921569);
+                    background-color: var(--btn-gray-bg);
                     font-weight: 500;
-                    color: #f5efdb;
+                    color: var(--primary-text);
                     display: flex;
                     align-items: center;
                     justify-content: center;

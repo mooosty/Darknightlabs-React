@@ -11,7 +11,7 @@
     position: relative;
 
     &:hover {
-        box-shadow: 1px 0px 20px 1px rgba(255, 138, 28, 0.35);
+        box-shadow: 1px 0px 20px 1px  #ff8a1c59;
     }
 
     .status {
@@ -31,7 +31,7 @@
         &.refused {
             border-width: 0px 0px 1px 1px;
             border-style: solid;
-            border-color: rgba(60, 3, 0, 1);
+            border-color: #3c0300;
             background: linear-gradient(98.78deg, #690700 -2.03%, #380300 118.72%);
         }
 
@@ -39,14 +39,14 @@
             background: linear-gradient(100.13deg, #1C5600 -3.95%, #0E2D00 113.72%);
             border-width: 0px 0px 1px 1px;
             border-style: solid;
-            border-color: rgba(17, 52, 0, 1);
+            border-color: #113400;
         }
 
         &.pending {
             background: linear-gradient(99.4deg, #5F5500 -12.18%, #332E00 110.95%);
             border-width: 0px 0px 1px 1px;
             border-style: solid;
-            border-color: rgba(67, 60, 0, 1);
+            border-color: #433c00;
         }
     }
 
@@ -79,7 +79,7 @@
         .head_tags {
             display: flex;
             gap: 4px;
-            color: #ffffff;
+            color: var(--primary-white);
 
             .tag {
                 display: flex;
@@ -89,7 +89,7 @@
                 padding: 4px 8px;
                 font-size: 12px;
                 border-radius: 10px;
-                background: #191917;
+                background: var(--primary-background);
                 gap: 4px;
 
                 &:first-child {
@@ -120,7 +120,7 @@
         }
 
         .card_body_head {
-            color: #F5EFDB;
+            color: var(--primary-text);
             font-size: 18px;
             font-family: "MedievalSharp", cursive;
             display: flex;
@@ -141,7 +141,7 @@
             display: flex;
             flex-direction: column;
             gap: 4px;
-            color: #ffffff;
+            color: var(--primary-white);
 
             .angle_tag {
                 display: flex;
@@ -163,7 +163,7 @@
         }
 
         .read_more {
-            border-top: 1px solid #f5efdb26;
+            border-top: 1px solid var(--border-color);
             padding-top: 8px;
             margin-top: auto;
             display: flex;
@@ -183,11 +183,11 @@
                     white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;
-                    background-color: #4e4e4e94;
+                    background-color: var(--btn-gray-bg);
                     padding: 4px 6px;
                     font-size: 12px;
                     border-radius: 8px;
-                    color: #ffffff;
+                    color: var(--primary-white);
                 }
             }
 
@@ -196,7 +196,7 @@
                 display: flex;
                 gap: 5px;
                 align-items: center;
-                color: rgba(255, 223, 118, 1);
+                color: #ffdf76;
                 font-family: MedievalSharp;
                 font-size: 14px;
                 font-weight: 500;
