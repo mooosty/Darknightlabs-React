@@ -59,17 +59,15 @@
     }
 
     .header_btn {
-        margin-left: auto;
+        // margin-left: auto;
         font-family: "MedievalSharp", cursive;
         background-color: transparent;
-        border: 1px solid rgba(245, 239, 219, 0.3);
+        border: 1px solid #f5efdb;
         font-size: 16px;
         font-weight: 500;
-        color: rgba(245, 239, 219, 0.3);
+        color: #f5efdb;
         padding: 9px 17px;
         display: block;
-        cursor: not-allowed;
-        pointer-events: none;
 
         @media(max-width: 1600px) {
             font-size: 14px;

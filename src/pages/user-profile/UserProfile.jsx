@@ -122,20 +122,27 @@ const UserProfile = () => {
     }
 
     const profilePromises = [];
-    const tmpValues = { ...values };
-    delete tmpValues.other;
-    delete tmpValues.id;
-    delete tmpValues.investment_thesis;
-
+    
+    // Basic profile data only
     const payload = {
       id: userData?.userId,
       userData: {
-        ...tmpValues,
+        firstname: values.firstname,
+        lastname: values.lastname,
+        birthday: values.birthday,
+        username: values.username,
+        bio: values.bio,
+        email: values.email,
         profile_picture: updated_profile_picture,
+        telegram_username: values.telegram_username,
+        linkedin: values.linkedin,
         roles: values?.roles.includes("Other") ? values?.other : values.roles.join(","),
-        investment_thesis: JSON.stringify(values.investment_thesis || [])
+        question1: values.question1,
+        question2: values.question2,
+        primary_city: values.primary_city,
+        secondary_city: values.secondary_city
       }
-    }
+    };
 
     const profileDataPromise = dispatch(editUserProfileAPI(payload));
     profilePromises.push(profileDataPromise);
