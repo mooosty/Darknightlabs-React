@@ -41,7 +41,7 @@ const PledgeForm = ({ onSubmit }) => {
     setSelectedValues(selectedValues.filter(v => v !== value));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!ticketSize) {
       toast.error('Please enter your ideal ticket size');
       return;
@@ -55,11 +55,43 @@ const PledgeForm = ({ onSubmit }) => {
       return;
     }
 
-    onSubmit({
-      ticketSize,
-      values: selectedValues,
-      elaboration
-    });
+    try {
+      const response = await fetch('https://winwinsocietyweb3.com/api/submit-form-pledge', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ticketSize,
+          values: selectedValues.join(', '),
+          elaboration
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit pledge');
+      }
+
+      const data = await response.json();
+      if (data.success) {
+        toast.success('Pledge submitted successfully');
+        onSubmit({
+          ticketSize,
+          values: selectedValues,
+          elaboration
+        });
+
+        // Clear form after successful submission
+        setTicketSize('');
+        setSelectedValues([]);
+        setElaboration('');
+      } else {
+        throw new Error(data.error || 'Failed to submit pledge');
+      }
+    } catch (error) {
+      console.error('Error submitting pledge:', error);
+      toast.error('Failed to submit pledge. Please try again.');
+    }
   };
 
   return (
