@@ -295,6 +295,32 @@
                                 line-height: 22.6px;
                             }
 
+                            input[type="checkbox"] {
+                                appearance: none;
+                                width: 20px;
+                                height: 20px;
+                                border: 1px solid #ffffff80;
+                                border-radius: 4px;
+                                background-color: transparent;
+                                cursor: pointer;
+                                position: relative;
+                                
+                                &:checked {
+                                    background-color: #F5EFDB;
+                                    border-color: #F5EFDB;
+                                    
+                                    &::after {
+                                        content: '✓';
+                                        position: absolute;
+                                        color: #000;
+                                        font-size: 14px;
+                                        top: 50%;
+                                        left: 50%;
+                                        transform: translate(-50%, -50%);
+                                    }
+                                }
+                            }
+
                             input {
                                 padding: 10px 14px;
                                 border: 1px solid #ffffff80;
@@ -354,6 +380,127 @@
 
                                         @media (max-width: 1600px) {
                                             font-size: 16px;
+                                        }
+                                    }
+                                }
+                            }
+
+                            .investment_details {
+                                display: flex;
+                                flex-wrap: wrap;
+                                gap: 40px;
+
+                                .profile_info {
+                                    flex: 1;
+                                    min-width: 300px;
+
+                                    .profile_head {
+                                        color: #f5efdb;
+                                        opacity: 0.6;
+                                        font-size: 16px;
+                                        margin-bottom: 16px;
+                                    }
+
+                                    .profile_data {
+                                        .question_desc {
+                                            color: rgba(245, 239, 219, 0.6);
+                                            font-size: 16px;
+                                            margin-bottom: 8px;
+                                            margin-top: 16px;
+                                            font-family: inherit;
+                                            line-height: 1.4;
+                                        }
+
+                                        .radio_box, .check_box {
+                                            display: flex;
+                                            align-items: center;
+                                            gap: 12px;
+                                            margin-bottom: 16px;
+                                            cursor: pointer;
+
+                                            input[type="radio"], .costum_checkbox_input {
+                                                display: none;
+                                            }
+
+                                            label, .radio-custom, .costum_checkbox_label {
+                                                height: 16px;
+                                                width: 16px;
+                                                background-color: rgba(78, 78, 78, 0.2);
+                                                border: 1px solid #f5efdb;
+                                                position: relative;
+                                                flex-shrink: 0;
+                                                margin: 0;
+                                                cursor: pointer;
+                                            }
+
+                                            label, .radio-custom {
+                                                border-radius: 50%;
+                                            }
+
+                                            input[type="radio"]:checked + label::after,
+                                            input[type="radio"]:checked + .radio-custom::after {
+                                                content: '';
+                                                display: block;
+                                                position: absolute;
+                                                top: 50%;
+                                                left: 50%;
+                                                transform: translate(-50%, -50%);
+                                                height: 8px;
+                                                width: 8px;
+                                                background-color: #f5efdb;
+                                                border-radius: 50%;
+                                            }
+
+                                            .costum_checkbox_input:checked + .costum_checkbox_label::after {
+                                                content: '';
+                                                display: block;
+                                                position: absolute;
+                                                top: 2px;
+                                                left: 5px;
+                                                width: 4px;
+                                                height: 8px;
+                                                border: solid #f5efdb;
+                                                border-width: 0 2px 2px 0;
+                                                transform: rotate(45deg);
+                                            }
+
+                                            span, .label {
+                                                color: #f5efdb;
+                                                font-size: 14px;
+                                                opacity: 0.8;
+                                                line-height: 1.4;
+                                                cursor: pointer;
+                                            }
+                                        }
+
+                                        textarea.textArea {
+                                            width: 100%;
+                                            min-height: 80px;
+                                            background-color: transparent;
+                                            border: 2px solid rgba(245, 239, 219, 0.3);
+                                            border-radius: 4px;
+                                            padding: 12px;
+                                            color: #f5efdb;
+                                            font-size: 14px;
+                                            resize: vertical;
+                                            font-family: inherit;
+                                            line-height: 1.4;
+
+                                            &::placeholder {
+                                                color: rgba(245, 239, 219, 0.4);
+                                            }
+
+                                            &:focus {
+                                                outline: none;
+                                                border-color: rgba(245, 239, 219, 0.6);
+                                            }
+                                        }
+
+                                        .disabled-message {
+                                            color: rgba(245, 239, 219, 0.5);
+                                            font-style: italic;
+                                            font-size: 14px;
+                                            padding: 8px 0;
                                         }
                                     }
                                 }
@@ -619,37 +766,27 @@
                                         }
 
                                         .check_box {
+                                            margin-bottom: 12px;
                                             display: flex;
-                                            align-items: end;
-
-                                            .label {
-                                                color: #f5efdb;
-                                                line-height: 19px;
-                                                font-size: 16px;
-                                                display: block;
-                                                font-family: MedievalSharp;
-                                                font-weight: 500;
-                                                margin-left: 5px;
-                                                cursor: context-menu;
-
-                                                @media (max-width: 1600px) {
-                                                    font-size: 14px;
-                                                }
-                                            }
+                                            align-items: center;
+                                            gap: 8px;
+                                            cursor: pointer;
 
                                             .costum_checkbox_input {
                                                 display: none;
                                             }
 
                                             .costum_checkbox_label {
-                                                height: 20px !important;
-                                                width: 20px !important;
-                                                padding: 0.5px 5px;
+                                                height: 20px;
+                                                width: 20px;
+                                                padding: 0.5px;
                                                 background-color: rgba(78, 78, 78, 0.2);
                                                 border: 1px solid #fff;
+                                                cursor: pointer;
+                                                margin: 0;
                                             }
 
-                                            .costum_checkbox_input:checked+.costum_checkbox_label {
+                                            .costum_checkbox_input:checked + .costum_checkbox_label {
                                                 position: relative;
 
                                                 &::before {
@@ -666,13 +803,19 @@
                                                     z-index: 5;
                                                 }
                                             }
+
+                                            .label {
+                                                color: #f5efdb;
+                                                font-size: 14px;
+                                                opacity: 0.8;
+                                            }
                                         }
 
                                         .radio_box {
                                             display: flex;
                                             align-items: center;
-                                            gap: 8px;
-                                            margin-bottom: 8px;
+                                            gap: 12px;
+                                            margin-bottom: 16px;
                                             cursor: pointer;
 
                                             input[type="radio"] {
@@ -680,36 +823,36 @@
                                             }
 
                                             label {
-                                                height: 20px;
-                                                width: 20px;
-                                                padding: 0.5px;
+                                                height: 16px;
+                                                width: 16px;
                                                 background-color: rgba(78, 78, 78, 0.2);
-                                                border: 1px solid #fff;
+                                                border: 1px solid #f5efdb;
                                                 border-radius: 50%;
+                                                position: relative;
+                                                flex-shrink: 0;
+                                                margin: 0;
                                                 cursor: pointer;
                                             }
 
-                                            input[type="radio"]:checked+label {
-                                                position: relative;
-
-                                                &::after {
-                                                    content: '';
-                                                    display: block;
-                                                    position: absolute;
-                                                    top: 50%;
-                                                    left: 50%;
-                                                    transform: translate(-50%, -50%);
-                                                    height: 10px;
-                                                    width: 10px;
-                                                    background-color: #f5efdb;
-                                                    border-radius: 50%;
-                                                    z-index: 5;
-                                                }
+                                            input[type="radio"]:checked + label::after {
+                                                content: '';
+                                                display: block;
+                                                position: absolute;
+                                                top: 50%;
+                                                left: 50%;
+                                                transform: translate(-50%, -50%);
+                                                height: 8px;
+                                                width: 8px;
+                                                background-color: #f5efdb;
+                                                border-radius: 50%;
                                             }
 
                                             span {
                                                 color: #f5efdb;
                                                 font-size: 14px;
+                                                opacity: 0.8;
+                                                line-height: 1.4;
+                                                cursor: pointer;
                                             }
                                         }
 
@@ -718,9 +861,67 @@
                                         }
 
                                         .question_desc {
-                                            color: #f5efdb93;
+                                            color: rgba(245, 239, 219, 0.6);
+                                            font-size: 16px;
+                                            margin-bottom: 8px;
+                                            margin-top: 16px;
+                                            font-family: inherit;
+                                            line-height: 1.4;
+                                        }
+
+                                        .textArea {
+                                            width: 100%;
+                                            min-height: 100px;
+                                            background-color: transparent;
+                                            border: 1px solid rgba(245, 239, 219, 0.3);
+                                            border-radius: 4px;
+                                            padding: 12px;
+                                            color: #f5efdb;
                                             font-size: 14px;
-                                            margin-bottom: 10px;
+                                            resize: vertical;
+                                            font-family: inherit;
+                                            margin-top: 16px;
+                                            margin-bottom: 16px;
+                                            order: 2;
+
+                                            @media (max-width: 767px) {
+                                                order: 2;
+                                                width: 100%;
+                                            }
+
+                                            &::placeholder {
+                                                color: rgba(245, 239, 219, 0.4);
+                                            }
+
+                                            &:focus {
+                                                outline: none;
+                                                border-color: rgba(245, 239, 219, 0.5);
+                                            }
+                                        }
+
+                                        .save_button {
+                                            width: auto;
+                                            min-width: 120px;
+                                            padding: 12px 24px;
+                                            background-color: rgba(78, 78, 78, 0.58);
+                                            border: none;
+                                            border-radius: 4px;
+                                            color: #f5efdb;
+                                            font-size: 14px;
+                                            cursor: pointer;
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;
+                                            gap: 8px;
+                                            transition: background-color 0.2s ease;
+
+                                            &:hover {
+                                                background-color: rgba(78, 78, 78, 0.8);
+                                            }
+
+                                            p {
+                                                margin: 0;
+                                            }
                                         }
                                     }
                                 }
@@ -734,21 +935,24 @@
                                 margin-top: 16px;
 
                                 .textArea {
+                                    width: 100%;
+                                    min-height: 100px;
                                     background-color: transparent;
+                                    border: 1px solid rgba(245, 239, 219, 0.3);
+                                    border-radius: 4px;
+                                    padding: 12px;
                                     color: #f5efdb;
-                                    padding: 10px 14px;
-                                    outline: none;
-                                    resize: none;
-                                    font-family: "Inter", sans-serif;
-                                    min-height: 55px;
-                                    font-size: 16px;
+                                    font-size: 14px;
+                                    resize: vertical;
+                                    font-family: inherit;
 
-                                    @media (max-width: 1600px) {
-                                        font-size: 14px;
+                                    &::placeholder {
+                                        color: rgba(245, 239, 219, 0.4);
                                     }
 
-                                    @media (max-width: 767px) {
-                                        min-height: 70px;
+                                    &:focus {
+                                        outline: none;
+                                        border-color: rgba(245, 239, 219, 0.5);
                                     }
                                 }
                             }
@@ -979,6 +1183,47 @@
     &:hover {
       color: #f5efdb;
       text-decoration-style: solid;
+    }
+  }
+
+  .disabled-message {
+    color: rgba(245, 239, 219, 0.5);
+    font-style: italic;
+    font-size: 14px;
+  }
+}
+
+.save_button_container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px 0;
+  margin-top: 16px;
+  width: 100%;
+  border-top: 1px solid rgba(245, 239, 219, 0.1);
+
+  .save_button {
+    width: auto;
+    min-width: 120px;
+    padding: 12px 24px;
+    background-color: rgba(78, 78, 78, 0.58);
+    border: none;
+    border-radius: 4px;
+    color: #f5efdb;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background-color 0.2s ease;
+    margin-left: auto;
+
+    &:hover {
+      background-color: rgba(78, 78, 78, 0.8);
+    }
+
+    p {
+      margin: 0;
     }
   }
 }

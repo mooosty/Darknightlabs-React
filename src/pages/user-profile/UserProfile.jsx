@@ -59,7 +59,6 @@ const UserProfile = () => {
     bio: "",
     email: "",
     profile_picture: "",
-
     telegram_username: "",
     linkedin: "",
     roles: [],
@@ -68,6 +67,10 @@ const UserProfile = () => {
     question2: "",
     primary_city: "",
     secondary_city: "",
+    investment_thesis: [],
+    ticket_size: "",
+    investment_stage: "",
+    investment_description: "",
   };
 
   const formik = useFormik({
@@ -105,8 +108,6 @@ const UserProfile = () => {
   };
 
   const handleUpdateDetails = async (values) => {
-    
-
     setIsLoading(true);
     let updated_profile_picture = values?.profile_picture;
     if (isImageChange) {
@@ -124,6 +125,7 @@ const UserProfile = () => {
     const tmpValues = { ...values };
     delete tmpValues.other;
     delete tmpValues.id;
+    delete tmpValues.investment_thesis;
 
     const payload = {
       id: userData?.userId,
@@ -131,6 +133,7 @@ const UserProfile = () => {
         ...tmpValues,
         profile_picture: updated_profile_picture,
         roles: values?.roles.includes("Other") ? values?.other : values.roles.join(","),
+        investment_thesis: JSON.stringify(values.investment_thesis || [])
       }
     }
 
@@ -276,6 +279,19 @@ const UserProfile = () => {
       });
     }
   }, [userDetails]);
+
+  const handleInvestmentThesisChange = (value) => {
+    const currentThesis = values?.investment_thesis || [];
+    let newThesis;
+    
+    if (currentThesis.includes(value)) {
+      newThesis = currentThesis.filter(item => item !== value);
+    } else {
+      newThesis = [...currentThesis, value];
+    }
+    
+    setFieldValue('investment_thesis', newThesis);
+  };
 
   return (
     <>
@@ -428,54 +444,288 @@ const UserProfile = () => {
                       </div>
                     </div>
 
-                    {/* <div className="profile_seprator_image">
+                    <div className="profile_seprator_image ">
                       <img src={sepratorImage} alt="Separator" />
-                    </div> */}
-                    {/* <div className="form_box">
-                      <h3 className="profile_title">Contact information</h3>
-                      <div className="contact_info_data">
-                        <div className="mail">
-                          <div className="mail_head">Email</div>
-                          <div className="mail_data">{userDetails?.email || userData?.email || "-"}</div>
-                          <div className="mail_desc">
-                            You can reach out for communication via email. Feel free to contact me anytime.
+                    </div>
+
+                    <div className="form_box">
+                      <h3 className="profile_title">Investment Details</h3>
+                      <div className="investment_details">
+                        {/* Left Column */}
+                        <div className="profile_info">
+                          <div className="profile_head">Average ticket size *</div>
+                          <div className="profile_data">
+                            {values?.roles?.includes("Angel Investor") ? (
+                              <>
+                                <label className="radio_box" htmlFor="5k">
+                                  <input
+                                    type="radio"
+                                    id="5k"
+                                    name="ticket_size"
+                                    value=">$5k"
+                                    checked={values?.ticket_size === ">$5k"}
+                                    onChange={handleChange}
+                                  />
+                                  <span className="radio-custom"></span>
+                                  <span className="radio-label">{">"}$5k</span>
+                                </label>
+                                <label className="radio_box" htmlFor="5k-10k">
+                                  <input
+                                    type="radio"
+                                    id="5k-10k"
+                                    name="ticket_size"
+                                    value="5k-10k"
+                                    checked={values?.ticket_size === "5k-10k"}
+                                    onChange={handleChange}
+                                  />
+                                  <span className="radio-custom"></span>
+                                  <span className="radio-label">5k-10k</span>
+                                </label>
+                                <label className="radio_box" htmlFor="10k-25k">
+                                  <input
+                                    type="radio"
+                                    id="10k-25k"
+                                    name="ticket_size"
+                                    value="10k-25k"
+                                    checked={values?.ticket_size === "10k-25k"}
+                                    onChange={handleChange}
+                                  />
+                                  <span className="radio-custom"></span>
+                                  <span className="radio-label">10k-25k</span>
+                                </label>
+                                <label className="radio_box" htmlFor="25k-100k">
+                                  <input
+                                    type="radio"
+                                    id="25k-100k"
+                                    name="ticket_size"
+                                    value="25k-100k"
+                                    checked={values?.ticket_size === "25k-100k"}
+                                    onChange={handleChange}
+                                  />
+                                  <span className="radio-custom"></span>
+                                  <span className="radio-label">25k-100k</span>
+                                </label>
+                                <label className="radio_box" htmlFor="100k-250k">
+                                  <input
+                                    type="radio"
+                                    id="100k-250k"
+                                    name="ticket_size"
+                                    value="100k-250k"
+                                    checked={values?.ticket_size === "100k-250k"}
+                                    onChange={handleChange}
+                                  />
+                                  <span className="radio-custom"></span>
+                                  <span className="radio-label">100k-250k</span>
+                                </label>
+                                <label className="radio_box" htmlFor="250k-500k">
+                                  <input
+                                    type="radio"
+                                    id="250k-500k"
+                                    name="ticket_size"
+                                    value="250k-500k"
+                                    checked={values?.ticket_size === "250k-500k"}
+                                    onChange={handleChange}
+                                  />
+                                  <span className="radio-custom"></span>
+                                  <span className="radio-label">250k-500k</span>
+                                </label>
+                                <label className="radio_box" htmlFor="1mil+">
+                                  <input
+                                    type="radio"
+                                    id="1mil+"
+                                    name="ticket_size"
+                                    value="1mil+"
+                                    checked={values?.ticket_size === "1mil+"}
+                                    onChange={handleChange}
+                                  />
+                                  <span className="radio-custom"></span>
+                                  <span className="radio-label">1mil+</span>
+                                </label>
+                              </>
+                            ) : (
+                              <span className="disabled-message">Available for Angel Investors only</span>
+                            )}
                           </div>
                         </div>
-                        <div className="social_media_wrp">
-                          <div className="social_media">
-                            <h2 className="social_media_title">Connected accounts</h2>
-                            {
-                              !userData?.authDetails?.isAuthenticated &&
-                              <button className="btn_gray">
-                                <img src={twitterIcon} alt="" />
-                                Connect Twitter
-                              </button>
-                            }
-                            <button className="btn_gray">
-                              <img src={discordIcon} alt="" />
-                              Connect Discord
-                            </button>
-                            <button className="btn_gray">
-                              <img src={telegramIcon} alt="" />
-                              Connect Telegram
-                            </button>
+
+                        {/* Right Column */}
+                        <div className="profile_info">
+                          <div className="profile_head">Investment Thesis *</div>
+                          <div className="profile_data">
+                            {values?.roles?.includes("Angel Investor") ? (
+                              <>
+                                <label className="check_box" htmlFor="gaming">
+                                  <input
+                                    type="checkbox"
+                                    id="gaming"
+                                    className="costum_checkbox_input"
+                                    checked={values?.investment_thesis?.includes("Gaming/Metaverse/GameFi")}
+                                    onChange={() => handleInvestmentThesisChange("Gaming/Metaverse/GameFi")}
+                                  />
+                                  <span className="costum_checkbox_label"></span>
+                                  <span className="label">Gaming/Metaverse/GameFi</span>
+                                </label>
+                                <label className="check_box" htmlFor="ai">
+                                  <input
+                                    type="checkbox"
+                                    id="ai"
+                                    className="costum_checkbox_input"
+                                    checked={values?.investment_thesis?.includes("AI")}
+                                    onChange={() => handleInvestmentThesisChange("AI")}
+                                  />
+                                  <span className="costum_checkbox_label"></span>
+                                  <span className="label">AI</span>
+                                </label>
+                                <label className="check_box" htmlFor="rwa">
+                                  <input
+                                    type="checkbox"
+                                    id="rwa"
+                                    className="costum_checkbox_input"
+                                    checked={values?.investment_thesis?.includes("RWA")}
+                                    onChange={() => handleInvestmentThesisChange("RWA")}
+                                  />
+                                  <span className="costum_checkbox_label"></span>
+                                  <span className="label">RWA</span>
+                                </label>
+                                <label className="check_box" htmlFor="depin">
+                                  <input
+                                    type="checkbox"
+                                    id="depin"
+                                    className="costum_checkbox_input"
+                                    checked={values?.investment_thesis?.includes("DePin")}
+                                    onChange={() => handleInvestmentThesisChange("DePin")}
+                                  />
+                                  <span className="costum_checkbox_label"></span>
+                                  <span className="label">DePin</span>
+                                </label>
+                                <label className="check_box" htmlFor="defi">
+                                  <input
+                                    type="checkbox"
+                                    id="defi"
+                                    className="costum_checkbox_input"
+                                    checked={values?.investment_thesis?.includes("DeFi")}
+                                    onChange={() => handleInvestmentThesisChange("DeFi")}
+                                  />
+                                  <span className="costum_checkbox_label"></span>
+                                  <span className="label">DeFi</span>
+                                </label>
+                                <label className="check_box" htmlFor="infrastructure">
+                                  <input
+                                    type="checkbox"
+                                    id="infrastructure"
+                                    className="costum_checkbox_input"
+                                    checked={values?.investment_thesis?.includes("Infrastructure")}
+                                    onChange={() => handleInvestmentThesisChange("Infrastructure")}
+                                  />
+                                  <span className="costum_checkbox_label"></span>
+                                  <span className="label">Infrastructure</span>
+                                </label>
+                                <label className="check_box" htmlFor="l1l2l3">
+                                  <input
+                                    type="checkbox"
+                                    id="l1l2l3"
+                                    className="costum_checkbox_input"
+                                    checked={values?.investment_thesis?.includes("L1/L2/L3")}
+                                    onChange={() => handleInvestmentThesisChange("L1/L2/L3")}
+                                  />
+                                  <span className="costum_checkbox_label"></span>
+                                  <span className="label">L1/L2/L3</span>
+                                </label>
+                                <label className="check_box" htmlFor="data">
+                                  <input
+                                    type="checkbox"
+                                    id="data"
+                                    className="costum_checkbox_input"
+                                    checked={values?.investment_thesis?.includes("Data")}
+                                    onChange={() => handleInvestmentThesisChange("Data")}
+                                  />
+                                  <span className="costum_checkbox_label"></span>
+                                  <span className="label">Data</span>
+                                </label>
+                                <label className="check_box" htmlFor="ip">
+                                  <input
+                                    type="checkbox"
+                                    id="ip"
+                                    className="costum_checkbox_input"
+                                    checked={values?.investment_thesis?.includes("IP")}
+                                    onChange={() => handleInvestmentThesisChange("IP")}
+                                  />
+                                  <span className="costum_checkbox_label"></span>
+                                  <span className="label">IP</span>
+                                </label>
+                                <label className="check_box" htmlFor="other">
+                                  <input
+                                    type="checkbox"
+                                    id="other"
+                                    className="costum_checkbox_input"
+                                    checked={values?.investment_thesis?.includes("Other")}
+                                    onChange={() => handleInvestmentThesisChange("Other")}
+                                  />
+                                  <span className="costum_checkbox_label"></span>
+                                  <span className="label">Other</span>
+                                </label>
+                              </>
+                            ) : (
+                              <span className="disabled-message">Available for Angel Investors only</span>
+                            )}
                           </div>
                         </div>
+
+                        {/* Bottom Section - Full Width */}
+                        <div className="profile_info">
+                          <div className="profile_head">What's your investment thesis? *</div>
+                          <div className="profile_data">
+                            {values?.roles?.includes("Angel Investor") ? (
+                              <>
+                                <div className="radio_group">
+                                  <div className="radio_box" onClick={() => handleQuestionChange("investment_stage", "Early")}>
+                                    <input type="radio" name="investment_stage" value="Early" checked={values?.investment_stage === "Early"} />
+                                    <label></label>
+                                    <span>Early (pre-seed, seed)</span>
+                                  </div>
+                                  <div className="radio_box" onClick={() => handleQuestionChange("investment_stage", "Decent traction")}>
+                                    <input type="radio" name="investment_stage" value="Decent traction" checked={values?.investment_stage === "Decent traction"} />
+                                    <label></label>
+                                    <span>Decent traction (strategic, private)</span>
+                                  </div>
+                                  <div className="radio_box" onClick={() => handleQuestionChange("investment_stage", "Hyped")}>
+                                    <input type="radio" name="investment_stage" value="Hyped" checked={values?.investment_stage === "Hyped"} />
+                                    <label></label>
+                                    <span>Hyped (public)</span>
+                                  </div>
+                                </div>
+                                <div className="question_desc">Describe your investment thesis in your own words so we can bring you exactly what you need *</div>
+                                <textarea
+                                  className="textArea"
+                                  name="investment_description"
+                                  placeholder="Custom description..."
+                                  value={values?.investment_description}
+                                  onChange={handleChange}
+                                />
+                                <div className="save_button_container">
+                                  <button className="btn_gray save_button" type="submit" onClick={handleSubmit}>
+                                    {isLoading ? (
+                                      <>
+                                        <Loader loading={isLoading} isItForButton={true} /> <p>Saving...</p>
+                                      </>
+                                    ) : (
+                                      "Save Changes"
+                                    )}
+                                  </button>
+                                </div>
+                              </>
+                            ) : (
+                              <span className="disabled-message">Available for Angel Investors only</span>
+                            )}
+                          </div>
+                        </div>
+
                       </div>
                     </div>
 
-                    <div className="profile_seprator_image ">
+                    <div className="profile_seprator_image">
                       <img src={sepratorImage} alt="Separator" />
-                    </div> */}
-
-                    {/* <div className="form_box">
-                                        <h3 className="profile_title">Password</h3>
-                                        <div className="password_info_data">
-                                            <div className='password_head'>Current password</div>
-                                            <div className='password_data'>************</div>
-                                            <div className='password_desc'>Last updated at 12/12/23 118:04</div>
-                                        </div>
-                                    </div> */}
+                    </div>
                   </div>
                 </div>
               </div>

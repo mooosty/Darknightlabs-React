@@ -36,7 +36,6 @@ const Header = () => {
 
     return (
         <header className="header_wrp">
-            <span className="currency">Balance: {userDetails?.currency_b || 0} KP</span>
             <h4 className='header_title'>Darknight Labs</h4>
             <button className="header_btn">Home page</button>
             <div className="sidebar_btn">
