@@ -1,5 +1,5 @@
 import './investment.scss'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { MultiselectDropDown } from '../../components';
 import { useDispatch, useSelector } from 'react-redux';
 import WalletConnect from '../../components/investments/WalletConnect/WalletConnect';
@@ -298,7 +298,21 @@ const Investment = () => {
   const [activeLayout, setActiveLayout] = useState('TRENDING');
   const [showDetails, setShowDetails] = useState(false);
   const [selectedInvestment, setSelectedInvestment] = useState(null);
-  const [isPhase2, setIsPhase2] = useState(true);
+  const [isPhase2, setIsPhase2] = useState(false);
+
+  useEffect(() => {
+    const fetchPhase = async () => {
+      try {
+        const response = await fetch('https://winwinsocietyweb3.com/api/investments/1');
+        const data = await response.json();
+        setIsPhase2(data.phase === 2);
+      } catch (error) {
+        console.error('Error fetching phase:', error);
+      }
+    };
+
+    fetchPhase();
+  }, []);
 
   const handleActive = (key) => { setActiveLayout(key) }
 
@@ -326,10 +340,6 @@ const Investment = () => {
   const handleVerificationComplete = (message) => {
     dispatch(setWhitelistMessage({ whitelistMessage: message }));
   }
-
-  const togglePhase = () => {
-    setIsPhase2(!isPhase2);
-  };
 
   const InvestmentForm = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -827,24 +837,6 @@ const Investment = () => {
         </>
       ) : (
         <div className="investment_details">
-          <button 
-            onClick={togglePhase} 
-            style={{ 
-              position: 'absolute',
-              top: '24px',
-              right: '24px',
-              padding: '8px 16px',
-              background: '#F5EFDB',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: 'pointer',
-              fontFamily: '"MedievalSharp", cursive',
-              fontSize: '14px'
-            }}
-          >
-            Toggle Phase ({isPhase2 ? 'Investment' : 'Pledge'})
-          </button>
-
           <div className="investments_content_header">
             <div className="content_left">
               <button className="btn_gray" onClick={handleBackToList}>Back to Investments</button>
@@ -945,7 +937,7 @@ const Investment = () => {
                   </div>
                   <div className="details_right">
                     <div className="form_container">
-                      {isPhase2 ? (
+                      {!isPhase2 ? (
                         <InvestmentForm />
                       ) : (
                         <PledgeForm 
