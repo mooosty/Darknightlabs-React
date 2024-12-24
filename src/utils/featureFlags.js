@@ -2,7 +2,7 @@
 export const FEATURE_FLAGS = {
   PROJECTS: false,
   SYNERGIES: false,
-  CHAT: true,
+  CHAT: false,
   // Add other feature flags as needed
 };
 
