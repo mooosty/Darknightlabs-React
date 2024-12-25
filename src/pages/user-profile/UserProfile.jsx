@@ -122,7 +122,7 @@ const UserProfile = () => {
     }
 
     const profilePromises = [];
-    
+
     // Basic profile data only
     const payload = {
       id: userData?.userId,
@@ -718,13 +718,13 @@ const UserProfile = () => {
                                     ) : (
                                       "Save Changes"
                                     )}
-                                  </button>
-                                </div>
+                            </button>
+                          </div>
                               </>
                             ) : (
                               <span className="disabled-message">Available for Angel Investors only</span>
                             )}
-                          </div>
+                        </div>
                         </div>
 
                       </div>

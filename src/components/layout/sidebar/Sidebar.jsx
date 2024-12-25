@@ -61,6 +61,15 @@ const Sidebar = () => {
                 <span>Balance: {userDetails?.currency_b || 0}</span>
                 <KarmaIcon style={{ width: '1em', height: '1em' }} />
               </div>
+              <div className="loyalty-progress">
+                <div className="loyalty-text">
+                  <span>Loyalty</span>
+                  <span>{userDetails?.loyalty_score || 0}</span>
+                </div>
+                <div className="progress-bar">
+                  <div className="progress" style={{ width: '50%' }}></div>
+                </div>
+              </div>
             </div>
           </div>
 
