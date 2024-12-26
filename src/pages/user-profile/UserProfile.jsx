@@ -39,7 +39,7 @@ const InputPassword = (props) => {
   );
 };
 
-const TelegramAuthButton = () => {
+const TelegramAuthButton = ({ onSuccess }) => {
   const [status, setStatus] = useState('');
   const [showButton, setShowButton] = useState(false);
   const userData = useSelector((state) => state.auth);
@@ -101,10 +101,11 @@ const TelegramAuthButton = () => {
 
         if (response.data.success) {
           toast.success('Successfully connected to Telegram!');
-          setShowButton(false); // Hide button after successful connection
-          
-          // Recheck status after successful connection
+          setShowButton(false);
           await checkTelegramStatus();
+          if (onSuccess) {
+            await onSuccess();
+          }
         }
       } catch (error) {
         console.error('Failed to connect:', error);
@@ -115,7 +116,7 @@ const TelegramAuthButton = () => {
     return () => {
       delete window.onTelegramAuth;
     };
-  }, [userData.userId, showButton]);
+  }, [userData.userId, showButton, onSuccess]);
 
   if (!showButton) return null;
 
@@ -278,6 +279,24 @@ const UserProfile = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [userProjects, setUserProjects] = useState([]);
   const [addNewProject, setAddNewProject] = useState(false);
+  const [telegramUsername, setTelegramUsername] = useState(null);
+
+  // Add function to fetch Telegram username
+  const fetchTelegramUsername = async () => {
+    try {
+      const response = await axiosApi.get(`/telegram/check/${userData.userId}`);
+      const { username } = response.data;
+      if (username) {
+        setTelegramUsername(username);
+        // Also update the formik values if in edit mode
+        if (isEditMode) {
+          setFieldValue('telegram_username', username);
+        }
+      }
+    } catch (error) {
+      console.error('Failed to fetch Telegram username:', error);
+    }
+  };
 
   const initialValues = {
     id: 9,
@@ -511,10 +530,11 @@ const UserProfile = () => {
       setValues({
         ...initialValues,
         ...userDetails,
-        roles: roles
+        roles: roles,
+        telegram_username: telegramUsername || userDetails.telegram_username // Use Telegram username if available
       });
     }
-  }, [userDetails]);
+  }, [userDetails, telegramUsername]);
 
   const handleInvestmentThesisChange = (value) => {
     const currentThesis = values?.investment_thesis || [];
@@ -527,6 +547,12 @@ const UserProfile = () => {
     }
     
     setFieldValue('investment_thesis', newThesis);
+  };
+
+  // Modify TelegramAuthButton to accept onSuccess prop
+  const handleTelegramSuccess = async () => {
+    await fetchTelegramUsername();
+    dispatch(getUsersDetailsAPI(userData?.userId));
   };
 
   return (
@@ -582,7 +608,7 @@ const UserProfile = () => {
                         src={userData?.profile_picture.replace('_normal', '')}
                       />
                     </div>
-                    <TelegramAuthButton />
+                    <TelegramAuthButton onSuccess={handleTelegramSuccess} />
                     <TwitterAuthButton />
                   </div>
                   <div className="profile_description_data">
@@ -616,7 +642,7 @@ const UserProfile = () => {
                         </div>
                         <div className="profile_info">
                           <div className="profile_head">Telegram</div>
-                          <div className="profile_data">{userDetails?.telegram_username || "-"}</div>
+                          <div className="profile_data">{telegramUsername || userDetails?.telegram_username || "-"}</div>
                         </div>
                         <div className="profile_info">
                           <div className="profile_head">Twitter</div>
