@@ -1,4 +1,5 @@
 import axios from "axios";
+import { axiosApi } from "../../api-services/service";
 import "./userProfile.scss";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
@@ -34,6 +35,234 @@ const InputPassword = (props) => {
       <div onClick={toggleVisibility}>
         {!isPasswordVisible ? <img src={closedEyeIcon} alt=" " /> : <img src={openEyeIcon} alt=" " />}
       </div>
+    </div>
+  );
+};
+
+const TelegramAuthButton = () => {
+  const [status, setStatus] = useState('');
+  const [showButton, setShowButton] = useState(false);
+  const userData = useSelector((state) => state.auth);
+  const { authDetails } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  const telegramCred = authDetails?.user?.verifiedCredentials?.find(
+    cred => cred.format === 'oauth' && cred.oauth_provider === 'telegram'
+  );
+
+  // Function to check status that can be shared between components
+  const checkTelegramStatus = async () => {
+    try {
+      const response = await axiosApi.get(`/telegram/check/${userData.userId}`);
+      const { db, sheet } = response.data;
+      
+      // Show button if either (sheet=1 and db=0) OR (sheet=0 and db=0)
+      setShowButton((sheet === 1 && db === 0) || (sheet === 0 && db === 0));
+      
+      // Dispatch an event to notify TwitterAuthButton
+      if (sheet === 1 && db === 1) {
+        window.dispatchEvent(new CustomEvent('telegramStatusUpdated', { 
+          detail: { sheet, db }
+        }));
+      }
+    } catch (error) {
+      console.error('Failed to check Telegram status:', error);
+      setShowButton(false);
+    }
+  };
+
+  useEffect(() => {
+    checkTelegramStatus();
+  }, [userData.userId]);
+
+  useEffect(() => {
+    if (!showButton) return;
+
+    const script = document.createElement('script');
+    script.src = 'https://telegram.org/js/telegram-widget.js?22';
+    script.setAttribute('data-telegram-login', 'TheWinWinSocietyBot');
+    script.setAttribute('data-size', 'medium');
+    script.setAttribute('data-onauth', 'onTelegramAuth(user)');
+    script.setAttribute('data-request-access', 'write');
+    script.async = true;
+
+    const container = document.getElementById('telegram-login-button');
+    if (container) {
+      container.innerHTML = '';
+      container.appendChild(script);
+    }
+
+    window.onTelegramAuth = async (telegramUser) => {
+      try {
+        const response = await axiosApi.post('/telegram/auth', {
+          ...telegramUser,
+          userId: userData.userId
+        });
+
+        if (response.data.success) {
+          toast.success('Successfully connected to Telegram!');
+          setShowButton(false); // Hide button after successful connection
+          
+          // Recheck status after successful connection
+          await checkTelegramStatus();
+        }
+      } catch (error) {
+        console.error('Failed to connect:', error);
+        toast.error(error.response?.data?.error || 'Failed to connect to Telegram');
+      }
+    };
+
+    return () => {
+      delete window.onTelegramAuth;
+    };
+  }, [userData.userId, showButton]);
+
+  if (!showButton) return null;
+
+  return (
+    <div className="profile_upload_button">
+      <button 
+        className="change_photo dark-theme"
+        style={{
+          background: '#000000',
+          border: 'none',
+          fontFamily: 'Inter, sans-serif',
+          fontSize: '14px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '8px',
+          padding: '10px 20px',
+          width: '100%',
+          position: 'relative'
+        }}
+        disabled={telegramCred}
+      >
+        <img src={telegramIcon} alt="Telegram" style={{ width: '16px', height: '16px' }} />
+        {telegramCred ? 'Connected to Telegram' : 'Connect Telegram'}
+        <div id="telegram-login-button" style={{ 
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          opacity: 0,
+          cursor: 'pointer'
+        }}></div>
+      </button>
+    </div>
+  );
+};
+
+const TwitterAuthButton = () => {
+  const [status, setStatus] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [showButton, setShowButton] = useState(false);
+  const { authDetails } = useSelector((state) => state.auth);
+  const userData = useSelector((state) => state.auth);
+
+  const twitterCred = authDetails?.user?.verifiedCredentials?.find(
+    cred => cred.format === 'oauth' && cred.oauth_provider === 'twitter'
+  );
+
+  const checkTelegramStatus = async () => {
+    try {
+      const response = await axiosApi.get(`/telegram/check/${userData.userId}`);
+      const { db, sheet } = response.data;
+      
+      // Only show Twitter button if both sheet=1 and db=1
+      setShowButton(sheet === 1 && db === 1);
+    } catch (error) {
+      console.error('Failed to check Telegram status:', error);
+      setShowButton(false);
+    }
+  };
+
+  useEffect(() => {
+    checkTelegramStatus();
+    
+    // Listen for updates from TelegramAuthButton
+    const handleTelegramUpdate = (event) => {
+      const { sheet, db } = event.detail;
+      setShowButton(sheet === 1 && db === 1);
+    };
+    
+    window.addEventListener('telegramStatusUpdated', handleTelegramUpdate);
+    
+    return () => {
+      window.removeEventListener('telegramStatusUpdated', handleTelegramUpdate);
+    };
+  }, [userData.userId]);
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const twitterAuth = urlParams.get('twitter_auth');
+    const message = urlParams.get('message');
+    
+    if (twitterAuth === 'success') {
+      setStatus('Successfully connected!');
+      window.history.replaceState({}, document.title, window.location.pathname);
+    } else if (twitterAuth === 'error') {
+      setStatus(`Error: ${message || 'Unknown error'}`);
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }, []);
+
+  const handleTwitterAuth = async () => {
+    try {
+      setLoading(true);
+      setStatus('');
+      
+      const returnUrl = window.location.href;
+      const response = await axiosApi.get(
+        `/twitter/login?returnUrl=${encodeURIComponent(returnUrl)}`
+      );
+      
+      if (response.data.error) {
+        throw new Error(response.data.error);
+      }
+      
+      if (response.data.authUrl) {
+        window.location.href = response.data.authUrl;
+      } else {
+        throw new Error('No auth URL received from server');
+      }
+      
+    } catch (error) {
+      console.error('Twitter auth error:', error);
+      setStatus(error.message || 'Failed to connect to Twitter');
+      setLoading(false);
+    }
+  };
+
+  if (!showButton) return null;
+
+  return (
+    <div className="profile_upload_button">
+      <button 
+        onClick={handleTwitterAuth}
+        disabled={loading || twitterCred}
+        className="change_photo dark-theme"
+        style={{
+          background: '#000000',
+          border: 'none',
+          fontFamily: 'Inter, sans-serif',
+          fontSize: '14px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '8px'
+        }}
+      >
+        <img src={twitterIcon} alt="Twitter" style={{ width: '16px', height: '16px' }} />
+        {loading ? 'Connecting...' : (twitterCred ? 'Connected to Twitter' : 'Connect Twitter')}
+      </button>
+      
+      {status && (
+        <div className={`status-message ${status.includes('Error') ? 'error' : 'success'}`}>
+          {status}
+        </div>
+      )}
     </div>
   );
 };
@@ -351,12 +580,10 @@ const UserProfile = () => {
                     <div className="profile_upload_profile">
                       <img
                         src={userData?.profile_picture.replace('_normal', '')}
-                      // src={userData?.profile_picture}
-                      // src={userDetails?.profile_picture === '' || userData?.profile_picture || !userDetails?.profile_picture ? defaultImg : userDetails?.profile_picture}
-                      // alt=""
-                      // onError={(e) => e.target.src = defaultImg}
                       />
                     </div>
+                    <TelegramAuthButton />
+                    <TwitterAuthButton />
                   </div>
                   <div className="profile_description_data">
                     <div className="form_box">

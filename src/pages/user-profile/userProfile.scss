@@ -259,6 +259,69 @@
                                 font-style: 16px;
                             }
                         }
+
+                        .twitter-auth-container {
+                            margin-top: 16px;
+                            width: 100%;
+
+                            .twitter-auth-btn {
+                                width: 100%;
+                                height: 36px;
+                                background: #000000;
+                                color: #FFFFFF;
+                                border: none;
+                                border-radius: 4px;
+                                font-size: 14px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                gap: 8px;
+                                cursor: pointer;
+                                transition: all 0.2s ease;
+                                font-family: "Inter", sans-serif;
+                                margin-block: 16px;
+
+                                &:hover:not(:disabled) {
+                                    background-color: #141414;
+                                }
+
+                                &:disabled {
+                                    cursor: not-allowed;
+                                    opacity: 0.7;
+                                    background-color: #141414;
+                                }
+
+                                &.connected {
+                                    background-color: #141414;
+                                }
+
+                                img {
+                                    width: 16px;
+                                    height: 16px;
+                                }
+                            }
+
+                            .twitter-status {
+                                margin-top: 8px;
+                                padding: 8px;
+                                border-radius: 4px;
+                                font-size: 14px;
+                                text-align: center;
+                                font-family: "Inter", sans-serif;
+
+                                &.error {
+                                    background-color: rgba(255, 0, 0, 0.1);
+                                    border: 1px solid rgba(255, 0, 0, 0.2);
+                                    color: #ff6b6b;
+                                }
+
+                                &.success {
+                                    background-color: rgba(0, 255, 0, 0.1);
+                                    border: 1px solid rgba(0, 255, 0, 0.2);
+                                    color: #69db7c;
+                                }
+                            }
+                        }
                     }
 
                     .profile_description_data {
@@ -1224,6 +1287,147 @@
 
     p {
       margin: 0;
+    }
+  }
+}
+
+.twitter-auth-container {
+  margin-top: 16px;
+  width: 100%;
+
+  .twitter-auth-btn {
+    width: 100%;
+    height: 36px;
+    background: #000000;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: "Inter", sans-serif;
+    margin-block: 16px;
+
+    &:hover:not(:disabled) {
+      background-color: #141414;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.7;
+      background-color: #141414;
+    }
+
+    &.connected {
+      background-color: #141414;
+    }
+
+    img {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .twitter-status {
+    margin-top: 8px;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    text-align: center;
+    font-family: "Inter", sans-serif;
+
+    &.error {
+      background-color: rgba(255, 0, 0, 0.1);
+      border: 1px solid rgba(255, 0, 0, 0.2);
+      color: #ff6b6b;
+    }
+
+    &.success {
+      background-color: rgba(0, 255, 0, 0.1);
+      border: 1px solid rgba(0, 255, 0, 0.2);
+      color: #69db7c;
+    }
+  }
+}
+
+.telegram-auth-container {
+  margin-top: 16px;
+  width: 100%;
+
+  #telegram-login-container {
+    iframe {
+      width: 100% !important;
+      height: 36px !important;
+      background: #000000 !important;
+      border: none !important;
+      border-radius: 4px !important;
+      margin-block: 16px !important;
+      
+      &:hover {
+        background-color: #141414 !important;
+      }
+    }
+  }
+
+  .telegram-auth-btn {
+    width: 100%;
+    height: 36px;
+    background: #000000;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: "Inter", sans-serif;
+    margin-block: 16px;
+
+    &:hover:not(:disabled) {
+      background-color: #141414;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.7;
+      background-color: #141414;
+    }
+
+    &.connected {
+      background-color: #141414;
+    }
+
+    img {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .telegram-status {
+    margin-top: 8px;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    text-align: center;
+    font-family: "Inter", sans-serif;
+
+    &.error {
+      background-color: rgba(255, 0, 0, 0.1);
+      border: 1px solid rgba(255, 0, 0, 0.2);
+      color: #ff6b6b;
+    }
+
+    &.success {
+      background-color: rgba(0, 255, 0, 0.1);
+      border: 1px solid rgba(0, 255, 0, 0.2);
+      color: #69db7c;
     }
   }
 }

@@ -58,7 +58,7 @@ const Sidebar = () => {
               <h3>{userData.name.split(" ")[0]}</h3>
               <p>User</p>
               <div className="balance">
-                <span>Balance: {userDetails?.currency_b || 0}</span>
+                <span>Karma: {userDetails?.currency_b || 0}</span>
                 <KarmaIcon style={{ width: '1em', height: '1em' }} />
               </div>
               <div className="loyalty-progress">
