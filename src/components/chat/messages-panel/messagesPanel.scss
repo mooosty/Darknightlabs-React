@@ -187,7 +187,7 @@
 
         .chat_input_container {
             width: 100%;
-            padding: 10px 24px 5px 24px;
+            padding: 10px 24px 0px 24px;
             background-color: var(--primary-background);
             outline: none;
             border: none;
@@ -299,6 +299,8 @@
         padding-bottom: 20px;
         background-color: #040400;
         align-self: stretch;
+        height: 100%;
+
 
         @media (max-width: 1123px) {
             display: none;
@@ -312,6 +314,7 @@
 
         .members_list {
             padding: 6px 10px;
+            height: calc(100% - 25px);
 
             .btn_gray {
                 width: 100%;
@@ -325,12 +328,12 @@
             }
 
             .list_container {
-                max-height: 660px;
+                // max-height: 660px;
                 overflow-y: auto;
-
-                @media (max-width: 1600px) {
-                    max-height: 350px;
-                }
+                max-height: calc(100% - 50px);
+                // @media (max-width: 1600px) {
+                //     max-height: 350px;
+                // }
 
                 .list_header {
                     color: var(--primary-white);
@@ -341,7 +344,6 @@
 
                 .list_body {
                     width: 100%;
-                    margin-bottom: 12px;
 
                     .list_items {
                         display: flex;

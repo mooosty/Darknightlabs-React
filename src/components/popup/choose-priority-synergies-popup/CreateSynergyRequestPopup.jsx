@@ -3,10 +3,9 @@ import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
 import './createSynergyRequestPopup.scss'
 import Select from '../../select/Select';
-import Loader from '../../loader/Loader';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Multiselect from '../../multiselect/Multiselect';
+import { Loader, Multiselect } from '../../../components';
 import { getProjectsAPI } from '../../../api-services/projectApis';
 import { addSynergyRequest } from '../../../api-services/synergyApi';
 import { synergyAnglesOptions } from '../../../utils/constants/options';

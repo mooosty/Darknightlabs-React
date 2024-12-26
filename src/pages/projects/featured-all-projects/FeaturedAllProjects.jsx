@@ -1,7 +1,6 @@
 import './featuredAllProjects.scss'
-import debounce from "lodash.debounce"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useCallback, useEffect, useState } from "react"
 import { formatDate } from '../../../utils/helper/helper'
 import { getMemberApi, getProjectsAPI } from "../../../api-services/projectApis"
 import { BackArrow, GradientGraphIcon, GredientGlobalIcon, SearchIcon } from "../../../utils/constants/images"

@@ -1,8 +1,7 @@
 import './synergiesManager.scss'
-import debounce from 'lodash.debounce';
+import { useEffect, useState } from 'react';
 import { formatDate } from '../../utils/helper/helper';
 import useNoScroll from '../../utils/hooks/useNoScroll';
-import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { synergyAnglesOptions } from '../../utils/constants/options';
 import { deleteSynergyApi, getSynergyApi, updateSynergyApi } from '../../api-services/synergyApi';

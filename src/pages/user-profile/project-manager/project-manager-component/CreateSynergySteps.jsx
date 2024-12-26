@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types'
-import Loader from '../loader/Loader';
+import { Loader } from '../../../../components';
 import { useDispatch } from 'react-redux';
 import { createSynergyApi } from '../../api-services/synergyApi';
 import CreateSynergiesPopup from '../popup/create-synergies-popup/CreateSynergiesPopup';

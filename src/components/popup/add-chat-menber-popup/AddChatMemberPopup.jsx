@@ -1,10 +1,11 @@
 import './addChatMemberPopup.scss'
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
-import Loader from '../../loader/Loader';
+import { Loader } from '../../../components';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMemberIntoGroup } from '../../../api-services/chatApis';
 import { AddUserIcon, CloseIcon, member, SearchIcon } from '../../../utils/constants/images';
+import { useClickOutside } from '../../../utils/hooks/useClickOutside';
 
 
 const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
@@ -23,6 +24,9 @@ const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
         });
     })
 
+    const closeRef = useClickOutside(() => {
+        handleClose()
+    })
 
     const handleSelcteMember = (userId) => {
         let tmpSelectedMember = [...selectedMember]
@@ -92,7 +96,7 @@ const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
                 <div
                     className={`add_angel_popup`}
                 >
-                    <div className='model_box'>
+                    <div className='model_box' ref={closeRef}>
                         <div className='model_body'>
                             <div className='model_header'>
                                 <h3>Add new member</h3>
@@ -160,10 +164,17 @@ const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
                         </div>
                     </div>
 
-                    <div className='mobile_view'>
+                    <div className='mobile_view' ref={closeRef}>
                         <div className='model_body'>
                             <div className='model_header'>
                                 <h3>Add new member</h3>
+                                <button
+                                    onClick={() => {
+                                        handleClose()
+                                    }}
+                                >
+                                    <CloseIcon />
+                                </button>
                             </div>
 
                             {/* <button

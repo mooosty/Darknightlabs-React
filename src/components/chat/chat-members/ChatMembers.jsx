@@ -1,14 +1,19 @@
 import './chatsMembers.scss'
 import PropTypes from 'prop-types';
 import { AddUserIcon, CloseIcon, member1, member2 } from '../../../utils/constants/images';
+import { useClickOutside } from '../../../utils/hooks/useClickOutside';
 
 const ChatMembers = ({ open, handleClose, groupData, openChatIndex, handleOpenAddMemberPopup }) => {
+
+    const closeRef = useClickOutside(() => {
+        handleClose()
+    })
 
     return (
         <>
             <div className={`menu_contianer ${open ? 'active' : ''} `}>
 
-                <div className="menu">
+                <div className="menu" ref={closeRef}>
                     <div className="members">
                         <div className="head">
                             Chat members

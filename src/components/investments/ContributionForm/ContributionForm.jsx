@@ -60,10 +60,10 @@ const ContributionForm = ({ walletAddress, whitelistSignature }) => {
       
 
       // Create the same message hash as the bot and contract
-      const messageHash = ethers.solidityPackedKeccak256(
-        ["address", "address"],
-        [walletAddress, PRESALE_CONTRACT.address]
-      );
+      // const messageHash = ethers.solidityPackedKeccak256(
+      //   ["address", "address"],
+      //   [walletAddress, PRESALE_CONTRACT.address]
+      // );
       
 
       const provider = new ethers.BrowserProvider(window.ethereum);

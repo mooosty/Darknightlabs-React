@@ -310,7 +310,7 @@ const ProjectManager = () => {
           <a href="#">Darknight Labs</a>
         </div>
       </div>
-      <div className="project_page_data">
+      <div className="project_manager_page_data">
         <div className={`page_data ${isSearchOpen ? 'search_open' : ''}`}>
           <div className="project_page_header">
             <div className="project_page_header_top">

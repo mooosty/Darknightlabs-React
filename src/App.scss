@@ -19,16 +19,24 @@
     padding-right: var(--scrollbar-width);
 }
 
-.Toastify__toast-theme--light {
-    background-color: #242623 !important;
-
-    .Toastify__toast-body {
-        font-family: "MedievalSharp", cursive;
-        color: white !important;
+.Toastify__toast-container {
+    @media (max-width: 480px) {
+        max-width: 90vw !important;
+        left: 5% !important;
+        margin-bottom: 0.2rem !important;
     }
 
-    .Toastify__close-button--light {
-        color: var(--primary-white) !important;
+    .Toastify__toast {
+        background-color: #242623 !important;
+
+        .Toastify__toast-body {
+            font-family: "MedievalSharp", cursive;
+            color: white !important;
+        }
+
+        .Toastify__close-button {
+            color: var(--primary-white) !important;
+        }
     }
 }
 
@@ -74,4 +82,18 @@
         top: 50%;
         transform: translateY(-50%);
     }
+}
+
+
+
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: transparent;
 }

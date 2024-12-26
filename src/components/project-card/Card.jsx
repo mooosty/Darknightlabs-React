@@ -5,8 +5,7 @@ import cardCoin from "../../assets/Coins.svg"
 import { useNavigate } from 'react-router-dom';
 import { ROUTER } from '../../utils/routes/routes';
 import useNoScroll from '../../utils/hooks/useNoScroll';
-import CustomTooltip from '../customTooltip/CustomTooltip';
-import CreateSynergyRequestPopup from '../popup/choose-priority-synergies-popup/CreateSynergyRequestPopup';
+import {CreateSynergyRequestPopup, CustomTooltip} from '../../components';
 import { defaultImg, GradientInfiniteIcon, TableStatusIcon } from '../../utils/constants/images';
 
 const Card = ({

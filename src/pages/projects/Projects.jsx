@@ -1,12 +1,11 @@
 import "./projects.scss";
 import { Link } from "react-router-dom";
-import debounce from "lodash.debounce";
+import { useEffect, useState } from "react";
 import { ROUTER } from "../../utils/routes/routes";
 import { useDispatch, useSelector } from "react-redux";
 import { formatDate } from "../../utils/helper/helper";
-import { useCallback, useEffect, useState } from "react";
 import { getProjectsAPI } from "../../api-services/projectApis";
-import { CustomSearch, MultiselectDropDown, ProjectCard } from "../../components";
+import { CustomSearch, EmptyData, MultiselectDropDown, ProjectCard } from "../../components";
 import { GradientGraphIcon, GredientGlobalIcon, SearchIcon } from "../../utils/constants/images";
 import {
     projectTypesOptions,
@@ -234,31 +233,37 @@ const Projects = () => {
                             </div> */}
                             <div className="featured_projects_card_body_main">
                                 <div className="featured_projects_card_body">
-                                    {filterFeaturedProject
-                                        .slice(0, 4)
-                                        .map((data, index) => {
-                                            return (
-                                                <div
-                                                    className="card_wrap"
-                                                    key={index}
-                                                >
-                                                    <ProjectCard
-                                                        projectId={
-                                                            data.projectId
-                                                        }
-                                                        isFeatured={
-                                                            data.isFeatured == 1
-                                                        }
-                                                        name={data.projectName}
-                                                        img={data.synergyImg}
-                                                        synergiesAngles={
-                                                            data.synergiesAngles
-                                                        }
-                                                        price={data.price}
-                                                    />
-                                                </div>
-                                            );
-                                        })}
+                                    {filterFeaturedProject.length == 0 ?
+                                        <EmptyData />
+                                        :
+                                        <>
+                                            {
+                                                filterFeaturedProject
+                                                    .slice(0, 4)
+                                                    .map((data, index) => {
+                                                        return (
+                                                            <div
+                                                                className="card_wrap"
+                                                                key={index}
+                                                            >
+                                                                <ProjectCard
+                                                                    projectId={
+                                                                        data.projectId
+                                                                    }
+                                                                    isFeatured={
+                                                                        data.isFeatured == 1
+                                                                    }
+                                                                    name={data.projectName}
+                                                                    img={data.synergyImg}
+                                                                    synergiesAngles={
+                                                                        data.synergiesAngles
+                                                                    }
+                                                                    price={data.price}
+                                                                />
+                                                            </div>
+                                                        );
+                                                    })
+                                            }</>}
                                 </div>
                             </div>
                         </div>
@@ -338,24 +343,29 @@ const Projects = () => {
                             </div>
 
                             <div className="all_projects_card_body">
-                                {filterProject.map((data, index) => {
-                                    return (
-                                        <div className="card_wrap" key={index}>
-                                            <ProjectCard
-                                                projectId={data.projectId}
-                                                isFeatured={
-                                                    data.isFeatured == 1
-                                                }
-                                                name={data.projectName}
-                                                img={data.synergyImg}
-                                                synergiesAngles={
-                                                    data.synergiesAngles
-                                                }
-                                                price={data.price}
-                                            />
-                                        </div>
-                                    );
-                                })}
+                                {filterProject.length == 0 ?
+                                    <EmptyData />
+                                    :
+                                    <>
+                                        {filterProject.map((data, index) => {
+                                            return (
+                                                <div className="card_wrap" key={index}>
+                                                    <ProjectCard
+                                                        projectId={data.projectId}
+                                                        isFeatured={
+                                                            data.isFeatured == 1
+                                                        }
+                                                        name={data.projectName}
+                                                        img={data.synergyImg}
+                                                        synergiesAngles={
+                                                            data.synergiesAngles
+                                                        }
+                                                        price={data.price}
+                                                    />
+                                                </div>
+                                            );
+                                        })}
+                                    </>}
                             </div>
                         </div>
 

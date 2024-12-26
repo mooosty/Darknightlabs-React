@@ -30,6 +30,7 @@
                     @media (max-width: 767px) {
                         width: 100%;
                         padding: 15px 24px;
+                        padding-bottom: 0;
                         gap: 10px;
                         justify-content: space-between;
                     }
@@ -54,7 +55,7 @@
                     display: flex;
                     align-items: center;
 
-                    @media (max-width: 767px) {
+                    @media (max-width: 940px) {
                         display: none;
                     }
 
@@ -208,6 +209,7 @@
                             @media (max-width: 767px) {
                                 margin-left: -8px;
                                 margin-right: -8px;
+                                padding-bottom: 28px;
                                 row-gap: 16px;
                             }
 

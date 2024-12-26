@@ -1,29 +1,186 @@
 import "./sidebar.scss";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ROUTER } from "../../../utils/routes/routes";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { ProfileNavTabIcon, CollapseLeftIcon, CollapseRightIcon, ChatNavTabIcon, LogoutNavTabIcon, ProjectNavTabIcon, MyContentNavTabIcon, SynergiesNavTabIcon, InvestmentNavTabIcon, PendingSynergiesNavTabIcon, SynergiesManagerNavTabIcon, KarmaNavTabIcon } from "../../../utils/constants/images";
-import { KarmaIcon } from "../../../utils/SVGs/SVGs";
+import { ProfileNavTabIcon, CollapseLeftIcon, CollapseRightIcon, ThreeDots, ChatNavTabIcon, LogoutNavTabIcon, ProjectNavTabIcon, MyContentNavTabIcon, SynergiesNavTabIcon, InvestmentNavTabIcon, PendingSynergiesNavTabIcon, SynergiesManagerNavTabIcon, KarmaNavTabIcon } from "../../../utils/constants/images";
 import { handleLogout } from "../../../store/slice/authSlice";
 import { useWindowSize } from "@uidotdev/usehooks";
+import { CustomFooterDropdown } from "../../../components";
+import { KarmaIcon } from "../../../utils/SVGs/SVGs";
+import { useSocket } from "../../../utils/socket-provider/SocketContext";
+import { getGroupsAPI } from "../../../api-services";
 
 const userRole = "ADMIN";
 const Sidebar = () => {
+  const size = useWindowSize();
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [isAmbassadorMode, setIsAmbassadorMode] = useState(false);
+
   const [isCollapse, setIsCollapse] = useState(false);
   const [userProjects, setUserProjects] = useState([]);
+  const [mobileMenuItems, setMobileMenuItems] = useState([]);
+  const [mobileDropdownItems, setMobileDropdownItems] = useState([]);
+  const [isAmbassadorMode, setIsAmbassadorMode] = useState(false);
+
   const userData = useSelector((state) => state.auth);
   const { userDetails } = useSelector((state) => state.user);
-  const size = useWindowSize();
+
 
   const handleCollapse = () => {
     setIsCollapse(!isCollapse);
   };
+
+  const handleAmbassadorClick = () => {
+    setIsAmbassadorMode(true);
+    navigate(ROUTER.ambassadorProjects); // Redirect to Exclusive Projects
+  };
+
+  const handleBackClick = () => {
+    setIsAmbassadorMode(false);
+  };
+
+  const filterMenuItems = (size, item) => {
+    const filters = {
+      'Karma': size.width <= 700,
+      'Chat': size.width <= 630,
+      'Synergies Manager': size.width <= 550,
+      'Pending Synergies': size.width <= 470,
+      'Investment': size.width <= 400,
+      'Synergies': size.width <= 315,
+    };
+
+    return !filters[item.label];
+  };
+
+  // SOCKET CODE...
+  const socket = useSocket()
+  const groupData = useSelector((state) => state.group.groups)
+  const [unreadMessageCount, setUnreadMessageCount] = useState({});
+  const totalUnreadCount = Object.values(unreadMessageCount).reduce((total, count) => total + count, 0);
+
+  const mobileMenuData = useMemo(() => {
+    const tmpMobileItems = [
+      {
+        href: ROUTER.projects,
+        label: 'Projects',
+        icon: <ProjectNavTabIcon />,
+        isDisabled: userProjects?.length !== -1
+      },
+      {
+        href: ROUTER.projectManager,
+        label: 'Projects manager',
+        icon: <ProjectNavTabIcon />,
+        isDisabled: userProjects?.length !== -1
+      },
+      {
+        href: ROUTER.synergies,
+        label: 'Synergies',
+        icon: <SynergiesNavTabIcon />,
+        width: 315,
+        isDisabled: userProjects?.length !== -1
+      },
+      {
+        href: ROUTER.investment,
+        label: 'Investment',
+        icon: <InvestmentNavTabIcon />,
+        width: 400,
+        isDisabled: false
+      }
+    ]
+
+    if (userRole === 'ADMIN') {
+      tmpMobileItems.push(...[{
+        href: ROUTER.synergyRequests,
+        label: 'Pending Synergies',
+        icon: <PendingSynergiesNavTabIcon />,
+        width: 470,
+        isDisabled: userProjects?.length !== 0
+      },
+      {
+        href: ROUTER.synergiesManager,
+        label: 'Synergies Manager',
+        width: 550,
+        icon: <SynergiesManagerNavTabIcon />,
+        isDisabled: userProjects?.length !== 0
+      }])
+    }
+
+    tmpMobileItems.push(...[{
+      href: ROUTER.chat,
+      label: 'Chat',
+      icon: <ChatNavTabIcon />,
+      width: 630,
+      isDisabled: (userProjects?.length !== -1 || userProjects?.length === 0)
+    },
+    {
+      href: ROUTER.karma,
+      label: 'Karma',
+      width: 700,
+      icon: <KarmaNavTabIcon />,
+      isDisabled: false
+    }])
+
+
+    return tmpMobileItems
+  }, [userProjects?.length, userRole])
+
+  const dropdownData = useMemo(() => {
+    return [
+      {
+        label: (<span className={`mobile_tab drop_tab ${location.pathname === `/${ROUTER.profile}` ? "active" : ""} `}
+        ><Link to={ROUTER.profile}>{<ProfileNavTabIcon />}Profile</Link></span>),
+      },
+      {
+        href: null,
+        label: (<span className={`mobile_tab drop_tab`} onClick={handleAmbassadorClick}
+        > <Link>{<ProjectNavTabIcon />}Ambassadorship</Link></span>),
+
+      }
+    ]
+  }, [])
+
+  useEffect(() => {
+
+    if (socket) {
+      socket.on('message count', ({ chatId, count }) => {
+        setUnreadMessageCount(prev => ({
+          ...prev,
+          [chatId]: count
+        }));
+      });
+
+      socket.on('new message count', ({ chatId, count }) => {
+        setUnreadMessageCount(prev => ({
+          ...prev,
+          [chatId]: (prev[chatId] || 0) + count
+        }));
+      });
+
+      return () => {
+        socket.off('message count');
+        socket.off('new message count');
+      };
+    }
+  }, [socket]);
+
+  useEffect(() => {
+    if (socket && groupData.length > 0 && userData.userId) {
+      groupData.forEach(group => {
+        socket.emit('fetch message count', {
+          chatId: group._id,
+          userId: userData.userId
+        });
+      });
+    }
+  }, [groupData.length, userData.userId])
+
+  useEffect(() => {
+    dispatch(getGroupsAPI())
+  }, [])
+
   useEffect(() => {
     const fetchProjects = async () => {
       try {
@@ -39,79 +196,41 @@ const Sidebar = () => {
     };
     fetchProjects();
   }, []);
-  console.log(size.width);
 
-  const handleAmbassadorClick = () => {
-    setIsAmbassadorMode(true);
-    navigate(ROUTER.ambassadorProjects); // Redirect to Exclusive Projects
-  };
+  useEffect(() => {
+    let updatedMobileMenuData = mobileMenuData.filter(item => filterMenuItems(size, item));
+    let updatedDropdownData = [...dropdownData];
 
-  const handleBackClick = () => {
-    setIsAmbassadorMode(false);
-  };
+    mobileMenuData.forEach(({ width, label, href, icon, isDisabled }) => {
+      if (size.width <= width) {
+        const updatedLabel = label === 'Chat'
+          ? (
+            <span className={`mobile_tab drop_tab ${location.pathname === `/${href}` ? "active" : ""} ${isDisabled ? "disabled" : ""} `}>
+              <Link to={href}>
+                <span className="chat">
+                  {icon}
+                  Chat
+                  <p className="chat_count">{totalUnreadCount > 99 ? '99+' : totalUnreadCount}</p>
+                </span>
+              </Link>
+            </span>
+          )
+          : (<span className={`mobile_tab drop_tab ${location.pathname === `/${href}` ? "active" : ""} ${isDisabled ? "disabled" : ""} `} >
+            <Link to={href}>{icon}{label}</Link>
+          </span>);
 
-  const mobileMenuData = [
-    {
-      href: ROUTER.projects,
-      label: 'Projects',
-      icon: <ProjectNavTabIcon />,
-      isDisabled: userProjects?.length !== -1
-    },
-    {
-      href: ROUTER.projectManager,
-      label: 'Projects manager',
-      icon: <ProjectNavTabIcon />,
-      isDisabled: userProjects?.length !== -1
-    },
-    {
-      href: ROUTER.synergies,
-      label: 'Synergies',
-      icon: <SynergiesNavTabIcon />,
-      isDisabled: userProjects?.length !== -1
-    },
-    {
-      href: ROUTER.investment,
-      label: 'Investment',
-      icon: <InvestmentNavTabIcon />,
-      isDisabled: false
-    },
-    {
-      href: ROUTER.synergyRequests,
-      label: 'Pending Synergies',
-      icon: <PendingSynergiesNavTabIcon />,
-      isDisabled: userProjects?.length !== 0
-    },
-    {
-      href: ROUTER.synergiesManager,
-      label: 'Synergies Manager',
-      icon: <SynergiesManagerNavTabIcon />,
-      isDisabled: userProjects?.length !== 0
-    },
-    {
-      href: ROUTER.chat,
-      label: 'Chat',
-      icon: <ChatNavTabIcon />,
-      isDisabled: (userProjects?.length !== -1 || userProjects?.length === 0)
-    },
-    {
-      href: ROUTER.karma,
-      label: 'Karma',
-      icon: <KarmaNavTabIcon />,
-      isDisabled: false
-    },
-    {
-      href: ROUTER.profile,
-      label: 'Profile',
-      icon: <ProfileNavTabIcon />,
-      isDisabled: false
-    },
-    {
-      href: null,
-      label: 'Ambassadorship',
-      icon: <ProjectNavTabIcon />,
-      isDisabled: false
-    }
-  ]
+        updatedDropdownData.push({
+          href: href,
+          label: updatedLabel,
+          isDisabled: false
+        });
+      }
+    });
+
+    setMobileMenuItems([...updatedMobileMenuData])
+    setMobileDropdownItems([...updatedDropdownData])
+  }, [mobileMenuData, dropdownData, size])
+
 
   return (
     <>
@@ -212,9 +331,11 @@ const Sidebar = () => {
                     <Link to={userProjects?.length === 0 ? "#" : ROUTER.chat}>
                       <ChatNavTabIcon />
                       <span className="menu_text">Chat</span>
-                      {/* <span className="notification">
-                        <span className="notification_text">1</span>
-                      </span> */}
+                      <span className="notification">
+                        <span className="notification_text">
+                          {totalUnreadCount > 99 ? '99+' : totalUnreadCount}
+                        </span>
+                      </span>
                     </Link>
                   </li>
                   <li className={`${location.pathname === `/${ROUTER.karma}` ? "active" : ""}`}>
@@ -300,27 +421,27 @@ const Sidebar = () => {
           <ul>
             {!isAmbassadorMode ? (
               <>
-                {/* <li className={`${location.pathname === `/${ROUTER.projects}` ? "active" : ""} ${userProjects?.length !== -1 ? "disabled" : ""}`}>
+                {/* <li className={`mobile_tab ${location.pathname === `/${ROUTER.projects}` ? "active" : ""} ${userProjects?.length !== -1 ? "disabled" : ""}`}>
                   <Link to={ROUTER.projects}>
                     <ProjectNavTabIcon />
                     <span>Projects</span>
                   </Link>
                 </li>
                 {userRole == "ADMIN" && (
-                  <li className={`${location.pathname === `/${ROUTER.projectManager}` ? "active" : ""}  ${userProjects?.length !== -1 ? "disabled" : ""}`}>
+                  <li className={`mobile_tab ${location.pathname === `/${ROUTER.projectManager}` ? "active" : ""}  ${userProjects?.length !== -1 ? "disabled" : ""}`}>
                     <Link to={ROUTER.projectManager}>
                       <ProfileNavTabIcon />
                       <span>Projects manager</span>
                     </Link>
                   </li>
                 )}
-                <li className={`${location.pathname === `/${ROUTER.synergies}` ? "active" : ""}  ${userProjects?.length !== -1 ? "disabled" : ""}`}>
+                <li className={`mobile_tab ${location.pathname === `/${ROUTER.synergies}` ? "active" : ""}  ${userProjects?.length !== -1 ? "disabled" : ""}`}>
                   <Link to={ROUTER.synergies}>
                     <SynergiesNavTabIcon />
                     <span>Synergies</span>
                   </Link>
                 </li>
-                <li className={`${location.pathname === `/${ROUTER.investment}` ? "active" : ""}`}>
+                <li className={`mobile_tab ${location.pathname === `/${ROUTER.investment}` ? "active" : ""}`}>
                   <Link to={ROUTER.investment}>
                     <InvestmentNavTabIcon />
                     <span>Investment</span>
@@ -328,13 +449,13 @@ const Sidebar = () => {
                 </li>
                 {userRole == "ADMIN" && (
                   <>
-                    <li className={`${location.pathname === `/${ROUTER.synergyRequests}` ? "active" : ""} ${userProjects?.length === 0 ? "disabled" : ""}`}>
+                    <li className={`mobile_tab ${location.pathname === `/${ROUTER.synergyRequests}` ? "active" : ""} ${userProjects?.length === 0 ? "disabled" : ""}`}>
                       <Link to={ROUTER.synergyRequests}>
                         <PendingSynergiesNavTabIcon />
                         <span>Pending Synergies</span>
                       </Link>
                     </li>
-                    <li className={`${location.pathname === `/${ROUTER.synergiesManager}` ? "active" : ""}  ${userProjects?.length === 0 ? "disabled" : ""}`}>
+                    <li className={`mobile_tab ${location.pathname === `/${ROUTER.synergiesManager}` ? "active" : ""}  ${userProjects?.length === 0 ? "disabled" : ""}`}>
                       <Link to={ROUTER.synergiesManager}>
                         <SynergiesManagerNavTabIcon />
                         <span>Synergies Manager</span>
@@ -342,60 +463,70 @@ const Sidebar = () => {
                     </li>
                   </>
                 )}
-                <li className={`${location.pathname === `/${ROUTER.chat}` ? "active" : ""} ${userProjects?.length !== -1 ? "disabled" : ""}`}>
+                <li className={`mobile_tab ${location.pathname === `/${ROUTER.chat}` ? "active" : ""} ${userProjects?.length !== -1 ? "disabled" : ""}`}>
                   <Link to={userProjects?.length === 0 ? "#" : ROUTER.chat}>
                     <ChatNavTabIcon />
                     <span className="chat">
                       Chat
-                      // {/* <p className="chat_count">1</p> 
+                       <p className="chat_count">
+                        {totalUnreadCount > 99 ? '99+' : totalUnreadCount}
+                      </p>
                     </span>
                   </Link>
                 </li>
-                <li className={`${location.pathname === `/${ROUTER.karma}` ? "active" : ""}`}>
+                <li className={`mobile_tab ${location.pathname === `/${ROUTER.karma}` ? "active" : ""}`}>
                   <Link to={ROUTER.karma}>
                     <KarmaNavTabIcon />
                     <span>Karma</span>
                   </Link>
                 </li>
-                 <li onClick={handleAmbassadorClick}>
-                  <Link to="#">
-                    <ProjectNavTabIcon />
-                    <span>Ambassadorship</span>
-                  </Link>
-                </li> 
                 */}
                 {
-                  mobileMenuData.map((data, index) => {
+                  mobileMenuItems.map((data, index) => {
                     return (
                       <li
                         key={index}
-                        className={`${location.pathname === `/${data.href}` ? "active" : ""} ${data.isDisabled ? "disabled" : ""} `}
-                        onClick={data.label === 'Ambassadorship' ? handleAmbassadorClick : ''}
+                        className={`mobile_tab ${location.pathname === `/${data.href}` ? "active" : ""} ${data.isDisabled ? "disabled" : ""} `}
                       >
                         <Link to={data.href}>
                           {data.icon}
-                          <span>{data.label}</span>
+                          {data.label === 'Chat' ?
+                            <span className="chat">
+                              Chat
+                              <p className="chat_count">{totalUnreadCount > 99 ? '99+' : totalUnreadCount}</p>
+                            </span> :
+                            <span>{data.label}</span>
+                          }
                         </Link>
                       </li>
                     )
                   })
                 }
+                <li className="mobile_tab more_tab">
+                  <CustomFooterDropdown
+                    position="top_right"
+                    toggleButton={
+                      <ThreeDots />
+                    }
+                    items={mobileDropdownItems}
+                  />
+                </li>
               </>
             ) : (
               <>
-                <li onClick={handleBackClick}>
+                <li className="mobile_tab" onClick={handleBackClick}>
                   <Link to="#">
                     <span>←</span>
                     <span>Back</span>
                   </Link>
                 </li>
-                <li className={`${location.pathname === `/${ROUTER.myContent}` ? "active" : ""}`}>
+                <li className={`mobile_tab ${location.pathname === `/${ROUTER.myContent}` ? "active" : ""}`}>
                   <Link to={ROUTER.myContent}>
                     <MyContentNavTabIcon />
                     <span>My Content</span>
                   </Link>
                 </li>
-                <li className={`${location.pathname === `/${ROUTER.ambassadorProjects}` ? "active" : ""}`}>
+                <li className={`mobile_tab ${location.pathname === `/${ROUTER.ambassadorProjects}` ? "active" : ""}`}>
                   <Link to={ROUTER.ambassadorProjects}>
                     <ProjectNavTabIcon />
                     <span>Exclusive Projects</span>

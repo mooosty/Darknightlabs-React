@@ -2,7 +2,7 @@ import './accordion.scss';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { bitCoinIcon, defaultImg, DownIcon, editIcon, GlobalIcon, DeleteIcon } from '../../utils/constants/images';
-import DeleteConfirmPopup from '../popup/delete-confirm-popup/DeleteConfirmPopup';
+import {DeleteConfirmPopup} from '../../components';
 
 const Accordion = ({
     synergyName,

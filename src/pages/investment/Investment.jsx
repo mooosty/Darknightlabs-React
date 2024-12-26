@@ -1,6 +1,6 @@
 import './investment.scss'
 import { useState } from 'react';
-import { CustomSearch, MultiselectDropDown } from '../../components';
+import { CustomSearch, EmptyData, MultiselectDropDown } from '../../components';
 import { useDispatch, useSelector } from 'react-redux';
 import WalletConnect from '../../components/investments/WalletConnect/WalletConnect';
 import { projectTypesOptions, synergyAnglesOptions } from '../../utils/constants/options';
@@ -757,48 +757,53 @@ const Investment = () => {
                   </div>
                 )}
 
-                <div className="card_container">
-                  {cardData.map((data, index) => {
-                    return (
-                      <div className='card_wrap' key={index} onClick={() => handleCardClick(data, index)}>
-                        <div className="card">
-                          <div className="card_image">
-                            <img src={data.investorImg} alt="" />
-                          </div>
-                          <div className="card_body">
-                            <div className="name">{data.investmentName}</div>
-                            <div className="tabs">
-                              {data.investments.map((tag, index) => {
-                                return (
-                                  <div className={``} key={index}>
-                                    <div className='investment_tag'>
-                                      <>{tag.head}:{tag.data}</>
-                                    </div>
-                                  </div>
-                                )
-                              })}
+                <div className="card_container">{cardData.length == 0 ?
+                  <EmptyData />
+                  :
+                  <>
+                    {cardData.map((data, index) => {
+                      return (
+                        <div className='card_wrap' key={index} onClick={() => handleCardClick(data, index)}>
+                          <div className="card">
+                            <div className="card_image">
+                              <img src={data.investorImg} alt="" />
                             </div>
-                            <div className="tabs">
-                              {data.tags.map((data, index) => {
-                                return (
-                                  <div className={``} key={index}>
-                                    <div className='meta_tag'>
-                                      <>{data}</>
+                            <div className="card_body">
+                              <div className="name">{data.investmentName}</div>
+                              <div className="tabs">
+                                {data.investments.map((tag, index) => {
+                                  return (
+                                    <div className={``} key={index}>
+                                      <div className='investment_tag'>
+                                        <>{tag.head}:{tag.data}</>
+                                      </div>
                                     </div>
-                                  </div>
-                                )
-                              })}
-                            </div>
-                            {data.karmaNeeded !== undefined && (
-                              <div className="karma_needed">
-                                Karma needed: {data.karmaNeeded}
+                                  )
+                                })}
                               </div>
-                            )}
+                              <div className="tabs">
+                                {data.tags.map((data, index) => {
+                                  return (
+                                    <div className={``} key={index}>
+                                      <div className='meta_tag'>
+                                        <>{data}</>
+                                      </div>
+                                    </div>
+                                  )
+                                })}
+                              </div>
+                              {data.karmaNeeded !== undefined && (
+                                <div className="karma_needed">
+                                  Karma needed: {data.karmaNeeded}
+                                </div>
+                              )}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    )
-                  })}
+                      )
+                    })}
+                  </>
+                }
                 </div>
                 {/* <div className="investment_pagination">
                   <div className="investment_pagination_content">

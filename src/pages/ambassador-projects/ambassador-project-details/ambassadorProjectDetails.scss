@@ -41,7 +41,7 @@
       align-items: center;
       gap: 10px;
 
-      @media (max-width: 767px) {
+      @media (max-width: 940px) {
         display: none !important;
       }
 
@@ -289,7 +289,7 @@
                 position: absolute;
                 width: 100%;
                 padding-inline: 16px;
-                top: 260px;
+                top: 255px;
                 left: 0;
               }
 
@@ -513,10 +513,6 @@
                 border-radius: 16px;
                 border: 1px solid var(--border-color);
                 color: var(--primary-text);
-
-                @media (max-width: 767px) {
-                  margin-bottom: 16px;
-                }
 
                 .content_head {
                   display: flex;

@@ -1,8 +1,8 @@
 import './ambassadorAccordion.scss';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { CopyIcon, DownIcon, editIcon, DeleteIcon } from '../../utils/constants/images';
-import DeleteConfirmPopup from '../popup/delete-confirm-popup/DeleteConfirmPopup';
+import { CopyIcon, DownIcon, editIcon, DeleteIcon, CheckIcon } from '../../utils/constants/images';
+import { DeleteConfirmPopup } from '../../components'
 import { toast } from 'react-toastify';
 
 const AmbassadorAccordion = ({
@@ -16,8 +16,10 @@ const AmbassadorAccordion = ({
 }) => {
     const [open, setOpen] = useState(false);
     const [isDeleteConfirmPopupOpen, setIsDeleteConfirmPopupOpen] = useState(false);
-    
+    const [isCopyLink, setIsCopyLink] = useState(false);
+
     const copySelectedText = (url) => {
+        setIsCopyLink(true)
         if (url) {
             navigator.clipboard.writeText(url)
                 .then(() => {
@@ -26,6 +28,9 @@ const AmbassadorAccordion = ({
         } else {
             toast.error('URL Not Found')
         }
+        setTimeout(() => {
+            setIsCopyLink(false);
+        }, 1000);
     }
 
     return (
@@ -44,7 +49,9 @@ const AmbassadorAccordion = ({
                                 <div className="right">
                                     <div className="url">
                                         <span className='text'>{URL}</span>
-                                        <div className="icon" onClick={() => copySelectedText(URL)}><CopyIcon /></div>
+                                        <div className="icon" onClick={() => copySelectedText(URL)}>
+                                            {isCopyLink ? <CheckIcon /> : <CopyIcon />}
+                                        </div>
                                     </div>
                                     <div className={`status ${status === 'approved' ? 'approved' : 'submitted'}`}>
                                         <span> {status}</span>
@@ -75,7 +82,9 @@ const AmbassadorAccordion = ({
                                 <span className='label'>URL:</span>
                                 <div className='url_text'>
                                     <span className='text'>{URL}</span>
-                                    <div className="icon"><CopyIcon /></div>
+                                    <div className="icon" onClick={() => copySelectedText(URL)} >
+                                        {isCopyLink ? <CheckIcon /> : <CopyIcon />}
+                                    </div>
                                 </div>
                             </div>
                             <div className={`data_container status `}>

@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types'
-import Loader from '../loader/Loader';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { createSynergyApi } from '../../api-services/synergyApi';
 import { createGroupAPI, createUserAPI } from '../../api-services/chatApis';
-import CreateSynergiesPopup from '../popup/create-synergies-popup/CreateSynergiesPopup';
-import { AddCircleIcon, CLeseCircleIcon, GlobalIcon } from '../../utils/constants/images';
+import { CreateSynergiesPopup, Loader } from '../../components';
+import { AddCircleIcon, CLeseCircleIcon, DownAccordionIcon, GlobalIcon } from '../../utils/constants/images';
 
 
 const CreateSynergySteps = ({ createSynergyStep, setCreateSynergyStep, synergies, setSynergies, setSelectedProjects, setSelectedProjectForSynergy, setCreateSynergySuccessPopup }) => {

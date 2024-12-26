@@ -120,8 +120,8 @@ const Chats = () => {
 
 
     return (
-        <>
-            <div className="content_header">
+        <div className={`chat_main_wrap ${chatNumber ? 'hide' : ''}`}>
+            <div className="chat_content_header">
                 <div className="content_left">
                     <h2>Chat</h2>
                 </div>
@@ -155,10 +155,10 @@ const Chats = () => {
                         <div className="channels_list">
                             <div className="channels_list_head">
                                 <span>Synergy name</span>
-                                <div className="btn_gray" onClick={handleMenberListOpen}>
+                                {/* <div className="btn_gray" onClick={handleMenberListOpen}>
                                     <UserIcon />
                                     <span>128 </span>
-                                </div>
+                                </div> */}
                             </div>
                             <div className="channels_list_separator "></div>
                             <div className="channels_list_data">
@@ -188,7 +188,6 @@ const Chats = () => {
                     </div>
 
                     <div className={`chat_main ${chatNumber ? 'active' : ''}`} >
-
                         <div className="chat_main_head">
                             <button className="back_arrow" onClick={() => setChatNumber(false)}>
                                 <DownAccordionIcon />
@@ -236,7 +235,7 @@ const Chats = () => {
             />
 
             <Loader loading={chatApiLoading || groupApiLoading || loading} />
-        </>
+        </div>
     )
 }
 

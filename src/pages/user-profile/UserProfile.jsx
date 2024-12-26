@@ -15,13 +15,12 @@ import {
   telegramIcon,
   calendarBlankIcon,
   defaultImg,
+  ThreeDots
 } from "../../utils/constants/images";
-import { Loader } from "../../components";
+import { Loader, CustomDropdown } from "../../components";
 import ProjectInvolvment from "./project-manager-edit/ProjectInvolvment";
 import ProjectsUser from "./project-manager/ProjectsUser";
 import Ambassadors from "./Ambassadors/Ambassadors";
-import CustomDropdown from "../../components/custom-dropdown/CustomDropdown";
-import { BurgerMenuIcon } from "../../utils/SVGs/SVGs";
 
 const InputPassword = (props) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -329,7 +328,7 @@ const UserProfile = () => {
                   <div className="header_toggle_dropDown">
                     <CustomDropdown
                       toggleButton={
-                        <BurgerMenuIcon />
+                        <ThreeDots />
                       }
                       items={headerToggleButton}
                     />

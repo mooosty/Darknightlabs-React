@@ -1,10 +1,9 @@
 import './synergyRequest.scss'
-import debounce from 'lodash.debounce';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useNoScroll from '../../utils/hooks/useNoScroll';
-import { useCallback, useEffect, useState } from 'react';
 import { getSynergyRequestApi } from '../../api-services/synergyApi';
-import { CustomSearch, EditSynergyAnglePopup, Loader, SynergyRequestCard } from '../../components';
+import { CustomSearch, EditSynergyAnglePopup, EmptyData, Loader, SynergyRequestCard } from '../../components';
 import { SearchIcon } from '../../utils/constants/images';
 
 
@@ -91,16 +90,22 @@ const SynergyRequest = () => {
             getSynergyRequestLoading ? <Loader /> : <>
               <div className="synergies_page_body">
                 <div className="card_container">
-                  {filteredSynergyRequests?.map((data) => {
-                    return (
-                      <>
-                        <SynergyRequestCard
-                          data={data}
-                          handleCardClick={handleCardClick}
-                        />
-                      </>
-                    )
-                  })}
+                  {filteredSynergyRequests?.length == 0 ?
+                    <EmptyData />
+                    :
+                    <>
+                      {filteredSynergyRequests?.map((data) => {
+                        return (
+                          <>
+                            <SynergyRequestCard
+                              data={data}
+                              handleCardClick={handleCardClick}
+                            />
+                          </>
+                        )
+                      })}
+                    </>
+                  }
                 </div>
                 {/* <div className="synergies_pagination">
                 <div className="synergies_pagination_content">

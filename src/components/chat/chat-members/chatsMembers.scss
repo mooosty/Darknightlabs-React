@@ -80,12 +80,7 @@
                     max-height: 70vh;
                     overflow-y: auto;
 
-                    &::-webkit-scrollbar {
-                        width: 4px;
-                    }
-
                     &::-webkit-scrollbar-track {
-                        background: transparent;
                         margin-block: 4px;
                     }
 

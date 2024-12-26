@@ -41,7 +41,7 @@ const MultiselectDropDown = ({
     };
 
     return (
-        <div className="multiselect_wrapper" ref={listRef}>
+        <div className="multiselect_wrapper">
             {/* Dropdown field to display placeholder and open dropdown */}
             <div
                 className="multiselect_field"
@@ -59,7 +59,7 @@ const MultiselectDropDown = ({
                     className={`multiselect_list ${isOpen ? 'active' : ''}`}
                 >
                     <div className="mobile_multiselect_wrapper">
-                        <ul>
+                        <ul ref={listRef}>
                             <div className="multiselect_header">
                                 Select synergies angles
                                 <button

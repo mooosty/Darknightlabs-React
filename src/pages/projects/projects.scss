@@ -57,7 +57,7 @@
                     display: flex;
                     align-items: center;
 
-                    @media (max-width: 767px) {
+                    @media (max-width: 940px) {
                         display: none;
                     }
 
@@ -100,6 +100,7 @@
 
                     @media (max-width: 767px) {
                         border-radius: 0;
+                        margin-bottom: 15px;
                         padding: 0;
                     }
 

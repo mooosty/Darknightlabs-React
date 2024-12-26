@@ -178,6 +178,7 @@ const ProjectAccordion = ({
 }
 
 ProjectAccordion.propTypes = {
+    role: PropTypes.string,
     projectName: PropTypes.string,
     teamMembers: PropTypes.array,
     synergyImg: PropTypes.any,

@@ -30,10 +30,10 @@ function App() {
     <BrowserRouter>
       <InitialDataLoader />
       <Routes>
-        <Route path="/" element={<Navigate to="/welcome" replace />} />
+        <Route path="/" element={<Navigate to={`/${ROUTER.welcome}`} replace />} />
         <Route path={`/${ROUTER.authentication}`} element={<Authentication />} />
         <Route path="/" element={<Layout />}>
-          <Route path="/welcome" element={<Welcome />} />
+          <Route path={`/${ROUTER.welcome}`} element={<Welcome />} />
           <Route path={`/${ROUTER.projects}`} element={<ProtectedFeatureRoute feature="PROJECTS">
             <Projects />
           </ProtectedFeatureRoute>} />

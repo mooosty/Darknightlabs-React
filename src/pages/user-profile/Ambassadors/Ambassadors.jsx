@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import './ambassadors.scss'
-import CustomDropdown from '../../../components/custom-dropdown/CustomDropdown';
-import { BurgerMenuIcon } from '../../../utils/SVGs/SVGs';
+import { CustomDropdown } from '../../../components';
+import { ThreeDots } from '../../../utils/SVGs/SVGs';
 
 const Ambassadors = ({ handleActive, active }) => {
     const headerToggleButton = [
@@ -50,7 +50,7 @@ const Ambassadors = ({ handleActive, active }) => {
                         <div className="header_toggle_dropDown">
                             <CustomDropdown
                                 toggleButton={
-                                    <BurgerMenuIcon />
+                                    <ThreeDots />
                                 }
                                 items={headerToggleButton}
                             />

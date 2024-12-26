@@ -6,7 +6,7 @@ import { AddCircleIcon, angelBg, CLeseCircleIcon, GlobalIcon } from '../../../ut
 import { editSynergyRequest } from '../../../api-services/synergyApi';
 import CreateSynergiesPopup from '../create-synergies-popup/CreateSynergiesPopup';
 import { synergyAnglesOptions } from '../../../utils/constants/options';
-import Loader from '../../loader/Loader';
+import { Loader } from '../../../components';
 
 
 const buttons = synergyAnglesOptions.map((data, index) => ({

@@ -1,4 +1,4 @@
-import CustomDropdown from "../../custom-dropdown/CustomDropdown"
+import { CustomDropdown } from "../../../components"
 import { useDispatch, useSelector } from 'react-redux';
 import './header.scss'
 import { ProfileNavTabIcon, LogoutNavTabIcon, BurgerMenuIcon } from "../../../utils/SVGs/SVGs";

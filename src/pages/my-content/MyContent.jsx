@@ -1,8 +1,7 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './myContent.scss'
-import { PlusIcon, CopyIcon, editIcon, SearchIcon, DeleteIcon } from "../../utils/constants/images";
-import debounce from 'lodash.debounce';
-import { AmbassadorAccordion, AddContentPopup, DeleteConfirmPopup, SuccessfullyPopup, Loader, CustomSearch } from '../../components';
+import { PlusIcon, CopyIcon, editIcon, SearchIcon, DeleteIcon, CheckIcon } from "../../utils/constants/images";
+import { AmbassadorAccordion, AddContentPopup, DeleteConfirmPopup, SuccessfullyPopup, Loader, CustomSearch, EmptyData } from '../../components';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { deleteContentAPI, getContentAPI } from '../../api-services/contentApis';
@@ -25,6 +24,7 @@ const MyContent = () => {
     const [deleteContentId, setDeleteContentId] = useState('')
     const [isSuccessfullyPopupOpen, setIsSuccessfullyPopupOpen] = useState(false);
     const [filteredContents, setFilteredContents] = useState([])
+    const [isCopyLink, setIsCopyLink] = useState(null);
     const [filter, setFilter] = useState({
         synergyAngleValues: [],
         status: "",
@@ -45,15 +45,19 @@ const MyContent = () => {
         return `${day}/${month}/${year}`;
     };
 
-    const copySelectedText = (url) => {
-        if (url) {
-            navigator.clipboard.writeText(url)
+    const copySelectedText = (data) => {
+        setIsCopyLink(data?.content_id)
+        if (data?.url) {
+            navigator.clipboard.writeText(data.url)
                 .then(() => {
                     toast.success('URL Copied')
                 })
         } else {
             toast.error('URL Not Found')
         }
+        setTimeout(() => {
+            setIsCopyLink(null);
+        }, 1000);
     }
     const handleDeleteContentData = () => {
         dispatch(deleteContentAPI(deleteContentId))
@@ -188,105 +192,112 @@ const MyContent = () => {
                                 </div>
                             </div>
                             <div className="my_content_table">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>
-                                                {activeContentLayout === "Tweet"
-                                                    ? "Subject"
-                                                    : "Title"
+                                {filteredContents.length == 0 ?
+                                    <EmptyData />
+                                    :
+                                    <>
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        {activeContentLayout === "Tweet"
+                                                            ? "Subject"
+                                                            : "Title"
+                                                        }
+                                                    </th>
+                                                    <th>
+                                                        {activeContentLayout === "Tweet"
+                                                            ? "Tweet text"
+                                                            : "Description"
+                                                        }
+                                                    </th>
+                                                    <th className='center'>URL</th>
+                                                    <th className='center'>Status</th>
+                                                    <th className='center'>Created at</th>
+                                                    <th className='center'>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {
+                                                    filteredContents?.filter((item) => item.type == activeContentLayout).map((rowData) => {
+                                                        return (
+                                                            <tr key={rowData.id} className={`${rowData.id === 1 || rowData.id === 3 || rowData.id === 6 ? 'highlighted' : ''}`}>
+                                                                <td>
+                                                                    <div className='subject'>
+                                                                        <span>{rowData.subject}</span>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div className='tweetText'>
+                                                                        <span>{rowData.tweetText}</span>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div className="url">
+                                                                        <span className='text'>{rowData.url}</span>
+                                                                        <div className='icon' onClick={() => copySelectedText(rowData)}>
+                                                                            {isCopyLink === rowData?.content_id ? <CheckIcon /> : <CopyIcon />}
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div className={`status ${rowData.status === 'approved' ? 'approved' : 'submitted'}`}>
+                                                                        <span> {rowData.status}</span>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <span className='date'>{formatDate(rowData.created_at)}</span>
+                                                                </td>
+                                                                <td>
+                                                                    <div className="actions">
+                                                                        <button className='btn'
+                                                                            onClick={() => {
+                                                                                setEditableContentData(rowData)
+                                                                                setIsEditContent(true)
+                                                                                setIsAddContentPopupOpen(true);
+                                                                            }}
+                                                                        >
+                                                                            <img src={editIcon} alt=" " />
+                                                                        </button>
+                                                                        <button className='btn'
+                                                                            onClick={() => {
+                                                                                setIsDeleteConfirmPopupOpen(true);
+                                                                                setDeleteContentId(rowData.content_id)
+                                                                            }}
+                                                                        >
+                                                                            <DeleteIcon />
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        )
+                                                    })
                                                 }
-                                            </th>
-                                            <th>
-                                                {activeContentLayout === "Tweet"
-                                                    ? "Tweet text"
-                                                    : "Description"
-                                                }
-                                            </th>
-                                            <th className='center'>URL</th>
-                                            <th className='center'>Status</th>
-                                            <th className='center'>Created at</th>
-                                            <th className='center'>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {
-                                            filteredContents?.filter((item) => item.type == activeContentLayout).map((rowData) => {
-                                                return (
-                                                    <tr key={rowData.id} className={`${rowData.id === 1 || rowData.id === 3 || rowData.id === 6 ? 'highlighted' : ''}`}>
-                                                        <td>
-                                                            <div className='subject'>
-                                                                <span>{rowData.subject}</span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className='tweetText'>
-                                                                <span>{rowData.tweetText}</span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="url">
-                                                                <span className='text'>{rowData.url}</span>
-                                                                <div className='icon' onClick={() => copySelectedText(rowData?.url)}><CopyIcon /></div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className={`status ${rowData.status === 'approved' ? 'approved' : 'submitted'}`}>
-                                                                <span> {rowData.status}</span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <span className='date'>{formatDate(rowData.created_at)}</span>
-                                                        </td>
-                                                        <td>
-                                                            <div className="actions">
-                                                                <button className='btn'
-                                                                    onClick={() => {
-                                                                        setEditableContentData(rowData)
-                                                                        setIsEditContent(true)
-                                                                        setIsAddContentPopupOpen(true);
-                                                                    }}
-                                                                >
-                                                                    <img src={editIcon} alt=" " />
-                                                                </button>
-                                                                <button className='btn'
-                                                                    onClick={() => {
-                                                                        setIsDeleteConfirmPopupOpen(true);
-                                                                        setDeleteContentId(rowData.content_id)
-                                                                    }}
-                                                                >
-                                                                    <DeleteIcon />
-                                                                </button>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            })
-                                        }
-                                    </tbody>
-                                </table>
-                                <div className="accordion_warp">
-                                    {
-                                        filteredContents?.filter((item) => item.type == activeContentLayout).map((rowData) => {
-                                            return (<>
-                                                <AmbassadorAccordion
-                                                    URL={rowData.url}
-                                                    date={formatDate(rowData.created_at)}
-                                                    subject={rowData.subject}
-                                                    tweetText={rowData.tweetText ?? '-'}
-                                                    status={rowData.status}
-                                                    onEdit={() => {
-                                                        setEditableContentData(rowData)
-                                                        setIsEditContent(true)
-                                                        setIsAddContentPopupOpen(true);
-                                                    }}
-                                                    onDelete={() => {
-                                                        setIsDeleteConfirmPopupOpen(true);
-                                                        setDeleteContentId(rowData.content_id)
-                                                    }}
-                                                /> </>)
-                                        })}
-                                </div>
+                                            </tbody>
+                                        </table>
+                                        <div className="accordion_warp">
+                                            {
+                                                filteredContents?.filter((item) => item.type == activeContentLayout).map((rowData) => {
+                                                    return (<>
+                                                        <AmbassadorAccordion
+                                                            URL={rowData.url}
+                                                            date={formatDate(rowData.created_at)}
+                                                            subject={rowData.subject}
+                                                            tweetText={rowData.tweetText ?? '-'}
+                                                            status={rowData.status}
+                                                            onEdit={() => {
+                                                                setEditableContentData(rowData)
+                                                                setIsEditContent(true)
+                                                                setIsAddContentPopupOpen(true);
+                                                            }}
+                                                            onDelete={() => {
+                                                                setIsDeleteConfirmPopupOpen(true);
+                                                                setDeleteContentId(rowData.content_id)
+                                                            }}
+                                                        /> </>)
+                                                })}
+                                        </div>
+                                    </>}
                             </div>
                         </div>
 

@@ -1,4 +1,5 @@
 export const ROUTER = {
+    welcome: "welcome",
     authentication: "authentication",
     projects: "projects",
     projectDetails: "project-details",

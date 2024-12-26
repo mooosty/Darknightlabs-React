@@ -25,7 +25,7 @@ const Welcome = () => {
                 <li><strong>Karma:</strong> Track your contributions and rewards.</li>
               </ul>
               <p>Some tabs are blocked. Please complete your profile to unlock them.</p>
-              <button onClick={handleGoToProfile}>Go to Profile</button>
+              <button className='btn_gray' onClick={handleGoToProfile}>Go to Profile</button>
             </div>
           </div>
         </div>

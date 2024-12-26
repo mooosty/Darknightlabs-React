@@ -1,13 +1,12 @@
 import './synergies.scss'
-import debounce from 'lodash.debounce'
+import { useEffect, useState } from 'react'
 import { formatDate } from '../../utils/helper/helper'
 import { useDispatch, useSelector } from 'react-redux'
-import { useCallback, useEffect, useState } from 'react'
 import { getSynergyApi } from '../../api-services/synergyApi'
 import { synergyAnglesOptions } from '../../utils/constants/options'
 import { SearchIcon, tableActor, defaultImg } from '../../utils/constants/images'
 import { CheckCircleIcon } from '../../utils/SVGs/SVGs'
-import { CustomSearch, Loader, MultiselectDropDown, SynergyCard } from '../../components'
+import { CustomSearch, EmptyData, Loader, MultiselectDropDown, SynergyCard } from '../../components'
 
 
 const Synergies = () => {
@@ -173,25 +172,30 @@ const Synergies = () => {
                                 </div>
                             </div>
 
-                            <div className="synergies_cards">
-                                {
-                                    filterSynergies.map((data, index) => {
-                                        return (
-                                            <div key={index} className='card_wrap'>
-                                                <SynergyCard img={(data.synergyImg === '' || !data.synergyImg) ? defaultImg : data.synergyImg}
-                                                    name={data.synergyName}
-                                                    price={data.price}
-                                                    tags={data.tags || ['#Metaverse', '#AI', '#Gaming']}
-                                                    // tags={data.tags || ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming']}
-                                                    status={data.status}
-                                                    description='lorem Reprehenderit aliqua sit quis cillum dolor Lorem incididunt reprehenderit est elit et.'
-                                                    synergiesAngles={data.synergiesAngles}
-                                                    synergyId={data.id}
-                                                />
-                                            </div>
-                                        )
-                                    })
-                                }
+                            <div className="synergies_cards">{filterSynergies.length == 0 ?
+                                <EmptyData />
+                                :
+                                <>
+                                    {
+                                        filterSynergies.map((data, index) => {
+                                            return (
+                                                <div key={index} className='card_wrap'>
+                                                    <SynergyCard img={(data.synergyImg === '' || !data.synergyImg) ? defaultImg : data.synergyImg}
+                                                        name={data.synergyName}
+                                                        price={data.price}
+                                                        tags={data.tags || ['#Metaverse', '#AI', '#Gaming']}
+                                                        // tags={data.tags || ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming']}
+                                                        status={data.status}
+                                                        description='lorem Reprehenderit aliqua sit quis cillum dolor Lorem incididunt reprehenderit est elit et.'
+                                                        synergiesAngles={data.synergiesAngles}
+                                                        synergyId={data.id}
+                                                    />
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </>
+                            }
                             </div>
                         </div>
 

@@ -94,6 +94,7 @@ const Select = ({
                                                 boxShadow: '0px 3px 10.3px -4px #e5e5e5',
                                                 background: '#4f4f4f',
                                                 opacity: '1',
+                                                zIndex:1000000
                                             }}
                                             anchorSelect={`#select_${name ?? ''}_${index}`}
                                         >

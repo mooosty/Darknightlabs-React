@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import './EditSynergiesPopup.scss';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Multiselect from '../../multiselect/Multiselect';
+import {Multiselect} from '../../../components';
 import { getProjectsAPI } from '../../../api-services/projectApis';
 import { angelBg, CloseIcon } from '../../../utils/constants/images';
 

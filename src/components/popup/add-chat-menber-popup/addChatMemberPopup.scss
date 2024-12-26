@@ -136,10 +136,6 @@
                             width: 0px;
                         }
 
-                        &::-webkit-scrollbar-track {
-                            background: transparent;
-                        }
-
                         &::-webkit-scrollbar-thumb {
                             background: transparent;
                         }
@@ -339,7 +335,7 @@
             }
 
             .model_body {
-                padding: 40px 24px 30px 24px;
+                padding: 10px 24px;
 
                 .model_header {
                     display: flex;
@@ -377,6 +373,7 @@
 
                 .member_list_main {
                     padding: 0 6px;
+                    height: calc(100% - 55px);
 
                     .search_box {
                         position: relative;
@@ -423,15 +420,11 @@
                     .member_list_box {
                         margin-top: 8px;
                         height: 55vh;
-                        max-height: 40vh;
+                        max-height: calc(100% - 54px);
                         overflow-y: auto;
 
                         &::-webkit-scrollbar {
                             width: 0px;
-                        }
-
-                        &::-webkit-scrollbar-track {
-                            background: transparent;
                         }
 
                         &::-webkit-scrollbar-thumb {

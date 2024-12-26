@@ -105,9 +105,7 @@ const Authentication = () => {
       } else {
         dispatch(storeAuthData({ response, user: existingUser[0] }));
       }
-    } else {
-      
-    }
+    } 
   };
 
   // useEffect(() => {
@@ -142,7 +140,7 @@ const Authentication = () => {
           setData(x);
           setdidRun(true);
         } catch (error) {
-          
+          console.log(error);          
         }
       };
       fetchProjects();
@@ -169,7 +167,7 @@ const Authentication = () => {
             events: {
               onAuthSuccess: handleAuthResponse,
               onLogout: (data) => {
-                
+                            
               },
             },
           }}

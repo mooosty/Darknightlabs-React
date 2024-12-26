@@ -25,6 +25,9 @@ import SynergyManagerGridLayout from './synergy-manager/GridLayout'
 
 import SynergyRequestCard from './synergy-request-card/Card'
 import TagInput from './tags-input/TagInput'
+import CustomDropdown from './custom-dropdown/CustomDropdown'
+import CustomFooterDropdown from './custom-mobile-footer-dropdown/CustomFooterDropdown'
+import EmptyData from './empty-data/EmptyData'
 
 // Popups
 import AddAngelPopup from './popup/add-angel-popup/AddAngelPopup'
@@ -70,7 +73,10 @@ export {
     Select,
     SynergyCard,
     CustomSearch,
-
+    CustomDropdown,
+    CustomFooterDropdown,
+    EmptyData,
+    
     // Popups
     AddAngelPopup,
     AddContentPopup,

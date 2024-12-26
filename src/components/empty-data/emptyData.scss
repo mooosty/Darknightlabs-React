@@ -1,0 +1,12 @@
+.empty_data_wrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+
+    .title {
+        color: var(--primary-white);
+        opacity: 0.5;
+    }
+}

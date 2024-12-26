@@ -3,13 +3,12 @@ import { formatDate } from "../../../utils/helper/helper";
 import { useSelector, useDispatch } from "react-redux";
 import useNoScroll from "../../../utils/hooks/useNoScroll";
 import { useEffect, useState } from "react";
-import { PlusIcon } from "../../../utils/constants/images";
+import { PlusIcon, ThreeDots } from "../../../utils/constants/images";
 import { getProjectsAPI, deleteProjectAPI, getMemberApi } from "../../../api-services/projectApis";
 import { CreateSynergySteps, DeleteConfirmPopup, SynergieaCreatedSuccessfullyPopup, Loader, } from "../../../components";
 import TableLayout from "./project-manager-component/TableLayout";
 import PropTypes from "prop-types";
-import CustomDropdown from "../../../components/custom-dropdown/CustomDropdown";
-import { BurgerMenuIcon } from "../../../utils/SVGs/SVGs";
+import { CustomDropdown } from "../../../components";
 
 const ProjectsUser = ({ userProjects, setAddNewProject, handleActive, active }) => {
 
@@ -163,7 +162,7 @@ const ProjectsUser = ({ userProjects, setAddNewProject, handleActive, active }) 
             <div className="header_toggle_dropDown">
               <CustomDropdown
                 toggleButton={
-                  <BurgerMenuIcon />
+                  <ThreeDots />
                 }
                 items={headerToggleButton}
               />

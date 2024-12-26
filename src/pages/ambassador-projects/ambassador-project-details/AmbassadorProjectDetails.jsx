@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProjectsApiById } from '../../../api-services/projectApis';
 import { AmbassadorAccordion, DeleteConfirmPopup, Loader, SuccessfullyPopup } from '../../../components';
-import { DescriptionIcon, GradientGraphIcon, GradientInfiniteIcon, GrammerlyIcon, GredientGlobalIcon, HealthIcon, InvestmentIcon, RankingIcon, CopyIcon, StarIcon, RightIcon, fallBackImage, autherProfile, PlusIcon, InfoCircleIcon, editIcon, DeleteIcon } from '../../../utils/constants/images'
+import { DescriptionIcon, GradientGraphIcon, GradientInfiniteIcon, GrammerlyIcon, GredientGlobalIcon, HealthIcon, InvestmentIcon, RankingIcon, CopyIcon, StarIcon, RightIcon, fallBackImage, autherProfile, PlusIcon, InfoCircleIcon, editIcon, DeleteIcon, CheckIcon } from '../../../utils/constants/images'
 import { AddContentPopup } from '../../../components';
 import { deleteContentAPI, getProjectContentAPI } from '../../../api-services/contentApis';
 import { toast } from 'react-toastify';
@@ -35,7 +35,7 @@ const AmbassadorProjectDetails = () => {
     const [isDeleteConfirmPopupOpen, setIsDeleteConfirmPopupOpen] = useState(false);
     const [deleteContentId, setDeleteContentId] = useState('')
     const [isSuccessfullyPopupOpen, setIsSuccessfullyPopupOpen] = useState(false);
-
+    const [isCopyLink, setIsCopyLink] = useState(false);
 
     const handleActive = (key) => {
         setActiveLayout(key);
@@ -65,6 +65,7 @@ const AmbassadorProjectDetails = () => {
     }
 
     const copySelectedText = (url) => {
+        setIsCopyLink(true)
         if (url) {
             navigator.clipboard.writeText(url)
                 .then(() => {
@@ -73,6 +74,9 @@ const AmbassadorProjectDetails = () => {
         } else {
             toast.error('URL Not Found')
         }
+        setTimeout(() => {
+            setIsCopyLink(false);
+        }, 1000);
     }
 
 
@@ -279,7 +283,9 @@ const AmbassadorProjectDetails = () => {
                                                                         <td>
                                                                             <div className="url">
                                                                                 <span className='text'>{rowData?.url || '-'}</span>
-                                                                                <div className='icon' onClick={() => copySelectedText(rowData?.url)}><CopyIcon /></div>
+                                                                                <div className='icon' onClick={() => copySelectedText(rowData?.url)}>
+                                                                                    {isCopyLink ? <CheckIcon /> : <CopyIcon />}
+                                                                                </div>
                                                                             </div>
                                                                         </td>
                                                                         <td>

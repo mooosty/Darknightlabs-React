@@ -103,6 +103,7 @@ import { GradientInfiniteIcon } from '../SVGs/SVGs';
 import { PlusIcon } from '../SVGs/SVGs';
 import { CloseIcon } from '../SVGs/SVGs';
 import { MoreIcon } from '../SVGs/SVGs';
+import { ThreeDots } from '../SVGs/SVGs';
 import { FilterIcon } from '../SVGs/SVGs';
 import { SearchIcon } from '../SVGs/SVGs';
 import { BackArrow } from '../SVGs/SVGs';
@@ -235,6 +236,7 @@ export {
     PlusIcon,
     CloseIcon,
     MoreIcon,
+    ThreeDots,
     FilterIcon,
     SearchIcon,
     BackArrow,

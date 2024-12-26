@@ -338,7 +338,6 @@
     display: none;
     width: 100vw;
     z-index: 99;
-    overflow: hidden;
 
     @media (max-width: 767px) {
         display: block;
@@ -353,7 +352,6 @@
             bottom: 58px;
             background-color: var(--primary-background);
             z-index: -1;
-
         }
     }
 
@@ -367,13 +365,14 @@
             height: 100%;
             display: flex;
             align-items: start;
-            overflow-x: auto;
             gap: 25px;
             justify-content: space-between;
             padding-inline: 12px;
 
-            li {
+            .mobile_tab {
                 position: relative;
+                display: flex;
+                align-items: center;
 
                 &.disabled {
                     opacity: 0.5;
@@ -460,42 +459,53 @@
                     display: block;
                 }
 
+                &.more_tab {
+                    margin-block: auto;
+                }
+
+                &.drop_tab {
+                    a {
+                        flex-direction: row;
+                        max-width: none;
+                        min-height: 0;
+                    }
+                }
+
                 a {
                     height: 100%;
                     display: flex;
                     flex-direction: column;
                     align-items: center;
                     font-size: 12px;
+                    gap: 8px;
                     color: var(--primary-text);
-                    max-width: 90px;
                     padding-top: 2px;
+                    max-width: 64px;
+                    min-height: 64px;
 
-                    span {
-                        text-align: center;
-                    }
 
                     .chat {
                         display: flex;
                         align-items: center;
                         gap: 5px;
-                    }
 
-                    .chat_count {
-                        background-color: #a18527;
-                        height: 16px;
-                        width: 20px;
-                        display: flex;
-                        justify-content: center;
-                        border-radius: 100px;
-                        align-items: center;
-                        font-size: 12px;
+                        .chat_count {
+                            background-color: #a18527;
+                            height: 18px;
+                            width: 20px;
+                            display: flex;
+                            justify-content: center;
+                            border-radius: 100px;
+                            align-items: center;
+                            font-size: 12px;
+                        }
                     }
 
                     img,
                     svg {
                         width: 24px;
                         height: 24px;
-                        margin-bottom: 8px;
+                        flex-shrink: 0;
                     }
                 }
             }

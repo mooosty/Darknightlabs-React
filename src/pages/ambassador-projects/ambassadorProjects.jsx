@@ -1,8 +1,7 @@
 import './ambassadorProjects.scss'
-import debounce from 'lodash.debounce'
-import { useCallback, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { SearchIcon } from '../../utils/constants/images'
-import { AmbassadorsCard, CustomSearch } from '../../components'
+import { AmbassadorsCard, CustomSearch, EmptyData } from '../../components'
 import { useDispatch, useSelector } from 'react-redux';
 import { getProjectsAPI } from "../../api-services/projectApis";
 
@@ -92,23 +91,29 @@ const AmbassadorProjects = () => {
                             </div>
 
                             <div className="ambassador_cards">
-                                {filterProject?.map((data, index) => {
-                                    return (
-                                        <div
-                                            className="card_wrap"
-                                            key={index}
-                                        >
-                                            <AmbassadorsCard
-                                                isTimeFramed={data?.timeFramed}
-                                                key={data?.project_id}
-                                                projectId={data?.project_id}
-                                                name={data?.project_name}
-                                                img={data?.image}
-                                                synergiesAngles={data?.synergy_angles}
-                                            />
-                                        </div>
-                                    );
-                                })}
+                                {filterProject.length == 0 ?
+                                    <EmptyData />
+                                    :
+                                    <>
+                                        {filterProject?.map((data, index) => {
+                                            return (
+                                                <div
+                                                    className="card_wrap"
+                                                    key={index}
+                                                >
+                                                    <AmbassadorsCard
+                                                        isTimeFramed={data?.timeFramed}
+                                                        key={data?.project_id}
+                                                        projectId={data?.project_id}
+                                                        name={data?.project_name}
+                                                        img={data?.image}
+                                                        synergiesAngles={data?.synergy_angles}
+                                                    />
+                                                </div>
+                                            );
+                                        })}
+                                    </>
+                                }
                             </div>
                         </div>
 

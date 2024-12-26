@@ -1,5 +1,5 @@
 import './projectDetails.scss'
-import { toast } from 'react-toastify'; 
+import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -52,7 +52,8 @@ const ProjectDetails = () => {
     }
 
     const handleCopyLink = () => {
-        copyText(); setIsCopyLink(true)
+        copyText();
+        setIsCopyLink(true)
         setTimeout(() => {
             setIsCopyLink(false);
         }, 1000);

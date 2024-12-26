@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ethers } from "ethers";
 import PropTypes from 'prop-types';
 import { toast } from "react-toastify";
-import { PRESALE_CONTRACT } from "../../../utils/contracts/contracts";
+// import { PRESALE_CONTRACT } from "../../../utils/contracts/contracts";
 import "./WhitelistVerification.scss";
 
 const WhitelistVerification = ({ walletAddress, onVerificationComplete }) => {
@@ -69,10 +69,10 @@ const WhitelistVerification = ({ walletAddress, onVerificationComplete }) => {
 
       if (data.whitelisted && data.signature) {
         // Verify the signature matches our expected format
-        const messageHash = ethers.solidityPackedKeccak256(
-          ["address", "address"],
-          [walletAddress, PRESALE_CONTRACT.address]
-        );
+        // const messageHash = ethers.solidityPackedKeccak256(
+        //   ["address", "address"],
+        //   [walletAddress, PRESALE_CONTRACT.address]
+        // );
         
 
         onVerificationComplete(data.signature);

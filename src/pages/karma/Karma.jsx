@@ -4,7 +4,7 @@ import axios from "axios";
 import "./karma.scss";
 // import { toast } from "react-toastify";
 import toast, { Toaster } from "react-hot-toast";
-import copyIcon from "../../assets/copy-icon.svg";
+import { CopyIcon, CheckIcon } from "../../utils/constants/images";
 import { KarmaIcon } from "../../utils/SVGs/SVGs";
  
 
@@ -12,6 +12,7 @@ const Karma = () => {
   const [showInvitePopup, setShowInvitePopup] = useState(false);
   const [inviteLink, setInviteLink] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [isCopyLink, setIsCopyLink] = useState(false);
   const userData = useSelector((state) => state.auth);
   const { userDetails } = useSelector((state) => state.user);
 
@@ -69,6 +70,7 @@ const Karma = () => {
   };
 
   const handleCopyLink = () => {
+    setIsCopyLink(true)
     navigator.clipboard
       .writeText(inviteLink)
       .then(() => {
@@ -77,6 +79,9 @@ const Karma = () => {
       .catch(() => {
         toast.error("Failed to copy link");
       });
+    setTimeout(() => {
+      setIsCopyLink(false);
+    }, 1000);
   };
 
   return (
@@ -116,7 +121,7 @@ const Karma = () => {
             <div className="karma_total">
               <h3>Total Karma Points</h3>
               <div className="points">
-                {karmaStats.totalKarmaPoints} 
+                {karmaStats.totalKarmaPoints}
                 <KarmaIcon style={{ width: '1em', height: '1em' }} />
               </div>
             </div>
@@ -154,7 +159,7 @@ const Karma = () => {
                   in a new member
                 </li>
                 <li>
-                  <strong>Level 2 Referrals:</strong> Earn 10 KP (10%) when a Level 1 referral's invite brings in a new
+                  <strong>Level 2 Referrals:</strong> Earn 10 KP (10%) when a Level 1 referral&apos;s invite brings in a new
                   member
                 </li>
               </ul>
@@ -183,9 +188,9 @@ const Karma = () => {
           <div className="popup_content">
             <h3>Here is your invite link, share it to receive Karma Points (KP)</h3>
             <div className="link_container">
-              <p>{inviteLink}</p>
+              <p>{inviteLink}0</p>
               <button className="copy_btn" onClick={handleCopyLink}>
-                <img src={copyIcon} alt="Copy" />
+                {isCopyLink ? <CheckIcon /> : <CopyIcon />}
               </button>
             </div>
             <button className="btn_gray" onClick={() => setShowInvitePopup(false)}>
