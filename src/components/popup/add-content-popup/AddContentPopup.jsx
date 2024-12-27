@@ -128,9 +128,10 @@ const AddContentPopup = ({ open, handleClose, isEdit, editableData, getData, ope
                                             }
                                         })}
                                         disable={isDisableProjectSelect}
-                                        placeholder={'Select Project'}
+                                        placeholder={'Search or select project'}
                                         value={values.project_id}
                                         onChange={(data) => { setFieldValue('project_id', data.value) }}
+                                        isSearchable={true}
                                     />
                                 </div>
 
