@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { SocietyCard } from '../../../components'
 import './societyFullList.scss'
 import { MembersImage1, MembersImage10, MembersImage11, MembersImage2, MembersImage3, MembersImage4, MembersImage5, MembersImage6, MembersImage7, MembersImage8, MembersImage9 } from '../../../utils/constants/images';
+import { useEffect } from 'react';
 
 const societyCardData = [
 
@@ -97,6 +98,14 @@ const societyCardData = [
 
 const SocietyFullList = () => {
     const navigate = useNavigate();
+
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+        });
+    }, []);
+
+
     return (
         <div className='society_full_list_wrap'>
             <div className="header">THE WIN-WIN SOCIETY</div>
