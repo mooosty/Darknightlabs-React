@@ -325,6 +325,7 @@ const MyContent = () => {
                 getData={() => { handleGetProjectContent() }}
                 openSuccessPopup={() => setIsSuccessfullyPopupOpen(true)}
                 isDisableProjectSelect={false}
+                contentType={activeContentLayout}
             />
             <DeleteConfirmPopup
                 title="Are You Sure ?"

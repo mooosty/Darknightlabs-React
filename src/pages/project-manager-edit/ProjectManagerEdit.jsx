@@ -7,14 +7,19 @@ import { getUsersAPI } from "../../api-services/userApis";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { updateProjectAPI } from "../../api-services/projectApis";
 import { synergyAnglesOptions } from "../../utils/constants/options";
+import { apiRoutes } from "../../utils/constants/apiUrl";
+import { axiosApi } from "../../api-services/service";
 import { AddAngelPopup, DeleteConfirmPopup, ImageUploader, Loader, Select, TagInput } from "../../components";
 import { addProjectAPI, deleteProjectAPI, addMemberAPI, getProjectsApiById } from "../../api-services/projectApis";
 import { SearchIcon, autherProfile, DeleteIcon, PlusIcon, sepratorImage, RightIcon } from "../../utils/constants/images";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const ProjectManagerEdit = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { projectId } = useParams();
+  const isAddMode = window.location.pathname === '/project-manager/add';
 
   const [isAddAngelPopupOpen, setIsAddAngelPopupOpen] = useState(false);
   const [whoAccessToSynergySide, setWhoAccessToSynergySide] = useState("All Users");
@@ -54,6 +59,18 @@ const ProjectManagerEdit = () => {
       },
     ],
     open_to_invest: false,
+    ambassadors_enabled: false,
+    ambassadors_start_date: "",
+    ambassadors_end_date: "",
+    subject_title: "",
+    requirements: [
+      {
+        frequency: "",
+        frequency_count: "",
+        period: "",
+        type: ""
+      }
+    ]
   };
 
   const formik = useFormik({
@@ -110,7 +127,6 @@ const ProjectManagerEdit = () => {
     };
     
     dispatch(addProjectAPI(data)).then((res) => {
-      
       const resArr = values.members.map((member) => {
         const data = {
           userId: member.userId,
@@ -119,6 +135,33 @@ const ProjectManagerEdit = () => {
         };
         return dispatch(addMemberAPI(data));
       });
+
+      if (values.ambassadors_enabled && values.requirements.length > 0) {
+        const formattedRequirements = {
+          tweets: {
+            frequency: values.requirements
+              .filter(req => req.type === 'tweet')
+              .reduce((acc, curr) => acc + Number(curr.frequency_count), 0),
+            period: values.requirements.find(req => req.type === 'tweet')?.period || 'week'
+          },
+          videos: {
+            frequency: values.requirements
+              .filter(req => req.type === 'video')
+              .reduce((acc, curr) => acc + Number(curr.frequency_count), 0),
+            period: values.requirements.find(req => req.type === 'video')?.period || 'month'
+          }
+        };
+
+        const contentReqData = {
+          project_id: res.payload.response.data.insertId,
+          title: values.subject_title,
+          start_date: values.ambassadors_start_date + " 00:00:00",
+          end_date: values.ambassadors_end_date + " 23:59:59",
+          requirements: formattedRequirements
+        };
+
+        resArr.push(axiosApi.post(`/content-requirements`, contentReqData));
+      }
 
       Promise.allSettled(resArr).then(() => {
         navigate("/project-manager");
@@ -176,6 +219,35 @@ const ProjectManagerEdit = () => {
         if (res.error) {
           throw new Error(res.error.message);
         }
+
+        if (values.ambassadors_enabled && values.requirements.length > 0) {
+          const formattedRequirements = {
+            tweets: {
+              frequency: values.requirements
+                .filter(req => req.type === 'tweet')
+                .reduce((acc, curr) => acc + Number(curr.frequency_count), 0),
+              period: values.requirements.find(req => req.type === 'tweet')?.period || 'week'
+            },
+            videos: {
+              frequency: values.requirements
+                .filter(req => req.type === 'video')
+                .reduce((acc, curr) => acc + Number(curr.frequency_count), 0),
+              period: values.requirements.find(req => req.type === 'video')?.period || 'month'
+            }
+          };
+
+          const contentReqData = {
+            project_id: projectId - 0,
+            title: values.subject_title,
+            start_date: values.ambassadors_start_date + " 00:00:00",
+            end_date: values.ambassadors_end_date + " 23:59:59",
+            requirements: formattedRequirements
+          };
+
+          return axiosApi.post(`/content-requirements`, contentReqData);
+        }
+      })
+      .then(() => {
         navigate("/project-manager");
       })
       .catch((err) => console.error(err));
@@ -212,7 +284,7 @@ const ProjectManagerEdit = () => {
   };
 
   useEffect(() => {
-    if (projectId && projectId !== "add") {
+    if (!isAddMode && projectId) {
       dispatch(getProjectsApiById(projectId)).then((res) => {
         let projectData = res.payload;
         let synergy_angles = projectData?.synergy_angles.map((synergyAngle) => {
@@ -253,13 +325,16 @@ const ProjectManagerEdit = () => {
           },
           investments: investments,
           open_to_invest: false,
+          ambassadors_enabled: false,
+          ambassadors_start_date: "",
+          ambassadors_end_date: "",
         };
         setValues(obj);
       });
     }
 
     dispatch(getUsersAPI());
-  }, [projectId]);
+  }, [projectId, isAddMode]);
 
   useEffect(() => {
     dispatch(getUsersAPI());
@@ -287,9 +362,9 @@ const ProjectManagerEdit = () => {
               <span>
                 <RightIcon />
               </span>
-              <p>{values.project_name}</p>
+              <p>{isAddMode ? "Add Project" : values.project_name}</p>
             </div>
-            {projectId !== "add" && (
+            {!isAddMode && (
               <button className="btn_gray" onClick={handleSaveChanges} disabled={projectSaveApiLoading}>
                 {projectSaveApiLoading ? (
                   <>
@@ -301,15 +376,15 @@ const ProjectManagerEdit = () => {
                 )}
               </button>
             )}
-            {projectId === "add" && (
+            {isAddMode && (
               <button className="btn_gray" onClick={handleAddProject} disabled={projectApiLoading}>
                 {projectApiLoading ? (
                   <>
                     {" "}
-                    <Loader loading={projectApiLoading} isItForButton={true} /> <p> Add Project</p>{" "}
+                    <Loader loading={projectApiLoading} isItForButton={true} /> <p>Add Project</p>{" "}
                   </>
                 ) : (
-                  " Add Project"
+                  "Add Project"
                 )}
               </button>
             )}
@@ -472,6 +547,204 @@ const ProjectManagerEdit = () => {
                     >
                       {values.description}
                     </textarea>
+                  </div>
+                  <div className="seprator-image">
+                    <img src={sepratorImage} alt="Separator" />
+                  </div>
+                  <div className="form_box ambassadors">
+                    <div className="toogle-switch">
+                      <h3>Ambassadors</h3>
+                      <span className="switch">
+                        <input
+                          id="ambassadors-switch"
+                          type="checkbox"
+                          checked={values.ambassadors_enabled}
+                          onChange={(e) => {
+                            setFieldValue("ambassadors_enabled", e.target.checked);
+                            if (!e.target.checked) {
+                              setFieldValue("requirements", []);
+                              setFieldValue("subject_title", "");
+                            } else {
+                              setFieldValue("requirements", [{
+                                frequency: "",
+                                frequency_count: "",
+                                period: "",
+                                type: ""
+                              }]);
+                            }
+                          }}
+                        />
+                        <label htmlFor="ambassadors-switch"></label>
+                      </span>
+                    </div>
+                    {values.ambassadors_enabled && (
+                      <>
+                        <div className="form_group">
+                          <label>Subject title</label>
+                          <input
+                            type="text"
+                            name="subject_title"
+                            value={values.subject_title}
+                            onChange={handleChange}
+                            placeholder="Enter subject title"
+                          />
+                        </div>
+
+                        {values.ambassadors_start_date ? (
+                          <div className="timeframe-section">
+                            <label>Timeframe</label>
+                            <div className="timeframe-inputs">
+                              <div className="form_group">
+                                <DatePicker
+                                  selected={values.ambassadors_start_date ? new Date(values.ambassadors_start_date) : null}
+                                  onChange={(date) => {
+                                    setFieldValue("ambassadors_start_date", date ? date.toISOString().split('T')[0] : "");
+                                  }}
+                                  dateFormat="M/d/yyyy"
+                                  placeholderText="Select date"
+                                  className="custom-datepicker"
+                                  calendarClassName="custom-calendar"
+                                  dayClassName={() => "custom-day"}
+                                  popperClassName="custom-popper"
+                                />
+                              </div>
+                              <span className="to-text">to</span>
+                              <div className="form_group">
+                                <DatePicker
+                                  selected={values.ambassadors_end_date ? new Date(values.ambassadors_end_date) : null}
+                                  onChange={(date) => {
+                                    setFieldValue("ambassadors_end_date", date ? date.toISOString().split('T')[0] : "");
+                                  }}
+                                  dateFormat="M/d/yyyy"
+                                  placeholderText="Select date"
+                                  className="custom-datepicker"
+                                  calendarClassName="custom-calendar"
+                                  dayClassName={() => "custom-day"}
+                                  popperClassName="custom-popper"
+                                />
+                              </div>
+                              <button 
+                                className="btn_delete"
+                                onClick={() => {
+                                  setFieldValue("ambassadors_start_date", "");
+                                  setFieldValue("ambassadors_end_date", "");
+                                }}
+                              >
+                                <DeleteIcon />
+                              </button>
+                            </div>
+                          </div>
+                        ) : (
+                          <button
+                            className="btn_gray add-timeframe"
+                            onClick={() => {
+                              const today = new Date();
+                              const nextYear = new Date();
+                              nextYear.setFullYear(today.getFullYear() + 1);
+                              
+                              setFieldValue("ambassadors_start_date", today.toISOString().split('T')[0]);
+                              setFieldValue("ambassadors_end_date", nextYear.toISOString().split('T')[0]);
+                            }}
+                          >
+                            Add timeframe <PlusIcon />
+                          </button>
+                        )}
+
+                        <div className="requirements-section">
+                          <label>Requirements</label>
+                          {values.requirements.map((requirement, index) => (
+                            <div key={index} className="requirement-row">
+                              <div className="form_group">
+                                <Select
+                                  options={[
+                                    { label: "Each week", value: "week" },
+                                    { label: "Every month", value: "month" }
+                                  ]}
+                                  value={requirement.frequency}
+                                  onChange={(value) => {
+                                    setFieldValue("requirements", [
+                                      ...values.requirements.slice(0, index),
+                                      {
+                                        ...requirement,
+                                        frequency: value.value,
+                                        period: value.value
+                                      },
+                                      ...values.requirements.slice(index + 1)
+                                    ]);
+                                  }}
+                                  placeholder="Select frequency"
+                                />
+                              </div>
+                              <div className="form_group">
+                                <input
+                                  type="number"
+                                  min="1"
+                                  placeholder="How many times?"
+                                  value={requirement.frequency_count || ""}
+                                  onChange={(e) => {
+                                    setFieldValue("requirements", [
+                                      ...values.requirements.slice(0, index),
+                                      {
+                                        ...requirement,
+                                        frequency_count: e.target.value
+                                      },
+                                      ...values.requirements.slice(index + 1)
+                                    ]);
+                                  }}
+                                />
+                              </div>
+                              <div className="form_group">
+                                <Select
+                                  options={[
+                                    { label: "Tweet", value: "tweet" },
+                                    { label: "Video", value: "video" }
+                                  ]}
+                                  value={requirement.type}
+                                  onChange={(value) => {
+                                    setFieldValue("requirements", [
+                                      ...values.requirements.slice(0, index),
+                                      {
+                                        ...requirement,
+                                        type: value.value
+                                      },
+                                      ...values.requirements.slice(index + 1)
+                                    ]);
+                                  }}
+                                  placeholder="Select content type"
+                                />
+                              </div>
+                              <button 
+                                className="btn_delete"
+                                onClick={() => {
+                                  setFieldValue("requirements", [
+                                    ...values.requirements.slice(0, index),
+                                    ...values.requirements.slice(index + 1)
+                                  ]);
+                                }}
+                              >
+                                <DeleteIcon />
+                              </button>
+                            </div>
+                          ))}
+                          <button
+                            className="btn_gray add-requirement"
+                            onClick={() => {
+                              setFieldValue("requirements", [
+                                ...values.requirements,
+                                {
+                                  frequency: "",
+                                  frequency_count: "",
+                                  period: "",
+                                  type: ""
+                                }
+                              ]);
+                            }}
+                          >
+                            Add requirement <PlusIcon />
+                          </button>
+                        </div>
+                      </>
+                    )}
                   </div>
                   <div className="seprator-image">
                     <img src={sepratorImage} alt="Separator" />

@@ -42,6 +42,7 @@ function App() {
           <Route path={`${ROUTER.projects}/:projectId`} element={<ProjectDetails />} />
           <Route path={`/${ROUTER.projectManager}`} element={<ProjectManager />} />
           <Route path={`/${ROUTER.projectManagerEdit}/:id`} element={<ProjectManagerEdit />} />
+          <Route path={`/${ROUTER.projectManager}/add`} element={<ProjectManagerEdit />} />
           <Route path={`/${ROUTER.synergyRequests}`} element={<SynergyRequest />} />
           <Route path={`/${ROUTER.synergiesManager}`} element={<SynergiesManager />} />
 

@@ -3,26 +3,27 @@ import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
 import './addContentPopup.scss'
 import {Select, Loader} from '../../../components';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProjectsAPI } from '../../../api-services/projectApis';
 import { CloseIcon } from '../../../utils/constants/images';
 import { createContentAPI, updateContentAPI } from '../../../api-services/contentApis';
 import { useParams } from 'react-router-dom';
+import { axiosApi } from '../../../api-services/service';
 
-
-const AddContentPopup = ({ open, handleClose, isEdit, editableData, getData, openSuccessPopup, isDisableProjectSelect }) => {
+const AddContentPopup = ({ open, handleClose, isEdit, editableData, getData, openSuccessPopup, isDisableProjectSelect, contentType }) => {
 
     const dispatch = useDispatch()
     const { projectId } = useParams()
     const { projects } = useSelector(state => state.project)
     const { isLoading } = useSelector(state => state.content)
     const userData = useSelector(state => state.auth)
+    const [contentRequirements, setContentRequirements] = useState([])
 
     const formik = useFormik({
         initialValues: {
             project_id: '',
-            type: '',
+            type: contentType,
             subject: '',
             url: '',
             user_id: userData?.userId,
@@ -52,7 +53,6 @@ const AddContentPopup = ({ open, handleClose, isEdit, editableData, getData, ope
                             toast.success('Content Created Successfully')
                         } else {
                             toast.error('Content Not Created')
-
                         }
                     })
                 }
@@ -71,8 +71,10 @@ const AddContentPopup = ({ open, handleClose, isEdit, editableData, getData, ope
             setFieldValue('url', editableData?.url)
             setFieldValue('type', editableData?.type)
             setFieldValue('content_id', editableData?.content_id)
-        } else
+        } else {
             resetForm()
+            setFieldValue('type', contentType)
+        }
     }, [open])
 
     useEffect(() => {
@@ -82,6 +84,21 @@ const AddContentPopup = ({ open, handleClose, isEdit, editableData, getData, ope
                     setFieldValue('project_id', parseInt(projectId))
             })
     }, [projectId]);
+
+    useEffect(() => {
+        if (values.project_id) {
+            axiosApi.get(`/content-requirements/project/${values.project_id}`)
+                .then(response => {
+                    if (response?.data) {
+                        setContentRequirements(response.data)
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching content requirements:', error)
+                })
+        }
+    }, [values.project_id])
+
     return (
         <>
             <div className={`synergies_model_bg ${open ? 'active' : ''} `}>
@@ -91,7 +108,7 @@ const AddContentPopup = ({ open, handleClose, isEdit, editableData, getData, ope
                     <div className='add_content_model_box'>
                         <div className='add_content_model_body'>
                             <div className='add_content_model_header'>
-                                <h3>{isEdit ? "Edit" : 'Add'} content</h3>
+                                <h3>{isEdit ? "Edit" : 'Add'} {contentType}</h3>
                                 <button
                                     className='close'
                                     onClick={handleClose}
@@ -118,28 +135,14 @@ const AddContentPopup = ({ open, handleClose, isEdit, editableData, getData, ope
                                 </div>
 
                                 <div className="form_group">
-                                    <label htmlFor="project_name" >Select type of content</label>
-                                    <div className="project_name">
-                                        <Select
-                                            placeholder={'Select type of content'}
-                                            options={[
-                                                { label: 'Tweet', value: 'Tweet' },
-                                                { label: 'Video', value: 'Video' },
-                                            ]}
-                                            value={values.type}
-                                            onChange={(data) => { setFieldValue('type', data.value) }}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="form_group">
-                                    <label htmlFor="project_name" >Select subject</label>
+                                    <label htmlFor="project_name" >Select a topic</label>
                                     <div className="project_name">
                                         <Select
                                             placeholder={'Select subject'}
-                                            options={[
-                                                { label: 'Hype $SHOWA', value: 'Hype $SHOWA' },
-                                          
-                                            ]}
+                                            options={contentRequirements.map(req => ({
+                                                label: req.title,
+                                                value: req.title
+                                            }))}
                                             value={values.subject}
                                             onChange={(data) => { setFieldValue('subject', data.value) }}
                                         />
@@ -170,8 +173,6 @@ const AddContentPopup = ({ open, handleClose, isEdit, editableData, getData, ope
                     </div>
                 </div>
             </div>
-
-
         </>
     )
 }
@@ -184,7 +185,8 @@ AddContentPopup.propTypes = {
     editableData: PropTypes.object,
     getData: PropTypes.func,
     openSuccessPopup: PropTypes.func,
-    isDisableProjectSelect: PropTypes.bool
+    isDisableProjectSelect: PropTypes.bool,
+    contentType: PropTypes.string.isRequired
 }
 
 export default AddContentPopup
