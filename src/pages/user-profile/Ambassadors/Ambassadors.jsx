@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import './ambassadors.scss'
 import { CustomDropdown } from '../../../components';
-import { ThreeDots } from '../../../utils/SVGs/SVGs';
+import { ThreeDots } from '../../../utils/constants/images';
 
 const Ambassadors = ({ handleActive, active }) => {
     const headerToggleButton = [

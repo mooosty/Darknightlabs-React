@@ -1,7 +1,7 @@
 // IMAGES
 
 import member from '../../assets/member_img1.png'
-import cardImage from "../../assets//project-card-img-1.png";
+import cardImage from "../../assets/project-card-img-1.png";
 import DefaultImage from '../../assets/DefaultImage.png'
 import cardActor1 from '../../assets/pending-synergy-img1.png'
 import cardActor2 from '../../assets/pending-synergy-img2.png'
@@ -64,6 +64,39 @@ import bitCoinIcon from "../../assets/logosBitcoin.svg";
 import tableActorImage3 from "../../assets/avatar-3.jpg";
 import uploadIcon from '../../assets/document-upload.png'
 import linkedinIcon from '../../assets/linkedin.svg'
+import heroFirstImage from '../../assets/dragon-image.png'
+import heroSecondImage from '../../assets/hero-second.png'
+import servicesCardImg1 from '../../assets/services-card-image-1.png'
+import servicesCardImg2 from '../../assets/services-card-image-2.png'
+import servicesCardImg3 from '../../assets/services-card-image-3.png'
+import servicesCardImg4 from '../../assets/services-card-image-4.png'
+import recordImage1 from '../../assets/record_image-1.png'
+import recordImage2 from '../../assets/record_image-2.png'
+import recordImage3 from '../../assets/record_image-3.png'
+import recordImage4 from '../../assets/record_image-4.png'
+import recordImage5 from '../../assets/record_image-5.png'
+import recordImage6 from '../../assets/record_image-6.png'
+import recordImage7 from '../../assets/record_image-7.png'
+import recordImage8 from '../../assets/record_image-8.png'
+import recordImage9 from '../../assets/record_image-9.png'
+import recordImage10 from '../../assets/record_image-10.png'
+import recordImage11 from '../../assets/record_image-11.png'
+import recordImage12 from '../../assets/record_image-12.png'
+import recordImage13 from '../../assets/record_image-13.png'
+import recordImage14 from '../../assets/record_image-14.png'
+import recordImage15 from '../../assets/record_image-15.png'
+import recordImage16 from '../../assets/record_image-16.png'
+import MembersImage1 from '../../assets/Members-Image -1.png'
+import MembersImage2 from '../../assets/Members-Image -2.png'
+import MembersImage3 from '../../assets/Members-Image -3.png'
+import MembersImage4 from '../../assets/Members-Image -4.png'
+import MembersImage5 from '../../assets/Members-Image -5.png'
+import MembersImage6 from '../../assets/Members-Image -6.png'
+import MembersImage7 from '../../assets/Members-Image -7.png'
+import MembersImage8 from '../../assets/Members-Image -8.png'
+import MembersImage9 from '../../assets/Members-Image -9.png'
+import MembersImage10 from '../../assets/Members-Image -10.png'
+import MembersImage11 from '../../assets/Members-Image -11.png'
 
 
 // SVG
@@ -137,6 +170,11 @@ import { GradientTimerIcon } from '../SVGs/SVGs';
 import { RankingIcon } from '../SVGs/SVGs';
 import { CollapseRightIcon } from '../SVGs/SVGs';
 import { CollapseLeftIcon } from '../SVGs/SVGs';
+import { BurgerMenuIcon } from '../SVGs/SVGs';
+import { CheckCircleIcon } from '../SVGs/SVGs';
+import { MaskIcon } from '../SVGs/SVGs';
+import { StileArrow } from '../SVGs/SVGs';
+import { TwitterXIcon } from '../SVGs/SVGs';
 
 
 export {
@@ -198,6 +236,40 @@ export {
     member,
     cardImage,
     DefaultImage,
+    heroFirstImage,
+    heroSecondImage,
+    servicesCardImg1,
+    servicesCardImg2,
+    servicesCardImg3,
+    servicesCardImg4,
+    recordImage1,
+    recordImage2,
+    recordImage3,
+    recordImage4,
+    recordImage5,
+    recordImage6,
+    recordImage7,
+    recordImage8,
+    recordImage9,
+    recordImage10,
+    recordImage11,
+    recordImage12,
+    recordImage13,
+    recordImage14,
+    recordImage15,
+    recordImage16,    
+    MembersImage1,
+    MembersImage2,
+    MembersImage3,
+    MembersImage4,
+    MembersImage5,
+    MembersImage6,
+    MembersImage7,
+    MembersImage8,
+    MembersImage9,
+    MembersImage10,
+    MembersImage11,
+
 
 
     ProjectNavTabIcon,
@@ -270,4 +342,9 @@ export {
     RankingIcon,
     CollapseRightIcon,
     CollapseLeftIcon,
+    MaskIcon,
+    BurgerMenuIcon,
+    CheckCircleIcon,
+    StileArrow,
+    TwitterXIcon,
 }

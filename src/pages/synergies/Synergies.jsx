@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getSynergyApi } from '../../api-services/synergyApi'
 import { synergyAnglesOptions } from '../../utils/constants/options'
 import { SearchIcon, tableActor, defaultImg } from '../../utils/constants/images'
-import { CheckCircleIcon } from '../../utils/SVGs/SVGs'
+import { CheckCircleIcon } from '../../utils/constants/images'
 import { CustomSearch, EmptyData, Loader, MultiselectDropDown, SynergyCard } from '../../components'
 
 

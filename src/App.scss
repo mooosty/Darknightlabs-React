@@ -13,7 +13,9 @@
     --card-shadow: #ff8a1c59;
     --disable-gray: #242623;
 }
-
+html {
+    scroll-behavior: smooth;
+  }
 .no-scroll {
     overflow: hidden !important;
     padding-right: var(--scrollbar-width);

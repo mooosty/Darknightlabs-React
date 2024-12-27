@@ -24,19 +24,23 @@ import SynergyRequest from "./pages/pending-synergies/SynergyRequest";
 import SynergiesManager from "./pages/synergies-manager/SynergiesManager";
 import ProtectedFeatureRoute from './components/routing/ProtectedFeatureRoute';
 import Welcome from './pages/welcome/Welcome';
+import Home from './pages/home/Home';
+import Error404 from './pages/error404/Error404';
+import Error405 from './pages/error405/Error405';
+import SocietyFullList from './pages/home/society-full-list/SocietyFullList';
 
 function App() {
   return (
     <BrowserRouter>
       <InitialDataLoader />
       <Routes>
-        <Route path="/" element={<Navigate to={`/${ROUTER.welcome}`} replace />} />
+        <Route path="/" element={<Home />} />
+        <Route path={`/${ROUTER.SocietyFullList}`} element={<SocietyFullList />} />
         <Route path={`/${ROUTER.authentication}`} element={<Authentication />} />
+
         <Route path="/" element={<Layout />}>
           <Route path={`/${ROUTER.welcome}`} element={<Welcome />} />
-          <Route path={`/${ROUTER.projects}`} element={<ProtectedFeatureRoute feature="PROJECTS">
-            <Projects />
-          </ProtectedFeatureRoute>} />
+          <Route path={`/${ROUTER.projects}`} element={<ProtectedFeatureRoute feature="PROJECTS"><Projects /></ProtectedFeatureRoute>} />
           <Route path={ROUTER.myContent} element={<MyContent />} />
           <Route path={ROUTER.ambassadorProjects} element={<AmbassadorProjects />} />
           <Route path={`${ROUTER.ambassadorProjects}/:projectId`} element={<AmbassadorProjectDetails />} />
@@ -46,29 +50,19 @@ function App() {
           <Route path={`/${ROUTER.synergyRequests}`} element={<SynergyRequest />} />
           <Route path={`/${ROUTER.synergiesManager}`} element={<SynergiesManager />} />
 
-          <Route path={`/${ROUTER.synergies}`} element={<ProtectedFeatureRoute feature="SYNERGIES">
-            <Synergies />
-          </ProtectedFeatureRoute>} />
-          <Route path={`${ROUTER.synergies}/:synergyId`} element={
-            <ProtectedFeatureRoute feature="SYNERGIES">
-              <SynergiesDetails />
-            </ProtectedFeatureRoute>
-          } />
+          <Route path={`/${ROUTER.synergies}`} element={<ProtectedFeatureRoute feature="SYNERGIES"><Synergies /> </ProtectedFeatureRoute>} />
+          <Route path={`${ROUTER.synergies}/:synergyId`} element={<ProtectedFeatureRoute feature="SYNERGIES"> <SynergiesDetails /> </ProtectedFeatureRoute>} />
 
           <Route path={`/${ROUTER.investment}`} element={<Investment />} />
           <Route path={`/${ROUTER.profile}`} element={<UserProfile />} />
           <Route path={`/${ROUTER.karma}`} element={<Karma />} />
-          <Route path={ROUTER.chat} element={
-            <ProtectedFeatureRoute feature="CHAT">
-              <Chats />
-            </ProtectedFeatureRoute>
-          } />
-          <Route path={`${ROUTER.chat}/:id`} element={
-            <ProtectedFeatureRoute feature="CHAT">
-              <Chats />
-            </ProtectedFeatureRoute>
-          } />
+          <Route path={ROUTER.chat} element={<ProtectedFeatureRoute feature="CHAT">   <Chats /> </ProtectedFeatureRoute>} />
+          <Route path={`${ROUTER.chat}/:id`} element={<ProtectedFeatureRoute feature="CHAT"><Chats /></ProtectedFeatureRoute>} />
         </Route>
+
+        <Route path={`/${ROUTER.error404}`} element={<Error404 />} />
+        <Route path={`/${ROUTER.error405}`} element={<Error405 />} />
+        <Route path={`*`} element={<Navigate to={ROUTER.error404} />} />
       </Routes>
       <ToastContainer
         position="bottom-center"

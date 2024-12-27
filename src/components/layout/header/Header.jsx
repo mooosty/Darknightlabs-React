@@ -1,7 +1,7 @@
 import { CustomDropdown } from "../../../components"
 import { useDispatch, useSelector } from 'react-redux';
 import './header.scss'
-import { ProfileNavTabIcon, LogoutNavTabIcon, BurgerMenuIcon } from "../../../utils/SVGs/SVGs";
+import { ProfileNavTabIcon, LogoutNavTabIcon, BurgerMenuIcon } from "../../../utils/constants/images";
 import { useNavigate } from 'react-router-dom';
 import { ROUTER } from '../../../utils/routes/routes';
 import { handleLogout } from "../../../store/slice/authSlice";

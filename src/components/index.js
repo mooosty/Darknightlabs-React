@@ -28,6 +28,8 @@ import TagInput from './tags-input/TagInput'
 import CustomDropdown from './custom-dropdown/CustomDropdown'
 import CustomFooterDropdown from './custom-mobile-footer-dropdown/CustomFooterDropdown'
 import EmptyData from './empty-data/EmptyData'
+import SocietyCard from './society-card/SocietyCard'
+import Navbar from './navbar/Navbar'
 
 // Popups
 import AddAngelPopup from './popup/add-angel-popup/AddAngelPopup'
@@ -76,7 +78,9 @@ export {
     CustomDropdown,
     CustomFooterDropdown,
     EmptyData,
-    
+    SocietyCard,
+    Navbar,
+
     // Popups
     AddAngelPopup,
     AddContentPopup,

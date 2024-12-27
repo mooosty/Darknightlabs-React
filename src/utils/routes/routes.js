@@ -13,5 +13,8 @@ export const ROUTER = {
     synergyRequests: "synergy-requests",
     synergiesManager: "synergies-manager",
     myContent: "my-content",
-    ambassadorProjects: "ambassador-projects"
+    ambassadorProjects: "ambassador-projects",
+    SocietyFullList: 'society-full-list',
+    error404: '404',
+    error405: '405'
 };
