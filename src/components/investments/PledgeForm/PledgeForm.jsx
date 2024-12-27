@@ -101,7 +101,7 @@ const PledgeForm = ({ onSubmit }) => {
       </div>
       <div className="pledge-form-content">
         <div className="form-group">
-          <label className="form-label">How much do you wanna invest?</label>
+          <label className="form-label">How much do you want to invest?($USDT)</label>
           <input
             className="form-input"
             type="text"

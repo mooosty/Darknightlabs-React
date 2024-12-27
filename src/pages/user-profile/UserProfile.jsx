@@ -587,7 +587,7 @@ const UserProfile = () => {
                     className={`buttons ${active === "AMBASSADORS" ? "active" : ""}`}
                     onClick={() => handleActive("AMBASSADORS")}
                   >
-                    AMBASSADORS
+                    AMBASSADOR
                   </div>
                 </div>
                 <div className="profile_page_header">

@@ -113,7 +113,7 @@ const Sidebar = () => {
                     <li className={`${location.pathname === `/${ROUTER.investment}` ? "active" : ""}`}>
                       <Link to={ROUTER.investment}>
                         <InvestmentNavTabIcon />
-                        <span className="menu_text">Investment </span>
+                        <span className="menu_text">Investments </span>
                       </Link>
                     </li>
                   </>
@@ -254,7 +254,7 @@ const Sidebar = () => {
                 <li className={`${location.pathname === `/${ROUTER.investment}` ? "active" : ""}`}>
                   <Link to={ROUTER.investment}>
                     <InvestmentNavTabIcon />
-                    <span>Investment</span>
+                    <span>Investments</span>
                   </Link>
                 </li>
                 {userRole == "ADMIN" && (

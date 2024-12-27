@@ -1,25 +1,78 @@
 import "./tagsInput.scss"
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
+
+const defaultTags = [
+  { label: 'Gaming', value: 'gaming' },
+  { label: 'AI', value: 'ai' },
+  { label: 'RWA', value: 'rwa' }
+];
 
 function TagInput({ tags, setTags }) {
     const [input, setInput] = useState('');
+    const [showSuggestions, setShowSuggestions] = useState(false);
+    const [filteredSuggestions, setFilteredSuggestions] = useState(defaultTags);
+    const wrapperRef = useRef(null);
 
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+                setShowSuggestions(false);
+            }
+        }
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     const handleKeyPress = (e) => {
         if (e.key === 'Enter' && input.trim() !== '') {
             e.preventDefault();
-            setTags([...tags, input.trim()]);
-            setInput('');
+            addTag(input.trim());
         } else if (e.key === 'Backspace' && input === '' && tags.length > 0) {
             e.preventDefault();
             setTags(tags?.slice(0, -1));
         }
     };
 
+    const handleInputChange = (e) => {
+        const value = e.target.value;
+        setInput(value);
+        
+        if (value.trim()) {
+            const filtered = defaultTags.filter(tag => 
+                tag.label.toLowerCase().includes(value.toLowerCase()) &&
+                !tags.includes(tag.label)
+            );
+            setFilteredSuggestions(filtered);
+            setShowSuggestions(true);
+        } else {
+            setFilteredSuggestions(defaultTags.filter(tag => !tags.includes(tag.label)));
+            setShowSuggestions(false);
+        }
+    };
+
+    const addTag = (tag) => {
+        if (!tags.includes(tag)) {
+            setTags([...tags, tag]);
+        }
+        setInput('');
+        setShowSuggestions(false);
+    };
+
+    const handleSuggestionClick = (suggestion) => {
+        addTag(suggestion.label);
+    };
+
+    const handleInputFocus = () => {
+        const remainingSuggestions = defaultTags.filter(tag => !tags.includes(tag.label));
+        setFilteredSuggestions(remainingSuggestions);
+        setShowSuggestions(true);
+    };
 
     return (
-        <div className='tag_input_container'>
+        <div className='tag_input_container' ref={wrapperRef}>
             <div className='tags_list'>
                 {Array.isArray(tags) && tags.map((tag, index) => (
                     <span key={index} className='tag'>
@@ -30,14 +83,27 @@ function TagInput({ tags, setTags }) {
                 <input
                     type="text"
                     value={input}
-                    onChange={(e) => setInput(e.target.value)}
+                    onChange={handleInputChange}
                     onKeyDown={handleKeyPress}
-                    placeholder="Type and press enter"
+                    onFocus={handleInputFocus}
+                    placeholder="Type or select a tag"
                     name='tags'
                 />
             </div>
 
-
+            {showSuggestions && filteredSuggestions.length > 0 && (
+                <div className="tag_suggestions">
+                    {filteredSuggestions.map((suggestion, index) => (
+                        <div
+                            key={index}
+                            className="tag_suggestion"
+                            onClick={() => handleSuggestionClick(suggestion)}
+                        >
+                            {suggestion.label}
+                        </div>
+                    ))}
+                </div>
+            )}
         </div>
     );
 }

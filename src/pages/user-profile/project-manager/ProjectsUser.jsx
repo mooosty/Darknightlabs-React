@@ -143,7 +143,7 @@ const ProjectsUser = ({ userProjects, setAddNewProject, handleActive, active }) 
               className={`buttons ${active === "AMBASSADORS" ? "active" : ""}`}
               onClick={() => handleActive("AMBASSADORS")}
             >
-              AMBASSADORS
+              AMBASSADOR
             </div>
           </div>
           <div className="project_user_page_header">

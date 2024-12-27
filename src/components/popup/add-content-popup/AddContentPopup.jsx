@@ -137,9 +137,8 @@ const AddContentPopup = ({ open, handleClose, isEdit, editableData, getData, ope
                                         <Select
                                             placeholder={'Select subject'}
                                             options={[
-                                                { label: 'Discuss the upcoming fight of Mario Nawfal', value: 'Discuss the upcoming fight of Mario Nawfal' },
-                                                { label: 'Cover the $karate', value: 'Cover the $karate' },
-                                                { label: 'Cover the $lorem', value: 'Cover the $lorem' },
+                                                { label: 'Hype $SHOWA', value: 'Hype $SHOWA' },
+                                          
                                             ]}
                                             value={values.subject}
                                             onChange={(data) => { setFieldValue('subject', data.value) }}

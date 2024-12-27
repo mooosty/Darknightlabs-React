@@ -295,7 +295,7 @@ const Investment = () => {
 
   const dispatch = useDispatch();
   const { walletAddress, isWalletVerified, whitelistMessage } = useSelector(state => state.auth);
-  const [activeLayout, setActiveLayout] = useState('TRENDING');
+  const [activeLayout, setActiveLayout] = useState('OPEN');
   const [showDetails, setShowDetails] = useState(false);
   const [selectedInvestment, setSelectedInvestment] = useState(null);
   const [isPhase2, setIsPhase2] = useState(false);
@@ -715,14 +715,35 @@ const Investment = () => {
             <div className="page_data">
               <div className="investment_page_header">
                 <div className="investment_toggleWrap">
-                  <button className={`investment_toggle_btn ${activeLayout === 'TRENDING' ? 'active' : ''}`} onClick={() => handleActive('TRENDING')} >
-                    <span>Trending</span>
+                  <button 
+                    className={`investment_toggle_btn ${activeLayout === 'CLOSED' ? 'active' : ''}`} 
+                    onClick={() => handleActive('CLOSED')}
+                  >
+                    <span>Closed</span>
                   </button>
-                  <button className={`investment_toggle_btn ${activeLayout === 'TAB' ? 'active' : ''}`} onClick={() => handleActive('TAB')} >
-                    <span>Newest</span>
+                  <button 
+                    className={`investment_toggle_btn ${activeLayout === 'OPEN' ? 'active' : ''}`} 
+                    onClick={() => handleActive('OPEN')}
+                  >
+                    <span>Open</span>
                   </button>
-                  <button className={`investment_toggle_btn ${activeLayout === 'LAYOUT' ? 'active' : ''}`} onClick={() => handleActive('LAYOUT')} >
-                    <span>Oldest</span>
+                  <button 
+                    className={`investment_toggle_btn ${activeLayout === 'PLEDGE' ? 'active' : ''}`} 
+                    onClick={() => handleActive('PLEDGE')}
+                  >
+                    <span>Pledge</span>
+                  </button>
+                  <button 
+                    className={`investment_toggle_btn ${activeLayout === 'APPLY' ? 'active' : ''}`} 
+                    onClick={() => handleActive('APPLY')}
+                  >
+                    <span>Apply</span>
+                  </button>
+                  <button 
+                    className={`investment_toggle_btn ${activeLayout === 'MY_INVESTMENTS' ? 'active' : ''}`} 
+                    onClick={() => handleActive('MY_INVESTMENTS')}
+                  >
+                    <span>My Investments</span>
                   </button>
                 </div>
                 <div className="selects">
@@ -844,6 +865,9 @@ const Investment = () => {
             </div>
           </div>
           <div className="investments_page_data">
+            <h2 className={`floating_form_title ${isPhase2 ? 'pledge_mode' : 'invest_mode'}`}>
+              {isPhase2 ? 'Pledge' : 'Invest'}
+            </h2>
             <div className="page_data">
               <div className="investment_page_body">
                 <div className="investment_details_content">
@@ -906,7 +930,7 @@ const Investment = () => {
                       <ul>
                         <li>🐈‍⬛ Shytoshi Kusama - <a href="https://x.com/shytoshikusama" target="_blank">@shytoshikusama</a></li>
                         <li>🐈‍⬛ Kaal Dhairya - <a href="https://x.com/Kaaldhairya" target="_blank">@Kaaldhairya</a></li>
-                        <li>🐈‍⬛ Ian Utile - <a href="https://x.com/IanUtile" target="_blank">@IanUtile</a></li>
+                        <li>����‍⬛ Ian Utile - <a href="https://x.com/IanUtile" target="_blank">@IanUtile</a></li>
                         <li>🐈‍⬛ Tryke Gutierrez - <a href="https://instagram.com/trykegutierrez" target="_blank">@trykegutierrez</a></li>
                         <li>🐈‍⬛ James Afante - <a href="https://www.tiktok.com/@jmsfnt" target="_blank">@jmsfnt</a></li>
                         <li>🐈‍⬛ JBond - <a href="https://x.com/jbondwagon" target="_blank">@jbondwagon</a></li>
