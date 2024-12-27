@@ -10,6 +10,7 @@ import { CloseIcon } from '../../../utils/constants/images';
 import { createContentAPI, updateContentAPI } from '../../../api-services/contentApis';
 import { useParams } from 'react-router-dom';
 import { axiosApi } from '../../../api-services/service';
+import CreatableSelect from 'react-select/creatable';
 
 const AddContentPopup = ({ open, handleClose, isEdit, editableData, getData, openSuccessPopup, isDisableProjectSelect, contentType }) => {
 
@@ -99,20 +100,52 @@ const AddContentPopup = ({ open, handleClose, isEdit, editableData, getData, ope
         }
     }, [values.project_id])
 
+    const customStyles = {
+        control: (base) => ({
+            ...base,
+            background: 'transparent',
+            borderColor: '#ffffff80',
+            minHeight: '52px',
+            '&:hover': {
+                borderColor: '#ffffff'
+            }
+        }),
+        menu: (base) => ({
+            ...base,
+            background: '#191917',
+            border: '1px solid #ffffff80'
+        }),
+        option: (base, state) => ({
+            ...base,
+            background: state.isFocused ? 'rgba(245, 239, 219, 0.1)' : 'transparent',
+            color: '#F5EFDB',
+            '&:hover': {
+                background: 'rgba(245, 239, 219, 0.1)'
+            }
+        }),
+        singleValue: (base) => ({
+            ...base,
+            color: '#F5EFDB'
+        }),
+        input: (base) => ({
+            ...base,
+            color: '#F5EFDB'
+        }),
+        placeholder: (base) => ({
+            ...base,
+            color: '#ffffff9f'
+        })
+    };
+
     return (
         <>
             <div className={`synergies_model_bg ${open ? 'active' : ''} `}>
-                <div
-                    className={`add_content_popup`}
-                >
+                <div className={`add_content_popup`}>
                     <div className='add_content_model_box'>
                         <div className='add_content_model_body'>
                             <div className='add_content_model_header'>
                                 <h3>{isEdit ? "Edit" : 'Add'} {contentType}</h3>
-                                <button
-                                    className='close'
-                                    onClick={handleClose}
-                                >
+                                <button className='close' onClick={handleClose}>
                                     <CloseIcon />
                                 </button>
                             </div>
@@ -120,13 +153,11 @@ const AddContentPopup = ({ open, handleClose, isEdit, editableData, getData, ope
                             <form action="#" className='add_content_model_form'>
                                 <div className="form_group">
                                     <label htmlFor="project_name">Select project</label>
-
                                     <Select
-                                        options={projects?.map((data) => {
-                                            return {
-                                                label: data?.project_name, value: data?.project_id
-                                            }
-                                        })}
+                                        options={projects?.map((data) => ({
+                                            label: data?.project_name,
+                                            value: data?.project_id
+                                        }))}
                                         disable={isDisableProjectSelect}
                                         placeholder={'Search or select project'}
                                         value={values.project_id}
@@ -136,21 +167,25 @@ const AddContentPopup = ({ open, handleClose, isEdit, editableData, getData, ope
                                 </div>
 
                                 <div className="form_group">
-                                    <label htmlFor="project_name" >Select a topic</label>
+                                    <label htmlFor="project_name">Select or create a topic</label>
                                     <div className="project_name">
-                                        <Select
-                                            placeholder={'Select subject'}
+                                        <CreatableSelect
+                                            styles={customStyles}
+                                            placeholder={'Select or type to create a topic'}
                                             options={contentRequirements.map(req => ({
                                                 label: req.title,
                                                 value: req.title
                                             }))}
-                                            value={values.subject}
-                                            onChange={(data) => { setFieldValue('subject', data.value) }}
+                                            value={values.subject ? { label: values.subject, value: values.subject } : null}
+                                            onChange={(data) => setFieldValue('subject', data?.value || '')}
+                                            isClearable
+                                            formatCreateLabel={(inputValue) => `Create topic "${inputValue}"`}
                                         />
                                     </div>
                                 </div>
+
                                 <div className="form_group">
-                                    <label htmlFor="project_name" >Paste URL</label>
+                                    <label htmlFor="project_name">Paste URL</label>
                                     <div className="project_name">
                                         <input
                                             onChange={(e) => setFieldValue('url', e.target.value)}
@@ -166,8 +201,9 @@ const AddContentPopup = ({ open, handleClose, isEdit, editableData, getData, ope
                         <div className='add_content_model_footer'>
                             <button className='cancel_btn' onClick={handleClose}>Cancel</button>
                             <button className='save_btn' onClick={submitForm} disabled={isLoading}>
-                                {
-                                    isLoading ? <> <Loader loading={isLoading} isItForButton={true} /> <span>{isEdit ? 'Save' : 'Submit'}</span> </> : `${isEdit ? 'Save' : 'Submit'}`
+                                {isLoading ? 
+                                    <> <Loader loading={isLoading} isItForButton={true} /> <span>{isEdit ? 'Save' : 'Submit'}</span> </> : 
+                                    `${isEdit ? 'Save' : 'Submit'}`
                                 }
                             </button>
                         </div>

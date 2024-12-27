@@ -150,13 +150,14 @@
                             }
 
                             .option {
-                                display: flex;
+                                display: inline-flex;
                                 align-items: center;
                                 gap: 8px;
-                                padding: 8px 16px;
+                                padding: 6px 12px;
                                 border-radius: 4px;
                                 cursor: pointer;
                                 transition: all 0.2s ease;
+                                min-height: 36px;
 
                                 &.default {
                                     background: rgba(78, 78, 78, 0.2);
@@ -179,33 +180,47 @@
 
                                 input[type="checkbox"] {
                                     appearance: none;
-                                    width: 16px;
-                                    height: 16px;
+                                    -webkit-appearance: none;
+                                    -moz-appearance: none;
+                                    width: 20px;
+                                    height: 20px;
+                                    min-width: 20px;
+                                    min-height: 20px;
                                     border: 1px solid #F5EFDB;
                                     border-radius: 3px;
-                                    background: transparent;
+                                    background-color: transparent;
                                     cursor: pointer;
                                     position: relative;
+                                    margin: 0;
+                                    padding: 0;
+                                    display: inline-block;
+                                    vertical-align: middle;
 
                                     &:checked {
-                                        background: #F5EFDB;
+                                        background-color: #F5EFDB;
 
                                         &::after {
-                                            content: '✓';
+                                            content: '';
                                             position: absolute;
-                                            color: #191917;
-                                            font-size: 12px;
-                                            top: 50%;
-                                            left: 50%;
-                                            transform: translate(-50%, -50%);
+                                            left: 6px;
+                                            top: 2px;
+                                            width: 7px;
+                                            height: 12px;
+                                            border: solid #191917;
+                                            border-width: 0 2px 2px 0;
+                                            transform: rotate(45deg);
                                         }
                                     }
                                 }
 
                                 label {
+                                    display: inline-block;
+                                    vertical-align: middle;
                                     color: #F5EFDB;
                                     font-size: 14px;
                                     cursor: pointer;
+                                    user-select: none;
+                                    margin-left: 8px;
                                 }
                             }
                         }
@@ -289,25 +304,35 @@
 
                                         input[type="checkbox"] {
                                             appearance: none;
-                                            width: 16px;
-                                            height: 16px;
+                                            -webkit-appearance: none;
+                                            -moz-appearance: none;
+                                            width: 20px;
+                                            height: 20px;
+                                            min-width: 20px;
+                                            min-height: 20px;
                                             border: 1px solid #F5EFDB;
                                             border-radius: 3px;
-                                            background: transparent;
+                                            background-color: transparent;
                                             cursor: pointer;
                                             position: relative;
+                                            margin: 0;
+                                            padding: 0;
+                                            display: inline-block;
+                                            vertical-align: middle;
 
                                             &:checked {
-                                                background: #F5EFDB;
+                                                background-color: #F5EFDB;
 
                                                 &::after {
-                                                    content: '✓';
+                                                    content: '';
                                                     position: absolute;
-                                                    color: #191917;
-                                                    font-size: 12px;
-                                                    top: 50%;
-                                                    left: 50%;
-                                                    transform: translate(-50%, -50%);
+                                                    left: 6px;
+                                                    top: 2px;
+                                                    width: 7px;
+                                                    height: 12px;
+                                                    border: solid #191917;
+                                                    border-width: 0 2px 2px 0;
+                                                    transform: rotate(45deg);
                                                 }
                                             }
                                         }

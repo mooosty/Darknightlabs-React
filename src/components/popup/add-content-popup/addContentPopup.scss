@@ -196,32 +196,43 @@
                             gap: 18px;
                             font-size: 16px;
 
-                            .select_wrapper {
-                                .custom_select_field {
-                                    .custom_select_placeholder {
-                                        color: #ffffff9f;
-                                    }
+                            div[class*="-container"] {
+                                width: 100%;
+                                font-family: "Inter", sans-serif;
+                            }
 
-                                    @media (max-width: 1600px) {
-                                        font-size: 14px;
-                                    }
+                            div[class*="-control"] {
+                                border-radius: 0;
+                                border-color: #ffffff80;
+                                transition: all 0.2s ease;
+
+                                &:hover {
+                                    border-color: #ffffff;
+                                }
+
+                                @media (max-width: 1600px) {
+                                    min-height: 42px;
                                 }
                             }
 
-                            input {
-                                padding: 15px 24px;
-                                border: 1px solid #ffffff80;
-                                background-color: transparent;
-                                width: 100%;
-                                color: #f5efdb;
-                                line-height: 19px;
-                                font-size: 16px;
-                                font-weight: 500;
-                                margin-bottom: 8px;
+                            div[class*="-ValueContainer"] {
+                                padding: 2px 15px;
+                            }
 
-                                @media (max-width: 1600px) {
-                                    padding: 10px 15px;
-                                    font-size: 14px;
+                            div[class*="-menu"] {
+                                margin-top: 4px;
+                                border-radius: 4px;
+                                overflow: hidden;
+                                z-index: 100;
+                            }
+
+                            div[class*="-option"] {
+                                padding: 12px 15px;
+                                cursor: pointer;
+                                transition: background-color 0.2s ease;
+
+                                &:active {
+                                    background-color: rgba(245, 239, 219, 0.2);
                                 }
                             }
                         }
