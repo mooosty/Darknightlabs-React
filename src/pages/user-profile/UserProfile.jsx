@@ -359,14 +359,21 @@ const UserProfile = () => {
     setIsLoading(true);
     let updated_profile_picture = values?.profile_picture;
     if (isImageChange) {
-      const formData = new FormData();
-      formData.append("file", image);
-      const response = await axios.post(`${import.meta.env.VITE_IMAGE_UPLOAD_BASE_URL}/`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      updated_profile_picture = response?.data.image_url;
+      try {
+        const formData = new FormData();
+        formData.append("file", image);
+        const response = await axios.post(`${import.meta.env.VITE_IMAGE_UPLOAD_BASE_URL}/`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        updated_profile_picture = response?.data.image_url;
+      } catch (error) {
+        console.error("Error uploading image:", error);
+        toast.error("Failed to upload profile picture");
+        setIsLoading(false);
+        return;
+      }
     }
 
     const profilePromises = [];
@@ -555,6 +562,12 @@ const UserProfile = () => {
     dispatch(getUsersDetailsAPI(userData?.userId));
   };
 
+  useEffect(() => {
+    if (userData?.userId) {
+      dispatch(getUsersDetailsAPI(userData.userId));
+    }
+  }, [userData?.userId]);
+
   return (
     <>
       {active === "INFORMATION" && (
@@ -605,7 +618,16 @@ const UserProfile = () => {
                   <div className="project_profile">
                     <div className="profile_upload_profile">
                       <img
-                        src={userData?.profile_picture.replace('_normal', '')}
+                        src={
+                          userData?.profile_picture ? 
+                          userData.profile_picture.replace('_normal', '') : 
+                          (values.profile_picture || defaultImg)
+                        }
+                        alt=""
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = defaultImg;
+                        }}
                       />
                     </div>
                     <TelegramAuthButton onSuccess={handleTelegramSuccess} />

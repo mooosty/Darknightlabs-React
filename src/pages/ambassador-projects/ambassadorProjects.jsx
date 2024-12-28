@@ -72,12 +72,30 @@ const AmbassadorProjects = () => {
                     <div className="page_data">
                         <div className="ambassador_card_box">
                             <div className="ambassador_card_header">
-                                <div className="header_top">Ambassador-exclusive projects</div>
+                                <div className="header_top">Ambassador Projects</div>
                                 <div className="header_bottom">
                                     <div className="btns">
-                                        <button className={`btn ${activeLayout === 'TRENDING' ? 'active' : ''}`} onClick={() => handleActive('TRENDING')} >Trending</button>
-                                        <button className={`btn ${activeLayout === 'NEWEST' ? 'active' : ''}`} onClick={() => handleActive('NEWEST')} >Newest</button>
-                                        <button className={`btn ${activeLayout === 'OLDEST' ? 'active' : ''}`} onClick={() => handleActive('OLDEST')} >Oldest</button>
+                                        <button
+                                            className={`btn ${activeLayout === 'TRENDING' ? 'active' : ''}`}
+                                            onClick={() => handleActive('TRENDING')}
+                                            data-type="trending"
+                                        >
+                                            Trending
+                                        </button>
+                                        <button
+                                            className={`btn ${activeLayout === 'NEWEST' ? 'active' : ''}`}
+                                            onClick={() => handleActive('NEWEST')}
+                                            data-type="newest"
+                                        >
+                                            Newest
+                                        </button>
+                                        <button
+                                            className={`btn ${activeLayout === 'OLDEST' ? 'active' : ''}`}
+                                            onClick={() => handleActive('OLDEST')}
+                                            data-type="oldest"
+                                        >
+                                            Oldest
+                                        </button>
                                     </div>
                                 </div>
                             </div>

@@ -1,47 +1,15 @@
 .ambassador_card {
-    width: 100%;
-    border-radius: 10px;
-    height: 100%;
     background-color: #242623;
+    border-radius: 9px;
+    overflow: hidden;
+    cursor: pointer;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    padding: 16px 12px;
-    transition: 0.15s;
-    position: relative;
+    transition: transform 0.3s ease;
 
     &:hover {
-        box-shadow: 1px 0px 20px 1px rgba(255, 138, 28, 0.35);
-    }
-
-    .ribbon {
-        position: absolute;
-        top: 20px;
-        right: -5px;
-        padding: 5px 15px;
-        color: white;
-        font-size: 14px;
-        font-weight: bold;
-        z-index: 1;
-
-        &.live {
-            background: linear-gradient(to right, #00D1FF, #31CB5C);
-        }
-
-        &.coming-soon {
-            background: linear-gradient(to right, #FF8A1C, #FFB673);
-        }
-
-        &:after {
-            content: '';
-            position: absolute;
-            right: 0;
-            bottom: -5px;
-            width: 5px;
-            height: 5px;
-            background-color: #242623;
-            clip-path: polygon(0 0, 100% 0, 100% 100%);
-        }
+        transform: translateY(-5px);
     }
 
     .card_img {
@@ -128,4 +96,4 @@
             }
         }
     }
-}
+} 

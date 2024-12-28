@@ -15,6 +15,9 @@ const Ambassadors = ({ handleActive, active }) => {
         instagram: '',
         twitch: ''
     });
+    const [selectedNiches, setSelectedNiches] = useState([]);
+    const [selectedAudiences, setSelectedAudiences] = useState([]);
+    const [selectedSocials, setSelectedSocials] = useState([]);
 
     const defaultNiches = [
         "Gaming/Metaverse/GameFi",
@@ -57,15 +60,43 @@ const Ambassadors = ({ handleActive, active }) => {
         switch(section) {
             case 'niches':
                 setCustomNiches([...customNiches, newCustomField]);
+                setSelectedNiches([...selectedNiches, newCustomField]);
                 break;
             case 'audience':
                 setCustomAudienceTypes([...customAudienceTypes, newCustomField]);
+                setSelectedAudiences([...selectedAudiences, newCustomField]);
                 break;
             case 'socials':
                 setCustomSocials([...customSocials, newCustomField]);
+                setSelectedSocials([...selectedSocials, `custom-social-${customSocials.length}`]);
                 break;
         }
         setNewCustomField('');
+    };
+
+    const handleKeyPress = (e, section) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            handleAddCustomField(section);
+        }
+    };
+
+    const handleDeleteCustom = (type, item) => {
+        switch(type) {
+            case 'niches':
+                setCustomNiches(customNiches.filter(n => n !== item));
+                setSelectedNiches(selectedNiches.filter(n => n !== item));
+                break;
+            case 'audience':
+                setCustomAudienceTypes(customAudienceTypes.filter(t => t !== item));
+                setSelectedAudiences(selectedAudiences.filter(t => t !== item));
+                break;
+            case 'socials':
+                const index = customSocials.indexOf(item);
+                setCustomSocials(customSocials.filter(s => s !== item));
+                setSelectedSocials(selectedSocials.filter(s => s !== `custom-social-${index}`));
+                break;
+        }
     };
 
     return (
@@ -109,17 +140,47 @@ const Ambassadors = ({ handleActive, active }) => {
                                 <div className="options_container">
                                     <div className="default_options">
                                         {defaultNiches.map((niche, index) => (
-                                            <div key={index} className="option default">
-                                                <input type="checkbox" id={`niche-${index}`} />
-                                                <label htmlFor={`niche-${index}`}>{niche}</label>
+                                            <div 
+                                                key={index} 
+                                                className={`option default ${selectedNiches.includes(niche) ? 'selected' : ''}`}
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    const newSelected = selectedNiches.includes(niche)
+                                                        ? selectedNiches.filter(n => n !== niche)
+                                                        : [...selectedNiches, niche];
+                                                    setSelectedNiches(newSelected);
+                                                }}
+                                            >
+                                                <label>{niche}</label>
                                             </div>
                                         ))}
                                     </div>
                                     <div className="custom_options">
                                         {customNiches.map((niche, index) => (
-                                            <div key={`custom-${index}`} className="option custom">
-                                                <input type="checkbox" id={`custom-niche-${index}`} />
-                                                <label htmlFor={`custom-niche-${index}`}>{niche}</label>
+                                            <div 
+                                                key={`custom-${index}`} 
+                                                className={`option custom ${selectedNiches.includes(niche) ? 'selected' : ''}`}
+                                            >
+                                                <div
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        const newSelected = selectedNiches.includes(niche)
+                                                            ? selectedNiches.filter(n => n !== niche)
+                                                            : [...selectedNiches, niche];
+                                                        setSelectedNiches(newSelected);
+                                                    }}
+                                                >
+                                                    <label>{niche}</label>
+                                                </div>
+                                                <span 
+                                                    className="delete-btn"
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        handleDeleteCustom('niches', niche);
+                                                    }}
+                                                >
+                                                    ×
+                                                </span>
                                             </div>
                                         ))}
                                     </div>
@@ -133,6 +194,7 @@ const Ambassadors = ({ handleActive, active }) => {
                                             setActiveSection('niches');
                                             setNewCustomField(e.target.value);
                                         }}
+                                        onKeyPress={(e) => handleKeyPress(e, 'niches')}
                                     />
                                     <button onClick={() => handleAddCustomField('niches')}>Add</button>
                                 </div>
@@ -144,17 +206,47 @@ const Ambassadors = ({ handleActive, active }) => {
                                 <div className="options_container">
                                     <div className="default_options">
                                         {defaultAudienceTypes.map((type, index) => (
-                                            <div key={index} className="option default">
-                                                <input type="checkbox" id={`audience-${index}`} />
-                                                <label htmlFor={`audience-${index}`}>{type}</label>
+                                            <div 
+                                                key={index} 
+                                                className={`option default ${selectedAudiences.includes(type) ? 'selected' : ''}`}
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    const newSelected = selectedAudiences.includes(type)
+                                                        ? selectedAudiences.filter(t => t !== type)
+                                                        : [...selectedAudiences, type];
+                                                    setSelectedAudiences(newSelected);
+                                                }}
+                                            >
+                                                <label>{type}</label>
                                             </div>
                                         ))}
                                     </div>
                                     <div className="custom_options">
                                         {customAudienceTypes.map((type, index) => (
-                                            <div key={`custom-${index}`} className="option custom">
-                                                <input type="checkbox" id={`custom-audience-${index}`} />
-                                                <label htmlFor={`custom-audience-${index}`}>{type}</label>
+                                            <div 
+                                                key={`custom-${index}`} 
+                                                className={`option custom ${selectedAudiences.includes(type) ? 'selected' : ''}`}
+                                            >
+                                                <div
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        const newSelected = selectedAudiences.includes(type)
+                                                            ? selectedAudiences.filter(t => t !== type)
+                                                            : [...selectedAudiences, type];
+                                                        setSelectedAudiences(newSelected);
+                                                    }}
+                                                >
+                                                    <label>{type}</label>
+                                                </div>
+                                                <span 
+                                                    className="delete-btn"
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        handleDeleteCustom('audience', type);
+                                                    }}
+                                                >
+                                                    ×
+                                                </span>
                                             </div>
                                         ))}
                                     </div>
@@ -168,6 +260,7 @@ const Ambassadors = ({ handleActive, active }) => {
                                             setActiveSection('audience');
                                             setNewCustomField(e.target.value);
                                         }}
+                                        onKeyPress={(e) => handleKeyPress(e, 'audience')}
                                     />
                                     <button onClick={() => handleAddCustomField('audience')}>Add</button>
                                 </div>
@@ -178,14 +271,21 @@ const Ambassadors = ({ handleActive, active }) => {
                                 <h3>Main Socials</h3>
                                 <div className="socials_container">
                                     {defaultSocials.map((social) => (
-                                        <div key={social.id} className="social_input_group">
-                                            <div className="social_label">
-                                                <input 
-                                                    type="checkbox" 
-                                                    id={`social-${social.id}`}
-                                                    className="social_checkbox"
-                                                />
-                                                <label htmlFor={`social-${social.id}`}>{social.name}</label>
+                                        <div 
+                                            key={social.id} 
+                                            className={`social_input_group ${selectedSocials.includes(social.id) ? 'selected' : ''}`}
+                                        >
+                                            <div 
+                                                className="social_label"
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    const newSelected = selectedSocials.includes(social.id)
+                                                        ? selectedSocials.filter(s => s !== social.id)
+                                                        : [...selectedSocials, social.id];
+                                                    setSelectedSocials(newSelected);
+                                                }}
+                                            >
+                                                <label>{social.name}</label>
                                             </div>
                                             <input
                                                 type="text"
@@ -198,14 +298,32 @@ const Ambassadors = ({ handleActive, active }) => {
                                     ))}
                                     
                                     {customSocials.map((social, index) => (
-                                        <div key={`custom-${index}`} className="social_input_group custom">
-                                            <div className="social_label">
-                                                <input 
-                                                    type="checkbox" 
-                                                    id={`custom-social-${index}`}
-                                                    className="social_checkbox"
-                                                />
-                                                <label htmlFor={`custom-social-${index}`}>{social}</label>
+                                        <div 
+                                            key={`custom-${index}`} 
+                                            className={`social_input_group custom ${selectedSocials.includes(`custom-social-${index}`) ? 'selected' : ''}`}
+                                        >
+                                            <div className="social_label_wrapper">
+                                                <div 
+                                                    className="social_label"
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        const newSelected = selectedSocials.includes(`custom-social-${index}`)
+                                                            ? selectedSocials.filter(s => s !== `custom-social-${index}`)
+                                                            : [...selectedSocials, `custom-social-${index}`];
+                                                        setSelectedSocials(newSelected);
+                                                    }}
+                                                >
+                                                    <label>{social}</label>
+                                                </div>
+                                                <span 
+                                                    className="delete-btn"
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        handleDeleteCustom('socials', social);
+                                                    }}
+                                                >
+                                                    ×
+                                                </span>
                                             </div>
                                             <input
                                                 type="text"
@@ -224,6 +342,7 @@ const Ambassadors = ({ handleActive, active }) => {
                                             setActiveSection('socials');
                                             setNewCustomField(e.target.value);
                                         }}
+                                        onKeyPress={(e) => handleKeyPress(e, 'socials')}
                                     />
                                     <button onClick={() => handleAddCustomField('socials')}>Add</button>
                                 </div>

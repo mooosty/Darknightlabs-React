@@ -190,6 +190,7 @@
                                     display: flex;
                                     background-color: #242623;
                                     padding: 4px;
+                                    flex-wrap: wrap;
 
                                     .btn {
                                         padding: 10px;
@@ -200,14 +201,55 @@
                                         border: none;
                                         color: rgba(230, 234, 238, 0.5);
                                         font-family: MedievalSharp;
+                                        position: relative;
+                                        min-width: 80px;
 
-                                        @media (max-width:1200px) {
-                                            padding: 10px 5px;
+                                        &::before {
+                                            content: '';
+                                            position: absolute;
+                                            top: 4px;
+                                            left: 50%;
+                                            transform: translateX(-50%);
+                                            width: 24px;
+                                            height: 2px;
+                                            border-radius: 1px;
+                                            opacity: 0;
+                                            transition: opacity 0.3s ease;
+                                        }
+
+                                        &[data-type="tweet"]::before {
+                                            background: #1DA1F2;  // Twitter blue
+                                        }
+                                        
+                                        &[data-type="thread"]::before {
+                                            background: #00BA7C;  // Thread green
+                                        }
+                                        
+                                        &[data-type="video"]::before {
+                                            background: #FF0000;  // Video red
+                                        }
+
+                                        &[data-type="youtube"]::before {
+                                            background: #FF0000;  // YouTube red
+                                        }
+                                        
+                                        &[data-type="twitch"]::before {
+                                            background: #9146FF;  // Twitch purple
                                         }
 
                                         &.active {
                                             background-color: rgba(78, 78, 78, 0.58);
                                             color: #F5EFDB;
+
+                                            &::before {
+                                                opacity: 1;
+                                            }
+                                        }
+
+                                        @media (max-width:1200px) {
+                                            padding: 8px;
+                                            min-width: 70px;
+                                            font-size: 14px;
                                         }
                                     }
                                 }
@@ -269,11 +311,10 @@
                                 }
 
                                 .ambassador_card {
-                                    filter: blur(10px);
-                                    transition: filter 0.3s ease;
+                                    transition: transform 0.3s ease;
 
                                     &:hover {
-                                        filter: blur(10px);
+                                        transform: translateY(-5px);
                                     }
                                 }
                             }

@@ -95,7 +95,7 @@ const AmbassadorProjectDetails = () => {
                 <div className="page_data">
                     <div className="page_header">
                         <div className="pagination">
-                            <Link to={`/${ROUTER.ambassadorProjects}`}>Ambassador-exclusive projects</Link>
+                            <Link to={`/${ROUTER.ambassadorProjects}`}>Ambassador Projects</Link>
                             <span>
                                 <RightIcon />
                             </span>

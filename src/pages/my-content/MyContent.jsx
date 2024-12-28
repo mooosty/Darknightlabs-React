@@ -16,7 +16,7 @@ const MyContent = () => {
     const { isLoading: projectApiLoading } = useSelector((state) => state.project)
 
     const [isAddContentPopupOpen, setIsAddContentPopupOpen] = useState(false);
-    const [activeContentLayout, setActiveContentLayout] = useState('Tweet');
+    const [selectedContentTypes, setSelectedContentTypes] = useState(['all']);
     const [isEditContent, setIsEditContent] = useState(false)
     const [editableContentData, setEditableContentData] = useState({})
     const [isDeleteConfirmPopupOpen, setIsDeleteConfirmPopupOpen] = useState(false);
@@ -31,8 +31,18 @@ const MyContent = () => {
         searchBy: "",
     });
 
-    const handleActive = (key) => {
-        setActiveContentLayout(key);
+    const handleActive = (type) => {
+        setSelectedContentTypes(prev => {
+            if (type === 'all') {
+                return ['all'];
+            }
+            
+            const newTypes = prev.includes(type)
+                ? prev.filter(t => t !== type)
+                : [...prev.filter(t => t !== 'all'), type];
+                
+            return newTypes.length === 0 ? ['all'] : newTypes;
+        });
     };
 
     const formatDate = (dateString) => {
@@ -135,13 +145,13 @@ const MyContent = () => {
                         <div className="content_count_box_wrap">
                             <div className="content_count_box">
                                 <div className="text">My Tweets</div>
-                                <div className="number">{filteredContents?.filter((item) => item?.type == 'Tweet').length}</div>
+                                <div className="number">{filteredContents?.filter((item) => item?.type?.toLowerCase() === 'tweet' || item?.type?.toLowerCase() === 'thread').length}</div>
                             </div>
                         </div>
                         <div className="content_count_box_wrap">
                             <div className="content_count_box">
                                 <div className="text">My Videos</div>
-                                <div className="number">{filteredContents?.filter((item) => item?.type == 'Video').length}</div>
+                                <div className="number">{filteredContents?.filter((item) => ['video', 'youtube', 'twitch'].includes(item?.type?.toLowerCase())).length}</div>
                             </div>
                         </div>
                     </div>
@@ -151,26 +161,46 @@ const MyContent = () => {
                                 <div className="all_projects_card_header_bottom">
                                     <div className="btns">
                                         <button
-                                            className={`btn ${activeContentLayout === "Tweet"
-                                                ? "active"
-                                                : ""
-                                                }`}
-                                            onClick={() =>
-                                                handleActive("Tweet")
-                                            }
+                                            className={`btn ${selectedContentTypes.includes("all") ? "active" : ""}`}
+                                            onClick={() => handleActive("all")}
+                                            data-type="all"
+                                        >
+                                            All
+                                        </button>
+                                        <button
+                                            className={`btn ${selectedContentTypes.includes("tweet") ? "active" : ""}`}
+                                            onClick={() => handleActive("tweet")}
+                                            data-type="tweet"
                                         >
                                             Tweets
                                         </button>
                                         <button
-                                            className={`btn ${activeContentLayout === "Video"
-                                                ? "active"
-                                                : ""
-                                                }`}
-                                            onClick={() =>
-                                                handleActive("Video")
-                                            }
+                                            className={`btn ${selectedContentTypes.includes("thread") ? "active" : ""}`}
+                                            onClick={() => handleActive("thread")}
+                                            data-type="thread"
+                                        >
+                                            Threads
+                                        </button>
+                                        <button
+                                            className={`btn ${selectedContentTypes.includes("video") ? "active" : ""}`}
+                                            onClick={() => handleActive("video")}
+                                            data-type="video"
                                         >
                                             Videos
+                                        </button>
+                                        <button
+                                            className={`btn ${selectedContentTypes.includes("youtube") ? "active" : ""}`}
+                                            onClick={() => handleActive("youtube")}
+                                            data-type="youtube"
+                                        >
+                                            YouTube
+                                        </button>
+                                        <button
+                                            className={`btn ${selectedContentTypes.includes("twitch") ? "active" : ""}`}
+                                            onClick={() => handleActive("twitch")}
+                                            data-type="twitch"
+                                        >
+                                            Twitch
                                         </button>
                                     </div>
                                     <div className="button">
@@ -180,7 +210,7 @@ const MyContent = () => {
                                                 setIsEditContent(false)
                                             }}
                                         >
-                                            Add New {activeContentLayout === 'Tweet' && <>Tweet</>} {activeContentLayout === 'Video' && <>Video</>}
+                                            Add New {selectedContentTypes.includes("all") ? "Content" : selectedContentTypes[0].charAt(0).toUpperCase() + selectedContentTypes[0].slice(1)}
                                             <PlusIcon />
                                         </div>
                                     </div>
@@ -191,13 +221,13 @@ const MyContent = () => {
                                     <thead>
                                         <tr>
                                             <th>
-                                                {activeContentLayout === "Tweet"
+                                                {['tweet', 'thread'].includes(selectedContentTypes[0])
                                                     ? "Subject"
                                                     : "Title"
                                                 }
                                             </th>
                                             <th>
-                                                {activeContentLayout === "Tweet"
+                                                {['tweet', 'thread'].includes(selectedContentTypes[0])
                                                     ? "Tweet text"
                                                     : "Description"
                                                 }
@@ -209,12 +239,21 @@ const MyContent = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {
-                                            filteredContents?.filter((item) => item.type == activeContentLayout).map((rowData) => {
+                                        {filteredContents
+                                            ?.filter((item) => 
+                                                selectedContentTypes.includes('all') || 
+                                                selectedContentTypes.includes(item?.type?.toLowerCase())
+                                            )
+                                            .map((rowData) => {
                                                 return (
                                                     <tr key={rowData.id} className={`${rowData.id === 1 || rowData.id === 3 || rowData.id === 6 ? 'highlighted' : ''}`}>
                                                         <td>
                                                             <div className='subject'>
+                                                                {selectedContentTypes.includes("all") && (
+                                                                    <span className="content-type-ribbon" data-type={rowData.type?.toLowerCase()}>
+                                                                        {rowData.type?.charAt(0).toUpperCase() + rowData.type?.slice(1)}
+                                                                    </span>
+                                                                )}
                                                                 <span>{rowData.subject}</span>
                                                             </div>
                                                         </td>
@@ -265,8 +304,12 @@ const MyContent = () => {
                                     </tbody>
                                 </table>
                                 <div className="accordion_warp">
-                                    {
-                                        filteredContents?.filter((item) => item.type == activeContentLayout).map((rowData) => {
+                                    {filteredContents
+                                        ?.filter((item) => 
+                                            selectedContentTypes.includes('all') || 
+                                            selectedContentTypes.includes(item?.type?.toLowerCase())
+                                        )
+                                        .map((rowData) => {
                                             return (<>
                                                 <AmbassadorAccordion
                                                     URL={rowData.url}
@@ -274,6 +317,7 @@ const MyContent = () => {
                                                     subject={rowData.subject}
                                                     tweetText={rowData.tweetText ?? '-'}
                                                     status={rowData.status}
+                                                    contentType={selectedContentTypes.includes("all") ? rowData.type : null}
                                                     onEdit={() => {
                                                         setEditableContentData(rowData)
                                                         setIsEditContent(true)
@@ -284,7 +328,8 @@ const MyContent = () => {
                                                         setDeleteContentId(rowData.content_id)
                                                     }}
                                                 /> </>)
-                                        })}
+                                        })
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -325,7 +370,7 @@ const MyContent = () => {
                 getData={() => { handleGetProjectContent() }}
                 openSuccessPopup={() => setIsSuccessfullyPopupOpen(true)}
                 isDisableProjectSelect={false}
-                contentType={activeContentLayout}
+                contentType={selectedContentTypes[0]}
             />
             <DeleteConfirmPopup
                 title="Are You Sure ?"

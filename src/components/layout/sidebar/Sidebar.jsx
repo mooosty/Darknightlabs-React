@@ -3,18 +3,28 @@ import karmaIcon from "../../../assets/karma-icon.svg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ROUTER } from "../../../utils/routes/routes";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
+import { defaultImg } from "../../../utils/constants/images";
+import { getUsersDetailsAPI } from "../../../api-services/userApis";
 import { ProfileNavTabIcon, ChatNavTabIcon, LogoutNavTabIcon, ProjectNavTabIcon, MyContentNavTabIcon, SynergiesNavTabIcon, InvestmentNavTabIcon, PendingSynergiesNavTabIcon, SynergiesManagerNavTabIcon, KarmaIcon } from "../../../utils/SVGs/SVGs";
 
 const userRole = "ADMIN";
 const Sidebar = () => {
+  const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const [isAmbassadorMode, setIsAmbassadorMode] = useState(false);
   const [userProjects, setUserProjects] = useState([]);
   const userData = useSelector((state) => state.auth);
   const { userDetails } = useSelector((state) => state.user);
+
+  // Fetch user details when component mounts or userData changes
+  useEffect(() => {
+    if (userData?.userId) {
+      dispatch(getUsersDetailsAPI(userData.userId));
+    }
+  }, [userData?.userId]);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -41,6 +51,29 @@ const Sidebar = () => {
     setIsAmbassadorMode(false);
   };
 
+  // Get profile picture from either userDetails or userData
+  const getProfilePicture = () => {
+    // First try userDetails since it's most up-to-date
+    if (userDetails?.profile_picture) {
+      return userDetails.profile_picture;
+    }
+    // Then try userData
+    if (userData?.profile_picture) {
+      return userData.profile_picture;
+    }
+    // Then try Twitter profile picture from auth details if available
+    if (userData?.authDetails?.user?.verifiedCredentials) {
+      const twitterCred = userData.authDetails.user.verifiedCredentials.find(
+        cred => cred.format === 'oauth' && cred.oauth_provider === 'twitter'
+      );
+      if (twitterCred?.oauth_account_photos?.[0]) {
+        return twitterCred.oauth_account_photos[0].replace('_normal', '');
+      }
+    }
+    // Finally fallback to default
+    return defaultImg;
+  };
+
   return (
     <>
       <div className="sidebar_container">
@@ -51,12 +84,23 @@ const Sidebar = () => {
             </>
           )}
           <div className="profile_box">
-            <div className="profile_image">
-              <img src={userData.profile_picture} alt="Profile" />
+            <div className="profile_info">
+              <div className="profile_image">
+                <img 
+                  src={getProfilePicture()} 
+                  alt="Profile"
+                  onError={(e) => {
+                    e.target.onerror = null; // Prevent infinite loop
+                    e.target.src = defaultImg;
+                  }}
+                />
+              </div>
+              <div className="user_details">
+                <h3>{userData?.name?.split(" ")[0] || userDetails?.firstname || "User"}</h3>
+                <p>{userRole}</p>
+              </div>
             </div>
-            <div className="user_name">
-              <h3>{userData.name.split(" ")[0]}</h3>
-              <p>User</p>
+            <div className="user_stats">
               <div className="balance">
                 <span>Karma: {userDetails?.currency_b || 0}</span>
                 <KarmaIcon style={{ width: '1em', height: '1em' }} />
@@ -64,7 +108,6 @@ const Sidebar = () => {
               <div className="loyalty-progress">
                 <div className="loyalty-text">
                   <span>Loyalty</span>
-                  {/* <span>{userDetails?.loyalty_score || 0}</span> */}
                 </div>
                 <div className="progress-bar">
                   <div className="progress" style={{ width: '50%' }}></div>
@@ -190,7 +233,7 @@ const Sidebar = () => {
                 <li className={`${location.pathname.startsWith(`/${ROUTER.ambassadorProjects}`) ? "active" : ""}`}>
                   <Link to={ROUTER.ambassadorProjects}>
                     <ProjectNavTabIcon />
-                    <span className="menu_text">Exclusive Projects</span>
+                    <span className="menu_text">Projects</span>
                   </Link>
                 </li>
               </ul>
@@ -318,7 +361,7 @@ const Sidebar = () => {
                 <li className={`${location.pathname === `/${ROUTER.ambassadorProjects}` ? "active" : ""}`}>
                   <Link to={ROUTER.ambassadorProjects}>
                     <ProjectNavTabIcon />
-                    <span>Exclusive Projects</span>
+                    <span>Projects</span>
                   </Link>
                 </li>
               </>

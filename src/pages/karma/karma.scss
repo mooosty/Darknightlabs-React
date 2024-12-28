@@ -335,4 +335,263 @@
             }
         }
     }
+
+    .invite_tree {
+        margin-top: 2rem;
+        padding: 3rem 2rem;
+        background: #F5EFDB;
+        border-radius: 12px;
+        position: relative;
+        overflow: hidden;
+
+        // Aged parchment texture
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+                radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.05), transparent 80%);
+            background-size: 20px 20px, 20px 20px, 100% 100%;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        // Vignette effect
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(58, 36, 23, 0.4));
+            pointer-events: none;
+        }
+
+        h3 {
+            color: #3A2417;
+            font-family: "MedievalSharp", cursive;
+            font-size: 32px;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .tree_container {
+            display: flex;
+            justify-content: center;
+            padding: 2rem;
+            min-height: 600px;
+            position: relative;
+            z-index: 2;
+
+            // Tree foliage background
+            &::before {
+                content: '';
+                position: absolute;
+                top: -50px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 90%;
+                height: 90%;
+                background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 800'%3E%3Cpath d='M500,10 C700,10 900,200 900,400 C900,600 700,790 500,790 C300,790 100,600 100,400 C100,200 300,10 500,10 Z' fill='%23242623' opacity='0.9'/%3E%3C/svg%3E") no-repeat center;
+                background-size: contain;
+                z-index: -1;
+                filter: drop-shadow(0 0 20px rgba(0,0,0,0.3));
+            }
+
+            // Tree trunk
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 80px;
+                height: 200px;
+                background: linear-gradient(90deg, #2A1810 0%, #3A2417 50%, #2A1810 100%);
+                border-radius: 10px;
+                box-shadow: 
+                    inset -5px 0 10px rgba(0,0,0,0.4),
+                    inset 5px 0 10px rgba(0,0,0,0.4);
+            }
+        }
+
+        .node_content {
+            background: #F5EFDB;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            min-width: 150px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            border: 1px solid rgba(58, 36, 23, 0.3);
+            box-shadow: 
+                0 2px 4px rgba(0, 0, 0, 0.1),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+
+            // Special styling for ellipsis node
+            &:has(.username:contains('...')) {
+                min-width: 60px;
+                padding: 0.75rem;
+                background: rgba(245, 239, 219, 0.7);
+                border-style: dashed;
+
+                .username {
+                    font-size: 20px;
+                    line-height: 1;
+                    margin: 0;
+                }
+            }
+
+            // Level 2 and 3 nodes
+            .branches.level2 &,
+            .branches.level3 & {
+                min-width: 150px;
+                padding: 0.75rem 1.5rem;
+                background: rgba(245, 239, 219, 0.9);
+            }
+
+            .username {
+                display: block;
+                color: #3A2417;
+                font-family: "MedievalSharp", cursive;
+                font-size: 16px;
+                margin-bottom: 4px;
+                font-weight: 500;
+            }
+
+            .invite_count {
+                display: block;
+                color: #5C4033;
+                font-size: 14px;
+            }
+
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 
+                    0 4px 8px rgba(0, 0, 0, 0.15),
+                    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+            }
+        }
+
+        .tree_node {
+            &.root {
+                > .node_content {
+                    border: 2px solid #3A2417;
+                    background: #F5EFDB;
+                    box-shadow: 
+                        0 2px 8px rgba(0, 0, 0, 0.2),
+                        inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+                }
+            }
+        }
+
+        .branches {
+            display: flex;
+            padding-top: 2rem;
+            position: relative;
+
+            &.level1 { 
+                gap: 8rem; 
+            }
+            
+            &.level2 { 
+                gap: 6rem; 
+            }
+            
+            &.level3 { 
+                gap: 4rem; 
+            }
+
+            // Branch connections
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 100%;
+                background: #3A2417;
+                width: 2px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .tree_node {
+                position: relative;
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: -2rem;
+                    left: 50%;
+                    width: 2px;
+                    height: 2rem;
+                    background: #3A2417;
+                    transform: translateX(-50%);
+                }
+            }
+        }
+
+        @media (max-width: 1024px) {
+            padding: 2rem 1rem;
+
+            .tree_container {
+                padding: 1rem;
+                min-height: 400px;
+                overflow-x: auto;
+                width: 100%;
+                min-width: 600px;
+
+                &::before {
+                    width: 95%;
+                }
+            }
+
+            .branches {
+                &.level1 { gap: 4rem; }
+                &.level2 { gap: 3rem; }
+                &.level3 { gap: 2rem; }
+            }
+
+            .node_content {
+                min-width: 120px;
+                padding: 0.5rem 1rem;
+                font-size: 14px;
+
+                .username {
+                    font-size: 14px;
+                }
+
+                .invite_count {
+                    font-size: 12px;
+                }
+            }
+        }
+
+        @media (max-width: 767px) {
+            .tree_container {
+                min-width: 500px;
+            }
+
+            .branches {
+                &.level1 { gap: 3rem; }
+                &.level2 { gap: 2rem; }
+                &.level3 { gap: 1.5rem; }
+            }
+
+            .node_content {
+                min-width: 100px;
+                padding: 0.4rem 0.8rem;
+            }
+        }
+    }
 }
