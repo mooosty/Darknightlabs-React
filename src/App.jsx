@@ -11,7 +11,7 @@ import UserProfile from "./pages/user-profile/UserProfile";
 import Chats from './pages/chats/Chats'
 import InitialDataLoader from './components/InitialDataLoader';
 import SynergiesDetails from './pages/synergies/synergies-details/SynergiesDetails'
-
+import AnnouncementFeed from './pages/announcement-feed/AnnouncementFeed';
 import Karma from "./pages/karma/Karma";
 import MyContent from './pages/my-content/MyContent'
 import AmbassadorProjects from './pages/ambassador-projects/ambassadorProjects'
@@ -33,6 +33,7 @@ function App() {
         <Route path={`/${ROUTER.authentication}`} element={<Authentication />} />
         <Route path="/" element={<Layout />}>
           <Route path="/welcome" element={<Welcome />} />
+          <Route path={ROUTER.announcementFeed} element={<AnnouncementFeed />} />
           <Route path={`/${ROUTER.projects}`} element={<ProtectedFeatureRoute feature="PROJECTS">
             <Projects />
           </ProtectedFeatureRoute>} />

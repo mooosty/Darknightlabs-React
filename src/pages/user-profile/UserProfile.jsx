@@ -711,26 +711,10 @@ const UserProfile = () => {
                             ) : "-"}
                           </div>
                         </div>
-
-                        <div className="profile_info">
-                          <div className="profile_head">Angel investor</div>
-                          <div className="profile_data">{userDetails?.question1 || "-"}</div>
-                        </div>
                         <div className="profile_info">
                           <div className="profile_head">Go to Web3 events</div>
                           <div className="profile_data">{userDetails?.question2 || "-"}</div>
                         </div>
-
-                        <div className="profile_info">
-                          <div className="profile_head">Main City</div>
-                          <div className="profile_data">{userDetails?.primary_city || "-"}</div>
-                        </div>
-                        <div className="profile_info">
-                          <div className="profile_head">Secondary Cities</div>
-                          <div className="profile_data">{userDetails?.secondary_city || "-"}</div>
-                        </div>
-
-
                         <div className="profile_info">
                           <div className="profile_head">Role</div>
                           <div className="profile_data">
@@ -746,7 +730,18 @@ const UserProfile = () => {
                             }).join(', ') || "-"}
                           </div>
                         </div>
-
+                        <div className="profile_info">
+                          <div className="profile_head">Angel investor</div>
+                          <div className="profile_data">{userDetails?.question1 || "-"}</div>
+                        </div>
+                        <div className="profile_info">
+                          <div className="profile_head">Main City</div>
+                          <div className="profile_data">{userDetails?.primary_city || "-"}</div>
+                        </div>
+                        <div className="profile_info">
+                          <div className="profile_head">Secondary Cities</div>
+                          <div className="profile_data">{userDetails?.secondary_city || "-"}</div>
+                        </div>
                       </div>
                       <div className="profile_bio_data">
                         <div className="profile_bio_head">Personal Bio</div>
@@ -1165,6 +1160,51 @@ const UserProfile = () => {
                       </div>
 
                       <div className="form_group_row">
+                        <div className="profile_info">
+                          <label>Main City (for timezone and events) e.g. Paris, France </label>
+                          <input
+                            type="text"
+                            name="primary_city"
+                            value={values?.primary_city}
+                            onChange={handleChange}
+                            placeholder="Primary City"
+                          />
+                        </div>
+                        <div className="profile_info">
+                          <label>Secondary cities (separate each with a '/')</label>
+                          <input
+                            type="text"
+                            name="secondary_city"
+                            value={values?.secondary_city}
+                            onChange={handleChange}
+                            placeholder="Secondary Cities"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="form_group_row">
+                        <div className="profile_info">
+                          <div className="profile_head">Go to Web3 events</div>
+                          <div className="profile_data">{userDetails?.question2 || "-"}</div>
+                        </div>
+                        <div className="profile_info">
+                          <div className="profile_head">Role</div>
+                          <div className="profile_data">
+                            {userDetails?.roles?.split(',').map(role => {
+                              switch(role.trim()) {
+                                case 'A Founder': return 'Founder';
+                                case 'A C-level': return 'C-level';
+                                case 'A Web3 employee': return 'Web3 employee';
+                                case 'A KOL / Ambassador / Content Creator': return 'KOL / Ambassador / Content Creator';
+                                case 'An Angel Investor': return 'Angel Investor';
+                                default: return role.trim();
+                              }
+                            }).join(', ') || "-"}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="form_group_row">
                         <div className="profile_info full_width">
                           <label>Role</label>
                           <div className="options_container">
@@ -1278,27 +1318,34 @@ const UserProfile = () => {
 
                       <div className="form_group_row">
                         <div className="profile_info">
-                          <label>What is your main city (for timezone and events) e.g. Paris, France </label>
-                          <input
-                            type="text"
-                            name="primary_city"
-                            value={values?.primary_city}
-                            onChange={handleChange}
-                            placeholder="Primary City"
-                          />
+                          <div className="profile_head">Main City</div>
+                          <div className="profile_data">{userDetails?.primary_city || "-"}</div>
+                        </div>
+                        <div className="profile_info">
+                          <div className="profile_head">Secondary Cities</div>
+                          <div className="profile_data">{userDetails?.secondary_city || "-"}</div>
                         </div>
                       </div>
 
                       <div className="form_group_row">
                         <div className="profile_info">
-                          <label>Secondary cities (separate each with a &apos;/&apos;)</label>
-                          <input
-                            type="text"
-                            name="secondary_city"
-                            value={values?.secondary_city}
-                            onChange={handleChange}
-                            placeholder="Secondary Cities"
-                          />
+                          <div className="profile_head">Go to Web3 events</div>
+                          <div className="profile_data">{userDetails?.question2 || "-"}</div>
+                        </div>
+                        <div className="profile_info">
+                          <div className="profile_head">Role</div>
+                          <div className="profile_data">
+                            {userDetails?.roles?.split(',').map(role => {
+                              switch(role.trim()) {
+                                case 'A Founder': return 'Founder';
+                                case 'A C-level': return 'C-level';
+                                case 'A Web3 employee': return 'Web3 employee';
+                                case 'A KOL / Ambassador / Content Creator': return 'KOL / Ambassador / Content Creator';
+                                case 'An Angel Investor': return 'Angel Investor';
+                                default: return role.trim();
+                              }
+                            }).join(', ') || "-"}
+                          </div>
                         </div>
                       </div>
                     </div>

@@ -133,6 +133,14 @@ const Sidebar = () => {
               <>
                 <div className="menu-box">
                   <ul>
+                    <li className={`${location.pathname.startsWith(`/${ROUTER.announcementFeed}`) ? "active" : ""}`}>
+                      <Link to={ROUTER.announcementFeed}>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '20px', height: '20px' }}>
+                          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                        <span className="menu_text">Announcements</span>
+                      </Link>
+                    </li>
                     <li className={`${location.pathname.startsWith(`/${ROUTER.projects}`) ? "active" : ""} ${userProjects.length !== -1 ? "disabled" : ""}`}>
                       <Link to={ROUTER.projects}>
                         <ProfileNavTabIcon />
@@ -286,6 +294,14 @@ const Sidebar = () => {
           <ul>
             {!isAmbassadorMode ? (
               <>
+                <li className={`${location.pathname === `/${ROUTER.announcementFeed}` ? "active" : ""}`}>
+                  <Link to={ROUTER.announcementFeed}>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '20px', height: '20px' }}>
+                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    <span>Announcements</span>
+                  </Link>
+                </li>
                 <li className={`${location.pathname === `/${ROUTER.projects}` ? "active" : ""} ${userProjects?.length !== -1? "disabled" : ""}`}>
                   <Link to={ROUTER.projects}>
                     <ProjectNavTabIcon />
