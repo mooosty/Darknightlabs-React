@@ -16,6 +16,8 @@
         align-items: center;
         justify-content: space-between;
         margin-bottom: 32px;
+        margin-top: -24px;
+        padding-top: 24px;
 
         @media (max-width: 1600px) {
             margin-bottom: 20px;
@@ -150,11 +152,11 @@
         border-radius: 20px;
         background-color: #191917;
         min-height: 450px;
-        height: calc(100% - 80px);
+        height: calc(100vh - 222px);
         position: relative;
 
         @media (max-width: 1600px) {
-            height: calc(100% - 40px);
+            height: calc(100vh - 155px);
         }
 
         @media (max-width: 767px) {
@@ -542,12 +544,12 @@
     .investments_page_data {
         background-color: #191917;
         border-radius: 20px;
-        height: calc(100% - 80px);
+        height: calc(100vh - 180px);
         padding: 20px 0px;
         min-height: 450px;
 
         @media (max-width: 1600px) {
-            height: calc(100% - 40px);
+            height: calc(100vh - 180px);
         }
 
         @media (max-width: 767px) {

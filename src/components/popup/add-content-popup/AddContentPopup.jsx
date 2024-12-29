@@ -24,11 +24,18 @@ const AddContentPopup = ({ open, handleClose, isEdit, editableData, getData, ope
     const formik = useFormik({
         initialValues: {
             project_id: '',
-            type: contentType,
+            type: contentType === 'all' ? '' : contentType,
             subject: '',
             url: '',
             user_id: userData?.userId,
             status: 'Submitted'
+        },
+        validate: (values) => {
+            const errors = {};
+            if (contentType === 'all' && !values.type) {
+                errors.type = 'Content type is required';
+            }
+            return errors;
         },
         onSubmit: (values) => {
             const isValid = Object.values(values).every(value => value)
@@ -151,6 +158,24 @@ const AddContentPopup = ({ open, handleClose, isEdit, editableData, getData, ope
                             </div>
 
                             <form action="#" className='add_content_model_form'>
+                                {contentType === 'all' && (
+                                    <div className="form_group">
+                                        <label htmlFor="content_type">Content Type</label>
+                                        <Select
+                                            options={[
+                                                { label: 'Tweet', value: 'tweet' },
+                                                { label: 'Thread', value: 'thread' },
+                                                { label: 'Video', value: 'video' },
+                                                { label: 'YouTube', value: 'youtube' },
+                                                { label: 'Twitch', value: 'twitch' }
+                                            ]}
+                                            placeholder={'Select content type'}
+                                            value={values.type}
+                                            onChange={(data) => setFieldValue('type', data.value)}
+                                            isSearchable={false}
+                                        />
+                                    </div>
+                                )}
                                 <div className="form_group">
                                     <label htmlFor="project_name">Select project</label>
                                     <Select

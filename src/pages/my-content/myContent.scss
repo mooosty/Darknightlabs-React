@@ -1,7 +1,14 @@
 .page_box {
     .content_box {
         .my_content_Wraper {
-            height: 100%;
+            height: calc(100vh - 120px);
+            min-height: 500px;
+            margin-top: -24px;
+            padding-top: 24px;
+            
+            @media(max-width: 1600px) {
+                height: calc(100vh - 85px);
+            }
 
             .my_content_header {
                 display: flex;
