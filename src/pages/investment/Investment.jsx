@@ -757,7 +757,6 @@ const Investment = () => {
                       })
                     }}
                   />
-                  <WalletConnect onConnect={handleConnectWallet} account={walletAddress ?? ''} />
                 </div>
               </div>
               <div className="investment_page_body">
