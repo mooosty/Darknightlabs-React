@@ -10,7 +10,7 @@ import { defaultImg } from "../../../utils/constants/images";
 import { getUsersDetailsAPI } from "../../../api-services/userApis";
 import { ProfileNavTabIcon, ChatNavTabIcon, LogoutNavTabIcon, ProjectNavTabIcon, MyContentNavTabIcon, SynergiesNavTabIcon, InvestmentNavTabIcon, PendingSynergiesNavTabIcon, SynergiesManagerNavTabIcon, KarmaIcon } from "../../../utils/SVGs/SVGs";
 
-const userRole = "ADMINa";
+const userRole = "USER";
 const Sidebar = () => {
   const dispatch = useDispatch();
   const location = useLocation();
