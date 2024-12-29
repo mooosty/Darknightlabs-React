@@ -612,7 +612,8 @@
                 .title {
                     font-size: 32px;
                     font-weight: 600;
-                    margin-bottom: 24px;
+                    margin-top: 60px;
+                    margin-bottom: 80px;
                     font-family: "MedievalSharp", cursive;
                 }
 
@@ -620,6 +621,8 @@
                     font-size: 16px;
                     line-height: 1.6;
                     margin-bottom: 30px;
+                    opacity: 0.8;
+                    padding-top: 20px;
                 }
 
                 .section {
@@ -746,38 +749,37 @@
                             }
 
                             .radio-group {
+                                margin-top: 8px;
                                 display: flex;
                                 flex-direction: column;
                                 gap: 10px;
 
                                 label {
-                                    display: flex;
-                                    align-items: center;
-                                    gap: 8px;
-                                    cursor: pointer;
-                                    font-size: 14px;
-                                    margin: 0;
-                                    color: rgba(245, 239, 219, 0.9);
-
+                                    display: flex !important;
+                                    align-items: center !important;
+                                    width: fit-content !important;
+                                    margin: 0 !important;
+                                    
                                     input[type="radio"] {
+                                        width: 16px !important;
+                                        height: 16px !important;
+                                        padding: 0 !important;
+                                        margin: 0 8px 0 0 !important;
                                         appearance: none;
-                                        width: 18px;
-                                        height: 18px;
                                         border: 2px solid rgba(245, 239, 219, 0.4);
                                         border-radius: 50%;
-                                        margin: 0;
+                                        background: none;
                                         position: relative;
-                                        cursor: pointer;
 
                                         &:checked {
-                                            border-color: #ff8a1c;
-
+                                            border-color: #dbbf57;
+                                            
                                             &:after {
                                                 content: '';
                                                 position: absolute;
-                                                width: 10px;
-                                                height: 10px;
-                                                background: #ff8a1c;
+                                                width: 8px;
+                                                height: 8px;
+                                                background: #dbbf57;
                                                 border-radius: 50%;
                                                 top: 50%;
                                                 left: 50%;
@@ -936,9 +938,17 @@
 
 
 .karma_needed {
-    margin-top: 16px;
-    font-family: Arial, sans-serif; // Normal font
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #F5EFDB;
     font-size: 14px;
-    color: #fff;
+    margin-top: 8px;
     opacity: 0.8;
+
+    svg {
+        width: 16px;
+        height: 16px;
+        color: #F5EFDB;
+    }
 }

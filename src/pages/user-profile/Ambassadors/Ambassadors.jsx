@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './ambassadors.scss'
+import axios from 'axios';
 
-const Ambassadors = ({ handleActive, active }) => {
+const Ambassadors = ({ handleActive, active, uid, userData }) => {
     const [customNiches, setCustomNiches] = useState([]);
     const [customAudienceTypes, setCustomAudienceTypes] = useState([]);
     const [customSocials, setCustomSocials] = useState([]);
@@ -18,6 +19,152 @@ const Ambassadors = ({ handleActive, active }) => {
     const [selectedNiches, setSelectedNiches] = useState([]);
     const [selectedAudiences, setSelectedAudiences] = useState([]);
     const [selectedSocials, setSelectedSocials] = useState([]);
+    const [customExplanations, setCustomExplanations] = useState({
+        niches: {},
+        audience: {}
+    });
+    const [isSaving, setIsSaving] = useState(false);
+    const [isExistingAmbassador, setIsExistingAmbassador] = useState(false);
+
+    useEffect(() => {
+        if (uid) {
+            checkAmbassadorExists();
+        }
+    }, [uid]);
+
+    const checkAmbassadorExists = async () => {
+        try {
+            const response = await axios.get(`https://winwinsocietyweb3.com/api/ambassadors/uid/${uid}`);
+            if (response.data) {
+                setIsExistingAmbassador(true);
+                const data = response.data;
+                
+                // Set niches
+                if (data.niches) {
+                    const defaultNichesList = defaultNiches.filter(niche => data.niches[niche] === true);
+                    const customNichesList = Object.entries(data.niches)
+                        .filter(([key, value]) => !defaultNiches.includes(key) && key !== '_uid')
+                        .map(([key]) => key);
+                    
+                    setCustomNiches(customNichesList);
+                    setSelectedNiches([...defaultNichesList, ...customNichesList]);
+                    setCustomExplanations(prev => ({
+                        ...prev,
+                        niches: Object.fromEntries(
+                            Object.entries(data.niches)
+                                .filter(([key, value]) => typeof value === 'string' && value.length > 0)
+                        )
+                    }));
+                }
+
+                // Set audience types
+                if (data.audience_type) {
+                    const defaultAudienceList = defaultAudienceTypes.filter(type => data.audience_type[type] === true);
+                    const customAudienceList = Object.entries(data.audience_type)
+                        .filter(([key, value]) => !defaultAudienceTypes.includes(key) && key !== '_uid')
+                        .map(([key]) => key);
+                    
+                    setCustomAudienceTypes(customAudienceList);
+                    setSelectedAudiences([...defaultAudienceList, ...customAudienceList]);
+                    setCustomExplanations(prev => ({
+                        ...prev,
+                        audience: Object.fromEntries(
+                            Object.entries(data.audience_type)
+                                .filter(([key, value]) => typeof value === 'string' && value.length > 0)
+                        )
+                    }));
+                }
+
+                // Set social handles
+                if (data.main_socials) {
+                    const defaultSocialIds = defaultSocials.map(s => s.id);
+                    const customSocialsList = Object.keys(data.main_socials)
+                        .filter(key => !defaultSocialIds.includes(key));
+                    
+                    setCustomSocials(customSocialsList);
+                    setSocialHandles(data.main_socials);
+                    setSelectedSocials(Object.keys(data.main_socials));
+                }
+            }
+        } catch (error) {
+            setIsExistingAmbassador(false);
+            console.error('Error checking ambassador data:', error);
+        }
+    };
+
+    const handleSave = async () => {
+        if (isSaving) return;
+        setIsSaving(true);
+
+        const payload = {
+            niches: {},
+            audience_type: {},
+            main_socials: {}
+        };
+
+        // Add _uid only for POST request
+        if (!isExistingAmbassador) {
+            payload._uid = uid;
+        }
+
+        // Prepare niches data
+        defaultNiches.forEach(niche => {
+            if (selectedNiches.includes(niche)) {
+                payload.niches[niche] = true;
+            }
+        });
+        // Add custom niches with explanations
+        customNiches.forEach(niche => {
+            if (selectedNiches.includes(niche)) {
+                payload.niches[niche] = customExplanations.niches[niche] || '';
+            }
+        });
+
+        // Prepare audience types data
+        defaultAudienceTypes.forEach(type => {
+            if (selectedAudiences.includes(type)) {
+                payload.audience_type[type] = true;
+            }
+        });
+        // Add custom audience types with explanations
+        customAudienceTypes.forEach(type => {
+            if (selectedAudiences.includes(type)) {
+                payload.audience_type[type] = customExplanations.audience[type] || '';
+            }
+        });
+
+        // Prepare socials data - include all social handles that have values
+        [...defaultSocials.map(social => social.id), ...customSocials].forEach(socialId => {
+            const value = socialHandles[socialId];
+            if (value && value.trim()) {
+                payload.main_socials[socialId] = value.trim();
+            }
+        });
+
+        console.log('Saving payload:', payload); // Debug log
+
+        try {
+            if (isExistingAmbassador) {
+                const response = await axios({
+                    method: 'put',
+                    url: `https://winwinsocietyweb3.com/api/ambassadors/${uid}`,
+                    data: payload,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                console.log('PUT response:', response.data);
+            } else {
+                const response = await axios.post('https://winwinsocietyweb3.com/api/ambassadors', payload);
+                console.log('POST response:', response.data);
+                setIsExistingAmbassador(true);
+            }
+        } catch (error) {
+            console.error('Error saving ambassador data:', error.response?.data || error.message);
+        } finally {
+            setIsSaving(false);
+        }
+    };
 
     const defaultNiches = [
         "Gaming/Metaverse/GameFi",
@@ -68,7 +215,11 @@ const Ambassadors = ({ handleActive, active }) => {
                 break;
             case 'socials':
                 setCustomSocials([...customSocials, newCustomField]);
-                setSelectedSocials([...selectedSocials, `custom-social-${customSocials.length}`]);
+                setSelectedSocials([...selectedSocials, newCustomField]);
+                setSocialHandles(prev => ({
+                    ...prev,
+                    [newCustomField]: ''  // Initialize the handle for the new social platform
+                }));
                 break;
         }
         setNewCustomField('');
@@ -81,20 +232,27 @@ const Ambassadors = ({ handleActive, active }) => {
         }
     };
 
-    const handleDeleteCustom = (type, item) => {
-        switch(type) {
+    const handleDeleteCustom = (section, value) => {
+        switch(section) {
             case 'niches':
-                setCustomNiches(customNiches.filter(n => n !== item));
-                setSelectedNiches(selectedNiches.filter(n => n !== item));
+                setCustomNiches(customNiches.filter(niche => niche !== value));
+                setSelectedNiches(selectedNiches.filter(niche => niche !== value));
+                setCustomExplanations(prev => {
+                    const { [value]: removed, ...rest } = prev.niches;
+                    return { ...prev, niches: rest };
+                });
                 break;
             case 'audience':
-                setCustomAudienceTypes(customAudienceTypes.filter(t => t !== item));
-                setSelectedAudiences(selectedAudiences.filter(t => t !== item));
+                setCustomAudienceTypes(customAudienceTypes.filter(type => type !== value));
+                setSelectedAudiences(selectedAudiences.filter(type => type !== value));
+                setCustomExplanations(prev => {
+                    const { [value]: removed, ...rest } = prev.audience;
+                    return { ...prev, audience: rest };
+                });
                 break;
             case 'socials':
-                const index = customSocials.indexOf(item);
-                setCustomSocials(customSocials.filter(s => s !== item));
-                setSelectedSocials(selectedSocials.filter(s => s !== `custom-social-${index}`));
+                setCustomSocials(customSocials.filter(social => social !== value));
+                setSelectedSocials(selectedSocials.filter(social => social !== value));
                 break;
         }
     };
@@ -160,6 +318,7 @@ const Ambassadors = ({ handleActive, active }) => {
                                             <div 
                                                 key={`custom-${index}`} 
                                                 className={`option custom ${selectedNiches.includes(niche) ? 'selected' : ''}`}
+                                                title={customExplanations.niches[niche] || ''}
                                             >
                                                 <div
                                                     onClick={(e) => {
@@ -181,21 +340,38 @@ const Ambassadors = ({ handleActive, active }) => {
                                                 >
                                                     ×
                                                 </span>
+                                                {customExplanations.niches[niche] && (
+                                                    <div className="tooltip">{customExplanations.niches[niche]}</div>
+                                                )}
                                             </div>
                                         ))}
                                     </div>
                                 </div>
                                 <div className="add_custom_field">
-                                    <input
-                                        type="text"
-                                        placeholder="Add custom niche"
-                                        value={activeSection === 'niches' ? newCustomField : ''}
-                                        onChange={(e) => {
-                                            setActiveSection('niches');
-                                            setNewCustomField(e.target.value);
-                                        }}
-                                        onKeyPress={(e) => handleKeyPress(e, 'niches')}
-                                    />
+                                    <div className="input_group">
+                                        <input
+                                            type="text"
+                                            placeholder="Add custom niche"
+                                            value={activeSection === 'niches' ? newCustomField : ''}
+                                            onChange={(e) => {
+                                                setActiveSection('niches');
+                                                setNewCustomField(e.target.value);
+                                            }}
+                                            onKeyPress={(e) => handleKeyPress(e, 'niches')}
+                                        />
+                                        <textarea
+                                            placeholder="Explain briefly your custom niche (optional)"
+                                            value={customExplanations.niches[newCustomField] || ''}
+                                            onChange={(e) => setCustomExplanations(prev => ({
+                                                ...prev,
+                                                niches: {
+                                                    ...prev.niches,
+                                                    [newCustomField]: e.target.value
+                                                }
+                                            }))}
+                                            className="explanation_field"
+                                        />
+                                    </div>
                                     <button onClick={() => handleAddCustomField('niches')}>Add</button>
                                 </div>
                             </div>
@@ -226,6 +402,7 @@ const Ambassadors = ({ handleActive, active }) => {
                                             <div 
                                                 key={`custom-${index}`} 
                                                 className={`option custom ${selectedAudiences.includes(type) ? 'selected' : ''}`}
+                                                title={customExplanations.audience[type] || ''}
                                             >
                                                 <div
                                                     onClick={(e) => {
@@ -247,21 +424,38 @@ const Ambassadors = ({ handleActive, active }) => {
                                                 >
                                                     ×
                                                 </span>
+                                                {customExplanations.audience[type] && (
+                                                    <div className="tooltip">{customExplanations.audience[type]}</div>
+                                                )}
                                             </div>
                                         ))}
                                     </div>
                                 </div>
                                 <div className="add_custom_field">
-                                    <input
-                                        type="text"
-                                        placeholder="Add custom audience type"
-                                        value={activeSection === 'audience' ? newCustomField : ''}
-                                        onChange={(e) => {
-                                            setActiveSection('audience');
-                                            setNewCustomField(e.target.value);
-                                        }}
-                                        onKeyPress={(e) => handleKeyPress(e, 'audience')}
-                                    />
+                                    <div className="input_group">
+                                        <input
+                                            type="text"
+                                            placeholder="Add custom audience type"
+                                            value={activeSection === 'audience' ? newCustomField : ''}
+                                            onChange={(e) => {
+                                                setActiveSection('audience');
+                                                setNewCustomField(e.target.value);
+                                            }}
+                                            onKeyPress={(e) => handleKeyPress(e, 'audience')}
+                                        />
+                                        <textarea
+                                            placeholder="Explain briefly your custom audience type (optional)"
+                                            value={customExplanations.audience[newCustomField] || ''}
+                                            onChange={(e) => setCustomExplanations(prev => ({
+                                                ...prev,
+                                                audience: {
+                                                    ...prev.audience,
+                                                    [newCustomField]: e.target.value
+                                                }
+                                            }))}
+                                            className="explanation_field"
+                                        />
+                                    </div>
                                     <button onClick={() => handleAddCustomField('audience')}>Add</button>
                                 </div>
                             </div>
@@ -300,16 +494,16 @@ const Ambassadors = ({ handleActive, active }) => {
                                     {customSocials.map((social, index) => (
                                         <div 
                                             key={`custom-${index}`} 
-                                            className={`social_input_group custom ${selectedSocials.includes(`custom-social-${index}`) ? 'selected' : ''}`}
+                                            className={`social_input_group custom ${selectedSocials.includes(social) ? 'selected' : ''}`}
                                         >
                                             <div className="social_label_wrapper">
                                                 <div 
                                                     className="social_label"
                                                     onClick={(e) => {
                                                         e.stopPropagation();
-                                                        const newSelected = selectedSocials.includes(`custom-social-${index}`)
-                                                            ? selectedSocials.filter(s => s !== `custom-social-${index}`)
-                                                            : [...selectedSocials, `custom-social-${index}`];
+                                                        const newSelected = selectedSocials.includes(social)
+                                                            ? selectedSocials.filter(s => s !== social)
+                                                            : [...selectedSocials, social];
                                                         setSelectedSocials(newSelected);
                                                     }}
                                                 >
@@ -328,6 +522,8 @@ const Ambassadors = ({ handleActive, active }) => {
                                             <input
                                                 type="text"
                                                 placeholder="Enter handle/URL"
+                                                value={socialHandles[social] || ''}
+                                                onChange={(e) => handleSocialChange(social, e.target.value)}
                                                 className="social_handle_input"
                                             />
                                         </div>
@@ -347,6 +543,17 @@ const Ambassadors = ({ handleActive, active }) => {
                                     <button onClick={() => handleAddCustomField('socials')}>Add</button>
                                 </div>
                             </div>
+
+                            {/* Save Button */}
+                            <div className="save_section">
+                                <button 
+                                    className="save_button" 
+                                    onClick={handleSave}
+                                    disabled={isSaving}
+                                >
+                                    {isSaving ? 'Saving...' : 'Save Changes'}
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -358,6 +565,8 @@ const Ambassadors = ({ handleActive, active }) => {
 Ambassadors.propTypes = {
     handleActive: PropTypes.func.isRequired,
     active: PropTypes.string.isRequired,
+    uid: PropTypes.string.isRequired,
+    userData: PropTypes.object.isRequired,
 };
 
 export default Ambassadors

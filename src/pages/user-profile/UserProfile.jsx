@@ -32,7 +32,7 @@ const InputPassword = (props) => {
   return (
     <div className="type_password">
       <input type={isPasswordVisible ? "text" : "password"} {...props} />
-      <div onClick={toggleVisibility}>
+      <div onClick={toggleVisibility} style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)' }}>
         {!isPasswordVisible ? <img src={closedEyeIcon} alt=" " /> : <img src={openEyeIcon} alt=" " />}
       </div>
     </div>
@@ -358,7 +358,8 @@ const UserProfile = () => {
   const handleUpdateDetails = async (values) => {
     setIsLoading(true);
     let updated_profile_picture = values?.profile_picture;
-    if (isImageChange) {
+
+    if (isImageChange && image) {
       try {
         const formData = new FormData();
         formData.append("file", image);
@@ -378,7 +379,7 @@ const UserProfile = () => {
 
     const profilePromises = [];
 
-    // Basic profile data only
+    // Basic profile data
     const payload = {
       id: userData?.userId,
       userData: {
@@ -388,31 +389,40 @@ const UserProfile = () => {
         username: values.username,
         bio: values.bio,
         email: values.email,
-        profile_picture: updated_profile_picture,
-        telegram_username: values.telegram_username,
-        linkedin: values.linkedin,
-        roles: values?.roles.includes("Other") ? values?.other : values.roles.join(","),
-        question1: values.question1,
-        question2: values.question2,
-        primary_city: values.primary_city,
-        secondary_city: values.secondary_city
+        profile_picture: updated_profile_picture || userDetails?.profile_picture,
+        telegram_username: values.telegram_username || "",
+        linkedin: values.linkedin || "",
+        roles: values.roles.join(","),
+        question1: values.question1 || "",
+        question2: values.question2 || "",
+        primary_city: values.primary_city || "",
+        secondary_city: values.secondary_city || "",
+        investment_thesis: JSON.stringify(values.investment_thesis || []),
+        ticket_size: values.ticket_size || "",
+        investment_stage: values.investment_stage || "",
+        investment_description: values.investment_description || ""
       }
     };
 
     const profileDataPromise = dispatch(editUserProfileAPI(payload));
     profilePromises.push(profileDataPromise);
 
+    // Handle password update if needed
     if (
       passwordFormik.values.oldPassword &&
       passwordFormik.values.newPassword &&
       passwordFormik.values.confirmPassword
     ) {
       if (passwordFormik.values.newPassword !== passwordFormik.values.confirmPassword) {
-        toast.error("New password and confirm password does not match");
+        toast.error("New password and confirm password do not match");
+        setIsLoading(false);
+        return;
       }
 
       if (passwordFormik.values.oldPassword === passwordFormik.values.newPassword) {
         toast.error("Old password and new password cannot be same");
+        setIsLoading(false);
+        return;
       }
 
       const passwordChangeData = {
@@ -443,35 +453,29 @@ const UserProfile = () => {
   };
 
   const handleRoleChange = (role) => {
-    let tmpRoles = values?.roles;
-
-    tmpRoles = tmpRoles.map(r => {
-      switch(r) {
-        case 'A Founder': return 'Founder';
-        case 'A C-level': return 'C-level';
-        case 'A Web3 employee': return 'Web3 employee';
-        case 'A KOL / Ambassador / Content Creator': return 'KOL / Ambassador / Content Creator';
-        case 'An Angel Investor': return 'Angel Investor';
-        default: return r;
-      }
-    });
+    let tmpRoles = [...values?.roles];  // Create a new array to avoid direct state mutation
 
     if (role === "Other") {
       if (tmpRoles.includes(role)) {
-        setFieldValue("roles", []);
-        setFieldValue("other", "");
+        // If Other is already selected, just remove it
+        tmpRoles = tmpRoles.filter((r) => r !== role);
       } else {
-        setFieldValue("roles", [role]);
+        // Add Other while keeping existing selections
+        tmpRoles.push(role);
       }
-      return;
     } else {
       if (tmpRoles.includes(role)) {
         tmpRoles = tmpRoles.filter((r) => r !== role);
       } else {
         tmpRoles.push(role);
       }
-      tmpRoles = tmpRoles.filter((r) => r !== "Other");
-      setFieldValue("roles", tmpRoles);
+    }
+
+    setFieldValue("roles", tmpRoles);
+    
+    // Clear the "other" text field if "Other" role is removed
+    if (role === "Other" && !tmpRoles.includes("Other")) {
+      setFieldValue("other", "");
     }
   };
 
@@ -493,6 +497,18 @@ const UserProfile = () => {
       bio: userDetails?.bio || "",
       birthday: userDetails?.birthday || "",
       username: userDetails?.username || "",
+      profile_picture: userDetails?.profile_picture || "",
+      telegram_username: userDetails?.telegram_username || "",
+      linkedin: userDetails?.linkedin || "",
+      roles: userDetails?.roles?.split(",") || [],
+      question1: userDetails?.question1 || "",
+      question2: userDetails?.question2 || "",
+      primary_city: userDetails?.primary_city || "",
+      secondary_city: userDetails?.secondary_city || "",
+      investment_thesis: userDetails?.investment_thesis || [],
+      ticket_size: userDetails?.ticket_size || "",
+      investment_stage: userDetails?.investment_stage || "",
+      investment_description: userDetails?.investment_description || ""
     });
   };
 
@@ -568,6 +584,26 @@ const UserProfile = () => {
     }
   }, [userData?.userId]);
 
+  const getProfileImage = () => {
+    if (isEditMode) {
+      if (values.profile_picture) {
+        return values.profile_picture;
+      }
+      if (userData?.profile_picture) {
+        return userData.profile_picture.replace('_normal', '');
+      }
+      return defaultImg;
+    } else {
+      if (userData?.profile_picture) {
+        return userData.profile_picture.replace('_normal', '');
+      }
+      if (userDetails?.profile_picture) {
+        return userDetails.profile_picture;
+      }
+      return defaultImg;
+    }
+  };
+
   return (
     <>
       {active === "INFORMATION" && (
@@ -618,11 +654,7 @@ const UserProfile = () => {
                   <div className="project_profile">
                     <div className="profile_upload_profile">
                       <img
-                        src={
-                          userData?.profile_picture ? 
-                          userData.profile_picture.replace('_normal', '') : 
-                          (values.profile_picture || defaultImg)
-                        }
+                        src={getProfileImage()}
                         alt=""
                         onError={(e) => {
                           e.target.onerror = null;
@@ -630,8 +662,6 @@ const UserProfile = () => {
                         }}
                       />
                     </div>
-                    <TelegramAuthButton onSuccess={handleTelegramSuccess} />
-                    <TwitterAuthButton />
                   </div>
                   <div className="profile_description_data">
                     <div className="form_box">
@@ -731,11 +761,11 @@ const UserProfile = () => {
                     </div>
 
                     <div className="form_box">
-                      <h3 className="profile_title">Investment Details</h3>
+                      <h3 className="profile_title">Investor's Information</h3>
                       <div className="investment_details">
                         {/* Left Column */}
                         <div className="profile_info">
-                          <div className="profile_head">Average ticket size *</div>
+                          <div className="profile_head">Average ticket size {values?.roles?.includes("Angel Investor") ? "*" : ""}</div>
                           <div className="profile_data">
                             {values?.roles?.includes("Angel Investor") ? (
                               <>
@@ -832,7 +862,7 @@ const UserProfile = () => {
 
                         {/* Right Column */}
                         <div className="profile_info">
-                          <div className="profile_head">Investment Thesis *</div>
+                          <div className="profile_head">Investment Thesis {values?.roles?.includes("Angel Investor") ? "*" : ""}</div>
                           <div className="profile_data">
                             {values?.roles?.includes("Angel Investor") ? (
                               <>
@@ -955,7 +985,7 @@ const UserProfile = () => {
 
                         {/* Bottom Section - Full Width */}
                         <div className="profile_info">
-                          <div className="profile_head">What's your investment thesis? *</div>
+                          <div className="profile_head">What's your investment thesis? {values?.roles?.includes("Angel Investor") ? "*" : ""}</div>
                           <div className="profile_data">
                             {values?.roles?.includes("Angel Investor") ? (
                               <>
@@ -1137,39 +1167,68 @@ const UserProfile = () => {
                       <div className="form_group_row">
                         <div className="profile_info full_width">
                           <label>Role</label>
-                          <div className="check_box" onClick={() => handleRoleChange("Founder")} >
-                            <input type="checkbox" readOnly name="roles" value="Founder" className="costum_checkbox_input" checked={values?.roles?.includes("Founder")} />
-                            <label className="costum_checkbox_label"></label>
-                            <span className="label">Founder</span>
+                          <div className="options_container">
+                            <div className="default_options">
+                              {["Founder", "C-level", "Web3 employee", "KOL / Ambassador / Content Creator", "Angel Investor"].map((role, index) => (
+                                <div 
+                                  key={index} 
+                                  className={`option default ${values?.roles?.includes(role) ? 'selected' : ''}`}
+                                  onClick={() => handleRoleChange(role)}
+                                >
+                                  <label>{role}</label>
+                                </div>
+                              ))}
+                            </div>
+                            <div className="custom_options">
+                              {values?.roles?.filter(role => !["Founder", "C-level", "Web3 employee", "KOL / Ambassador / Content Creator", "Angel Investor"].includes(role) && role !== "Other").map((role, index) => (
+                                <div 
+                                  key={`custom-${index}`} 
+                                  className={`option custom selected`}
+                                >
+                                  <div onClick={() => handleRoleChange(role)}>
+                                    <label>{role}</label>
+                                  </div>
+                                  <span 
+                                    className="delete-btn"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      setFieldValue("roles", values.roles.filter(r => r !== role));
+                                    }}
+                                  >
+                                    ×
+                                  </span>
+                                </div>
+                              ))}
+                            </div>
                           </div>
-                          <div className="check_box" onClick={() => handleRoleChange("C-level")} >
-                            <input type="checkbox" readOnly name="roles" value="C-level" className="costum_checkbox_input" checked={values?.roles?.includes("C-level")} />
-                            <label className="costum_checkbox_label"></label>
-                            <span className="label">C-level</span>
-                          </div>
-                          <div className="check_box" onClick={() => handleRoleChange("Web3 employee")}  >
-                            <input type="checkbox" readOnly name="roles" value="Web3 employee" className="costum_checkbox_input" checked={values?.roles?.includes("Web3 employee")} />
-                            <label className="costum_checkbox_label"></label>
-                            <span className="label">Web3 employee (BD, collab manager, project manager, etc.)</span>
-                          </div>
-                          <div className="check_box" onClick={() => handleRoleChange("KOL / Ambassador / Content Creator")} >
-                            <input type="checkbox" readOnly name="roles" value="KOL / Ambassador / Content Creator" className="costum_checkbox_input" checked={values?.roles?.includes("KOL / Ambassador / Content Creator")} />
-                            <label className="costum_checkbox_label"></label>
-                            <span className="label">KOL / Ambassador / Content Creator</span>
-                          </div>
-                          <div className="check_box" onClick={() => handleRoleChange("Angel Investor")} >
-                            <input type="checkbox" readOnly name="roles" value="Angel Investor" className="costum_checkbox_input" checked={values?.roles?.includes("Angel Investor")} />
-                            <label className="costum_checkbox_label"></label>
-                            <span className="label">Angel Investor</span>
-                          </div>
-                          <div className="check_box" onClick={() => handleRoleChange("Other")}  >
-                            <input type="checkbox" readOnly name="roles" value="Other" className="costum_checkbox_input" checked={values?.roles?.includes("Other")} />
-                            <label className="costum_checkbox_label"></label>
-                            <span className="label">Other</span>
-                          </div>
-
-                          <div className="others_field">
-                            <input type="text" name="other" value={values?.other} onChange={handleChange} disabled={!values?.roles?.includes("Other")} />
+                          <div className="add_custom_field">
+                            <input
+                              type="text"
+                              placeholder="Add custom role"
+                              value={values.other || ""}
+                              onChange={(e) => {
+                                setFieldValue("other", e.target.value);
+                              }}
+                              onKeyPress={(e) => {
+                                if (e.key === 'Enter' && values.other?.trim()) {
+                                  e.preventDefault();
+                                  const newRole = values.other.trim();
+                                  if (!values.roles.includes(newRole)) {
+                                    setFieldValue("roles", [...values.roles, newRole]);
+                                  }
+                                  setFieldValue("other", "");
+                                }
+                              }}
+                            />
+                            <button onClick={() => {
+                              if (values.other?.trim()) {
+                                const newRole = values.other.trim();
+                                if (!values.roles.includes(newRole)) {
+                                  setFieldValue("roles", [...values.roles, newRole]);
+                                }
+                                setFieldValue("other", "");
+                              }
+                            }}>Add</button>
                           </div>
                         </div>
                       </div>
@@ -1219,7 +1278,7 @@ const UserProfile = () => {
 
                       <div className="form_group_row">
                         <div className="profile_info">
-                          <label>What is your main city (for timezone and events) </label>
+                          <label>What is your main city (for timezone and events) e.g. Paris, France </label>
                           <input
                             type="text"
                             name="primary_city"
@@ -1306,43 +1365,40 @@ const UserProfile = () => {
 
                   <div className="form_box">
                     <h3 className="profile_title">Password</h3>
-                    <div className="contact_info password_info">
-                      <div className="password">
-                        <div className="password_input">
+                    <div className="form_group">
+                      <div className="form_group_row">
+                        <div className="profile_info">
                           <label>Old Password</label>
                           <InputPassword
                             name="oldPassword"
-                            placeholder="Password"
+                            placeholder="Enter old password"
                             value={passwordFormik.values.oldPassword}
                             onChange={passwordFormik.handleChange}
                           />
                         </div>
-                        <div className="password_input"></div>
                       </div>
-                    </div>
-
-                    <div className="contact_info password_info">
-                      <div className="password">
-                        <div className="password_input">
+                      <div className="form_group_row">
+                        <div className="profile_info">
                           <label>New Password</label>
                           <InputPassword
                             name="newPassword"
-                            placeholder="Password"
+                            placeholder="Enter new password"
                             value={passwordFormik.values.newPassword}
                             onChange={passwordFormik.handleChange}
                           />
                         </div>
-                        <div className="password_input">
+                        <div className="profile_info">
                           <label>Confirm Password</label>
                           <InputPassword
                             name="confirmPassword"
-                            placeholder="Confirm password"
+                            placeholder="Confirm new password"
                             value={passwordFormik.values.confirmPassword}
                             onChange={passwordFormik.handleChange}
                           />
                         </div>
                       </div>
                     </div>
+
                     <div className="profile_seprator_image">
                       <img src={sepratorImage} alt="Separator" />
                     </div>
@@ -1381,7 +1437,10 @@ const UserProfile = () => {
       {active === "AMBASSADORS" && (
         <Ambassadors
           handleActive={handleActive}
-          active={active} />
+          active={active}
+          uid={userData?.userId}
+          userData={userData}
+        />
       )}
     </>
   );

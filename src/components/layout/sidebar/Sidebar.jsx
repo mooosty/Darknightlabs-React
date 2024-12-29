@@ -1,5 +1,6 @@
 import "./sidebar.scss";
 import karmaIcon from "../../../assets/karma-icon.svg";
+import darknightlabsIcon from "../../../assets/darknightlabs.svg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ROUTER } from "../../../utils/routes/routes";
 import { useEffect, useState } from "react";
@@ -102,8 +103,14 @@ const Sidebar = () => {
             </div>
             <div className="user_stats">
               <div className="balance">
-                <span>Karma: {userDetails?.currency_b || 0}</span>
+                <span>Karma:</span>
+                <span className="value">{userDetails?.currency_b || 0}</span>
                 <KarmaIcon style={{ width: '1em', height: '1em' }} />
+              </div>
+              <div className="balance">
+                <span>$winwin:</span>
+                <span className="value">{userDetails?.currency_a || 10000}</span>
+                <img src={darknightlabsIcon} alt="Darknight Labs" style={{ width: '1.5em', height: '1.5em' }} />
               </div>
               <div className="loyalty-progress">
                 <div className="loyalty-text">
@@ -111,6 +118,11 @@ const Sidebar = () => {
                 </div>
                 <div className="progress-bar">
                   <div className="progress" style={{ width: '50%' }}></div>
+                </div>
+                <div className="loyalty-tooltip">
+                  <p>Your Loyalty increases or decreases based on how long you hold WWS' exclusive deals.</p>
+                  <p>Loyalty, alongside with Karma, can give you access to exclusive and scarce deals in the future.</p>
+                  <p>The most loyal WWS holders will also get access to additional exclusive perks.</p>
                 </div>
               </div>
             </div>

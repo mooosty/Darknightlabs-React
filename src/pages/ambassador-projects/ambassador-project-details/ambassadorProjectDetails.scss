@@ -409,10 +409,8 @@
                 gap: 16px;
 
                 .time_frame_wrap {
-                  background-image: linear-gradient(to bottom right, #00D1FF, #31CB5C);
-                  background-origin: border-box;
-                  background-clip: content-box, border-box;
-                  border: 1px solid transparent;
+                  background: linear-gradient(to right, #00D1FF, #31CB5C);
+                  padding: 1px;
                   border-radius: 10px;
                   margin-bottom: 8px;
 
@@ -421,14 +419,22 @@
                     align-items: center;
                     justify-content: center;
                     background-color: #191917;
-                    padding: 4px 8px;
-                    border-radius: 8px;
-                    margin: 1px;
+                    padding: 8px 16px;
+                    border-radius: 9px;
 
                     .text {
-                      background-image: linear-gradient(to bottom right, #00D1FF, #31CB5C);
+                      font-size: 14px;
+                      font-family: "Inter", sans-serif;
+                      background: linear-gradient(to right, #00D1FF, #31CB5C);
                       -webkit-background-clip: text;
-                      color: transparent;
+                      -webkit-text-fill-color: transparent;
+                      display: flex;
+                      align-items: center;
+                      gap: 4px;
+
+                      .date {
+                        font-weight: 500;
+                      }
                     }
                   }
                 }

@@ -6,6 +6,7 @@
     flex-shrink: 0;
     height: calc(100vh - 132px);
     min-height: 500px;
+    overflow: visible;
 
     @media(max-width: 1600px) {
         height: calc(100vh - 85px);
@@ -25,7 +26,7 @@
         flex-direction: column;
         flex-shrink: 0;
         position: relative;
-        overflow-y: auto;
+        overflow: visible;
         height: 100%;
 
         @media(max-width: 1600px) {
@@ -77,6 +78,7 @@
             padding: 12px;
             background: rgba(245, 239, 219, 0.03);
             border-radius: 8px;
+            overflow: visible;
 
             .profile_info {
                 display: flex;
@@ -125,19 +127,25 @@
                 .balance {
                     display: flex;
                     align-items: center;
-                    justify-content: flex-start;
-                    gap: 8px;
-                    color: #F5EFDB;
-                    font-size: 14px;
+                    gap: 4px;
+                    background: #191917;
+                    padding: 8px 16px;
+                    border-radius: 8px;
                     margin-bottom: 8px;
-                    padding: 6px 8px;
-                    background: rgba(245, 239, 219, 0.05);
-                    border-radius: 6px;
+                    font-family: "MedievalSharp", cursive;
+                    
+                    span {
+                        color: #F5EFDB;
+                        &.value {
+                            margin-left: 4px;
+                        }
+                    }
 
                     svg {
-                        color: #F5EFDB;
-                        width: 16px;
-                        height: 16px;
+                        margin-left: 0;
+                        path {
+                            fill: #F5EFDB;
+                        }
                     }
                 }
 
@@ -146,10 +154,10 @@
                     padding: 6px 8px;
                     background: rgba(245, 239, 219, 0.05);
                     border-radius: 6px;
+                    position: relative;
+                    cursor: pointer;
 
                     .loyalty-text {
-                        display: flex;
-                        justify-content: space-between;
                         color: #F5EFDB;
                         font-size: 12px;
                         margin-bottom: 6px;
@@ -168,6 +176,39 @@
                             border-radius: 2px;
                             transition: width 0.3s ease;
                         }
+                    }
+
+                    .loyalty-tooltip {
+                        position: absolute;
+                        bottom: calc(100% + 8px);
+                        left: 0;
+                        background: #191917;
+                        padding: 12px;
+                        border-radius: 4px;
+                        width: 100%;
+                        opacity: 0;
+                        visibility: hidden;
+                        transition: opacity 0.2s ease, visibility 0.2s ease;
+                        z-index: 10000;
+                        color: #f5efdb;
+                        font-size: 12px;
+                        line-height: 1.4;
+                        border: 1px solid rgba(245, 239, 219, 0.15);
+                        transform: translateZ(0);
+                        pointer-events: none;
+
+                        p {
+                            margin: 0 0 8px 0;
+                            opacity: 0.8;
+                            &:last-child {
+                                margin-bottom: 0;
+                            }
+                        }
+                    }
+
+                    &:hover .loyalty-tooltip {
+                        opacity: 1;
+                        visibility: visible;
                     }
                 }
             }

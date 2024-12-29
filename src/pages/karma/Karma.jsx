@@ -6,22 +6,11 @@ import copyIcon from "../../assets/copy-icon.svg";
 import { KarmaIcon } from "../../utils/SVGs/SVGs";
 import { axiosApi } from "../../api-services/service";
 
-const MAX_VISIBLE_NODES = 5;
-
-const truncateNodes = (nodes = []) => {
-    if (!nodes || nodes.length <= 5) return nodes;
-    
-    const firstTwo = nodes.slice(0, 2);
-    const lastTwo = nodes.slice(-2);
-    const hiddenCount = nodes.length - 4;
-    return [...firstTwo, `...+${hiddenCount * 10}KP`, ...lastTwo];
-};
-
 const Karma = () => {
   const [showInvitePopup, setShowInvitePopup] = useState(false);
   const [inviteLink, setInviteLink] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [inviteTree, setInviteTree] = useState({
+  const [inviteData, setInviteData] = useState({
     level1: [],
     level2: [],
     level3: []
@@ -33,7 +22,7 @@ const Karma = () => {
     const fetchInviteTree = async () => {
       try {
         const response = await axiosApi.get(`/invites/tree/${userData?.userId}`);
-        setInviteTree(response.data);
+        setInviteData(response.data);
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching invite tree:", error);
@@ -55,9 +44,9 @@ const Karma = () => {
 
   // Calculate karma points based on invite levels
   const calculateKarmaPoints = () => {
-    const directInvites = inviteTree.level1?.length || 0;
-    const level1Invites = inviteTree.level2?.length || 0;
-    const level2Invites = inviteTree.level3?.length || 0;
+    const directInvites = inviteData.level1?.length || 0;
+    const level1Invites = inviteData.level2?.length || 0;
+    const level2Invites = inviteData.level3?.length || 0;
 
     const directPoints = directInvites * 100;  // 100 KP per direct invite
     const level1Points = level1Invites * 20;   // 20 KP per level 1 referral
@@ -204,74 +193,24 @@ const Karma = () => {
             </div>
           </div>
 
-          <div className="invite_tree">
-            <h3>Your Invite Tree</h3>
-            <div className="tree_container">
-              <div className="tree_node root">
-                <div className="node_content">
-                  <span className="username">{userDetails?.username || "You"}</span>
-                  <span className="invite_count">{karmaStats.directInvites + karmaStats.level1Invites + karmaStats.level2Invites} Total</span>
+          {showInvitePopup && (
+            <div className="popup_overlay">
+              <div className="popup_content">
+                <h3>Here is your invite link, share it to receive Karma Points (KP)</h3>
+                <div className="link_container">
+                  <p>{inviteLink}</p>
+                  <button className="copy_btn" onClick={handleCopyLink}>
+                    <img src={copyIcon} alt="Copy" />
+                  </button>
                 </div>
-                <div className="branches level1">
-                  {truncateNodes(inviteTree.level1)?.map((username, index) => (
-                    <div key={index} className="tree_node">
-                      <div className="node_content">
-                        <span className="username">{username}</span>
-                        <span className="invite_count">+100 KP</span>
-                      </div>
-                      <div className="branches level2">
-                        {truncateNodes(
-                          inviteTree.level2?.filter((_, i) => 
-                            Math.floor(i / (inviteTree.level2.length / inviteTree.level1.length)) === index
-                          )
-                        )?.map((username, subIndex) => (
-                          <div key={subIndex} className="tree_node">
-                            <div className="node_content">
-                              <span className="username">Level 2 Invite</span>
-                              <span className="invite_count">+20 KP</span>
-                            </div>
-                            <div className="branches level3">
-                              {truncateNodes(inviteTree.level3)?.map((username, subSubIndex) => (
-                                <div key={subSubIndex} className="tree_node">
-                                  <div className="node_content">
-                                    <span className="username">
-                                      {username.includes('...') ? username : 'Level 3 Invite'}
-                                    </span>
-                                    <span className="invite_count">
-                                      {username.includes('...') ? '' : '+10 KP'}
-                                    </span>
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                <button className="btn_gray" onClick={() => setShowInvitePopup(false)}>
+                  Close
+                </button>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
-
-      {showInvitePopup && (
-        <div className="popup_overlay">
-          <div className="popup_content">
-            <h3>Here is your invite link, share it to receive Karma Points (KP)</h3>
-            <div className="link_container">
-              <p>{inviteLink}</p>
-              <button className="copy_btn" onClick={handleCopyLink}>
-                <img src={copyIcon} alt="Copy" />
-              </button>
-            </div>
-            <button className="btn_gray" onClick={() => setShowInvitePopup(false)}>
-              Close
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

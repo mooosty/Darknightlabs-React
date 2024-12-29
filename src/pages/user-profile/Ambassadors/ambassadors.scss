@@ -123,6 +123,8 @@
                     display: flex;
                     flex-direction: column;
                     gap: 40px;
+                    position: relative;
+                    padding-bottom: 80px;
 
                     .section {
                         background: rgba(78, 78, 78, 0.1);
@@ -176,19 +178,62 @@
 
                                 &.custom {
                                     background: rgba(245, 239, 219, 0.1);
-                                    border: 1px solid rgba(245, 239, 219, 0.3);
-                                    padding-right: 12px;
+                                    border: 2px dashed rgba(245, 239, 219, 0.5);
+                                    padding: 8px 24px 8px 20px;
                                     display: flex;
                                     align-items: center;
-                                    gap: 8px;
+                                    gap: 12px;
+                                    position: relative;
 
                                     &:hover {
                                         background: rgba(245, 239, 219, 0.15);
+                                        border-style: dashed;
+
+                                        .tooltip {
+                                            opacity: 1;
+                                            visibility: visible;
+                                            transform: translateY(0);
+                                        }
+                                    }
+
+                                    .tooltip {
+                                        position: absolute;
+                                        bottom: calc(100% + 8px);
+                                        left: 50%;
+                                        transform: translateX(-50%) translateY(5px);
+                                        background: #191917;
+                                        padding: 8px 12px;
+                                        border-radius: 4px;
+                                        font-size: 12px;
+                                        color: #F5EFDB;
+                                        white-space: nowrap;
+                                        opacity: 0;
+                                        visibility: hidden;
+                                        transition: all 0.2s ease;
+                                        border: 1px solid rgba(245, 239, 219, 0.2);
+                                        pointer-events: none;
+                                        z-index: 10;
+                                        min-width: 120px;
+                                        max-width: 250px;
+                                        white-space: normal;
+                                        text-align: center;
+                                        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+
+                                        &::before {
+                                            content: '';
+                                            position: absolute;
+                                            top: 100%;
+                                            left: 50%;
+                                            transform: translateX(-50%);
+                                            border-width: 5px;
+                                            border-style: solid;
+                                            border-color: #191917 transparent transparent transparent;
+                                        }
                                     }
 
                                     &.selected {
                                         background: rgba(245, 239, 219, 0.2);
-                                        border-color: #F5EFDB;
+                                        border: 2px dashed #F5EFDB;
                                     }
 
                                     .delete-btn {
@@ -242,23 +287,50 @@
                             gap: 12px;
                             margin-top: 16px;
 
-                            input {
+                            .input_group {
                                 flex: 1;
-                                background: transparent;
-                                border: 1px solid rgba(245, 239, 219, 0.2);
-                                border-radius: 4px;
-                                padding: 8px 16px;
-                                color: #F5EFDB;
-                                font-size: 14px;
-                                height: 40px;
+                                display: flex;
+                                flex-direction: column;
+                                gap: 8px;
 
-                                &::placeholder {
-                                    color: rgba(245, 239, 219, 0.4);
+                                input {
+                                    background: transparent;
+                                    border: 1px solid rgba(245, 239, 219, 0.2);
+                                    border-radius: 4px;
+                                    padding: 8px 16px;
+                                    color: #F5EFDB;
+                                    font-size: 14px;
+                                    height: 40px;
+
+                                    &::placeholder {
+                                        color: rgba(245, 239, 219, 0.4);
+                                    }
+
+                                    &:focus {
+                                        outline: none;
+                                        border-color: rgba(245, 239, 219, 0.4);
+                                    }
                                 }
 
-                                &:focus {
-                                    outline: none;
-                                    border-color: rgba(245, 239, 219, 0.4);
+                                .explanation_field {
+                                    background: transparent;
+                                    border: 1px solid rgba(245, 239, 219, 0.2);
+                                    border-radius: 4px;
+                                    padding: 8px 16px;
+                                    color: #F5EFDB;
+                                    font-size: 14px;
+                                    min-height: 60px;
+                                    resize: vertical;
+                                    font-family: inherit;
+
+                                    &::placeholder {
+                                        color: rgba(245, 239, 219, 0.4);
+                                    }
+
+                                    &:focus {
+                                        outline: none;
+                                        border-color: rgba(245, 239, 219, 0.4);
+                                    }
                                 }
                             }
 
@@ -273,6 +345,7 @@
                                 transition: all 0.2s ease;
                                 height: 40px;
                                 min-width: 80px;
+                                align-self: flex-start;
                                 display: flex;
                                 align-items: center;
                                 justify-content: center;
@@ -362,6 +435,15 @@
                                     &.custom {
                                         position: relative;
                                         padding-right: 40px;
+                                        border: 2px dashed rgba(245, 239, 219, 0.5);
+
+                                        &:hover {
+                                            border-style: dashed;
+                                        }
+
+                                        &.selected {
+                                            border: 2px dashed #F5EFDB;
+                                        }
 
                                         .social_label_wrapper {
                                             display: flex;
@@ -396,6 +478,51 @@
                                         }
                                     }
                                 }
+                            }
+                        }
+                    }
+
+                    .save_section {
+                        position: sticky;
+                        bottom: 20px;
+                        right: 20px;
+                        width: fit-content;
+                        margin-left: auto;
+                        margin-right: 24px;
+                        padding: 0;
+                        background: transparent;
+                        border: none;
+                        box-shadow: none;
+                        z-index: 10;
+
+                        .save_button {
+                            background: #F5EFDB;
+                            color: #191917;
+                            border: none;
+                            border-radius: 4px;
+                            padding: 12px 24px;
+                            font-size: 16px;
+                            font-weight: 500;
+                            cursor: pointer;
+                            transition: all 0.2s ease;
+                            min-width: 140px;
+                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+                            &:hover {
+                                background: #ffffff;
+                                transform: translateY(-1px);
+                                box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+                            }
+
+                            &:active {
+                                transform: translateY(0);
+                            }
+
+                            &:disabled {
+                                background: rgba(245, 239, 219, 0.5);
+                                cursor: not-allowed;
+                                transform: none;
+                                box-shadow: none;
                             }
                         }
                     }
@@ -445,4 +572,124 @@
             }
         }
     }
+}
+
+.ambassadors_content_box {
+    .ambassador_sections {
+        .section {
+            .options_container {
+                .custom_options {
+                    .option.custom {
+                        border: 1px dotted #F5EFDB;
+                        border-radius: 6px;
+                        padding: 4px 8px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        gap: 8px;
+                        
+                        &.selected {
+                            background: rgba(245, 239, 219, 0.1);
+                        }
+
+                        label {
+                            color: #F5EFDB;
+                            cursor: pointer;
+                        }
+
+                        .delete-btn {
+                            color: #F5EFDB;
+                            cursor: pointer;
+                            opacity: 0.7;
+                            &:hover {
+                                opacity: 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .socials_section {
+            .socials_container {
+                .social_input_group.custom {
+                    .social_label_wrapper {
+                        border: 1px dotted #F5EFDB;
+                        border-radius: 6px;
+                        padding: 4px 8px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        gap: 8px;
+
+                        &.selected {
+                            background: rgba(245, 239, 219, 0.1);
+                        }
+
+                        label {
+                            color: #F5EFDB;
+                            cursor: pointer;
+                        }
+
+                        .delete-btn {
+                            color: #F5EFDB;
+                            cursor: pointer;
+                            opacity: 0.7;
+                            &:hover {
+                                opacity: 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.save_section {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    padding: 16px 32px;
+    background: rgba(25, 25, 23, 0.95);
+    backdrop-filter: blur(8px);
+    border-top: 1px solid rgba(245, 239, 219, 0.1);
+    z-index: 100;
+    display: flex;
+    justify-content: flex-end;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.2);
+
+    .save_button {
+        background: #F5EFDB;
+        color: #191917;
+        border: none;
+        border-radius: 4px;
+        padding: 12px 24px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        min-width: 140px;
+
+        &:hover {
+            background: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        &:active {
+            transform: translateY(0);
+        }
+
+        &:disabled {
+            background: rgba(245, 239, 219, 0.5);
+            cursor: not-allowed;
+            transform: none;
+        }
+    }
+}
+
+// Add padding to the bottom of the content to prevent the save button from overlapping
+.ambassadors_content_box {
+    padding-bottom: calc(32px + 52px) !important; // 32px for padding + 52px for button height
 }

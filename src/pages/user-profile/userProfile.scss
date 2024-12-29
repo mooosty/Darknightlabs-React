@@ -1435,3 +1435,99 @@
     }
   }
 }
+
+.options_container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+
+  .default_options, .custom_options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .option {
+    background: #191917;
+    border: 1px solid rgba(245, 239, 219, 0.1);
+    border-radius: 20px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #f5efdb;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    &.selected {
+      background: rgba(255, 138, 28, 0.1);
+      border-color: #ff8a1c;
+    }
+
+    &.custom {
+      display: flex;
+      justify-content: space-between;
+      
+      .delete-btn {
+        margin-left: 8px;
+        cursor: pointer;
+        opacity: 0.7;
+        transition: opacity 0.2s;
+        
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+
+    label {
+      cursor: pointer;
+      font-size: 14px;
+    }
+  }
+}
+
+.add_custom_field {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+  align-items: normal;
+
+  input {
+    flex: 1;
+    background: #191917;
+    border: 1px solid rgba(245, 239, 219, 0.1);
+    border-radius: 8px;
+    padding: 8px 16px;
+    color: #f5efdb;
+    font-size: 14px;
+    height: 40px;
+
+    &::placeholder {
+      color: rgba(245, 239, 219, 0.5);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: rgba(245, 239, 219, 0.3);
+    }
+  }
+
+  button {
+    background: #191917;
+    border: 1px solid rgba(245, 239, 219, 0.1);
+    border-radius: 8px;
+    padding: 8px 24px;
+    color: #f5efdb;
+    cursor: pointer;
+    transition: all 0.2s;
+    height: 40px;
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      background: rgba(245, 239, 219, 0.1);
+    }
+  }
+}
