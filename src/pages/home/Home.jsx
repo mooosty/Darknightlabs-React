@@ -233,10 +233,10 @@ const Home = () => {
                     }
                 }
 
-                navigate(ROUTER.profile)
+                navigate(ROUTER.dashboard)
             } else {
                 dispatch(storeAuthData({ response, user: existingUser[0] }));
-                navigate(ROUTER.profile)
+                navigate(ROUTER.dashboard)
             }
         }
     };

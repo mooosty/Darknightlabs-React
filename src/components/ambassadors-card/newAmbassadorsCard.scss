@@ -7,9 +7,38 @@
     display: flex;
     flex-direction: column;
     transition: transform 0.3s ease;
+    position: relative;
 
     &:hover {
         transform: translateY(-5px);
+    }
+
+    .status-ribbon {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        padding: 4px 12px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        z-index: 2;
+        
+        &.live {
+            background: linear-gradient(100.13deg, #1C5600 -3.95%, #0E2D00 113.72%);
+            border-width: 0px 0px 1px 1px;
+            border-style: solid;
+            border-color: rgba(17, 52, 0, 1);
+            color: white;
+        }
+        
+        &.coming-soon {
+            background: linear-gradient(98.78deg, #DAB943 -2.03%, #E58A02 118.72%);
+            border-width: 0px 0px 1px 1px;
+            border-style: solid;
+            border-color: rgba(218, 185, 67, 0.3);
+            color: white;
+        }
     }
 
     .card_img {
@@ -24,34 +53,6 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-        }
-
-        .status-ribbon {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            padding: 4px 12px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            z-index: 1;
-
-            &.live {
-                background: linear-gradient(100.13deg, #1C5600 -3.95%, #0E2D00 113.72%);
-                border-width: 0px 0px 1px 1px;
-                border-style: solid;
-                border-color: rgba(17, 52, 0, 1);
-                color: white;
-            }
-
-            &.coming-soon {
-                background: linear-gradient(98.78deg, #DAB943 -2.03%, #E58A02 118.72%);
-                border-width: 0px 0px 1px 1px;
-                border-style: solid;
-                border-color: rgba(218, 185, 67, 0.3);
-                color: white;
-            }
         }
     }
 

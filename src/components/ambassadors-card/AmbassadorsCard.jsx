@@ -43,31 +43,33 @@ const AmbassadorsCard = ({ projectId, name, img, synergiesAngles }) => {
 
     return (
         <div className="ambassador_card" onClick={() => handleClick(projectId)}>
-            <div className="card_img">
-                <img src={img || defaultImg} alt="" onError={(e) => e.target.src = defaultImg} />
-                {timeframeStatus && (
-                    <div className={`status-ribbon ${timeframeStatus.toLowerCase().replace(' ', '-')}`}>
-                        {timeframeStatus}
-                    </div>
-                )}
-            </div>
-            <div className="card_body">
-                <div className="card_body_head">{name}</div>
-                <div className="card_body_content">
-                    <div className="tabs">
-                        {Object.values(synergiesAngles)?.map((angle, index) => (
-                            <div className={`${index === 0 ? 'global' : (index === 1 ? 'graph' : '')}`} key={index}>
-                                <div className='angle_tag'>
-                                    <>{angle?.icon}</>
-                                    <span className='text'>
-                                        <span>{angle}</span>
-                                    </span>
+            <div className="card_content">
+                <div className="card_img">
+                    <img src={img || defaultImg} alt="" onError={(e) => e.target.src = defaultImg} />
+                </div>
+                <div className="card_body">
+                    <div className="card_body_head">{name}</div>
+                    <div className="card_body_content">
+                        <div className="tabs">
+                            {Object.values(synergiesAngles)?.map((angle, index) => (
+                                <div className={`${index === 0 ? 'global' : (index === 1 ? 'graph' : '')}`} key={index}>
+                                    <div className='angle_tag'>
+                                        <>{angle?.icon}</>
+                                        <span className='text'>
+                                            <span>{angle}</span>
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
+            {timeframeStatus && (
+                <div className={`status-ribbon ${timeframeStatus.toLowerCase().replace(' ', '-')}`}>
+                    {timeframeStatus}
+                </div>
+            )}
         </div>
     );
 };

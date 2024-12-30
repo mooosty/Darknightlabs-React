@@ -1,15 +1,104 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import axios from 'axios';
 import './dashboard.scss';
 import { ROUTER } from '../../utils/routes/routes';
 import { ProfileNavTabIcon, LogoutNavTabIcon } from "../../utils/SVGs/SVGs";
 import CustomDropdown from "../../components/custom-dropdown/CustomDropdown";
+import { defaultImg } from "../../utils/constants/images";
+
+const AnnouncementCard = ({ announcement }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const maxLength = 150;
+  const shouldShowReadMore = announcement.content.length > maxLength;
+  
+  const displayContent = isExpanded 
+    ? announcement.content 
+    : `${announcement.content.slice(0, maxLength)}${shouldShowReadMore ? '...' : ''}`;
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
+
+  const getPriorityColor = (priority) => {
+    switch(priority) {
+      case 'high':
+        return '#ff8a1c';
+      case 'medium':
+        return '#f5efdb';
+      case 'low':
+        return '#808080';
+      default:
+        return '#f5efdb';
+    }
+  };
+
+  return (
+    <div className="announcement-card">
+      <div className="announcement-header">
+        <div className="author-info">
+          <img src={defaultImg} alt="DarknightLabs" className="author-image" />
+          <div className="author-details">
+            <h3>DarknightLabs Team</h3>
+            <span className="announcement-date">{formatDate(announcement.created_at)}</span>
+          </div>
+        </div>
+        <div 
+          className="announcement-type"
+          style={{ 
+            backgroundColor: 'rgba(245, 239, 219, 0.1)',
+            color: getPriorityColor(announcement.priority)
+          }}
+        >
+          {announcement.priority.charAt(0).toUpperCase() + announcement.priority.slice(1)} Priority
+        </div>
+      </div>
+      
+      <div className="announcement-content">
+        <h2 className="announcement-title">{announcement.title}</h2>
+        <div className="announcement-text">
+          <p>{displayContent}</p>
+          {shouldShowReadMore && (
+            <button 
+              className="read-more-btn" 
+              onClick={() => setIsExpanded(!isExpanded)}
+            >
+              {isExpanded ? 'Read Less' : 'Read More'}
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth);
   const { userDetails } = useSelector((state) => state.user);
+  const [announcements, setAnnouncements] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchAnnouncements = async () => {
+      try {
+        const response = await axios.get('https://winwinsocietyweb3.com/api/announcements');
+        setAnnouncements(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Failed to fetch announcements:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchAnnouncements();
+  }, []);
 
   const dropdownItems = [
     {
@@ -37,12 +126,6 @@ const Dashboard = () => {
     { name: 'Gamma Protocol', progress: 30, type: 'GAMMA' }
   ];
 
-  const announcements = [
-    { id: 1, title: 'New Partnership Announcement', priority: 'high' },
-    { id: 2, title: 'Community Milestone: 100k Users!', priority: 'medium' },
-    { id: 3, title: 'Upcoming AMA with Project X', priority: 'medium' }
-  ];
-
   const leaderboard = [
     { rank: 1, username: 'cryptoking', points: 2500 },
     { rank: 2, username: 'RedSqueen', points: 2200 },
@@ -50,8 +133,18 @@ const Dashboard = () => {
   ];
 
   const actions = [
-    { title: 'Boost Project X', description: 'Earn 500 karma', action: 'Take Action' },
-    { title: 'Invite Friends', description: 'Earn even more!', action: 'Take Action' }
+    { 
+      title: 'Boost Project X', 
+      description: 'Earn 500 karma', 
+      action: 'Take Action',
+      route: ROUTER.ambassadorProjects 
+    },
+    { 
+      title: 'Invite Friends', 
+      description: 'Earn even more!', 
+      action: 'Take Action',
+      route: ROUTER.karma
+    }
   ];
 
   const getUserName = () => {
@@ -119,18 +212,22 @@ const Dashboard = () => {
                 </div>
               ))}
             </div>
-            <Link to={`/${ROUTER.projects}`} className="view-all-btn">View All Investments</Link>
+            <Link to={`/${ROUTER.investment}`} className="view-all-btn">View All Investments</Link>
           </div>
 
           <div className="grid-section announcements-section">
             <h2>Announcements & News</h2>
             <div className="announcements-list">
-              {announcements.map((announcement) => (
-                <div key={announcement.id} className={`announcement-item ${announcement.priority}`}>
-                  <span className="announcement-title">{announcement.title}</span>
-                  {announcement.priority === 'high' && <span className="priority-badge">High Priority</span>}
-                </div>
-              ))}
+              {loading ? (
+                <div className="loading">Loading announcements...</div>
+              ) : (
+                announcements.slice(0, 3).map((announcement) => (
+                  <AnnouncementCard 
+                    key={announcement.id} 
+                    announcement={announcement}
+                  />
+                ))
+              )}
             </div>
             <Link to={`/${ROUTER.announcementFeed}`} className="view-all-btn">View All Announcements</Link>
           </div>
@@ -159,7 +256,12 @@ const Dashboard = () => {
                     <h3>{action.title}</h3>
                     <p>{action.description}</p>
                   </div>
-                  <button className="action-btn">{action.action}</button>
+                  <button 
+                    className="action-btn"
+                    onClick={() => action.route && navigate(`/${action.route}`)}
+                  >
+                    {action.action}
+                  </button>
                 </div>
               ))}
             </div>
