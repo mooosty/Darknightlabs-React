@@ -17,7 +17,7 @@
         align-items: center;
         justify-content: space-between;
         padding: 24px 20px;
-        background-color: #090A0B;
+        background-color: var(--primary-black);
     }
 
     .header_title {
@@ -34,7 +34,7 @@
     }
 
     .currency {
-        color: #FFDF76;
+        color: var(--primary-yellow);
         font-family: "MedievalSharp";
         font-size: 16px;
     }

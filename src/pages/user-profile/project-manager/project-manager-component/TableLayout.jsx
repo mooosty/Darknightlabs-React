@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { EmptyData, ProjectAccordion } from "../../../../components";
 import { GredientGlobalIcon, GradientGraphIcon } from "../../../../utils/constants/images";
 import { defaultImg, editIcon, DeleteIcon } from "../../../../utils/constants/images";
+import { ROUTER } from "../../../../utils/routes/routes";
 
 const ProjectManagerTableLayout = ({
   filterProject,
@@ -112,7 +113,7 @@ const ProjectManagerTableLayout = ({
                         <button
                           className="btn"
                           onClick={() => {
-                            navigate(`/project-manager/${rowData.projectId}`);
+                            navigate(`/${ROUTER.projectManagerEdit}/${rowData.projectId}`)
                           }}
                         >
                           <img src={editIcon} alt=" " />
@@ -162,7 +163,7 @@ const ProjectManagerTableLayout = ({
                 setDltId(rowData.projectId);
               }}
               onEdit={() => {
-                navigate(`/project-manager/${rowData.projectId}`);
+                navigate(`/${ROUTER.projectManagerEdit}/${rowData.projectId}`)
               }}
               onSelect={() => {
                 handleSelectProject(rowData);

@@ -1,4 +1,6 @@
-.page_box {
+.synergies_manager_content_wrapper {
+    height: 100%;
+
     .synergies_content_header {
         display: flex;
         align-items: center;
@@ -127,7 +129,7 @@
                         align-items: center;
                         font-size: 24px;
                         color: var(--primary-white);
-                        background-color: #242623;
+                        background-color: var(--card-background);
                         font-weight: 500;
                         font-family: "MedievalSharp", cursive;
 
@@ -227,8 +229,8 @@
 
                     .btn_gray:disabled {
                         cursor: no-drop;
-                        background-color: #4e4e4e29;
-                        color: #ffffff66;
+                        background-color: var(--primary-gray-op20);
+                        color: var(--primary-white-op40);
                     }
                 }
             }
@@ -242,7 +244,7 @@
                     gap: 18px;
                     padding: 0px 24px;
                     height: 0;
-                    background-color: #242623;
+                    background-color: var(--card-background);
                     transition: height 0.4s ease-out;
 
                     &.active {
@@ -282,7 +284,7 @@
                                 height: 24px !important;
                                 width: 24px !important;
                                 padding: 0.5px 10px;
-                                background-color: #4e4e4e33;
+                                background-color: var(--primary-gray-op20);
                                 border: 1px solid var(--primary-white);
                             }
 
@@ -384,7 +386,7 @@
 
                         .button_delete {
                             padding: 8px 10px;
-                            background-color: var(--btn_delete-bg);
+                            background-color: var(--primary-red-bg);
                             border: none;
                         }
 
@@ -443,7 +445,7 @@
                         }
 
                         tbody {
-                            color: #f5efdb80;
+                            color: var(--primary-text-op50);
                             font-size: 14px;
                             font-family: "Inter", sans-serif;
 
@@ -474,7 +476,7 @@
                                             height: 24px !important;
                                             width: 24px !important;
                                             padding: 0.5px 10px;
-                                            background-color: #4e4e4e33;
+                                            background-color: var(--primary-gray-op20);
                                             border: 1px solid var(--primary-white);
                                         }
 
@@ -502,7 +504,7 @@
                                     display: flex;
                                     gap: 8px;
                                     align-items: center;
-                                    color: #ffd1a6cc;
+                                    color: var(--primary-orange);
 
                                     img {
                                         height: 24px;
@@ -528,7 +530,7 @@
                                     display: flex;
                                     align-items: center;
                                     gap: 4px;
-                                    color: #FFDF76;
+                                    color: var(--primary-yellow);
                                     font-family: "MedievalSharp";
                                 }
 
@@ -556,7 +558,7 @@
                                     display: flex;
                                     align-items: center;
                                     font-size: 16px;
-                                    color: #ffffff99;
+                                    color: var(--primary-white-op60);
                                 }
 
                                 .actions {
@@ -576,7 +578,7 @@
                                 .table_angles {
                                     .angle_tag {
                                         border-radius: 8px;
-                                        background-color: #f5efdb29;
+                                        background-color: var(--primary-text-op80);
                                     }
                                 }
                             }
@@ -617,7 +619,7 @@
                                     outline: 0px;
 
                                     option {
-                                        background-color: #242623;
+                                        background-color: var(--card-background);
                                     }
                                 }
                             }
@@ -714,7 +716,7 @@
                         display: flex;
                         flex-direction: column;
                         gap: 16px;
-                        background-color: #242623;
+                        background-color: var(--card-background);
                         border-radius: 10px;
                         min-height: 300px;
 
@@ -764,7 +766,7 @@
                                 display: flex;
                                 gap: 8px;
                                 align-items: center;
-                                color: #ffd1a6cc;
+                                color: var(--primary-orange);
                                 font-size: 15px;
 
                                 img {

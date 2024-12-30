@@ -26,6 +26,7 @@ const tabData = [
 ]
 
 const Navbar = () => {
+
     const { hash } = useLocation()
 
     useEffect(() => {
@@ -41,6 +42,8 @@ const Navbar = () => {
             }
         }
     }, [hash])
+
+
 
 
     return (

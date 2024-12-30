@@ -1,5 +1,5 @@
 .card {
-    background-color: #242623;
+    background-color: var(--card-background);
     border-radius: 10px;
     padding: 24px;
     margin-bottom: 24px;
@@ -24,7 +24,7 @@
         }
 
         .card_header_text {
-            color: #ffffff99;
+            color: rgba(255, 255, 255, 0.6);
             font-size: 14px;
             font-family: "Inter", sans-serif;
         }
@@ -38,7 +38,7 @@
 
             input {
                 padding: 15px 24px;
-                border: 1px solid #ffffff80;
+                border: 1px solid var(--primary-white-op72);
                 background-color: transparent;
                 width: 100%;
                 color: var(--primary-text);
@@ -53,7 +53,7 @@
                 }
 
                 &::placeholder {
-                    color: #f5efdb80;
+                    color:var( --primary-text-op50);
                 }
             }
 
@@ -87,7 +87,7 @@
                     }
 
                     &:hover:not(:disabled) {
-                        background-color: #4e4e4ecc;
+                        background-color: var(--primary-gray-op80);
                     }
                 }
 

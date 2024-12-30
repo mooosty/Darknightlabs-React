@@ -1,4 +1,6 @@
-.page_box {
+.project_content_details_wrapper {
+  height: 100%;
+
   .content_header {
     display: flex;
     align-items: center;
@@ -194,14 +196,13 @@
             }
 
             .profile_photo {
-              background-color: #ffffff0d;
+              background-color: var(--primary-white-op10);
               min-height: 300px;
               border-radius: 8px;
               display: flex;
               flex-direction: column;
               align-items: center;
               justify-content: center;
-              background-color: #ffffff0d;
               position: relative;
 
               input {
@@ -332,7 +333,7 @@
                   color: var(--primary-text);
                   z-index: 2;
                   position: relative;
-                  background-color: #242623;
+                  background-color: var(--card-background);
 
                   @media (max-width: 767px) {
                     order: -1;
@@ -447,11 +448,11 @@
               }
 
               span.created_by {
-                color: #ffffff99;
+                color: var(--primary-white-op60);
               }
 
               span.auther_name {
-                color: #ffd1a6cc;
+                color: var(--primary-orange);
               }
 
               img.auther_profile {

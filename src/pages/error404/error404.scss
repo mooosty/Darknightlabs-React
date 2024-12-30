@@ -1,5 +1,5 @@
 .error_404_main_wrap {
-    background-color: #140A01;
+    background-color:var(--primary-black);
 
     .error_404_wrap {
         width: 100%;
@@ -12,6 +12,10 @@
         justify-content: center;
         align-items: center;
 
+        @media (max-width: 767px) {
+            background-image: url('../../assets/mobile-404-bg.png');
+        }
+
         .content_Wrap {
             width: 30%;
             text-align: center;
@@ -21,6 +25,11 @@
             gap: 30px;
 
             @media (max-width: 767px) {
+                gap: 20px;
+                width: 40%;
+            }
+
+            @media (max-width: 500px) {
                 gap: 10px;
                 width: 70%;
             }

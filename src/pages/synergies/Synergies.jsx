@@ -127,7 +127,7 @@ const Synergies = () => {
 
     return (
         <>
-            <div className="synergies_content_Wraper">
+            <div className="synergies_content_wrapper">
                 <div className="synergies_content_header">
                     <div className="synergies_content_left">
                         <h2>Synergies</h2>

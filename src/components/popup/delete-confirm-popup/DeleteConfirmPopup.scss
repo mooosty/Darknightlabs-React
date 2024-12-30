@@ -12,7 +12,7 @@
     }
 
     .delete_popup {
-        background-color: #434242cc;
+        background-color: var(--primary-gray-op80);
         position: absolute;
         top: 50%;
         left: 50%;
@@ -135,7 +135,7 @@
                 }
 
                 .delete_btn {
-                    background-color: var(--btn_delete-bg);
+                    background-color: var(--primary-red-bg);
                     border: none;
                     height: 44px;
                     width: 130px;
@@ -151,6 +151,7 @@
                     }
 
                     @media (max-width: 425px) {
+                        height: 40px;
                         padding-inline: 0px;
                         width: 100%;
                     }
@@ -176,6 +177,7 @@
 
                     @media (max-width: 425px) {
                         padding-inline: 0px;
+                        height: 40px;
                         width: 100%;
                     }
                 }

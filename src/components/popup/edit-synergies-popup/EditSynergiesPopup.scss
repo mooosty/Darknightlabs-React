@@ -12,7 +12,7 @@
     }
 
     .edit_synergies_popup {
-        background-color: #434242cc;
+        background-color: var(--primary-gray-op80);
         position: absolute;
         top: 50%;
         left: 50%;
@@ -83,7 +83,7 @@
             }
 
             .edit_synergies_model_body_container {
-                margin: 60px 18px 30px 30px;
+                margin: 50px 18px 10px 30px;
 
                 .edit_synergies_model_body {
                     max-height: 550px;
@@ -91,16 +91,12 @@
                     padding-right: 8px;
 
                     @media (max-width: 1600px) {
-                        margin-bottom: 30px;
+                        margin-bottom: 10px;
                         max-height: 450px;
                     }
 
-                    @media (max-width: 767px) {
-                        margin-bottom: 20px;
-                    }
-                    
                     &::-webkit-scrollbar-thumb {
-                        background: #4e4e4e80;
+                        background:var(--scrollbar-thumb);
                     }
 
                     .edit_synergies_model_data {
@@ -149,7 +145,7 @@
 
                                     input {
                                         padding: 15px 20px;
-                                        border: 1px solid #ffffff80;
+                                        border: 1px solid var(--primary-white-op72);
                                         background-color: transparent;
                                         width: 100%;
                                         color: var(--primary-text);
@@ -198,8 +194,8 @@
             }
 
             .edit_synergies_model_footer {
-                padding: 0 18px 20px;
-                background-color: var(--primary-background);
+                padding: 18px 20px;
+                background-color: var(--popup-footer);
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
@@ -210,7 +206,7 @@
                 }
 
                 .back_btn {
-                    background-color: var(--btn_delete-bg);
+                    background-color: var(--primary-red-bg);
                     border: none;
                     padding: 14px 40px;
                     color: var(--primary-red);

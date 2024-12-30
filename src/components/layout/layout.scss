@@ -45,7 +45,7 @@
                 }
 
                 .btn_delete {
-                    background-color: var(--btn_delete-bg);
+                    background-color: var(--primary-red-bg);
                     border: none;
                     padding: 13px;
 
@@ -70,6 +70,7 @@
 
                     @media (max-width: 767px) {
                         width: 100%;
+                        margin-bottom: 80px ;
                         height: calc(100vh - 165px);
                     }
                 }

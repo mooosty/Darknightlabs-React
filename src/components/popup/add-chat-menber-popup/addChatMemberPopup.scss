@@ -11,8 +11,8 @@
         display: block;
     }
 
-    .add_angel_popup {
-        background-color: #434242cc;
+    .add_chatMember_popup {
+        background-color: var(--primary-gray-op80);
         position: absolute;
         top: 50%;
         left: 50%;
@@ -41,7 +41,7 @@
             }
 
             .model_body {
-                padding: 9px 24px 30px 24px;
+                padding: 30px 24px 10px 24px;
 
                 .model_header {
                     display: flex;
@@ -156,7 +156,7 @@
                                 display: flex;
                                 align-items: center;
                                 justify-content: space-between;
-                                border-bottom: 1px solid #ffffff1a;
+                                border-bottom: 1px solid var(--primary-white-op10);
 
                                 .item_left {
                                     width: 100%;
@@ -177,7 +177,7 @@
                                             height: 24px !important;
                                             width: 24px !important;
                                             padding: 0.5px 5px;
-                                            background-color: #4e4e4e33;
+                                            background-color: var(--primary-gray-op20);
                                             border: 1px solid var(--primary-white);
                                         }
 
@@ -226,13 +226,13 @@
                                             .top {
                                                 line-height: 20px;
                                                 font-size: 16px;
-                                                color: #ffd1a6cc;
+                                                color: var(--primary-orange);
                                             }
 
                                             .bottom {
                                                 line-height: 20px;
                                                 font-size: 14px;
-                                                color: #ffffff80;
+                                                color: var(--primary-white-op72);
                                             }
                                         }
                                     }
@@ -284,7 +284,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                background-color: #111111;
+                background-color: var(--popup-footer);
 
                 .cancel_btn {
                     background-color: transparent;
@@ -324,18 +324,18 @@
             width: 100%;
             position: absolute;
             bottom: 0;
-            max-height: 80%;
-            background-color: #242623;
+            max-height: 90%;
+            background-color: var(--card-background);
             border-top-left-radius: 20px;
             border-top-right-radius: 20px;
-            border-top: 1px solid #ffffff80;
+            border-top: 1px solid var(--primary-white-op72);
 
             @media (max-width: 767px) {
                 display: block;
             }
 
             .model_body {
-                padding: 10px 24px;
+                padding:24px 20px 10px 20px;
 
                 .model_header {
                     display: flex;
@@ -443,7 +443,7 @@
                                 display: flex;
                                 align-items: center;
                                 justify-content: space-between;
-                                border-bottom: 1px solid #ffffff1a;
+                                border-bottom: 1px solid var(--primary-white-op10);
 
                                 .item_left {
                                     width: 100%;
@@ -464,7 +464,7 @@
                                             height: 24px !important;
                                             width: 24px !important;
                                             padding: 0.5px 5px;
-                                            background-color: #4e4e4e33;
+                                            background-color: var(--primary-gray-op20);
                                             border: 1px solid var(--primary-white);
                                         }
 
@@ -522,13 +522,13 @@
                                             .top {
                                                 line-height: 20px;
                                                 font-size: 16px;
-                                                color: #ffd1a6cc;
+                                                color: var(--primary-orange);
                                             }
 
                                             .bottom {
                                                 line-height: 20px;
                                                 font-size: 14px;
-                                                color: #ffffff80;
+                                                color: var(--primary-white-op72);
                                             }
                                         }
                                     }
@@ -588,7 +588,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                background-color: #111111;
+                background-color: var(--popup-footer);
 
                 @media (max-width: 374px) {
                     gap: 10px;

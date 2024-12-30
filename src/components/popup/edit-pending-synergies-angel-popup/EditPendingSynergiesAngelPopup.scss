@@ -12,7 +12,7 @@
     }
 
     .edit_pending_engel_popup {
-        background-color: #434242cc;
+        background-color: var(--primary-gray-op80);
         position: absolute;
         top: 50%;
         left: 50%;
@@ -42,9 +42,9 @@
                 width: 100%;
                 border-top-left-radius: 20px;
                 border-top-right-radius: 20px;
-                border-top: 1px solid #ffffff80;
+                border-top: 1px solid var(--primary-white-op72);
                 background-image: none;
-                background-color: #242623;
+                background-color: var(--card-background);
             }
 
             .model_header {
@@ -126,7 +126,7 @@
                     }
 
                     &::-webkit-scrollbar-thumb {
-                        background: #4e4e4e80;
+                        background:var(--scrollbar-thumb);
                     }
 
                     .model_data {
@@ -196,8 +196,8 @@
                                             text-align: center;
                                             gap: 12px;
                                             padding: 6px 10px;
-                                            border: 1px solid #ffffff33;
-                                            color: #ffffff52;
+                                            border: 1px solid var(--primary-white-op10);
+                                            color: var( --primary-white-op40);
                                             font-family: "Inter", sans-serif;
                                             border-radius: 8px;
 
@@ -221,7 +221,7 @@
                                                     margin-bottom: 2px;
 
                                                     path {
-                                                        stroke: #ffffff52;
+                                                        stroke: var( --primary-white-op40);
                                                     }
                                                 }
                                             }
@@ -240,7 +240,7 @@
                                                     width: 100%;
 
                                                     path {
-                                                        stroke: #ffffff52;
+                                                        stroke: var( --primary-white-op40);
                                                     }
                                                 }
                                             }
@@ -251,7 +251,7 @@
                                         }
 
                                         .checkbox_input:checked+.checkbox_label {
-                                            background-color: #ffffff1a;
+                                            background-color: var(--primary-white-op10);
 
                                             .checkbox_label_text {
                                                 color: white;
@@ -281,7 +281,7 @@
 
             .edit_engel_model_footer {
                 padding: 24px 16px;
-                background-color: #111111;
+                background-color: var(--popup-footer);
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
@@ -292,7 +292,7 @@
                 }
 
                 .refuse_btn {
-                    background-color: var(--btn_delete-bg);
+                    background-color: var(--primary-red-bg);
                     border: none;
                     padding: 14px 30px;
                     color: var(--primary-red);
@@ -335,177 +335,177 @@
     }
 }
 
-.model_body {
-    max-height: 551px;
-    overflow-y: scroll;
-    margin-top: 15px;
+// .model_body {
+//     max-height: 551px;
+//     overflow-y: scroll;
+//     margin-top: 15px;
 
-    @media (max-width: 1600px) {
-        max-height: 420px;
-    }
+//     @media (max-width: 1600px) {
+//         max-height: 420px;
+//     }
 
-    @media (max-width: 600px) {
-        max-height: 620px;
-    }
+//     @media (max-width: 600px) {
+//         max-height: 620px;
+//     }
 
-    @media (max-width: 600px) {
-        height: 60vh;
-    }
+//     @media (max-width: 600px) {
+//         height: 60vh;
+//     }
 
 
-    &::-webkit-scrollbar-track {
-        margin-top: 42px;
-    }
+//     &::-webkit-scrollbar-track {
+//         margin-top: 42px;
+//     }
 
-    &::-webkit-scrollbar-thumb {
-        background: #4e4e4e80;
-    }
+//     &::-webkit-scrollbar-thumb {
+//         background:: var(--primary-gray-op80);
+//     }
 
-    .model_data {
-        font-family: "MedievalSharp", cursive;
-        color: var(--primary-text);
+//     .model_data {
+//         font-family: "MedievalSharp", cursive;
+//         color: var(--primary-text);
 
-        @media (max-height: 600px) {
-            height: 60vh;
-        }
+//         @media (max-height: 600px) {
+//             height: 60vh;
+//         }
 
-        .image {
-            height: 195px;
-            overflow: hidden;
-            margin-bottom: 20px;
-            border-radius: 12px;
+//         .image {
+//             height: 195px;
+//             overflow: hidden;
+//             margin-bottom: 20px;
+//             border-radius: 12px;
 
-            @media (max-width: 600px) {
-                margin-bottom: 16px;
-            }
+//             @media (max-width: 600px) {
+//                 margin-bottom: 16px;
+//             }
 
-            img {
-                height: 200px;
-                width: 100%;
-                object-fit: cover;
-            }
-        }
+//             img {
+//                 height: 200px;
+//                 width: 100%;
+//                 object-fit: cover;
+//             }
+//         }
 
-        .page {
-            .angel_model_data_head {
-                display: flex;
-                gap: 12px;
-                margin-bottom: 20px;
+//         .page {
+//             .angel_model_data_head {
+//                 display: flex;
+//                 gap: 12px;
+//                 margin-bottom: 20px;
 
-                @media (max-width: 767px) {
-                    margin-bottom: 16px;
-                }
+//                 @media (max-width: 767px) {
+//                     margin-bottom: 16px;
+//                 }
 
-                .title {
-                    font-size: 22px;
-                }
-            }
+//                 .title {
+//                     font-size: 22px;
+//                 }
+//             }
 
-            .angel_model_data_body {
+//             .angel_model_data_body {
 
-                .title {
-                    font-size: 16px;
-                    margin-bottom: 14px;
-                }
+//                 .title {
+//                     font-size: 16px;
+//                     margin-bottom: 14px;
+//                 }
 
-                .angels_container {
-                    display: flex;
-                    text-align: center;
-                    gap: 16px;
-                    flex-wrap: wrap;
+//                 .angels_container {
+//                     display: flex;
+//                     text-align: center;
+//                     gap: 16px;
+//                     flex-wrap: wrap;
 
-                    @media (max-width: 767px) {
-                        gap: 8px;
-                    }
+//                     @media (max-width: 767px) {
+//                         gap: 8px;
+//                     }
 
-                    .angel_tab {
-                        .checkbox_input {
-                            display: none;
-                        }
+//                     .angel_tab {
+//                         .checkbox_input {
+//                             display: none;
+//                         }
 
-                        .checkbox_label {
-                            display: flex;
-                            text-align: center;
-                            gap: 12px;
-                            padding: 6px 10px;
-                            border: 1px solid #ffffff33;
-                            color: #ffffff52;
-                            font-family: "Inter", sans-serif;
-                            border-radius: 8px;
+//                         .checkbox_label {
+//                             display: flex;
+//                             text-align: center;
+//                             gap: 12px;
+//                             padding: 6px 10px;
+//                             border: 1px solid var(--primary-white-op10);
+//                             color: var( --primary-white-op40);
+//                             font-family: "Inter", sans-serif;
+//                             border-radius: 8px;
 
-                            @media (max-width: 767px) {
-                                padding: 5px 8px;
-                                gap: 5px;
-                            }
+//                             @media (max-width: 767px) {
+//                                 padding: 5px 8px;
+//                                 gap: 5px;
+//                             }
 
-                            .checkbox_label_text {
-                                display: flex;
-                                align-items: center;
-                                -webkit-user-select: none;
-                                -ms-user-select: none;
-                                user-select: none;
-                                gap: 4px;
-                                cursor: pointer;
+//                             .checkbox_label_text {
+//                                 display: flex;
+//                                 align-items: center;
+//                                 -webkit-user-select: none;
+//                                 -ms-user-select: none;
+//                                 user-select: none;
+//                                 gap: 4px;
+//                                 cursor: pointer;
 
-                                svg {
-                                    height: 18px;
-                                    width: 18px;
-                                    margin-bottom: 2px;
+//                                 svg {
+//                                     height: 18px;
+//                                     width: 18px;
+//                                     margin-bottom: 2px;
 
-                                    path {
-                                        stroke: #ffffff52;
-                                    }
-                                }
-                            }
+//                                     path {
+//                                         stroke: var( --primary-white-op40);
+//                                     }
+//                                 }
+//                             }
 
-                            .angel_add,
-                            .angel_remove {
-                                background-color: transparent;
-                                justify-content: center;
-                                align-items: center;
-                                border: none;
-                                height: 20px;
-                                width: 20px;
+//                             .angel_add,
+//                             .angel_remove {
+//                                 background-color: transparent;
+//                                 justify-content: center;
+//                                 align-items: center;
+//                                 border: none;
+//                                 height: 20px;
+//                                 width: 20px;
 
-                                svg {
-                                    height: 100%;
-                                    width: 100%;
+//                                 svg {
+//                                     height: 100%;
+//                                     width: 100%;
 
-                                    path {
-                                        stroke: #ffffff52;
-                                    }
-                                }
-                            }
+//                                     path {
+//                                         stroke: var( --primary-white-op40);
+//                                     }
+//                                 }
+//                             }
 
-                            .angel_remove {
-                                display: none;
-                            }
-                        }
+//                             .angel_remove {
+//                                 display: none;
+//                             }
+//                         }
 
-                        .checkbox_input:checked+.checkbox_label {
-                            background-color: #ffffff1a;
+//                         .checkbox_input:checked+.checkbox_label {
+//                             background-color: var(--primary-white-op10);
 
-                            .checkbox_label_text {
-                                color: white;
-                            }
+//                             .checkbox_label_text {
+//                                 color: white;
+//                             }
 
-                            .angel_add {
-                                display: none;
-                            }
+//                             .angel_add {
+//                                 display: none;
+//                             }
 
-                            .angel_remove {
-                                display: flex;
-                            }
+//                             .angel_remove {
+//                                 display: flex;
+//                             }
 
-                            svg {
-                                path {
-                                    stroke: white;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
+//                             svg {
+//                                 path {
+//                                     stroke: white;
+//                                 }
+//                             }
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }

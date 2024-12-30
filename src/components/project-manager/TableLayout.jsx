@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { CustomTooltip, EmptyData, ProjectAccordion } from '../../components';
 import { defaultImg, editIcon, GradientGraphIcon, GredientGlobalIcon, tableActorImage3, TableStatusIcon, DeleteIcon } from '../../utils/constants/images';
+import { ROUTER } from '../../utils/routes/routes';
 
 
 const ProjectManagerTableLayout = ({ filterProject, selectedProjects, selectedProjectForSynergy, createSynergyStep, handleSelectProject, setIsDeleteConfirmPopupOpen, setDltId }) => {
@@ -131,7 +132,7 @@ const ProjectManagerTableLayout = ({ filterProject, selectedProjects, selectedPr
                                             <td>
                                                 <div className="actions">
                                                     <button className='btn' onClick={() => {
-                                                        navigate(`/project-manager/${rowData.projectId}`)
+                                                        navigate(`/${ROUTER.projectManagerEdit}/${rowData.projectId}`)
                                                     }}>
                                                         <img src={editIcon} alt=" " />
                                                     </button>
@@ -171,7 +172,7 @@ const ProjectManagerTableLayout = ({ filterProject, selectedProjects, selectedPr
                                     setDltId(rowData.projectId)
                                 }}
                                 onEdit={() => {
-                                    navigate(`/project-manager/${rowData.projectId}`)
+                                    navigate(`/${ROUTER.projectManagerEdit}/${rowData.projectId}`)
                                 }}
                                 onSelect={() => {
                                     handleSelectProject(rowData)

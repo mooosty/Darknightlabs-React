@@ -1,4 +1,6 @@
-.page_box {
+.project_user_content_details_wrapper {
+  height: 100%;
+
   .project_user_content_header {
     display: flex;
     align-items: center;
@@ -66,7 +68,7 @@
     height: calc(100% - 80px);
 
     @media(max-width: 1600px) {
-      height: calc(100% - 42px);
+      height: calc(100% - 40px);
     }
 
     @media (max-width: 767px) {
@@ -116,8 +118,8 @@
           .buttons {
             display: flex;
             justify-content: center;
-            color: #ffffff80;
-            border-bottom: 1px solid #ffffff80;
+            color: var(--primary-white-op72);
+            border-bottom: 1px solid var(--primary-white-op72);
             cursor: pointer;
             padding: 10px 45px;
 
@@ -271,7 +273,7 @@
           gap: 18px;
           padding: 0px 24px;
           height: 0;
-          background-color: #242623;
+          background-color: var(--card-background);
           transition: height 0.4s ease-out;
 
           &.active {
@@ -311,7 +313,7 @@
                 height: 24px !important;
                 width: 24px !important;
                 padding: 0.5px 10px;
-                background-color: #4e4e4e33;
+                background-color: var(--primary-gray-op20);
                 border: 1px solid var(--primary-white);
               }
 
@@ -413,7 +415,7 @@
 
             .button_delete {
               padding: 8px 10px;
-              background-color: var(--btn_delete-bg);
+              background-color: var(--primary-red-bg);
               border: none;
             }
 
@@ -471,7 +473,7 @@
             }
 
             tbody {
-              color: #f5efdb99;
+              color: var(--primary-text-op50);
               font-size: 14px;
               font-family: "Inter", sans-serif;
 
@@ -480,7 +482,7 @@
               }
 
               .selected {
-                background-color: #f5efdb1a;
+                background-color: var(--border-color);
               }
 
               td {
@@ -510,7 +512,7 @@
                       height: 24px !important;
                       width: 24px !important;
                       padding: 0.5px 10px;
-                      background-color: #4e4e4e33;
+                      background-color: var(--primary-gray-op20);
                       border: 1px solid var(--primary-white);
                     }
 
@@ -542,7 +544,7 @@
                   display: flex;
                   align-items: center;
                   justify-content: center;
-                  color: #ffd1a6cc;
+                  color: var(--primary-orange);
                   position: relative;
 
                   ul {
@@ -756,7 +758,7 @@
                   display: flex;
                   align-items: center;
                   font-size: 14px;
-                  color: #ffffff99;
+                  color: var(--primary-white-op60);
                 }
 
                 .actions {
@@ -849,7 +851,7 @@
               display: flex;
               flex-direction: column;
               gap: 16px;
-              background-color: #242623;
+              background-color: var(--card-background);
 
               &.highlighted {
                 position: relative;

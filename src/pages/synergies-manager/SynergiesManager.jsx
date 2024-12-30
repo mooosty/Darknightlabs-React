@@ -202,7 +202,7 @@ const SynergiesManager = () => {
 
 
   return (
-    <>
+    <div className='synergies_manager_content_wrapper'>
       <div className="synergies_content_header">
         <div className="synergies_content_left">
           <h2>Synergies Manager</h2>
@@ -352,7 +352,7 @@ const SynergiesManager = () => {
       </BottomMenu>
 
       <Loader loading={isSynergyLoading} />
-    </>
+    </div>
   )
 }
 

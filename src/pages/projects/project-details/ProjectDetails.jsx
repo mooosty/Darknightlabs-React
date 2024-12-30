@@ -65,7 +65,7 @@ const ProjectDetails = () => {
 
 
     return (
-        <>
+        <div className='project_content_details_wrapper'>
             <div className="content_header">
                 <div className="content_left">
                     <h2>Projects</h2>
@@ -206,7 +206,7 @@ const ProjectDetails = () => {
                     }}
                 />
             }
-        </>
+        </div>
     )
 }
 

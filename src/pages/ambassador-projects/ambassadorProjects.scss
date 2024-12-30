@@ -1,297 +1,293 @@
-.page_box {
-    .content_box {
-        .ambassador_content_Wraper {
-            height: 100%;
+.ambassador_content_wrapper {
+    height: 100%;
 
-            .ambassador_content_header {
-                display: flex;
-                align-items: center;
+    .ambassador_content_header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 32px;
+
+        @media (max-width: 1600px) {
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 1199px) {
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 767px) {
+            margin-bottom: 0px;
+            padding-bottom: 15px;
+        }
+
+        .ambassador_content_left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            @media (max-width: 767px) {
+                width: 100%;
+                padding: 15px 24px;
+                padding-bottom: 0;
                 justify-content: space-between;
-                margin-bottom: 32px;
+            }
+
+            h2 {
+                font-size: 42px;
+                color: var(--primary-white);
+                font-weight: 500;
+                font-family: "MedievalSharp", cursive;
 
                 @media (max-width: 1600px) {
-                    margin-bottom: 20px;
-                }
-
-                @media (max-width: 1199px) {
-                    flex-wrap: wrap;
-                }
-
-                @media (max-width: 767px) {
-                    margin-bottom: 0px;
-                    padding-bottom: 15px;
-                }
-
-                .ambassador_content_left {
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-
-                    @media (max-width: 767px) {
-                        width: 100%;
-                        padding: 15px 24px;
-                        padding-bottom: 0;
-                        justify-content: space-between;
-                    }
-
-                    h2 {
-                        font-size: 42px;
-                        color: var(--primary-white);
-                        font-weight: 500;
-                        font-family: "MedievalSharp", cursive;
-
-                        @media (max-width: 1600px) {
-                            font-size: 28px;
-                        }
-                    }
-
-                }
-
-                .ambassador_content_right {
-                    display: flex;
-                    align-items: center;
-
-                    @media (max-width: 940px) {
-                        display: none;
-                    }
-
-                    a {
-                        color: var(--primary-text);
-                        text-decoration: none;
-                        font-size: 24px;
-                        font-weight: 500;
-                        line-height: 27.12px;
-                        font-family: "MedievalSharp", cursive;
-
-                        @media (max-width: 1600px) {
-                            font-size: 18px;
-                        }
-                    }
+                    font-size: 28px;
                 }
             }
 
-            .user_ambassador_page_data {
-                min-height: 450px;
-                height: calc(100% - 80px);
-                border-radius: 9px;
-                background-color: var(--primary-background);
-                margin-bottom: 32px;
-                background-image: url('../../assets/model-frame.png');
-                background-repeat: no-repeat;
-                background-position: 8px 17px;
-                padding-block: 30px 20px;
+        }
 
-                @media(max-width: 1600px) {
-                    height: calc(100% - 50px);
+        .ambassador_content_right {
+            display: flex;
+            align-items: center;
+
+            @media (max-width: 940px) {
+                display: none;
+            }
+
+            a {
+                color: var(--primary-text);
+                text-decoration: none;
+                font-size: 24px;
+                font-weight: 500;
+                line-height: 27.12px;
+                font-family: "MedievalSharp", cursive;
+
+                @media (max-width: 1600px) {
+                    font-size: 18px;
                 }
+            }
+        }
+    }
+
+    .user_ambassador_page_data {
+        min-height: 450px;
+        height: calc(100% - 80px);
+        border-radius: 9px;
+        background-color: var(--primary-background);
+        margin-bottom: 32px;
+        background-image: url('../../assets/model-frame.png');
+        background-repeat: no-repeat;
+        background-position: 8px 17px;
+        padding-block: 30px 20px;
+
+        @media(max-width: 1600px) {
+            height: calc(100% - 50px);
+        }
+
+        @media (max-width: 767px) {
+            padding: 0;
+            border-radius: 0;
+            background-image: none;
+        }
+
+        .page_data {
+            height: 100%;
+            overflow-y: auto;
+
+            &.search_open {
+                height: calc(100% - 50px);
+            }
+
+            .ambassador_card_box {
+                display: flex;
+                flex-direction: column;
+                background-position: 8px 17px;
 
                 @media (max-width: 767px) {
-                    padding: 0;
-                    border-radius: 0;
-                    background-image: none;
+                    padding-top: 0;
                 }
 
-                .page_data {
-                    height: 100%;
-                    overflow-y: auto;
+                .ambassador_card_header {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 16px;
+                    padding: 12px 30px;
+                    margin-bottom: 12px;
 
-                    &.search_open {
-                        height: calc(100% - 50px);
-                    }
-
-                    .ambassador_card_box {
-                        display: flex;
-                        flex-direction: column;
-                        background-position: 8px 17px;
+                    .header_top {
+                        color: var(--primary-text);
+                        font-size: 24px;
+                        font-family: "MedievalSharp", cursive;
 
                         @media (max-width: 767px) {
-                            padding-top: 0;
+                            font-size: 20px;
+                        }
+                    }
+
+                    .header_bottom {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+
+                        @media (max-width:1200px) {
+                            flex-direction: column;
+                            align-items: start;
+                            gap: 15px;
                         }
 
-                        .ambassador_card_header {
+                        .btns {
                             display: flex;
-                            flex-direction: column;
-                            gap: 16px;
-                            padding: 12px 30px;
-                            margin-bottom: 12px;
+                            background-color: var(--card-background);
+                            padding: 4px;
 
-                            .header_top {
-                                color: var(--primary-text);
-                                font-size: 24px;
-                                font-family: "MedievalSharp", cursive;
-
-                                @media (max-width: 767px) {
-                                    font-size: 20px;
-                                }
-                            }
-
-                            .header_bottom {
+                            .btn {
+                                padding: 10px;
                                 display: flex;
-                                justify-content: space-between;
                                 align-items: center;
+                                justify-content: center;
+                                background-color: transparent;
+                                border: none;
+                                color: #e6eaee80;
+                                font-family: MedievalSharp;
 
                                 @media (max-width:1200px) {
-                                    flex-direction: column;
-                                    align-items: start;
-                                    gap: 15px;
+                                    padding: 10px 5px;
                                 }
 
-                                .btns {
-                                    display: flex;
-                                    background-color: #242623;
-                                    padding: 4px;
-
-                                    .btn {
-                                        padding: 10px;
-                                        display: flex;
-                                        align-items: center;
-                                        justify-content: center;
-                                        background-color: transparent;
-                                        border: none;
-                                        color: #e6eaee80;
-                                        font-family: MedievalSharp;
-
-                                        @media (max-width:1200px) {
-                                            padding: 10px 5px;
-                                        }
-
-                                        &.active {
-                                            background-color: rgba(78, 78, 78, 0.58);
-                                            color: var(--primary-text);
-                                        }
-                                    }
-                                }
-
-                                .selects {
-                                    min-width: 230px;
-                                    display: flex;
-                                    gap: 10px;
-
-                                    @media (max-width:1200px) {
-                                        min-width: 100%;
-                                    }
-
-                                    @media (max-width:450px) {
-                                        flex-direction: column;
-                                        gap: 15px;
-                                        align-items: start;
-                                        min-width: 100%;
-                                    }
+                                &.active {
+                                    background-color: rgba(78, 78, 78, 0.58);
+                                    color: var(--primary-text);
                                 }
                             }
                         }
 
-                        .ambassador_cards {
+                        .selects {
+                            min-width: 230px;
                             display: flex;
-                            flex-wrap: wrap;
-                            padding-bottom: 20px;
-                            padding-inline: 30px;
-                            row-gap: 24px;
-                            margin-left: -12px;
-                            margin-right: -12px;
-                            flex-grow: 1;
+                            gap: 10px;
 
-                            @media (max-width: 767px) {
-                                margin-left: -8px;
-                                margin-right: -8px;
-                                row-gap: 16px;
-                                padding-bottom: 30px;
+                            @media (max-width:1200px) {
+                                min-width: 100%;
                             }
 
-                            .card_wrap {
-                                padding-inline: 12px;
-                                flex-basis: calc(100% / 4);
-                                max-width: calc(100% / 4);
-
-                                @media (max-width: 1300px) {
-                                    flex-basis: calc(100% / 3);
-                                    max-width: calc(100% / 3);
-                                }
-
-                                @media (max-width: 1000px) {
-                                    padding-inline: 8px;
-                                    flex-basis: calc(100% / 2);
-                                    max-width: calc(100% / 2);
-                                }
-
-                                @media (max-width: 500px) {
-                                    flex-basis: calc(100% / 1);
-                                    max-width: calc(100% / 1);
-                                }
-
-                                .ambassador_card {
-                                    filter: blur(10px);
-                                    transition: filter 0.3s ease;
-
-                                    &:hover {
-                                        filter: blur(10px);
-                                    }
-                                }
+                            @media (max-width:450px) {
+                                flex-direction: column;
+                                gap: 15px;
+                                align-items: start;
+                                min-width: 100%;
                             }
                         }
+                    }
+                }
 
-                        .pagination {
-                            padding-right: 30px;
+                .ambassador_cards {
+                    display: flex;
+                    flex-wrap: wrap;
+                    padding-bottom: 20px;
+                    padding-inline: 30px;
+                    row-gap: 24px;
+                    margin-left: -12px;
+                    margin-right: -12px;
+                    flex-grow: 1;
+
+                    @media (max-width: 767px) {
+                        margin-left: -8px;
+                        margin-right: -8px;
+                        row-gap: 16px;
+                        padding-bottom: 30px;
+                    }
+
+                    .card_wrap {
+                        padding-inline: 12px;
+                        flex-basis: calc(100% / 4);
+                        max-width: calc(100% / 4);
+
+                        @media (max-width: 1300px) {
+                            flex-basis: calc(100% / 3);
+                            max-width: calc(100% / 3);
+                        }
+
+                        @media (max-width: 1000px) {
+                            padding-inline: 8px;
+                            flex-basis: calc(100% / 2);
+                            max-width: calc(100% / 2);
+                        }
+
+                        @media (max-width: 500px) {
+                            flex-basis: calc(100% / 1);
+                            max-width: calc(100% / 1);
+                        }
+
+                        .ambassador_card {
+                            filter: blur(10px);
+                            transition: filter 0.3s ease;
+
+                            &:hover {
+                                filter: blur(10px);
+                            }
+                        }
+                    }
+                }
+
+                .pagination {
+                    padding-right: 30px;
+                    display: flex;
+                    justify-content: end;
+                    align-items: center;
+                    margin-top: 25px;
+
+                    .pagination_content {
+                        display: flex;
+                        justify-content: space-between;
+                        color: #BDBDBD;
+
+                        .pagination_content_text {
+                            font-size: 14px;
+                            color: var(--primary-white);
                             display: flex;
-                            justify-content: end;
-                            align-items: center;
-                            margin-top: 25px;
+                            gap: 8px;
 
-                            .pagination_content {
-                                display: flex;
-                                justify-content: space-between;
+                            .pagination_head {
                                 color: #BDBDBD;
+                            }
 
-                                .pagination_content_text {
-                                    font-size: 14px;
+                            .pagination_dropdown {
+                                select {
+                                    border: none;
+                                    background: transparent;
                                     color: var(--primary-white);
-                                    display: flex;
-                                    gap: 8px;
+                                    cursor: pointer;
+                                    font-family: "Inter", sans-serif;
+                                    font-size: 14px;
+                                    outline: 0px;
 
-                                    .pagination_head {
-                                        color: #BDBDBD;
+                                    option {
+                                        background-color: var(--card-background);
                                     }
+                                }
+                            }
 
-                                    .pagination_dropdown {
-                                        select {
-                                            border: none;
-                                            background: transparent;
-                                            color: var(--primary-white);
-                                            cursor: pointer;
-                                            font-family: "Inter", sans-serif;
-                                            font-size: 14px;
-                                            outline: 0px;
+                            .pagination_content_arrows {
+                                display: flex;
+                                gap: 12px;
 
-                                            option {
-                                                background-color: #242623;
-                                            }
+                                .table_pagination_content_button {
+                                    background: transparent;
+                                    border: none;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+
+                                    svg {
+                                        path {
+                                            height: 20px;
+                                            width: 20px;
                                         }
                                     }
 
-                                    .pagination_content_arrows {
-                                        display: flex;
-                                        gap: 12px;
-
-                                        .table_pagination_content_button {
-                                            background: transparent;
-                                            border: none;
-                                            display: flex;
-                                            justify-content: center;
-                                            align-items: center;
-
-                                            svg {
-                                                path {
-                                                    height: 20px;
-                                                    width: 20px;
-                                                }
-                                            }
-
-                                            &:focus {
-                                                svg {
-                                                    path {
-                                                        fill: var(--primary-white);
-                                                    }
-                                                }
+                                    &:focus {
+                                        svg {
+                                            path {
+                                                fill: var(--primary-white);
                                             }
                                         }
                                     }

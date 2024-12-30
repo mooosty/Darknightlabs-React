@@ -1,21 +1,46 @@
 #root {
     min-height: 100vh;
+    --primary-black: #000;
 
     --primary-white: #fff;
+    --primary-white-op60: #ffffff99;
+    --primary-white-op72: #ffffff80;
+    --primary-white-op40: #ffffff52;
+    --primary-white-op10: #ffffff1a;
+
+    --primary-yellow: #FFDF76;
+    --primary-orange: #ffd1a6;
+
     --primary-text: #f5efdb;
+    --primary-text-op80: #f5efdbcc;
+    --primary-text-op50: #f5efdb80;
     --primary-background: #191917;
-    --primary-red: #ff9e98;
+
+    --primary-gray: #4F4F4F;
+    --primary-gray-op80: #4e4e4ecc;
+    --primary-gray-op20: #4e4e4e33;
 
     --btn-gray-bg: #4e4e4e94;
-    --btn_delete-bg: #ff9e9826;
     --border-color: #f5efdb26;
     --card-background: #242623;
     --card-shadow: #ff8a1c59;
     --disable-gray: #242623;
+
+    --popup-footer: #111111;
+    --scrollbar-thumb: #4e4e4e80;
+
+    --primary-red: #ff9e98;
+    --primary-red-bg: #ff9e9826;
+    --primary-green: #3EAA2C;
+    --primary-green-bg: #3EAA2C1A;
+    --primary-pending: #C6A844;
+    --primary-pending-bg: #C6A8441a;
 }
+
 html {
     scroll-behavior: smooth;
-  }
+}
+
 .no-scroll {
     overflow: hidden !important;
     padding-right: var(--scrollbar-width);

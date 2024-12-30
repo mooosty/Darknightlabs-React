@@ -73,7 +73,7 @@
             }
 
             .karma_overview {
-                background: #242623;
+                background: var(--card-background);
                 border-radius: 12px;
                 padding: 30px;
                 margin-bottom: 30px;
@@ -110,7 +110,7 @@
                     .stat_item {
                         text-align: center;
                         flex: 1;
-                        background: #242623cc;
+                        background: var(--card-background);
                         padding: 20px;
                         border-radius: 8px;
                         border: 1px solid #f5efdb1a;
@@ -156,7 +156,7 @@
             }
 
             .karma_explanation {
-                background: #242623;
+                background: var(--card-background);
                 border-radius: 12px;
                 padding: 30px;
                 margin-bottom: 30px;
@@ -203,7 +203,7 @@
             }
 
             .karma_breakdown {
-                background: #242623;
+                background: var(--card-background);
                 border-radius: 12px;
                 padding: 30px;
 
@@ -265,7 +265,7 @@
         z-index: 1000;
 
         .popup_content {
-            background: #242623;
+            background: var(--card-background);
             padding: 30px;
             border-radius: 12px;
             max-width: 500px;
@@ -283,7 +283,7 @@
                 display: flex;
                 align-items: center;
                 gap: 10px;
-                background: #242623cc;
+                background: var(--card-background);
                 padding: 10px;
                 border-radius: 8px;
                 border: 1px solid #f5efdb1a;

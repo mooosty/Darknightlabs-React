@@ -68,8 +68,8 @@
                 }
 
                 .user_name {
-                    color: #ffd1a6;
-                    background-color: black;
+                    color: var(--primary-orange);
+                    background-color: var(--primary-black);
                     border-radius: 50%;
                     height: 40px;
                     width: 40px;
@@ -89,7 +89,7 @@
                     align-items: center;
 
                     .messenger_name {
-                        color: #ffd1a6;
+                        color: var(--primary-orange);
                         line-height: 20px;
                         font-size: 14px;
                         max-width: 15vw;
@@ -107,7 +107,7 @@
                     .time {
                         font-size: 12px;
                         padding-top: 1px;
-                        color: #ffffff80;
+                        color: var(--primary-white-op72);
                         line-height: 19px;
                     }
                 }
@@ -215,7 +215,7 @@
             .chat_input {
                 width: 100%;
                 padding: 10px 12px 10px 16px;
-                background-color: #4d4d4d;
+                background-color: var(--primary-gray);
                 border-radius: 8px;
                 display: flex;
                 gap: 8px;
@@ -252,7 +252,7 @@
 
                 .chat_icon_wrp {
                     display: flex;
-                    background: #1d1d1b;
+                    background: var(--primary-black);
                     border-radius: 50%;
                     padding: 6px;
                     padding-right: 5px;
@@ -275,7 +275,7 @@
                     position: absolute;
                     bottom: 3px;
                     display: flex;
-                    color: #ffffffb9;
+                    color: var(--primary-white-op72);
                     gap: 4px;
                     font-size: 10px;
 
@@ -297,7 +297,7 @@
         width: 230px;
         // height: 100%;
         padding-bottom: 20px;
-        background-color: #040400;
+        background-color:var(--primary-black);
         align-self: stretch;
         height: 100%;
 
@@ -375,13 +375,13 @@
                                 align-items: center;
 
                                 .top_left {
-                                    color: #ffd1a6cc;
+                                    color: var(--primary-orange);
                                     line-height: 20px;
                                     font-size: 14px;
                                 }
 
                                 .top_right {
-                                    color: #f5efdb99;
+                                    color: var(--primary-text-op80);
                                     line-height: 20px;
                                     font-size: 10px;
                                     text-transform: uppercase;
@@ -389,7 +389,7 @@
                             }
 
                             .bottom {
-                                color: #ffffff80;
+                                color: var(--primary-white-op72);
                                 font-size: 12px;
                                 line-height: 20px;
                             }

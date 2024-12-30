@@ -297,7 +297,7 @@ const UserProfile = () => {
   }, [userDetails]);
 
   return (
-    <>
+    <div className="profile_content_wrapper">
       {active === "INFORMATION" && (
         !isEditMode ? (
           <>
@@ -873,7 +873,7 @@ const UserProfile = () => {
           handleActive={handleActive}
           active={active} />
       )}
-    </>
+    </div>
   );
 };
 

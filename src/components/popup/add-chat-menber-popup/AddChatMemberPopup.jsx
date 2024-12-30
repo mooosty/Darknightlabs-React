@@ -94,7 +94,7 @@ const AddChatMemberPopup = ({ chatId, open, handleClose }) => {
         <>
             <div className={`model_bg ${open ? 'active' : ''} `}>
                 <div
-                    className={`add_angel_popup`}
+                    className={`add_chatMember_popup`}
                 >
                     <div className='model_box' ref={closeRef}>
                         <div className='model_body'>

@@ -1,4 +1,6 @@
-.page_box {
+.synergies_content_details_wrapper {
+  height: 100%;
+
   .synergy_details_content_header {
     display: flex;
     align-items: center;
@@ -78,7 +80,7 @@
     height: calc(100% - 80px);
 
     @media (max-width: 1600px) {
-      height: calc(100% - 50px);
+      height: calc(100% - 43px);
     }
 
     @media (max-width: 767px) {
@@ -196,14 +198,13 @@
             }
 
             .profile_photo {
-              background-color: #ffffff0d;
+              background-color: var(--primary-white-op10);
               min-height: 300px;
               border-radius: 8px;
               display: flex;
               flex-direction: column;
               align-items: center;
               justify-content: center;
-              background-color: #ffffff0d;
               position: relative;
 
               input {
@@ -455,15 +456,15 @@
                   padding-block: 12px;
 
                   &.light {
-                    color: #494949;
+                    color: var(--primary-gray);
 
                     .left {
-                      color: #494949;
+                      color: var(--primary-gray);
 
                       .tag {
                         svg {
                           path {
-                            stroke: #494949 !important;
+                            stroke: var(--primary-gray) !important;
                           }
                         }
                       }

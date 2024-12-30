@@ -12,7 +12,7 @@
     }
 
     .login_popup {
-        background-color: #434242cc;
+        background-color: var(--primary-gray-op80);
         position: absolute;
         top: 50%;
         left: 50%;
@@ -60,7 +60,7 @@
 
                     input {
                         padding: 15px 24px;
-                        border: 1px solid #ffffff80;
+                        border: 1px solid var(--primary-white-op72);
                         background-color: transparent;
                         width: 100%;
                         color: var(--primary-text);
@@ -123,21 +123,21 @@
                         gap: 8px;
 
                         label {
-                            color: #f5efdbd7;
+                            color:var( --primary-text-op50);
                             display: block;
                         }
 
                         input {
                             background-color: transparent;
                             padding: 15px 24px;
-                            border: 1px solid #ffffff80;
+                            border: 1px solid var(--primary-white-op72);
                             border-radius: 0px;
                             width: 100%;
                             color: var(--primary-text);
                             font-family: "MedievalSharp", cursive;
 
                             &::placeholder {
-                                color: #f5efdb80;
+                                color:var( --primary-text-op50);
                                 font-size: 16px;
                                 opacity: 0.5;
 
@@ -184,7 +184,7 @@
                                 height: 24px !important;
                                 width: 24px !important;
                                 padding: 0.5px 10px;
-                                background-color: #4e4e4e33;
+                                background-color: var(--primary-gray-op20);
                                 border: 1px solid var(--primary-white);
                             }
 
@@ -218,7 +218,7 @@
 
                             a {
                                 font-family: "MedievalSharp", cursive;
-                                color: #FFDF76;
+                                color: var(--primary-yellow);
 
                                 &:hover {
                                     text-decoration: underline;
@@ -281,7 +281,7 @@
                                 justify-content: center;
 
                                 a {
-                                    color: #FFDF76;
+                                    color: var(--primary-yellow);
                                     font-family: "MedievalSharp", cursive;
 
                                     &:hover {

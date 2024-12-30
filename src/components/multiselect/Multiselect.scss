@@ -7,7 +7,7 @@
 
     .custom_multiselect_field {
         padding: 12px 24px;
-        border: 1px solid #ffffff80;
+        border: 1px solid var(--primary-white-op72);
         background-color: transparent;
         width: 100%;
         line-height: 19px;
@@ -17,7 +17,6 @@
         display: flex;
         gap: 4px;
         color: var(--primary-white);
-        // background-color: #383636;
         font-family: "Inter", sans-serif;
 
         @media (max-width: 1600px) {
@@ -44,7 +43,7 @@
         }
 
         .custom_multiselect_placeholder {
-            color: #ffffff9f;
+            color: var(--primary-white-op60);
             padding: 2px 8px;
 
         }
@@ -71,8 +70,8 @@
     }
 
     .custom_multiselect_list {
-        border: 1px solid #ffffff80;
-        background-color: #242623;
+        border: 1px solid var(--primary-white-op72);
+        background-color: var(--card-background);
         padding: 10px;
         position: absolute;
         display: none;
@@ -101,11 +100,11 @@
                 }
 
                 &:hover {
-                    background-color: #ffffff1a;
+                    background-color: var(--primary-white-op10);
                 }
 
                 &.selected {
-                    background-color: #ffffff1a;
+                    background-color: var(--primary-white-op10);
                 }
 
                 .tooltip {

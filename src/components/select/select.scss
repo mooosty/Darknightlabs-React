@@ -14,7 +14,7 @@
 
     .custom_select_field {
         padding: 15px 24px;
-        border: 1px solid #ffffff80;
+        border: 1px solid var(--primary-white-op72);
         background-color: transparent;
         width: 100%;
         line-height: 19px;
@@ -40,7 +40,7 @@
         }
 
         .custom_select_placeholder {
-            color: #F5EFDB80;
+            color:var( --primary-text-op50);
             max-width: 90%;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -69,8 +69,8 @@
     }
 
     .custom_select_list {
-        border: 1px solid #ffffff80;
-        background-color: #242623;
+        border: 1px solid var(--primary-white-op72);
+        background-color: var(--card-background);
         padding: 10px;
         position: absolute;
         display: none;
@@ -109,7 +109,7 @@
                 }
 
                 &:hover {
-                    background-color: #ffffff1a;
+                    background-color: var(--primary-white-op10);
                 }
 
                 .tooltip {

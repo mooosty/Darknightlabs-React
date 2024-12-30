@@ -35,7 +35,7 @@ const SynergiesDetails = () => {
     }, [synergyId])
 
     return (
-        <>
+        <div className='synergies_content_details_wrapper'>
             <div className="synergy_details_content_header">
                 <div className="content_left">
                     <h2>Synergies</h2>
@@ -133,7 +133,7 @@ const SynergiesDetails = () => {
 
             <Loader loading={synergyApiLoading} />
 
-        </>
+        </div>
     )
 }
 

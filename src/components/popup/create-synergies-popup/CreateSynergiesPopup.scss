@@ -12,7 +12,7 @@
     }
 
     .create_popup {
-        background-color: #434242cc;
+        background-color: var(--primary-gray-op80);
         position: absolute;
         top: 50%;
         left: 50%;
@@ -48,19 +48,12 @@
             }
 
             .create_model_body {
-                padding: 32px 18px 40px 18px;
+                padding: 32px 18px 20px 18px;
                 position: relative;
 
                 @media (max-width: 1600px) {
-                    padding-bottom: 30px;
+                    padding-bottom: 10px;
                 }
-
-                @media (max-width: 767px) {
-                    padding-bottom: 25px;
-
-                }
-
-
 
                 .create_model_header {
                     display: flex;
@@ -125,7 +118,7 @@
 
                     input {
                         padding: 15px 24px;
-                        border: 1px solid #ffffff80;
+                        border: 1px solid var(--primary-white-op72);
                         background-color: transparent;
                         width: 100%;
                         color: var(--primary-text);
@@ -162,7 +155,7 @@
                     }
 
                     &::-webkit-scrollbar-thumb {
-                        background: #4e4e4e80;
+                        background: var(--scrollbar-thumb);
                     }
 
                     .model_header {
@@ -279,8 +272,8 @@
                                             align-items: center;
                                             gap: 12px;
                                             padding: 6px 10px;
-                                            border: 1px solid #ffffff33;
-                                            color: #ffffff52;
+                                            border: 1px solid var(--primary-white-op10);
+                                            color: var(--primary-white-op40);
                                             font-family: "Inter", sans-serif;
                                             border-radius: 8px;
 
@@ -304,7 +297,7 @@
                                                     margin-bottom: 0px;
 
                                                     path {
-                                                        stroke: #ffffff52;
+                                                        stroke: var(--primary-white-op40);
                                                     }
                                                 }
                                             }
@@ -323,7 +316,7 @@
                                                     width: 100%;
 
                                                     path {
-                                                        stroke: #ffffff52;
+                                                        stroke: var(--primary-white-op40);
                                                     }
                                                 }
                                             }
@@ -334,7 +327,7 @@
                                         }
 
                                         .checkbox_input:checked+.checkbox_label {
-                                            background-color: #ffffff1a;
+                                            background-color: var(--primary-white-op10);
 
                                             .checkbox_label_text {
                                                 color: white;
@@ -429,13 +422,13 @@
 
                                 .checkbox_label {
                                     margin: 0;
-                                    color: #f5f5f580;
+                                    color: var(--primary-white-op72);
                                     display: flex;
                                     align-items: center;
                                     gap: 6px;
                                     padding: 5px 7px;
                                     border-radius: 5px;
-                                    border: 1px solid #ffffff26;
+                                    border: 1px solid var(--primary-white-op10);
                                     font-size: 16px;
 
                                     @media (max-width: 1600px) {
@@ -444,7 +437,7 @@
 
                                     svg {
                                         path {
-                                            stroke: #ffffff80;
+                                            stroke: var(--primary-white-op72);
                                         }
                                     }
                                 }
@@ -454,13 +447,13 @@
                                 }
 
                                 .checkbox_input:checked+.checkbox_label {
-                                    background-color: #f5f5f526;
-                                    color: #f5f5f5;
-                                    stroke: white;
+                                    background-color: var(--primary-white-op10);
+                                    color: var(--primary-white);
+                                    stroke: var(--primary-white);
 
                                     svg {
                                         path {
-                                            stroke: white;
+                                            stroke: var(--primary-white);
                                         }
                                     }
                                 }
@@ -493,7 +486,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                background-color: #111111;
+                background-color: var(--popup-footer);
 
                 @media (max-width: 1600px) {
                     padding: 20px 20px;
@@ -504,7 +497,7 @@
                 }
 
                 .refuse_btn {
-                    background-color: var(--btn_delete-bg);
+                    background-color: var(--primary-red-bg);
                     border: none;
                     padding: 14px 45px;
                     color: var(--primary-red);

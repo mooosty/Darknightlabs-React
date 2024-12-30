@@ -346,7 +346,7 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
           className: "",
           duration: 5000,
           style: {
-            background: "#242623",
+            background: "var(--card-background)",
             color: "var(--primary-white)",
             textAlign: "center", // Center the text
             fontSize: "18px", // Increase the font size

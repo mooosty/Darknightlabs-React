@@ -1,4 +1,6 @@
-.page_box {
+.ambassadors_content_wrapper {
+    height: 100%;
+
     .ambassadors_content_header {
         display: flex;
         align-items: center;
@@ -95,8 +97,8 @@
                     .buttons {
                         display: flex;
                         justify-content: center;
-                        color: #ffffff80;
-                        border-bottom: 1px solid #ffffff80;
+                        color: var(--primary-white-op72);
+                        border-bottom: 1px solid var(--primary-white-op72);
                         cursor: pointer;
                         padding: 10px 45px;
 
@@ -160,50 +162,6 @@
                 .ambassadors_content_btn {
                     padding: 16px 24px;
                     margin-inline: auto;
-                }
-            }
-        }
-    }
-}
-
-.content_box {
-    .ambassador_content_Wraper {
-        .user_ambassador_page_data {
-            .page_data {
-                .ambassador_card_box {
-                    .ambassador_cards {
-                        .card_wrap {
-                            padding-inline: 12px;
-                            flex-basis: calc(100% / 4);
-                            max-width: calc(100% / 4);
-                            pointer-events: none;
-
-                            @media (max-width: 1300px) {
-                                flex-basis: calc(100% / 3);
-                                max-width: calc(100% / 3);
-                            }
-
-                            @media (max-width: 1000px) {
-                                padding-inline: 8px;
-                                flex-basis: calc(100% / 2);
-                                max-width: calc(100% / 2);
-                            }
-
-                            @media (max-width: 500px) {
-                                flex-basis: calc(100% / 1);
-                                max-width: calc(100% / 1);
-                            }
-
-                            .ambassador_card {
-                                filter: blur(10px);
-                                transition: filter 0.3s ease;
-
-                                &:hover {
-                                    filter: blur(10px);
-                                }
-                            }
-                        }
-                    }
                 }
             }
         }

@@ -13,7 +13,7 @@
     }
 
     .project_name_btn {
-        background-color: var(--btn_delete-bg);
+        background-color: var(--primary-red-bg);
         border: none;
         padding: 12px;
 
@@ -28,7 +28,7 @@
     }
 
     .add_content_popup {
-        background-color: #434242cc;
+        background-color: var(--primary-gray-op80);
         position: absolute;
         top: 50%;
         left: 50%;
@@ -69,7 +69,7 @@
                 }
 
                 &::-webkit-scrollbar-thumb {
-                    background: #4e4e4e80;
+                    background:var(--scrollbar-thumb);
                 }
 
                 .add_content_model_header {
@@ -129,7 +129,7 @@
                         }
 
                         .select_wrapper .custom_select_field {
-                            color: #f5efdb80;
+                            color:var( --primary-text-op50);
                             font-family: "Inter", sans-serif;
 
                             @media (max-width: 1600px) {
@@ -157,7 +157,7 @@
 
                         input {
                             padding: 16px 28px;
-                            border: 1px solid #ffffff80;
+                            border: 1px solid var(--primary-white-op72);
                             background-color: transparent;
                             width: 100%;
                             color: var(--primary-text);
@@ -173,7 +173,7 @@
                                 white-space: nowrap;
                                 line-height: 19px;
                                 font-size: 14px;
-                                color: #ffffff9f;
+                                color: var(--primary-white-op60);
                             }
 
                             @media (max-width: 1600px) {
@@ -191,7 +191,7 @@
                             .select_wrapper {
                                 .custom_select_field {
                                     .custom_select_placeholder {
-                                        color: #ffffff9f;
+                                        color: var(--primary-white-op60);
                                     }
 
                                     @media (max-width: 1600px) {
@@ -202,7 +202,7 @@
 
                             input {
                                 padding: 15px 24px;
-                                border: 1px solid #ffffff80;
+                                border: 1px solid var(--primary-white-op72);
                                 background-color: transparent;
                                 width: 100%;
                                 color: var(--primary-text);
@@ -235,12 +235,12 @@
                 gap: 10px;
                 align-items: center;
                 justify-content: space-between;
-                background-color: #111111;
+                background-color: var(--popup-footer);
 
 
 
                 .cancel_btn {
-                    background-color: var(--btn_delete-bg);
+                    background-color: var(--primary-red-bg);
                     border: none;
                     padding: 12px 30px;
                     display: flex;

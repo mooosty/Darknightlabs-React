@@ -266,7 +266,7 @@ const ProjectManagerEdit = () => {
   }, []);
 
   return (
-    <>
+    <div className="project_manager_edit_wrapper">
       <div className="content_header">
         <div className="content_left">
           <h2>Projects Manager</h2>
@@ -696,7 +696,7 @@ const ProjectManagerEdit = () => {
       />
 
       <Loader loading={projectApiLoading} />
-    </>
+    </div>
   );
 };
 

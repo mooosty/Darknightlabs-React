@@ -23,14 +23,15 @@ const Ambassadors = ({ handleActive, active }) => {
     ]
     return (
 
-        <><div className="ambassadors_content_header">
-            <div className="ambassadors_content_left">
-                <h2>Profile</h2>
+        <div className='ambassadors_content_wrapper'>
+            <div className="ambassadors_content_header">
+                <div className="ambassadors_content_left">
+                    <h2>Profile</h2>
+                </div>
+                <div className="ambassadors_content_right">
+                    <a href="#">Darknight Labs</a>
+                </div>
             </div>
-            <div className="ambassadors_content_right">
-                <a href="#">Darknight Labs</a>
-            </div>
-        </div>
             <div className="ambassadors_page_data">
                 <div className="page_data">
                     <div className="header_button">
@@ -66,7 +67,7 @@ const Ambassadors = ({ handleActive, active }) => {
                 </div>
             </div>
 
-        </>
+        </div>
     )
 }
 

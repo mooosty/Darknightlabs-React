@@ -201,7 +201,7 @@
                 }
 
                 p {
-                    color: #ffffff6c;
+                    color: var(--primary-white-op60);
                     white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;
@@ -284,7 +284,7 @@
             .disabled:hover:after {
                 content: "You need to complete profile ";
                 position: absolute;
-                background: #000;
+                background: var(--primary-black);
                 color: var(--primary-text);
                 padding: 8px 12px;
                 border-radius: 4px;
@@ -387,7 +387,7 @@
                         &::after {
                             content: 'Complete your profile first to unlock this feature';
                             position: absolute;
-                            background: #000000;
+                            background:var(--primary-black);
                             color: var(--primary-text);
                             padding: 8px 12px;
                             border-radius: 6px;
@@ -408,7 +408,7 @@
                             transform: translateX(-50%);
                             border-width: 6px;
                             border-style: solid;
-                            border-color: #000000 transparent transparent transparent;
+                            border-color: var(--primary-black) transparent transparent transparent;
                             z-index: 9999;
                         }
                     }
@@ -426,7 +426,7 @@
                     .tooltip-text {
                         display: none;
                         position: absolute;
-                        background: #000000e6;
+                        background: var(--primary-black);
                         color: var(--primary-text);
                         padding: 8px 12px;
                         border-radius: 6px;

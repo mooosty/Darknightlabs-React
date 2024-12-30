@@ -142,7 +142,7 @@ const FeaturedAllProjects = () => {
 
     return (
         <>
-            <div className="featured_all_project_content_Wraper">
+            <div className="featured_all_project_content_Wrapper">
                 <div className="featured_all_project_content_header">
                     <div className="featured_all_project_content_left">
                         <span onClick={() => { window.history.back() }}>

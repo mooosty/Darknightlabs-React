@@ -1,6 +1,6 @@
 .project_accordion_conrtainer {
     margin: 5px 24px;
-    background-color: #242623eb;
+    background-color: var(--card-background);
 
     @media (max-width: 500px) {
         margin-inline: 20px;
@@ -16,7 +16,7 @@
     }
 
     .selected {
-        background-color: #f5efdb1a;
+        background-color: var(--border-color);
     }
 
     &.active {
@@ -87,7 +87,7 @@
                             height: 18px !important;
                             width: 18px !important;
                             padding: 0.5px 5px;
-                            background-color:  #4e4e4e33;
+                            background-color: var(--primary-gray-op20);
                             border: 1px solid var(--primary-white);
                         }
 
@@ -180,7 +180,7 @@
                             display: flex;
                             gap: 8px;
                             align-items: center;
-                            color: #ffd1a6cc;
+                            color: var(--primary-orange);
 
                             ul {
                                 display: flex;
@@ -309,7 +309,7 @@
                             font-size: 12px;
                             border-radius: 10px;
                             gap: 4px;
-                            background: #242623eb;
+                            background: var(--card-background);
 
                             .text {
                                 overflow: hidden;
@@ -420,7 +420,7 @@
                     display: flex;
                     gap: 8px;
                     align-items: center;
-                    color: #ffd1a6cc;
+                    color: var(--primary-orange);
 
                     ul {
                         display: flex;

@@ -6,7 +6,7 @@
         flex-direction: column;
         gap: 16px;
         border-radius: 10px;
-        background-color: #242623;
+        background-color: var(--card-background);
         margin-bottom: 0;
 
         &:hover {

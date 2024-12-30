@@ -1,6 +1,6 @@
 .accordion_conrtainer {
     margin: 5px 24px;
-    background-color: #242623eb;
+    background-color: var(--card-background);
 
     .accordion {
         border-radius: 5px;
@@ -66,7 +66,7 @@
                             height: 18px !important;
                             width: 18px !important;
                             padding: 0.5px 5px;
-                            background-color: #4e4e4e33;
+                            background-color: var(--primary-gray-op20);
                             border: 1px solid var(--primary-white);
                         }
 
@@ -127,7 +127,7 @@
                         display: flex;
                         gap: 8px;
                         align-items: center;
-                        color: #ffd1a6cc;
+                        color: var(--primary-orange);
 
                         img {
                             height: 24px;
@@ -180,7 +180,7 @@
                     display: flex;
                     gap: 8px;
                     align-items: center;
-                    color: #ffd1a6cc;
+                    color: var(--primary-orange);
 
                     img {
                         height: 24px;
@@ -193,7 +193,7 @@
                     display: flex;
                     align-items: center;
                     gap: 4px;
-                    color: #FFDF76;
+                    color: var(--primary-yellow);
                     font-family: "MedievalSharp";
                 }
 

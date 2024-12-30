@@ -1,16 +1,6 @@
-* {
-    scrollbar-width: none !important;
-    /* Firefox */
-    -ms-overflow-style: none !important;
+.investment_wrapper {
+    height: 100%;
 
-    /* IE and Edge */
-    &::-webkit-scrollbar {
-        display: none !important;
-        /* Chrome, Safari and Opera */
-    }
-}
-
-.page_box {
     .investments_content_header {
         display: flex;
         align-items: center;
@@ -87,13 +77,13 @@
 
     .investments_page_data {
         padding: 20px 0px;
-        border-radius: 20px;
+        border-radius: 9px;
         background-color: var(--primary-background);
         min-height: 450px;
         height: calc(100% - 80px);
 
         @media (max-width: 1600px) {
-            height: calc(100% - 40px);
+            height: calc(100% - 50px);
         }
 
         @media (max-width: 767px) {
@@ -148,7 +138,7 @@
                     align-items: center;
                     font-size: 24px;
                     color: var(--primary-white);
-                    background-color: #242623;
+                    background-color: var(--card-background);
                     font-weight: 500;
                     font-family: "MedievalSharp", cursive;
 
@@ -178,13 +168,11 @@
                 }
 
                 .selects {
-                    min-width: 550px;
                     display: flex;
                     justify-content: end;
                     gap: 10px;
 
                     .multiselect_wrapper {
-                        min-width: 150px;
                         width: auto;
 
                         @media (max-width: 500px) {
@@ -208,6 +196,7 @@
             }
 
             .investment_page_body {
+                height: 100%;
                 padding-inline: 34px;
 
                 @media (max-width: 767px) {
@@ -244,7 +233,7 @@
 
                         &:first-child {
                             .card {
-                                background-color: #242623;
+                                background-color: var(--card-background);
                                 cursor: pointer;
                                 transition: transform 0.2s ease;
 
@@ -288,7 +277,7 @@
                             flex-direction: column;
                             gap: 16px;
                             border-radius: 10px;
-                            background-color: #24262396;
+                            background-color: var(--card-background);
 
                             &:hover {
                                 box-shadow: 1px 0px 20px 1px #ff8a1c47;
@@ -351,7 +340,7 @@
                                         padding: 4px;
                                         font-size: 12px;
                                         border-radius: 3px;
-                                        background-color: #242623;
+                                        background-color: var(--card-background);
                                     }
                                 }
                             }
@@ -392,7 +381,7 @@
                                     outline: 0px;
 
                                     option {
-                                        background-color: #242623;
+                                        background-color: var(--card-background);
                                     }
                                 }
                             }
@@ -430,316 +419,321 @@
             }
         }
     }
-}
 
-.investment_details {
-    height: 100%;
+    .investment_details {
+        height: 100%;
 
-    .investments_page_data {
-        background-color: var(--primary-background);
-        border-radius: 20px;
-        height: calc(100% - 80px);
-        padding: 20px 0px;
-        min-height: 450px;
+        .investments_page_data {
+            background-color: var(--primary-background);
+            border-radius: 9px;
+            height: calc(100% - 80px);
+            padding: 20px 0px;
+            min-height: 450px;
 
-        @media (max-width: 1600px) {
-            height: calc(100% - 40px);
-        }
-
-        @media (max-width: 767px) {
-            border-radius: 0;
-        }
-
-        .investment_details_content {
-            height: 100%;
-            background-color: transparent;
-            display: flex;
-            gap: 32px;
-            padding: 0 30px;
-
-            @media (max-width: 1024px) {
-                flex-direction: column;
-                gap: 20px;
-                padding: 0 15px;
-                overflow-y: auto;
+            @media (max-width: 1600px) {
+                height: calc(100% - 46px);
             }
 
-            .details_left {
-                flex: 0 0 65%;
-                color: var(--primary-text);
-                padding-right: 20px;
-                overflow-y: auto;
-                height: 100%;
-                scrollbar-width: none;
-                /* Firefox */
-                -ms-overflow-style: none;
+            @media (max-width: 767px) {
+                border-radius: 0;
+            }
 
-                /* IE and Edge */
-                &::-webkit-scrollbar {
-                    display: none;
-                    /* Chrome, Safari and Opera */
-                }
+            .investment_details_content {
+                height: 100%;
+                background-color: transparent;
+                display: flex;
+                gap: 32px;
+                padding-right: 30px;
+                overflow-y: auto;
 
                 @media (max-width: 1024px) {
-                    flex: 1;
-                    padding-right: 0;
-                    height: auto;
-                    overflow: visible;
+                    flex-direction: column;
+                    gap: 20px;
+                    padding-right: 0px;
+                    overflow-y: auto;
                 }
 
-                &::-webkit-scrollbar {
-                    width: 8px;
-                }
+                .details_left {
+                    flex: 0 0 65%;
+                    color: var(--primary-text);
+                    padding-right: 20px;
+                    overflow-y: auto;
+                    height: 100%;
+                    scrollbar-width: none;
+                    /* Firefox */
+                    -ms-overflow-style: none;
 
-                &::-webkit-scrollbar-track {
-                    background: var(--primary-background);
-                    border-radius: 4px;
-                }
-
-                &::-webkit-scrollbar-thumb {
-                    background: var(--btn-gray-bg);
-                    border-radius: 4px;
-
-                    &:hover {
-                        background: #5e5e5e94;
-                    }
-                }
-
-                .title {
-                    font-size: 32px;
-                    font-weight: 600;
-                    margin-bottom: 24px;
-                    font-family: "MedievalSharp", cursive;
-                }
-
-                .description {
-                    font-size: 16px;
-                    line-height: 1.6;
-                    margin-bottom: 30px;
-                }
-
-                .section {
-                    margin-bottom: 30px;
-
-                    h3 {
-                        font-size: 24px;
-                        font-weight: 500;
-                        margin-bottom: 16px;
-                        color: var(--primary-text);
+                    /* IE and Edge */
+                    &::-webkit-scrollbar {
+                        display: none;
+                        /* Chrome, Safari and Opera */
                     }
 
-                    ul {
-                        list-style: none;
-                        padding: 0;
-
-                        li {
-                            margin-bottom: 12px;
-                            display: flex;
-                            align-items: center;
-                            gap: 8px;
-
-                            a {
-                                color: #f5efdbb3;
-                                text-decoration: none;
-                                transition: color 0.2s ease;
-
-                                &:hover {
-                                    color: #ff8a1c;
-                                }
-                            }
-                        }
+                    @media (max-width: 1024px) {
+                        flex: 1;
+                        padding-right: 0;
+                        height: auto;
+                        overflow: visible;
                     }
 
-                    &.movement_section {
-                        text-align: center;
-                        padding: 30px 0;
-                        border-top: 1px solid #f5efdb1a;
-
-                        h3 {
-                            font-size: 28px;
-                            margin-bottom: 20px;
-                        }
-
-                        p {
-                            font-size: 18px;
-                            line-height: 1.6;
-                            margin-bottom: 20px;
-                        }
-
-                        .stars {
-                            font-size: 24px;
-                            letter-spacing: 4px;
-                            color: #ff8a1c;
-                        }
+                    &::-webkit-scrollbar {
+                        width: 8px;
                     }
-                }
 
-                .links {
-                    a {
-                        color: #f5efdbb3;
-                        text-decoration: none;
-                        margin-right: 20px;
-                        transition: color 0.2s ease;
+                    &::-webkit-scrollbar-track {
+                        background: var(--primary-background);
+                        border-radius: 4px;
+                    }
+
+                    &::-webkit-scrollbar-thumb {
+                        background: var(--btn-gray-bg);
+                        border-radius: 4px;
 
                         &:hover {
-                            color: #111010;
+                            background: #5e5e5e94;
+                        }
+                    }
+
+                    .title {
+                        font-size: 32px;
+                        font-weight: 600;
+                        margin-bottom: 24px;
+                        font-family: "MedievalSharp", cursive;
+                    }
+
+                    .description {
+                        font-size: 16px;
+                        line-height: 1.6;
+                        margin-bottom: 30px;
+                    }
+
+                    .section {
+                        margin-bottom: 30px;
+
+                        h3 {
+                            font-size: 24px;
+                            font-weight: 500;
+                            margin-bottom: 16px;
+                            color: var(--primary-text);
+                        }
+
+                        ul {
+                            list-style: none;
+                            padding: 0;
+
+                            li {
+                                margin-bottom: 12px;
+                                display: flex;
+                                align-items: center;
+                                gap: 8px;
+
+                                a {
+                                    color: var(--primary-text-op50);
+                                    text-decoration: none;
+                                    transition: color 0.2s ease;
+
+                                    &:hover {
+                                        color: #ff8a1c;
+                                    }
+                                }
+                            }
+                        }
+
+                        &.movement_section {
+                            text-align: center;
+                            padding: 30px 0;
+                            border-top: 1px solid #f5efdb1a;
+
+                            h3 {
+                                font-size: 28px;
+                                margin-bottom: 20px;
+                            }
+
+                            p {
+                                font-size: 18px;
+                                line-height: 1.6;
+                                margin-bottom: 20px;
+                            }
+
+                            .stars {
+                                font-size: 24px;
+                                letter-spacing: 4px;
+                                color: #ff8a1c;
+                            }
+                        }
+                    }
+
+                    .links {
+                        a {
+                            color: var(--primary-text-op50);
+                            text-decoration: none;
+                            margin-right: 20px;
+                            transition: color 0.2s ease;
+
+                            &:hover {
+                                color: #111010;
+                            }
                         }
                     }
                 }
-            }
 
-            .details_right {
-                flex: 0 0 35%;
-                max-width: 35%;
-                height: fit-content;
-                position: sticky;
-                top: 20px;
+                .details_right {
+                    flex: 0 0 35%;
+                    max-width: 35%;
 
-                @media (max-width: 1024px) {
-                    flex: 1;
-                    max-width: 100%;
-                    position: static;
-                }
+                    @media (min-width: 1024px) {
+                        height: 100%;
+                        overflow-y: auto;
+                    }
 
-                .form_container {
-                    background: #242623;
-                    border-radius: 12px;
+                    @media (max-width: 1024px) {
+                        flex: 1;
+                        max-width: 100%;
+                        position: static;
+                    }
 
-                    .investment-form {
-                        padding: 20px;
-                        display: flex;
-                        flex-direction: column;
-                        gap: 20px;
+                    .form_container {
+                        background: #242623;
+                        border-radius: 12px;
+                        padding: 10px 0px;
+                        height: fit-content;
 
-                        .form-group {
-                            margin-bottom: 20px;
+                        .investment-form {
+                            padding: 10px 20px;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 20px;
 
-                            label {
-                                display: block;
-                                margin-bottom: 8px;
-                                font-size: 14px;
-                                color: #f5efdbe6;
-                            }
-
-                            input[type="text"],
-                            input[type="number"],
-                            input[type="url"] {
-                                width: 100%;
-                                padding: 10px;
-                                background: #242623cc;
-                                border: 1px solid var(--border-color);
-                                border-radius: 8px;
-                                color: var(--primary-text);
-                                font-size: 14px;
-                                box-sizing: border-box;
-
-                                &:focus {
-                                    outline: none;
-                                    border-color: #ff8a1c;
-                                }
-
-                                &::placeholder {
-                                    color: #f5efdb66;
-                                }
-                            }
-
-                            .radio-group {
-                                display: flex;
-                                flex-direction: column;
-                                gap: 10px;
+                            .form-group {
+                                margin-bottom: 20px;
 
                                 label {
-                                    display: flex;
-                                    align-items: center;
-                                    gap: 8px;
-                                    cursor: pointer;
+                                    display: block;
+                                    margin-bottom: 8px;
                                     font-size: 14px;
-                                    margin: 0;
-                                    color: #f5efdbe6;
+                                    color: var(--primary-text-op50);
+                                }
 
-                                    input[type="radio"] {
-                                        appearance: none;
-                                        width: 18px;
-                                        height: 18px;
-                                        border: 2px solid #f5efdb66;
-                                        border-radius: 50%;
-                                        margin: 0;
-                                        position: relative;
+                                input[type="text"],
+                                input[type="number"],
+                                input[type="url"] {
+                                    width: 100%;
+                                    padding: 10px;
+                                    background: var(--card-background);
+                                    border: 1px solid var(--border-color);
+                                    border-radius: 8px;
+                                    color: var(--primary-text);
+                                    font-size: 14px;
+                                    box-sizing: border-box;
+
+                                    &:focus {
+                                        outline: none;
+                                        border-color: #ff8a1c;
+                                    }
+
+                                    &::placeholder {
+                                        color: var(--primary-text-op50);
+                                    }
+                                }
+
+                                .radio-group {
+                                    display: flex;
+                                    flex-direction: column;
+                                    gap: 10px;
+
+                                    label {
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 8px;
                                         cursor: pointer;
+                                        font-size: 14px;
+                                        margin: 0;
+                                        color: var(--primary-text-op50);
 
-                                        &:checked {
-                                            border-color: #ff8a1c;
+                                        input[type="radio"] {
+                                            appearance: none;
+                                            width: 18px;
+                                            height: 18px;
+                                            border: 2px solid #f5efdb66;
+                                            border-radius: 50%;
+                                            margin: 0;
+                                            position: relative;
+                                            cursor: pointer;
 
-                                            &:after {
-                                                content: '';
-                                                position: absolute;
-                                                width: 10px;
-                                                height: 10px;
-                                                background: #ff8a1c;
-                                                border-radius: 50%;
-                                                top: 50%;
-                                                left: 50%;
-                                                transform: translate(-50%, -50%);
+                                            &:checked {
+                                                border-color: #ff8a1c;
+
+                                                &:after {
+                                                    content: '';
+                                                    position: absolute;
+                                                    width: 10px;
+                                                    height: 10px;
+                                                    background: #ff8a1c;
+                                                    border-radius: 50%;
+                                                    top: 50%;
+                                                    left: 50%;
+                                                    transform: translate(-50%, -50%);
+                                                }
                                             }
                                         }
                                     }
                                 }
+
+                                .error {
+                                    color: #ff4d4f;
+                                    font-size: 12px;
+                                    margin-top: 4px;
+                                }
                             }
 
-                            .error {
+                            .error-message {
+                                background-color: #ff4d4f1a;
+                                border: 1px solid #ff4d4f33;
                                 color: #ff4d4f;
-                                font-size: 12px;
-                                margin-top: 4px;
-                            }
-                        }
-
-                        .error-message {
-                            background-color: #ff4d4f1a;
-                            border: 1px solid #ff4d4f33;
-                            color: #ff4d4f;
-                            padding: 12px;
-                            border-radius: 8px;
-                            margin-bottom: 20px;
-                            font-size: 14px;
-                        }
-
-                        .success-message {
-                            background-color: #52c41a1a;
-                            border: 1px solid #52c41a33;
-                            color: #52c41a;
-                            padding: 12px;
-                            border-radius: 8px;
-                            margin-bottom: 20px;
-                            font-size: 14px;
-                        }
-
-                        .submit-button {
-                            width: 100%;
-                            padding: 12px;
-                            background: #dbbf57;
-                            border: none;
-                            border-radius: 8px;
-                            color: var(--primary-background);
-                            font-weight: 600;
-                            font-size: 16px;
-                            cursor: pointer;
-                            transition: all 0.2s ease;
-                            margin-top: 20px;
-
-                            &:hover {
-                                background: #DCCA87;
+                                padding: 12px;
+                                border-radius: 8px;
+                                margin-bottom: 20px;
+                                font-size: 14px;
                             }
 
-                            &:active {
-                                transform: translateY(1px);
+                            .success-message {
+                                background-color: #52c41a1a;
+                                border: 1px solid #52c41a33;
+                                color: #52c41a;
+                                padding: 12px;
+                                border-radius: 8px;
+                                margin-bottom: 20px;
+                                font-size: 14px;
                             }
 
-                            &:disabled {
-                                opacity: 0.7;
-                                cursor: not-allowed;
+                            .submit-button {
+                                width: 100%;
+                                padding: 12px;
+                                background: #dbbf57;
+                                border: none;
+                                border-radius: 8px;
+                                color: var(--primary-background);
+                                font-weight: 600;
+                                font-size: 16px;
+                                cursor: pointer;
+                                transition: all 0.2s ease;
+                                margin-top: 20px;
 
                                 &:hover {
-                                    background: #dbbf57;
+                                    background: #DCCA87;
+                                }
+
+                                &:active {
+                                    transform: translateY(1px);
+                                }
+
+                                &:disabled {
+                                    opacity: 0.7;
+                                    cursor: not-allowed;
+
+                                    &:hover {
+                                        background: #dbbf57;
+                                    }
                                 }
                             }
                         }
@@ -748,12 +742,20 @@
             }
         }
     }
+
+    .karma_needed {
+        margin-top: 16px;
+        font-family: Arial, sans-serif; // Normal font
+        font-size: 14px;
+        color: var(--primary-white);
+        opacity: 0.8;
+    }
 }
 
 .payment-details {
     margin-top: 10px;
     padding: 10px;
-    background: #242623cc;
+    background: var(--card-background);
     border: 1px solid var(--border-color);
     border-radius: 8px;
 
@@ -773,8 +775,7 @@
         }
 
         strong {
-            color: #f5efdbb3;
-            min-width: 80px;
+            color: var(--primary-text-op50);
             flex-shrink: 0;
         }
 
@@ -803,8 +804,7 @@
     }
 
     strong {
-        color: #f5efdbb3;
-        min-width: 80px;
+        color: var(--primary-text-op50);
         flex-shrink: 0;
     }
 
@@ -830,13 +830,4 @@
             background: #ff8a1c33;
         }
     }
-}
-
-
-.karma_needed {
-    margin-top: 16px;
-    font-family: Arial, sans-serif; // Normal font
-    font-size: 14px;
-    color: var(--primary-white);
-    opacity: 0.8;
 }

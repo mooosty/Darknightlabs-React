@@ -12,7 +12,7 @@
     }
 
     .edit_engel_popup {
-        background-color: #434242cc;
+        background-color: var(--primary-gray-op80);
         position: absolute;
         top: 50%;
         left: 50%;
@@ -135,7 +135,7 @@
 
 
                     &::-webkit-scrollbar-thumb {
-                        background: #4e4e4e80;
+                        background:var(--scrollbar-thumb);
                     }
 
                     .edit_engel_model_data {
@@ -206,8 +206,8 @@
                                             text-align: center;
                                             gap: 12px;
                                             padding: 6px 10px;
-                                            border: 1px solid #ffffff33;
-                                            color: #ffffff52;
+                                            border: 1px solid rgba(255, 255, 255, 0.2);
+                                            color: var( --primary-white-op40);
                                             font-family: "Inter", sans-serif;
                                             border-radius: 8px;
 
@@ -231,7 +231,7 @@
                                                     margin-bottom: 2px;
 
                                                     path {
-                                                        stroke: #ffffff52;
+                                                        stroke: var( --primary-white-op40);
                                                     }
                                                 }
                                             }
@@ -250,7 +250,7 @@
                                                     width: 100%;
 
                                                     path {
-                                                        stroke: #ffffff52;
+                                                        stroke: var( --primary-white-op40);
                                                     }
                                                 }
                                             }
@@ -262,7 +262,7 @@
 
 
                                         .checkbox_input:checked+.checkbox_label {
-                                            background-color: #ffffff1a;
+                                            background-color: var(--primary-white-op10);
 
                                             .checkbox_label_text {
                                                 color: white;
@@ -308,7 +308,7 @@
                 }
 
                 .back_btn {
-                    background-color: var(--btn_delete-bg);
+                    background-color: var(--primary-red-bg);
                     border: none;
                     padding: 14px 55px 14px 55px;
                     color: var(--primary-red);

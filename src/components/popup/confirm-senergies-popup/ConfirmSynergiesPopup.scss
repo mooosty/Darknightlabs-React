@@ -12,7 +12,7 @@
     }
 
     .confirm_synergies_popup {
-        background-color: #434242cc;
+        background-color: var(--primary-gray-op80);
         position: absolute;
         top: 50%;
         left: 50%;
@@ -64,7 +64,7 @@
                 }
 
                 &::-webkit-scrollbar-thumb {
-                    background: #4e4e4e80;
+                    background:var(--scrollbar-thumb);
                 }
 
                 .confirm_synergies_data_header {
@@ -174,14 +174,14 @@
 
                                 .checkbox_label {
                                     margin: 0;
-                                    color: #f5f5f580;
+                                    color: var(--primary-white-op60);
                                     display: flex;
                                     align-items: center;
                                     gap: 6px;
                                     padding: 5px 7px;
                                     cursor: pointer;
                                     border-radius: 5px;
-                                    border: 1px solid #ffffff26;
+                                    border: 1px solid var(--primary-white-op10);
                                     font-size: 16px;
 
                                     @media (max-width: 1600px) {
@@ -190,7 +190,7 @@
 
                                     svg {
                                         path {
-                                            stroke: #ffffff80;
+                                            stroke: var(--primary-white-op72);
                                         }
                                     }
                                 }
@@ -200,13 +200,13 @@
                                 }
 
                                 .checkbox_input:checked+.checkbox_label {
-                                    background-color: #f5f5f526;
-                                    color: #f5f5f5;
-                                    stroke: white;
+                                    background-color:var(--primary-white-op10);
+                                    color: var(--primary-white);
+                                    stroke: var(--primary-white);
 
                                     svg {
                                         path {
-                                            stroke: white;
+                                            stroke: var(--primary-white);
                                         }
                                     }
                                 }
@@ -237,7 +237,7 @@
 
             .confirm_synergies_model_footer {
                 padding: 20px 16px;
-                background-color: #111111;
+                background-color: var(--popup-footer);
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
@@ -247,7 +247,7 @@
                 }
 
                 .back_btn {
-                    background-color: var(--btn_delete-bg);
+                    background-color: var(--primary-red-bg);
                     border: none;
                     padding: 14px 56px 14px 55px;
                     color: var(--primary-red);

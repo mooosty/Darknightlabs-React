@@ -119,7 +119,7 @@ const MyContent = () => {
 
     return (
         <>
-            <div className="my_content_Wraper">
+            <div className="my_content_wrapper">
                 <div className="my_content_header">
                     <div className="my_content_left">
                         <h2>My Content</h2>

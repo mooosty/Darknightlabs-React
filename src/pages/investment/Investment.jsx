@@ -1,9 +1,9 @@
 import './investment.scss'
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { CustomSearch, EmptyData, MultiselectDropDown } from '../../components';
 import { useDispatch, useSelector } from 'react-redux';
 import WalletConnect from '../../components/investments/WalletConnect/WalletConnect';
-import { projectTypesOptions, synergyAnglesOptions } from '../../utils/constants/options';
+import { projectTypesOptions } from '../../utils/constants/options';
 import ContributionForm from '../../components/investments/ContributionForm/ContributionForm';
 import ContributionStatus from '../../components/investments/ContributionStatus/ContributionStatus';
 import { setWalletAddress, setWhitelistMessage } from '../../store/slice/authSlice';
@@ -296,21 +296,46 @@ const Investment = () => {
   const { walletAddress, isWalletVerified, whitelistMessage } = useSelector(state => state.auth);
   const [activeLayout, setActiveLayout] = useState('TRENDING');
   const [showDetails, setShowDetails] = useState(false);
-  const [selectedInvestment, setSelectedInvestment] = useState(null);
+  // const [selectedInvestment, setSelectedInvestment] = useState(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
+  const detailsLeftRef = useRef(null);
+  const detailsRightRef = useRef(null);
+
   const handleActive = (key) => { setActiveLayout(key) }
+  const syncScroll = (e) => {
+    const source = e.target;
+    if (source === detailsLeftRef.current) {
+      if (detailsRightRef.current.scrollHeight > detailsRightRef.current.clientHeight) {
+        detailsRightRef.current.scrollTop = source.scrollTop;
+      }
+    } else if (source === detailsRightRef.current) {
+      if (detailsLeftRef.current.scrollHeight > detailsLeftRef.current.clientHeight) {
+        detailsLeftRef.current.scrollTop = source.scrollTop;
+      }
+
+      if (
+        detailsRightRef.current.scrollTop + detailsRightRef.current.clientHeight >=
+        detailsRightRef.current.scrollHeight
+      ) {
+        if (detailsLeftRef.current.scrollHeight > detailsLeftRef.current.clientHeight) {
+          detailsLeftRef.current.scrollTop = detailsRightRef.current.scrollTop;
+        }
+      }
+    }
+  };
+
 
   const handleCardClick = (data, index) => {
     if (index === 0) {
-      setSelectedInvestment(data);
+      // setSelectedInvestment(data);
       setShowDetails(true);
     }
   }
 
   const handleBackToList = () => {
     setShowDetails(false);
-    setSelectedInvestment(null);
+    // setSelectedInvestment(null);
   }
 
   const [filter, setFilter] = useState({
@@ -326,6 +351,12 @@ const Investment = () => {
     dispatch(setWhitelistMessage({ whitelistMessage: message }));
   }
 
+  useEffect(() => {
+    if (detailsLeftRef.current && detailsRightRef.current) {
+      detailsLeftRef.current.scrollTop = 0;
+      detailsRightRef.current.scrollTop = 0;
+    }
+  }, []);
   // const handleMaxContributions = (isMaxContributions) => {
   //   dispatch(setMaxContributions({ maxContributions: isMaxContributions }));
   // }
@@ -467,7 +498,7 @@ const Investment = () => {
                 onChange={formik.handleChange}
                 checked={formik.values.inTelegramGroup === 'inside'}
               />
-              I'm inside already
+              I&apos;m inside already
             </label>
             <label>
               <input
@@ -511,7 +542,7 @@ const Investment = () => {
                     hideProgressBar: true,
                     closeOnClick: true,
                     style: {
-                      background: "#242623",
+                      background: "var(--card-background)",
                       color: "var(--primary-white)",
                       fontFamily: "MedievalSharp, cursive"
                     }
@@ -622,7 +653,7 @@ const Investment = () => {
                 onChange={formik.handleChange}
                 checked={formik.values.followsTwitter === 'justFollowed'}
               />
-              Wasn't but I just did
+              Wasn&apos;t but I just did
             </label>
           </div>
           {formik.touched.followsTwitter && formik.errors.followsTwitter && (
@@ -651,7 +682,7 @@ const Investment = () => {
                 onChange={formik.handleChange}
                 checked={formik.values.joinedTwitterList === 'justJoined'}
               />
-              Wasn't but I just did
+              Wasn&apos;t but I just did
             </label>
           </div>
           {formik.touched.joinedTwitterList && formik.errors.joinedTwitterList && (
@@ -683,7 +714,7 @@ const Investment = () => {
   };
 
   return (
-    <>
+    <div className='investment_wrapper'>
       {!showDetails ? (
         <>
           <div className="investments_content_header">
@@ -842,17 +873,21 @@ const Investment = () => {
             <div className="page_data">
               <div className="investment_page_body">
                 <div className="investment_details_content">
-                  <div className="details_left">
+                  <div
+                    ref={detailsLeftRef}
+                    className="details_left"
+                    onScroll={syncScroll}
+                  >
                     <h1 className="title">🌙 KIKI : The Evolution</h1>
                     <div className="description">
-                      Come join Kiki's journey from being a popular Giphy IP, to being a face of the newest AI agent x memecoin on Solana, backed by $SHIB
+                      Come join Kiki&apos;s journey from being a popular Giphy IP, to being a face of the newest AI agent x memecoin on Solana, backed by $SHIB
                     </div>
 
                     <div className="section">
-                      <p>Powered by Solana, KIKI isn't just a token — it's a movement.</p>
-                      <p>Once the World's meme sweetheart and a viral sensation with 10.6 billion Giphy views, KiKi's journey took an unexpected turn. Despite its global fame, challenges arose. He had no choice but to rely on the blockchain, sparking a transformation like no other: the ultimate glow-up.</p>
+                      <p>Powered by Solana, KIKI isn&apos;t just a token — it&apos;s a movement.</p>
+                      <p>Once the World&apos;s meme sweetheart and a viral sensation with 10.6 billion Giphy views, KiKi&apos;s journey took an unexpected turn. Despite its global fame, challenges arose. He had no choice but to rely on the blockchain, sparking a transformation like no other: the ultimate glow-up.</p>
                       <p>The World-famous cat has formed an alliance with the largest meme project on the planet, $SHIB</p>
-                      <p>"WAIT AND SEE!"</p>
+                      <p>&quot;WAIT AND SEE!&quot;</p>
                     </div>
 
                     <div className="section">
@@ -867,8 +902,8 @@ const Investment = () => {
                     <div className="section">
                       <h3>Mission</h3>
                       <p>KIKI is reborn in Web3 — a symbol of resilience and BIG dreams. Backed by KiKats (fandom) and a global team, KIKI is building the future meme economy.</p>
-                      <p>KIKI invites you all to reinvent yourself. It's ok to be burnt out. But you need to bounce back, and be reborn. Fall down 7. Stand up 8. Live 9 lives.</p>
-                      <p>With its alliance with the World's largest and most successful meme community, $SHIB, it is poised for sustainable growth and longevity. Be the first holder and witness our journey to success.</p>
+                      <p>KIKI invites you all to reinvent yourself. It&apos;s ok to be burnt out. But you need to bounce back, and be reborn. Fall down 7. Stand up 8. Live 9 lives.</p>
+                      <p>With its alliance with the World&apos;s largest and most successful meme community, $SHIB, it is poised for sustainable growth and longevity. Be the first holder and witness our journey to success.</p>
                     </div>
 
                     <div className="section">
@@ -930,7 +965,11 @@ const Investment = () => {
                       <div className="stars">💫💫💫💫💫💫💫💫💫💫💫💫</div>
                     </div>
                   </div>
-                  <div className="details_right">
+                  <div
+                    ref={detailsRightRef}
+                    className="details_right"
+                    onScroll={syncScroll}
+                  >
                     <div className="form_container">
                       <InvestmentForm />
                     </div>
@@ -941,7 +980,7 @@ const Investment = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   )
 }
 

@@ -8,7 +8,7 @@ import { DownIcon, Download, GradientGraphIcon, GredientGlobalIcon, HalfEmoji, H
 const SynergyProject = () => {
     return (
         <>
-            <div className="synergies_projects_content_Wrapper">
+            <div className="synergies_projects_content_wrapper">
                 <div className="synergies_content_header">
                     <div className="synergies_content_left">
                         <h2>Synergies</h2>

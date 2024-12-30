@@ -7,7 +7,7 @@ const DeleteConformationPopup = ({ open, handleClose }) => {
         <>
             <div className={`model_bg ${open ? 'active' : ''} `}>
                 <div
-                    className={`add_angel_popup`}
+                    className={`delete_conformation_popup`}
                 >
                     <div className='model_box'>
                         <div className='model_body'>

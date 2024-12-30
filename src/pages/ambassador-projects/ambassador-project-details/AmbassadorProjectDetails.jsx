@@ -86,7 +86,7 @@ const AmbassadorProjectDetails = () => {
     }, [])
 
     return (
-        <>
+        <div className='ambassador_content_details_wrapper'>
             <div className="ambassador_content_header">
                 <div className="content_left">
                     <h2>Projects</h2>
@@ -220,7 +220,7 @@ const AmbassadorProjectDetails = () => {
                                                             </div>
                                                         </div>
                                                         <div className="right">
-                                                            <div className="current">{'5'}</div>
+                                                            <div className="current">{contents?.filter((item) => item?.type == 'Tweet').length}</div>
                                                             <div className="total">/{'10'}</div>
                                                         </div>
                                                     </div>
@@ -235,7 +235,7 @@ const AmbassadorProjectDetails = () => {
                                                             </div>
                                                         </div>
                                                         <div className="right">
-                                                            <div className="current">{'1'}</div>
+                                                            <div className="current">{contents?.filter((item) => item?.type == 'Video').length}</div>
                                                             <div className="total">/{'5'}</div>
                                                         </div>
                                                     </div>
@@ -385,7 +385,7 @@ const AmbassadorProjectDetails = () => {
                                                 <div key={index} className="row">
                                                     <div className="left">
                                                         <div className={`tag ${index == 0 ? 'global' : index == 1 ? 'graph' : 'white_icon'}`}> {synergiesAnglesIcons[index % 5].icon}
-                                                            <span className="text"> {data[1]}</span> </div>
+                                                            <span className="text"> {data[index]}</span> </div>
                                                     </div>
                                                     <div className="right">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
                                                 </div>
@@ -451,7 +451,7 @@ const AmbassadorProjectDetails = () => {
                 open={isSuccessfullyPopupOpen}
                 handleClose={() => setIsSuccessfullyPopupOpen(false)}
             />
-        </>
+        </div>
     )
 }
 

@@ -1,6 +1,6 @@
 .accordion_conrtainer {
     margin: 5px 0px;
-    background-color: #242623eb;
+    background-color: var(--card-background);
 
     .accordion {
         border-radius: 5px;
@@ -73,7 +73,7 @@
                             height: 18px !important;
                             width: 18px !important;
                             padding: 0.5px 5px;
-                            background-color: #4e4e4e33;
+                            background-color: var(--primary-gray-op20);
                             border: 1px solid var(--primary-white);
                         }
 
@@ -183,15 +183,15 @@
                         }
 
                         &.approved {
-                            background-color: #3EAA2C1A;
-                            color: #3EAA2C;
-                            border-color: #3EAA2C;
+                            background-color: var(--primary-green-bg);
+                            color: var(--primary-green);
+                            border-color: var(--primary-green);
                         }
 
                         &.submitted {
-                            background-color: #C6A8441A;
-                            color: #C6A844;
-                            border-color: #C6A844;
+                            background-color: var(--primary-pending-bg);
+                            color: var(--primary-pending);
+                            border-color: var(--primary-pending);
                         }
                     }
                 }
@@ -230,7 +230,7 @@
                 padding-block: 8px;
 
                 .label {
-                    color: #f5efdbe5;
+                    color: var(--primary-text-op80);
                     display: block;
                     flex-shrink: 0;
                     flex-basis: 80px;
@@ -249,7 +249,7 @@
                         align-items: center;
 
                         .text {
-                            color: #ffffff99;
+                            color: var(--primary-white-op60);
                             max-width: 40vw;
                             overflow: hidden;
                             text-overflow: ellipsis;
@@ -259,7 +259,7 @@
                         .icon {
                             height: 18px;
                             width: 18px;
-                            color: #ffffff99;
+                            color: var(--primary-white-op60);
 
                             svg {
                                 height: 100%;
@@ -271,7 +271,7 @@
 
                 .tweet_text,
                 .date {
-                    color: #ffffff99;
+                    color: var(--primary-white-op60);
                 }
 
                 &.status {
@@ -295,15 +295,15 @@
                         text-transform: capitalize;
 
                         &.approved {
-                            background-color: #3EAA2C1A;
-                            color: #3EAA2C;
-                            border-color: #3EAA2C;
+                            background-color: var(--primary-green-bg);
+                            color: var(--primary-green);
+                            border-color: var(--primary-green);
                         }
 
                         &.submitted {
-                            background-color: #C6A8441A;
-                            color: #C6A844;
-                            border-color: #C6A844;
+                            background-color: var(--primary-pending-bg);
+                            color: var(--primary-pending);
+                            border-color: var(--primary-pending);
                         }
                     }
                 }

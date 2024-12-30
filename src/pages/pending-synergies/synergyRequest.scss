@@ -1,4 +1,6 @@
-.page_box {
+.pending_synergies_wrapper {
+    height: 100%;
+
     .pending_synergies_content_header {
         display: flex;
         align-items: center;
@@ -104,7 +106,7 @@
                 height: calc(100vh - 235px);
 
                 &.search_open {
-                height: calc(100vh - 285px);
+                    height: calc(100vh - 285px);
                 }
             }
 
@@ -123,7 +125,7 @@
                     align-items: center;
                     font-size: 24px;
                     color: var(--primary-white);
-                    background-color: #242623;
+                    background-color: var(--card-background);
                     font-weight: 500;
                     font-family: "MedievalSharp", cursive;
 
@@ -241,7 +243,7 @@
                                     outline: 0px;
 
                                     option {
-                                        background-color: #242623;
+                                        background-color: var(--card-background);
                                     }
                                 }
                             }

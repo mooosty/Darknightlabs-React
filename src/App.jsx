@@ -35,7 +35,7 @@ function App() {
       <InitialDataLoader />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path={`/${ROUTER.SocietyFullList}`} element={<SocietyFullList />} />
+        <Route path={`/${ROUTER.societyFullList}`} element={<SocietyFullList />} />
         <Route path={`/${ROUTER.authentication}`} element={<Authentication />} />
 
         <Route path="/" element={<Layout />}>

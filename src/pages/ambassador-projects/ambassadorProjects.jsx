@@ -59,7 +59,7 @@ const AmbassadorProjects = () => {
 
     return (
         <>
-            <div className="ambassador_content_Wraper">
+            <div className="ambassador_content_wrapper">
                 <div className="ambassador_content_header">
                     <div className="ambassador_content_left">
                         <h2>Projects</h2>

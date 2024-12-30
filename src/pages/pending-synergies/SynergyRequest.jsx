@@ -56,7 +56,7 @@ const SynergyRequest = () => {
 
 
   return (
-    <>
+    <div className='pending_synergies_wrapper'>
       <div className="pending_synergies_content_header">
         <div className="content_left">
           <h2>Synergy requests </h2>
@@ -139,7 +139,7 @@ const SynergyRequest = () => {
         setIsOpen={setIsEditSynergiesPopupOpen}
         selectedSynergyData={selectedSynergyData}
       />
-    </>
+    </div>
   )
 }
 

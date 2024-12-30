@@ -12,7 +12,7 @@
     }
 
     .add_angel_popup {
-        background-color: #434242cc;
+        background-color: var(--primary-gray-op80);
         position: absolute;
         top: 50%;
         left: 50%;
@@ -41,7 +41,7 @@
             }
 
             .model_body {
-                padding: 9px 24px 30px 24px;
+                padding: 30px 24px 0px 24px;
 
                 .form_group {
                     margin-bottom: 16px;
@@ -61,7 +61,7 @@
 
                     input {
                         padding: 15px 24px;
-                        border: 1px solid #ffffff80;
+                        border: 1px solid var(--primary-white-op72);
                         background-color: transparent;
                         width: 100%;
                         color: var(--primary-text);
@@ -144,10 +144,10 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                background-color: #111111;
+                background-color: var(--popup-footer);
 
                 .cancel_btn {
-                    background-color: var(--btn_delete-bg);
+                    background-color: var(--primary-red-bg);
                     border: none;
                     padding: 12px 24px;
                     color: var(--primary-red);

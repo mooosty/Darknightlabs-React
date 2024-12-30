@@ -134,7 +134,7 @@ const ProjectsUser = ({ userProjects, setAddNewProject, handleActive, active }) 
   }, []);
 
   return (
-    <>
+    <div className="project_user_content_details_wrapper">
       <div className="project_user_content_header">
         <div className="project_user_content_left">
           <h2>Profile</h2>
@@ -239,7 +239,7 @@ const ProjectsUser = ({ userProjects, setAddNewProject, handleActive, active }) 
       />
 
       <Loader loading={projectApiLoading} />
-    </>
+    </div>
   );
 };
 
