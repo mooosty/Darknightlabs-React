@@ -242,8 +242,19 @@
                             cursor: not-allowed;
                             position: relative;
 
+                            // Ambassador-specific tooltip
+                            &.ambassador-disabled {
+                                &:hover::after {
+                                    content: 'Please complete your ambassadorship request in profile section';
+                                }
+                            }
+
+                            // Default tooltip for other disabled items
+                            &:not(.ambassador-disabled):hover::after {
+                                content: 'Please complete your profile to unlock';
+                            }
+
                             &:hover::after {
-                                content: 'Please complete your ambassadorship request in profile section';
                                 position: absolute;
                                 background: #000000;
                                 color: #F5EFDB;
@@ -369,12 +380,19 @@
                 position: relative;
 
                 &.disabled {
-                    opacity: 0.5;
-                    cursor: not-allowed;
-                    position: relative;
+                    // Ambassador-specific tooltip
+                    &.ambassador-disabled {
+                        &:hover::after {
+                            content: 'Please complete your ambassadorship request in profile section';
+                        }
+                    }
+
+                    // Default tooltip for other disabled items
+                    &:not(.ambassador-disabled):hover::after {
+                        content: 'Please complete your profile to unlock';
+                    }
 
                     &:hover::after {
-                        content: 'Please complete your ambassadorship request in profile section';
                         position: absolute;
                         background: #000000;
                         color: #F5EFDB;

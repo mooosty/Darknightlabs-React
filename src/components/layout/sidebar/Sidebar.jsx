@@ -224,9 +224,6 @@ const Sidebar = () => {
                       <Link to={userProjects?.length === 0 ? "#" : ROUTER.chat}>
                         <ChatNavTabIcon />
                         <span className="menu_text">Chat</span>
-                        {/* <span className="notification">
-                          <span className="notification_text">1</span>
-                        </span> */}
                       </Link>
                     </li>
                     <li className={`${location.pathname === `/${ROUTER.karma}` ? "active" : ""}`}>
@@ -247,7 +244,7 @@ const Sidebar = () => {
                   <span className="separator"></span>
                   <ul>
                     <li 
-                      className={`${location.pathname.includes('ambassador') || location.pathname.includes('my-content') ? "active" : ""} ${!isAmbassador ? "disabled" : ""}`}
+                      className={`${location.pathname.includes('ambassador') || location.pathname.includes('my-content') ? "active" : ""} ${!isAmbassador ? "disabled ambassador-disabled" : ""}`}
                     >
                       <Link to="#" className={!isAmbassador ? "disabled-link" : ""}>
                         <ProjectNavTabIcon />
@@ -383,7 +380,7 @@ const Sidebar = () => {
                   </Link>
                 </li>
                 <li 
-                  className={`${!isAmbassador ? "disabled" : ""}`}
+                  className={`${!isAmbassador ? "disabled ambassador-disabled" : ""}`}
                 >
                   <Link to="#" className={!isAmbassador ? "disabled-link" : ""}>
                     <ProjectNavTabIcon />

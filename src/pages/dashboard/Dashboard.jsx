@@ -193,28 +193,6 @@ const Dashboard = () => {
         </div>
 
         <div className="dashboard-grid">
-          <div className="grid-section investments-section">
-            <h2>Your Investments</h2>
-            <div className="investments-list">
-              {investments.map((investment, index) => (
-                <div key={index} className="investment-item">
-                  <div className="investment-info">
-                    <span className="investment-name">{investment.name}</span>
-                    <span className="investment-type">{investment.type}</span>
-                  </div>
-                  <div className="investment-progress">
-                    <div 
-                      className={`progress-bar ${investment.progress < 0 ? 'negative' : 'positive'}`}
-                      style={{ width: `${Math.abs(investment.progress)}%` }}
-                    />
-                    <span className="progress-value">{investment.progress}%</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <Link to={`/${ROUTER.investment}`} className="view-all-btn">View All Investments</Link>
-          </div>
-
           <div className="grid-section announcements-section">
             <h2>Announcements & News</h2>
             <div className="announcements-list">
@@ -230,21 +208,6 @@ const Dashboard = () => {
               )}
             </div>
             <Link to={`/${ROUTER.announcementFeed}`} className="view-all-btn">View All Announcements</Link>
-          </div>
-
-          <div className="grid-section leaderboard-section">
-            <h2>Community Leaderboard</h2>
-            <div className="leaderboard-list">
-              {leaderboard.map((user) => (
-                <div key={user.rank} className="leaderboard-item">
-                  <div className="rank-info">
-                    <span className="rank">{user.rank}</span>
-                    <span className="username">{user.username}</span>
-                  </div>
-                  <button className="follow-btn">Follow</button>
-                </div>
-              ))}
-            </div>
           </div>
 
           <div className="grid-section actions-section">
@@ -274,6 +237,43 @@ const Dashboard = () => {
                 <span className="time">2d 14h 37m</span>
               </div>
               <button className="reminder-btn">Set Reminder</button>
+            </div>
+          </div>
+
+          <div className="grid-section investments-section">
+            <h2>Your Investments</h2>
+            <div className="investments-list">
+              {investments.map((investment, index) => (
+                <div key={index} className="investment-item">
+                  <div className="investment-info">
+                    <span className="investment-name">{investment.name}</span>
+                    <span className="investment-type">{investment.type}</span>
+                  </div>
+                  <div className="investment-progress">
+                    <div 
+                      className={`progress-bar ${investment.progress < 0 ? 'negative' : 'positive'}`}
+                      style={{ width: `${Math.abs(investment.progress)}%` }}
+                    />
+                    <span className="progress-value">{investment.progress}%</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <Link to={`/${ROUTER.investment}`} className="view-all-btn">View All Investments</Link>
+          </div>
+
+          <div className="grid-section leaderboard-section">
+            <h2>Community Leaderboard</h2>
+            <div className="leaderboard-list">
+              {leaderboard.map((user) => (
+                <div key={user.rank} className="leaderboard-item">
+                  <div className="rank-info">
+                    <span className="rank">{user.rank}</span>
+                    <span className="username">{user.username}</span>
+                  </div>
+                  <button className="follow-btn">Follow</button>
+                </div>
+              ))}
             </div>
           </div>
         </div>
