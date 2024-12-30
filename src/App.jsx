@@ -23,14 +23,16 @@ import SynergyRequest from "./pages/pending-synergies/SynergyRequest";
 import SynergiesManager from "./pages/synergies-manager/SynergiesManager";
 import ProtectedFeatureRoute from './components/routing/ProtectedFeatureRoute';
 import Welcome from './pages/welcome/Welcome';
+import Dashboard from './pages/dashboard/Dashboard';
 
 function App() {
   return (
     <BrowserRouter>
       <InitialDataLoader />
       <Routes>
-        <Route path="/" element={<Navigate to="/welcome" replace />} />
+        <Route path="/" element={<Navigate to={`/${ROUTER.homepage}`} replace />} />
         <Route path={`/${ROUTER.authentication}`} element={<Authentication />} />
+        <Route path={`/${ROUTER.homepage}`} element={<Dashboard />} />
         <Route path="/" element={<Layout />}>
           <Route path="/welcome" element={<Welcome />} />
           <Route path={ROUTER.announcementFeed} element={<AnnouncementFeed />} />

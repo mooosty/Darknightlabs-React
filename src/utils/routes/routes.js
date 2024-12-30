@@ -5,7 +5,7 @@ export const ROUTER = {
     projectManager: "project-manager",
     projectManagerEdit: "project-manager-edit",
     synergies: "synergies",
-    investment: "investments",
+    investment: "investment",
     profile: "profile",
     karma: "karma",
     chat: "chat",
@@ -13,5 +13,6 @@ export const ROUTER = {
     synergiesManager: "synergies-manager",
     myContent: "my-content",
     ambassadorProjects: "ambassador-projects",
-    announcementFeed: "announcement-feed"
+    announcementFeed: "announcement-feed",
+    homepage: "homepage"
 };

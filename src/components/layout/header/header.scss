@@ -61,10 +61,10 @@
         color: #f5efdb;
         padding: 9px 17px;
         margin-left: auto;
+        cursor: pointer;
 
-        &:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
+        &:hover {
+            background-color: rgba(245, 239, 219, 0.1);
         }
 
         @media(max-width: 1600px) {
