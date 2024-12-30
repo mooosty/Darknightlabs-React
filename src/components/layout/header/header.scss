@@ -4,7 +4,6 @@
     margin-bottom: 30px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
 
     @media(max-width: 1600px) {
         padding: 10px 15px;
@@ -13,9 +12,6 @@
 
     @media(max-width: 767px) {
         margin-bottom: 0;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
         padding: 24px 20px;
         background-color: var(--primary-black);
     }
@@ -24,19 +20,17 @@
         color: var(--primary-text);
         font-family: "MedievalSharp", cursive;
         font-size: 24px;
-        display: none;
-        margin-left: auto;
 
         @media(max-width: 767px) {
-            display: block;
             font-size: 20px;
         }
     }
 
-    .currency {
-        color: var(--primary-yellow);
-        font-family: "MedievalSharp";
-        font-size: 16px;
+    .header_right {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-left: auto;
     }
 
     .sidebar_btn {
@@ -59,7 +53,6 @@
     }
 
     .header_btn {
-        // margin-left: auto;
         font-family: "MedievalSharp", cursive;
         background-color: transparent;
         border: 1px solid var(--primary-text);
@@ -67,7 +60,12 @@
         font-weight: 500;
         color: var(--primary-text);
         padding: 9px 17px;
-        display: block;
+        margin-left: auto;
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgba(245, 239, 219, 0.1);
+        }
 
         @media(max-width: 1600px) {
             font-size: 14px;

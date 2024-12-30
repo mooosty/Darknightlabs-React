@@ -1,63 +1,81 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import axios from "axios";
 import "./karma.scss";
-// import { toast } from "react-toastify";
 import toast, { Toaster } from "react-hot-toast";
 import { CopyIcon, CheckIcon } from "../../utils/constants/images";
 import { KarmaIcon } from "../../utils/SVGs/SVGs";
- 
+import { axiosApi } from "../../api-services/service";
 
 const Karma = () => {
   const [showInvitePopup, setShowInvitePopup] = useState(false);
   const [inviteLink, setInviteLink] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [isCopyLink, setIsCopyLink] = useState(false);
+  const [inviteData, setInviteData] = useState({
+    level1: [],
+    level2: [],
+    level3: []
+  });
   const userData = useSelector((state) => state.auth);
   const { userDetails } = useSelector((state) => state.user);
 
   useEffect(() => {
-    // Simple check to ensure we have user details
-    const checkUserDetails = () => {
-      if (userDetails) {
+    const fetchInviteTree = async () => {
+      try {
+        const response = await axiosApi.get(`/invites/tree/${userData?.userId}`);
+        setInviteData(response.data);
         setIsLoading(false);
-      } else {
-        // If no user details, you might want to redirect to login
-        toast.error("Please login to view karma points");
+      } catch (error) {
+        console.error("Error fetching invite tree:", error);
+        toast.error("Failed to fetch invite data");
         setIsLoading(false);
       }
     };
 
-    checkUserDetails();
-  }, [userDetails]);
+    if (userData?.userId) {
+      fetchInviteTree();
+    } else {
+      setIsLoading(false);
+    }
+  }, [userData?.userId]);
 
   if (isLoading) {
     return <div className="karma_page">Loading...</div>;
   }
 
-  // Use currency_b as karma points
-  const karmaStats = {
-    totalKarmaPoints: userDetails?.currency_b || 0,
-    directInvites: 0,
-    level1Invites: 0,
-    level2Invites: 0,
-    karmaBreakdown: [
-      { label: "Direct Invites", points: 0, count: 0 },
-      { label: "Level 1 Referrals", points: 0, count: 0 },
-      { label: "Level 2 Referrals", points: 0, count: 0 },
-    ],
+  // Calculate karma points based on invite levels
+  const calculateKarmaPoints = () => {
+    const directInvites = inviteData.level1?.length || 0;
+    const level1Invites = inviteData.level2?.length || 0;
+    const level2Invites = inviteData.level3?.length || 0;
+
+    const directPoints = directInvites * 100;  // 100 KP per direct invite
+    const level1Points = level1Invites * 20;   // 20 KP per level 1 referral
+    const level2Points = level2Invites * 10;   // 10 KP per level 2 referral
+
+    return {
+      totalKarmaPoints: userDetails?.currency_b || (directPoints + level1Points + level2Points),
+      directInvites,
+      level1Invites,
+      level2Invites,
+      karmaBreakdown: [
+        { label: "Direct Invites", points: directPoints, count: directInvites },
+        { label: "Level 1 Referrals", points: level1Points, count: level1Invites },
+        { label: "Level 2 Referrals", points: level2Points, count: level2Invites },
+      ],
+    };
   };
 
-  const handleGenerateLink = async () => {
-    console.log("userDetails.username");
+  const karmaStats = calculateKarmaPoints();
 
+  const handleGenerateLink = async () => {
     try {
       if (!userDetails?.username) {
         toast.dismiss();
         toast("Username not found. Please complete your profile first.");
         return;
       }
-      const response = await axios.post("https://winwinsocietyweb3.com/api/tiny-url/", {
+      const response = await axiosApi.post("/tiny-url/", {
         alias: userData?.userId.toString(),
         username: userDetails.username,
       });
@@ -92,14 +110,13 @@ const Karma = () => {
           className: "",
           duration: 5000,
           style: {
-            background: "var(--card-background)",
-            color: "var(--primary-white)",
-            textAlign: "center", // Center the text
-            fontSize: "18px", // Increase the font size
-            padding: "20px", // Add some padding
-            border: "1px solid #ff8a1c", // Add orange border top
+            background: "#242623",
+            color: "#fff",
+            textAlign: "center",
+            fontSize: "18px",
+            padding: "20px",
+            border: "1px solid #ff8a1c",
           },
-          // Default options for specific types
           success: {
             duration: 3000,
             theme: {
@@ -180,6 +197,23 @@ const Karma = () => {
               ))}
             </div>
           </div>
+
+          {showInvitePopup && (
+            <div className="popup_overlay">
+              <div className="popup_content">
+                <h3>Here is your invite link, share it to receive Karma Points (KP)</h3>
+                <div className="link_container">
+                  <p>{inviteLink}</p>
+                  <button className="copy_btn" onClick={handleCopyLink}>
+                    <copyIcon />
+                  </button>
+                </div>
+                <button className="btn_gray" onClick={() => setShowInvitePopup(false)}>
+                  Close
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -188,7 +222,7 @@ const Karma = () => {
           <div className="popup_content">
             <h3>Here is your invite link, share it to receive Karma Points (KP)</h3>
             <div className="link_container">
-              <p>{inviteLink}0</p>
+              <p>{inviteLink}</p>
               <button className="copy_btn" onClick={handleCopyLink}>
                 {isCopyLink ? <CheckIcon /> : <CopyIcon />}
               </button>

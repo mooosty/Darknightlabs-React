@@ -332,7 +332,7 @@ const Home = () => {
                                     )
                                 })}
                             </div>
-                            <button onClick={() => navigate(ROUTER.SocietyFullList)} className="more_btn">Load more</button>
+                            <button onClick={() => navigate(ROUTER.societyFullList)} className="more_btn">Load more</button>
                         </div>
                     </div> <div className="record_main_wrap" id="partners">
                         <div className="record_wrap">

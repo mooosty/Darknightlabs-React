@@ -81,6 +81,7 @@
         background-color: var(--primary-background);
         min-height: 450px;
         height: calc(100% - 80px);
+        position: relative;
 
         @media (max-width: 1600px) {
             height: calc(100% - 50px);
@@ -91,8 +92,36 @@
             padding-block: 0px;
             background-color: var(--primary-background);
             background-image: none;
-            padding-bottom: 30px;
+            padding-bottom: 20px;
         }
+
+        .floating_form_title {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: "MedievalSharp", cursive;
+            color: #F5EFDB;
+            font-size: 32px;
+            font-weight: 500;
+            margin: 0;
+            padding: 15px 40px;
+            z-index: 100;
+            background: #242623;
+            border-radius: 8px;
+            white-space: nowrap;
+            border: 1px solid rgba(245, 239, 219, 0.1);
+            transition: box-shadow 0.3s ease;
+
+            &.invest_mode {
+                box-shadow: 0 4px 25px rgba(255, 59, 59, 0.4);
+            }
+
+            &.pledge_mode {
+                box-shadow: 0 4px 25px rgba(46, 213, 115, 0.4);
+            }
+        }
+
 
         .page_data {
             height: 100%;
@@ -146,11 +175,15 @@
                         height: 44px;
                         width: 65px;
                         padding: 10px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
+                        // display: flex;
+                        // align-items: center;
+                        // justify-content: center;
                         background-color: transparent;
                         border: none;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        // display: -webkit-box;
+                        -webkit-line-clamp: 2;
 
                         span {
                             font-family: "MedievalSharp", cursive;

@@ -1,18 +1,18 @@
 import './investment.scss'
+import * as Yup from 'yup';
+import { useFormik } from 'formik';
+import { toast } from 'react-toastify';
 import { useEffect, useRef, useState } from 'react';
-import { CustomSearch, EmptyData, MultiselectDropDown } from '../../components';
 import { useDispatch, useSelector } from 'react-redux';
-import WalletConnect from '../../components/investments/WalletConnect/WalletConnect';
+import { appendToSheet } from '../../utils/googleSheets';
+import { setWhitelistMessage } from '../../store/slice/authSlice';
 import { projectTypesOptions } from '../../utils/constants/options';
+import PledgeForm from '../../components/investments/PledgeForm/PledgeForm';
+import { CustomSearch, EmptyData, MultiselectDropDown } from '../../components';
 import ContributionForm from '../../components/investments/ContributionForm/ContributionForm';
 import ContributionStatus from '../../components/investments/ContributionStatus/ContributionStatus';
-import { setWalletAddress, setWhitelistMessage } from '../../store/slice/authSlice';
 import WhitelistVerification from '../../components/investments/WhitelistVerification/WhitelistVerification';
 import { cardActor1, cardActor2, cardActor3, cardActor4, cardActor5, cardActor6, cardActor7, cardActor8, cardActor9, cardActor10, cardActor11, cardActor12, cardActor13, cardActor14, cardActor15, SearchIcon } from '../../utils/constants/images';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { appendToSheet } from '../../utils/googleSheets';
-import { toast } from 'react-toastify';
 
 const cardData = [
   {
@@ -294,13 +294,28 @@ const Investment = () => {
 
   const dispatch = useDispatch();
   const { walletAddress, isWalletVerified, whitelistMessage } = useSelector(state => state.auth);
-  const [activeLayout, setActiveLayout] = useState('TRENDING');
+  const [activeLayout, setActiveLayout] = useState('OPEN');
   const [showDetails, setShowDetails] = useState(false);
   // const [selectedInvestment, setSelectedInvestment] = useState(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const detailsLeftRef = useRef(null);
   const detailsRightRef = useRef(null);
+  const [isPhase2, setIsPhase2] = useState(false);
+
+  useEffect(() => {
+    const fetchPhase = async () => {
+      try {
+        const response = await fetch('https://winwinsocietyweb3.com/api/investments/1');
+        const data = await response.json();
+        setIsPhase2(data.phase === 2);
+      } catch (error) {
+        console.error('Error fetching phase:', error);
+      }
+    };
+
+    fetchPhase();
+  }, []);
 
   const handleActive = (key) => { setActiveLayout(key) }
   const syncScroll = (e) => {
@@ -343,23 +358,13 @@ const Investment = () => {
     searchBy: ''
   })
 
-  const handleConnectWallet = (address) => {
-    dispatch(setWalletAddress({ walletAddress: address }));
-  }
+  // const handleConnectWallet = (address) => {
+  //   dispatch(setWalletAddress({ walletAddress: address }));
+  // }
 
   const handleVerificationComplete = (message) => {
     dispatch(setWhitelistMessage({ whitelistMessage: message }));
   }
-
-  useEffect(() => {
-    if (detailsLeftRef.current && detailsRightRef.current) {
-      detailsLeftRef.current.scrollTop = 0;
-      detailsRightRef.current.scrollTop = 0;
-    }
-  }, []);
-  // const handleMaxContributions = (isMaxContributions) => {
-  //   dispatch(setMaxContributions({ maxContributions: isMaxContributions }));
-  // }
 
   const InvestmentForm = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -736,14 +741,35 @@ const Investment = () => {
             <div className={`page_data ${isSearchOpen ? 'search_open' : ''}`}>
               <div className="investment_page_header">
                 <div className="investment_toggleWrap">
-                  <button className={`investment_toggle_btn ${activeLayout === 'TRENDING' ? 'active' : ''}`} onClick={() => handleActive('TRENDING')} >
-                    <span>Trending</span>
+                  <button
+                    className={`investment_toggle_btn ${activeLayout === 'CLOSED' ? 'active' : ''}`}
+                    onClick={() => handleActive('CLOSED')}
+                  >
+                    <span>Closed</span>
                   </button>
-                  <button className={`investment_toggle_btn ${activeLayout === 'TAB' ? 'active' : ''}`} onClick={() => handleActive('TAB')} >
-                    <span>Newest</span>
+                  <button
+                    className={`investment_toggle_btn ${activeLayout === 'OPEN' ? 'active' : ''}`}
+                    onClick={() => handleActive('OPEN')}
+                  >
+                    <span>Open</span>
                   </button>
-                  <button className={`investment_toggle_btn ${activeLayout === 'LAYOUT' ? 'active' : ''}`} onClick={() => handleActive('LAYOUT')} >
-                    <span>Oldest</span>
+                  <button
+                    className={`investment_toggle_btn ${activeLayout === 'PLEDGE' ? 'active' : ''}`}
+                    onClick={() => handleActive('PLEDGE')}
+                  >
+                    <span>Pledge</span>
+                  </button>
+                  <button
+                    className={`investment_toggle_btn ${activeLayout === 'APPLY' ? 'active' : ''}`}
+                    onClick={() => handleActive('APPLY')}
+                  >
+                    <span>Apply</span>
+                  </button>
+                  <button
+                    className={`investment_toggle_btn ${activeLayout === 'MY_INVESTMENTS' ? 'active' : ''}`}
+                    onClick={() => handleActive('MY_INVESTMENTS')}
+                  >
+                    <span>My Investments</span>
                   </button>
                 </div>
                 <div className="selects">
@@ -757,7 +783,6 @@ const Investment = () => {
                       })
                     }}
                   />
-                  <WalletConnect onConnect={handleConnectWallet} account={walletAddress ?? ''} />
                 </div>
               </div>
               <div className="investment_page_body">
@@ -870,6 +895,9 @@ const Investment = () => {
             </div>
           </div>
           <div className="investments_page_data">
+            <h2 className={`floating_form_title ${isPhase2 ? 'pledge_mode' : 'invest_mode'}`}>
+              {isPhase2 ? 'Pledge' : 'Invest'}
+            </h2>
             <div className="page_data">
               <div className="investment_page_body">
                 <div className="investment_details_content">
@@ -936,7 +964,7 @@ const Investment = () => {
                       <ul>
                         <li>🐈‍⬛ Shytoshi Kusama - <a href="https://x.com/shytoshikusama" target="_blank">@shytoshikusama</a></li>
                         <li>🐈‍⬛ Kaal Dhairya - <a href="https://x.com/Kaaldhairya" target="_blank">@Kaaldhairya</a></li>
-                        <li>🐈‍⬛ Ian Utile - <a href="https://x.com/IanUtile" target="_blank">@IanUtile</a></li>
+                        <li>����‍⬛ Ian Utile - <a href="https://x.com/IanUtile" target="_blank">@IanUtile</a></li>
                         <li>🐈‍⬛ Tryke Gutierrez - <a href="https://instagram.com/trykegutierrez" target="_blank">@trykegutierrez</a></li>
                         <li>🐈‍⬛ James Afante - <a href="https://www.tiktok.com/@jmsfnt" target="_blank">@jmsfnt</a></li>
                         <li>🐈‍⬛ JBond - <a href="https://x.com/jbondwagon" target="_blank">@jbondwagon</a></li>
@@ -971,7 +999,21 @@ const Investment = () => {
                     onScroll={syncScroll}
                   >
                     <div className="form_container">
-                      <InvestmentForm />
+                      {!isPhase2 ? (
+                        <InvestmentForm />
+                      ) : (
+                        <PledgeForm
+                          onSubmit={async (pledgeData) => {
+                            try {
+                              console.log('Pledge submitted:', pledgeData);
+                              toast.success('Pledge submitted successfully');
+                            } catch (error) {
+                              console.error('Error submitting pledge:', error);
+                              toast.error('Failed to submit pledge');
+                            }
+                          }}
+                        />
+                      )}
                     </div>
                   </div>
                 </div>

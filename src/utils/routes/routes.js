@@ -16,5 +16,7 @@ export const ROUTER = {
     ambassadorProjects: "ambassador-projects",
     societyFullList: 'society-full-list',
     error404: '404',
-    error405: '405'
+    error405: '405',
+    announcementFeed: "announcement-feed",
+    dashboard: "dashboard",
 };

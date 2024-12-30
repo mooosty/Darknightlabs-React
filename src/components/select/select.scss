@@ -92,6 +92,29 @@
             z-index: 10;
         }
 
+        .select_search {
+            margin-bottom: 8px;
+            
+            input {
+                width: 100%;
+                padding: 8px 12px;
+                background-color: #191917;
+                border: 1px solid #3c3c3c;
+                border-radius: 4px;
+                color: #f5efdb;
+                font-size: 14px;
+
+                &::placeholder {
+                    color: rgba(245, 239, 219, 0.5);
+                }
+
+                &:focus {
+                    outline: none;
+                    border-color: #f5efdb;
+                }
+            }
+        }
+
         ul {
 
             li {

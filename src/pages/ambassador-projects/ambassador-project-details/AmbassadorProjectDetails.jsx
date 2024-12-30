@@ -99,7 +99,7 @@ const AmbassadorProjectDetails = () => {
                 <div className="page_data">
                     <div className="page_header">
                         <div className="pagination">
-                            <Link to={`/${ROUTER.ambassadorProjects}`}>Ambassador-exclusive projects</Link>
+                            <Link to={`/${ROUTER.ambassadorProjects}`}>Ambassador Projects</Link>
                             <span>
                                 <RightIcon />
                             </span>
@@ -126,10 +126,10 @@ const AmbassadorProjectDetails = () => {
                                         <div className="time_frame_wrap">
                                             <div className="time_frame">
                                                 <div className="text">
-                                                    <span>From</span>
-                                                    {'12/12/2024'}
-                                                    <span>to</span>
-                                                    {'12/12/2025'}
+                                                    From{' '}
+                                                    <span className="date">12/12/2024</span>
+                                                    {' '}to{' '}
+                                                    <span className="date">12/12/2025</span>
                                                 </div>
                                             </div>
                                         </div>

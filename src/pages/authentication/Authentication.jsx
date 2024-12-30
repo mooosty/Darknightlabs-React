@@ -30,6 +30,7 @@ const Authentication = () => {
   }, [refId]);
 
   const handleAuthResponse = async (response) => {
+
     if (response?.isAuthenticated) {
       //   const jwtToken = getAuthToken();
 
@@ -40,7 +41,6 @@ const Authentication = () => {
         const {
           payload: { data },
         } = await dispatch(getTwitterUserAPI(twitterId)).then((res) => res);
-
         return data;
       };
       const existingUser = await fetchTwitterUser();
@@ -115,6 +115,7 @@ const Authentication = () => {
   // }, [authDetails]);
 
   useEffect(() => {
+    console.log(authDetails)
     if (authDetails) {
       const fetchProjects = async () => {
         try {

@@ -16,14 +16,17 @@ const Select = ({
     allOptionText = '',
     onAdd = () => { },
     onChange = () => { },
-    disable = false
+    disable = false,
+    isSearchable = false
 }) => {
     const [currentOption, setcurrentOption] = useState(null)
     const [isOpen, setIsOpen] = useState(false)
+    const [searchTerm, setSearchTerm] = useState('')
     const listRef = useClickOutside(() => {
         setIsOpen(false)
     })
     const optionData = options?.find((item) => item.value === currentOption)
+    
     const handleClickLabel = () => {
         if (!disable)
             setIsOpen(!isOpen)
@@ -33,12 +36,18 @@ const Select = ({
         onChange(selectedOption)
         setcurrentOption(selectedOption.value)
         setIsOpen(false)
+        setSearchTerm('')
     }
+
+    const filteredOptions = searchTerm 
+        ? options.filter(opt => 
+            opt.label.toLowerCase().includes(searchTerm.toLowerCase())
+          )
+        : options
 
     useEffect(() => {
         setcurrentOption(value)
     }, [value])
-
 
     return (
         <div
@@ -79,9 +88,20 @@ const Select = ({
             <div
                 className={`custom_select_list ${isOpen ? 'active' : ''}`}
             >
+                {isSearchable && (
+                    <div className="select_search">
+                        <input
+                            type="text"
+                            placeholder="Search..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            onClick={(e) => e.stopPropagation()}
+                        />
+                    </div>
+                )}
                 <ul>
                     {
-                        options.map((opt, index) => {
+                        filteredOptions.map((opt, index) => {
                             return (
                                 <li key={opt.value} onClick={() => handleSelectOption(opt)}>
                                     {opt.label}
@@ -135,6 +155,7 @@ Select.propTypes = {
     onAdd: PropTypes.func,
     showAllOption: PropTypes.bool,
     allOptionText: PropTypes.string,
-    disable: PropTypes.bool
+    disable: PropTypes.bool,
+    isSearchable: PropTypes.bool
 }
 export default Select

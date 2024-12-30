@@ -10,9 +10,10 @@ import { useWindowSize } from "@uidotdev/usehooks";
 import { CustomFooterDropdown } from "../../../components";
 import { KarmaIcon } from "../../../utils/SVGs/SVGs";
 import { useSocket } from "../../../utils/socket-provider/SocketContext";
-import { getGroupsAPI } from "../../../api-services";
+import { getGroupsAPI, getUsersDetailsAPI } from "../../../api-services";
+import { defaultImg } from "../../../utils/constants/images";
 
-const userRole = "ADMIN";
+const userRole = "USER";
 const Sidebar = () => {
   const size = useWindowSize();
   const location = useLocation();
@@ -180,6 +181,12 @@ const Sidebar = () => {
   useEffect(() => {
     dispatch(getGroupsAPI())
   }, [])
+  // Fetch user details when component mounts or userData changes
+  useEffect(() => {
+    if (userData?.userId) {
+      dispatch(getUsersDetailsAPI(userData.userId));
+    }
+  }, [userData?.userId]);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -232,20 +239,52 @@ const Sidebar = () => {
   }, [mobileMenuData, dropdownData, size])
 
 
+  // Get profile picture from either userDetails or userData
+  const getProfilePicture = () => {
+    // First try userDetails since it's most up-to-date
+    if (userDetails?.profile_picture) {
+      return userDetails.profile_picture;
+    }
+    // Then try userData
+    if (userData?.profile_picture) {
+      return userData.profile_picture;
+    }
+    // Then try Twitter profile picture from auth details if available
+    if (userData?.authDetails?.user?.verifiedCredentials) {
+      const twitterCred = userData.authDetails.user.verifiedCredentials.find(
+        cred => cred.format === 'oauth' && cred.oauth_provider === 'twitter'
+      );
+      if (twitterCred?.oauth_account_photos?.[0]) {
+        return twitterCred.oauth_account_photos[0].replace('_normal', '');
+      }
+    }
+    // Finally fallback to default
+    return defaultImg;
+  };
+
   return (
     <>
       <div className={`sidebar_container ${isCollapse ? "sidebar_collapsed" : ""}`}>
         <div className="sidebar">
           {isAmbassadorMode && (
-            <h2 className="ambassador_title">Ambassadorship</h2>
+            <>
+              <h2 className="ambassador_title">Ambassadorship</h2>
+            </>
           )}
           <div className="profile_box">
             <div className="profile_image">
-              <img src={userData.profile_picture} alt="Profile" />
+              <img
+                src={getProfilePicture()}
+                alt="Profile"
+                onError={(e) => {
+                  e.target.onerror = null; // Prevent infinite loop
+                  e.target.src = defaultImg;
+                }}
+              />
             </div>
             <div className="user_name">
-              <h3>{userData.name.split(" ")[0]}</h3>
-              <p>User</p>
+              <h3>{userData?.name?.split(" ")[0] || userDetails?.firstname || "User"}</h3>
+              <p>{userRole}</p>
               <div className="balance">
                 <span>Balance: </span>
                 <span>{userDetails?.currency_b || 0}
@@ -261,131 +300,166 @@ const Sidebar = () => {
             </div>
           </div>
 
-          {!isAmbassadorMode ? (
-            // Regular menu items
-            <>
-              <div className="menu-box">
-                <ul>
-                  <li className={`${location.pathname.startsWith(`/${ROUTER.projects}`) ? "active" : ""} ${userProjects.length !== -1 ? "disabled" : ""}`}>
-                    <Link to={ROUTER.projects}>
-                      <ProfileNavTabIcon />
-                      <span className="menu_text">Projects</span>
-                    </Link>
-                  </li>
-                  {userRole == "ADMIN" && (
-                    <li className={`${location.pathname.startsWith(`/${ROUTER.projectManager}`) ? "active" : ""} ${userProjects.length === 0 ? "disabled" : ""}`}>
-                      <Link to={ROUTER.projectManager}>
-                        <ProjectNavTabIcon />
-                        <span className="menu_text">Projects Manager</span>
+          <div className="menu-section">
+            {!isAmbassadorMode ? (
+              <>
+                <div className="menu-box">
+                  <ul>
+                    <li className={`${location.pathname.startsWith(`/${ROUTER.announcementFeed}`) ? "active" : ""}`}>
+                      <Link to={ROUTER.announcementFeed}>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '20px', height: '20px' }}>
+                          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                        <span className="menu_text">Announcements</span>
                       </Link>
                     </li>
-                  )}
-                </ul>
-              </div>
-              <div className="menu-box">
-                <span className="separator"></span>
-                <ul>
-                  <>
-                    <li
-                      className={`${location.pathname.startsWith(`/${ROUTER.synergies}`) &&
-                        location.pathname !== `/${ROUTER.synergiesManager}`
-                        ? "active"
-                        : ""
-                        } ${userProjects.length !== -1 ? "disabled" : ""}`}
-                    >
-                      <Link to={ROUTER.synergies}>
-                        <SynergiesNavTabIcon />
-                        <span className="menu_text">Synergies</span>
+                    <li className={`${location.pathname.startsWith(`/${ROUTER.projects}`) ? "active" : ""} ${userProjects.length !== -1 ? "disabled" : ""}`}>
+                      <Link to={ROUTER.projects}>
+                        <ProfileNavTabIcon />
+                        <span className="menu_text">Projects</span>
                       </Link>
                     </li>
-                    <li className={`${location.pathname === `/${ROUTER.investment}` ? "active" : ""}`}>
-                      <Link to={ROUTER.investment}>
-                        <InvestmentNavTabIcon />
-                        <span className="menu_text">Investment </span>
-                      </Link>
-                    </li>
-                  </>
-
-                  {userRole == "ADMIN" && (
-                    <>
-                      <li className={`${location.pathname === `/${ROUTER.synergyRequests}` ? "active" : ""} ${userProjects.length === 0 ? "disabled" : ""}`}>
-                        <Link to={ROUTER.synergyRequests}>
-                          <SynergiesNavTabIcon />
-                          <span className="menu_text">Synergy requests</span>
+                    {userRole == "ADMIN" && (
+                      <li className={`${location.pathname.startsWith(`/${ROUTER.projectManager}`) ? "active" : ""} ${userProjects.length === 0 ? "disabled" : ""}`}>
+                        <Link to={ROUTER.projectManager}>
+                          <ProjectNavTabIcon />
+                          <span className="menu_text">Projects Manager</span>
                         </Link>
                       </li>
-                      <li className={`${location.pathname === `/${ROUTER.synergiesManager}` ? "active" : ""} ${userProjects.length === 0 ? "disabled" : ""}`}>
-                        <Link to={ROUTER.synergiesManager}>
-                          <SynergiesManagerNavTabIcon />
-                          <span className="menu_text">Synergies Manager </span>
+                    )}
+                  </ul>
+                </div>
+                <div className="menu-box">
+                  <span className="separator"></span>
+                  <ul>
+                    <>
+                      <li
+                        className={`${location.pathname.startsWith(`/${ROUTER.synergies}`) &&
+                          location.pathname !== `/${ROUTER.synergiesManager}`
+                          ? "active"
+                          : ""
+                          } ${userProjects.length !== -1 ? "disabled" : ""}`}
+                      >
+                        <Link to={ROUTER.synergies}>
+                          <SynergiesNavTabIcon />
+                          <span className="menu_text">Synergies</span>
+                        </Link>
+                      </li>
+                      <li className={`${location.pathname === `/${ROUTER.investment}` ? "active" : ""}`}>
+                        <Link to={ROUTER.investment}>
+                          <InvestmentNavTabIcon />
+                          <span className="menu_text">Investments </span>
                         </Link>
                       </li>
                     </>
-                  )}
-                </ul>
-              </div>
-              <div className="menu-box">
-                <span className="separator"></span>
-                <ul>
-                  <li className={`${location.pathname === `/${ROUTER.chat}` ? "active" : ""} chat ${userProjects?.length !== -1 ? "disabled" : ""}`}>
-                    <Link to={userProjects?.length === 0 ? "#" : ROUTER.chat}>
-                      <ChatNavTabIcon />
-                      <span className="menu_text">Chat</span>
-                      <span className="notification">
-                        <span className="notification_text">
-                          {totalUnreadCount > 99 ? '99+' : totalUnreadCount}
+
+                    {userRole == "ADMIN" && (
+                      <>
+                        <li className={`${location.pathname === `/${ROUTER.synergyRequests}` ? "active" : ""} ${userProjects.length === 0 ? "disabled" : ""}`}>
+                          <Link to={ROUTER.synergyRequests}>
+                            <SynergiesNavTabIcon />
+                            <span className="menu_text">Synergy requests</span>
+                          </Link>
+                        </li>
+                        <li className={`${location.pathname === `/${ROUTER.synergiesManager}` ? "active" : ""} ${userProjects.length === 0 ? "disabled" : ""}`}>
+                          <Link to={ROUTER.synergiesManager}>
+                            <SynergiesManagerNavTabIcon />
+                            <span className="menu_text">Synergies Manager </span>
+                          </Link>
+                        </li>
+                      </>
+                    )}
+                  </ul>
+                </div>
+                <div className="menu-box">
+                  <span className="separator"></span>
+                  <ul>
+                    {/* <li className={`${location.pathname === `/${ROUTER.chat}` ? "active" : ""} chat ${userProjects?.length !== -1 ? "disabled" : ""}`}>
+                      <Link to={userProjects?.length === 0 ? "#" : ROUTER.chat}>
+                        <ChatNavTabIcon />
+                        <span className="menu_text">Chat</span>
+                        <span className="notification">
+                          <span className="notification_text">
+                            {totalUnreadCount > 99 ? '99+' : totalUnreadCount}
+                          </span>
                         </span>
-                      </span>
-                    </Link>
-                  </li>
-                  <li className={`${location.pathname === `/${ROUTER.karma}` ? "active" : ""}`}>
-                    <Link to={ROUTER.karma}>
-                      <KarmaNavTabIcon />
-                      <span className="menu_text">Karma</span>
-                    </Link>
-                  </li>
-                  <li className={`${location.pathname === `/${ROUTER.profile}` ? "active" : ""}`}>
-                    <Link to={ROUTER.profile}>
-                      <ProfileNavTabIcon />
-                      <span className="menu_text">Profile</span>
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-              <div className="menu-box">
-                <span className="separator"></span>
-                <ul>
-                  <li
-                    className={`${location.pathname.includes('ambassador') || location.pathname.includes('my-content') ? "active" : ""}`}
-                    onClick={handleAmbassadorClick}
-                  >
-                    <Link to="#">
-                      <ProjectNavTabIcon />
-                      <span className="menu_text">Ambassadorship</span>
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </>
-          ) : (
-            // Ambassador mode menu items
-            <div className="menu-box">
-              <ul>
-                <li className={`${location.pathname.startsWith(`/${ROUTER.myContent}`) ? "active" : ""}`}>
-                  <Link to={ROUTER.myContent}>
-                    <MyContentNavTabIcon />
-                    <span className="menu_text">My Content</span>
-                  </Link>
-                </li>
-                <li className={`${location.pathname.startsWith(`/${ROUTER.ambassadorProjects}`) ? "active" : ""}`}>
-                  <Link to={ROUTER.ambassadorProjects}>
-                    <ProjectNavTabIcon />
-                    <span className="menu_text">Exclusive Projects</span>
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          )}
+                      </Link>
+                    </li> */}
+                    <li className={`${location.pathname === `/${ROUTER.karma}` ? "active" : ""}`}>
+                      <Link to={ROUTER.karma}>
+                        <KarmaIcon style={{ width: '1em', height: '1em' }} />
+                        <span className="menu_text">Karma</span>
+                      </Link>
+                    </li>
+                    <li className={`${location.pathname === `/${ROUTER.profile}` ? "active" : ""}`}>
+                      <Link to={ROUTER.profile}>
+                        <ProfileNavTabIcon />
+                        <span className="menu_text">Profile</span>
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+                <div className="menu-box">
+                  <span className="separator"></span>
+                  <ul>
+                    <li
+                      className={`${location.pathname.includes('ambassador') || location.pathname.includes('my-content') ? "active" : ""}`}
+                      onClick={handleAmbassadorClick}
+                    >
+                      <Link to="#">
+                        <ProjectNavTabIcon />
+                        <span className="menu_text">Ambassadorship</span>
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="menu-box">
+                  <ul>
+                    <li className={`${location.pathname === `/${ROUTER.chat}` ? "active" : ""} chat ${userProjects?.length !== -1 ? "disabled" : ""}`}>
+                      <Link to={userProjects?.length === 0 ? "#" : ROUTER.chat}>
+                        <ChatNavTabIcon />
+                        <span className="menu_text">Chat</span>
+                        <span className="notification">
+                          <span className="notification_text">
+                            {totalUnreadCount > 99 ? '99+' : totalUnreadCount}
+                          </span>
+                        </span>
+                      </Link>
+                    </li>
+                    <li className={`${location.pathname === `/${ROUTER.karma}` ? "active" : ""}`}>
+                      <Link to={ROUTER.karma}>
+                        <KarmaNavTabIcon />
+                        <span className="menu_text">Karma</span>
+                      </Link>
+                    </li>
+                    <li className={`${location.pathname === `/${ROUTER.profile}` ? "active" : ""}`}>
+                      <Link to={ROUTER.profile}>
+                        <ProfileNavTabIcon />
+                        <span className="menu_text">Profile</span>
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+                <div className="menu-box">
+                  <span className="separator"></span>
+                  <ul>
+                    <li
+                      className={`${location.pathname.includes('ambassador') || location.pathname.includes('my-content') ? "active" : ""}`}
+                      onClick={handleAmbassadorClick}
+                    >
+                      <Link to="#">
+                        <ProjectNavTabIcon />
+                        <span className="menu_text">Projects</span>
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </>
+            )}
+          </div>
 
           <div className="menu-box sidebar_bottom">
             <span className="separator"></span>
@@ -444,7 +518,7 @@ const Sidebar = () => {
                 <li className={`mobile_tab ${location.pathname === `/${ROUTER.investment}` ? "active" : ""}`}>
                   <Link to={ROUTER.investment}>
                     <InvestmentNavTabIcon />
-                    <span>Investment</span>
+                    <span>Investments</span>
                   </Link>
                 </li>
                 {userRole == "ADMIN" && (
@@ -529,7 +603,7 @@ const Sidebar = () => {
                 <li className={`mobile_tab ${location.pathname === `/${ROUTER.ambassadorProjects}` ? "active" : ""}`}>
                   <Link to={ROUTER.ambassadorProjects}>
                     <ProjectNavTabIcon />
-                    <span>Exclusive Projects</span>
+                    <span>Projects</span>
                   </Link>
                 </li>
               </>

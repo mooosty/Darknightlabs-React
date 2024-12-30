@@ -12,7 +12,7 @@ import UserProfile from "./pages/user-profile/UserProfile";
 import Chats from './pages/chats/Chats'
 import InitialDataLoader from './components/InitialDataLoader';
 import SynergiesDetails from './pages/synergies/synergies-details/SynergiesDetails'
-
+import AnnouncementFeed from './pages/announcement-feed/AnnouncementFeed';
 import Karma from "./pages/karma/Karma";
 import MyContent from './pages/my-content/MyContent'
 import AmbassadorProjects from './pages/ambassador-projects/ambassadorProjects'
@@ -28,6 +28,7 @@ import Home from './pages/home/Home';
 import Error404 from './pages/error404/Error404';
 import Error405 from './pages/error405/Error405';
 import SocietyFullList from './pages/home/society-full-list/SocietyFullList';
+import Dashboard from './pages/dashboard/Dashboard';
 
 function App() {
   return (
@@ -35,18 +36,24 @@ function App() {
       <InitialDataLoader />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/" element={<Navigate to={`/${ROUTER.dashboard}`} replace />} />
         <Route path={`/${ROUTER.societyFullList}`} element={<SocietyFullList />} />
         <Route path={`/${ROUTER.authentication}`} element={<Authentication />} />
 
+
+        <Route path={`/${ROUTER.dashboard}`} element={<Dashboard />} />
         <Route path="/" element={<Layout />}>
           <Route path={`/${ROUTER.welcome}`} element={<Welcome />} />
+          <Route path={ROUTER.announcementFeed} element={<AnnouncementFeed />} />
           <Route path={`/${ROUTER.projects}`} element={<ProtectedFeatureRoute feature="PROJECTS"><Projects /></ProtectedFeatureRoute>} />
+
           <Route path={ROUTER.myContent} element={<MyContent />} />
           <Route path={ROUTER.ambassadorProjects} element={<AmbassadorProjects />} />
           <Route path={`${ROUTER.ambassadorProjects}/:projectId`} element={<AmbassadorProjectDetails />} />
           <Route path={`${ROUTER.projects}/:projectId`} element={<ProjectDetails />} />
           <Route path={`/${ROUTER.projectManager}`} element={<ProjectManager />} />
           <Route path={`/${ROUTER.projectManagerEdit}/:id`} element={<ProjectManagerEdit />} />
+          <Route path={`/${ROUTER.projectManager}/add`} element={<ProjectManagerEdit />} />
           <Route path={`/${ROUTER.synergyRequests}`} element={<SynergyRequest />} />
           <Route path={`/${ROUTER.synergiesManager}`} element={<SynergiesManager />} />
 

@@ -404,58 +404,401 @@
                     justify-content: space-between;
                     color: #BDBDBD;
 
-                    .my_page_pagination_content_text {
-                        font-size: 14px;
-                        color: var(--primary-white);
-                        display: flex;
-                        gap: 8px;
+                    @media (max-width: 767px) {
+                        padding: 15px 20px 0 20px;
+                    }
 
-                        .pagination_head {
-                            color: #BDBDBD;
-                        }
+                    .content_count_box_wrap {
+                        width: 48%;
+                        background-image: linear-gradient(to bottom left, #FDE7BB, #9E6D38, #E9B86E, #9D6933, #FEE9BF, #683E23);
+                        background-origin: border-box;
+                        background-clip: content-box, border-box;
+                        border: 1px solid transparent;
+                        flex-shrink: 0;
+                        border-radius: 10px;
 
-                        .pagination_dropdown {
-                            select {
-                                border: none;
-                                background: transparent;
-                                color: var(--primary-white);
-                                cursor: pointer;
-                                font-family: "Inter", sans-serif;
-                                font-size: 14px;
-                                outline: 0px;
+                        .content_count_box {
+                            display: flex;
+                            flex-shrink: 0;
+                            align-items: center;
+                            justify-content: space-between;
+                            background-color: #191917;
+                            padding: 12px 28px;
+                            border-radius: 10px;
+                            margin: 1px;
 
-                                option {
-                                    background-color: var(--card-background);
+                            @media (max-width: 1600px) {
+                                padding: 6px 18px;
+                            }
+
+                            @media (max-width: 767px) {
+                                padding: 10px 15px;
+                            }
+
+                            .text {
+                                color: #F5EFDB;
+                                font-weight: 500;
+                                font-size: 22px;
+
+                                @media (max-width: 1600px) {
+                                    font-size: 18px;
+                                }
+                            }
+
+                            .number {
+                                font-size: 28px;
+                                color: #fff;
+                                font-weight: 500;
+                                font-family: "MedievalSharp", cursive;
+                                font-size: 52px;
+
+                                @media (max-width: 1600px) {
+                                    font-size: 36px;
                                 }
                             }
                         }
+                    }
+                }
 
-                        .my_page_pagination_content_arrows {
+                .all_my_page_data {
+                    border-radius: 9px;
+                    background-color: #191917;
+                    min-height: calc(100% - 108px);
+
+                    @media (max-width: 1600px) {
+                        min-height: calc(100% - 80px);
+                    }
+
+                    @media (max-width: 767px) {
+                        border-radius: 0;
+                        padding: 0;
+                    }
+
+                    .all_projects_card_box {
+                        background-position: 8px 17px;
+                        padding: 20px 0;
+
+                        @media (max-width: 767px) {
+                            padding-top: 0;
+                        }
+
+                        .all_projects_card_header {
                             display: flex;
-                            gap: 12px;
+                            flex-direction: column;
+                            gap: 16px;
+                            padding: 0 20px 12px 20px;
+                            border-bottom: 1px solid rgba(245, 239, 219, 0.15);
+                            margin-bottom: 12px;
 
-                            .table_pagination_content_button {
-                                background: transparent;
-                                border: none;
+                            .all_projects_card_header_top {
+                                color: #f5efdb;
+                                font-size: 24px;
+                                font-family: "MedievalSharp", cursive;
+                            }
+
+                            .all_projects_card_header_bottom {
                                 display: flex;
-                                justify-content: center;
+                                justify-content: space-between;
                                 align-items: center;
+                                flex-wrap: wrap;
+                                gap: 10px;
 
-                                svg {
-                                    path {
-                                        height: 20px;
-                                        width: 20px;
-                                    }
-                                }
+                                .btns {
+                                    display: flex;
+                                    background-color: #242623;
+                                    padding: 4px;
+                                    flex-wrap: wrap;
+                                    gap: 2px;
+                                    margin-bottom: 16px;
+                                    margin-right: 16px;
 
-                                &:focus {
-                                    svg {
-                                        path {
-                                            fill: var(--primary-white);
+                                    .btn {
+                                        padding: 8px 12px;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        background-color: transparent;
+                                        border: none;
+                                        color: rgba(230, 234, 238, 0.5);
+                                        font-family: MedievalSharp;
+                                        white-space: nowrap;
+                                        min-width: 80px;
+                                        position: relative;
+                                        cursor: pointer;
+
+                                        &::before {
+                                            content: '';
+                                            position: absolute;
+                                            top: 4px;
+                                            left: 50%;
+                                            transform: translateX(-50%);
+                                            width: 24px;
+                                            height: 2px;
+                                            border-radius: 1px;
+                                            opacity: 0;
+                                            transition: opacity 0.3s ease;
+                                        }
+
+                                        &[data-type="tweet"]::before {
+                                            background: #1DA1F2; // Twitter blue
+                                        }
+
+                                        &[data-type="thread"]::before {
+                                            background: #00BA7C; // Thread green
+                                        }
+
+                                        &[data-type="video"]::before {
+                                            background: #FF0000; // Video red
+                                        }
+
+                                        &[data-type="youtube"]::before {
+                                            background: #FF0000; // YouTube red
+                                        }
+
+                                        &[data-type="twitch"]::before {
+                                            background: #9146FF; // Twitch purple
+                                        }
+
+                                        &[data-type="all"]::before {
+                                            background: #F5EFDB; // Light color for All
+                                        }
+
+                                        &:hover {
+                                            background-color: rgba(78, 78, 78, 0.3);
+                                        }
+
+                                        &.active {
+                                            background-color: rgba(78, 78, 78, 0.58);
+                                            color: #F5EFDB;
+
+                                            &::before {
+                                                opacity: 1;
+                                            }
+                                        }
+
+                                        @media (max-width:1200px) {
+                                            padding: 8px;
+                                            min-width: 70px;
+                                            font-size: 14px;
                                         }
                                     }
                                 }
+
+                                .button {
+                                    display: flex;
+                                    gap: 10px;
+
+                                    .add_btn {
+                                        padding: 14px 18px;
+
+                                        @media (max-width: 1600px) {
+                                            padding: 8px 10px;
+                                        }
+                                    }
+
+                                    @media (max-width:450px) {
+                                        flex-direction: column;
+                                        gap: 15px;
+                                        align-items: start;
+                                        min-width: 100%;
+                                    }
+                                }
                             }
+                        }
+                    }
+
+                    .my_content_table {
+                        display: flex;
+                        flex-wrap: wrap;
+                        padding-inline: 20px;
+
+                        table,
+                        tr,
+                        td {
+                            border-collapse: collapse;
+                        }
+
+                        table {
+                            width: 100%;
+
+                            @media (max-width: 1300px) {
+                                display: none;
+                            }
+
+                            thead {
+                                text-align: left;
+
+                                th {
+                                    font-family: MedievalSharp;
+                                    font-size: 18px;
+                                    color: #f5efdb;
+                                    min-width: 110px;
+                                    font-weight: 400;
+                                    padding: 4px 12px;
+                                    border-bottom: 1px solid rgba(255, 239, 219, 0.15);
+
+                                    &.center {
+                                        text-align: center;
+                                    }
+                                }
+                            }
+
+                            &:focus {
+                                svg {
+                                    path {
+                                        fill: var(--primary-white);
+
+                                        tbody {
+                                            color: rgba(245, 239, 219, 0.6);
+                                            font-size: 14px;
+                                            font-family: "Inter", sans-serif;
+
+                                            .highlighted {
+                                                background-color: rgba(218, 185, 67, 0.1);
+                                            }
+
+                                            td {
+                                                opacity: 1;
+                                                padding: 16px 8px;
+                                                border-bottom: 1px solid rgba(245, 239, 219, 0.15);
+                                                min-width: 110px;
+
+                                                .url {
+                                                    display: flex;
+                                                    justify-content: center;
+                                                    align-items: center;
+
+                                                    .text {
+                                                        display: block;
+                                                        max-width: 10vw;
+                                                        white-space: nowrap;
+                                                        overflow: hidden;
+                                                        text-overflow: ellipsis;
+                                                    }
+
+                                                    .icon {
+                                                        cursor: pointer;
+                                                        height: 20px;
+                                                        width: 20px;
+                                                        margin-inline: 4px;
+
+                                                        svg {
+                                                            height: 100%;
+                                                            width: 100%;
+                                                        }
+                                                    }
+                                                }
+
+                                                .status {
+                                                    padding: 4px 8px 6px 8px;
+                                                    border-radius: 4px;
+                                                    display: flex;
+                                                    align-items: center;
+                                                    justify-content: center;
+                                                    border: 1px solid;
+                                                    text-transform: capitalize;
+
+                                                    &.approved {
+                                                        background-color: #3EAA2C1A;
+                                                        color: #3EAA2C;
+                                                        border-color: #3EAA2C;
+                                                    }
+
+                                                    &.submitted {
+                                                        background-color: #C6A8441A;
+                                                        color: #C6A844;
+                                                        border-color: #C6A844;
+                                                    }
+                                                }
+
+                                                .date {
+                                                    display: flex;
+                                                    align-items: center;
+                                                    justify-content: center;
+                                                    font-size: 14px;
+                                                    color: rgba(255, 255, 255, 0.6);
+                                                }
+
+                                                .actions {
+                                                    display: flex;
+                                                    justify-content: center;
+                                                    gap: 8px;
+
+                                                    button {
+                                                        background-color: transparent;
+                                                        border: none;
+                                                    }
+                                                }
+                                            }
+
+                                            tr.disable {
+                                                opacity: 0.4;
+
+                                                .table_angles {
+                                                    .angle_tag {
+                                                        border-radius: 8px;
+                                                        background-color: rgba(245, 239, 219, 0.16);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    .accordion_warp {
+                                        width: 100%;
+                                        display: none;
+
+                                        @media (max-width: 1300px) {
+                                            display: block;
+                                        }
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .my_content_table {
+                .subject {
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+
+                    .content-type-ribbon {
+                        background: #f0f0f0;
+                        padding: 2px 8px;
+                        border-radius: 4px;
+                        font-size: 12px;
+                        color: #666;
+                        font-weight: 500;
+                        white-space: nowrap;
+
+                        &[data-type="tweet"] {
+                            background: #1DA1F2;
+                            color: white;
+                        }
+
+                        &[data-type="thread"] {
+                            background: #00BA7C;
+                            color: white;
+                        }
+
+                        &[data-type="video"] {
+                            background: #FF0000;
+                            color: white;
+                        }
+
+                        &[data-type="youtube"] {
+                            background: #FF0000;
+                            color: white;
+                        }
+
+                        &[data-type="twitch"] {
+                            background: #9146FF;
+                            color: white;
                         }
                     }
                 }
