@@ -120,17 +120,21 @@ const Sidebar = () => {
               </div>
             </div>
             <div className="user_stats">
-              <div className="balance">
+              <div className="balance" onClick={() => navigate(`/${ROUTER.about}`)} style={{ cursor: 'pointer' }}>
                 <span>Karma:</span>
                 <span className="value">{userDetails?.currency_b || 0}</span>
                 <KarmaIcon style={{ width: '1em', height: '1em' }} />
               </div>
-              <div className="balance">
+              <div className="balance" onClick={() => navigate(`/${ROUTER.about}`)} style={{ cursor: 'pointer' }}>
                 <span>$winwin:</span>
                 <span className="value">{userDetails?.currency_a || 10000}</span>
                 <img src={darknightlabsIcon} alt="Darknight Labs" style={{ width: '1.5em', height: '1.5em' }} />
+                <div className="winwin-tooltip">
+                  <p>Not much has been revealed about $winwin yet.</p>
+                  <p>But your Karma and Loyalty levels might have an impact at some point.</p>
+                </div>
               </div>
-              <div className="loyalty-progress">
+              <div className="loyalty-progress" onClick={() => navigate(`/${ROUTER.about}`)} style={{ cursor: 'pointer' }}>
                 <div className="loyalty-text">
                   <span>Loyalty</span>
                 </div>
@@ -152,7 +156,7 @@ const Sidebar = () => {
                 <div className="menu-box">
                   <ul>
                     <li className={`${location.pathname.startsWith(`/${ROUTER.announcementFeed}`) ? "active" : ""}`}>
-                      <Link to={ROUTER.announcementFeed}>
+                      <Link to={`/${ROUTER.announcementFeed}`}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '20px', height: '20px' }}>
                           <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                         </svg>
@@ -160,14 +164,14 @@ const Sidebar = () => {
                       </Link>
                     </li>
                     <li className={`${location.pathname.startsWith(`/${ROUTER.projects}`) ? "active" : ""} ${userProjects.length !== -1 ? "disabled" : ""}`}>
-                      <Link to={ROUTER.projects}>
+                      <Link to={`/${ROUTER.projects}`}>
                         <ProfileNavTabIcon />
                         <span className="menu_text">Projects</span>
                       </Link>
                     </li>
                     {userRole == "ADMIN" && (
                       <li className={`${location.pathname.startsWith(`/${ROUTER.projectManager}`) ? "active" : ""} ${userProjects.length === 0 ? "disabled" : ""}`}>
-                        <Link to={ROUTER.projectManager}>
+                        <Link to={`/${ROUTER.projectManager}`}>
                           <ProjectNavTabIcon />
                           <span className="menu_text">Projects Manager</span>
                         </Link>
@@ -221,21 +225,31 @@ const Sidebar = () => {
                   <span className="separator"></span>
                   <ul>
                     <li className={`${location.pathname === `/${ROUTER.chat}` ? "active" : ""} chat ${userProjects?.length !== -1 ? "disabled" : ""}`}>
-                      <Link to={userProjects?.length === 0 ? "#" : ROUTER.chat}>
+                      <Link to={userProjects?.length === 0 ? "#" : `/${ROUTER.chat}`}>
                         <ChatNavTabIcon />
                         <span className="menu_text">Chat</span>
                       </Link>
                     </li>
                     <li className={`${location.pathname === `/${ROUTER.karma}` ? "active" : ""}`}>
-                      <Link to={ROUTER.karma}>
+                      <Link to={`/${ROUTER.karma}`}>
                         <img src={karmaIcon} alt="Karma" />
                         <span className="menu_text">Karma</span>
                       </Link>
                     </li>
                     <li className={`${location.pathname === `/${ROUTER.profile}` ? "active" : ""}`}>
-                      <Link to={ROUTER.profile}>
+                      <Link to={`/${ROUTER.profile}`}>
                         <ProfileNavTabIcon />
                         <span className="menu_text">Profile</span>
+                      </Link>
+                    </li>
+                    <li className={`${location.pathname === `/${ROUTER.about}` ? "active" : ""}`}>
+                      <Link to={`/${ROUTER.about}`}>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '20px', height: '20px' }}>
+                          <circle cx="12" cy="12" r="10"></circle>
+                          <line x1="12" y1="16" x2="12" y2="12"></line>
+                          <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                        <span className="menu_text">About</span>
                       </Link>
                     </li>
                   </ul>
@@ -246,7 +260,11 @@ const Sidebar = () => {
                     <li 
                       className={`${location.pathname.includes('ambassador') || location.pathname.includes('my-content') ? "active" : ""} ${!isAmbassador ? "disabled ambassador-disabled" : ""}`}
                     >
-                      <Link to="#" className={!isAmbassador ? "disabled-link" : ""}>
+                      <Link 
+                        to="#" 
+                        onClick={handleAmbassadorClick} 
+                        className={!isAmbassador ? "disabled-link" : ""}
+                      >
                         <ProjectNavTabIcon />
                         <span className="menu_text">Ambassadorship</span>
                       </Link>
@@ -377,6 +395,16 @@ const Sidebar = () => {
                   <Link to={ROUTER.profile}>
                     <ProfileNavTabIcon />
                     <span>Profile</span>
+                  </Link>
+                </li>
+                <li className={`${location.pathname === `/${ROUTER.about}` ? "active" : ""}`}>
+                  <Link to={`/${ROUTER.about}`}>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '20px', height: '20px' }}>
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="12" y1="16" x2="12" y2="12"></line>
+                      <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                    <span>About</span>
                   </Link>
                 </li>
                 <li 

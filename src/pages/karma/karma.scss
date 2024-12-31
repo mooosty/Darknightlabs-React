@@ -1,6 +1,4 @@
 .karma_page {
-    height: 100%;
-
     .karma_content_header {
         display: flex;
         align-items: center;
@@ -47,7 +45,7 @@
 
     .karma_page_data {
         background-color: var(--primary-background);
-        border-radius: 20px;
+        border-radius: 9px;
         height: calc(100% - 80px);
         padding: 20px 0px;
         min-height: 450px;
@@ -74,26 +72,110 @@
 
             .karma_overview {
                 background: var(--card-background);
-                border-radius: 12px;
+                border-radius: 9px;
                 padding: 30px;
                 margin-bottom: 30px;
+                transition: all 0.3s ease;
+                cursor: pointer;
 
-                .karma_total {
-                    text-align: center;
-                    margin-bottom: 30px;
+                &.expanded {
+                    height: calc(100vh - 180px);
+                    overflow-y: auto;
+
+                    .read-more {
+                        opacity: 0.6;
+                    }
+
+                    .karma-details {
+                        display: block;
+                    }
+                }
+
+                .section-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 54px;
 
                     h3 {
                         color: var(--primary-text);
                         font-size: 24px;
-                        margin-bottom: 10px;
                         font-family: "MedievalSharp", cursive;
                     }
+
+                    .read-more {
+                        color: #DCCA87;
+                        font-size: 16px;
+                        font-family: "MedievalSharp", cursive;
+                        cursor: pointer;
+                        transition: opacity 0.2s ease;
+
+                        &:hover {
+                            opacity: 0.8;
+                        }
+                    }
+                }
+
+                .karma_total {
+                    text-align: center;
+                    margin-bottom: 30px;
 
                     .points {
                         font-size: 48px;
                         color: #DCCA87;
                         font-weight: 600;
                         font-family: "MedievalSharp", cursive;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+
+                .karma-details {
+                    display: none;
+                    color: rgba(245, 239, 219, 0.8);
+                    line-height: 1.6;
+                    margin-bottom: 30px;
+                    
+                    h3 {
+                        color: #F5EFDB;
+                        font-size: 24px;
+                        font-family: "MedievalSharp", cursive;
+                        margin: 32px 0 16px;
+                    }
+
+                    p {
+                        margin-bottom: 16px;
+                        font-size: 16px;
+                    }
+
+                    ol {
+                        margin: 24px 0;
+                        padding-left: 20px;
+
+                        li {
+                            margin-bottom: 24px;
+                            
+                            &:last-child {
+                                margin-bottom: 0;
+                            }
+                        }
+                    }
+
+                    .highlight {
+                        color: #DCCA87;
+                        font-weight: 500;
+                    }
+
+                    .section {
+                        margin: 32px 0;
+
+                        h4 {
+                            color: #F5EFDB;
+                            font-size: 20px;
+                            font-family: "MedievalSharp", cursive;
+                            margin-bottom: 16px;
+                        }
                     }
                 }
 
@@ -112,7 +194,7 @@
                         flex: 1;
                         background: var(--card-background);
                         padding: 20px;
-                        border-radius: 8px;
+                        border-radius: 9px;
                         border: 1px solid #f5efdb1a;
 
                         .label {
@@ -138,7 +220,7 @@
                     padding: 12px;
                     background: #DCCA87;
                     border: none;
-                    border-radius: 8px;
+                    border-radius: 9px;
                     color: var(--primary-background);
                     font-weight: 600;
                     font-size: 16px;
@@ -157,7 +239,7 @@
 
             .karma_explanation {
                 background: var(--card-background);
-                border-radius: 12px;
+                border-radius: 9px;
                 padding: 30px;
                 margin-bottom: 30px;
 
@@ -204,7 +286,7 @@
 
             .karma_breakdown {
                 background: var(--card-background);
-                border-radius: 12px;
+                border-radius: 9px;
                 padding: 30px;
 
                 h3 {
@@ -251,347 +333,77 @@
             }
         }
     }
+}
 
-    .popup_overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: #000000b3;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 1000;
+.popup_overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
 
-        .popup_content {
-            background: var(--card-background);
-            padding: 30px;
-            border-radius: 12px;
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-
-            h3 {
-                color: var(--primary-text);
-                font-size: 20px;
-                margin-bottom: 20px;
-                font-family: "MedievalSharp", cursive;
-            }
-
-            .link_container {
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                background: var(--card-background);
-                padding: 10px;
-                border-radius: 8px;
-                border: 1px solid #f5efdb1a;
-                margin-bottom: 20px;
-
-                p {
-                    flex: 1;
-                    margin: 0;
-                    color: #DCCA87;
-                    word-break: break-all;
-                    background: none;
-                    padding: 0;
-                    border: none;
-                }
-
-                .copy_btn {
-                    background: none;
-                    border: none;
-                    padding: 8px;
-                    cursor: pointer;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    transition: opacity 0.2s ease;
-
-                    &:hover {
-                        opacity: 0.8;
-                    }
-
-                    svg {
-                        width: 20px;
-                        height: 20px;
-                    }
-                }
-            }
-
-            .btn_gray {
-                padding: 12px 24px;
-                background: var(--btn-gray-bg);
-                border: none;
-                color: var(--primary-text);
-                font-size: 16px;
-                border-radius: 8px;
-                cursor: pointer;
-                transition: all 0.2s ease;
-
-                &:hover {
-                    background: #5e5e5e94;
-                }
-            }
-        }
-    }
-
-    .invite_tree {
-        margin-top: 2rem;
-        padding: 3rem 2rem;
-        background: #F5EFDB;
-        border-radius: 12px;
-        position: relative;
-        overflow: hidden;
-
-        // Aged parchment texture
-        &::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                linear-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 0, 0, 0.1) 1px, transparent 1px),
-                radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.05), transparent 80%);
-            background-size: 20px 20px, 20px 20px, 100% 100%;
-            opacity: 0.15;
-            pointer-events: none;
-        }
-
-        // Vignette effect
-        &::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(58, 36, 23, 0.4));
-            pointer-events: none;
-        }
+    .popup_content {
+        background: #191917;
+        border-radius: 9px;
+        padding: 24px;
+        width: 90%;
+        max-width: 500px;
 
         h3 {
-            color: #3A2417;
+            color: #F5EFDB;
+            font-size: 20px;
             font-family: "MedievalSharp", cursive;
-            font-size: 32px;
-            margin-bottom: 3rem;
+            margin-bottom: 24px;
             text-align: center;
-            position: relative;
-            z-index: 2;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
         }
 
-        .tree_container {
+        .link_container {
+            background: rgba(245, 239, 219, 0.03);
+            border-radius: 9px;
+            padding: 16px;
             display: flex;
-            justify-content: center;
-            padding: 2rem;
-            min-height: 600px;
-            position: relative;
-            z-index: 2;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
 
-            // Tree foliage background
-            &::before {
-                content: '';
-                position: absolute;
-                top: -50px;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 90%;
-                height: 90%;
-                background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 800'%3E%3Cpath d='M500,10 C700,10 900,200 900,400 C900,600 700,790 500,790 C300,790 100,600 100,400 C100,200 300,10 500,10 Z' fill='%23242623' opacity='0.9'/%3E%3C/svg%3E") no-repeat center;
-                background-size: contain;
-                z-index: -1;
-                filter: drop-shadow(0 0 20px rgba(0,0,0,0.3));
+            p {
+                flex: 1;
+                color: #F5EFDB;
+                font-size: 14px;
+                word-break: break-all;
             }
 
-            // Tree trunk
-            &::after {
-                content: '';
-                position: absolute;
-                bottom: 0;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 80px;
-                height: 200px;
-                background: linear-gradient(90deg, #2A1810 0%, #3A2417 50%, #2A1810 100%);
-                border-radius: 10px;
-                box-shadow: 
-                    inset -5px 0 10px rgba(0,0,0,0.4),
-                    inset 5px 0 10px rgba(0,0,0,0.4);
-            }
-        }
+            .copy_btn {
+                background: transparent;
+                border: none;
+                padding: 8px;
+                cursor: pointer;
+                color: #DCCA87;
 
-        .node_content {
-            background: #F5EFDB;
-            padding: 0.75rem 1.5rem;
-            border-radius: 4px;
-            min-width: 150px;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-            border: 1px solid rgba(58, 36, 23, 0.3);
-            box-shadow: 
-                0 2px 4px rgba(0, 0, 0, 0.1),
-                inset 0 0 0 1px rgba(255, 255, 255, 0.5);
-
-            // Special styling for ellipsis node
-            &:has(.username:contains('...')) {
-                min-width: 60px;
-                padding: 0.75rem;
-                background: rgba(245, 239, 219, 0.7);
-                border-style: dashed;
-
-                .username {
-                    font-size: 20px;
-                    line-height: 1;
-                    margin: 0;
+                &:hover {
+                    opacity: 0.8;
                 }
             }
+        }
 
-            // Level 2 and 3 nodes
-            .branches.level2 &,
-            .branches.level3 & {
-                min-width: 150px;
-                padding: 0.75rem 1.5rem;
-                background: rgba(245, 239, 219, 0.9);
-            }
-
-            .username {
-                display: block;
-                color: #3A2417;
-                font-family: "MedievalSharp", cursive;
-                font-size: 16px;
-                margin-bottom: 4px;
-                font-weight: 500;
-            }
-
-            .invite_count {
-                display: block;
-                color: #5C4033;
-                font-size: 14px;
-            }
+        .btn_gray {
+            width: 100%;
+            background: rgba(245, 239, 219, 0.03);
+            border: none;
+            color: #F5EFDB;
+            padding: 16px;
+            border-radius: 9px;
+            font-size: 16px;
+            cursor: pointer;
+            font-family: "MedievalSharp", cursive;
 
             &:hover {
-                transform: translateY(-2px);
-                box-shadow: 
-                    0 4px 8px rgba(0, 0, 0, 0.15),
-                    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
-            }
-        }
-
-        .tree_node {
-            &.root {
-                > .node_content {
-                    border: 2px solid #3A2417;
-                    background: #F5EFDB;
-                    box-shadow: 
-                        0 2px 8px rgba(0, 0, 0, 0.2),
-                        inset 0 0 0 1px rgba(255, 255, 255, 0.5);
-                }
-            }
-        }
-
-        .branches {
-            display: flex;
-            padding-top: 2rem;
-            position: relative;
-
-            &.level1 { 
-                gap: 8rem; 
-            }
-            
-            &.level2 { 
-                gap: 6rem; 
-            }
-            
-            &.level3 { 
-                gap: 4rem; 
-            }
-
-            // Branch connections
-            &::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                height: 100%;
-                background: #3A2417;
-                width: 2px;
-                left: 50%;
-                transform: translateX(-50%);
-            }
-
-            .tree_node {
-                position: relative;
-
-                &::before {
-                    content: '';
-                    position: absolute;
-                    top: -2rem;
-                    left: 50%;
-                    width: 2px;
-                    height: 2rem;
-                    background: #3A2417;
-                    transform: translateX(-50%);
-                }
-            }
-        }
-
-        @media (max-width: 1024px) {
-            padding: 2rem 1rem;
-
-            .tree_container {
-                padding: 1rem;
-                min-height: 400px;
-                overflow-x: auto;
-                width: 100%;
-                min-width: 600px;
-
-                &::before {
-                    width: 95%;
-                }
-            }
-
-            .branches {
-                &.level1 { gap: 4rem; }
-                &.level2 { gap: 3rem; }
-                &.level3 { gap: 2rem; }
-            }
-
-            .node_content {
-                min-width: 120px;
-                padding: 0.5rem 1rem;
-                font-size: 14px;
-
-                .username {
-                    font-size: 14px;
-                }
-
-                .invite_count {
-                    font-size: 12px;
-                }
-            }
-        }
-
-        @media (max-width: 767px) {
-            .tree_container {
-                min-width: 500px;
-            }
-
-            .branches {
-                &.level1 { gap: 3rem; }
-                &.level2 { gap: 2rem; }
-                &.level3 { gap: 1.5rem; }
-            }
-
-            .node_content {
-                min-width: 100px;
-                padding: 0.4rem 0.8rem;
+                background: rgba(245, 239, 219, 0.05);
             }
         }
     }

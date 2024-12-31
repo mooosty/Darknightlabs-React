@@ -19,4 +19,5 @@ export const ROUTER = {
     error405: '405',
     announcementFeed: "announcement-feed",
     dashboard: "dashboard",
+    about: "about",
 };

@@ -7,6 +7,8 @@ import { ROUTER } from '../../utils/routes/routes';
 import { ProfileNavTabIcon, LogoutNavTabIcon } from "../../utils/SVGs/SVGs";
 import CustomDropdown from "../../components/custom-dropdown/CustomDropdown";
 import { defaultImg } from "../../utils/constants/images";
+import Sidebar from "../../components/layout/sidebar/Sidebar";
+import "../../components/layout/layout.scss";
 
 const AnnouncementCard = ({ announcement }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -140,7 +142,7 @@ const Dashboard = () => {
       route: ROUTER.ambassadorProjects 
     },
     { 
-      title: 'Invite Friends', 
+      title: 'Invite valuable people', 
       description: 'Earn even more!', 
       action: 'Take Action',
       route: ROUTER.karma
@@ -153,132 +155,110 @@ const Dashboard = () => {
   };
 
   return (
-    <>
-      <header className="header_wrp">
-        <h4 className='header_title'>Darknight Labs</h4>
-        <div className="header_right">
-          <button 
-            className="header_btn"
-            onClick={() => navigate(`/${ROUTER.profile}`)}
-          >
-            Dashboard
-          </button>
-          <div className="sidebar_btn">
-            <CustomDropdown
-              toggleButton={
-                <ProfileNavTabIcon />
-              }
-              items={dropdownItems}
-            />
-          </div>
-        </div>
-      </header>
-
-      <div className="dashboard-container">
-        <div className="welcome-section">
-          <div className="welcome-content">
-            <h1>Welcome back, {getUserName()}!</h1>
-            <div className="stats-container">
-              <div className="stat-box">
-                <span className="stat-label">Karma Points</span>
-                <span className="stat-value karma">{userDetails?.currency_b || 0}</span>
-                <Link to={`/${ROUTER.karma}`} className="view-more-btn">View More Details</Link>
-              </div>
-              <div className="stat-box">
-                <span className="stat-label">Active Investments</span>
-                <span className="stat-value investments">5</span>
-              </div>
+    <div className="dashboard-container">
+      <div className="welcome-section">
+        <div className="welcome-content">
+          <h1>Welcome back, {getUserName()}!</h1>
+          <div className="stats-container">
+            <div className="stat-box">
+              <span className="stat-label">Karma Points</span>
+              <span className="stat-value karma">{userDetails?.currency_b || 0}</span>
+              <Link to={`/${ROUTER.karma}`} className="view-more-btn">View More Details</Link>
             </div>
-          </div>
-        </div>
-
-        <div className="dashboard-grid">
-          <div className="grid-section announcements-section">
-            <h2>Announcements & News</h2>
-            <div className="announcements-list">
-              {loading ? (
-                <div className="loading">Loading announcements...</div>
-              ) : (
-                announcements.slice(0, 3).map((announcement) => (
-                  <AnnouncementCard 
-                    key={announcement.id} 
-                    announcement={announcement}
-                  />
-                ))
-              )}
-            </div>
-            <Link to={`/${ROUTER.announcementFeed}`} className="view-all-btn">View All Announcements</Link>
-          </div>
-
-          <div className="grid-section actions-section">
-            <h2>Take Action</h2>
-            <div className="actions-list">
-              {actions.map((action, index) => (
-                <div key={index} className="action-item">
-                  <div className="action-info">
-                    <h3>{action.title}</h3>
-                    <p>{action.description}</p>
-                  </div>
-                  <button 
-                    className="action-btn"
-                    onClick={() => action.route && navigate(`/${action.route}`)}
-                  >
-                    {action.action}
-                  </button>
-                </div>
-              ))}
-            </div>
-
-            <div className="upcoming-ama">
-              <h3>Upcoming AMA</h3>
-              <p>Join us for a live AMA with the founders of Project X</p>
-              <div className="timer">
-                <span>Starts in:</span>
-                <span className="time">2d 14h 37m</span>
-              </div>
-              <button className="reminder-btn">Set Reminder</button>
-            </div>
-          </div>
-
-          <div className="grid-section investments-section">
-            <h2>Your Investments</h2>
-            <div className="investments-list">
-              {investments.map((investment, index) => (
-                <div key={index} className="investment-item">
-                  <div className="investment-info">
-                    <span className="investment-name">{investment.name}</span>
-                    <span className="investment-type">{investment.type}</span>
-                  </div>
-                  <div className="investment-progress">
-                    <div 
-                      className={`progress-bar ${investment.progress < 0 ? 'negative' : 'positive'}`}
-                      style={{ width: `${Math.abs(investment.progress)}%` }}
-                    />
-                    <span className="progress-value">{investment.progress}%</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <Link to={`/${ROUTER.investment}`} className="view-all-btn">View All Investments</Link>
-          </div>
-
-          <div className="grid-section leaderboard-section">
-            <h2>Community Leaderboard</h2>
-            <div className="leaderboard-list">
-              {leaderboard.map((user) => (
-                <div key={user.rank} className="leaderboard-item">
-                  <div className="rank-info">
-                    <span className="rank">{user.rank}</span>
-                    <span className="username">{user.username}</span>
-                  </div>
-                  <button className="follow-btn">Follow</button>
-                </div>
-              ))}
+            <div className="stat-box">
+              <span className="stat-label">Active Investments</span>
+              <span className="stat-value investments">5</span>
             </div>
           </div>
         </div>
       </div>
-    </>
+
+      <div className="dashboard-grid">
+        <div className="grid-section announcements-section">
+          <h2>Announcements & News</h2>
+          <div className="announcements-list">
+            {loading ? (
+              <div className="loading">Loading announcements...</div>
+            ) : (
+              announcements.slice(0, 3).map((announcement) => (
+                <AnnouncementCard 
+                  key={announcement.id} 
+                  announcement={announcement}
+                />
+              ))
+            )}
+          </div>
+          <Link to={`/${ROUTER.announcementFeed}`} className="view-all-btn">View All Announcements</Link>
+        </div>
+
+        <div className="grid-section actions-section">
+          <h2>Take Action</h2>
+          <div className="actions-list">
+            {actions.map((action, index) => (
+              <div key={index} className="action-item">
+                <div className="action-info">
+                  <h3>{action.title}</h3>
+                  <p>{action.description}</p>
+                </div>
+                <button 
+                  className="action-btn"
+                  onClick={() => action.route && navigate(`/${action.route}`)}
+                >
+                  {action.action}
+                </button>
+              </div>
+            ))}
+          </div>
+
+          <div className="upcoming-ama">
+            <h3>Upcoming AMA</h3>
+            <p>Join us for a live AMA with the founders of Project X</p>
+            <div className="timer">
+              <span>Starts in:</span>
+              <span className="time">2d 14h 37m</span>
+            </div>
+            <button className="reminder-btn">Set Reminder</button>
+          </div>
+        </div>
+
+        <div className="grid-section investments-section">
+          <h2>Your Investments</h2>
+          <div className="investments-list">
+            {investments.map((investment, index) => (
+              <div key={index} className="investment-item">
+                <div className="investment-info">
+                  <span className="investment-name">{investment.name}</span>
+                  <span className="investment-type">{investment.type}</span>
+                </div>
+                <div className="investment-progress">
+                  <div 
+                    className={`progress-bar ${investment.progress < 0 ? 'negative' : 'positive'}`}
+                    style={{ width: `${Math.abs(investment.progress)}%` }}
+                  />
+                  <span className="progress-value">{investment.progress}%</span>
+                </div>
+              </div>
+            ))}
+          </div>
+          <Link to={`/${ROUTER.investment}`} className="view-all-btn">View All Investments</Link>
+        </div>
+
+        <div className="grid-section leaderboard-section">
+          <h2>Community Leaderboard</h2>
+          <div className="leaderboard-list">
+            {leaderboard.map((user) => (
+              <div key={user.rank} className="leaderboard-item">
+                <div className="rank-info">
+                  <span className="rank">{user.rank}</span>
+                  <span className="username">{user.username}</span>
+                </div>
+                <button className="follow-btn">Follow</button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

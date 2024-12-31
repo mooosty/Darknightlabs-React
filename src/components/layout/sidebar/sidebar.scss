@@ -4,19 +4,19 @@
     border-radius: 9px;
     width: 300px;
     flex-shrink: 0;
-    height: calc(100vh - 132px);
-    min-height: 500px;
+    height: calc(100vh - 132px - 24px);
+    margin-bottom: 24px;
     overflow: visible;
     position: relative;
     z-index: 1;
 
     @media(max-width: 1600px) {
-        height: calc(100vh - 85px);
-        width: 240px
+        width: 240px;
+        height: calc(100vh - 85px - 24px);
     }
 
     @media (max-width: 1199px) {
-        width: 240px
+        width: 240px;
     }
 
     @media (max-width: 767px) {
@@ -24,9 +24,9 @@
     }
 
     .sidebar {
+        height: 100%;
         display: flex;
         flex-direction: column;
-        height: 100%;
         position: relative;
         overflow: visible;
 
@@ -94,6 +94,8 @@
                     border-radius: 8px;
                     margin-bottom: 8px;
                     font-family: "MedievalSharp", cursive;
+                    position: relative;
+                    cursor: pointer;
                     
                     span {
                         color: #F5EFDB;
@@ -107,6 +109,39 @@
                         path {
                             fill: #F5EFDB;
                         }
+                    }
+
+                    .winwin-tooltip {
+                        position: absolute;
+                        bottom: calc(100% + 8px);
+                        left: 0;
+                        background: #191917;
+                        padding: 12px;
+                        border-radius: 4px;
+                        width: 100%;
+                        opacity: 0;
+                        visibility: hidden;
+                        transition: opacity 0.2s ease, visibility 0.2s ease;
+                        z-index: 10000;
+                        color: #f5efdb;
+                        font-size: 12px;
+                        line-height: 1.4;
+                        border: 1px solid rgba(245, 239, 219, 0.15);
+                        transform: translateZ(0);
+                        pointer-events: none;
+
+                        p {
+                            margin: 0 0 8px 0;
+                            opacity: 0.8;
+                            &:last-child {
+                                margin-bottom: 0;
+                            }
+                        }
+                    }
+
+                    &:hover .winwin-tooltip {
+                        opacity: 1;
+                        visibility: visible;
                     }
                 }
 
@@ -185,16 +220,14 @@
 
         .menu-section {
             flex: 1;
-            overflow-y: scroll !important;
+            overflow-y: auto;
             scrollbar-width: thin;
             scrollbar-color: rgba(245, 239, 219, 0.3) rgba(245, 239, 219, 0.1);
             display: flex;
             flex-direction: column;
             padding-right: 12px;
-            height: calc(100% - 200px);
-            min-height: 200px;
-            overflow: visible !important;
-
+            height: calc(100% - 250px);
+            
             &::-webkit-scrollbar {
                 width: 8px !important;
                 background-color: rgba(245, 239, 219, 0.1) !important;
@@ -237,10 +270,43 @@
                             opacity: 0.85;
                         }
 
+                        a {
+                            text-decoration: none;
+                            color: #F5EFDB;
+                            display: flex;
+                            align-items: center;
+                            padding: 8px 12px;
+                            gap: 12px;
+                            font-size: 18px;
+                            font-weight: 500;
+                            line-height: 21.78px;
+                            opacity: 0.5;
+                            margin-bottom: 7px;
+                            text-transform: capitalize;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+
+                            .menu_text {
+                                flex: 1;
+                                min-width: 0;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                            }
+
+                            @media (max-width: 1600px) {
+                                font-size: 14px;
+                            }
+                        }
+
                         &.disabled {
                             opacity: 0.5;
                             cursor: not-allowed;
                             position: relative;
+
+                            a {
+                                pointer-events: none;
+                            }
 
                             // Ambassador-specific tooltip
                             &.ambassador-disabled {
@@ -282,30 +348,6 @@
                                 border-color: transparent #000000 transparent transparent;
                                 z-index: 99999;
                                 pointer-events: none;
-                            }
-                        }
-
-                        .disabled-link {
-                            pointer-events: none;
-                            cursor: not-allowed;
-                        }
-
-                        a {
-                            text-decoration: none;
-                            color: #F5EFDB;
-                            display: flex;
-                            align-items: center;
-                            padding: 8px 12px;
-                            gap: 12px;
-                            font-size: 18px;
-                            font-weight: 500;
-                            line-height: 21.78px;
-                            opacity: 0.5;
-                            margin-bottom: 7px;
-                            text-transform: capitalize;
-
-                            @media (max-width: 1600px) {
-                                font-size: 14px;
                             }
                         }
                     }

@@ -29,6 +29,7 @@ import Error404 from './pages/error404/Error404';
 import Error405 from './pages/error405/Error405';
 import SocietyFullList from './pages/home/society-full-list/SocietyFullList';
 import Dashboard from './pages/dashboard/Dashboard';
+import About from './pages/about/About';
 
 function App() {
   return (
@@ -40,11 +41,11 @@ function App() {
         <Route path={`/${ROUTER.societyFullList}`} element={<SocietyFullList />} />
         <Route path={`/${ROUTER.authentication}`} element={<Authentication />} />
 
-
-        <Route path={`/${ROUTER.dashboard}`} element={<Dashboard />} />
         <Route path="/" element={<Layout />}>
+          <Route path={`/${ROUTER.dashboard}`} element={<Dashboard />} />
           <Route path={`/${ROUTER.welcome}`} element={<Welcome />} />
           <Route path={ROUTER.announcementFeed} element={<AnnouncementFeed />} />
+          <Route path={`/${ROUTER.about}`} element={<About />} />
           <Route path={`/${ROUTER.projects}`} element={<ProtectedFeatureRoute feature="PROJECTS"><Projects /></ProtectedFeatureRoute>} />
 
           <Route path={ROUTER.myContent} element={<MyContent />} />
