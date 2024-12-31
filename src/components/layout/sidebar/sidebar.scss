@@ -220,28 +220,45 @@
 
         .menu-section {
             flex: 1;
-            overflow: visible !important;
             display: flex;
             flex-direction: column;
             padding-right: 12px;
             height: calc(100% - 250px);
             position: relative;
+            overflow-y: auto;
+            overflow-x: visible;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(245, 239, 219, 0.3) transparent;
+            
+            &::-webkit-scrollbar {
+                width: 6px;
+            }
+            
+            &::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            
+            &::-webkit-scrollbar-thumb {
+                background-color: rgba(245, 239, 219, 0.3);
+                border-radius: 3px;
+            }
             
             .menu-box {
                 margin-bottom: 7px;
-                overflow: visible;
                 position: relative;
+                overflow: visible;
 
                 &:last-child {
                     margin-bottom: 0;
                 }
 
                 ul {
-                    overflow: visible;
                     position: relative;
+                    overflow: visible;
 
                     li {
                         position: relative;
+                        overflow: visible;
 
                         &.active a {
                             opacity: 1;
@@ -290,9 +307,11 @@
                             }
 
                             .winwin-tooltip {
-                                position: absolute;
-                                left: 240px;
-                                top: 0;
+                                position: fixed;
+                                left: 320px;
+                                top: auto;
+                                transform: translateY(-100%);
+                                margin-top: 25px;
                                 background: #000000;
                                 color: #F5EFDB;
                                 padding: 8px 12px;
@@ -304,14 +323,9 @@
                                 opacity: 0;
                                 visibility: hidden;
                                 pointer-events: none;
-                                filter: none;
-                                display: none;
-
-                                p {
-                                    margin: 0;
-                                    opacity: 1 !important;
-                                    color: #F5EFDB !important;
-                                }
+                                width: max-content;
+                                max-width: 300px;
+                                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 
                                 &:before {
                                     content: '';
@@ -319,19 +333,23 @@
                                     right: 100%;
                                     top: 50%;
                                     transform: translateY(-50%);
-                                    border: 4px solid transparent;
+                                    border: 6px solid transparent;
                                     border-right-color: #000000;
-                                    opacity: 1;
+                                }
+
+                                p {
+                                    margin: 0;
+                                    opacity: 1 !important;
+                                    color: #F5EFDB !important;
+                                    white-space: normal;
+                                    line-height: 1.4;
                                 }
                             }
 
                             &:hover {
                                 .winwin-tooltip {
-                                    display: block !important;
                                     opacity: 1 !important;
                                     visibility: visible !important;
-                                    background: #000000 !important;
-                                    color: #F5EFDB !important;
                                 }
                             }
                         }
@@ -600,15 +618,7 @@
                         li {
                             &.disabled {
                                 .winwin-tooltip {
-                                    p {
-                                        opacity: 1 !important;
-                                    }
-                                }
-                                
-                                &:hover {
-                                    .winwin-tooltip {
-                                        opacity: 1 !important;
-                                    }
+                                    left: 260px;
                                 }
                             }
                         }

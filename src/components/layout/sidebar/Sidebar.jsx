@@ -93,6 +93,15 @@ const Sidebar = () => {
     return defaultImg;
   };
 
+  const handleMenuItemHover = (e) => {
+    const menuItem = e.currentTarget;
+    const tooltip = menuItem.querySelector('.winwin-tooltip');
+    if (tooltip) {
+      const rect = menuItem.getBoundingClientRect();
+      tooltip.style.top = `${rect.top}px`;
+    }
+  };
+
   return (
     <>
       <div className="sidebar_container">
@@ -163,7 +172,10 @@ const Sidebar = () => {
                         <span className="menu_text">Announcements</span>
                       </Link>
                     </li>
-                    <li className={`${location.pathname.startsWith(`/${ROUTER.projects}`) ? "active" : ""} disabled`}>
+                    <li 
+                      className={`${location.pathname.startsWith(`/${ROUTER.projects}`) ? "active" : ""} disabled`}
+                      onMouseEnter={handleMenuItemHover}
+                    >
                       <Link to="#" className="disabled-link">
                         <ProfileNavTabIcon />
                         <span className="menu_text">Projects</span>

@@ -4,7 +4,7 @@ import './ambassadors.scss'
 import { CustomDropdown } from '../../../components';
 import { ThreeDots } from '../../../utils/constants/images';
 import axios from 'axios';
-import { toast } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Ambassadors = ({ handleActive, active, uid }) => {
     const [customNiches, setCustomNiches] = useState([]);
@@ -272,10 +272,30 @@ const Ambassadors = ({ handleActive, active, uid }) => {
             const method = isExistingAmbassador ? 'put' : 'post';
             
             await axios[method](url, payload);
-            toast.success('Ambassador data saved successfully!');
+            toast.success('Thank you! Your ambassador information has been successfully received. We will review your application and get back to you soon.', {
+                duration: 5000,
+                position: 'top-center',
+                style: {
+                    background: '#1a1a1a',
+                    color: '#fff',
+                    border: '1px solid #f5efdb',
+                },
+                iconTheme: {
+                    primary: '#f5efdb',
+                    secondary: '#1a1a1a',
+                },
+            });
         } catch (error) {
             console.error('Error saving ambassador data:', error);
-            toast.error('Failed to save ambassador data');
+            toast.error('Failed to save ambassador data. Please try again.', {
+                duration: 4000,
+                position: 'top-center',
+                style: {
+                    background: '#1a1a1a',
+                    color: '#fff',
+                    border: '1px solid #ff4d4f',
+                },
+            });
         } finally {
             setIsSaving(false);
         }
@@ -382,6 +402,7 @@ const Ambassadors = ({ handleActive, active, uid }) => {
 
     return (
         <div className='ambassadors_content_wrapper'>
+            <Toaster />
             <div className="ambassadors_content_header">
                 <div className="ambassadors_content_left">
                     <h2>Profile</h2>

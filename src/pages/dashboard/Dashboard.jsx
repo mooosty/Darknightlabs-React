@@ -203,6 +203,7 @@ const Dashboard = () => {
                 <button 
                   className="action-btn"
                   onClick={() => action.route && navigate(`/${action.route}`)}
+                  style={{ fontFamily: 'inherit' }}
                 >
                   {action.action}
                 </button>
