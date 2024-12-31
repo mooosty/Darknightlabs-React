@@ -12,7 +12,7 @@ import { CustomSearch, EmptyData, MultiselectDropDown } from '../../components';
 import ContributionForm from '../../components/investments/ContributionForm/ContributionForm';
 import ContributionStatus from '../../components/investments/ContributionStatus/ContributionStatus';
 import WhitelistVerification from '../../components/investments/WhitelistVerification/WhitelistVerification';
-import { cardActor1, cardActor2, cardActor3, cardActor4, cardActor5, cardActor6, cardActor7, cardActor8, cardActor9, cardActor10, cardActor11, cardActor12, cardActor13, cardActor14, cardActor15, SearchIcon } from '../../utils/constants/images';
+import { cardActor1, cardActor2, cardActor3, cardActor4, cardActor5, cardActor6, cardActor7, cardActor8, cardActor9, cardActor10, cardActor11, cardActor12, cardActor13, cardActor14, cardActor15, SearchIcon, BackArrow } from '../../utils/constants/images';
 
 const cardData = [
   {
@@ -890,7 +890,6 @@ const Investment = () => {
         <div className="investment_details">
           <div className="investments_content_header">
             <div className="content_left">
-              <button className="btn_gray" onClick={handleBackToList}>Back to Investments</button>
               <h2>Investment Details</h2>
             </div>
           </div>
@@ -907,6 +906,9 @@ const Investment = () => {
                     onScroll={syncScroll}
                   >
                     <div className="investment-header">
+                      <button className="back_arrow" onClick={handleBackToList}>
+                        <BackArrow />
+                      </button>
                       <h1 className="title">🌙 SHOWA : The Community Revolution</h1>
                       <div className="description">
                         <p className="highlight-text">

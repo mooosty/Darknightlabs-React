@@ -46,15 +46,16 @@
     .karma_page_data {
         background-color: var(--primary-background);
         border-radius: 9px;
-        height: calc(100% - 80px);
+        height: calc(100vh - 260px);
         padding: 20px 0px;
-        min-height: 450px;
+        overflow: hidden;
 
         @media (max-width: 1600px) {
-            height: calc(100% - 40px);
+            height: calc(100vh - 140px);
         }
 
         @media (max-width: 767px) {
+            height: calc(100vh - 120px);
             border-radius: 0;
             padding-top: 0;
         }
@@ -64,6 +65,23 @@
             background-color: transparent;
             overflow-y: auto;
             padding: 0 30px;
+            
+            &::-webkit-scrollbar {
+                width: 6px;
+            }
+            
+            &::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            
+            &::-webkit-scrollbar-thumb {
+                background: rgba(220, 202, 135, 0.3);
+                border-radius: 3px;
+            }
+            
+            &::-webkit-scrollbar-thumb:hover {
+                background: rgba(220, 202, 135, 0.5);
+            }
 
             @media (max-width: 767px) {
                 padding: 20px;
@@ -79,8 +97,7 @@
                 cursor: pointer;
 
                 &.expanded {
-                    height: calc(100vh - 180px);
-                    overflow-y: auto;
+                    cursor: default;
 
                     .read-more {
                         opacity: 0.6;
@@ -300,10 +317,13 @@
                 .karma_explanation {
                     color: var(--primary-text);
                     opacity: 0.8;
+                    margin: 0 -30px;
+                    padding: 0 30px;
 
                     p {
-                        margin-bottom: 15px;
+                        margin-bottom: 16px;
                         line-height: 1.6;
+                        font-size: 16px;
                     }
 
                     ul {
@@ -312,19 +332,19 @@
 
                         li {
                             margin-bottom: 12px;
-                            padding-left: 20px;
-                            position: relative;
                             line-height: 1.6;
+                            font-size: 16px;
+                            display: flex;
+                            align-items: flex-start;
 
-                            &:before {
-                                content: "•";
-                                color: #DCCA87;
-                                position: absolute;
-                                left: 0;
+                            &:last-child {
+                                margin-bottom: 0;
                             }
 
                             strong {
                                 color: #DCCA87;
+                                font-size: 16px;
+                                margin-right: 4px;
                             }
                         }
                     }
