@@ -906,75 +906,100 @@ const Investment = () => {
                     className="details_left"
                     onScroll={syncScroll}
                   >
-                    <h1 className="title">🌙 SHOWA : The Community Revolution</h1>
-                    <div className="description">
-                      Join the community-driven movement behind Showa American Story, transforming from a banned game to a revolutionary token ecosystem with real utility and Steam revenue sharing.
-                    </div>
-
-                    <div className="section">
-                      <h3>Our Vision</h3>
-                      <p>We're building a revolutionary 3-stage pump strategy that combines memecoins, utility, and real-world assets:</p>
-                      
-                      <div className="stage-details">
-                        <h4>Stage 1: Memecoin Launch (Dec.19-23)</h4>
-                        <p>The passionate community and fans behind Showa American Story initiated this token movement after the game was removed by TGA for being too "violent" - a true story that sparked our revolution.</p>
-
-                        <h4>Stage 2: Utility Integration (Dec.24-Jan.15)</h4>
-                        <p>Oneness Labs will integrate $SHOWA token into TheGame.fun platform - a price discovery platform for trading in-game items. Backed by our 200K community, 4K NFT holders, and 100+ major buyers.</p>
-
-                        <h4>Stage 3: RWA Integration (Jan.15-Mar/April)</h4>
-                        <p>The Showa Dev team will officially adopt $SHOWA, allocating 10% of the game's lifetime Steam revenue to the token while building the community together.</p>
-
-                        <h4>Final Stage: Steam Launch</h4>
-                        <p>The ultimate catalyst: Showa's release on Steam, targeting 5M copies and injecting $30M cash into $SHOWA ecosystem.</p>
+                    <div className="investment-header">
+                      <h1 className="title">🌙 SHOWA : The Community Revolution</h1>
+                      <div className="description">
+                        <p className="highlight-text">
+                          Join the community-driven movement behind Showa American Story, transforming from a banned game to a revolutionary token ecosystem with real utility and Steam revenue sharing.
+                        </p>
                       </div>
                     </div>
 
-                    <div className="section">
-                      <h3>Project Details</h3>
-                      <ul>
-                        <li>🎮 Sector: Gaming, Community Token, Revenue Sharing</li>
-                        <li>🎮 Backed by Real Game Revenue</li>
-                        <li>🎮 Multiple Growth Catalysts</li>
-                        <li>🎮 Strong Community Foundation</li>
-                      </ul>
+                    <div className="section vision-section">
+                      <h2 className="section-title">💫 Our Vision</h2>
+                      <p className="section-intro">We're building a revolutionary 3-stage pump strategy that combines memecoins, utility, and real-world assets:</p>
+                      
+                      <div className="stage-details">
+                        <div className="stage-block">
+                          <h3 className="stage-title">Stage 1: Memecoin Launch</h3>
+                          <div className="stage-date">Dec.19-23</div>
+                          <p className="stage-description">The passionate community and fans behind Showa American Story initiated this token movement after the game was removed by TGA for being too "violent" - a true story that sparked our revolution.</p>
+                        </div>
+
+                        <div className="stage-block">
+                          <h3 className="stage-title">Stage 2: Utility Integration</h3>
+                          <div className="stage-date">Dec.24-Jan.15</div>
+                          <p className="stage-description">Oneness Labs will integrate $SHOWA token into TheGame.fun platform - a price discovery platform for trading in-game items. Backed by our 200K community, 4K NFT holders, and 100+ major buyers.</p>
+                        </div>
+
+                        <div className="stage-block">
+                          <h3 className="stage-title">Stage 3: RWA Integration</h3>
+                          <div className="stage-date">Jan.15-Mar/April</div>
+                          <p className="stage-description">The Showa Dev team will officially adopt $SHOWA, allocating 10% of the game's lifetime Steam revenue to the token while building the community together.</p>
+                        </div>
+
+                        <div className="stage-block">
+                          <h3 className="stage-title">Final Stage: Steam Launch</h3>
+                          <p className="stage-description highlight-text">The ultimate catalyst: Showa's release on Steam, targeting 5M copies and injecting $30M cash into $SHOWA ecosystem.</p>
+                        </div>
+                      </div>
                     </div>
 
-                    <div className="section">
-                      <h3>Why SHOWA?</h3>
-                      <ul>
-                        <li>🚀 Real Utility: Integration with TheGame.fun platform</li>
-                        <li>🚀 Revenue Sharing: 10% of lifetime Steam revenue</li>
-                        <li>🚀 Strong Community: 200K members and growing</li>
-                        <li>🚀 Multiple Growth Stages: Planned catalysts for sustainable growth</li>
-                      </ul>
+                    <div className="section details-section">
+                      <h2 className="section-title">🎮 Project Details</h2>
+                      <div className="details-grid">
+                        <div className="detail-item">Gaming, Community Token, Revenue Sharing</div>
+                        <div className="detail-item">Backed by Real Game Revenue</div>
+                        <div className="detail-item">Multiple Growth Catalysts</div>
+                        <div className="detail-item">Strong Community Foundation</div>
+                      </div>
                     </div>
 
-                    <div className="section">
-                      <h3>Backed by</h3>
-                      <ul>
-                        <li>👑 Oneness Labs</li>
-                        <li>👑 TheGame.fun Platform</li>
-                        <li>👑 4K+ NFT Holders</li>
-                        <li>👑 100+ Major Buyers</li>
-                        <li>👑 200K Community Members</li>
-                      </ul>
+                    <div className="section features-section">
+                      <h2 className="section-title">🚀 Why SHOWA?</h2>
+                      <div className="features-grid">
+                        <div className="feature-item">
+                          <span className="feature-highlight">Real Utility:</span> Integration with TheGame.fun platform
+                        </div>
+                        <div className="feature-item">
+                          <span className="feature-highlight">Revenue Sharing:</span> 10% of lifetime Steam revenue
+                        </div>
+                        <div className="feature-item">
+                          <span className="feature-highlight">Strong Community:</span> 200K members and growing
+                        </div>
+                        <div className="feature-item">
+                          <span className="feature-highlight">Multiple Growth Stages:</span> Planned catalysts for sustainable growth
+                        </div>
+                      </div>
                     </div>
 
-                    <div className="section">
-                      <h3>Security & Ownership</h3>
-                      <ul>
-                        <li>🚀 Community-Driven Development</li>
-                        <li>🚀 Transparent Revenue Sharing Model</li>
-                        <li>🚀 Multiple Utility Integrations</li>
-                        <li>🚀 Sustainable Growth Strategy</li>
-                      </ul>
+                    <div className="section backers-section">
+                      <h2 className="section-title">👑 Backed by</h2>
+                      <div className="backers-grid">
+                        <div className="backer-item">Oneness Labs</div>
+                        <div className="backer-item">TheGame.fun Platform</div>
+                        <div className="backer-item">4K+ NFT Holders</div>
+                        <div className="backer-item">100+ Major Buyers</div>
+                        <div className="backer-item">200K Community Members</div>
+                      </div>
                     </div>
 
-                    <div className="section movement_section">
-                      <h3>🌙 Join the SHOWA Revolution</h3>
-                      <p>Be part of a unique journey from banned game to revolutionary token ecosystem. Together, we're building something unprecedented in the gaming space! 🚀</p>
-                      <div className="stars">💫💫💫💫💫💫💫💫💫💫💫💫</div>
+                    <div className="section security-section">
+                      <h2 className="section-title">🔒 Security & Ownership</h2>
+                      <div className="security-grid">
+                        <div className="security-item">Community-Driven Development</div>
+                        <div className="security-item">Transparent Revenue Sharing Model</div>
+                        <div className="security-item">Multiple Utility Integrations</div>
+                        <div className="security-item">Sustainable Growth Strategy</div>
+                      </div>
+                    </div>
+
+                    <div className="section movement-section">
+                      <h2 className="section-title">🌙 Join the SHOWA Revolution</h2>
+                      <p className="movement-text">
+                        Be part of a unique journey from banned game to revolutionary token ecosystem. Together, we're building something unprecedented in the gaming space! 
+                      </p>
+                      <div className="stars">✨ The Future of Gaming Communities Starts Here ✨</div>
                     </div>
                   </div>
                   <div

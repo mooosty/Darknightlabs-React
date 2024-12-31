@@ -162,6 +162,27 @@ const Karma = () => {
             <div className="karma-details">
               <h3>KARMA</h3>
               
+              <div className="section">
+                <h4>How Karma Points Work</h4>
+                <p>Karma Points (KP) are earned through a multi-level referral system:</p>
+                <ul>
+                  <li>Direct invites: <span className="highlight">100 KP</span> for each person you invite</li>
+                  <li>Level 1 referrals: <span className="highlight">20 KP</span> for each person your invitees invite</li>
+                  <li>Level 2 referrals: <span className="highlight">10 KP</span> for each person your Level 1 referrals invite</li>
+                </ul>
+              </div>
+
+              <div className="section">
+                <h4>What are Karma Points?</h4>
+                <p>Karma Points (KP) are a measure of your contribution and influence in The Win-Win Society. They serve multiple purposes:</p>
+                <ul>
+                  <li>Access to exclusive deals and opportunities</li>
+                  <li>Priority in oversubscribed investments</li>
+                  <li>Recognition within the community</li>
+                  <li>Unlock special features and benefits</li>
+                </ul>
+              </div>
+
               <p>There are two ways to increase your Karma level in The Win-Win Society:</p>
               
               <ol>
@@ -212,8 +233,21 @@ const Karma = () => {
             </button>
           </div>
 
+          <div className="karma_explanation_section">
+            <h3>How Karma Points Work</h3>
+            <div className="karma_explanation">
+              <p>Your Karma Points are calculated based on your referral network:</p>
+              <ul>
+                <li><strong>Direct Invites:</strong> 100 KP for each person you directly invite</li>
+                <li><strong>Level 1 Referrals:</strong> 20 KP for each person your invitees bring in</li>
+                <li><strong>Level 2 Referrals:</strong> 10 KP for each person your Level 1 referrals invite</li>
+              </ul>
+            </div>
+          </div>
+
           <div className="karma_breakdown">
             <h3>Your Karma Breakdown</h3>
+            
             <div className="breakdown_list">
               {karmaStats.karmaBreakdown.map((item, index) => (
                 <div key={index} className="breakdown_item">

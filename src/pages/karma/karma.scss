@@ -284,6 +284,53 @@
                 }
             }
 
+            .karma_explanation_section {
+                background: var(--card-background);
+                border-radius: 9px;
+                padding: 30px;
+                margin-bottom: 30px;
+
+                h3 {
+                    color: var(--primary-text);
+                    font-size: 24px;
+                    margin-bottom: 20px;
+                    font-family: "MedievalSharp", cursive;
+                }
+
+                .karma_explanation {
+                    color: var(--primary-text);
+                    opacity: 0.8;
+
+                    p {
+                        margin-bottom: 15px;
+                        line-height: 1.6;
+                    }
+
+                    ul {
+                        list-style: none;
+                        padding: 0;
+
+                        li {
+                            margin-bottom: 12px;
+                            padding-left: 20px;
+                            position: relative;
+                            line-height: 1.6;
+
+                            &:before {
+                                content: "•";
+                                color: #DCCA87;
+                                position: absolute;
+                                left: 0;
+                            }
+
+                            strong {
+                                color: #DCCA87;
+                            }
+                        }
+                    }
+                }
+            }
+
             .karma_breakdown {
                 background: var(--card-background);
                 border-radius: 9px;
