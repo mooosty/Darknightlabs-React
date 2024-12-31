@@ -163,11 +163,14 @@ const Sidebar = () => {
                         <span className="menu_text">Announcements</span>
                       </Link>
                     </li>
-                    <li className={`${location.pathname.startsWith(`/${ROUTER.projects}`) ? "active" : ""} ${userProjects.length !== -1 ? "disabled" : ""}`}>
-                      <Link to={`/${ROUTER.projects}`}>
+                    <li className={`${location.pathname.startsWith(`/${ROUTER.projects}`) ? "active" : ""} disabled`}>
+                      <Link to="#" className="disabled-link">
                         <ProfileNavTabIcon />
                         <span className="menu_text">Projects</span>
                       </Link>
+                      <div className="winwin-tooltip">
+                        <p>Please complete your profile to unlock</p>
+                      </div>
                     </li>
                     {userRole == "ADMIN" && (
                       <li className={`${location.pathname.startsWith(`/${ROUTER.projectManager}`) ? "active" : ""} ${userProjects.length === 0 ? "disabled" : ""}`}>
@@ -188,12 +191,15 @@ const Sidebar = () => {
                           location.pathname !== `/${ROUTER.synergiesManager}`
                           ? "active"
                           : ""
-                          } ${userProjects.length !== -1 ? "disabled" : ""}`}
+                          } disabled`}
                       >
-                        <Link to={ROUTER.synergies}>
+                        <Link to="#" className="disabled-link">
                           <SynergiesNavTabIcon />
                           <span className="menu_text">Synergies</span>
                         </Link>
+                        <div className="winwin-tooltip">
+                          <p>Please complete your profile to unlock</p>
+                        </div>
                       </li>
                       <li className={`${location.pathname === `/${ROUTER.investment}` ? "active" : ""}`}>
                         <Link to={ROUTER.investment}>
@@ -224,11 +230,14 @@ const Sidebar = () => {
                 <div className="menu-box">
                   <span className="separator"></span>
                   <ul>
-                    <li className={`${location.pathname === `/${ROUTER.chat}` ? "active" : ""} chat ${userProjects?.length !== -1 ? "disabled" : ""}`}>
-                      <Link to={userProjects?.length === 0 ? "#" : `/${ROUTER.chat}`}>
+                    <li className={`${location.pathname === `/${ROUTER.chat}` ? "active" : ""} disabled`}>
+                      <Link to="#" className="disabled-link">
                         <ChatNavTabIcon />
-                        <span className="menu_text">Chat</span>
+                        <span className="chat">Chat</span>
                       </Link>
+                      <div className="winwin-tooltip">
+                        <p>Please complete your profile to unlock</p>
+                      </div>
                     </li>
                     <li className={`${location.pathname === `/${ROUTER.karma}` ? "active" : ""}`}>
                       <Link to={`/${ROUTER.karma}`}>
@@ -268,6 +277,11 @@ const Sidebar = () => {
                         <ProjectNavTabIcon />
                         <span className="menu_text">Ambassadorship</span>
                       </Link>
+                      {!isAmbassador && (
+                        <div className="winwin-tooltip">
+                          <p>Please complete your ambassadorship request in profile section</p>
+                        </div>
+                      )}
                     </li>
                   </ul>
                 </div>
@@ -334,11 +348,14 @@ const Sidebar = () => {
                     <span>Announcements</span>
                   </Link>
                 </li>
-                <li className={`${location.pathname === `/${ROUTER.projects}` ? "active" : ""} ${userProjects?.length !== -1? "disabled" : ""}`}>
-                  <Link to={ROUTER.projects}>
+                <li className={`${location.pathname === `/${ROUTER.projects}` ? "active" : ""} disabled`}>
+                  <Link to="#" className="disabled-link">
                     <ProjectNavTabIcon />
                     <span>Projects</span>
                   </Link>
+                  <div className="winwin-tooltip">
+                    <p>Please complete your profile to unlock</p>
+                  </div>
                 </li>
                 {userRole == "ADMIN" && (
                   <li className={`${location.pathname === `/${ROUTER.projectManager}` ? "active" : ""}  ${userProjects?.length !== -1 ? "disabled" : ""}`}>
@@ -348,11 +365,14 @@ const Sidebar = () => {
                     </Link>
                   </li>
                 )}
-                <li className={`${location.pathname === `/${ROUTER.synergies}` ? "active" : ""}  ${userProjects?.length !== -1 ? "disabled" : ""}`}>
-                  <Link to={ROUTER.synergies}>
+                <li className={`${location.pathname === `/${ROUTER.synergies}` ? "active" : ""} disabled`}>
+                  <Link to="#" className="disabled-link">
                     <SynergiesNavTabIcon />
                     <span>Synergies</span>
                   </Link>
+                  <div className="winwin-tooltip">
+                    <p>Please complete your profile to unlock</p>
+                  </div>
                 </li>
                 <li className={`${location.pathname === `/${ROUTER.investment}` ? "active" : ""}`}>
                   <Link to={ROUTER.investment}>
@@ -376,14 +396,16 @@ const Sidebar = () => {
                     </li>
                   </>
                 )}
-                <li className={`${location.pathname === `/${ROUTER.chat}` ? "active" : ""} ${userProjects?.length !== -1 ? "disabled" : ""}`}>
-                  <Link to={userProjects?.length === 0 ? "#" : ROUTER.chat}>
+                <li className={`${location.pathname === `/${ROUTER.chat}` ? "active" : ""} disabled`}>
+                  <Link to="#" className="disabled-link">
                     <ChatNavTabIcon />
                     <span className="chat">
                       Chat 
-                      {/* <p className="chat_count">1</p> */}
                     </span>
                   </Link>
+                  <div className="winwin-tooltip">
+                    <p>Please complete your profile to unlock</p>
+                  </div>
                 </li>
                 <li className={`${location.pathname === `/${ROUTER.karma}` ? "active" : ""}`}>
                   <Link to={ROUTER.karma}>
@@ -414,6 +436,11 @@ const Sidebar = () => {
                     <ProjectNavTabIcon />
                     <span>Ambassadorship</span>
                   </Link>
+                  {!isAmbassador && (
+                    <div className="winwin-tooltip">
+                      <p>Please complete your ambassadorship request in profile section</p>
+                    </div>
+                  )}
                 </li>
               </>
             ) : (

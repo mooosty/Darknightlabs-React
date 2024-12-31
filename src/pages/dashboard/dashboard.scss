@@ -102,7 +102,7 @@ body {
   }
 
   .logout_tab {
-    color: #ff9e98;
+    color: #DCCA87;
   }
 }
 
@@ -162,11 +162,11 @@ body {
             font-family: "MedievalSharp", cursive;
             
             &.karma {
-              color: #9747FF;
+              color: #DCCA87;
             }
             
             &.investments {
-              color: #00C48C;
+              color: #DCCA87;
             }
           }
           
@@ -454,11 +454,11 @@ body {
           border-radius: 2px;
 
           &.positive {
-            background: #00C48C;
+            background-color: #DCCA87;
           }
 
           &.negative {
-            background: #FF4D4D;
+            background-color: rgba(245, 239, 219, 0.3);
           }
         }
 
@@ -475,9 +475,9 @@ body {
   }
 }
 
-.leaderboard-section {
-  .leaderboard-list {
-    .leaderboard-item {
+.social-accounts-section {
+  .social-accounts-list {
+    .social-account-item {
       background: rgba(245, 239, 219, 0.03);
       border-radius: 9px;
       padding: 24px;
@@ -490,45 +490,77 @@ body {
         margin-bottom: 0;
       }
 
-      .rank-info {
+      .account-info {
         display: flex;
-        align-items: center;
-        gap: 16px;
+        flex-direction: column;
+        gap: 8px;
 
-        .rank {
-          width: 32px;
-          height: 32px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: rgba(245, 239, 219, 0.03);
-          border-radius: 6px;
-          color: #F5EFDB;
-          font-size: 16px;
-          font-weight: 700;
-          font-family: "MedievalSharp", cursive;
-        }
-
-        .username {
+        .platform-name {
           color: #F5EFDB;
           font-size: 18px;
           font-family: "MedievalSharp", cursive;
         }
+
+        .connection-status {
+          color: rgba(245, 239, 219, 0.5);
+          font-size: 14px;
+
+          &.connected {
+            color: #DCCA87;
+          }
+        }
       }
 
-      .follow-btn {
-        background: transparent;
-        border: 1px solid #DCCA87;
-        color: #DCCA87;
-        padding: 8px 16px;
+      .connect-btn {
+        padding: 0 24px;
+        height: 40px;
         border-radius: 6px;
         cursor: pointer;
         font-size: 14px;
         font-family: "MedievalSharp", cursive;
-        transition: all 0.2s ease;
+        transition: all 0.3s ease;
+        border: none;
+        color: white;
+        width: 160px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        
+        img {
+          width: 16px;
+          height: 16px;
+        }
 
-        &:hover {
-          background: rgba(220, 202, 135, 0.1);
+        &.connected {
+          background-color: rgba(245, 239, 219, 0.1) !important;
+          cursor: default;
+          opacity: 0.8;
+        }
+        
+        &.telegram {
+          background-color: #0088cc;
+          
+          &:hover:not(.connected) {
+            background-color: darken(#0088cc, 10%);
+          }
+        }
+        
+        &.discord {
+          background-color: #5865F2;
+          
+          &:hover:not(.connected) {
+            background-color: darken(#5865F2, 10%);
+          }
+        }
+
+        &.twitter {
+          background-color: #1DA1F2;
+          
+          &:hover:not(.connected) {
+            background-color: darken(#1DA1F2, 10%);
+          }
         }
       }
     }

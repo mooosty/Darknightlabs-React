@@ -6,7 +6,7 @@ import './dashboard.scss';
 import { ROUTER } from '../../utils/routes/routes';
 import { ProfileNavTabIcon, LogoutNavTabIcon } from "../../utils/SVGs/SVGs";
 import CustomDropdown from "../../components/custom-dropdown/CustomDropdown";
-import { defaultImg } from "../../utils/constants/images";
+import { defaultImg, discordIcon, telegramIcon, twitterIcon } from "../../utils/constants/images";
 import Sidebar from "../../components/layout/sidebar/Sidebar";
 import "../../components/layout/layout.scss";
 
@@ -31,11 +31,11 @@ const AnnouncementCard = ({ announcement }) => {
   const getPriorityColor = (priority) => {
     switch(priority) {
       case 'high':
-        return '#ff8a1c';
+        return '#DCCA87';
       case 'medium':
         return '#f5efdb';
       case 'low':
-        return '#808080';
+        return 'rgba(245, 239, 219, 0.6)';
       default:
         return '#f5efdb';
     }
@@ -129,9 +129,9 @@ const Dashboard = () => {
   ];
 
   const leaderboard = [
-    { rank: 1, username: 'cryptoking', points: 2500 },
-    { rank: 2, username: 'RedSqueen', points: 2200 },
-    { rank: 3, username: 'satoshifan', points: 2000 }
+    { rank: 1, username: 'cryptoking', points: 2500, telegram: '@crypto_king', discord: 'cryptoking#1234' },
+    { rank: 2, username: 'RedSqueen', points: 2200, telegram: '@red_queen', discord: 'RedQueen#5678' },
+    { rank: 3, username: 'satoshifan', points: 2000, telegram: '@satoshi_fan', discord: 'satoshifan#9012' }
   ];
 
   const actions = [
@@ -243,18 +243,39 @@ const Dashboard = () => {
           <Link to={`/${ROUTER.investment}`} className="view-all-btn">View All Investments</Link>
         </div>
 
-        <div className="grid-section leaderboard-section">
-          <h2>Community Leaderboard</h2>
-          <div className="leaderboard-list">
-            {leaderboard.map((user) => (
-              <div key={user.rank} className="leaderboard-item">
-                <div className="rank-info">
-                  <span className="rank">{user.rank}</span>
-                  <span className="username">{user.username}</span>
-                </div>
-                <button className="follow-btn">Follow</button>
+        <div className="grid-section social-accounts-section">
+          <h2>Social Accounts</h2>
+          <div className="social-accounts-list">
+            <div className="social-account-item">
+              <div className="account-info">
+                <span className="platform-name">Twitter</span>
+                <span className="connection-status connected">Connected</span>
               </div>
-            ))}
+              <button className="connect-btn twitter connected" disabled>
+                <img src={twitterIcon} alt="Twitter" />
+                Connected
+              </button>
+            </div>
+            <div className="social-account-item">
+              <div className="account-info">
+                <span className="platform-name">Telegram</span>
+                <span className="connection-status">Not Connected</span>
+              </div>
+              <button className="connect-btn telegram">
+                <img src={telegramIcon} alt="Telegram" />
+                Link Telegram
+              </button>
+            </div>
+            <div className="social-account-item">
+              <div className="account-info">
+                <span className="platform-name">Discord</span>
+                <span className="connection-status">Not Connected</span>
+              </div>
+              <button className="connect-btn discord">
+                <img src={discordIcon} alt="Discord" />
+                Link Discord
+              </button>
+            </div>
           </div>
         </div>
       </div>

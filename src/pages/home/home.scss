@@ -1,6 +1,11 @@
 .home_wrapper {
+    height: 100%;
+    overflow-y: auto;
+
     .home_main_wrap {
         background-color: #0C0C0C;
+        min-height: 100%;
+        position: relative;
 
         &::-webkit-scrollbar {
             width: 4px;
@@ -428,6 +433,7 @@
         }
 
         .about_main_wrap {
+            padding-bottom: 100px;
             display: flex;
             justify-content: center;
 
@@ -500,6 +506,11 @@
         }
 
         .footer_wrap {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
             padding: 32px;
             background-color: #141414;
             display: flex;
@@ -527,12 +538,33 @@
                 .icons {
                     display: flex;
                     align-items: center;
-                    gap: 4px;
+                    gap: 16px;
+
+                    a {
+                        color: var(--primary-text);
+                        transition: opacity 0.2s ease;
+                        display: flex;
+                        align-items: center;
+                        cursor: pointer;
+                        padding: 8px;
+                        
+                        svg {
+                            width: 24px;
+                            height: 24px;
+                        }
+
+                        &:hover {
+                            opacity: 0.8;
+                            color: #DCCA87;
+                        }
+                    }
                 }
             }
 
             .up_arrow {
-                width: 2%;
+                width: auto;
+                margin-left: auto;
+                padding-right: 16px;
 
                 @media (max-width: 767px) {
                     display: none;
@@ -542,6 +574,24 @@
                     background-color: transparent;
                     border: none;
                     cursor: pointer;
+                    padding: 8px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    transition: transform 0.2s ease;
+
+                    svg {
+                        width: 24px;
+                        height: 24px;
+                        color: var(--primary-text);
+                    }
+
+                    &:hover {
+                        transform: translateY(-2px);
+                        svg {
+                            color: #DCCA87;
+                        }
+                    }
                 }
             }
         }

@@ -19,9 +19,6 @@ const tabData = [
     },
     {
         label: <Link to="/#about" className="tab_item">About</Link>
-    },
-    {
-        label: <Link className="tab_item btn">Contact us</Link>
     }
 ]
 

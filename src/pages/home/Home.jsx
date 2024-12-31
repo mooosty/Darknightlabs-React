@@ -103,7 +103,7 @@ const recordCardData = [
         img: recordImage3
     },
     {
-        name: 'GORJS by NYX /L’Oréal',
+        name: "GORJS by NYX /L'Oréal",
         img: recordImage4
     },
     {
@@ -242,10 +242,18 @@ const Home = () => {
     };
 
     const scrollToTop = () => {
-        window.scrollTo({
+        const scrollOptions = {
             top: 0,
-            behavior: 'smooth',
-        });
+            behavior: 'smooth'
+        };
+        
+        // Try modern smooth scroll first
+        try {
+            window.scroll(scrollOptions);
+        } catch (error) {
+            // Fallback for older browsers
+            window.scrollTo(0, 0);
+        }
     };
 
     return (
@@ -384,7 +392,30 @@ const Home = () => {
 
                     <div className="footer_wrap">
                         <div className="text_wrap">
-                            <div className="icons"><TwitterXIcon /><MaskIcon /></div>
+                            <div className="icons">
+                                <a 
+                                    href="https://x.com/DarknightLabs" 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        window.open('https://x.com/DarknightLabs', '_blank');
+                                    }}
+                                >
+                                    <TwitterXIcon />
+                                </a>
+                                <a 
+                                    href="https://discord.com/darknightlabs" 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        window.open('https://discord.com/darknightlabs', '_blank');
+                                    }}
+                                >
+                                    <MaskIcon />
+                                </a>
+                            </div>
                             <div className="text">© All rights reserved to Darkknight Labs 2023</div>
                         </div>
                         <div className="up_arrow">
