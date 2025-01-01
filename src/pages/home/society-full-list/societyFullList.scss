@@ -2,10 +2,11 @@
     display: flex;
     background-color: #0C0C0C;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
     gap: 70px;
     padding: 80px 0;
+    height: 100%;
+    overflow-y: auto;
 
     @media (max-width: 767px) {
         padding: 20px;

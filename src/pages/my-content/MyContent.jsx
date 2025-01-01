@@ -241,9 +241,10 @@ const MyContent = () => {
                                                 {
                                                     filteredContents?.map((rowData) => {
                                                         return (
-                                                            <tr key={rowData.id} className={`${rowData.id === 1 || rowData.id === 3 || rowData.id === 6 ? 'highlighted' : ''}`}>
+                                                            <tr key={rowData.id}>
                                                                 <td>
                                                                     <div className='subject'>
+                                                                        <span className="content-type-ribbon" data-type={rowData.type?.toLowerCase()}>{rowData.type}</span>
                                                                         <span>{rowData.subject}</span>
                                                                     </div>
                                                                 </td>

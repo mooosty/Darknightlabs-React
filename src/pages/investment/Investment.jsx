@@ -12,25 +12,25 @@ import { CustomSearch, EmptyData, MultiselectDropDown } from '../../components';
 import ContributionForm from '../../components/investments/ContributionForm/ContributionForm';
 import ContributionStatus from '../../components/investments/ContributionStatus/ContributionStatus';
 import WhitelistVerification from '../../components/investments/WhitelistVerification/WhitelistVerification';
-import { cardActor1, cardActor2, cardActor3, cardActor4, cardActor5, cardActor6, cardActor7, cardActor8, cardActor9, cardActor10, cardActor11, cardActor12, cardActor13, cardActor14, cardActor15, SearchIcon } from '../../utils/constants/images';
+import { cardActor1, cardActor2, cardActor3, cardActor4, cardActor5, cardActor6, cardActor7, cardActor8, cardActor9, cardActor10, cardActor11, cardActor12, cardActor13, cardActor14, cardActor15, SearchIcon, BackArrow, showa } from '../../utils/constants/images';
 
 const cardData = [
   {
-    investmentName: '🌙 KIKI : The Evolution',
-    investorImg: cardActor1,
-    tags: ['🐱 #Meme', '🤖 #AI', '🎮 #IP'],
+    investmentName: '🌙 SHOWA : The Community Revolution',
+    investorImg: showa,
+    tags: ['🎮 #Gaming', '💰 #RWA', '🌐 #Community'],
     investments: [
       {
         head: 'Token',
-        data: '$KIKI',
+        data: '$SHOWA',
       },
       {
-        head: 'Supply',
-        data: '1B',
+        head: 'Revenue',
+        data: '10% Steam',
       },
       {
         head: 'Launch',
-        data: 'Winter 2024',
+        data: 'Dec 19',
       },
     ],
     karmaNeeded: 0
@@ -890,7 +890,6 @@ const Investment = () => {
         <div className="investment_details">
           <div className="investments_content_header">
             <div className="content_left">
-              <button className="btn_gray" onClick={handleBackToList}>Back to Investments</button>
               <h2>Investment Details</h2>
             </div>
           </div>
@@ -906,91 +905,103 @@ const Investment = () => {
                     className="details_left"
                     onScroll={syncScroll}
                   >
-                    <h1 className="title">🌙 KIKI : The Evolution</h1>
-                    <div className="description">
-                      Come join Kiki&apos;s journey from being a popular Giphy IP, to being a face of the newest AI agent x memecoin on Solana, backed by $SHIB
-                    </div>
-
-                    <div className="section">
-                      <p>Powered by Solana, KIKI isn&apos;t just a token — it&apos;s a movement.</p>
-                      <p>Once the World&apos;s meme sweetheart and a viral sensation with 10.6 billion Giphy views, KiKi&apos;s journey took an unexpected turn. Despite its global fame, challenges arose. He had no choice but to rely on the blockchain, sparking a transformation like no other: the ultimate glow-up.</p>
-                      <p>The World-famous cat has formed an alliance with the largest meme project on the planet, $SHIB</p>
-                      <p>&quot;WAIT AND SEE!&quot;</p>
-                    </div>
-
-                    <div className="section">
-                      <h3>Project Details</h3>
-                      <ul>
-                        <li>🐱 Sector: Meme, AI Agent, Digital IP AI Creation</li>
-                        <li>🐱 Fair Launch with Total Supply of 1B tokens 🚀</li>
-                        <li>🐱 Launching Date: Winter 2024 ❄️</li>
-                      </ul>
-                    </div>
-
-                    <div className="section">
-                      <h3>Mission</h3>
-                      <p>KIKI is reborn in Web3 — a symbol of resilience and BIG dreams. Backed by KiKats (fandom) and a global team, KIKI is building the future meme economy.</p>
-                      <p>KIKI invites you all to reinvent yourself. It&apos;s ok to be burnt out. But you need to bounce back, and be reborn. Fall down 7. Stand up 8. Live 9 lives.</p>
-                      <p>With its alliance with the World&apos;s largest and most successful meme community, $SHIB, it is poised for sustainable growth and longevity. Be the first holder and witness our journey to success.</p>
-                    </div>
-
-                    <div className="section">
-                      <h3>Why KIKI?</h3>
-                      <ul>
-                        <li>🚀 NOT just a meme, THE IP UNICORN: One of TOP Giphy IPs and creative contents in the world with 10.6 B+ views.</li>
-                        <li>🚀 100% Community Owned</li>
-                        <li>🚀 Locked Liquidity: Permanently secured liquidity, enhancing stability and security.</li>
-                        <li>🚀 Immutable Contract: Unchangeable smart contract ensures a stable foundation</li>
-                      </ul>
-                    </div>
-
-                    <div className="section">
-                      <h3>Backed by</h3>
-                      <ul>
-                        <li>👑 $SHIB</li>
-                        <li>👑 $TREAT</li>
-                        <li>👑 $BONE</li>
-                        <li>👑 $LEASH</li>
-                        <li>👑 $SHIFU</li>
-                        <li>👑 $SOL</li>
-                        <li>👑 giphy.com</li>
-                        <li>👑 12 largest social media influencers in Asia with 30M+ accumulated followers</li>
-                        <li>👑 666 Crypto, Web 3.0, Meme KOLs</li>
-                      </ul>
-                    </div>
-
-                    <div className="section">
-                      <h3>Led by</h3>
-                      <ul>
-                        <li>🐈‍⬛ Shytoshi Kusama - <a href="https://x.com/shytoshikusama" target="_blank">@shytoshikusama</a></li>
-                        <li>🐈‍⬛ Kaal Dhairya - <a href="https://x.com/Kaaldhairya" target="_blank">@Kaaldhairya</a></li>
-                        <li>����‍⬛ Ian Utile - <a href="https://x.com/IanUtile" target="_blank">@IanUtile</a></li>
-                        <li>🐈‍⬛ Tryke Gutierrez - <a href="https://instagram.com/trykegutierrez" target="_blank">@trykegutierrez</a></li>
-                        <li>🐈‍⬛ James Afante - <a href="https://www.tiktok.com/@jmsfnt" target="_blank">@jmsfnt</a></li>
-                        <li>🐈‍⬛ JBond - <a href="https://x.com/jbondwagon" target="_blank">@jbondwagon</a></li>
-                      </ul>
-                    </div>
-
-                    <div className="section">
-                      <h3>Links</h3>
-                      <div className="links">
-                        <a href="https://giphy.com/search/kiki-cat" target="_blank">🙀 KIKI on Giphy</a>
+                    <div className="investment-header">
+                      <button className="back_arrow" onClick={handleBackToList}>
+                        <BackArrow />
+                      </button>
+                      <h1 className="title">🌙 SHOWA : The Community Revolution</h1>
+                      <div className="description">
+                        <p className="highlight-text">
+                          Join the community-driven movement behind Showa American Story, transforming from a banned game to a revolutionary token ecosystem with real utility and Steam revenue sharing.
+                        </p>
                       </div>
                     </div>
 
-                    <div className="section">
-                      <h3>Security & Ownership</h3>
-                      <ul>
-                        <li>🚀 100% Community Owned</li>
-                        <li>🚀 Locked Liquidity: Permanently secured liquidity, enhancing stability and security.</li>
-                        <li>🚀 Immutable Contract: Unchangeable smart contract ensures a stable foundation</li>
-                      </ul>
+                    <div className="section vision-section">
+                      <h2 className="section-title">💫 Our Vision</h2>
+                      <p className="section-intro">We're building a revolutionary 3-stage pump strategy that combines memecoins, utility, and real-world assets:</p>
+                      
+                      <div className="stage-details">
+                        <div className="stage-block">
+                          <h3 className="stage-title">Stage 1: Memecoin Launch</h3>
+                          <div className="stage-date">Dec.19-23</div>
+                          <p className="stage-description">The passionate community and fans behind Showa American Story initiated this token movement after the game was removed by TGA for being too "violent" - a true story that sparked our revolution.</p>
+                        </div>
+
+                        <div className="stage-block">
+                          <h3 className="stage-title">Stage 2: Utility Integration</h3>
+                          <div className="stage-date">Dec.24-Jan.15</div>
+                          <p className="stage-description">Oneness Labs will integrate $SHOWA token into TheGame.fun platform - a price discovery platform for trading in-game items. Backed by our 200K community, 4K NFT holders, and 100+ major buyers.</p>
+                        </div>
+
+                        <div className="stage-block">
+                          <h3 className="stage-title">Stage 3: RWA Integration</h3>
+                          <div className="stage-date">Jan.15-Mar/April</div>
+                          <p className="stage-description">The Showa Dev team will officially adopt $SHOWA, allocating 10% of the game's lifetime Steam revenue to the token while building the community together.</p>
+                        </div>
+
+                        <div className="stage-block">
+                          <h3 className="stage-title">Final Stage: Steam Launch</h3>
+                          <p className="stage-description highlight-text">The ultimate catalyst: Showa's release on Steam, targeting 5M copies and injecting $30M cash into $SHOWA ecosystem.</p>
+                        </div>
+                      </div>
                     </div>
 
-                    <div className="section movement_section">
-                      <h3>🌙 Join the KiKi Movement</h3>
-                      <p>If we dream BIG, we are totally unstoppable. Heading to the MOON baby! Be part of the movement 🚀</p>
-                      <div className="stars">💫💫💫💫💫💫💫💫💫💫💫💫</div>
+                    <div className="section details-section">
+                      <h2 className="section-title">🎮 Project Details</h2>
+                      <div className="details-grid">
+                        <div className="detail-item">Gaming, Community Token, Revenue Sharing</div>
+                        <div className="detail-item">Backed by Real Game Revenue</div>
+                        <div className="detail-item">Multiple Growth Catalysts</div>
+                        <div className="detail-item">Strong Community Foundation</div>
+                      </div>
+                    </div>
+
+                    <div className="section features-section">
+                      <h2 className="section-title">🚀 Why SHOWA?</h2>
+                      <div className="features-grid">
+                        <div className="feature-item">
+                          <span className="feature-highlight">Real Utility:</span> Integration with TheGame.fun platform
+                        </div>
+                        <div className="feature-item">
+                          <span className="feature-highlight">Revenue Sharing:</span> 10% of lifetime Steam revenue
+                        </div>
+                        <div className="feature-item">
+                          <span className="feature-highlight">Strong Community:</span> 200K members and growing
+                        </div>
+                        <div className="feature-item">
+                          <span className="feature-highlight">Multiple Growth Stages:</span> Planned catalysts for sustainable growth
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="section backers-section">
+                      <h2 className="section-title">👑 Backed by</h2>
+                      <div className="backers-grid">
+                        <div className="backer-item">Oneness Labs</div>
+                        <div className="backer-item">TheGame.fun Platform</div>
+                        <div className="backer-item">4K+ NFT Holders</div>
+                        <div className="backer-item">100+ Major Buyers</div>
+                        <div className="backer-item">200K Community Members</div>
+                      </div>
+                    </div>
+
+                    <div className="section security-section">
+                      <h2 className="section-title">🔒 Security & Ownership</h2>
+                      <div className="security-grid">
+                        <div className="security-item">Community-Driven Development</div>
+                        <div className="security-item">Transparent Revenue Sharing Model</div>
+                        <div className="security-item">Multiple Utility Integrations</div>
+                        <div className="security-item">Sustainable Growth Strategy</div>
+                      </div>
+                    </div>
+
+                    <div className="section movement-section">
+                      <h2 className="section-title">🌙 Join the SHOWA Revolution</h2>
+                      <p className="movement-text">
+                        Be part of a unique journey from banned game to revolutionary token ecosystem. Together, we're building something unprecedented in the gaming space! 
+                      </p>
+                      <div className="stars">✨ The Future of Gaming Communities Starts Here ✨</div>
                     </div>
                   </div>
                   <div

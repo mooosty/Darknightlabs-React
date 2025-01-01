@@ -373,6 +373,9 @@
 
           .project_description_form {
             width: 70%;
+            height: $input-height-mobile;
+            padding: 0 15px;
+            font-size: 14px;
 
             .btn_gray {
               @media (max-width: 767px) {
@@ -740,10 +743,6 @@
                 }
               }
             }
-
-            height: $input-height-mobile;
-            padding: 0 15px;
-            font-size: 14px;
           }
         }
 

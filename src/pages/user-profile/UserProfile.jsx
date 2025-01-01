@@ -1,23 +1,12 @@
 import axios from "axios";
-import { axiosApi } from "../../api-services/service";
+// import { axiosApi } from "../../api-services/service";
 import "./userProfile.scss";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editUserProfileAPI, getUsersDetailsAPI, updatePasswordAPI } from "../../api-services/userApis";
-import {
-  closedEyeIcon,
-  openEyeIcon,
-  editIcon,
-  sepratorImage,
-  twitterIcon,
-  discordIcon,
-  telegramIcon,
-  calendarBlankIcon,
-  defaultImg,
-  ThreeDots
-} from "../../utils/constants/images";
+import { closedEyeIcon, openEyeIcon, editIcon, sepratorImage, twitterIcon, discordIcon, telegramIcon, calendarBlankIcon, ThreeDots, } from "../../utils/constants/images";
 import { Loader, CustomDropdown } from "../../components";
 import ProjectInvolvment from "./project-manager-edit/ProjectInvolvment";
 import ProjectsUser from "./project-manager/ProjectsUser";
@@ -33,243 +22,137 @@ const InputPassword = (props) => {
   return (
     <div className="type_password">
       <input type={isPasswordVisible ? "text" : "password"} {...props} />
-      <div onClick={toggleVisibility} style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)' }}>
+      <div
+        onClick={toggleVisibility}
+        style={{ position: "absolute", right: "12px", top: "50%", transform: "translateY(-50%)" }}
+      >
         {!isPasswordVisible ? <img src={closedEyeIcon} alt=" " /> : <img src={openEyeIcon} alt=" " />}
       </div>
     </div>
   );
 };
 
-const TelegramAuthButton = ({ onSuccess }) => {
-  const [status, setStatus] = useState('');
-  const [showButton, setShowButton] = useState(false);
-  const userData = useSelector((state) => state.auth);
-  const { authDetails } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
+// const TelegramAuthButton = ({ onSuccess }) => {
+//   const [status, setStatus] = useState("");
+//   const [showButton, setShowButton] = useState(false);
+//   const userData = useSelector((state) => state.auth);
+//   const { authDetails } = useSelector((state) => state.auth);
+//   const dispatch = useDispatch();
 
-  const telegramCred = authDetails?.user?.verifiedCredentials?.find(
-    cred => cred.format === 'oauth' && cred.oauth_provider === 'telegram'
-  );
+//   const telegramCred = authDetails?.user?.verifiedCredentials?.find(
+//     (cred) => cred.format === "oauth" && cred.oauth_provider === "telegram"
+//   );
 
-  // Function to check status that can be shared between components
-  const checkTelegramStatus = async () => {
-    try {
-      const response = await axiosApi.get(`/telegram/check/${userData.userId}`);
-      const { db, sheet } = response.data;
+//   // Function to check status that can be shared between components
+//   const checkTelegramStatus = async () => {
+//     try {
+//       const response = await axiosApi.get(`/telegram/check/${userData.userId}`);
+//       const { db, sheet } = response.data;
 
-      // Show button if either (sheet=1 and db=0) OR (sheet=0 and db=0)
-      setShowButton((sheet === 1 && db === 0) || (sheet === 0 && db === 0));
+//       // Show button if either (sheet=1 and db=0) OR (sheet=0 and db=0)
+//       setShowButton((sheet === 1 && db === 0) || (sheet === 0 && db === 0));
 
-      // Dispatch an event to notify TwitterAuthButton
-      if (sheet === 1 && db === 1) {
-        window.dispatchEvent(new CustomEvent('telegramStatusUpdated', {
-          detail: { sheet, db }
-        }));
-      }
-    } catch (error) {
-      console.error('Failed to check Telegram status:', error);
-      setShowButton(false);
-    }
-  };
+//       // Dispatch an event to notify TwitterAuthButton
+//       if (sheet === 1 && db === 1) {
+//         window.dispatchEvent(
+//           new CustomEvent("telegramStatusUpdated", {
+//             detail: { sheet, db },
+//           })
+//         );
+//       }
+//     } catch (error) {
+//       console.error("Failed to check Telegram status:", error);
+//       setShowButton(false);
+//     }
+//   };
 
-  useEffect(() => {
-    checkTelegramStatus();
-  }, [userData.userId]);
+//   useEffect(() => {
+//     checkTelegramStatus();
+//   }, [userData.userId]);
 
-  useEffect(() => {
-    if (!showButton) return;
+//   useEffect(() => {
+//     if (!showButton) return;
 
-    const script = document.createElement('script');
-    script.src = 'https://telegram.org/js/telegram-widget.js?22';
-    script.setAttribute('data-telegram-login', 'TheWinWinSocietyBot');
-    script.setAttribute('data-size', 'medium');
-    script.setAttribute('data-onauth', 'onTelegramAuth(user)');
-    script.setAttribute('data-request-access', 'write');
-    script.async = true;
+//     const script = document.createElement("script");
+//     script.src = "https://telegram.org/js/telegram-widget.js?22";
+//     script.setAttribute("data-telegram-login", "TheWinWinSocietyBot");
+//     script.setAttribute("data-size", "medium");
+//     script.setAttribute("data-onauth", "onTelegramAuth(user)");
+//     script.setAttribute("data-request-access", "write");
+//     script.async = true;
 
-    const container = document.getElementById('telegram-login-button');
-    if (container) {
-      container.innerHTML = '';
-      container.appendChild(script);
-    }
+//     const container = document.getElementById("telegram-login-button");
+//     if (container) {
+//       container.innerHTML = "";
+//       container.appendChild(script);
+//     }
 
-    window.onTelegramAuth = async (telegramUser) => {
-      try {
-        const response = await axiosApi.post('/telegram/auth', {
-          ...telegramUser,
-          userId: userData.userId
-        });
+//     window.onTelegramAuth = async (telegramUser) => {
+//       try {
+//         const response = await axiosApi.post("/telegram/auth", {
+//           ...telegramUser,
+//           userId: userData.userId,
+//         });
 
-        if (response.data.success) {
-          toast.success('Successfully connected to Telegram!');
-          setShowButton(false);
-          await checkTelegramStatus();
-          if (onSuccess) {
-            await onSuccess();
-          }
-        }
-      } catch (error) {
-        console.error('Failed to connect:', error);
-        toast.error(error.response?.data?.error || 'Failed to connect to Telegram');
-      }
-    };
+//         if (response.data.success) {
+//           toast.success("Successfully connected to Telegram!");
+//           setShowButton(false);
+//           await checkTelegramStatus();
+//           if (onSuccess) {
+//             await onSuccess();
+//           }
+//         }
+//       } catch (error) {
+//         console.error("Failed to connect:", error);
+//         toast.error(error.response?.data?.error || "Failed to connect to Telegram");
+//       }
+//     };
 
-    return () => {
-      delete window.onTelegramAuth;
-    };
-  }, [userData.userId, showButton, onSuccess]);
+//     return () => {
+//       delete window.onTelegramAuth;
+//     };
+//   }, [userData.userId, showButton, onSuccess]);
 
-  if (!showButton) return null;
+//   if (!showButton) return null;
 
-  return (
-    <div className="profile_upload_button">
-      <button
-        className="change_photo dark-theme"
-        style={{
-          background: '#000000',
-          border: 'none',
-          fontFamily: 'Inter, sans-serif',
-          fontSize: '14px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '8px',
-          padding: '10px 20px',
-          width: '100%',
-          position: 'relative'
-        }}
-        disabled={telegramCred}
-      >
-        <img src={telegramIcon} alt="Telegram" style={{ width: '16px', height: '16px' }} />
-        {telegramCred ? 'Connected to Telegram' : 'Connect Telegram'}
-        <div id="telegram-login-button" style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          opacity: 0,
-          cursor: 'pointer'
-        }}></div>
-      </button>
-    </div>
-  );
-};
+//   return (
+//     <div className="profile_upload_button">
+//       <button
+//         className="change_photo dark-theme"
+//         style={{
+//           background: "#000000",
+//           border: "none",
+//           fontFamily: "Inter, sans-serif",
+//           fontSize: "14px",
+//           display: "flex",
+//           alignItems: "center",
+//           justifyContent: "center",
+//           gap: "8px",
+//           padding: "10px 20px",
+//           width: "100%",
+//           position: "relative",
+//         }}
+//         disabled={telegramCred}
+//       >
+//         <img src={telegramIcon} alt="Telegram" style={{ width: '16px', height: '16px' }} />
+//         {telegramCred ? 'Connected to Telegram' : 'Connect Telegram'}
+//         <div id="telegram-login-button" style={{
+//           position: 'absolute',
+//           top: 0,
+//           left: 0,
+//           width: '100%',
+//           height: '100%',
+//           opacity: 0,
+//           cursor: 'pointer'
+//         }}></div>
+//       </button>
+//     </div>
+//   );
+// };
 
-const TwitterAuthButton = () => {
-  const [status, setStatus] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [showButton, setShowButton] = useState(false);
-  const { authDetails } = useSelector((state) => state.auth);
-  const userData = useSelector((state) => state.auth);
-
-  const twitterCred = authDetails?.user?.verifiedCredentials?.find(
-    cred => cred.format === 'oauth' && cred.oauth_provider === 'twitter'
-  );
-
-  const checkTelegramStatus = async () => {
-    try {
-      const response = await axiosApi.get(`/telegram/check/${userData.userId}`);
-      const { db, sheet } = response.data;
-
-      // Only show Twitter button if both sheet=1 and db=1
-      setShowButton(sheet === 1 && db === 1);
-    } catch (error) {
-      console.error('Failed to check Telegram status:', error);
-      setShowButton(false);
-    }
-  };
-
-  useEffect(() => {
-    checkTelegramStatus();
-
-    // Listen for updates from TelegramAuthButton
-    const handleTelegramUpdate = (event) => {
-      const { sheet, db } = event.detail;
-      setShowButton(sheet === 1 && db === 1);
-    };
-
-    window.addEventListener('telegramStatusUpdated', handleTelegramUpdate);
-
-    return () => {
-      window.removeEventListener('telegramStatusUpdated', handleTelegramUpdate);
-    };
-  }, [userData.userId]);
-
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const twitterAuth = urlParams.get('twitter_auth');
-    const message = urlParams.get('message');
-
-    if (twitterAuth === 'success') {
-      setStatus('Successfully connected!');
-      window.history.replaceState({}, document.title, window.location.pathname);
-    } else if (twitterAuth === 'error') {
-      setStatus(`Error: ${message || 'Unknown error'}`);
-      window.history.replaceState({}, document.title, window.location.pathname);
-    }
-  }, []);
-
-  const handleTwitterAuth = async () => {
-    try {
-      setLoading(true);
-      setStatus('');
-
-      const returnUrl = window.location.href;
-      const response = await axiosApi.get(
-        `/twitter/login?returnUrl=${encodeURIComponent(returnUrl)}`
-      );
-
-      if (response.data.error) {
-        throw new Error(response.data.error);
-      }
-
-      if (response.data.authUrl) {
-        window.location.href = response.data.authUrl;
-      } else {
-        throw new Error('No auth URL received from server');
-      }
-
-    } catch (error) {
-      console.error('Twitter auth error:', error);
-      setStatus(error.message || 'Failed to connect to Twitter');
-      setLoading(false);
-    }
-  };
-
-  if (!showButton) return null;
-
-  return (
-    <div className="profile_upload_button">
-      <button
-        onClick={handleTwitterAuth}
-        disabled={loading || twitterCred}
-        className="change_photo dark-theme"
-        style={{
-          background: '#000000',
-          border: 'none',
-          fontFamily: 'Inter, sans-serif',
-          fontSize: '14px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '8px'
-        }}
-      >
-        <img src={twitterIcon} alt="Twitter" style={{ width: '16px', height: '16px' }} />
-        {loading ? 'Connecting...' : (twitterCred ? 'Connected to Twitter' : 'Connect Twitter')}
-      </button>
-
-      {status && (
-        <div className={`status-message ${status.includes('Error') ? 'error' : 'success'}`}>
-          {status}
-        </div>
-      )}
-    </div>
-  );
-};
 
 const UserProfile = () => {
+
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.auth);
   const { userDetails } = useSelector((state) => state.user);
@@ -282,22 +165,28 @@ const UserProfile = () => {
   const [addNewProject, setAddNewProject] = useState(false);
   const [telegramUsername, setTelegramUsername] = useState(null);
 
+  const { authDetails } = useSelector((state) => state.auth);
+
+  const defaultImage = authDetails?.user?.verifiedCredentials[2]?.oauthAccountPhotos[0].replace("_normal", "")
+
+
   // Add function to fetch Telegram username
-  const fetchTelegramUsername = async () => {
-    try {
-      const response = await axiosApi.get(`/telegram/check/${userData.userId}`);
-      const { username } = response.data;
-      if (username) {
-        setTelegramUsername(username);
-        // Also update the formik values if in edit mode
-        if (isEditMode) {
-          setFieldValue('telegram_username', username);
-        }
-      }
-    } catch (error) {
-      console.error('Failed to fetch Telegram username:', error);
-    }
-  };
+  // const fetchTelegramUsername = async () => {
+  //   try {
+  //     const response = await axiosApi.get(`/telegram/check/${userData.userId}`);
+  //     const { username } = response.data;
+  //     if (username) {
+  //       setTelegramUsername(username);
+  //       // Also update the formik values if in edit mode
+  //       if (isEditMode) {
+  //         setFieldValue("telegram_username", username);
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error("Failed to fetch Telegram username:", error);
+  //   }
+  // };
+  console.log(setTelegramUsername);
 
   const initialValues = {
     id: 9,
@@ -401,8 +290,8 @@ const UserProfile = () => {
         investment_thesis: JSON.stringify(values.investment_thesis || []),
         ticket_size: values.ticket_size || "",
         investment_stage: values.investment_stage || "",
-        investment_description: values.investment_description || ""
-      }
+        investment_description: values.investment_description || "",
+      },
     };
 
     const profileDataPromise = dispatch(editUserProfileAPI(payload));
@@ -456,14 +345,20 @@ const UserProfile = () => {
   const handleRoleChange = (role) => {
     let tmpRoles = values?.roles;
 
-    tmpRoles = tmpRoles.map(r => {
+    tmpRoles = tmpRoles.map((r) => {
       switch (r) {
-        case 'A Founder': return 'Founder';
-        case 'A C-level': return 'C-level';
-        case 'A Web3 employee': return 'Web3 employee';
-        case 'A KOL / Ambassador / Content Creator': return 'KOL / Ambassador / Content Creator';
-        case 'An Angel Investor': return 'Angel Investor';
-        default: return r;
+        case "A Founder":
+          return "Founder";
+        case "A C-level":
+          return "C-level";
+        case "A Web3 employee":
+          return "Web3 employee";
+        case "A KOL / Ambassador / Content Creator":
+          return "KOL / Ambassador / Content Creator";
+        case "An Angel Investor":
+          return "Angel Investor";
+        default:
+          return r;
       }
     });
 
@@ -520,7 +415,7 @@ const UserProfile = () => {
       investment_thesis: userDetails?.investment_thesis || [],
       ticket_size: userDetails?.ticket_size || "",
       investment_stage: userDetails?.investment_stage || "",
-      investment_description: userDetails?.investment_description || ""
+      investment_description: userDetails?.investment_description || "",
     });
   };
 
@@ -530,21 +425,21 @@ const UserProfile = () => {
 
   const headerToggleButton = [
     {
-      label: 'PERSONAL INFORMATION',
-      key: 'INFORMATION',
-      onClick: () => handleActive("INFORMATION")
+      label: "PERSONAL INFORMATION",
+      key: "INFORMATION",
+      onClick: () => handleActive("INFORMATION"),
     },
     {
-      label: ' PROJECT INVOLVEMENT',
-      key: 'INVOLVEMENT',
-      onClick: () => handleActive("INVOLVEMENT")
+      label: " PROJECT INVOLVEMENT",
+      key: "INVOLVEMENT",
+      onClick: () => handleActive("INVOLVEMENT"),
     },
     {
-      label: 'AMBASSADORS',
-      key: 'AMBASSADORS',
-      onClick: () => handleActive("AMBASSADORS")
+      label: "AMBASSADORS",
+      key: "AMBASSADORS",
+      onClick: () => handleActive("AMBASSADORS"),
     },
-  ]
+  ];
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -552,13 +447,13 @@ const UserProfile = () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_APP_BASE_URL}/userprojects/all/${userData.userId}`, {
           headers: {
-            Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjZmNjg4Y2I0LTk3MmItNDZhNy1iZWMwLTJjOTEyNTVlYjUyMyJ9.eyJraWQiOiI2ZjY4OGNiNC05NzJiLTQ2YTctYmVjMC0yYzkxMjU1ZWI1MjMiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjUxNzMiLCJpc3MiOiJhcHAuZHluYW1pY2F1dGguY29tL2QxZmZjZWVhLTg5Y2UtNGM4Zi1iYTMyLTBiODAyZmFiODgyMiIsInN1YiI6IjM4NDM3NWQ1LTJiNjUtNDQzMC1iZTQ4LWYwYzE4N2Q0YTg5ZiIsInNpZCI6Ijk2YWJhMGJiLTU3YWYtNGU4YS1hOTkyLTc0ZTYzNmNhZGU4YSIsImVtYWlsIjoic2Ftc2F3bG8xMDBAZ21haWwuY29tIiwiZW52aXJvbm1lbnRfaWQiOiJkMWZmY2VlYS04OWNlLTRjOGYtYmEzMi0wYjgwMmZhYjg4MjIiLCJsaXN0cyI6W10sIm1pc3NpbmdfZmllbGRzIjpbXSwidmVyaWZpZWRfY3JlZGVudGlhbHMiOlt7ImFkZHJlc3MiOiIweEM5QTZjZjZjZTc4RUI0OTkxQjFkMUFBNTgwOTJjNjBiNUVkNkZEQTgiLCJjaGFpbiI6ImVpcDE1NSIsImlkIjoiYzY0NjFlZjAtNmMxZC00ZjdhLWI4NDUtODEzMTg5NDIzYTU5IiwibmFtZV9zZXJ2aWNlIjp7fSwicHVibGljX2lkZW50aWZpZXIiOiIweEM5QTZjZjZjZTc4RUI0OTkxQjFkMUFBNTgwOTJjNjBiNUVkNkZEQTgiLCJ3YWxsZXRfbmFtZSI6InR1cm5rZXloZCIsIndhbGxldF9wcm92aWRlciI6ImVtYmVkZGVkV2FsbGV0Iiwid2FsbGV0X3Byb3BlcnRpZXMiOnsidHVybmtleVN1Yk9yZ2FuaXphdGlvbklkIjoiMmI1M2RmODktNWM0My00MzNmLTg2Y2MtZGJmZDg5ZTEyNDNiIiwidHVybmtleUhEV2FsbGV0SWQiOiJkMmVlOWMwZC0wNTkwLTVmMmEtYjMwMi1kODFiYjZjMTA4NzMiLCJpc0F1dGhlbnRpY2F0b3JBdHRhY2hlZCI6ZmFsc2UsInR1cm5rZXlVc2VySWQiOiI0Zjk2MjE3My0wMzAwLTRiODAtODBhOC05MzRiMmM5NTRiN2MiLCJpc1Nlc3Npb25LZXlDb21wYXRpYmxlIjpmYWxzZSwidmVyc2lvbiI6IlYxIn0sImZvcm1hdCI6ImJsb2NrY2hhaW4iLCJsYXN0U2VsZWN0ZWRBdCI6IjIwMjQtMTItMDZUMTU6MTI6MjguOTUzWiIsInNpZ25JbkVuYWJsZWQiOmZhbHNlfSx7ImVtYWlsIjoic2Ftc2F3bG8xMDBAZ21haWwuY29tIiwiaWQiOiJmNDU3NzJkNy0yM2FmLTQ3ZmQtYmQ1YS1lZjJjMGRmNzcxNmQiLCJwdWJsaWNfaWRlbnRpZmllciI6InNhbXNhd2xvMTAwQGdtYWlsLmNvbSIsImZvcm1hdCI6ImVtYWlsIiwic2lnbkluRW5hYmxlZCI6dHJ1ZX0seyJpZCI6IjZlZGM1NmM5LTQwN2QtNDlmYi04NGQ4LTZmMmI4ZTI5NDQxZSIsInB1YmxpY19pZGVudGlmaWVyIjoiTGFoY2VuIiwiZm9ybWF0Ijoib2F1dGgiLCJvYXV0aF9wcm92aWRlciI6InR3aXR0ZXIiLCJvYXV0aF91c2VybmFtZSI6ImxhaGNlbnJhaGxhb3VpIiwib2F1dGhfZGlzcGxheV9uYW1lIjoiTGFoY2VuIiwib2F1dGhfYWNjb3VudF9pZCI6IjEyMTQzMjk3NjIzNzE1NTk0MjQiLCJvYXV0aF9hY2NvdW50X3Bob3RvcyI6WyJodHRwczovL3Bicy50d2ltZy5jb20vcHJvZmlsZV9pbWFnZXMvMTQ2MDMwMjE5OTQ5MDI5Mzc2Ni8yeDhTYUE4Tl9ub3JtYWwuanBnIl0sIm9hdXRoX2VtYWlscyI6W10sIm9hdXRoX21ldGFkYXRhIjp7ImlkIjoiMTIxNDMyOTc2MjM3MTU1OTQyNCIsIm5hbWUiOiJMYWhjZW4iLCJwdWJsaWNfbWV0cmljcyI6eyJmb2xsb3dlcnNfY291bnQiOjIsImZvbGxvd2luZ19jb3VudCI6MTUsInR3ZWV0X2NvdW50IjowLCJsaXN0ZWRfY291bnQiOjAsImxpa2VfY291bnQiOjIsIm1lZGlhX2NvdW50IjowfSwicHJvZmlsZV9pbWFnZV91cmwiOiJodHRwczovL3Bicy50d2ltZy5jb20vcHJvZmlsZV9pbWFnZXMvMTQ2MDMwMjE5OTQ5MDI5Mzc2Ni8yeDhTYUE4Tl9ub3JtYWwuanBnIiwiZGVzY3JpcHRpb24iOiIiLCJ1c2VybmFtZSI6ImxhaGNlbnJhaGxhb3VpIn0sInNpZ25JbkVuYWJsZWQiOnRydWV9XSwibGFzdF92ZXJpZmllZF9jcmVkZW50aWFsX2lkIjoiNmVkYzU2YzktNDA3ZC00OWZiLTg0ZDgtNmYyYjhlMjk0NDFlIiwiZmlyc3RfdmlzaXQiOiIyMDI0LTEyLTA1VDE1OjAzOjExLjAxOFoiLCJsYXN0X3Zpc2l0IjoiMjAyNC0xMi0wNlQxNToxMjoyOC41NzNaIiwibmV3X3VzZXIiOmZhbHNlLCJtZXRhZGF0YSI6e30sInZlcmlmaWVkQ3JlZGVudGlhbHNIYXNoZXMiOnsiYmxvY2tjaGFpbiI6ImQ0NzQxYmJjMjA3OWVlOTI4M2EzNmExMGI4ODg3ODdlIiwiZW1haWwiOiI0MzVjY2FiZTEzNmFlNTk3NWNhYTE3ZWVlM2NlNTI0NCIsIm9hdXRoIjoiNjliOWMwYjliMmRmMDk1NWU3NjMwNmM0YTQ0NjNiNjIifSwiaWF0IjoxNzMzNDk3OTQ5LCJleHAiOjE3MzYwODk5NDl9.KoZZuNpDFD8nuGvtz--5qbuUQuXpqHxG5Vfnph-piOZb62eR7DvbP_pJAq48FU4WonGSix75CNeuwzbJhuu2pv3ihgCoPFb77mSRWFBUrgQIBnbYCx_wcVQk-I20_gugsR-pVoGbhpA4EMweOeJ3rSWmQ9TtFJhkCIHgVj6hYr4wVzxDq0pbWYgN-nIS6hGF6l4rMQvq_5aQY9ySLGNstvo9spW6H52R9UuzMSv2V54DX_0RixZr-yMSJhZivUUU8f53DW5iGktZJH5KsN5egzmHR5Yp3JUMy2NAc2cRPHXOAUZ1SjKKqOUsyBFRO1H-w1KjJU1NoH-egFlv7xU9DPtv8i_Ls9SyokRS7WOsgLI64ah29dSDcIJf5k0C1Ovh12qpQynE0JM8J7ZzgkW0-sBTDlcL9wZKzXMI58t0fHUG9-mcjoBtfecakWKwe2xfoXs_3cn3lhyKHQD0I0bxDiz6v_YpCC84i7Xk3N3Fn1_8SOzg3HKFbyTfUtlKZPpWdlK_RltQdDTjivBpz6v-irNZChvAljrczwiw8fln62mB49VAuT2XBI_sLVAalr1CdJCFnVg3TEe53Q-hznT9pxdUF_9QP1b6aTs0X2N60B4Tk3TOfFGgt0Njn6usbkR63fh676v5fFL5y3aibP8JSNDlYRCdowmjAz8oVoMGblc`,
+            Authorization: `Bearer ${authDetails?.token}`,
           },
         });
 
         setUserProjects(response.data.data ?? []);
       } catch (error) {
-        console.error('error', error)
+        console.error("error", error);
       } finally {
         setIsLoading(false);
       }
@@ -568,22 +463,29 @@ const UserProfile = () => {
 
   useEffect(() => {
     if (userDetails) {
-      const roles = userDetails.roles?.split(',').map(r => {
-        switch (r.trim()) {
-          case 'A Founder': return 'Founder';
-          case 'A C-level': return 'C-level';
-          case 'A Web3 employee': return 'Web3 employee';
-          case 'A KOL / Ambassador / Content Creator': return 'KOL / Ambassador / Content Creator';
-          case 'An Angel Investor': return 'Angel Investor';
-          default: return r.trim();
-        }
-      }) || [];
+      const roles =
+        userDetails.roles?.split(",").map((r) => {
+          switch (r.trim()) {
+            case "A Founder":
+              return "Founder";
+            case "A C-level":
+              return "C-level";
+            case "A Web3 employee":
+              return "Web3 employee";
+            case "A KOL / Ambassador / Content Creator":
+              return "KOL / Ambassador / Content Creator";
+            case "An Angel Investor":
+              return "Angel Investor";
+            default:
+              return r.trim();
+          }
+        }) || [];
 
       setValues({
         ...initialValues,
         ...userDetails,
         roles: roles,
-        telegram_username: telegramUsername || userDetails.telegram_username // Use Telegram username if available
+        telegram_username: telegramUsername || userDetails.telegram_username, // Use Telegram username if available
       });
     }
   }, [userDetails, telegramUsername]);
@@ -593,7 +495,7 @@ const UserProfile = () => {
     let newThesis;
 
     if (currentThesis.includes(value)) {
-      newThesis = currentThesis.filter(item => item !== value);
+      newThesis = currentThesis.filter((item) => item !== value);
     } else {
       newThesis = [...currentThesis, value];
     }
@@ -602,10 +504,10 @@ const UserProfile = () => {
   };
 
   // Modify TelegramAuthButton to accept onSuccess prop
-  const handleTelegramSuccess = async () => {
-    await fetchTelegramUsername();
-    dispatch(getUsersDetailsAPI(userData?.userId));
-  };
+  // const handleTelegramSuccess = async () => {
+  //   await fetchTelegramUsername();
+  //   dispatch(getUsersDetailsAPI(userData?.userId));
+  // };
 
   useEffect(() => {
     if (userData?.userId) {
@@ -619,24 +521,30 @@ const UserProfile = () => {
         return values.profile_picture;
       }
       if (userData?.profile_picture) {
-        return userData.profile_picture.replace('_normal', '');
+        return userData.profile_picture.replace("_normal", "");
       }
-      return defaultImg;
+
+
+      const defaultImage = authDetails?.user?.verifiedCredentials[2]?.oauthAccountPhotos[0].replace("_normal", "")
+
+      return defaultImage;
     } else {
       if (userData?.profile_picture) {
-        return userData.profile_picture.replace('_normal', '');
+        return userData.profile_picture.replace("_normal", "");
       }
       if (userDetails?.profile_picture) {
         return userDetails.profile_picture;
       }
-      return defaultImg;
+      const defaultImage = authDetails?.user?.verifiedCredentials[2]?.oauthAccountPhotos[0].replace("_normal", "")
+
+      return defaultImage;
     }
   };
 
   return (
     <div className="profile_content_wrapper">
-      {active === "INFORMATION" && (
-        !isEditMode ? (
+      {active === "INFORMATION" &&
+        (!isEditMode ? (
           <>
             <div className="profile_content_header">
               <div className="profile_content_left">
@@ -659,16 +567,11 @@ const UserProfile = () => {
                         >
                           {data.label}
                         </div>
-                      )
+                      );
                     })}
                   </div>
                   <div className="header_toggle_dropDown">
-                    <CustomDropdown
-                      toggleButton={
-                        <ThreeDots />
-                      }
-                      items={headerToggleButton}
-                    />
+                    <CustomDropdown toggleButton={<ThreeDots />} items={headerToggleButton} />
                   </div>
                 </div>
                 <div className="profile_page_header">
@@ -690,7 +593,7 @@ const UserProfile = () => {
                         alt=""
                         onError={(e) => {
                           e.target.onerror = null;
-                          e.target.src = defaultImg;
+                          e.target.src = defaultImage;
                         }}
                       />
                     </div>
@@ -726,7 +629,9 @@ const UserProfile = () => {
                         </div>
                         <div className="profile_info">
                           <div className="profile_head">Telegram</div>
-                          <div className="profile_data">{telegramUsername || userDetails?.telegram_username || "-"}</div>
+                          <div className="profile_data">
+                            {telegramUsername || userDetails?.telegram_username || "-"}
+                          </div>
                         </div>
                         <div className="profile_info">
                           <div className="profile_head">Twitter</div>
@@ -740,7 +645,9 @@ const UserProfile = () => {
                               >
                                 {userDetails.username}
                               </a>
-                            ) : "-"}
+                            ) : (
+                              "-"
+                            )}
                           </div>
                         </div>
                         <div className="profile_info">
@@ -750,16 +657,25 @@ const UserProfile = () => {
                         <div className="profile_info">
                           <div className="profile_head">Role</div>
                           <div className="profile_data">
-                            {userDetails?.roles?.split(',').map(role => {
-                              switch (role.trim()) {
-                                case 'A Founder': return 'Founder';
-                                case 'A C-level': return 'C-level';
-                                case 'A Web3 employee': return 'Web3 employee';
-                                case 'A KOL / Ambassador / Content Creator': return 'KOL / Ambassador / Content Creator';
-                                case 'An Angel Investor': return 'Angel Investor';
-                                default: return role.trim();
-                              }
-                            }).join(', ') || "-"}
+                            {userDetails?.roles
+                              ?.split(",")
+                              .map((role) => {
+                                switch (role.trim()) {
+                                  case "A Founder":
+                                    return "Founder";
+                                  case "A C-level":
+                                    return "C-level";
+                                  case "A Web3 employee":
+                                    return "Web3 employee";
+                                  case "A KOL / Ambassador / Content Creator":
+                                    return "KOL / Ambassador / Content Creator";
+                                  case "An Angel Investor":
+                                    return "Angel Investor";
+                                  default:
+                                    return role.trim();
+                                }
+                              })
+                              .join(", ") || "-"}
                           </div>
                         </div>
                         <div className="profile_info">
@@ -792,7 +708,9 @@ const UserProfile = () => {
                       <div className="investment_details">
                         {/* Left Column */}
                         <div className="profile_info">
-                          <div className="profile_head">Average ticket size {values?.roles?.includes("Angel Investor") ? "*" : ""}</div>
+                          <div className="profile_head">
+                            Average ticket size {values?.roles?.includes("Angel Investor") ? "*" : ""}
+                          </div>
                           <div className="profile_data">
                             {values?.roles?.includes("Angel Investor") ? (
                               <>
@@ -889,7 +807,9 @@ const UserProfile = () => {
 
                         {/* Right Column */}
                         <div className="profile_info">
-                          <div className="profile_head">Investment Thesis {values?.roles?.includes("Angel Investor") ? "*" : ""}</div>
+                          <div className="profile_head">
+                            Investment Thesis {values?.roles?.includes("Angel Investor") ? "*" : ""}
+                          </div>
                           <div className="profile_data">
                             {values?.roles?.includes("Angel Investor") ? (
                               <>
@@ -1017,23 +937,50 @@ const UserProfile = () => {
                             {values?.roles?.includes("Angel Investor") ? (
                               <>
                                 <div className="radio_group">
-                                  <div className="radio_box" onClick={() => handleQuestionChange("investment_stage", "Early")}>
-                                    <input type="radio" name="investment_stage" value="Early" checked={values?.investment_stage === "Early"} />
+                                  <div
+                                    className="radio_box"
+                                    onClick={() => handleQuestionChange("investment_stage", "Early")}
+                                  >
+                                    <input
+                                      type="radio"
+                                      name="investment_stage"
+                                      value="Early"
+                                      checked={values?.investment_stage === "Early"}
+                                    />
                                     <label></label>
                                     <span>Early (pre-seed, seed)</span>
                                   </div>
-                                  <div className="radio_box" onClick={() => handleQuestionChange("investment_stage", "Decent traction")}>
-                                    <input type="radio" name="investment_stage" value="Decent traction" checked={values?.investment_stage === "Decent traction"} />
+                                  <div
+                                    className="radio_box"
+                                    onClick={() => handleQuestionChange("investment_stage", "Decent traction")}
+                                  >
+                                    <input
+                                      type="radio"
+                                      name="investment_stage"
+                                      value="Decent traction"
+                                      checked={values?.investment_stage === "Decent traction"}
+                                    />
                                     <label></label>
                                     <span>Decent traction (strategic, private)</span>
                                   </div>
-                                  <div className="radio_box" onClick={() => handleQuestionChange("investment_stage", "Hyped")}>
-                                    <input type="radio" name="investment_stage" value="Hyped" checked={values?.investment_stage === "Hyped"} />
+                                  <div
+                                    className="radio_box"
+                                    onClick={() => handleQuestionChange("investment_stage", "Hyped")}
+                                  >
+                                    <input
+                                      type="radio"
+                                      name="investment_stage"
+                                      value="Hyped"
+                                      checked={values?.investment_stage === "Hyped"}
+                                    />
                                     <label></label>
                                     <span>Hyped (public)</span>
                                   </div>
                                 </div>
-                                <div className="question_desc">Describe your investment thesis in your own words so we can bring you exactly what you need *</div>
+                                <div className="question_desc">
+                                  Describe your investment thesis in your own words so we can bring you exactly what you
+                                  need *
+                                </div>
                                 <textarea
                                   className="textArea"
                                   name="investment_description"
@@ -1057,17 +1004,16 @@ const UserProfile = () => {
                               <span className="disabled-message">Available for Angel Investors only</span>
                             )}
                           </div>
-                        </div>
-
-                      </div>
-                    </div>
+                        </div >
+                      </div >
+                    </div >
 
                     <div className="profile_seprator_image">
                       <img src={sepratorImage} alt="Separator" />
                     </div>
-                  </div>
-                </div>
-              </div>
+                  </div >
+                </div >
+              </div >
             </div >
           </>
         ) : (
@@ -1084,10 +1030,10 @@ const UserProfile = () => {
                   <div className="profile_upload_profile">
                     <img
                       src={
-                        (values.profile_picture === "" || !values.profile_picture) ? defaultImg : values.profile_picture
+                        values.profile_picture === "" || !values.profile_picture ? defaultImage : values.profile_picture
                       }
                       alt=""
-                      onError={(e) => (e.target.src = defaultImg)}
+                      onError={(e) => (e.target.src = defaultImage)}
                     />
                   </div>
                   <div className="profile_upload_button">
@@ -1221,34 +1167,38 @@ const UserProfile = () => {
                         <div className="profile_info">
                           <div className="profile_head">Role</div>
                           <div className="profile_data">
-                            {userDetails?.roles?.split(',').map(role => {
-                              switch (role.trim()) {
-                                case 'A Founder': return 'Founder';
-                                case 'A C-level': return 'C-level';
-                                case 'A Web3 employee': return 'Web3 employee';
-                                case 'A KOL / Ambassador / Content Creator': return 'KOL / Ambassador / Content Creator';
-                                case 'An Angel Investor': return 'Angel Investor';
-                                default: return role.trim();
-                              }
-                            }).join(', ') || "-"}
-                          </div>
-                        </div>
-                      </div>
+                            {
+                              userDetails?.roles?.split(',').map(role => {
+                                switch (role.trim()) {
+                                  case 'A Founder': return 'Founder';
+                                  case 'A C-level': return 'C-level';
+                                  case 'A Web3 employee': return 'Web3 employee';
+                                  case 'A KOL / Ambassador / Content Creator': return 'KOL / Ambassador / Content Creator';
+                                  case 'An Angel Investor': return 'Angel Investor';
+                                  default: return role.trim();
+                                }
+                              }).join(', ') || "-"
+                            }
+                          </div >
+                        </div >
+                      </div >
 
                       <div className="form_group_row">
                         <div className="profile_info full_width">
                           <label>Role</label>
                           <div className="options_container">
                             <div className="default_options">
-                              {["Founder", "C-level", "Web3 employee", "KOL / Ambassador / Content Creator", "Angel Investor"].map((role, index) => (
-                                <div
-                                  key={index}
-                                  className={`option default ${values?.roles?.includes(role) ? 'selected' : ''}`}
-                                  onClick={() => handleRoleChange(role)}
-                                >
-                                  <label>{role}</label>
-                                </div>
-                              ))}
+                              {
+                                ["Founder", "C-level", "Web3 employee", "KOL / Ambassador / Content Creator", "Angel Investor"].map((role, index) => (
+                                  <div
+                                    key={index}
+                                    className={`option default ${values?.roles?.includes(role) ? 'selected' : ''}`}
+                                    onClick={() => handleRoleChange(role)}
+                                  >
+                                    <label>{role}</label>
+                                  </div>
+                                ))
+                              }
                               <div className="custom_options">
                                 {values?.roles?.filter(role => !["Founder", "C-level", "Web3 employee", "KOL / Ambassador / Content Creator", "Angel Investor"].includes(role) && role !== "Other").map((role, index) => (
                                   <div
@@ -1262,16 +1212,19 @@ const UserProfile = () => {
                                       className="delete-btn"
                                       onClick={(e) => {
                                         e.stopPropagation();
-                                        setFieldValue("roles", values.roles.filter(r => r !== role));
+                                        setFieldValue(
+                                          "roles",
+                                          values.roles.filter((r) => r !== role)
+                                        );
                                       }}
                                     >
                                       ×
                                     </span>
                                   </div>
                                 ))}
-                              </div>
-                            </div>
-                          </div>
+                              </div >
+                            </div >
+                          </div >
                           <div className="add_custom_field">
                             <input
                               type="text"
@@ -1281,7 +1234,7 @@ const UserProfile = () => {
                                 setFieldValue("other", e.target.value);
                               }}
                               onKeyPress={(e) => {
-                                if (e.key === 'Enter' && values.other?.trim()) {
+                                if (e.key === "Enter" && values.other?.trim()) {
                                   e.preventDefault();
                                   const newRole = values.other.trim();
                                   if (!values.roles.includes(newRole)) {
@@ -1291,29 +1244,52 @@ const UserProfile = () => {
                                 }
                               }}
                             />
-                            <button onClick={() => {
-                              if (values.other?.trim()) {
-                                const newRole = values.other.trim();
-                                if (!values.roles.includes(newRole)) {
-                                  setFieldValue("roles", [...values.roles, newRole]);
+                            <button
+                              onClick={() => {
+                                if (values.other?.trim()) {
+                                  const newRole = values.other.trim();
+                                  if (!values.roles.includes(newRole)) {
+                                    setFieldValue("roles", [...values.roles, newRole]);
+                                  }
+                                  setFieldValue("other", "");
                                 }
-                                setFieldValue("other", "");
-                              }
-                            }}>Add</button>
+                              }}
+                            >
+                              Add
+                            </button>
                           </div>
-                        </div>
-                      </div>
+                        </div >
+                      </div >
 
                       <div className="form_group_row">
                         <div className="profile_info full_width">
-                          <label>Are you a VC / Angel investor and do you invest in early stage rounds (seed, strategic, private) ? </label>
-                          <div className="radio_box" onClick={() => handleQuestionChange("question1", "Yes, frequently")}>
-                            <input type="radio" name="question1" value="Yes, frequently" checked={values?.question1 === "Yes, frequently"} />
+                          <label>
+                            Are you a VC / Angel investor and do you invest in early stage rounds (seed, strategic,
+                            private) ?{" "}
+                          </label>
+                          <div
+                            className="radio_box"
+                            onClick={() => handleQuestionChange("question1", "Yes, frequently")}
+                          >
+                            <input
+                              type="radio"
+                              name="question1"
+                              value="Yes, frequently"
+                              checked={values?.question1 === "Yes, frequently"}
+                            />
                             <label></label>
                             <span>Yes, frequently</span>
                           </div>
-                          <div className="radio_box" onClick={() => handleQuestionChange("question1", "Yes, sometimes")}>
-                            <input type="radio" name="question1" value="Yes, sometimes" checked={values?.question1 === "Yes, sometimes"} />
+                          <div
+                            className="radio_box"
+                            onClick={() => handleQuestionChange("question1", "Yes, sometimes")}
+                          >
+                            <input
+                              type="radio"
+                              name="question1"
+                              value="Yes, sometimes"
+                              checked={values?.question1 === "Yes, sometimes"}
+                            />
                             <label></label>
                             <span>Yes, sometimes</span>
                           </div>
@@ -1327,23 +1303,43 @@ const UserProfile = () => {
 
                       <div className="form_group_row">
                         <div className="profile_info full_width">
-                          <label>Do you ever go to IRL Web3 events (main events, side events, private investors events...) ? </label>
+                          <label>
+                            Do you ever go to IRL Web3 events (main events, side events, private investors events...) ?{" "}
+                          </label>
                           <div className="radio_box" onClick={() => handleQuestionChange("question2", "Often")}>
-                            <input type="radio" name="question2" value="Often" checked={values?.question2 === "Often"} />
+                            <input
+                              type="radio"
+                              name="question2"
+                              value="Often"
+                              checked={values?.question2 === "Often"}
+                            />
                             <label></label>
                             <span>Often</span>
                           </div>
                           <div className="radio_box" onClick={() => handleQuestionChange("question2", "Sometimes")}>
-                            <input type="radio" name="question2" value="Sometimes" checked={values?.question2 === "Sometimes"} />
+                            <input
+                              type="radio"
+                              name="question2"
+                              value="Sometimes"
+                              checked={values?.question2 === "Sometimes"}
+                            />
                             <label></label>
                             <span>Sometimes</span>
                           </div>
                           <div className="radio_box" onClick={() => handleQuestionChange("question2", "Never")}>
-                            <input type="radio" name="question2" value="Never" checked={values?.question2 === "Never"} />
+                            <input
+                              type="radio"
+                              name="question2"
+                              value="Never"
+                              checked={values?.question2 === "Never"}
+                            />
                             <label></label>
                             <span>Never</span>
                           </div>
-                          <span className="question_desc">(This will allow us to invite you to exclusive events we&apos;re co-hosting with our partners at Forbes, Karate Combat and others.)</span>
+                          <span className="question_desc">
+                            (This will allow us to invite you to exclusive events we&apos;re co-hosting with our
+                            partners at Forbes, Karate Combat and others.)
+                          </span>
                         </div>
                       </div>
 
@@ -1366,21 +1362,22 @@ const UserProfile = () => {
                         <div className="profile_info">
                           <div className="profile_head">Role</div>
                           <div className="profile_data">
-                            {userDetails?.roles?.split(',').map(role => {
-                              switch (role.trim()) {
-                                case 'A Founder': return 'Founder';
-                                case 'A C-level': return 'C-level';
-                                case 'A Web3 employee': return 'Web3 employee';
-                                case 'A KOL / Ambassador / Content Creator': return 'KOL / Ambassador / Content Creator';
-                                case 'An Angel Investor': return 'Angel Investor';
-                                default: return role.trim();
-                              }
-                            }).join(', ') || "-"}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
+                            {
+                              userDetails?.roles?.split(',').map(role => {
+                                switch (role.trim()) {
+                                  case 'A Founder': return 'Founder';
+                                  case 'A C-level': return 'C-level';
+                                  case 'A Web3 employee': return 'Web3 employee';
+                                  case 'A KOL / Ambassador / Content Creator': return 'KOL / Ambassador / Content Creator';
+                                  case 'An Angel Investor': return 'Angel Investor';
+                                  default: return role.trim();
+                                }
+                              }).join(', ') || "-"
+                            }
+                          </div >
+                        </div >
+                      </div >
+                    </div >
 
                     <div className="profile_bio">
                       <label> Bio</label>
@@ -1392,7 +1389,7 @@ const UserProfile = () => {
                         onChange={handleChange}
                       />
                     </div>
-                  </div>
+                  </div >
 
                   <div className="profile_seprator_image">
                     <img src={sepratorImage} alt="Separator" />
@@ -1417,13 +1414,12 @@ const UserProfile = () => {
                       <div className="social_media_wrp">
                         <div className="social_media">
                           <h2 className="social_media_title">Connected accounts</h2>
-                          {
-                            !userData?.authDetails?.isAuthenticated &&
+                          {!userData?.authDetails?.isAuthenticated && (
                             <button className="btn_gray">
                               <img src={twitterIcon} alt="" />
                               Connect Twitter
                             </button>
-                          }
+                          )}
                           <button className="btn_gray">
                             <img src={discordIcon} alt="" />
                             Connect Discord
@@ -1496,31 +1492,30 @@ const UserProfile = () => {
                       </button>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
+                </div >
+              </div >
+            </div >
+          </div >
+        ))}
+      {
+        active === "INVOLVEMENT" &&
+        (addNewProject ? (
+          <ProjectInvolvment setAddNewProject={setAddNewProject} />
+        ) : (
+          <ProjectsUser
+            userProjects={userProjects}
+            setAddNewProject={setAddNewProject}
+            handleActive={handleActive}
+            active={active}
+          />
+        ))
+      }
+      {
+        active === "AMBASSADORS" && (
+          <Ambassadors handleActive={handleActive} active={active} uid={userData?.userId} userData={userData} />
         )
-      )}
-      {active === "INVOLVEMENT" && (addNewProject ? (
-        <ProjectInvolvment setAddNewProject={setAddNewProject} />
-      ) : (
-        <ProjectsUser
-          userProjects={userProjects}
-          setAddNewProject={setAddNewProject}
-          handleActive={handleActive}
-          active={active}
-        />
-      ))}
-      {active === "AMBASSADORS" && (
-        <Ambassadors
-          handleActive={handleActive}
-          active={active}
-          uid={userData?.userId}
-          userData={userData}
-        />
-      )}
-    </div>
+      }
+    </div >
   );
 };
 

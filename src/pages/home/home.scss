@@ -1,6 +1,10 @@
 .home_wrapper {
+    height: 100%;
+
     .home_main_wrap {
         background-color: #0C0C0C;
+        min-height: 100%;
+        position: relative;
 
         &::-webkit-scrollbar {
             width: 4px;
@@ -428,6 +432,7 @@
         }
 
         .about_main_wrap {
+            padding-bottom: 100px;
             display: flex;
             justify-content: center;
 
@@ -500,13 +505,18 @@
         }
 
         .footer_wrap {
-            padding: 32px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 12px;
             background-color: var(--primary-black);
             display: flex;
             align-items: center;
 
             @media (max-width: 767px) {
-                padding: 20px;
+                padding-inline: 20px;
                 width: 100%;
             }
 
@@ -518,21 +528,43 @@
                 width: 95%;
                 font-family: "MedievalSharp";
                 color: var(--primary-text);
+                font-size: 14px;
 
                 @media (max-width: 767px) {
-                    font-size: 14px;
+                    font-size: 12px;
                     width: 100%;
                 }
 
                 .icons {
                     display: flex;
                     align-items: center;
-                    gap: 4px;
+                    gap: 0px;
+
+                    a {
+                        color: var(--primary-text);
+                        transition: opacity 0.2s ease;
+                        display: flex;
+                        align-items: center;
+                        cursor: pointer;
+                        padding: 8px 4px;
+
+                        svg {
+                            width: 20px;
+                            height: 20px;
+                        }
+
+                        &:hover {
+                            opacity: 0.8;
+                            color: #DCCA87;
+                        }
+                    }
                 }
             }
 
             .up_arrow {
-                width: 2%;
+                width: auto;
+                margin-left: auto;
+                padding-right: 16px;
 
                 @media (max-width: 767px) {
                     display: none;
@@ -542,6 +574,25 @@
                     background-color: transparent;
                     border: none;
                     cursor: pointer;
+                    padding: 8px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    transition: transform 0.2s ease;
+
+                    svg {
+                        width: 24px;
+                        height: 24px;
+                        color: var(--primary-text);
+                    }
+
+                    &:hover {
+                        transform: translateY(-2px);
+
+                        svg {
+                            color: #DCCA87;
+                        }
+                    }
                 }
             }
         }

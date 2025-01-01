@@ -27,7 +27,8 @@
       font-weight: 500;
     }
 
-    input, textarea {
+    input,
+    textarea {
       width: 100%;
       background: var(--card-background);
       border: 1px solid var(--border-color);
@@ -161,4 +162,4 @@
       }
     }
   }
-} 
+}

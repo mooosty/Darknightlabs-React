@@ -305,12 +305,16 @@
                                 max-width: calc(100% / 1);
                             }
 
-                            .ambassador_card {
-                                filter: blur(10px);
-                                transition: filter 0.3s ease;
-
-                                &:hover {
-                                    filter: blur(10px);
+                            &.blurred {
+                                .ambassador_card {
+                                    pointer-events: none;
+                                    
+                                    .card_content {
+                                        opacity: 0.3;
+                                        filter: blur(4px);
+                                        transform: scale(0.98);
+                                        transition: all 0.3s ease;
+                                    }
                                 }
                             }
                         }
@@ -425,12 +429,16 @@
                             max-width: calc(100% / 1);
                         }
 
-                        .ambassador_card {
-                            filter: blur(10px);
-                            transition: filter 0.3s ease;
-
-                            &:hover {
-                                filter: blur(10px);
+                        &.blurred {
+                            .ambassador_card {
+                                pointer-events: none;
+                                
+                                .card_content {
+                                    opacity: 0.3;
+                                    filter: blur(4px);
+                                    transform: scale(0.98);
+                                    transition: all 0.3s ease;
+                                }
                             }
                         }
                     }

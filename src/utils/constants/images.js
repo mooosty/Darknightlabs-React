@@ -18,10 +18,12 @@ import cardActor12 from '../../assets/pending-synergy-img12.png'
 import cardActor13 from '../../assets/pending-synergy-img13.png'
 import cardActor14 from '../../assets/pending-synergy-img14.png'
 import cardActor15 from '../../assets/pending-synergy-img15.png'
+import showa from '../../assets/showa.jpg'
 
 import autherProfile from "../../assets/auther-profile.png"
 import sepratorImage from "../../assets/seprator-image.png"
 import arrowRight from "../../assets/arrow-right.svg"
+import darknightlabsIcon from "../../assets/darknightlabs.svg"
 
 import synergy1 from '../../assets/synergy1.png'
 import synergy2 from '../../assets/synergy2.png'
@@ -220,6 +222,7 @@ export {
     cardActor13,
     cardActor14,
     cardActor15,
+    showa,
     angelBg,
     fallBackImage,
     project,
@@ -257,7 +260,7 @@ export {
     recordImage13,
     recordImage14,
     recordImage15,
-    recordImage16,    
+    recordImage16,
     MembersImage1,
     MembersImage2,
     MembersImage3,
@@ -269,6 +272,7 @@ export {
     MembersImage9,
     MembersImage10,
     MembersImage11,
+    darknightlabsIcon,
 
 
 

@@ -113,6 +113,12 @@
             border: 1px solid #f5efdb1a;
             transition: box-shadow 0.3s ease;
 
+            @media (max-width: 767px) {
+                font-size: 26px;
+                top: -10px;
+                padding: 5px 20px;
+            }
+
             &.invest_mode {
                 box-shadow: 0 4px 25px #ff3b3b66;
             }
@@ -477,12 +483,14 @@
                 display: flex;
                 gap: 32px;
                 padding-right: 30px;
+                padding-top: 40px;
                 overflow-y: auto;
 
                 @media (max-width: 1024px) {
                     flex-direction: column;
                     gap: 20px;
                     padding-right: 0px;
+                    padding-top: 50px;
                     overflow-y: auto;
                 }
 
@@ -490,21 +498,15 @@
                     flex: 0 0 65%;
                     color: var(--primary-text);
                     padding-right: 20px;
+                    padding-left: 30px;
                     overflow-y: auto;
                     height: 100%;
                     scrollbar-width: none;
-                    /* Firefox */
                     -ms-overflow-style: none;
-
-                    /* IE and Edge */
-                    &::-webkit-scrollbar {
-                        display: none;
-                        /* Chrome, Safari and Opera */
-                    }
 
                     @media (max-width: 1024px) {
                         flex: 1;
-                        padding-right: 0;
+                        padding: 0;
                         height: auto;
                         overflow: visible;
                     }
@@ -527,85 +529,163 @@
                         }
                     }
 
-                    .title {
-                        font-size: 32px;
-                        font-weight: 600;
-                        margin-bottom: 24px;
-                        font-family: "MedievalSharp", cursive;
-                    }
+                    .investment-header {
+                        margin-bottom: 2rem;
+                        padding-bottom: 1.5rem;
+                        border-bottom: 1px solid rgba(245, 239, 219, 0.1);
 
-                    .description {
-                        font-size: 16px;
-                        line-height: 1.6;
-                        margin-bottom: 30px;
+                        .back_arrow {
+                            cursor: pointer;
+                            width: 40px;
+                            height: 40px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            background: transparent;
+                            border: none;
+                            padding: 0;
+                            margin-bottom: 16px;
+                            transition: transform 0.2s ease;
+
+                            svg {
+                                width: 24px;
+                                height: 24px;
+                                color: #f5efdb;
+                            }
+
+                            &:hover {
+                                transform: translateX(-5px);
+                            }
+                        }
+
+                        .title {
+                            font-size: 2.5rem;
+                            margin-bottom: 1rem;
+                            background: linear-gradient(45deg, #f5efdb, rgba(245, 239, 219, 0.8));
+                            -webkit-background-clip: text;
+                            -webkit-text-fill-color: transparent;
+                            font-family: "MedievalSharp", cursive;
+                        }
+
+                        .description {
+                            @media (min-width: 1024px) {
+                                padding-left: 48px;
+                            }
+                        }
+
+                        .highlight-text {
+                            font-size: 1.2rem;
+                            line-height: 1.6;
+                            color: #f5efdb;
+                            opacity: 0.9;
+                        }
                     }
 
                     .section {
-                        margin-bottom: 30px;
+                        margin-bottom: 2.5rem;
+                        padding: 1.5rem;
+                        background: rgba(245, 239, 219, 0.05);
+                        border-radius: 12px;
 
-                        h3 {
-                            font-size: 24px;
-                            font-weight: 500;
-                            margin-bottom: 16px;
-                            color: var(--primary-text);
+                        .section-title {
+                            font-size: 1.8rem;
+                            margin-bottom: 1.5rem;
+                            color: #f5efdb;
+                            font-family: "MedievalSharp", cursive;
                         }
 
-                        ul {
-                            list-style: none;
-                            padding: 0;
+                        .section-intro {
+                            font-size: 1.1rem;
+                            margin-bottom: 1.5rem;
+                            color: #f5efdb;
+                            opacity: 0.9;
+                        }
+                    }
 
-                            li {
-                                margin-bottom: 12px;
-                                display: flex;
-                                align-items: center;
-                                gap: 8px;
+                    .stage-details {
+                        display: grid;
+                        gap: 1.5rem;
 
-                                a {
-                                    color: var(--primary-text-op50);
-                                    text-decoration: none;
-                                    transition: color 0.2s ease;
+                        .stage-block {
+                            padding: 1.2rem;
+                            background: rgba(245, 239, 219, 0.05);
+                            border-radius: 8px;
+                            border: 1px solid rgba(245, 239, 219, 0.1);
 
-                                    &:hover {
-                                        color: #ff8a1c;
-                                    }
+                            .stage-title {
+                                font-size: 1.3rem;
+                                color: #f5efdb;
+                                margin-bottom: 0.5rem;
+                                font-family: "MedievalSharp", cursive;
+                            }
+
+                            .stage-date {
+                                font-size: 0.9rem;
+                                color: rgba(245, 239, 219, 0.8);
+                                margin-bottom: 0.8rem;
+                            }
+
+                            .stage-description {
+                                font-size: 1rem;
+                                line-height: 1.5;
+                                color: #f5efdb;
+                                opacity: 0.9;
+
+                                &.highlight-text {
+                                    color: #f5efdb;
                                 }
-                            }
-                        }
-
-                        &.movement_section {
-                            text-align: center;
-                            padding: 30px 0;
-                            border-top: 1px solid #f5efdb1a;
-
-                            h3 {
-                                font-size: 28px;
-                                margin-bottom: 20px;
-                            }
-
-                            p {
-                                font-size: 18px;
-                                line-height: 1.6;
-                                margin-bottom: 20px;
-                            }
-
-                            .stars {
-                                font-size: 24px;
-                                letter-spacing: 4px;
-                                color: #ff8a1c;
                             }
                         }
                     }
 
-                    .links {
-                        a {
-                            color: var(--primary-text-op50);
-                            text-decoration: none;
-                            margin-right: 20px;
-                            transition: color 0.2s ease;
+                    .details-grid,
+                    .features-grid,
+                    .backers-grid,
+                    .security-grid {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                        gap: 1rem;
+
+                        .detail-item,
+                        .feature-item,
+                        .backer-item,
+                        .security-item {
+                            padding: 1rem;
+                            background: rgba(245, 239, 219, 0.05);
+                            border-radius: 8px;
+                            border: 1px solid rgba(245, 239, 219, 0.1);
+                            font-size: 1rem;
+                            color: #f5efdb;
+                            transition: transform 0.2s ease;
 
                             &:hover {
-                                color: #111010;
+                                transform: translateY(-2px);
                             }
+                        }
+
+                        .feature-highlight {
+                            color: #f5efdb;
+                            font-weight: bold;
+                        }
+                    }
+
+                    .movement-section {
+                        text-align: center;
+                        background: linear-gradient(45deg, rgba(245, 239, 219, 0.05), rgba(245, 239, 219, 0.1));
+
+                        .movement-text {
+                            font-size: 1.2rem;
+                            line-height: 1.6;
+                            margin-bottom: 1.5rem;
+                            color: #f5efdb;
+                        }
+
+                        .stars {
+                            font-size: 1.1rem;
+                            color: #f5efdb;
+                            margin-top: 1rem;
+                            padding: 1rem;
+                            border-top: 1px solid rgba(245, 239, 219, 0.1);
                         }
                     }
                 }
@@ -626,10 +706,13 @@
                     }
 
                     .form_container {
-                        background: var(--card-background);
                         border-radius: 12px;
                         padding: 10px 0px;
                         height: fit-content;
+
+                        @media (min-width: 1024px) {
+                            padding-right: 2px;
+                        }
 
                         .investment-form {
                             padding: 10px 20px;
@@ -661,7 +744,7 @@
 
                                     &:focus {
                                         outline: none;
-                                        border-color: #ff8a1c;
+                                        border-color: #f5efdb;
                                     }
 
                                     &::placeholder {
@@ -687,21 +770,21 @@
                                             appearance: none;
                                             width: 18px;
                                             height: 18px;
-                                            border: 2px solid #f5efdb66;
+                                            border: 2px solid rgba(245, 239, 219, 0.4);
                                             border-radius: 50%;
                                             margin: 0;
                                             position: relative;
                                             cursor: pointer;
 
                                             &:checked {
-                                                border-color: #ff8a1c;
+                                                border-color: #f5efdb;
 
                                                 &:after {
                                                     content: '';
                                                     position: absolute;
                                                     width: 10px;
                                                     height: 10px;
-                                                    background: #ff8a1c;
+                                                    background: #f5efdb;
                                                     border-radius: 50%;
                                                     top: 50%;
                                                     left: 50%;
@@ -742,7 +825,7 @@
                             .submit-button {
                                 width: 100%;
                                 padding: 12px;
-                                background: #dbbf57;
+                                background: #f5efdb;
                                 border: none;
                                 border-radius: 8px;
                                 color: var(--primary-background);
@@ -753,7 +836,7 @@
                                 margin-top: 20px;
 
                                 &:hover {
-                                    background: #DCCA87;
+                                    background: rgba(245, 239, 219, 0.9);
                                 }
 
                                 &:active {
@@ -765,7 +848,7 @@
                                     cursor: not-allowed;
 
                                     &:hover {
-                                        background: #dbbf57;
+                                        background: rgba(245, 239, 219, 0.7);
                                     }
                                 }
                             }
@@ -861,6 +944,45 @@
 
         &:active {
             background: #ff8a1c33;
+        }
+    }
+}
+
+.investment_details {
+    height: 100%;
+
+    .investments_content_header {
+        .content_left {
+            position: relative;
+
+            .back_arrow {
+                cursor: pointer;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: transparent;
+                border: none;
+                padding: 0;
+                margin-right: 16px;
+                transition: transform 0.2s ease;
+
+                svg {
+                    width: 24px;
+                    height: 24px;
+                    color: #f5efdb;
+                }
+
+                &:hover {
+                    transform: translateX(-5px);
+                }
+            }
+
+            h2 {
+                color: #f5efdb;
+                font-family: "MedievalSharp", cursive;
+            }
         }
     }
 }

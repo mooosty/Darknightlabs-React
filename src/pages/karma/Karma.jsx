@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { FaChevronDown } from "react-icons/fa";
 import "./karma.scss";
 import toast, { Toaster } from "react-hot-toast";
 import { CopyIcon, CheckIcon } from "../../utils/constants/images";
@@ -7,6 +8,7 @@ import { KarmaIcon } from "../../utils/SVGs/SVGs";
 import { axiosApi } from "../../api-services/service";
 
 const Karma = () => {
+  const [isExpanded, setIsExpanded] = useState(false);
   const [showInvitePopup, setShowInvitePopup] = useState(false);
   const [inviteLink, setInviteLink] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -43,7 +45,6 @@ const Karma = () => {
     return <div className="karma_page">Loading...</div>;
   }
 
-  // Calculate karma points based on invite levels
   const calculateKarmaPoints = () => {
     const directInvites = inviteData.level1?.length || 0;
     const level1Invites = inviteData.level2?.length || 0;
@@ -88,7 +89,7 @@ const Karma = () => {
   };
 
   const handleCopyLink = () => {
-    setIsCopyLink(true)
+    setIsCopyLink(true);
     navigator.clipboard
       .writeText(inviteLink)
       .then(() => {
@@ -100,6 +101,13 @@ const Karma = () => {
     setTimeout(() => {
       setIsCopyLink(false);
     }, 1000);
+  };
+
+  const toggleExpand = (e) => {
+    // Prevent click from triggering on child elements
+    if (e.target === e.currentTarget || e.target.closest('.section-header')) {
+      setIsExpanded(!isExpanded);
+    }
   };
 
   return (
@@ -126,6 +134,7 @@ const Karma = () => {
           },
         }}
       />
+      
       <div className="karma_content_header">
         <div className="karma_content_left">
           <h2>Karma Points</h2>
@@ -134,12 +143,73 @@ const Karma = () => {
 
       <div className="karma_page_data">
         <div className="page_data">
-          <div className="karma_overview">
-            <div className="karma_total">
+          <div 
+            className={`karma_overview ${isExpanded ? 'expanded' : ''}`}
+            onClick={toggleExpand}
+          >
+            <div className="section-header">
               <h3>Total Karma Points</h3>
+              <span className="read-more">{isExpanded ? 'read less' : 'read more'}</span>
+            </div>
+            
+            <div className="karma_total">
               <div className="points">
                 {karmaStats.totalKarmaPoints}
-                <KarmaIcon style={{ width: '1em', height: '1em' }} />
+                <KarmaIcon style={{ width: '1.2em', height: '1.2em', marginLeft: '8px' }} />
+              </div>
+            </div>
+
+            <div className="karma-details">
+              <h3>KARMA</h3>
+              
+              <div className="section">
+                <h4>How Karma Points Work</h4>
+                <p>Karma Points (KP) are earned through a multi-level referral system:</p>
+                <ul>
+                  <li>Direct invites: <span className="highlight">100 KP</span> for each person you invite</li>
+                  <li>Level 1 referrals: <span className="highlight">20 KP</span> for each person your invitees invite</li>
+                  <li>Level 2 referrals: <span className="highlight">10 KP</span> for each person your Level 1 referrals invite</li>
+                </ul>
+              </div>
+
+              <div className="section">
+                <h4>What are Karma Points?</h4>
+                <p>Karma Points (KP) are a measure of your contribution and influence in The Win-Win Society. They serve multiple purposes:</p>
+                <ul>
+                  <li>Access to exclusive deals and opportunities</li>
+                  <li>Priority in oversubscribed investments</li>
+                  <li>Recognition within the community</li>
+                  <li>Unlock special features and benefits</li>
+                </ul>
+              </div>
+
+              <p>There are two ways to increase your Karma level in The Win-Win Society:</p>
+              
+              <ol>
+                <li>
+                  <strong className="highlight">Invite high tier individuals.</strong> Founders, VC partners, Family offices, Influencial people, etc.
+                  <p>You get <span className="highlight">100 Karma minimum</span> everytime someone new is coming from you (after being vetted and accepted)</p>
+                  <p>For the highest tier people, you will get bonuses (e.g. if you bring Elon Musk to The Win-Win Society, we'll give you more than 100 Karma Points)</p>
+                  <p>Furthermore, if they invite people themselves, you get <span className="highlight">20%</span> of the Karma they generated back to you.</p>
+                  <p>And if their people invite more people, you then get <span className="highlight">10%</span> of these in Karma. Therefore, there is an incentive to bring people with a rich network, as it will benefit you too.</p>
+                </li>
+                
+                <li>
+                  <strong className="highlight">Win, then pay what you want.</strong>
+                  <p>The Win-Win Society doesn't charge any fees from your investments. No cut, no management fees, no carry, no nothing.</p>
+                  <p>However, we give you the possibility, once you win with us, to give back — if you desire to do so. (hence "win, then pay what you want)</p>
+                  <p>Say you put in 10k and it turns to 100k, you might feel like you wanna give 10%, 15%, 20% of that.</p>
+                  <p>If you decide to give back, you will earn KARMA, which will give you priority access for next deals with limited supply.</p>
+                  <p>Additionally, if you bring people in who end up giving back as well, you will get <span className="highlight">20%</span> of their KARMA based on their contribution. And if they bring their own network in, you will get <span className="highlight">10%</span> from the people they invite.</p>
+                  <p>This makes it win-win for you as well to bring people in who will invest and give back.</p>
+                </li>
+              </ol>
+
+              <div className="section">
+                <h4>Why the "Win, then pay what you want" model?</h4>
+                <p>WWS is not a charity, rather a bet on the natural law of reciprocity that is inherent to human beings (especially those with a win-win mindset, the people who we are targeting).</p>
+                <p>It's also a testimony in our confidence in the fact that we know we can deliver great deals, we therefore give you the leeway to win first, then contribute back later - if you decide to do so -, making our incentives very aligned, as we're not making money off of you either way, just by taking a cut from any raise, no matter if it perform well or not.</p>
+                <p>Finally, we believe that it emphasizes our win-win frame in a very powerful way. As you contribute back based on your own initiative, we anticipate that to solidify an exceptional level of trust and goodwill, making it a truly healthy, win-win ecosystem.</p>
               </div>
             </div>
 
@@ -163,28 +233,21 @@ const Karma = () => {
             </button>
           </div>
 
-          <div className="karma_explanation">
+          <div className="karma_explanation_section">
             <h3>How Karma Points Work</h3>
-            <div className="explanation_content">
-              <p>Earn Karma Points (KP) by inviting new members to join our community:</p>
+            <div className="karma_explanation">
+              <p>Your Karma Points are calculated based on your referral network:</p>
               <ul>
-                <li>
-                  <strong>Direct Invites (Level 0):</strong> Earn 100 KP when someone you invited completes registration
-                </li>
-                <li>
-                  <strong>Level 1 Referrals:</strong> Earn 20 KP (20%) when someone invited by your direct invite brings
-                  in a new member
-                </li>
-                <li>
-                  <strong>Level 2 Referrals:</strong> Earn 10 KP (10%) when a Level 1 referral&apos;s invite brings in a new
-                  member
-                </li>
+                <li><strong>Direct Invites:</strong> 100 KP for each person you directly invite</li>
+                <li><strong>Level 1 Referrals:</strong> 20 KP for each person your invitees bring in</li>
+                <li><strong>Level 2 Referrals:</strong> 10 KP for each person your Level 1 referrals invite</li>
               </ul>
             </div>
           </div>
 
           <div className="karma_breakdown">
             <h3>Your Karma Breakdown</h3>
+            
             <div className="breakdown_list">
               {karmaStats.karmaBreakdown.map((item, index) => (
                 <div key={index} className="breakdown_item">
@@ -197,23 +260,6 @@ const Karma = () => {
               ))}
             </div>
           </div>
-
-          {showInvitePopup && (
-            <div className="popup_overlay">
-              <div className="popup_content">
-                <h3>Here is your invite link, share it to receive Karma Points (KP)</h3>
-                <div className="link_container">
-                  <p>{inviteLink}</p>
-                  <button className="copy_btn" onClick={handleCopyLink}>
-                    <copyIcon />
-                  </button>
-                </div>
-                <button className="btn_gray" onClick={() => setShowInvitePopup(false)}>
-                  Close
-                </button>
-              </div>
-            </div>
-          )}
         </div>
       </div>
 

@@ -4,11 +4,14 @@ import './ambassadors.scss'
 import { CustomDropdown } from '../../../components';
 import { ThreeDots } from '../../../utils/constants/images';
 import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Ambassadors = ({ handleActive, active, uid }) => {
     const [customNiches, setCustomNiches] = useState([]);
     const [customAudienceTypes, setCustomAudienceTypes] = useState([]);
     const [customSocials, setCustomSocials] = useState([]);
+    const [customLanguages, setCustomLanguages] = useState([]);
+    const [selectedLanguages, setSelectedLanguages] = useState([]);
     const [newCustomField, setNewCustomField] = useState('');
     const [activeSection, setActiveSection] = useState('');
     const [socialHandles, setSocialHandles] = useState({
@@ -46,10 +49,97 @@ const Ambassadors = ({ handleActive, active, uid }) => {
         },
     ]
 
+    const defaultLanguages = [
+        "English",
+        "French",
+        "Spanish",
+        "German",
+        "Chinese",
+        "Japanese",
+        "Korean",
+        "Russian",
+        "Arabic",
+        "Portuguese"
+    ];
+
     useEffect(() => {
         if (uid) {
             checkAmbassadorExists();
         }
+    }, [uid]);
+
+    useEffect(() => {
+        const fetchAmbassadorData = async () => {
+            try {
+                const response = await axios.get(`https://winwinsocietyweb3.com/api/ambassadors/uid/${uid}`);
+                if (response.data) {
+                    setIsExistingAmbassador(true);
+                    const data = response.data;
+                    
+                    // Set niches
+                    if (data.niches) {
+                        const defaultNichesList = defaultNiches.filter(niche => data.niches[niche] === true);
+                        const customNichesList = Object.entries(data.niches)
+                            .filter(([key, value]) => !defaultNiches.includes(key) && key !== '_uid')
+                            .map(([key]) => key);
+                        
+                        setCustomNiches(customNichesList);
+                        setSelectedNiches([...defaultNichesList, ...customNichesList]);
+                        setCustomExplanations(prev => ({
+                            ...prev,
+                            niches: Object.fromEntries(
+                                Object.entries(data.niches)
+                                    .filter(([key, value]) => typeof value === 'string' && value.length > 0)
+                            )
+                        }));
+                    }
+
+                    // Set audience types
+                    if (data.audience_type) {
+                        const defaultAudienceList = defaultAudienceTypes.filter(type => data.audience_type[type] === true);
+                        const customAudienceList = Object.entries(data.audience_type)
+                            .filter(([key, value]) => !defaultAudienceTypes.includes(key) && key !== '_uid')
+                            .map(([key]) => key);
+                        
+                        setCustomAudienceTypes(customAudienceList);
+                        setSelectedAudiences([...defaultAudienceList, ...customAudienceList]);
+                        setCustomExplanations(prev => ({
+                            ...prev,
+                            audience: Object.fromEntries(
+                                Object.entries(data.audience_type)
+                                    .filter(([key, value]) => typeof value === 'string' && value.length > 0)
+                            )
+                        }));
+                    }
+
+                    // Set social handles
+                    if (data.main_socials) {
+                        const defaultSocialIds = defaultSocials.map(s => s.id);
+                        const customSocialsList = Object.keys(data.main_socials)
+                            .filter(key => !defaultSocialIds.includes(key));
+                        
+                        setCustomSocials(customSocialsList);
+                        setSocialHandles(data.main_socials);
+                        setSelectedSocials(Object.keys(data.main_socials));
+                    }
+
+                    // Set languages
+                    if (data.languages) {
+                        const defaultLanguagesList = defaultLanguages.filter(lang => data.languages[lang] === true);
+                        const customLanguagesList = Object.entries(data.languages)
+                            .filter(([key, value]) => !defaultLanguages.includes(key) && key !== '_uid')
+                            .map(([key]) => key);
+                        
+                        setCustomLanguages(customLanguagesList);
+                        setSelectedLanguages([...defaultLanguagesList, ...customLanguagesList]);
+                    }
+                }
+            } catch (error) {
+                setIsExistingAmbassador(false);
+                console.error('Error checking ambassador data:', error);
+            }
+        };
+        fetchAmbassadorData();
     }, [uid]);
 
     const checkAmbassadorExists = async () => {
@@ -119,7 +209,8 @@ const Ambassadors = ({ handleActive, active, uid }) => {
         const payload = {
             niches: {},
             audience_type: {},
-            main_socials: {}
+            main_socials: {},
+            languages: {}
         };
 
         // Add _uid only for POST request
@@ -161,26 +252,50 @@ const Ambassadors = ({ handleActive, active, uid }) => {
             }
         });
 
+        // Prepare languages data
+        defaultLanguages.forEach(lang => {
+            if (selectedLanguages.includes(lang)) {
+                payload.languages[lang] = true;
+            }
+        });
+        // Add custom languages
+        customLanguages.forEach(lang => {
+            if (selectedLanguages.includes(lang)) {
+                payload.languages[lang] = true;
+            }
+        });
+
         console.log('Saving payload:', payload); // Debug log
 
         try {
-            if (isExistingAmbassador) {
-                const response = await axios({
-                    method: 'put',
-                    url: `https://winwinsocietyweb3.com/api/ambassadors/${uid}`,
-                    data: payload,
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-                console.log('PUT response:', response.data);
-            } else {
-                const response = await axios.post('https://winwinsocietyweb3.com/api/ambassadors', payload);
-                console.log('POST response:', response.data);
-                setIsExistingAmbassador(true);
-            }
+            const url = `https://winwinsocietyweb3.com/api/ambassadors${isExistingAmbassador ? `/uid/${uid}` : ''}`;
+            const method = isExistingAmbassador ? 'put' : 'post';
+            
+            await axios[method](url, payload);
+            toast.success('Thank you! Your ambassador information has been successfully received. We will review your application and get back to you soon.', {
+                duration: 5000,
+                position: 'top-center',
+                style: {
+                    background: '#1a1a1a',
+                    color: '#fff',
+                    border: '1px solid #f5efdb',
+                },
+                iconTheme: {
+                    primary: '#f5efdb',
+                    secondary: '#1a1a1a',
+                },
+            });
         } catch (error) {
-            console.error('Error saving ambassador data:', error.response?.data || error.message);
+            console.error('Error saving ambassador data:', error);
+            toast.error('Failed to save ambassador data. Please try again.', {
+                duration: 4000,
+                position: 'top-center',
+                style: {
+                    background: '#1a1a1a',
+                    color: '#fff',
+                    border: '1px solid #ff4d4f',
+                },
+            });
         } finally {
             setIsSaving(false);
         }
@@ -241,6 +356,10 @@ const Ambassadors = ({ handleActive, active, uid }) => {
                     [newCustomField]: ''  // Initialize the handle for the new social platform
                 }));
                 break;
+            case 'languages':
+                setCustomLanguages([...customLanguages, newCustomField]);
+                setSelectedLanguages([...selectedLanguages, newCustomField]);
+                break;
         }
         setNewCustomField('');
     };
@@ -274,11 +393,16 @@ const Ambassadors = ({ handleActive, active, uid }) => {
                 setCustomSocials(customSocials.filter(social => social !== value));
                 setSelectedSocials(selectedSocials.filter(social => social !== value));
                 break;
+            case 'languages':
+                setCustomLanguages(prev => prev.filter(lang => lang !== value));
+                setSelectedLanguages(prev => prev.filter(lang => lang !== value));
+                break;
         }
     };
 
     return (
         <div className='ambassadors_content_wrapper'>
+            <Toaster />
             <div className="ambassadors_content_header">
                 <div className="ambassadors_content_left">
                     <h2>Profile</h2>
@@ -315,6 +439,77 @@ const Ambassadors = ({ handleActive, active, uid }) => {
 
                     <div className="ambassadors_content_box">
                         <div className="ambassador_sections">
+                            {/* Languages Section */}
+                            <div className="section">
+                                <h3>Content Languages</h3>
+                                <div className="options_container">
+                                    <div className="default_options">
+                                        {defaultLanguages.map((language, index) => (
+                                            <div 
+                                                key={index} 
+                                                className={`option default ${selectedLanguages.includes(language) ? 'selected' : ''}`}
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    const newSelected = selectedLanguages.includes(language)
+                                                        ? selectedLanguages.filter(l => l !== language)
+                                                        : [...selectedLanguages, language];
+                                                    setSelectedLanguages(newSelected);
+                                                }}
+                                            >
+                                                <label>{language}</label>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <div className="custom_options">
+                                        {customLanguages.map((language, index) => (
+                                            <div 
+                                                key={`custom-${index}`} 
+                                                className={`option custom ${selectedLanguages.includes(language) ? 'selected' : ''}`}
+                                            >
+                                                <div
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        const newSelected = selectedLanguages.includes(language)
+                                                            ? selectedLanguages.filter(l => l !== language)
+                                                            : [...selectedLanguages, language];
+                                                        setSelectedLanguages(newSelected);
+                                                    }}
+                                                >
+                                                    <label>{language}</label>
+                                                </div>
+                                                <span 
+                                                    className="delete-btn"
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        handleDeleteCustom('languages', language);
+                                                    }}
+                                                >
+                                                    ×
+                                                </span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="add_custom_field">
+                                    <input
+                                        type="text"
+                                        placeholder="Add custom language"
+                                        value={activeSection === 'languages' ? newCustomField : ''}
+                                        onChange={(e) => {
+                                            setActiveSection('languages');
+                                            setNewCustomField(e.target.value);
+                                        }}
+                                        onKeyPress={(e) => {
+                                            if (e.key === 'Enter' && newCustomField.trim()) {
+                                                e.preventDefault();
+                                                handleAddCustomField('languages');
+                                            }
+                                        }}
+                                    />
+                                    <button onClick={() => handleAddCustomField('languages')}>Add</button>
+                                </div>
+                            </div>
+
                             {/* Niches Section */}
                             <div className="section">
                                 <h3>Niches</h3>

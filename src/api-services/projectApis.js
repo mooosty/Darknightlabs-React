@@ -60,7 +60,11 @@ export const getMemberApi = createAsyncThunk('userproject/get',
 
 export const deleteProjectAPI = createAsyncThunk('project/delete',
     async (data, thunkAPI) => {
-        const response = await axiosApi.delete(apiRoutes.PROJECT, { data: data })
+        const response = await axiosApi.delete(apiRoutes.USER_PROJECT, { 
+            data: {
+                projectId: data.projectIds[0]
+            } 
+        })
         if (response?.data?.success) return {
             response: response?.data,
             data: data

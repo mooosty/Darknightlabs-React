@@ -96,7 +96,6 @@
 
     @media (max-width: 767px) {
       border-radius: 0;
-      height: calc(100% - 30px);
     }
 
     .page_data {
@@ -500,7 +499,7 @@
                 }
 
                 .selected {
-                  background-color:var( --border-color);
+                  background-color: var(--border-color);
                 }
 
                 td {
@@ -671,8 +670,8 @@
                         background: linear-gradient(to bottom right,
                             var(--gradient-purple),
                             var(--gradient-pink));
-                        -webkit-mask: linear-gradient(var( --primary-white) 0 0) content-box,
-                          linear-gradient(var( --primary-white) 0 0);
+                        -webkit-mask: linear-gradient(var(--primary-white) 0 0) content-box,
+                          linear-gradient(var(--primary-white) 0 0);
                         -webkit-mask-composite: xor;
                         mask-composite: exclude;
                         pointer-events: none;
@@ -704,8 +703,8 @@
                           background: linear-gradient(to bottom right,
                               var(--gradient-dark-yellow),
                               var(--gradient-light-yellow));
-                          -webkit-mask: linear-gradient(var( --primary-white) 0 0) content-box,
-                            linear-gradient(var( --primary-white) 0 0);
+                          -webkit-mask: linear-gradient(var(--primary-white) 0 0) content-box,
+                            linear-gradient(var(--primary-white) 0 0);
                           -webkit-mask-composite: xor;
                           mask-composite: exclude;
                           pointer-events: none;
@@ -761,8 +760,8 @@
                         background: linear-gradient(to bottom right,
                             #9d8c53,
                             #baa86c94);
-                        -webkit-mask: linear-gradient(var( --primary-white) 0 0) content-box,
-                          linear-gradient(var( --primary-white) 0 0);
+                        -webkit-mask: linear-gradient(var(--primary-white) 0 0) content-box,
+                          linear-gradient(var(--primary-white) 0 0);
                         -webkit-mask-composite: xor;
                         mask-composite: exclude;
                         pointer-events: none;
@@ -995,8 +994,8 @@
                           border-radius: 6px;
                           padding: 1px;
                           background: linear-gradient(to bottom right, var(--gradient-purple), var(--gradient-pink));
-                          -webkit-mask: linear-gradient(var( --primary-white) 0 0) content-box,
-                            linear-gradient(var( --primary-white) 0 0);
+                          -webkit-mask: linear-gradient(var(--primary-white) 0 0) content-box,
+                            linear-gradient(var(--primary-white) 0 0);
                           -webkit-mask-composite: xor;
                           mask-composite: exclude;
                           pointer-events: none;
@@ -1025,8 +1024,8 @@
                           border-radius: 6px;
                           padding: 1px;
                           background: linear-gradient(to bottom right, var(--gradient-dark-yellow), var(--gradient-light-yellow));
-                          -webkit-mask: linear-gradient(var( --primary-white) 0 0) content-box,
-                            linear-gradient(var( --primary-white) 0 0);
+                          -webkit-mask: linear-gradient(var(--primary-white) 0 0) content-box,
+                            linear-gradient(var(--primary-white) 0 0);
                           -webkit-mask-composite: xor;
                           mask-composite: exclude;
                           pointer-events: none;

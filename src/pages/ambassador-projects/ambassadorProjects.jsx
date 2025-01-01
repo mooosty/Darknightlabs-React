@@ -4,7 +4,7 @@ import { SearchIcon } from '../../utils/constants/images'
 import { AmbassadorsCard, CustomSearch, EmptyData } from '../../components'
 import { useDispatch, useSelector } from 'react-redux';
 import { getProjectsAPI } from "../../api-services/projectApis";
-
+import { axiosApi } from '../../api-services/service';
 
 const AmbassadorProjects = () => {
     const dispatch = useDispatch()
@@ -12,6 +12,7 @@ const AmbassadorProjects = () => {
     const [filterProject, setFilterProject] = useState([]);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [searchStr, setSearchStr] = useState('')
+    const [projectStatuses, setProjectStatuses] = useState({});
 
     const [activeLayout, setActiveLayout] = useState('TRENDING');
     const [filter, setFilter] = useState({
@@ -19,6 +20,37 @@ const AmbassadorProjects = () => {
         types: '',
         searchBy: ''
     })
+
+    useEffect(() => {
+        const fetchProjectStatuses = async () => {
+            const statuses = {};
+            for (const project of projects) {
+                try {
+                    const response = await axiosApi.get(`/content-requirements/project/${project.project_id}`);
+                    if (response?.data?.length > 0) {
+                        const timeframe = response.data[0];
+                        const currentDate = new Date();
+                        const startDate = new Date(timeframe.start_date);
+                        const endDate = new Date(timeframe.end_date);
+                        
+                        if (currentDate >= startDate && currentDate <= endDate) {
+                            statuses[project.project_id] = 'LIVE';
+                        } else if (currentDate < startDate) {
+                            statuses[project.project_id] = 'Coming Soon';
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error fetching timeframe:', error);
+                    statuses[project.project_id] = 'Coming Soon';
+                }
+            }
+            setProjectStatuses(statuses);
+        };
+
+        if (projects.length > 0) {
+            fetchProjectStatuses();
+        }
+    }, [projects]);
 
     const handleActive = (key) => {
         setActiveLayout(key);
@@ -48,14 +80,22 @@ const AmbassadorProjects = () => {
                     project?.description?.toLowerCase().includes(searchKeyword)
             );
         }
-        setFilterProject([...data]);
-    }, [filter, projects]);
+        
+        // Sort projects - LIVE projects first
+        data.sort((a, b) => {
+            const aIsLive = projectStatuses[a.project_id] === 'LIVE';
+            const bIsLive = projectStatuses[b.project_id] === 'LIVE';
+            if (aIsLive && !bIsLive) return -1;
+            if (!aIsLive && bIsLive) return 1;
+            return 0;
+        });
 
+        setFilterProject([...data]);
+    }, [filter, projects, projectStatuses]);
 
     useEffect(() => {
         dispatch(getProjectsAPI());
     }, []);
-
 
     return (
         <>
@@ -114,9 +154,10 @@ const AmbassadorProjects = () => {
                                     :
                                     <>
                                         {filterProject?.map((data, index) => {
+                                            const isLive = projectStatuses[data.project_id] === 'LIVE';
                                             return (
                                                 <div
-                                                    className="card_wrap"
+                                                    className={`card_wrap ${!isLive ? 'blurred' : ''}`}
                                                     key={index}
                                                 >
                                                     <AmbassadorsCard
@@ -134,33 +175,9 @@ const AmbassadorProjects = () => {
                                 }
                             </div>
                         </div>
-
-                        {/* pagination  */}
-                        {/* <div className="pagination">
-                                <div className="pagination_content">
-                                    <div className="pagination_content_text">
-                                        <span className='pagination_head'>Row per page:</span>
-                                        <span className='pagination_dropdown'>
-                                            <select name="cars" id="cars" >
-                                                <option value="10">12</option>
-                                                <option value="11">11</option>
-                                                <option value="12">10</option>
-                                                <option value="13">9</option></select></span>
-                                        <span className='pagination_pages'>1-5 of 13</span>
-                                        <div className="pagination_content_arrows">
-                                            <button className={`table_pagination_content_button`}>
-                                                <LeftIcon />
-                                            </button>
-                                            <button className={`table_pagination_content_button`}>
-                                                <RightIcon />
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> */}
                     </div>
                 </div>
-            </div >
+            </div>
         </>
     )
 }

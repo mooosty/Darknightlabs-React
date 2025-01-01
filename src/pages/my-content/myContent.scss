@@ -761,44 +761,53 @@
             }
 
             .my_content_table {
-                .subject {
-                    position: relative;
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
+                table {
+                    tbody {
+                        tr {
+                            td {
+                                .subject {
+                                    position: relative;
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 8px;
 
-                    .content-type-ribbon {
-                        background: #f0f0f0;
-                        padding: 2px 8px;
-                        border-radius: 4px;
-                        font-size: 12px;
-                        color: #666;
-                        font-weight: 500;
-                        white-space: nowrap;
+                                    .content-type-ribbon {
+                                        background: #f0f0f0;
+                                        padding: 2px 8px;
+                                        border-radius: 4px;
+                                        font-size: 12px;
+                                        color: #666;
+                                        font-weight: 500;
+                                        white-space: nowrap;
+                                        text-transform: capitalize;
 
-                        &[data-type="tweet"] {
-                            background: #1DA1F2;
-                            color: white;
-                        }
+                                        &[data-type="tweet"] {
+                                            background: #1DA1F2;
+                                            color: white;
+                                        }
 
-                        &[data-type="thread"] {
-                            background: #00BA7C;
-                            color: white;
-                        }
+                                        &[data-type="thread"] {
+                                            background: #00BA7C;
+                                            color: white;
+                                        }
 
-                        &[data-type="video"] {
-                            background: #FF0000;
-                            color: white;
-                        }
+                                        &[data-type="video"] {
+                                            background: #FF0000;
+                                            color: white;
+                                        }
 
-                        &[data-type="youtube"] {
-                            background: #FF0000;
-                            color: white;
-                        }
+                                        &[data-type="youtube"] {
+                                            background: #FF0000;
+                                            color: white;
+                                        }
 
-                        &[data-type="twitch"] {
-                            background: #9146FF;
-                            color: white;
+                                        &[data-type="twitch"] {
+                                            background: #9146FF;
+                                            color: white;
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
