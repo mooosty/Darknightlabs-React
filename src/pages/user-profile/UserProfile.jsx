@@ -16,7 +16,7 @@ import {
   telegramIcon,
   calendarBlankIcon,
   defaultImg,
-  ThreeDots
+  ThreeDots,
 } from "../../utils/constants/images";
 import { Loader, CustomDropdown } from "../../components";
 import ProjectInvolvment from "./project-manager-edit/ProjectInvolvment";
@@ -33,7 +33,10 @@ const InputPassword = (props) => {
   return (
     <div className="type_password">
       <input type={isPasswordVisible ? "text" : "password"} {...props} />
-      <div onClick={toggleVisibility} style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)' }}>
+      <div
+        onClick={toggleVisibility}
+        style={{ position: "absolute", right: "12px", top: "50%", transform: "translateY(-50%)" }}
+      >
         {!isPasswordVisible ? <img src={closedEyeIcon} alt=" " /> : <img src={openEyeIcon} alt=" " />}
       </div>
     </div>
@@ -41,14 +44,14 @@ const InputPassword = (props) => {
 };
 
 const TelegramAuthButton = ({ onSuccess }) => {
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState("");
   const [showButton, setShowButton] = useState(false);
   const userData = useSelector((state) => state.auth);
   const { authDetails } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const telegramCred = authDetails?.user?.verifiedCredentials?.find(
-    cred => cred.format === 'oauth' && cred.oauth_provider === 'telegram'
+    (cred) => cred.format === "oauth" && cred.oauth_provider === "telegram"
   );
 
   // Function to check status that can be shared between components
@@ -56,18 +59,20 @@ const TelegramAuthButton = ({ onSuccess }) => {
     try {
       const response = await axiosApi.get(`/telegram/check/${userData.userId}`);
       const { db, sheet } = response.data;
-      
+
       // Show button if either (sheet=1 and db=0) OR (sheet=0 and db=0)
       setShowButton((sheet === 1 && db === 0) || (sheet === 0 && db === 0));
-      
+
       // Dispatch an event to notify TwitterAuthButton
       if (sheet === 1 && db === 1) {
-        window.dispatchEvent(new CustomEvent('telegramStatusUpdated', { 
-          detail: { sheet, db }
-        }));
+        window.dispatchEvent(
+          new CustomEvent("telegramStatusUpdated", {
+            detail: { sheet, db },
+          })
+        );
       }
     } catch (error) {
-      console.error('Failed to check Telegram status:', error);
+      console.error("Failed to check Telegram status:", error);
       setShowButton(false);
     }
   };
@@ -79,29 +84,29 @@ const TelegramAuthButton = ({ onSuccess }) => {
   useEffect(() => {
     if (!showButton) return;
 
-    const script = document.createElement('script');
-    script.src = 'https://telegram.org/js/telegram-widget.js?22';
-    script.setAttribute('data-telegram-login', 'TheWinWinSocietyBot');
-    script.setAttribute('data-size', 'medium');
-    script.setAttribute('data-onauth', 'onTelegramAuth(user)');
-    script.setAttribute('data-request-access', 'write');
+    const script = document.createElement("script");
+    script.src = "https://telegram.org/js/telegram-widget.js?22";
+    script.setAttribute("data-telegram-login", "TheWinWinSocietyBot");
+    script.setAttribute("data-size", "medium");
+    script.setAttribute("data-onauth", "onTelegramAuth(user)");
+    script.setAttribute("data-request-access", "write");
     script.async = true;
 
-    const container = document.getElementById('telegram-login-button');
+    const container = document.getElementById("telegram-login-button");
     if (container) {
-      container.innerHTML = '';
+      container.innerHTML = "";
       container.appendChild(script);
     }
 
     window.onTelegramAuth = async (telegramUser) => {
       try {
-        const response = await axiosApi.post('/telegram/auth', {
+        const response = await axiosApi.post("/telegram/auth", {
           ...telegramUser,
-          userId: userData.userId
+          userId: userData.userId,
         });
 
         if (response.data.success) {
-          toast.success('Successfully connected to Telegram!');
+          toast.success("Successfully connected to Telegram!");
           setShowButton(false);
           await checkTelegramStatus();
           if (onSuccess) {
@@ -109,8 +114,8 @@ const TelegramAuthButton = ({ onSuccess }) => {
           }
         }
       } catch (error) {
-        console.error('Failed to connect:', error);
-        toast.error(error.response?.data?.error || 'Failed to connect to Telegram');
+        console.error("Failed to connect:", error);
+        toast.error(error.response?.data?.error || "Failed to connect to Telegram");
       }
     };
 
@@ -123,89 +128,92 @@ const TelegramAuthButton = ({ onSuccess }) => {
 
   return (
     <div className="profile_upload_button">
-      <button 
+      <button
         className="change_photo dark-theme"
         style={{
-          background: '#000000',
-          border: 'none',
-          fontFamily: 'Inter, sans-serif',
-          fontSize: '14px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '8px',
-          padding: '10px 20px',
-          width: '100%',
-          position: 'relative'
+          background: "#000000",
+          border: "none",
+          fontFamily: "Inter, sans-serif",
+          fontSize: "14px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "8px",
+          padding: "10px 20px",
+          width: "100%",
+          position: "relative",
         }}
         disabled={telegramCred}
       >
-        <img src={telegramIcon} alt="Telegram" style={{ width: '16px', height: '16px' }} />
-        {telegramCred ? 'Connected to Telegram' : 'Connect Telegram'}
-        <div id="telegram-login-button" style={{ 
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          opacity: 0,
-          cursor: 'pointer'
-        }}></div>
+        <img src={telegramIcon} alt="Telegram" style={{ width: "16px", height: "16px" }} />
+        {telegramCred ? "Connected to Telegram" : "Connect Telegram"}
+        <div
+          id="telegram-login-button"
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            opacity: 0,
+            cursor: "pointer",
+          }}
+        ></div>
       </button>
     </div>
   );
 };
 
 const TwitterAuthButton = () => {
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
   const [showButton, setShowButton] = useState(false);
   const { authDetails } = useSelector((state) => state.auth);
   const userData = useSelector((state) => state.auth);
 
   const twitterCred = authDetails?.user?.verifiedCredentials?.find(
-    cred => cred.format === 'oauth' && cred.oauth_provider === 'twitter'
+    (cred) => cred.format === "oauth" && cred.oauth_provider === "twitter"
   );
 
   const checkTelegramStatus = async () => {
     try {
       const response = await axiosApi.get(`/telegram/check/${userData.userId}`);
       const { db, sheet } = response.data;
-      
+
       // Only show Twitter button if both sheet=1 and db=1
       setShowButton(sheet === 1 && db === 1);
     } catch (error) {
-      console.error('Failed to check Telegram status:', error);
+      console.error("Failed to check Telegram status:", error);
       setShowButton(false);
     }
   };
 
   useEffect(() => {
     checkTelegramStatus();
-    
+
     // Listen for updates from TelegramAuthButton
     const handleTelegramUpdate = (event) => {
       const { sheet, db } = event.detail;
       setShowButton(sheet === 1 && db === 1);
     };
-    
-    window.addEventListener('telegramStatusUpdated', handleTelegramUpdate);
-    
+
+    window.addEventListener("telegramStatusUpdated", handleTelegramUpdate);
+
     return () => {
-      window.removeEventListener('telegramStatusUpdated', handleTelegramUpdate);
+      window.removeEventListener("telegramStatusUpdated", handleTelegramUpdate);
     };
   }, [userData.userId]);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const twitterAuth = urlParams.get('twitter_auth');
-    const message = urlParams.get('message');
-    
-    if (twitterAuth === 'success') {
-      setStatus('Successfully connected!');
+    const twitterAuth = urlParams.get("twitter_auth");
+    const message = urlParams.get("message");
+
+    if (twitterAuth === "success") {
+      setStatus("Successfully connected!");
       window.history.replaceState({}, document.title, window.location.pathname);
-    } else if (twitterAuth === 'error') {
-      setStatus(`Error: ${message || 'Unknown error'}`);
+    } else if (twitterAuth === "error") {
+      setStatus(`Error: ${message || "Unknown error"}`);
       window.history.replaceState({}, document.title, window.location.pathname);
     }
   }, []);
@@ -213,26 +221,23 @@ const TwitterAuthButton = () => {
   const handleTwitterAuth = async () => {
     try {
       setLoading(true);
-      setStatus('');
-      
+      setStatus("");
+
       const returnUrl = window.location.href;
-      const response = await axiosApi.get(
-        `/twitter/login?returnUrl=${encodeURIComponent(returnUrl)}`
-      );
-      
+      const response = await axiosApi.get(`/twitter/login?returnUrl=${encodeURIComponent(returnUrl)}`);
+
       if (response.data.error) {
         throw new Error(response.data.error);
       }
-      
+
       if (response.data.authUrl) {
         window.location.href = response.data.authUrl;
       } else {
-        throw new Error('No auth URL received from server');
+        throw new Error("No auth URL received from server");
       }
-      
     } catch (error) {
-      console.error('Twitter auth error:', error);
-      setStatus(error.message || 'Failed to connect to Twitter');
+      console.error("Twitter auth error:", error);
+      setStatus(error.message || "Failed to connect to Twitter");
       setLoading(false);
     }
   };
@@ -241,35 +246,36 @@ const TwitterAuthButton = () => {
 
   return (
     <div className="profile_upload_button">
-      <button 
+      <button
         onClick={handleTwitterAuth}
         disabled={loading || twitterCred}
         className="change_photo dark-theme"
         style={{
-          background: '#000000',
-          border: 'none',
-          fontFamily: 'Inter, sans-serif',
-          fontSize: '14px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '8px'
+          background: "#000000",
+          border: "none",
+          fontFamily: "Inter, sans-serif",
+          fontSize: "14px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "8px",
         }}
       >
-        <img src={twitterIcon} alt="Twitter" style={{ width: '16px', height: '16px' }} />
-        {loading ? 'Connecting...' : (twitterCred ? 'Connected to Twitter' : 'Connect Twitter')}
+        <img src={twitterIcon} alt="Twitter" style={{ width: "16px", height: "16px" }} />
+        {loading ? "Connecting..." : twitterCred ? "Connected to Twitter" : "Connect Twitter"}
       </button>
-      
-      {status && (
-        <div className={`status-message ${status.includes('Error') ? 'error' : 'success'}`}>
-          {status}
-        </div>
-      )}
+
+      {status && <div className={`status-message ${status.includes("Error") ? "error" : "success"}`}>{status}</div>}
     </div>
   );
 };
 
 const UserProfile = () => {
+
+
+
+
+
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.auth);
   const { userDetails } = useSelector((state) => state.user);
@@ -282,6 +288,11 @@ const UserProfile = () => {
   const [addNewProject, setAddNewProject] = useState(false);
   const [telegramUsername, setTelegramUsername] = useState(null);
 
+  const { authDetails } = useSelector((state) => state.auth);
+
+  const defaultImage =  authDetails?.user?.verifiedCredentials[2]?.oauthAccountPhotos[0].replace("_normal", "")
+
+
   // Add function to fetch Telegram username
   const fetchTelegramUsername = async () => {
     try {
@@ -291,11 +302,11 @@ const UserProfile = () => {
         setTelegramUsername(username);
         // Also update the formik values if in edit mode
         if (isEditMode) {
-          setFieldValue('telegram_username', username);
+          setFieldValue("telegram_username", username);
         }
       }
     } catch (error) {
-      console.error('Failed to fetch Telegram username:', error);
+      console.error("Failed to fetch Telegram username:", error);
     }
   };
 
@@ -401,8 +412,8 @@ const UserProfile = () => {
         investment_thesis: JSON.stringify(values.investment_thesis || []),
         ticket_size: values.ticket_size || "",
         investment_stage: values.investment_stage || "",
-        investment_description: values.investment_description || ""
-      }
+        investment_description: values.investment_description || "",
+      },
     };
 
     const profileDataPromise = dispatch(editUserProfileAPI(payload));
@@ -456,14 +467,20 @@ const UserProfile = () => {
   const handleRoleChange = (role) => {
     let tmpRoles = values?.roles;
 
-    tmpRoles = tmpRoles.map(r => {
+    tmpRoles = tmpRoles.map((r) => {
       switch (r) {
-        case 'A Founder': return 'Founder';
-        case 'A C-level': return 'C-level';
-        case 'A Web3 employee': return 'Web3 employee';
-        case 'A KOL / Ambassador / Content Creator': return 'KOL / Ambassador / Content Creator';
-        case 'An Angel Investor': return 'Angel Investor';
-        default: return r;
+        case "A Founder":
+          return "Founder";
+        case "A C-level":
+          return "C-level";
+        case "A Web3 employee":
+          return "Web3 employee";
+        case "A KOL / Ambassador / Content Creator":
+          return "KOL / Ambassador / Content Creator";
+        case "An Angel Investor":
+          return "Angel Investor";
+        default:
+          return r;
       }
     });
 
@@ -484,7 +501,7 @@ const UserProfile = () => {
     }
 
     setFieldValue("roles", tmpRoles);
-    
+
     // Clear the "other" text field if "Other" role is removed
     if (role === "Other" && !tmpRoles.includes("Other")) {
       setFieldValue("other", "");
@@ -520,7 +537,7 @@ const UserProfile = () => {
       investment_thesis: userDetails?.investment_thesis || [],
       ticket_size: userDetails?.ticket_size || "",
       investment_stage: userDetails?.investment_stage || "",
-      investment_description: userDetails?.investment_description || ""
+      investment_description: userDetails?.investment_description || "",
     });
   };
 
@@ -530,21 +547,21 @@ const UserProfile = () => {
 
   const headerToggleButton = [
     {
-      label: 'PERSONAL INFORMATION',
-      key: 'INFORMATION',
-      onClick: () => handleActive("INFORMATION")
+      label: "PERSONAL INFORMATION",
+      key: "INFORMATION",
+      onClick: () => handleActive("INFORMATION"),
     },
     {
-      label: ' PROJECT INVOLVEMENT',
-      key: 'INVOLVEMENT',
-      onClick: () => handleActive("INVOLVEMENT")
+      label: " PROJECT INVOLVEMENT",
+      key: "INVOLVEMENT",
+      onClick: () => handleActive("INVOLVEMENT"),
     },
     {
-      label: 'AMBASSADORS',
-      key: 'AMBASSADORS',
-      onClick: () => handleActive("AMBASSADORS")
+      label: "AMBASSADORS",
+      key: "AMBASSADORS",
+      onClick: () => handleActive("AMBASSADORS"),
     },
-  ]
+  ];
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -558,7 +575,7 @@ const UserProfile = () => {
 
         setUserProjects(response.data.data ?? []);
       } catch (error) {
-        console.error('error', error)
+        console.error("error", error);
       } finally {
         setIsLoading(false);
       }
@@ -568,22 +585,29 @@ const UserProfile = () => {
 
   useEffect(() => {
     if (userDetails) {
-      const roles = userDetails.roles?.split(',').map(r => {
-        switch (r.trim()) {
-          case 'A Founder': return 'Founder';
-          case 'A C-level': return 'C-level';
-          case 'A Web3 employee': return 'Web3 employee';
-          case 'A KOL / Ambassador / Content Creator': return 'KOL / Ambassador / Content Creator';
-          case 'An Angel Investor': return 'Angel Investor';
-          default: return r.trim();
-        }
-      }) || [];
+      const roles =
+        userDetails.roles?.split(",").map((r) => {
+          switch (r.trim()) {
+            case "A Founder":
+              return "Founder";
+            case "A C-level":
+              return "C-level";
+            case "A Web3 employee":
+              return "Web3 employee";
+            case "A KOL / Ambassador / Content Creator":
+              return "KOL / Ambassador / Content Creator";
+            case "An Angel Investor":
+              return "Angel Investor";
+            default:
+              return r.trim();
+          }
+        }) || [];
 
       setValues({
         ...initialValues,
         ...userDetails,
         roles: roles,
-        telegram_username: telegramUsername || userDetails.telegram_username // Use Telegram username if available
+        telegram_username: telegramUsername || userDetails.telegram_username, // Use Telegram username if available
       });
     }
   }, [userDetails, telegramUsername]);
@@ -591,14 +615,14 @@ const UserProfile = () => {
   const handleInvestmentThesisChange = (value) => {
     const currentThesis = values?.investment_thesis || [];
     let newThesis;
-    
+
     if (currentThesis.includes(value)) {
-      newThesis = currentThesis.filter(item => item !== value);
+      newThesis = currentThesis.filter((item) => item !== value);
     } else {
       newThesis = [...currentThesis, value];
     }
-    
-    setFieldValue('investment_thesis', newThesis);
+
+    setFieldValue("investment_thesis", newThesis);
   };
 
   // Modify TelegramAuthButton to accept onSuccess prop
@@ -619,24 +643,30 @@ const UserProfile = () => {
         return values.profile_picture;
       }
       if (userData?.profile_picture) {
-        return userData.profile_picture.replace('_normal', '');
+        return userData.profile_picture.replace("_normal", "");
       }
-      return defaultImg;
+
+
+       const defaultImage = authDetails?.user?.verifiedCredentials[2]?.oauthAccountPhotos[0].replace("_normal", "")
+ 
+      return defaultImage;
     } else {
       if (userData?.profile_picture) {
-        return userData.profile_picture.replace('_normal', '');
+        return userData.profile_picture.replace("_normal", "");
       }
       if (userDetails?.profile_picture) {
         return userDetails.profile_picture;
       }
-      return defaultImg;
+       const defaultImage = authDetails?.user?.verifiedCredentials[2]?.oauthAccountPhotos[0].replace("_normal", "")
+
+      return defaultImage;
     }
   };
 
   return (
     <div className="profile_content_wrapper">
-      {active === "INFORMATION" && (
-        !isEditMode ? (
+      {active === "INFORMATION" &&
+        (!isEditMode ? (
           <>
             <div className="profile_content_header">
               <div className="profile_content_left">
@@ -659,16 +689,11 @@ const UserProfile = () => {
                         >
                           {data.label}
                         </div>
-                      )
+                      );
                     })}
                   </div>
                   <div className="header_toggle_dropDown">
-                    <CustomDropdown
-                      toggleButton={
-                        <ThreeDots />
-                      }
-                      items={headerToggleButton}
-                    />
+                    <CustomDropdown toggleButton={<ThreeDots />} items={headerToggleButton} />
                   </div>
                 </div>
                 <div className="profile_page_header">
@@ -690,7 +715,7 @@ const UserProfile = () => {
                         alt=""
                         onError={(e) => {
                           e.target.onerror = null;
-                          e.target.src = defaultImg;
+                          e.target.src = defaultImage;
                         }}
                       />
                     </div>
@@ -726,7 +751,9 @@ const UserProfile = () => {
                         </div>
                         <div className="profile_info">
                           <div className="profile_head">Telegram</div>
-                          <div className="profile_data">{telegramUsername || userDetails?.telegram_username || "-"}</div>
+                          <div className="profile_data">
+                            {telegramUsername || userDetails?.telegram_username || "-"}
+                          </div>
                         </div>
                         <div className="profile_info">
                           <div className="profile_head">Twitter</div>
@@ -740,7 +767,9 @@ const UserProfile = () => {
                               >
                                 {userDetails.username}
                               </a>
-                            ) : "-"}
+                            ) : (
+                              "-"
+                            )}
                           </div>
                         </div>
                         <div className="profile_info">
@@ -750,16 +779,25 @@ const UserProfile = () => {
                         <div className="profile_info">
                           <div className="profile_head">Role</div>
                           <div className="profile_data">
-                            {userDetails?.roles?.split(',').map(role => {
-                              switch (role.trim()) {
-                                case 'A Founder': return 'Founder';
-                                case 'A C-level': return 'C-level';
-                                case 'A Web3 employee': return 'Web3 employee';
-                                case 'A KOL / Ambassador / Content Creator': return 'KOL / Ambassador / Content Creator';
-                                case 'An Angel Investor': return 'Angel Investor';
-                                default: return role.trim();
-                              }
-                            }).join(', ') || "-"}
+                            {userDetails?.roles
+                              ?.split(",")
+                              .map((role) => {
+                                switch (role.trim()) {
+                                  case "A Founder":
+                                    return "Founder";
+                                  case "A C-level":
+                                    return "C-level";
+                                  case "A Web3 employee":
+                                    return "Web3 employee";
+                                  case "A KOL / Ambassador / Content Creator":
+                                    return "KOL / Ambassador / Content Creator";
+                                  case "An Angel Investor":
+                                    return "Angel Investor";
+                                  default:
+                                    return role.trim();
+                                }
+                              })
+                              .join(", ") || "-"}
                           </div>
                         </div>
                         <div className="profile_info">
@@ -792,7 +830,9 @@ const UserProfile = () => {
                       <div className="investment_details">
                         {/* Left Column */}
                         <div className="profile_info">
-                          <div className="profile_head">Average ticket size {values?.roles?.includes("Angel Investor") ? "*" : ""}</div>
+                          <div className="profile_head">
+                            Average ticket size {values?.roles?.includes("Angel Investor") ? "*" : ""}
+                          </div>
                           <div className="profile_data">
                             {values?.roles?.includes("Angel Investor") ? (
                               <>
@@ -889,7 +929,9 @@ const UserProfile = () => {
 
                         {/* Right Column */}
                         <div className="profile_info">
-                          <div className="profile_head">Investment Thesis {values?.roles?.includes("Angel Investor") ? "*" : ""}</div>
+                          <div className="profile_head">
+                            Investment Thesis {values?.roles?.includes("Angel Investor") ? "*" : ""}
+                          </div>
                           <div className="profile_data">
                             {values?.roles?.includes("Angel Investor") ? (
                               <>
@@ -1012,28 +1054,57 @@ const UserProfile = () => {
 
                         {/* Bottom Section - Full Width */}
                         <div className="profile_info">
-                          <div className="profile_head">What's your investment thesis? {values?.roles?.includes("Angel Investor") ? "*" : ""}</div>
+                          <div className="profile_head">
+                            What's your investment thesis? {values?.roles?.includes("Angel Investor") ? "*" : ""}
+                          </div>
                           <div className="profile_data">
                             {values?.roles?.includes("Angel Investor") ? (
                               <>
                                 <div className="radio_group">
-                                  <div className="radio_box" onClick={() => handleQuestionChange("investment_stage", "Early")}>
-                                    <input type="radio" name="investment_stage" value="Early" checked={values?.investment_stage === "Early"} />
+                                  <div
+                                    className="radio_box"
+                                    onClick={() => handleQuestionChange("investment_stage", "Early")}
+                                  >
+                                    <input
+                                      type="radio"
+                                      name="investment_stage"
+                                      value="Early"
+                                      checked={values?.investment_stage === "Early"}
+                                    />
                                     <label></label>
                                     <span>Early (pre-seed, seed)</span>
                                   </div>
-                                  <div className="radio_box" onClick={() => handleQuestionChange("investment_stage", "Decent traction")}>
-                                    <input type="radio" name="investment_stage" value="Decent traction" checked={values?.investment_stage === "Decent traction"} />
+                                  <div
+                                    className="radio_box"
+                                    onClick={() => handleQuestionChange("investment_stage", "Decent traction")}
+                                  >
+                                    <input
+                                      type="radio"
+                                      name="investment_stage"
+                                      value="Decent traction"
+                                      checked={values?.investment_stage === "Decent traction"}
+                                    />
                                     <label></label>
                                     <span>Decent traction (strategic, private)</span>
                                   </div>
-                                  <div className="radio_box" onClick={() => handleQuestionChange("investment_stage", "Hyped")}>
-                                    <input type="radio" name="investment_stage" value="Hyped" checked={values?.investment_stage === "Hyped"} />
+                                  <div
+                                    className="radio_box"
+                                    onClick={() => handleQuestionChange("investment_stage", "Hyped")}
+                                  >
+                                    <input
+                                      type="radio"
+                                      name="investment_stage"
+                                      value="Hyped"
+                                      checked={values?.investment_stage === "Hyped"}
+                                    />
                                     <label></label>
                                     <span>Hyped (public)</span>
                                   </div>
                                 </div>
-                                <div className="question_desc">Describe your investment thesis in your own words so we can bring you exactly what you need *</div>
+                                <div className="question_desc">
+                                  Describe your investment thesis in your own words so we can bring you exactly what you
+                                  need *
+                                </div>
                                 <textarea
                                   className="textArea"
                                   name="investment_description"
@@ -1050,15 +1121,14 @@ const UserProfile = () => {
                                     ) : (
                                       "Save Changes"
                                     )}
-                            </button>
-                          </div>
+                                  </button>
+                                </div>
                               </>
                             ) : (
                               <span className="disabled-message">Available for Angel Investors only</span>
                             )}
+                          </div>
                         </div>
-                        </div>
-
                       </div>
                     </div>
 
@@ -1068,7 +1138,7 @@ const UserProfile = () => {
                   </div>
                 </div>
               </div>
-            </div >
+            </div>
           </>
         ) : (
           // Edit mode
@@ -1084,10 +1154,10 @@ const UserProfile = () => {
                   <div className="profile_upload_profile">
                     <img
                       src={
-                        (values.profile_picture === "" || !values.profile_picture) ? defaultImg : values.profile_picture
+                        values.profile_picture === "" || !values.profile_picture ? defaultImage : values.profile_picture
                       }
                       alt=""
-                      onError={(e) => (e.target.src = defaultImg)}
+                      onError={(e) => (e.target.src = defaultImage)}
                     />
                   </div>
                   <div className="profile_upload_button">
@@ -1222,16 +1292,25 @@ const UserProfile = () => {
                         <div className="profile_info">
                           <div className="profile_head">Role</div>
                           <div className="profile_data">
-                            {userDetails?.roles?.split(',').map(role => {
-                              switch(role.trim()) {
-                                case 'A Founder': return 'Founder';
-                                case 'A C-level': return 'C-level';
-                                case 'A Web3 employee': return 'Web3 employee';
-                                case 'A KOL / Ambassador / Content Creator': return 'KOL / Ambassador / Content Creator';
-                                case 'An Angel Investor': return 'Angel Investor';
-                                default: return role.trim();
-                              }
-                            }).join(', ') || "-"}
+                            {userDetails?.roles
+                              ?.split(",")
+                              .map((role) => {
+                                switch (role.trim()) {
+                                  case "A Founder":
+                                    return "Founder";
+                                  case "A C-level":
+                                    return "C-level";
+                                  case "A Web3 employee":
+                                    return "Web3 employee";
+                                  case "A KOL / Ambassador / Content Creator":
+                                    return "KOL / Ambassador / Content Creator";
+                                  case "An Angel Investor":
+                                    return "Angel Investor";
+                                  default:
+                                    return role.trim();
+                                }
+                              })
+                              .join(", ") || "-"}
                           </div>
                         </div>
                       </div>
@@ -1241,10 +1320,16 @@ const UserProfile = () => {
                           <label>Role</label>
                           <div className="options_container">
                             <div className="default_options">
-                              {["Founder", "C-level", "Web3 employee", "KOL / Ambassador / Content Creator", "Angel Investor"].map((role, index) => (
-                                <div 
-                                  key={index} 
-                                  className={`option default ${values?.roles?.includes(role) ? 'selected' : ''}`}
+                              {[
+                                "Founder",
+                                "C-level",
+                                "Web3 employee",
+                                "KOL / Ambassador / Content Creator",
+                                "Angel Investor",
+                              ].map((role, index) => (
+                                <div
+                                  key={index}
+                                  className={`option default ${values?.roles?.includes(role) ? "selected" : ""}`}
                                   onClick={() => handleRoleChange(role)}
                                 >
                                   <label>{role}</label>
@@ -1252,25 +1337,36 @@ const UserProfile = () => {
                               ))}
                             </div>
                             <div className="custom_options">
-                              {values?.roles?.filter(role => !["Founder", "C-level", "Web3 employee", "KOL / Ambassador / Content Creator", "Angel Investor"].includes(role) && role !== "Other").map((role, index) => (
-                                <div 
-                                  key={`custom-${index}`} 
-                                  className={`option custom selected`}
-                                >
-                                  <div onClick={() => handleRoleChange(role)}>
-                                    <label>{role}</label>
+                              {values?.roles
+                                ?.filter(
+                                  (role) =>
+                                    ![
+                                      "Founder",
+                                      "C-level",
+                                      "Web3 employee",
+                                      "KOL / Ambassador / Content Creator",
+                                      "Angel Investor",
+                                    ].includes(role) && role !== "Other"
+                                )
+                                .map((role, index) => (
+                                  <div key={`custom-${index}`} className={`option custom selected`}>
+                                    <div onClick={() => handleRoleChange(role)}>
+                                      <label>{role}</label>
+                                    </div>
+                                    <span
+                                      className="delete-btn"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        setFieldValue(
+                                          "roles",
+                                          values.roles.filter((r) => r !== role)
+                                        );
+                                      }}
+                                    >
+                                      ×
+                                    </span>
                                   </div>
-                                  <span 
-                                    className="delete-btn"
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      setFieldValue("roles", values.roles.filter(r => r !== role));
-                                    }}
-                                  >
-                                    ×
-                                  </span>
-                                </div>
-                              ))}
+                                ))}
                             </div>
                           </div>
                           <div className="add_custom_field">
@@ -1282,7 +1378,7 @@ const UserProfile = () => {
                                 setFieldValue("other", e.target.value);
                               }}
                               onKeyPress={(e) => {
-                                if (e.key === 'Enter' && values.other?.trim()) {
+                                if (e.key === "Enter" && values.other?.trim()) {
                                   e.preventDefault();
                                   const newRole = values.other.trim();
                                   if (!values.roles.includes(newRole)) {
@@ -1292,29 +1388,52 @@ const UserProfile = () => {
                                 }
                               }}
                             />
-                            <button onClick={() => {
-                              if (values.other?.trim()) {
-                                const newRole = values.other.trim();
-                                if (!values.roles.includes(newRole)) {
-                                  setFieldValue("roles", [...values.roles, newRole]);
+                            <button
+                              onClick={() => {
+                                if (values.other?.trim()) {
+                                  const newRole = values.other.trim();
+                                  if (!values.roles.includes(newRole)) {
+                                    setFieldValue("roles", [...values.roles, newRole]);
+                                  }
+                                  setFieldValue("other", "");
                                 }
-                                setFieldValue("other", "");
-                              }
-                            }}>Add</button>
+                              }}
+                            >
+                              Add
+                            </button>
                           </div>
                         </div>
                       </div>
 
                       <div className="form_group_row">
                         <div className="profile_info full_width">
-                          <label>Are you a VC / Angel investor and do you invest in early stage rounds (seed, strategic, private) ? </label>
-                          <div className="radio_box" onClick={() => handleQuestionChange("question1", "Yes, frequently")}>
-                            <input type="radio" name="question1" value="Yes, frequently" checked={values?.question1 === "Yes, frequently"} />
+                          <label>
+                            Are you a VC / Angel investor and do you invest in early stage rounds (seed, strategic,
+                            private) ?{" "}
+                          </label>
+                          <div
+                            className="radio_box"
+                            onClick={() => handleQuestionChange("question1", "Yes, frequently")}
+                          >
+                            <input
+                              type="radio"
+                              name="question1"
+                              value="Yes, frequently"
+                              checked={values?.question1 === "Yes, frequently"}
+                            />
                             <label></label>
                             <span>Yes, frequently</span>
                           </div>
-                          <div className="radio_box" onClick={() => handleQuestionChange("question1", "Yes, sometimes")}>
-                            <input type="radio" name="question1" value="Yes, sometimes" checked={values?.question1 === "Yes, sometimes"} />
+                          <div
+                            className="radio_box"
+                            onClick={() => handleQuestionChange("question1", "Yes, sometimes")}
+                          >
+                            <input
+                              type="radio"
+                              name="question1"
+                              value="Yes, sometimes"
+                              checked={values?.question1 === "Yes, sometimes"}
+                            />
                             <label></label>
                             <span>Yes, sometimes</span>
                           </div>
@@ -1328,23 +1447,43 @@ const UserProfile = () => {
 
                       <div className="form_group_row">
                         <div className="profile_info full_width">
-                          <label>Do you ever go to IRL Web3 events (main events, side events, private investors events...) ? </label>
+                          <label>
+                            Do you ever go to IRL Web3 events (main events, side events, private investors events...) ?{" "}
+                          </label>
                           <div className="radio_box" onClick={() => handleQuestionChange("question2", "Often")}>
-                            <input type="radio" name="question2" value="Often" checked={values?.question2 === "Often"} />
+                            <input
+                              type="radio"
+                              name="question2"
+                              value="Often"
+                              checked={values?.question2 === "Often"}
+                            />
                             <label></label>
                             <span>Often</span>
                           </div>
                           <div className="radio_box" onClick={() => handleQuestionChange("question2", "Sometimes")}>
-                            <input type="radio" name="question2" value="Sometimes" checked={values?.question2 === "Sometimes"} />
+                            <input
+                              type="radio"
+                              name="question2"
+                              value="Sometimes"
+                              checked={values?.question2 === "Sometimes"}
+                            />
                             <label></label>
                             <span>Sometimes</span>
                           </div>
                           <div className="radio_box" onClick={() => handleQuestionChange("question2", "Never")}>
-                            <input type="radio" name="question2" value="Never" checked={values?.question2 === "Never"} />
+                            <input
+                              type="radio"
+                              name="question2"
+                              value="Never"
+                              checked={values?.question2 === "Never"}
+                            />
                             <label></label>
                             <span>Never</span>
                           </div>
-                          <span className="question_desc">(This will allow us to invite you to exclusive events we&apos;re co-hosting with our partners at Forbes, Karate Combat and others.)</span>
+                          <span className="question_desc">
+                            (This will allow us to invite you to exclusive events we&apos;re co-hosting with our
+                            partners at Forbes, Karate Combat and others.)
+                          </span>
                         </div>
                       </div>
 
@@ -1367,21 +1506,29 @@ const UserProfile = () => {
                         <div className="profile_info">
                           <div className="profile_head">Role</div>
                           <div className="profile_data">
-                            {userDetails?.roles?.split(',').map(role => {
-                              switch(role.trim()) {
-                                case 'A Founder': return 'Founder';
-                                case 'A C-level': return 'C-level';
-                                case 'A Web3 employee': return 'Web3 employee';
-                                case 'A KOL / Ambassador / Content Creator': return 'KOL / Ambassador / Content Creator';
-                                case 'An Angel Investor': return 'Angel Investor';
-                                default: return role.trim();
-                              }
-                            }).join(', ') || "-"}
+                            {userDetails?.roles
+                              ?.split(",")
+                              .map((role) => {
+                                switch (role.trim()) {
+                                  case "A Founder":
+                                    return "Founder";
+                                  case "A C-level":
+                                    return "C-level";
+                                  case "A Web3 employee":
+                                    return "Web3 employee";
+                                  case "A KOL / Ambassador / Content Creator":
+                                    return "KOL / Ambassador / Content Creator";
+                                  case "An Angel Investor":
+                                    return "Angel Investor";
+                                  default:
+                                    return role.trim();
+                                }
+                              })
+                              .join(", ") || "-"}
                           </div>
                         </div>
                       </div>
                     </div>
-
 
                     <div className="profile_bio">
                       <label> Bio</label>
@@ -1418,13 +1565,12 @@ const UserProfile = () => {
                       <div className="social_media_wrp">
                         <div className="social_media">
                           <h2 className="social_media_title">Connected accounts</h2>
-                          {
-                            !userData?.authDetails?.isAuthenticated &&
+                          {!userData?.authDetails?.isAuthenticated && (
                             <button className="btn_gray">
                               <img src={twitterIcon} alt="" />
                               Connect Twitter
                             </button>
-                          }
+                          )}
                           <button className="btn_gray">
                             <img src={discordIcon} alt="" />
                             Connect Discord
@@ -1501,25 +1647,20 @@ const UserProfile = () => {
               </div>
             </div>
           </div>
-        )
-      )}
-      {active === "INVOLVEMENT" && (addNewProject ? (
-        <ProjectInvolvment setAddNewProject={setAddNewProject} />
-      ) : (
-        <ProjectsUser
-          userProjects={userProjects}
-          setAddNewProject={setAddNewProject}
-          handleActive={handleActive}
-          active={active}
-        />
-      ))}
+        ))}
+      {active === "INVOLVEMENT" &&
+        (addNewProject ? (
+          <ProjectInvolvment setAddNewProject={setAddNewProject} />
+        ) : (
+          <ProjectsUser
+            userProjects={userProjects}
+            setAddNewProject={setAddNewProject}
+            handleActive={handleActive}
+            active={active}
+          />
+        ))}
       {active === "AMBASSADORS" && (
-        <Ambassadors
-          handleActive={handleActive}
-          active={active}
-          uid={userData?.userId}
-          userData={userData}
-        />
+        <Ambassadors handleActive={handleActive} active={active} uid={userData?.userId} userData={userData} />
       )}
     </div>
   );

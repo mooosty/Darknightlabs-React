@@ -101,13 +101,26 @@ const Sidebar = () => {
       }
     }
     // Finally fallback to default
-    return defaultImg;
+    const defaultImage = userData?.authDetails?.user?.verifiedCredentials[2]?.oauthAccountPhotos[0].replace(
+      "_normal",
+      ""
+    );
+
+    return defaultImage;
   };
 
   const handleLogout = () => {
+    localStorage.removeItem("dynamic_auth_expires_at");
+    localStorage.removeItem("dynamic_authentication_token");
+    localStorage.removeItem("dynamic_context_session_settings");
+    localStorage.removeItem("dynamic_min_authentication_token");
+    localStorage.removeItem("dynamic_social_storage");
+    localStorage.removeItem("dynamic_store");
+    localStorage.removeItem("persist:darknight");
+
     dispatch(handleLogout());
-    navigate('/');
-  }
+    navigate("/");
+  };
 
   return (
     <>
@@ -373,10 +386,7 @@ const Sidebar = () => {
                 </li>
               ) : (
                 <li>
-                  <Link
-                    to="/"
-                    onClick={handleLogout}
-                  >
+                  <Link to="/" onClick={handleLogout}>
                     <LogoutNavTabIcon />
                     <span className="menu_text">Logout</span>
                   </Link>
