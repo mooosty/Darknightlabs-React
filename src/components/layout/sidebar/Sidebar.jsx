@@ -8,7 +8,18 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { defaultImg } from "../../../utils/constants/images";
 import { getUsersDetailsAPI } from "../../../api-services/userApis";
-import { ProfileNavTabIcon, ChatNavTabIcon, LogoutNavTabIcon, ProjectNavTabIcon, MyContentNavTabIcon, SynergiesNavTabIcon, InvestmentNavTabIcon, PendingSynergiesNavTabIcon, SynergiesManagerNavTabIcon, KarmaIcon } from "../../../utils/SVGs/SVGs";
+import {
+  ProfileNavTabIcon,
+  ChatNavTabIcon,
+  LogoutNavTabIcon,
+  ProjectNavTabIcon,
+  MyContentNavTabIcon,
+  SynergiesNavTabIcon,
+  InvestmentNavTabIcon,
+  PendingSynergiesNavTabIcon,
+  SynergiesManagerNavTabIcon,
+  KarmaIcon,
+} from "../../../utils/SVGs/SVGs";
 
 const userRole = "USER";
 const Sidebar = () => {
@@ -33,7 +44,7 @@ const Sidebar = () => {
       try {
         const response = await axios.get(`https://winwinsocietyweb3.com/api/userprojects/all/${userData.userId}`, {
           headers: {
-            Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjZmNjg4Y2I0LTk3MmItNDZhNy1iZWMwLTJjOTEyNTVlYjUyMyJ9.eyJraWQiOiI2ZjY4OGNiNC05NzJiLTQ2YTctYmVjMC0yYzkxMjU1ZWI1MjMiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjUxNzMiLCJpc3MiOiJhcHAuZHluYW1pY2F1dGguY29tL2QxZmZjZWVhLTg5Y2UtNGM4Zi1iYTMyLTBiODAyZmFiODgyMiIsInN1YiI6IjM4NDM3NWQ1LTJiNjUtNDQzMC1iZTQ4LWYwYzE4N2Q0YTg5ZiIsInNpZCI6Ijk2YWJhMGJiLTU3YWYtNGU4YS1hOTkyLTc0ZTYzNmNhZGU4YSIsImVtYWlsIjoic2Ftc2F3bG8xMDBAZ21haWwuY29tIiwiZW52aXJvbm1lbnRfaWQiOiJkMWZmY2VlYS04OWNlLTRjOGYtYmEzMi0wYjgwMmZhYjg4MjIiLCJsaXN0cyI6W10sIm1pc3NpbmdfZmllbGRzIjpbXSwidmVyaWZpZWRfY3JlZGVudGlhbHMiOlt7ImFkZHJlc3MiOiIweEM5QTZjZjZjZTc4RUI0OTkxQjFkMUFBNTgwOTJjNjBiNUVkNkZEQTgiLCJjaGFpbiI6ImVpcDE1NSIsImlkIjoiYzY0NjFlZjAtNmMxZC00ZjdhLWI4NDUtODEzMTg5NDIzYTU5IiwibmFtZV9zZXJ2aWNlIjp7fSwicHVibGljX2lkZW50aWZpZXIiOiIweEM5QTZjZjZjZTc4RUI0OTkxQjFkMUFBNTgwOTJjNjBiNUVkNkZEQTgiLCJ3YWxsZXRfbmFtZSI6InR1cm5rZXloZCIsIndhbGxldF9wcm92aWRlciI6ImVtYmVkZGVkV2FsbGV0Iiwid2FsbGV0X3Byb3BlcnRpZXMiOnsidHVybmtleVN1Yk9yZ2FuaXphdGlvbklkIjoiMmI1M2RmODktNWM0My00MzNmLTg2Y2MtZGJmZDg5ZTEyNDNiIiwidHVybmtleUhEV2FsbGV0SWQiOiJkMmVlOWMwZC0wNTkwLTVmMmEtYjMwMi1kODFiYjZjMTA4NzMiLCJpc0F1dGhlbnRpY2F0b3JBdHRhY2hlZCI6ZmFsc2UsInR1cm5rZXlVc2VySWQiOiI0Zjk2MjE3My0wMzAwLTRiODAtODBhOC05MzRiMmM5NTRiN2MiLCJpc1Nlc3Npb25LZXlDb21wYXRpYmxlIjpmYWxzZSwidmVyc2lvbiI6IlYxIn0sImZvcm1hdCI6ImJsb2NrY2hhaW4iLCJsYXN0U2VsZWN0ZWRBdCI6IjIwMjQtMTItMDZUMTU6MTI6MjguOTUzWiIsInNpZ25JbkVuYWJsZWQiOmZhbHNlfSx7ImVtYWlsIjoic2Ftc2F3bG8xMDBAZ21haWwuY29tIiwiaWQiOiJmNDU3NzJkNy0yM2FmLTQ3ZmQtYmQ1YS1lZjJjMGRmNzcxNmQiLCJwdWJsaWNfaWRlbnRpZmllciI6InNhbXNhd2xvMTAwQGdtYWlsLmNvbSIsImZvcm1hdCI6ImVtYWlsIiwic2lnbkluRW5hYmxlZCI6dHJ1ZX0seyJpZCI6IjZlZGM1NmM5LTQwN2QtNDlmYi04NGQ4LTZmMmI4ZTI5NDQxZSIsInB1YmxpY19pZGVudGlmaWVyIjoiTGFoY2VuIiwiZm9ybWF0Ijoib2F1dGgiLCJvYXV0aF9wcm92aWRlciI6InR3aXR0ZXIiLCJvYXV0aF91c2VybmFtZSI6ImxhaGNlbnJhaGxhb3VpIiwib2F1dGhfZGlzcGxheV9uYW1lIjoiTGFoY2VuIiwib2F1dGhfYWNjb3VudF9pZCI6IjEyMTQzMjk3NjIzNzE1NTk0MjQiLCJvYXV0aF9hY2NvdW50X3Bob3RvcyI6WyJodHRwczovL3Bicy50d2ltZy5jb20vcHJvZmlsZV9pbWFnZXMvMTQ2MDMwMjE5OTQ5MDI5Mzc2Ni8yeDhTYUE4Tl9ub3JtYWwuanBnIl0sIm9hdXRoX2VtYWlscyI6W10sIm9hdXRoX21ldGFkYXRhIjp7ImlkIjoiMTIxNDMyOTc2MjM3MTU1OTQyNCIsIm5hbWUiOiJMYWhjZW4iLCJwdWJsaWNfbWV0cmljcyI6eyJmb2xsb3dlcnNfY291bnQiOjIsImZvbGxvd2luZ19jb3VudCI6MTUsInR3ZWV0X2NvdW50IjowLCJsaXN0ZWRfY291bnQiOjAsImxpa2VfY291bnQiOjIsIm1lZGlhX2NvdW50IjowfSwicHJvZmlsZV9pbWFnZV91cmwiOiJodHRwczovL3Bicy50d2ltZy5jb20vcHJvZmlsZV9pbWFnZXMvMTQ2MDMwMjE5OTQ5MDI5Mzc2Ni8yeDhTYUE4Tl9ub3JtYWwuanBnIiwiZGVzY3JpcHRpb24iOiIiLCJ1c2VybmFtZSI6ImxhaGNlbnJhaGxhb3VpIn0sInNpZ25JbkVuYWJsZWQiOnRydWV9XSwibGFzdF92ZXJpZmllZF9jcmVkZW50aWFsX2lkIjoiNmVkYzU2YzktNDA3ZC00OWZiLTg0ZDgtNmYyYjhlMjk0NDFlIiwiZmlyc3RfdmlzaXQiOiIyMDI0LTEyLTA1VDE1OjAzOjExLjAxOFoiLCJsYXN0X3Zpc2l0IjoiMjAyNC0xMi0wNlQxNToxMjoyOC41NzNaIiwibmV3X3VzZXIiOmZhbHNlLCJtZXRhZGF0YSI6e30sInZlcmlmaWVkQ3JlZGVudGlhbHNIYXNoZXMiOnsiYmxvY2tjaGFpbiI6ImQ0NzQxYmJjMjA3OWVlOTI4M2EzNmExMGI4ODg3ODdlIiwiZW1haWwiOiI0MzVjY2FiZTEzNmFlNTk3NWNhYTE3ZWVlM2NlNTI0NCIsIm9hdXRoIjoiNjliOWMwYjliMmRmMDk1NWU3NjMwNmM0YTQ0NjNiNjIifSwiaWF0IjoxNzMzNDk3OTQ5LCJleHAiOjE3MzYwODk5NDl9.KoZZuNpDFD8nuGvtz--5qbuUQuXpqHxG5Vfnph-piOZb62eR7DvbP_pJAq48FU4WonGSix75CNeuwzbJhuu2pv3ihgCoPFb77mSRWFBUrgQIBnbYCx_wcVQk-I20_gugsR-pVoGbhpA4EMweOeJ3rSWmQ9TtFJhkCIHgVj6hYr4wVzxDq0pbWYgN-nIS6hGF6l4rMQvq_5aQY9ySLGNstvo9spW6H52R9UuzMSv2V54DX_0RixZr-yMSJhZivUUU8f53DW5iGktZJH5KsN5egzmHR5Yp3JUMy2NAc2cRPHXOAUZ1SjKKqOUsyBFRO1H-w1KjJU1NoH-egFlv7xU9DPtv8i_Ls9SyokRS7WOsgLI64ah29dSDcIJf5k0C1Ovh12qpQynE0JM8J7ZzgkW0-sBTDlcL9wZKzXMI58t0fHUG9-mcjoBtfecakWKwe2xfoXs_3cn3lhyKHQD0I0bxDiz6v_YpCC84i7Xk3N3Fn1_8SOzg3HKFbyTfUtlKZPpWdlK_RltQdDTjivBpz6v-irNZChvAljrczwiw8fln62mB49VAuT2XBI_sLVAalr1CdJCFnVg3TEe53Q-hznT9pxdUF_9QP1b6aTs0X2N60B4Tk3TOfFGgt0Njn6usbkR63fh676v5fFL5y3aibP8JSNDlYRCdowmjAz8oVoMGblc`,
+            Authorization: `Bearer ${userData.authDetails?.token}`,
           },
         });
         setUserProjects(response.data.data);
@@ -47,12 +58,12 @@ const Sidebar = () => {
   useEffect(() => {
     const checkAmbassadorStatus = async () => {
       if (!userData?.userId) return;
-      
+
       try {
         const response = await axios.get(`https://winwinsocietyweb3.com/api/ambassadors/uid/${userData.userId}`);
         setIsAmbassador(!!response.data);
       } catch (error) {
-        console.error('Error checking ambassador status:', error);
+        console.error("Error checking ambassador status:", error);
         setIsAmbassador(false);
       }
     };
@@ -83,24 +94,20 @@ const Sidebar = () => {
     // Then try Twitter profile picture from auth details if available
     if (userData?.authDetails?.user?.verifiedCredentials) {
       const twitterCred = userData.authDetails.user.verifiedCredentials.find(
-        cred => cred.format === 'oauth' && cred.oauth_provider === 'twitter'
+        (cred) => cred.format === "oauth" && cred.oauth_provider === "twitter"
       );
       if (twitterCred?.oauth_account_photos?.[0]) {
-        return twitterCred.oauth_account_photos[0].replace('_normal', '');
+        return twitterCred.oauth_account_photos[0].replace("_normal", "");
       }
     }
     // Finally fallback to default
     return defaultImg;
   };
 
-  const handleMenuItemHover = (e) => {
-    const menuItem = e.currentTarget;
-    const tooltip = menuItem.querySelector('.winwin-tooltip');
-    if (tooltip) {
-      const rect = menuItem.getBoundingClientRect();
-      tooltip.style.top = `${rect.top}px`;
-    }
-  };
+  const handleLogout = () => {
+    dispatch(handleLogout());
+    navigate('/');
+  }
 
   return (
     <>
@@ -114,8 +121,8 @@ const Sidebar = () => {
           <div className="profile_box">
             <div className="profile_info">
               <div className="profile_image">
-                <img 
-                  src={getProfilePicture()} 
+                <img
+                  src={getProfilePicture()}
                   alt="Profile"
                   onError={(e) => {
                     e.target.onerror = null; // Prevent infinite loop
@@ -129,26 +136,30 @@ const Sidebar = () => {
               </div>
             </div>
             <div className="user_stats">
-              <div className="balance" onClick={() => navigate(`/${ROUTER.about}`)} style={{ cursor: 'pointer' }}>
+              <div className="balance" onClick={() => navigate(`/${ROUTER.about}`)} style={{ cursor: "pointer" }}>
                 <span>Karma:</span>
                 <span className="value">{userDetails?.currency_b || 0}</span>
-                <KarmaIcon style={{ width: '1em', height: '1em' }} />
+                <KarmaIcon style={{ width: "1em", height: "1em" }} />
               </div>
-              <div className="balance" onClick={() => navigate(`/${ROUTER.about}`)} style={{ cursor: 'pointer' }}>
+              <div className="balance" onClick={() => navigate(`/${ROUTER.about}`)} style={{ cursor: "pointer" }}>
                 <span>$winwin:</span>
                 <span className="value">{userDetails?.currency_a || 10000}</span>
-                <img src={darknightlabsIcon} alt="Darknight Labs" style={{ width: '1.5em', height: '1.5em' }} />
+                <img src={darknightlabsIcon} alt="Darknight Labs" style={{ width: "1.5em", height: "1.5em" }} />
                 <div className="winwin-tooltip">
                   <p>Not much has been revealed about $winwin yet.</p>
                   <p>But your Karma and Loyalty levels might have an impact at some point.</p>
                 </div>
               </div>
-              <div className="loyalty-progress" onClick={() => navigate(`/${ROUTER.about}`)} style={{ cursor: 'pointer' }}>
+              <div
+                className="loyalty-progress"
+                onClick={() => navigate(`/${ROUTER.about}`)}
+                style={{ cursor: "pointer" }}
+              >
                 <div className="loyalty-text">
                   <span>Loyalty</span>
                 </div>
                 <div className="progress-bar">
-                  <div className="progress" style={{ width: '50%' }}></div>
+                  <div className="progress" style={{ width: "50%" }}></div>
                 </div>
                 <div className="loyalty-tooltip">
                   <p>Your Loyalty increases or decreases based on how long you hold WWS' exclusive deals.</p>
@@ -166,26 +177,41 @@ const Sidebar = () => {
                   <ul>
                     <li className={`${location.pathname.startsWith(`/${ROUTER.announcementFeed}`) ? "active" : ""}`}>
                       <Link to={`/${ROUTER.announcementFeed}`}>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '20px', height: '20px' }}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          style={{ width: "20px", height: "20px" }}
+                        >
                           <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                         </svg>
                         <span className="menu_text">Announcements</span>
                       </Link>
                     </li>
-                    <li 
-                      className={`${location.pathname.startsWith(`/${ROUTER.projects}`) ? "active" : ""} disabled`}
-                      onMouseEnter={handleMenuItemHover}
+                    <li
+                      className={`${
+                        location.pathname.startsWith(`/${ROUTER.projects}`) ? "active" : ""
+                      } disabled item-progress `}
                     >
-                      <Link to="#" className="disabled-link">
+                      <Link to="#" className="disabled-link item-text  ">
                         <ProfileNavTabIcon />
                         <span className="menu_text">Projects</span>
                       </Link>
-                      <div className="winwin-tooltip">
+                      <div className="item-tooltip">
                         <p>Please complete your profile to unlock</p>
                       </div>
                     </li>
+
                     {userRole == "ADMIN" && (
-                      <li className={`${location.pathname.startsWith(`/${ROUTER.projectManager}`) ? "active" : ""} ${userProjects.length === 0 ? "disabled" : ""}`}>
+                      <li
+                        className={`${location.pathname.startsWith(`/${ROUTER.projectManager}`) ? "active" : ""} ${
+                          userProjects.length === 0 ? "disabled" : ""
+                        }`}
+                      >
                         <Link to={`/${ROUTER.projectManager}`}>
                           <ProjectNavTabIcon />
                           <span className="menu_text">Projects Manager</span>
@@ -199,17 +225,18 @@ const Sidebar = () => {
                   <ul>
                     <>
                       <li
-                        className={`${location.pathname.startsWith(`/${ROUTER.synergies}`) &&
+                        className={`${
+                          location.pathname.startsWith(`/${ROUTER.synergies}`) &&
                           location.pathname !== `/${ROUTER.synergiesManager}`
-                          ? "active"
-                          : ""
-                          } disabled`}
+                            ? "active"
+                            : ""
+                        } disabled  item-progress `}
                       >
-                        <Link to="#" className="disabled-link">
+                        <Link to="#" className="disabled-link item-text  ">
                           <SynergiesNavTabIcon />
                           <span className="menu_text">Synergies</span>
                         </Link>
-                        <div className="winwin-tooltip">
+                        <div className="item-tooltip">
                           <p>Please complete your profile to unlock</p>
                         </div>
                       </li>
@@ -223,13 +250,21 @@ const Sidebar = () => {
 
                     {userRole == "ADMIN" && (
                       <>
-                        <li className={`${location.pathname === `/${ROUTER.synergyRequests}` ? "active" : ""} ${userProjects.length === 0 ? "disabled" : ""}`}>
+                        <li
+                          className={`${location.pathname === `/${ROUTER.synergyRequests}` ? "active" : ""} ${
+                            userProjects.length === 0 ? "disabled" : ""
+                          }`}
+                        >
                           <Link to={ROUTER.synergyRequests}>
                             <SynergiesNavTabIcon />
                             <span className="menu_text">Synergy requests</span>
                           </Link>
                         </li>
-                        <li className={`${location.pathname === `/${ROUTER.synergiesManager}` ? "active" : ""} ${userProjects.length === 0 ? "disabled" : ""}`}>
+                        <li
+                          className={`${location.pathname === `/${ROUTER.synergiesManager}` ? "active" : ""} ${
+                            userProjects.length === 0 ? "disabled" : ""
+                          }`}
+                        >
                           <Link to={ROUTER.synergiesManager}>
                             <SynergiesManagerNavTabIcon />
                             <span className="menu_text">Synergies Manager </span>
@@ -242,12 +277,12 @@ const Sidebar = () => {
                 <div className="menu-box">
                   <span className="separator"></span>
                   <ul>
-                    <li className={`${location.pathname === `/${ROUTER.chat}` ? "active" : ""} disabled`}>
+                    <li className={`${location.pathname === `/${ROUTER.chat}` ? "active" : ""} disabled item-progress`}>
                       <Link to="#" className="disabled-link">
                         <ChatNavTabIcon />
                         <span className="chat">Chat</span>
                       </Link>
-                      <div className="winwin-tooltip">
+                      <div className="item-tooltip">
                         <p>Please complete your profile to unlock</p>
                       </div>
                     </li>
@@ -265,7 +300,16 @@ const Sidebar = () => {
                     </li>
                     <li className={`${location.pathname === `/${ROUTER.about}` ? "active" : ""}`}>
                       <Link to={`/${ROUTER.about}`}>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '20px', height: '20px' }}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          style={{ width: "20px", height: "20px" }}
+                        >
                           <circle cx="12" cy="12" r="10"></circle>
                           <line x1="12" y1="16" x2="12" y2="12"></line>
                           <line x1="12" y1="8" x2="12.01" y2="8"></line>
@@ -278,20 +322,20 @@ const Sidebar = () => {
                 <div className="menu-box">
                   <span className="separator"></span>
                   <ul>
-                    <li 
-                      className={`${location.pathname.includes('ambassador') || location.pathname.includes('my-content') ? "active" : ""} ${!isAmbassador ? "disabled ambassador-disabled" : ""}`}
+                    <li
+                      className={`${
+                        location.pathname.includes("ambassador") || location.pathname.includes("my-content")
+                          ? "active"
+                          : ""
+                      } ${!isAmbassador ? "disabled ambassador-disabled" : ""} item-progress`}
                     >
-                      <Link 
-                        to="#" 
-                        onClick={handleAmbassadorClick} 
-                        className={!isAmbassador ? "disabled-link" : ""}
-                      >
+                      <Link to="#" onClick={handleAmbassadorClick} className={!isAmbassador ? "disabled-link" : ""}>
                         <ProjectNavTabIcon />
                         <span className="menu_text">Ambassadorship</span>
                       </Link>
                       {!isAmbassador && (
-                        <div className="winwin-tooltip">
-                          <p>Please complete your ambassadorship request in profile section</p>
+                        <div className="item-tooltip">
+                          <p>Please complete your profile to unlock</p>
                         </div>
                       )}
                     </li>
@@ -323,7 +367,7 @@ const Sidebar = () => {
             <ul>
               {isAmbassadorMode ? (
                 <li>
-                  <Link to="#" onClick={handleBackClick} style={{ color: '#e8efdb' }}>
+                  <Link to="#" onClick={handleBackClick} style={{ color: "#e8efdb" }}>
                     <span className="menu_text">← Back to Menu</span>
                   </Link>
                 </li>
@@ -331,10 +375,7 @@ const Sidebar = () => {
                 <li>
                   <Link
                     to="/"
-                    onClick={() => {
-                      localStorage.clear();
-                      window.location.href = "/";
-                    }}
+                    onClick={handleLogout}
                   >
                     <LogoutNavTabIcon />
                     <span className="menu_text">Logout</span>
@@ -354,35 +395,50 @@ const Sidebar = () => {
               <>
                 <li className={`${location.pathname === `/${ROUTER.announcementFeed}` ? "active" : ""}`}>
                   <Link to={ROUTER.announcementFeed}>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '20px', height: '20px' }}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      style={{ width: "20px", height: "20px" }}
+                    >
                       <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                     </svg>
                     <span>Announcements</span>
                   </Link>
                 </li>
-                <li className={`${location.pathname === `/${ROUTER.projects}` ? "active" : ""} disabled`}>
+                <li className={`${location.pathname === `/${ROUTER.projects}` ? "active" : ""} disabled item-progress`}>
                   <Link to="#" className="disabled-link">
                     <ProjectNavTabIcon />
                     <span>Projects</span>
                   </Link>
-                  <div className="winwin-tooltip">
+                  <div className="item-tooltip">
                     <p>Please complete your profile to unlock</p>
                   </div>
                 </li>
                 {userRole == "ADMIN" && (
-                  <li className={`${location.pathname === `/${ROUTER.projectManager}` ? "active" : ""}  ${userProjects?.length !== -1 ? "disabled" : ""}`}>
+                  <li
+                    className={`${location.pathname === `/${ROUTER.projectManager}` ? "active" : ""}  ${
+                      userProjects?.length !== -1 ? "disabled" : ""
+                    }`}
+                  >
                     <Link to={ROUTER.projectManager}>
                       <ProfileNavTabIcon />
                       <span>Projects manager</span>
                     </Link>
                   </li>
                 )}
-                <li className={`${location.pathname === `/${ROUTER.synergies}` ? "active" : ""} disabled`}>
+                <li
+                  className={`${location.pathname === `/${ROUTER.synergies}` ? "active" : ""} disabled item-progress`}
+                >
                   <Link to="#" className="disabled-link">
                     <SynergiesNavTabIcon />
                     <span>Synergies</span>
                   </Link>
-                  <div className="winwin-tooltip">
+                  <div className="item-tooltip">
                     <p>Please complete your profile to unlock</p>
                   </div>
                 </li>
@@ -394,13 +450,21 @@ const Sidebar = () => {
                 </li>
                 {userRole == "ADMIN" && (
                   <>
-                    <li className={`${location.pathname === `/${ROUTER.synergyRequests}` ? "active" : ""} ${userProjects?.length === 0 ? "disabled" : ""}`}>
+                    <li
+                      className={`${location.pathname === `/${ROUTER.synergyRequests}` ? "active" : ""} ${
+                        userProjects?.length === 0 ? "disabled" : ""
+                      }`}
+                    >
                       <Link to={ROUTER.synergyRequests}>
                         <PendingSynergiesNavTabIcon />
                         <span>Pending Synergies</span>
                       </Link>
                     </li>
-                    <li className={`${location.pathname === `/${ROUTER.synergiesManager}` ? "active" : ""}  ${userProjects?.length === 0 ? "disabled" : ""}`}>
+                    <li
+                      className={`${location.pathname === `/${ROUTER.synergiesManager}` ? "active" : ""}  ${
+                        userProjects?.length === 0 ? "disabled" : ""
+                      }`}
+                    >
                       <Link to={ROUTER.synergiesManager}>
                         <SynergiesManagerNavTabIcon />
                         <span>Synergies Manager</span>
@@ -408,14 +472,12 @@ const Sidebar = () => {
                     </li>
                   </>
                 )}
-                <li className={`${location.pathname === `/${ROUTER.chat}` ? "active" : ""} disabled`}>
+                <li className={`${location.pathname === `/${ROUTER.chat}` ? "active" : ""} disabled item-progress`}>
                   <Link to="#" className="disabled-link">
                     <ChatNavTabIcon />
-                    <span className="chat">
-                      Chat 
-                    </span>
+                    <span className="chat">Chat</span>
                   </Link>
-                  <div className="winwin-tooltip">
+                  <div className="item-tooltip">
                     <p>Please complete your profile to unlock</p>
                   </div>
                 </li>
@@ -433,7 +495,16 @@ const Sidebar = () => {
                 </li>
                 <li className={`${location.pathname === `/${ROUTER.about}` ? "active" : ""}`}>
                   <Link to={`/${ROUTER.about}`}>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '20px', height: '20px' }}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      style={{ width: "20px", height: "20px" }}
+                    >
                       <circle cx="12" cy="12" r="10"></circle>
                       <line x1="12" y1="16" x2="12" y2="12"></line>
                       <line x1="12" y1="8" x2="12.01" y2="8"></line>
@@ -441,15 +512,13 @@ const Sidebar = () => {
                     <span>About</span>
                   </Link>
                 </li>
-                <li 
-                  className={`${!isAmbassador ? "disabled ambassador-disabled" : ""}`}
-                >
+                <li className={`${!isAmbassador ? "disabled ambassador-disabled" : ""} item-progress`}>
                   <Link to="#" className={!isAmbassador ? "disabled-link" : ""}>
                     <ProjectNavTabIcon />
                     <span>Ambassadorship</span>
                   </Link>
                   {!isAmbassador && (
-                    <div className="winwin-tooltip">
+                    <div className="item-tooltip">
                       <p>Please complete your ambassadorship request in profile section</p>
                     </div>
                   )}

@@ -12,12 +12,12 @@ import { CustomSearch, EmptyData, MultiselectDropDown } from '../../components';
 import ContributionForm from '../../components/investments/ContributionForm/ContributionForm';
 import ContributionStatus from '../../components/investments/ContributionStatus/ContributionStatus';
 import WhitelistVerification from '../../components/investments/WhitelistVerification/WhitelistVerification';
-import { cardActor1, cardActor2, cardActor3, cardActor4, cardActor5, cardActor6, cardActor7, cardActor8, cardActor9, cardActor10, cardActor11, cardActor12, cardActor13, cardActor14, cardActor15, SearchIcon, BackArrow } from '../../utils/constants/images';
+import { cardActor1, cardActor2, cardActor3, cardActor4, cardActor5, cardActor6, cardActor7, cardActor8, cardActor9, cardActor10, cardActor11, cardActor12, cardActor13, cardActor14, cardActor15, SearchIcon, BackArrow, showa } from '../../utils/constants/images';
 
 const cardData = [
   {
     investmentName: '🌙 SHOWA : The Community Revolution',
-    investorImg: cardActor1,
+    investorImg: showa,
     tags: ['🎮 #Gaming', '💰 #RWA', '🌐 #Community'],
     investments: [
       {

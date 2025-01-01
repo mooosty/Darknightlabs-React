@@ -220,45 +220,28 @@
 
         .menu-section {
             flex: 1;
+            overflow: visible !important;
             display: flex;
             flex-direction: column;
             padding-right: 12px;
             height: calc(100% - 250px);
             position: relative;
-            overflow-y: auto;
-            overflow-x: visible;
-            scrollbar-width: thin;
-            scrollbar-color: rgba(245, 239, 219, 0.3) transparent;
-            
-            &::-webkit-scrollbar {
-                width: 6px;
-            }
-            
-            &::-webkit-scrollbar-track {
-                background: transparent;
-            }
-            
-            &::-webkit-scrollbar-thumb {
-                background-color: rgba(245, 239, 219, 0.3);
-                border-radius: 3px;
-            }
             
             .menu-box {
                 margin-bottom: 7px;
-                position: relative;
                 overflow: visible;
+                position: relative;
 
                 &:last-child {
                     margin-bottom: 0;
                 }
 
                 ul {
-                    position: relative;
                     overflow: visible;
+                    position: relative;
 
                     li {
                         position: relative;
-                        overflow: visible;
 
                         &.active a {
                             opacity: 1;
@@ -298,7 +281,7 @@
                         }
 
                         &.disabled {
-                            opacity: 0.5;
+                             
                             cursor: not-allowed;
                             position: relative;
 
@@ -307,11 +290,9 @@
                             }
 
                             .winwin-tooltip {
-                                position: fixed;
-                                left: 320px;
-                                top: auto;
-                                transform: translateY(-100%);
-                                margin-top: 25px;
+                                position: absolute;
+                                left: 240px;
+                                top: 0;
                                 background: #000000;
                                 color: #F5EFDB;
                                 padding: 8px 12px;
@@ -323,9 +304,14 @@
                                 opacity: 0;
                                 visibility: hidden;
                                 pointer-events: none;
-                                width: max-content;
-                                max-width: 300px;
-                                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+                                filter: none;
+                                display: none;
+
+                                p {
+                                    margin: 0;
+                                    opacity: 1 !important;
+                                    color: #F5EFDB !important;
+                                }
 
                                 &:before {
                                     content: '';
@@ -333,32 +319,35 @@
                                     right: 100%;
                                     top: 50%;
                                     transform: translateY(-50%);
-                                    border: 6px solid transparent;
+                                    border: 4px solid transparent;
                                     border-right-color: #000000;
-                                }
-
-                                p {
-                                    margin: 0;
-                                    opacity: 1 !important;
-                                    color: #F5EFDB !important;
-                                    white-space: normal;
-                                    line-height: 1.4;
+                                    opacity: 1;
                                 }
                             }
 
                             &:hover {
                                 .winwin-tooltip {
+                                    display: block !important;
                                     opacity: 1 !important;
                                     visibility: visible !important;
+                                    background: #000000 !important;
+                                    color: #F5EFDB !important;
                                 }
                             }
                         }
 
                         .disabled-link {
                             pointer-events: none;
+                            // opacity: 0.5;
                         }
                     }
                 }
+        
+        
+        
+        
+        
+        
             }
         }
 
@@ -396,6 +385,61 @@
     }
 }
 
+
+
+
+
+
+
+.item-progress {
+    width: 100%; 
+    position: relative;
+    cursor: pointer; 
+    .item-tooltip {
+        position: absolute;
+        bottom: 100%;
+       
+        background: #191917;
+        padding: 12px;
+        border-radius: 4px;
+        width: 100%;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.2s ease, visibility 0.2s ease;
+        z-index: 10000;
+        color: #f5efdb;
+        font-size: 12px;
+        line-height: 1.4;
+        border: 1px solid rgba(245, 239, 219, 0.15);
+        transform: translateZ(0);
+        pointer-events: none;
+
+        p {
+            
+            margin: 0 0 8px 0;
+            opacity: 0.8;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    &:hover .item-tooltip {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
 .mobile_bottom_footer_wrap {
     max-height: 100px;
     position: fixed;
@@ -429,7 +473,7 @@
                 position: relative;
 
                 &.disabled {
-                    opacity: 0.5;
+                
                     cursor: not-allowed;
                     position: relative;
 
@@ -439,17 +483,16 @@
 
                     &:hover::after {
                         content: 'Please complete your profile to unlock';
-                        position: absolute;
-                        background: #000000;
-                        color: #F5EFDB;
+                        position: relative;
+                        background: rgba(255, 138, 28, 0.1);
+                        color: rgba(0, 255, 0, 0.8);
                         padding: 8px 12px;
                         border-radius: 6px;
                         font-size: 14px;
                         white-space: nowrap;
-                        left: 50%;
-                        bottom: 100%;
-                        transform: translateX(-50%);
-                        margin-bottom: 10px;
+                        
+                        bottom: 100%; 
+                      
                         z-index: 99999;
                         border: 1px solid rgba(245, 239, 219, 0.2);
                         opacity: 1;
@@ -586,9 +629,9 @@
 
         &:hover::after {
             content: 'Please complete your profile to unlock';
-            position: absolute;
-            background: #000000;
-            color: #F5EFDB;
+            position: relative;
+            background: #FF0000;
+            color: #00FF00;
             padding: 8px 12px;
             border-radius: 6px;
             font-size: 14px;
@@ -618,7 +661,15 @@
                         li {
                             &.disabled {
                                 .winwin-tooltip {
-                                    left: 260px;
+                                    p {
+                                        opacity: 1 !important;
+                                    }
+                                }
+                                
+                                &:hover {
+                                    .winwin-tooltip {
+                                        opacity: 1 !important;
+                                    }
                                 }
                             }
                         }
