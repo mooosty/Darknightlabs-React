@@ -1,45 +1,12 @@
 .project_manager_edit_wrapper {
   height: 100%;
   $input-height-mobile: 44px;
-  $input-height: 52px;
-  $delete-button-bg: rgba(255, 158, 152, 0.15);
-  $delete-button-hover-bg: rgba(255, 158, 152, 0.25);
-  $delete-button-icon-color: #FF9E98;
+  $input-height: 18px;
 
-  @mixin delete-button {
-    width: $input-height;
-    height: $input-height;
-    padding: 0;
-    margin: 0;
-    background-color: $delete-button-bg;
-    border: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    flex-shrink: 0;
-
-    svg {
-      width: 24px;
-      height: 24px;
-      color: $delete-button-icon-color;
-    }
-
-    &:hover {
-      background-color: $delete-button-hover-bg;
-    }
-
-    @media (max-width: 1600px) {
-      width: $input-height-mobile;
-      height: $input-height-mobile;
-
-      svg {
-        width: 20px;
-        height: 20px;
-      }
-    }
+  @media (max-width: 767px) {
+    background-color: var(--primary-background);
   }
+
 
   .content_header {
     display: flex;
@@ -313,7 +280,7 @@
               }
 
               span.drag_file {
-                color: #717171;
+                color: var(--primary-text);
                 font-weight: 400;
                 font-size: 14px;
                 line-height: 18px;
@@ -321,7 +288,7 @@
               }
 
               .file_type {
-                color: #717171;
+                color: var(--primary-text);
                 font-weight: 400;
                 font-size: 14px;
                 line-height: 18px;
@@ -533,7 +500,7 @@
                   select {
                     height: $input-height;
                     padding: 0 24px;
-                    border: 1px solid #ffffff80;
+                    border: 1px solid var(--primary-white-op72);
                     background-color: transparent;
                     width: 100%;
                     color: var(--primary-text);
@@ -681,7 +648,7 @@
 
                       input:checked~label {
                         border-color: var(--primary-white);
-                        background: linear-gradient(93.05deg, #E68A02 2.82%, #DAB943 102.89%);
+                        background: linear-gradient(93.05deg, #E68A02 2.82%, var(--gradient-light-yellow) 102.89%);
                       }
 
                       input:checked~label::after {
@@ -813,9 +780,7 @@
         }
 
         // Override any other delete button styles to ensure consistency
-        .btn_delete {
-          @include delete-button;
-        }
+
 
         // Special case for delete project button
         .delete_project_btn {
@@ -823,7 +788,7 @@
             height: auto;
             width: auto;
             padding: 12px;
-            background-color: rgba(255, 158, 152, 0.1490196078);
+            background-color: var(--primary-red-bg);
             color: #df8c87;
             font-size: 18px;
             line-height: 22px;
@@ -888,7 +853,7 @@
         .timeframe-inputs {
           .to-text {
             padding: 0 8px;
-            color: #f5efdb;
+            color: var(--primary-text);
           }
 
           .form_group {
@@ -915,7 +880,7 @@
               }
 
               &::-webkit-datetime-edit {
-                color: #f5efdb;
+                color: var(--primary-text);
               }
 
               &::-webkit-datetime-edit-fields-wrapper {
@@ -923,14 +888,14 @@
               }
 
               &::-webkit-datetime-edit-text {
-                color: #f5efdb;
+                color: var(--primary-text);
                 padding: 0 2px;
               }
 
               &::-webkit-datetime-edit-month-field,
               &::-webkit-datetime-edit-day-field,
               &::-webkit-datetime-edit-year-field {
-                color: #f5efdb;
+                color: var(--primary-text);
               }
 
               &::-webkit-inner-spin-button {
@@ -939,7 +904,7 @@
 
               &::-webkit-calendar-picker {
                 background-color: #1E1E1E;
-                color: #f5efdb;
+                color: var(--primary-text);
                 border: 1px solid #4b4845;
                 border-radius: 8px;
                 padding: 10px;
@@ -954,12 +919,12 @@
 
               &::-webkit-calendar-picker-month-button,
               &::-webkit-calendar-picker-year-button {
-                color: #f5efdb;
+                color: var(--primary-text);
                 font-family: "MedievalSharp", cursive;
               }
 
               &::-webkit-calendar-picker-day-button {
-                color: #f5efdb;
+                color: var(--primary-text);
                 border: none;
                 background: transparent;
                 width: 30px;
@@ -970,12 +935,12 @@
                 justify-content: center;
 
                 &:hover {
-                  background: rgba(245, 239, 219, 0.1);
+                  background: #f5efdb1a;
                 }
 
                 &:active,
                 &.active {
-                  background: linear-gradient(93.05deg, #E68A02 2.82%, #DAB943 102.89%);
+                  background: linear-gradient(93.05deg, #E68A02 2.82%, var(--gradient-light-yellow) 102.89%);
                   color: #1E1E1E;
                 }
               }
@@ -1046,9 +1011,7 @@
                 }
               }
 
-              .btn_delete {
-                @include delete-button;
-              }
+
             }
           }
 
@@ -1097,10 +1060,6 @@
                   margin: 0;
                 }
               }
-
-              .btn_delete {
-                @include delete-button;
-              }
             }
           }
         }
@@ -1113,7 +1072,7 @@
           margin-bottom: 10px;
 
           h3 {
-            color: #f5efdb;
+            color: var(--primary-text);
             font-family: "MedievalSharp", cursive;
             font-size: 20px;
             line-height: 22.6px;
@@ -1146,18 +1105,18 @@
                 width: 25px;
                 height: 25px;
                 border-radius: 12px;
-                background: #ffffff;
+                background: var(--primary-white);
                 transition: 0.3s;
               }
             }
 
             input:checked~label {
-              border-color: #ffffff;
-              background: linear-gradient(93.05deg, #E68A02 2.82%, #DAB943 102.89%);
+              border-color: var(--primary-white);
+              background: linear-gradient(93.05deg, #E68A02 2.82%, var(--gradient-light-yellow) 102.89%);
 
               &::after {
                 translate: 30px 0;
-                background: #ffffff;
+                background: var(--primary-white);
               }
             }
           }
@@ -1167,10 +1126,10 @@
         .custom-datepicker {
           height: $input-height;
           padding: 0 24px;
-          border: 1px solid #ffffff80;
+          border: 1px solid var(--primary-white-op72);
           background-color: transparent;
           width: 100%;
-          color: #f5efdb;
+          color: var(--primary-text);
           line-height: 19px;
           font-size: 16px;
           font-weight: 500;
@@ -1179,7 +1138,7 @@
           text-align: left;
 
           &::placeholder {
-            color: rgba(245, 239, 219, 0.5);
+            color: var(--primary-text-op50);
           }
 
           @media (max-width: 1600px) {
@@ -1206,10 +1165,10 @@
             input {
               height: 100%;
               padding: 0 52px 0 24px;
-              border: 1px solid #ffffff80;
+              border: 1px solid var(--primary-white-op72);
               background-color: transparent;
               width: 100%;
-              color: #f5efdb;
+              color: var(--primary-text);
               line-height: 19px;
               font-size: 16px;
               font-weight: 500;
@@ -1218,7 +1177,7 @@
               cursor: pointer;
 
               &::placeholder {
-                color: rgba(245, 239, 219, 0.5);
+                color: var(--primary-text-op50);
               }
 
               @media (max-width: 1600px) {
@@ -1249,7 +1208,7 @@
           background: #1E1E1E !important;
           border: 1px solid #4b4845 !important;
           border-radius: 8px !important;
-          color: #f5efdb !important;
+          color: var(--primary-text) !important;
 
           .react-datepicker {
             background: #1E1E1E !important;
@@ -1264,7 +1223,7 @@
             }
 
             &__current-month {
-              color: #f5efdb !important;
+              color: var(--primary-text) !important;
               font-family: "MedievalSharp", cursive !important;
               font-size: 16px !important;
             }
@@ -1275,7 +1234,7 @@
             }
 
             &__day-name {
-              color: #f5efdb !important;
+              color: var(--primary-text) !important;
               margin: 5px !important;
               width: 30px !important;
               font-size: 14px !important;
@@ -1287,7 +1246,7 @@
             }
 
             &__day {
-              color: #f5efdb !important;
+              color: var(--primary-text) !important;
               width: 30px !important;
               height: 30px !important;
               line-height: 30px !important;
@@ -1296,7 +1255,7 @@
               font-size: 14px !important;
 
               &:hover {
-                background: rgba(245, 239, 219, 0.1) !important;
+                background: #f5efdb1a !important;
               }
 
               &--selected {
@@ -1317,7 +1276,7 @@
 
               &-icon {
                 &::before {
-                  border-color: #f5efdb !important;
+                  border-color: var(--primary-text) !important;
                   border-width: 2px 2px 0 0 !important;
                   height: 8px !important;
                   width: 8px !important;

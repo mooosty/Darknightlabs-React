@@ -55,6 +55,7 @@ const buttons = [
 
 ]
 
+//! Not in use
 const EditPendingSynergiesAngelPopup = ({ open, handleClose }) => {
 
     return (

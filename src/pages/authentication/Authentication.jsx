@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { DynamicContextProvider, DynamicEmbeddedWidget } from "@dynamic-labs/sdk-react-core";
 import { ROUTER } from "../../utils/routes/routes";
-import { useEffect ,useState} from "react";
+import { useEffect, useState } from "react";
 import { storeAuthData } from "../../store/slice/authSlice";
 // import img from "../../assets/hero-phone.png";
 import axios from "axios";

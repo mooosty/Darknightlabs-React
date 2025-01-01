@@ -196,11 +196,11 @@
 
                                     div[class*="-control"] {
                                         border-radius: 0;
-                                        border-color: #ffffff80;
+                                        border-color: var(--primary-white-op72);
                                         transition: all 0.2s ease;
 
                                         &:hover {
-                                            border-color: #ffffff;
+                                            border-color:var(--primary-white);
                                         }
 
                                         @media (max-width: 1600px) {
@@ -232,7 +232,7 @@
                                             transition: background-color 0.2s ease;
 
                                             &:active {
-                                                background-color: rgba(245, 239, 219, 0.2);
+                                                background-color: var(--border-color);
                                             }
                                         }
                                     }

@@ -1,10 +1,9 @@
 #root {
     min-height: 100vh;
     --primary-black: #000;
-
     --primary-white: #fff;
-    --primary-white-op60: #ffffff99;
     --primary-white-op72: #ffffff80;
+    --primary-white-op60: #ffffff99;
     --primary-white-op40: #ffffff52;
     --primary-white-op10: #ffffff1a;
 
@@ -21,7 +20,7 @@
     --primary-gray-op20: #4e4e4e33;
 
     --btn-gray-bg: #4e4e4e94;
-    --border-color: #f5efdb26;
+    --border-color: #3c3c3c;
     --card-background: #242623;
     --card-shadow: #ff8a1c59;
     --disable-gray: #242623;
@@ -35,6 +34,11 @@
     --primary-green-bg: #3EAA2C1A;
     --primary-pending: #C6A844;
     --primary-pending-bg: #C6A8441a;
+
+    --gradient-purple: #622BFD;
+    --gradient-pink: #DA4370;
+    --gradient-light-yellow: #DAB943;
+    --gradient-dark-yellow: #E58A02;
 }
 
 html {
@@ -54,11 +58,11 @@ html {
     }
 
     .Toastify__toast {
-        background-color: #242623 !important;
+        background-color: var(--card-background) !important;
 
         .Toastify__toast-body {
             font-family: "MedievalSharp", cursive;
-            color: white !important;
+            color: var(--primary-white) !important;
         }
 
         .Toastify__close-button {
@@ -86,7 +90,7 @@ html {
     input {
         background-color: var(--primary-background);
         padding: 10px 24px 10px 42px;
-        border: 1px solid #3c3c3c;
+        border: 1px solid var(--border-color);
         border-radius: 9px;
         width: 100%;
         font-size: 16px;

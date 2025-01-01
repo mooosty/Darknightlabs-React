@@ -181,6 +181,7 @@ const Sidebar = () => {
   useEffect(() => {
     dispatch(getGroupsAPI())
   }, [])
+
   // Fetch user details when component mounts or userData changes
   useEffect(() => {
     if (userData?.userId) {
@@ -241,11 +242,9 @@ const Sidebar = () => {
 
   // Get profile picture from either userDetails or userData
   const getProfilePicture = () => {
-    // First try userDetails since it's most up-to-date
     if (userDetails?.profile_picture) {
       return userDetails.profile_picture;
     }
-    // Then try userData
     if (userData?.profile_picture) {
       return userData.profile_picture;
     }
@@ -258,7 +257,6 @@ const Sidebar = () => {
         return twitterCred.oauth_account_photos[0].replace('_normal', '');
       }
     }
-    // Finally fallback to default
     return defaultImg;
   };
 
@@ -429,12 +427,12 @@ const Sidebar = () => {
                         </span>
                       </Link>
                     </li>
-                    <li className={`${location.pathname === `/${ROUTER.karma}` ? "active" : ""}`}>
+                    {/* <li className={`${location.pathname === `/${ROUTER.karma}` ? "active" : ""}`}>
                       <Link to={ROUTER.karma}>
                         <KarmaNavTabIcon />
                         <span className="menu_text">Karma</span>
                       </Link>
-                    </li>
+                    </li> */}
                     <li className={`${location.pathname === `/${ROUTER.profile}` ? "active" : ""}`}>
                       <Link to={ROUTER.profile}>
                         <ProfileNavTabIcon />

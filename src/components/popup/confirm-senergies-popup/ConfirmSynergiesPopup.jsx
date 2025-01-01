@@ -41,6 +41,7 @@ const accordion = [
     },
 ]
 
+//! Not in use
 const ConfirmSynergiesPopup = ({ open, handleClose }) => {
 
 

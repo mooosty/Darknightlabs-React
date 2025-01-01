@@ -478,7 +478,7 @@
               font-family: "Inter", sans-serif;
 
               .highlighted {
-                background-color: #dab9431a;
+                background-color: var(--gradient-light-yellow)1a;
               }
 
               .selected {
@@ -529,7 +529,7 @@
                   align-items: center;
                   justify-content: center;
                   font-size: 14px;
-                  color: rgba(255, 255, 255, 0.6);
+                  color: var(--primary-white-op60);
                 }
 
                 .actions {
@@ -695,8 +695,8 @@
                       position: absolute;
                       border-radius: 10px;
                       padding: 1px;
-                      background: linear-gradient(to bottom right, #622bfd, #da4370);
-                      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                      background: linear-gradient(to bottom right, var(--gradient-purple), var(--gradient-pink));
+                      -webkit-mask: linear-gradient(var( --primary-white) 0 0) content-box, linear-gradient(var( --primary-white) 0 0);
                       -webkit-mask-composite: xor;
                       mask-composite: exclude;
                       pointer-events: none;
@@ -704,7 +704,7 @@
 
                     .angle_tag {
                       .text {
-                        background-image: linear-gradient(to bottom right, #622bfd, #da4370);
+                        background-image: linear-gradient(to bottom right, var(--gradient-purple), var(--gradient-pink));
                         -webkit-background-clip: text;
                         -webkit-text-fill-color: transparent;
                       }
@@ -723,15 +723,15 @@
                         left: 0;
                         border-radius: 10px;
                         padding: 1px;
-                        background: linear-gradient(to bottom right, #e58a02, #dab943);
-                        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                        background: linear-gradient(to bottom right, var(--gradient-dark-yellow), var(--gradient-light-yellow));
+                        -webkit-mask: linear-gradient(var( --primary-white) 0 0) content-box, linear-gradient(var( --primary-white) 0 0);
                         -webkit-mask-composite: xor;
                         mask-composite: exclude;
                         pointer-events: none;
                       }
 
                       .text {
-                        background-image: linear-gradient(to bottom right, #e58a02, #dab943);
+                        background-image: linear-gradient(to bottom right, var(--gradient-dark-yellow), var(--gradient-light-yellow));
                         -webkit-background-clip: text;
                         -webkit-text-fill-color: transparent;
                       }
@@ -776,7 +776,7 @@
                       border-radius: 10px;
                       padding: 1px;
                       background: linear-gradient(to bottom right, #9d8c53, #baa86c94);
-                      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                      -webkit-mask: linear-gradient(var( --primary-white) 0 0) content-box, linear-gradient(var( --primary-white) 0 0);
                       -webkit-mask-composite: xor;
                       mask-composite: exclude;
                       pointer-events: none;
@@ -900,7 +900,7 @@
 
               &.highlighted {
                 position: relative;
-                background-color: #dab9431a;
+                background-color: var(--gradient-light-yellow)1a;
                 border: 1px solid #ddc38c;
               }
 
@@ -1007,15 +1007,15 @@
                         position: absolute;
                         border-radius: 6px;
                         padding: 1px;
-                        background: linear-gradient(to bottom right, #622bfd, #da4370);
-                        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                        background: linear-gradient(to bottom right, var(--gradient-purple), var(--gradient-pink));
+                        -webkit-mask: linear-gradient(var( --primary-white) 0 0) content-box, linear-gradient(var( --primary-white) 0 0);
                         -webkit-mask-composite: xor;
                         mask-composite: exclude;
                         pointer-events: none;
                       }
 
                       .text {
-                        background-image: linear-gradient(to bottom right, #622bfd, #da4370);
+                        background-image: linear-gradient(to bottom right, var(--gradient-purple), var(--gradient-pink));
                         -webkit-background-clip: text;
                         -webkit-text-fill-color: transparent;
                       }
@@ -1034,15 +1034,15 @@
                         left: 0;
                         border-radius: 6px;
                         padding: 1px;
-                        background: linear-gradient(to bottom right, #e58a02, #dab943);
-                        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                        background: linear-gradient(to bottom right, var(--gradient-dark-yellow), var(--gradient-light-yellow));
+                        -webkit-mask: linear-gradient(var( --primary-white) 0 0) content-box, linear-gradient(var( --primary-white) 0 0);
                         -webkit-mask-composite: xor;
                         mask-composite: exclude;
                         pointer-events: none;
                       }
 
                       .text {
-                        background-image: linear-gradient(to bottom right, #e58a02, #dab943);
+                        background-image: linear-gradient(to bottom right, var(--gradient-dark-yellow), var(--gradient-light-yellow));
                         -webkit-background-clip: text;
                         -webkit-text-fill-color: transparent;
                       }

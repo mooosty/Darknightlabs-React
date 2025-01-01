@@ -11,7 +11,7 @@ body {
 }
 
 .header_wrp {
-  background-color: #191917;
+  background-color: var(--primary-background);
   padding: 22px 24px;
   display: flex;
   align-items: center;
@@ -28,7 +28,7 @@ body {
   }
 
   .header_title {
-    color: #F5EFDB;
+    color: var(--primary-text);
     font-family: "MedievalSharp", cursive;
     font-size: 24px;
 
@@ -66,10 +66,10 @@ body {
   .header_btn {
     font-family: "MedievalSharp", cursive;
     background-color: transparent;
-    border: 1px solid #f5efdb;
+    border: 1px solid var(--primary-text);
     font-size: 16px;
     font-weight: 500;
-    color: #f5efdb;
+    color: var(--primary-text);
     padding: 9px 17px;
     margin-left: auto;
 
@@ -93,23 +93,23 @@ body {
     align-items: center;
     gap: 6px;
     background-color: transparent;
-    color: #f5efdb;
+    color: var(--primary-text);
     border: none;
   }
 
   .logout_tab {
-    color: #ff9e98;
+    color: var(--primary-red);
   }
 }
 
 .dashboard-container {
   padding: 32px;
-  color: #f5efdb;
+  color: var(--primary-text);
 
   .welcome-section {
     max-width: 1400px;
     margin: 0 auto 32px;
-    background-color: #191917;
+    background-color: var(--primary-background);
     border-radius: 12px;
     padding: 32px;
 
@@ -133,7 +133,7 @@ body {
 
           .stat-label {
             font-size: 14px;
-            color: rgba(245, 239, 219, 0.6);
+            color: #f5efdb99;
           }
 
           .stat-value {
@@ -172,7 +172,7 @@ body {
     gap: 32px;
 
     .grid-section {
-      background-color: #191917;
+      background-color: var(--primary-background);
       border-radius: 12px;
       padding: 32px;
 
@@ -203,7 +203,7 @@ body {
           justify-content: space-between;
           align-items: center;
           padding: 12px 0;
-          border-bottom: 1px solid rgba(245, 239, 219, 0.1);
+          border-bottom: 1px solid #f5efdb1a;
 
           &:last-child {
             border-bottom: none;
@@ -218,7 +218,7 @@ body {
 
             .investment-type {
               font-size: 12px;
-              color: rgba(245, 239, 219, 0.6);
+              color: #f5efdb99;
             }
           }
 
@@ -230,7 +230,7 @@ body {
             .progress-bar {
               width: 100px;
               height: 4px;
-              background-color: rgba(245, 239, 219, 0.1);
+              background-color: #f5efdb1a;
               border-radius: 2px;
               position: relative;
 
@@ -263,7 +263,7 @@ body {
       .announcements-list {
         .announcement-item {
           padding: 16px;
-          background-color: rgba(245, 239, 219, 0.05);
+          background-color: #f5efdb0d;
           border-radius: 8px;
           margin-bottom: 12px;
           display: flex;
@@ -271,7 +271,7 @@ body {
           align-items: center;
 
           &.high {
-            background-color: rgba(147, 51, 234, 0.1);
+            background-color: #9333ea1a;
           }
 
           .announcement-title {
@@ -279,7 +279,7 @@ body {
           }
 
           .priority-badge {
-            background-color: rgba(147, 51, 234, 0.2);
+            background-color: #9333ea33;
             color: #9333ea;
             padding: 4px 8px;
             border-radius: 4px;
@@ -296,7 +296,7 @@ body {
           justify-content: space-between;
           align-items: center;
           padding: 12px 0;
-          border-bottom: 1px solid rgba(245, 239, 219, 0.1);
+          border-bottom: 1px solid #f5efdb1a;
 
           &:last-child {
             border-bottom: none;
@@ -310,7 +310,7 @@ body {
             .rank {
               width: 24px;
               height: 24px;
-              background-color: rgba(245, 239, 219, 0.1);
+              background-color: #f5efdb1a;
               border-radius: 50%;
               display: flex;
               align-items: center;
@@ -333,7 +333,7 @@ body {
             transition: all 0.2s;
 
             &:hover {
-              background-color: rgba(255, 138, 28, 0.1);
+              background-color: #ff8a1c1a;
             }
           }
         }
@@ -346,7 +346,7 @@ body {
 
         .action-item {
           padding: 16px;
-          background-color: rgba(245, 239, 219, 0.05);
+          background-color: #f5efdb0d;
           border-radius: 8px;
           margin-bottom: 12px;
           display: flex;
@@ -361,7 +361,7 @@ body {
 
             p {
               font-size: 14px;
-              color: rgba(245, 239, 219, 0.6);
+              color: #f5efdb99;
             }
           }
 
@@ -382,7 +382,7 @@ body {
       }
 
       .upcoming-ama {
-        background-color: rgba(147, 51, 234, 0.1);
+        background-color: #9333ea1a;
         border-radius: 8px;
         padding: 20px;
 
@@ -393,7 +393,7 @@ body {
 
         p {
           font-size: 14px;
-          color: rgba(245, 239, 219, 0.8);
+          color: var(--primary-text-op80);
           margin-bottom: 16px;
         }
 
@@ -412,7 +412,7 @@ body {
         .reminder-btn {
           width: 100%;
           background-color: white;
-          color: #191917;
+          color: var(--primary-background);
           border: none;
           padding: 10px;
           border-radius: 4px;
@@ -430,7 +430,7 @@ body {
 
   @media (max-width: 1200px) {
     padding: 24px;
-    
+
     .dashboard-grid {
       grid-template-columns: 1fr;
     }
@@ -456,4 +456,4 @@ body {
       padding: 20px;
     }
   }
-} 
+}

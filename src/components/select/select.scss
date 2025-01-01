@@ -98,19 +98,19 @@
             input {
                 width: 100%;
                 padding: 8px 12px;
-                background-color: #191917;
-                border: 1px solid #3c3c3c;
+                background-color: var(--primary-background);
+                border: 1px solid var(--border-color);
                 border-radius: 4px;
-                color: #f5efdb;
+                color: var(--primary-text);
                 font-size: 14px;
 
                 &::placeholder {
-                    color: rgba(245, 239, 219, 0.5);
+                    color: var(--primary-text-op50);
                 }
 
                 &:focus {
                     outline: none;
-                    border-color: #f5efdb;
+                    border-color: var(--primary-text);
                 }
             }
         }

@@ -1,5 +1,5 @@
 .ambassador_card {
-    background-color: #242623;
+    background-color: var(--card-background);
     border-radius: 9px;
     overflow: hidden;
     cursor: pointer;
@@ -41,15 +41,15 @@
                 background: linear-gradient(100.13deg, #1C5600 -3.95%, #0E2D00 113.72%);
                 border-width: 0px 0px 1px 1px;
                 border-style: solid;
-                border-color: rgba(17, 52, 0, 1);
+                border-color: #113400;
                 color: white;
             }
 
             &.coming-soon {
-                background: linear-gradient(98.78deg, #DAB943 -2.03%, #E58A02 118.72%);
+                background: linear-gradient(98.78deg, var(--gradient-light-yellow) -2.03%, var(--gradient-dark-yellow) 118.72%);
                 border-width: 0px 0px 1px 1px;
                 border-style: solid;
-                border-color: rgba(218, 185, 67, 0.3);
+                border-color: var(--gradient-light-yellow)4d;
                 color: white;
             }
         }
@@ -62,7 +62,7 @@
         flex-direction: column;
 
         .card_body_head {
-            color: #F5EFDB;
+            color: var(--primary-text);
             font-size: 18px;
             font-weight: 500;
             margin-bottom: 12px;
@@ -78,13 +78,13 @@
                 gap: 8px;
 
                 .angle_tag {
-                    background-color: rgba(245, 239, 219, 0.16);
+                    background-color: var(--border-color);
                     border-radius: 8px;
                     padding: 6px 12px;
                     display: flex;
                     align-items: center;
                     gap: 8px;
-                    color: #F5EFDB;
+                    color: var(--primary-text);
                     font-size: 14px;
 
                     .text {

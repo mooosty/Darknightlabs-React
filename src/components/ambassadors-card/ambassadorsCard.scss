@@ -39,7 +39,7 @@
             bottom: -5px;
             width: 5px;
             height: 5px;
-            background-color: #242623;
+            background-color: var(--card-background);
             clip-path: polygon(0 0, 100% 0, 100% 100%);
         }
     }
@@ -73,15 +73,15 @@
                 background: linear-gradient(100.13deg, #1C5600 -3.95%, #0E2D00 113.72%);
                 border-width: 0px 0px 1px 1px;
                 border-style: solid;
-                border-color: rgba(17, 52, 0, 1);
+                border-color: #113400;
                 color: white;
             }
 
             &.coming-soon {
-                background: linear-gradient(98.78deg, #DAB943 -2.03%, #E58A02 118.72%);
+                background: linear-gradient(98.78deg, var(--gradient-light-yellow) -2.03%, var(--gradient-dark-yellow) 118.72%);
                 border-width: 0px 0px 1px 1px;
                 border-style: solid;
-                border-color: rgba(218, 185, 67, 0.3);
+                border-color: var(--gradient-light-yellow)4d;
                 color: white;
             }
         }
@@ -110,7 +110,7 @@
                 gap: 8px;
 
                 .angle_tag {
-                    background-color: rgba(245, 239, 219, 0.16);
+                    background-color: var(--border-color);
                     border-radius: 8px;
                     padding: 6px 12px;
                     display: flex;
@@ -121,7 +121,7 @@
                     border-radius: 8px;
                     margin: 1px;
                     gap: 8px;
-                    color: #F5EFDB;
+                    color: var(--primary-text);
                     font-size: 14px;
 
                     .text {
@@ -170,15 +170,15 @@
                         position: absolute;
                         border-radius: 6px;
                         padding: 1px;
-                        background: linear-gradient(to bottom right, #622BFD, #DA4370);
-                        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                        background: linear-gradient(to bottom right, var(--gradient-purple), var(--gradient-pink));
+                        -webkit-mask: linear-gradient(var( --primary-white) 0 0) content-box, linear-gradient(var( --primary-white) 0 0);
                         -webkit-mask-composite: xor;
                         mask-composite: exclude;
                         pointer-events: none;
                     }
 
                     .text {
-                        background-image: linear-gradient(to bottom right, #622BFD, #DA4370);
+                        background-image: linear-gradient(to bottom right, var(--gradient-purple), var(--gradient-pink));
                         -webkit-background-clip: text;
                         -webkit-text-fill-color: transparent;
                     }
@@ -197,15 +197,15 @@
                         left: 0;
                         border-radius: 6px;
                         padding: 1px;
-                        background: linear-gradient(to bottom right, #E58A02, #DAB943);
-                        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                        background: linear-gradient(to bottom right, var(--gradient-dark-yellow), var(--gradient-light-yellow));
+                        -webkit-mask: linear-gradient(var( --primary-white) 0 0) content-box, linear-gradient(var( --primary-white) 0 0);
                         -webkit-mask-composite: xor;
                         mask-composite: exclude;
                         pointer-events: none;
                     }
 
                     .text {
-                        background-image: linear-gradient(to bottom right, #E58A02, #DAB943);
+                        background-image: linear-gradient(to bottom right, var(--gradient-dark-yellow), var(--gradient-light-yellow));
                         -webkit-background-clip: text;
                         -webkit-text-fill-color: transparent;
                     }
@@ -226,8 +226,8 @@
             top: 0;
             left: 0;
             padding: 1px;
-            background: linear-gradient(to bottom right, #FDCC2B, #DAB943);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            background: linear-gradient(to bottom right, var(--gradient-dark-yellow), var(--gradient-light-yellow));
+            -webkit-mask: linear-gradient(var( --primary-white) 0 0) content-box, linear-gradient(var( --primary-white) 0 0);
             -webkit-mask-composite: xor;
             mask-composite: exclude;
             pointer-events: none;
@@ -241,7 +241,7 @@
 
             .text {
                 // display: -webkit-box;
-                background-image: linear-gradient(to bottom right, #FDCC2B, #DAB943);
+                background-image: linear-gradient(to bottom right, var(--gradient-dark-yellow), var(--gradient-light-yellow));
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
             }

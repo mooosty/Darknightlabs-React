@@ -397,6 +397,7 @@ const Home = () => {
                         <DynamicWidget
                             variant='modal'
                             buttonClassName='extra_button'
+                            isOpen={true}
                         />
                     </div>
                 </div>

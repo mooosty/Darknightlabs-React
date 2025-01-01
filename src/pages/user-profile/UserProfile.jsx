@@ -56,13 +56,13 @@ const TelegramAuthButton = ({ onSuccess }) => {
     try {
       const response = await axiosApi.get(`/telegram/check/${userData.userId}`);
       const { db, sheet } = response.data;
-      
+
       // Show button if either (sheet=1 and db=0) OR (sheet=0 and db=0)
       setShowButton((sheet === 1 && db === 0) || (sheet === 0 && db === 0));
-      
+
       // Dispatch an event to notify TwitterAuthButton
       if (sheet === 1 && db === 1) {
-        window.dispatchEvent(new CustomEvent('telegramStatusUpdated', { 
+        window.dispatchEvent(new CustomEvent('telegramStatusUpdated', {
           detail: { sheet, db }
         }));
       }
@@ -123,7 +123,7 @@ const TelegramAuthButton = ({ onSuccess }) => {
 
   return (
     <div className="profile_upload_button">
-      <button 
+      <button
         className="change_photo dark-theme"
         style={{
           background: '#000000',
@@ -142,7 +142,7 @@ const TelegramAuthButton = ({ onSuccess }) => {
       >
         <img src={telegramIcon} alt="Telegram" style={{ width: '16px', height: '16px' }} />
         {telegramCred ? 'Connected to Telegram' : 'Connect Telegram'}
-        <div id="telegram-login-button" style={{ 
+        <div id="telegram-login-button" style={{
           position: 'absolute',
           top: 0,
           left: 0,
@@ -171,7 +171,7 @@ const TwitterAuthButton = () => {
     try {
       const response = await axiosApi.get(`/telegram/check/${userData.userId}`);
       const { db, sheet } = response.data;
-      
+
       // Only show Twitter button if both sheet=1 and db=1
       setShowButton(sheet === 1 && db === 1);
     } catch (error) {
@@ -182,15 +182,15 @@ const TwitterAuthButton = () => {
 
   useEffect(() => {
     checkTelegramStatus();
-    
+
     // Listen for updates from TelegramAuthButton
     const handleTelegramUpdate = (event) => {
       const { sheet, db } = event.detail;
       setShowButton(sheet === 1 && db === 1);
     };
-    
+
     window.addEventListener('telegramStatusUpdated', handleTelegramUpdate);
-    
+
     return () => {
       window.removeEventListener('telegramStatusUpdated', handleTelegramUpdate);
     };
@@ -200,7 +200,7 @@ const TwitterAuthButton = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const twitterAuth = urlParams.get('twitter_auth');
     const message = urlParams.get('message');
-    
+
     if (twitterAuth === 'success') {
       setStatus('Successfully connected!');
       window.history.replaceState({}, document.title, window.location.pathname);
@@ -214,22 +214,22 @@ const TwitterAuthButton = () => {
     try {
       setLoading(true);
       setStatus('');
-      
+
       const returnUrl = window.location.href;
       const response = await axiosApi.get(
         `/twitter/login?returnUrl=${encodeURIComponent(returnUrl)}`
       );
-      
+
       if (response.data.error) {
         throw new Error(response.data.error);
       }
-      
+
       if (response.data.authUrl) {
         window.location.href = response.data.authUrl;
       } else {
         throw new Error('No auth URL received from server');
       }
-      
+
     } catch (error) {
       console.error('Twitter auth error:', error);
       setStatus(error.message || 'Failed to connect to Twitter');
@@ -241,7 +241,7 @@ const TwitterAuthButton = () => {
 
   return (
     <div className="profile_upload_button">
-      <button 
+      <button
         onClick={handleTwitterAuth}
         disabled={loading || twitterCred}
         className="change_photo dark-theme"
@@ -259,7 +259,7 @@ const TwitterAuthButton = () => {
         <img src={twitterIcon} alt="Twitter" style={{ width: '16px', height: '16px' }} />
         {loading ? 'Connecting...' : (twitterCred ? 'Connected to Twitter' : 'Connect Twitter')}
       </button>
-      
+
       {status && (
         <div className={`status-message ${status.includes('Error') ? 'error' : 'success'}`}>
           {status}
@@ -484,7 +484,7 @@ const UserProfile = () => {
     }
 
     setFieldValue("roles", tmpRoles);
-    
+
     // Clear the "other" text field if "Other" role is removed
     if (role === "Other" && !tmpRoles.includes("Other")) {
       setFieldValue("other", "");
@@ -591,13 +591,13 @@ const UserProfile = () => {
   const handleInvestmentThesisChange = (value) => {
     const currentThesis = values?.investment_thesis || [];
     let newThesis;
-    
+
     if (currentThesis.includes(value)) {
       newThesis = currentThesis.filter(item => item !== value);
     } else {
       newThesis = [...currentThesis, value];
     }
-    
+
     setFieldValue('investment_thesis', newThesis);
   };
 
@@ -788,7 +788,7 @@ const UserProfile = () => {
                     </div>
 
                     <div className="form_box">
-                      <h3 className="profile_title">Investor's Information</h3>
+                      <h3 className="profile_title">Investor&apos;s Information</h3>
                       <div className="investment_details">
                         {/* Left Column */}
                         <div className="profile_info">
@@ -1012,7 +1012,7 @@ const UserProfile = () => {
 
                         {/* Bottom Section - Full Width */}
                         <div className="profile_info">
-                          <div className="profile_head">What's your investment thesis? {values?.roles?.includes("Angel Investor") ? "*" : ""}</div>
+                          <div className="profile_head">What&apos;s your investment thesis? {values?.roles?.includes("Angel Investor") ? "*" : ""}</div>
                           <div className="profile_data">
                             {values?.roles?.includes("Angel Investor") ? (
                               <>
@@ -1050,13 +1050,13 @@ const UserProfile = () => {
                                     ) : (
                                       "Save Changes"
                                     )}
-                            </button>
-                          </div>
+                                  </button>
+                                </div>
                               </>
                             ) : (
                               <span className="disabled-message">Available for Angel Investors only</span>
                             )}
-                        </div>
+                          </div>
                         </div>
 
                       </div>
@@ -1148,10 +1148,9 @@ const UserProfile = () => {
                               onChange={(e) => {
                                 setFieldValue("birthday", e.target.value);
                               }}
-                              placeholder="DD/MM/YYYY"
                             />
                             <label htmlFor="dateOfBirth">
-                              <span>{values.birthday}</span>
+                              <span>{values.birthday || "DD/MM/YYYY"}</span>
                               <img src={calendarBlankIcon} alt=".." />
                             </label>
                           </div>
@@ -1203,7 +1202,7 @@ const UserProfile = () => {
                           />
                         </div>
                         <div className="profile_info">
-                          <label>Secondary cities (separate each with a '/')</label>
+                          <label>Secondary cities (separate each with a &apos;/&apos;)</label>
                           <input
                             type="text"
                             name="secondary_city"
@@ -1223,7 +1222,7 @@ const UserProfile = () => {
                           <div className="profile_head">Role</div>
                           <div className="profile_data">
                             {userDetails?.roles?.split(',').map(role => {
-                              switch(role.trim()) {
+                              switch (role.trim()) {
                                 case 'A Founder': return 'Founder';
                                 case 'A C-level': return 'C-level';
                                 case 'A Web3 employee': return 'Web3 employee';
@@ -1242,35 +1241,35 @@ const UserProfile = () => {
                           <div className="options_container">
                             <div className="default_options">
                               {["Founder", "C-level", "Web3 employee", "KOL / Ambassador / Content Creator", "Angel Investor"].map((role, index) => (
-                                <div 
-                                  key={index} 
+                                <div
+                                  key={index}
                                   className={`option default ${values?.roles?.includes(role) ? 'selected' : ''}`}
                                   onClick={() => handleRoleChange(role)}
                                 >
                                   <label>{role}</label>
                                 </div>
                               ))}
-                            </div>
-                            <div className="custom_options">
-                              {values?.roles?.filter(role => !["Founder", "C-level", "Web3 employee", "KOL / Ambassador / Content Creator", "Angel Investor"].includes(role) && role !== "Other").map((role, index) => (
-                                <div 
-                                  key={`custom-${index}`} 
-                                  className={`option custom selected`}
-                                >
-                                  <div onClick={() => handleRoleChange(role)}>
-                                    <label>{role}</label>
-                                  </div>
-                                  <span 
-                                    className="delete-btn"
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      setFieldValue("roles", values.roles.filter(r => r !== role));
-                                    }}
+                              <div className="custom_options">
+                                {values?.roles?.filter(role => !["Founder", "C-level", "Web3 employee", "KOL / Ambassador / Content Creator", "Angel Investor"].includes(role) && role !== "Other").map((role, index) => (
+                                  <div
+                                    key={`custom-${index}`}
+                                    className={`option custom selected`}
                                   >
-                                    ×
-                                  </span>
-                                </div>
-                              ))}
+                                    <div onClick={() => handleRoleChange(role)}>
+                                      <label>{role}</label>
+                                    </div>
+                                    <span
+                                      className="delete-btn"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        setFieldValue("roles", values.roles.filter(r => r !== role));
+                                      }}
+                                    >
+                                      ×
+                                    </span>
+                                  </div>
+                                ))}
+                              </div>
                             </div>
                           </div>
                           <div className="add_custom_field">
@@ -1368,7 +1367,7 @@ const UserProfile = () => {
                           <div className="profile_head">Role</div>
                           <div className="profile_data">
                             {userDetails?.roles?.split(',').map(role => {
-                              switch(role.trim()) {
+                              switch (role.trim()) {
                                 case 'A Founder': return 'Founder';
                                 case 'A C-level': return 'C-level';
                                 case 'A Web3 employee': return 'Web3 employee';

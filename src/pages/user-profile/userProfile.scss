@@ -291,8 +291,8 @@
                             .twitter-auth-btn {
                                 width: 100%;
                                 height: 36px;
-                                background: #000000;
-                                color: #FFFFFF;
+                                background: var(--primary-black);
+                                color:var(--primary-white);
                                 border: none;
                                 border-radius: 4px;
                                 font-size: 14px;
@@ -306,17 +306,17 @@
                                 margin-block: 16px;
 
                                 &:hover:not(:disabled) {
-                                    background-color: #141414;
+                                    background-color: var(--primary-black);
                                 }
 
                                 &:disabled {
                                     cursor: not-allowed;
                                     opacity: 0.7;
-                                    background-color: #141414;
+                                    background-color: var(--primary-black);
                                 }
 
                                 &.connected {
-                                    background-color: #141414;
+                                    background-color: var(--primary-black);
                                 }
 
                                 img {
@@ -334,14 +334,14 @@
                                 font-family: "Inter", sans-serif;
 
                                 &.error {
-                                    background-color: rgba(255, 0, 0, 0.1);
-                                    border: 1px solid rgba(255, 0, 0, 0.2);
+                                    background-color: #ff00001a;
+                                    border: 1px solid #ff000033;
                                     color: #ff6b6b;
                                 }
 
                                 &.success {
-                                    background-color: rgba(0, 255, 0, 0.1);
-                                    border: 1px solid rgba(0, 255, 0, 0.2);
+                                    background-color: #00ff001a;
+                                    border: 1px solid #00ff0033;
                                     color: #69db7c;
                                 }
                             }
@@ -386,15 +386,15 @@
                                 appearance: none;
                                 width: 20px;
                                 height: 20px;
-                                border: 1px solid #ffffff80;
+                                border: 1px solid var(--primary-white-op72);
                                 border-radius: 4px;
                                 background-color: transparent;
                                 cursor: pointer;
                                 position: relative;
 
                                 &:checked {
-                                    background-color: #F5EFDB;
-                                    border-color: #F5EFDB;
+                                    background-color: var(--primary-text);
+                                    border-color: var(--primary-text);
 
                                     &::after {
                                         content: '✓';
@@ -486,7 +486,7 @@
                                     min-width: 300px;
 
                                     .profile_head {
-                                        color: #f5efdb;
+                                        color: var(--primary-text);
                                         opacity: 0.6;
                                         font-size: 16px;
                                         margin-bottom: 16px;
@@ -494,7 +494,7 @@
 
                                     .profile_data {
                                         .question_desc {
-                                            color: rgba(245, 239, 219, 0.6);
+                                            color: #f5efdb99;
                                             font-size: 16px;
                                             margin-bottom: 8px;
                                             margin-top: 16px;
@@ -520,8 +520,8 @@
                                             .costum_checkbox_label {
                                                 height: 16px;
                                                 width: 16px;
-                                                background-color: rgba(78, 78, 78, 0.2);
-                                                border: 1px solid #f5efdb;
+                                                background-color: var(--primary-gray-op20);
+                                                border: 1px solid var(--primary-text);
                                                 position: relative;
                                                 flex-shrink: 0;
                                                 margin: 0;
@@ -543,7 +543,7 @@
                                                 transform: translate(-50%, -50%);
                                                 height: 8px;
                                                 width: 8px;
-                                                background-color: #f5efdb;
+                                                background-color: var(--primary-text);
                                                 border-radius: 50%;
                                             }
 
@@ -555,14 +555,14 @@
                                                 left: 5px;
                                                 width: 4px;
                                                 height: 8px;
-                                                border: solid #f5efdb;
+                                                border: solid var(--primary-text);
                                                 border-width: 0 2px 2px 0;
                                                 transform: rotate(45deg);
                                             }
 
                                             span,
                                             .label {
-                                                color: #f5efdb;
+                                                color: var(--primary-text);
                                                 font-size: 14px;
                                                 opacity: 0.8;
                                                 line-height: 1.4;
@@ -574,27 +574,27 @@
                                             width: 100%;
                                             min-height: 80px;
                                             background-color: transparent;
-                                            border: 2px solid rgba(245, 239, 219, 0.3);
+                                            border: 2px solid #f5efdb4d;
                                             border-radius: 4px;
                                             padding: 12px;
-                                            color: #f5efdb;
+                                            color: var(--primary-text);
                                             font-size: 14px;
                                             resize: vertical;
                                             font-family: inherit;
                                             line-height: 1.4;
 
                                             &::placeholder {
-                                                color: rgba(245, 239, 219, 0.4);
+                                                color: #f5efdb66;
                                             }
 
                                             &:focus {
                                                 outline: none;
-                                                border-color: rgba(245, 239, 219, 0.6);
+                                                border-color: #f5efdb99;
                                             }
                                         }
 
                                         .disabled-message {
-                                            color: rgba(245, 239, 219, 0.5);
+                                            color: var(--primary-text-op50);
                                             font-style: italic;
                                             font-size: 14px;
                                             padding: 8px 0;
@@ -823,6 +823,14 @@
                                             flex-basis: 100%;
                                         }
 
+                                        label {
+                                            overflow: hidden;
+                                            text-overflow: ellipsis;
+                                            display: -webkit-box;
+                                            -webkit-line-clamp: 1;
+                                            -webkit-box-orient: vertical;
+                                        }
+
                                         .profile_head {
                                             color: var(--primary-text-op50);
                                             font-size: 12px;
@@ -850,7 +858,7 @@
                                                 border: none;
                                                 opacity: 0;
                                                 position: absolute;
-                                                z-index: 2;
+                                                z-index: 21;
                                             }
 
                                             img {
@@ -914,7 +922,7 @@
                                             }
 
                                             .label {
-                                                color: #f5efdb;
+                                                color: var(--primary-text);
                                                 font-size: 14px;
                                                 opacity: 0.8;
                                             }
@@ -988,10 +996,10 @@
                                             width: 100%;
                                             min-height: 100px;
                                             background-color: transparent;
-                                            border: 1px solid rgba(245, 239, 219, 0.3);
+                                            border: 1px solid #f5efdb4d;
                                             border-radius: 4px;
                                             padding: 12px;
-                                            color: #f5efdb;
+                                            color: var(--primary-text);
                                             font-size: 14px;
                                             resize: vertical;
                                             font-family: inherit;
@@ -1005,12 +1013,12 @@
                                             }
 
                                             &::placeholder {
-                                                color: rgba(245, 239, 219, 0.4);
+                                                color: #f5efdb66;
                                             }
 
                                             &:focus {
                                                 outline: none;
-                                                border-color: rgba(245, 239, 219, 0.5);
+                                                border-color: var(--primary-text-op50);
                                             }
                                         }
 
@@ -1018,10 +1026,10 @@
                                             width: auto;
                                             min-width: 120px;
                                             padding: 12px 24px;
-                                            background-color: rgba(78, 78, 78, 0.58);
+                                            background-color: #4e4e4e94;
                                             border: none;
                                             border-radius: 4px;
-                                            color: #f5efdb;
+                                            color: var(--primary-text);
                                             font-size: 14px;
                                             cursor: pointer;
                                             display: flex;
@@ -1031,7 +1039,7 @@
                                             transition: background-color 0.2s ease;
 
                                             &:hover {
-                                                background-color: rgba(78, 78, 78, 0.8);
+                                                background-color: var(--primary-gray-op80);
                                             }
 
                                             p {
@@ -1062,12 +1070,12 @@
                                     font-size: 16px;
 
                                     &::placeholder {
-                                        color: rgba(245, 239, 219, 0.4);
+                                        color: #f5efdb66;
                                     }
 
                                     &:focus {
                                         outline: none;
-                                        border-color: rgba(245, 239, 219, 0.5);
+                                        border-color: var(--primary-text-op50);
                                     }
                                 }
                             }
@@ -1179,24 +1187,27 @@
                                             width: 100%;
                                         }
 
-                                        .type_password {
-                                            height: 42px;
-                                            display: flex;
-                                            justify-content: space-between;
-                                            border: 1px solid var(--primary-white-op60);
-                                            padding: 10px 14px;
-                                            padding-left: 0;
 
-                                            input {
-                                                border: none;
-                                            }
-
-                                            img {
-                                                cursor: pointer;
-                                                height: 20px;
-                                            }
-                                        }
                                     }
+                                }
+                            }
+
+                            .type_password {
+                                height: 42px;
+                                display: flex;
+                                justify-content: space-between;
+                                border: 1px solid var(--primary-white-op60);
+                                padding: 10px 14px;
+                                padding-left: 0;
+                                position: relative;
+
+                                input {
+                                    border: none;
+                                }
+
+                                img {
+                                    cursor: pointer;
+                                    height: 22px;
                                 }
                             }
 
@@ -1303,7 +1314,7 @@
 }
 
 .disabled-message {
-    color: rgba(245, 239, 219, 0.5);
+    color: var(--primary-text-op50);
     font-style: italic;
     font-size: 14px;
 }
@@ -1314,16 +1325,16 @@
     padding: 16px 0;
     margin-top: 16px;
     width: 100%;
-    border-top: 1px solid rgba(245, 239, 219, 0.1);
+    border-top: 1px solid #f5efdb1a;
 
     .save_button {
         width: auto;
         min-width: 120px;
         padding: 12px 24px;
-        background-color: rgba(78, 78, 78, 0.58);
+        background-color: #4e4e4e94;
         border: none;
         border-radius: 4px;
-        color: #f5efdb;
+        color: var(--primary-text);
         font-size: 14px;
         cursor: pointer;
         display: flex;
@@ -1334,7 +1345,7 @@
         margin-left: auto;
 
         &:hover {
-            background-color: rgba(78, 78, 78, 0.8);
+            background-color: var(--primary-gray-op80);
         }
 
         p {
@@ -1351,7 +1362,7 @@
         width: 100%;
         height: 36px;
         background: #000000;
-        color: #FFFFFF;
+        color:var(--primary-white);
         border: none;
         border-radius: 4px;
         font-size: 14px;
@@ -1365,17 +1376,17 @@
         margin-block: 16px;
 
         &:hover:not(:disabled) {
-            background-color: #141414;
+            background-color: var(--primary-black);
         }
 
         &:disabled {
             cursor: not-allowed;
             opacity: 0.7;
-            background-color: #141414;
+            background-color: var(--primary-black);
         }
 
         &.connected {
-            background-color: #141414;
+            background-color: var(--primary-black);
         }
 
         img {
@@ -1393,14 +1404,14 @@
         font-family: "Inter", sans-serif;
 
         &.error {
-            background-color: rgba(255, 0, 0, 0.1);
-            border: 1px solid rgba(255, 0, 0, 0.2);
+            background-color: #ff00001a;
+            border: 1px solid #ff000033;
             color: #ff6b6b;
         }
 
         &.success {
-            background-color: rgba(0, 255, 0, 0.1);
-            border: 1px solid rgba(0, 255, 0, 0.2);
+            background-color: #00ff001a;
+            border: 1px solid #00ff0033;
             color: #69db7c;
         }
     }
@@ -1420,7 +1431,7 @@
             margin-block: 16px !important;
 
             &:hover {
-                background-color: #141414 !important;
+                background-color: var(--primary-black) !important;
             }
         }
     }
@@ -1429,7 +1440,7 @@
         width: 100%;
         height: 36px;
         background: #000000;
-        color: #FFFFFF;
+        color:var(--primary-white);
         border: none;
         border-radius: 4px;
         font-size: 14px;
@@ -1443,17 +1454,17 @@
         margin-block: 16px;
 
         &:hover:not(:disabled) {
-            background-color: #141414;
+            background-color: var(--primary-black);
         }
 
         &:disabled {
             cursor: not-allowed;
             opacity: 0.7;
-            background-color: #141414;
+            background-color: var(--primary-black);
         }
 
         &.connected {
-            background-color: #141414;
+            background-color: var(--primary-black);
         }
 
         img {
@@ -1471,14 +1482,14 @@
         font-family: "Inter", sans-serif;
 
         &.error {
-            background-color: rgba(255, 0, 0, 0.1);
-            border: 1px solid rgba(255, 0, 0, 0.2);
+            background-color: #ff00001a;
+            border: 1px solid #ff000033;
             color: #ff6b6b;
         }
 
         &.success {
-            background-color: rgba(0, 255, 0, 0.1);
-            border: 1px solid rgba(0, 255, 0, 0.2);
+            background-color: #00ff001a;
+            border: 1px solid #00ff0033;
             color: #69db7c;
         }
     }
@@ -1488,7 +1499,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
-    margin-bottom: 16px;
+    // margin-bottom: 16px;
 
     .default_options,
     .custom_options {
@@ -1498,19 +1509,19 @@
     }
 
     .option {
-        background: #191917;
-        border: 1px solid rgba(245, 239, 219, 0.1);
+        background: var(--primary-background);
+        border: 1px solid #f5efdb1a;
         border-radius: 20px;
         padding: 8px 16px;
         cursor: pointer;
         transition: all 0.2s;
-        color: #f5efdb;
+        color: var(--primary-text);
         display: flex;
         align-items: center;
         gap: 8px;
 
         &.selected {
-            background: rgba(255, 138, 28, 0.1);
+            background: #ff8a1c1a;
             border-color: #ff8a1c;
         }
 
@@ -1545,30 +1556,30 @@
 
     input {
         flex: 1;
-        background: #191917;
-        border: 1px solid rgba(245, 239, 219, 0.1);
+        background: var(--primary-background);
+        border: 1px solid #f5efdb1a;
         border-radius: 8px;
         padding: 8px 16px;
-        color: #f5efdb;
+        color: var(--primary-text);
         font-size: 14px;
         height: 40px;
 
         &::placeholder {
-            color: rgba(245, 239, 219, 0.5);
+            color: var(--primary-text-op50);
         }
 
         &:focus {
             outline: none;
-            border-color: rgba(245, 239, 219, 0.3);
+            border-color: #f5efdb4d;
         }
     }
 
     button {
-        background: #191917;
-        border: 1px solid rgba(245, 239, 219, 0.1);
+        background: var(--primary-background);
+        border: 1px solid #f5efdb1a;
         border-radius: 8px;
         padding: 8px 24px;
-        color: #f5efdb;
+        color: var(--primary-text);
         cursor: pointer;
         transition: all 0.2s;
         height: 40px;
@@ -1576,7 +1587,7 @@
         align-items: center;
 
         &:hover {
-            background: rgba(245, 239, 219, 0.1);
+            background: #f5efdb1a;
         }
     }
 }

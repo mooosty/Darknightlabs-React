@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import './EditSynergiesAngelPopup.scss';
-import { AddCircleIcon, CLeseCircleIcon, GlobalIcon, RightCornerArrowIcon,angelBg, CloseIcon } from '../../../utils/constants/images';
+import { AddCircleIcon, CLeseCircleIcon, GlobalIcon, RightCornerArrowIcon, angelBg, CloseIcon } from '../../../utils/constants/images';
 
 const buttons = [
     {
@@ -76,6 +76,8 @@ const buttons2 = [
         checked: true
     },
 ]
+
+//! Not in use
 const EditSynergiesAngelPopup = ({ open, handleClose }) => {
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -124,7 +126,7 @@ const EditSynergiesAngelPopup = ({ open, handleClose }) => {
                                             <div className="angels_container">
                                                 {buttons.map((data) => (
                                                     <div key={data.id} className='angel_tab'>
-                                                        <input type="checkbox" checked={data.checked} name="angleName" id={`angle1+${data.id}`} className='checkbox_input' readOnly={true}/>
+                                                        <input type="checkbox" checked={data.checked} name="angleName" id={`angle1+${data.id}`} className='checkbox_input' readOnly={true} />
                                                         <label htmlFor={`angle1+${data.id}`} className='checkbox_label' >
                                                             <div className="checkbox_label_text">
                                                                 <GlobalIcon />
@@ -155,7 +157,7 @@ const EditSynergiesAngelPopup = ({ open, handleClose }) => {
                                             <div className="angels_container">
                                                 {buttons2.map((data) => (
                                                     <div key={data.id} className='angel_tab'>
-                                                        <input type="checkbox" checked={data.checked} name="angleName" id={`angle2+${data.id}`} className='checkbox_input' readOnly={true}/>
+                                                        <input type="checkbox" checked={data.checked} name="angleName" id={`angle2+${data.id}`} className='checkbox_input' readOnly={true} />
                                                         <label htmlFor={`angle2+${data.id}`} className='checkbox_label' >
                                                             <div className="checkbox_label_text">
                                                                 <GlobalIcon />
@@ -186,7 +188,7 @@ const EditSynergiesAngelPopup = ({ open, handleClose }) => {
                                             <div className="angels_container">
                                                 {buttons.map((data) => (
                                                     <div key={data.id} className='angel_tab'>
-                                                        <input type="checkbox" checked={data.checked} name="angleName" id={`angle3+${data.id}`} className='checkbox_input' readOnly={true}/>
+                                                        <input type="checkbox" checked={data.checked} name="angleName" id={`angle3+${data.id}`} className='checkbox_input' readOnly={true} />
                                                         <label htmlFor={`angle3+${data.id}`} className='checkbox_label' >
                                                             <div className="checkbox_label_text">
                                                                 <GlobalIcon />
@@ -217,7 +219,7 @@ const EditSynergiesAngelPopup = ({ open, handleClose }) => {
                                             <div className="angels_container">
                                                 {buttons2.map((data) => (
                                                     <div key={data.id} className='angel_tab'>
-                                                        <input type="checkbox" checked={data.checked} name="angleName" id={`angle4+${data.id}`} className='checkbox_input' readOnly={true}/>
+                                                        <input type="checkbox" checked={data.checked} name="angleName" id={`angle4+${data.id}`} className='checkbox_input' readOnly={true} />
                                                         <label htmlFor={`angle4+${data.id}`} className='checkbox_label' >
                                                             <div className="checkbox_label_text">
                                                                 <GlobalIcon />

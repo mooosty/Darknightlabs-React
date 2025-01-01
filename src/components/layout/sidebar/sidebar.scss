@@ -151,7 +151,7 @@
         }
 
         .separator {
-            background: linear-gradient(to right, #463600 0%, #f5efdb26 45%, #f5efdb08 99%);
+            background: linear-gradient(to right, #463600 0%, var(--border-color) 45%, #f5efdb08 99%);
             display: block;
             height: 1px;
             width: 100%;
@@ -296,7 +296,7 @@
             }
 
             .separator {
-                background: linear-gradient(to right, #463600 0%, #f5efdb26 45%, #f5efdb08 99%);
+                background: linear-gradient(to right, #463600 0%, var(--border-color) 45%, #f5efdb08 99%);
                 display: block;
                 height: 1px;
                 width: 100%;

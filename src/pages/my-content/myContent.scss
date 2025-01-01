@@ -290,7 +290,7 @@
                             font-family: "Inter", sans-serif;
 
                             .highlighted {
-                                background-color: #dab9431a;
+                                background-color: var(--gradient-light-yellow)1a;
                             }
 
                             td {
@@ -422,7 +422,7 @@
                             flex-shrink: 0;
                             align-items: center;
                             justify-content: space-between;
-                            background-color: #191917;
+                            background-color: var(--primary-background);
                             padding: 12px 28px;
                             border-radius: 10px;
                             margin: 1px;
@@ -436,7 +436,7 @@
                             }
 
                             .text {
-                                color: #F5EFDB;
+                                color: var(--primary-text);
                                 font-weight: 500;
                                 font-size: 22px;
 
@@ -447,7 +447,7 @@
 
                             .number {
                                 font-size: 28px;
-                                color: #fff;
+                                color: var(--primary-white);
                                 font-weight: 500;
                                 font-family: "MedievalSharp", cursive;
                                 font-size: 52px;
@@ -462,7 +462,7 @@
 
                 .all_my_page_data {
                     border-radius: 9px;
-                    background-color: #191917;
+                    background-color: var(--primary-background);
                     min-height: calc(100% - 108px);
 
                     @media (max-width: 1600px) {
@@ -487,11 +487,11 @@
                             flex-direction: column;
                             gap: 16px;
                             padding: 0 20px 12px 20px;
-                            border-bottom: 1px solid rgba(245, 239, 219, 0.15);
+                            border-bottom: 1px solid var(--border-color);
                             margin-bottom: 12px;
 
                             .all_projects_card_header_top {
-                                color: #f5efdb;
+                                color: var(--primary-text);
                                 font-size: 24px;
                                 font-family: "MedievalSharp", cursive;
                             }
@@ -505,7 +505,7 @@
 
                                 .btns {
                                     display: flex;
-                                    background-color: #242623;
+                                    background-color: var(--card-background);
                                     padding: 4px;
                                     flex-wrap: wrap;
                                     gap: 2px;
@@ -519,7 +519,7 @@
                                         justify-content: center;
                                         background-color: transparent;
                                         border: none;
-                                        color: rgba(230, 234, 238, 0.5);
+                                        color: #e6eaee80;
                                         font-family: MedievalSharp;
                                         white-space: nowrap;
                                         min-width: 80px;
@@ -560,16 +560,16 @@
                                         }
 
                                         &[data-type="all"]::before {
-                                            background: #F5EFDB; // Light color for All
+                                            background: var(--primary-text); // Light color for All
                                         }
 
                                         &:hover {
-                                            background-color: rgba(78, 78, 78, 0.3);
+                                            background-color: #4e4e4e4d;
                                         }
 
                                         &.active {
-                                            background-color: rgba(78, 78, 78, 0.58);
-                                            color: #F5EFDB;
+                                            background-color: var(--btn-gray-bg);
+                                            color: var(--primary-text);
 
                                             &::before {
                                                 opacity: 1;
@@ -631,11 +631,11 @@
                                 th {
                                     font-family: MedievalSharp;
                                     font-size: 18px;
-                                    color: #f5efdb;
+                                    color: var(--primary-text);
                                     min-width: 110px;
                                     font-weight: 400;
                                     padding: 4px 12px;
-                                    border-bottom: 1px solid rgba(255, 239, 219, 0.15);
+                                    border-bottom: 1px solid #ffefdb26;
 
                                     &.center {
                                         text-align: center;
@@ -649,18 +649,18 @@
                                         fill: var(--primary-white);
 
                                         tbody {
-                                            color: rgba(245, 239, 219, 0.6);
+                                            color: #f5efdb99;
                                             font-size: 14px;
                                             font-family: "Inter", sans-serif;
 
                                             .highlighted {
-                                                background-color: rgba(218, 185, 67, 0.1);
+                                                background-color: var(--gradient-light-yellow)1a;
                                             }
 
                                             td {
                                                 opacity: 1;
                                                 padding: 16px 8px;
-                                                border-bottom: 1px solid rgba(245, 239, 219, 0.15);
+                                                border-bottom: 1px solid var(--border-color);
                                                 min-width: 110px;
 
                                                 .url {
@@ -699,15 +699,15 @@
                                                     text-transform: capitalize;
 
                                                     &.approved {
-                                                        background-color: #3EAA2C1A;
-                                                        color: #3EAA2C;
-                                                        border-color: #3EAA2C;
+                                                        background-color: var(--primary-green-bg);
+                                                        color: var(--primary-green);
+                                                        border-color: var(--primary-green);
                                                     }
 
                                                     &.submitted {
-                                                        background-color: #C6A8441A;
-                                                        color: #C6A844;
-                                                        border-color: #C6A844;
+                                                        background-color: var(--primary-pending-bg);
+                                                        color: var(--primary-pending);
+                                                        border-color: var(--primary-pending);
                                                     }
                                                 }
 
@@ -716,7 +716,7 @@
                                                     align-items: center;
                                                     justify-content: center;
                                                     font-size: 14px;
-                                                    color: rgba(255, 255, 255, 0.6);
+                                                    color: var(--primary-white-op60);
                                                 }
 
                                                 .actions {
@@ -737,7 +737,7 @@
                                                 .table_angles {
                                                     .angle_tag {
                                                         border-radius: 8px;
-                                                        background-color: rgba(245, 239, 219, 0.16);
+                                                        background-color: var(--border-color);
                                                     }
                                                 }
                                             }

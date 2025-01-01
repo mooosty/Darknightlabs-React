@@ -1,5 +1,4 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './dashboard.scss';
 import { ROUTER } from '../../utils/routes/routes';
@@ -8,7 +7,7 @@ import CustomDropdown from "../../components/custom-dropdown/CustomDropdown";
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const userData = useSelector((state) => state.auth);
+  const { authDetails } = useSelector(state => state.auth)
   const { userDetails } = useSelector((state) => state.user);
 
   const dropdownItems = [
@@ -54,6 +53,10 @@ const Dashboard = () => {
     { title: 'Invite Friends', description: 'Earn even more!', action: 'Take Action' }
   ];
 
+  if (!authDetails) {
+    return <Navigate to={ROUTER.authentication} />
+  }
+
   const getUserName = () => {
     if (!userDetails) return 'Guest';
     return `${userDetails.firstname || ''} ${userDetails.lastname || ''}`.trim() || 'Guest';
@@ -64,7 +67,7 @@ const Dashboard = () => {
       <header className="header_wrp">
         <h4 className='header_title'>Darknight Labs</h4>
         <div className="header_right">
-          <button 
+          <button
             className="header_btn"
             onClick={() => navigate(`/${ROUTER.profile}`)}
           >
@@ -110,7 +113,7 @@ const Dashboard = () => {
                     <span className="investment-type">{investment.type}</span>
                   </div>
                   <div className="investment-progress">
-                    <div 
+                    <div
                       className={`progress-bar ${investment.progress < 0 ? 'negative' : 'positive'}`}
                       style={{ width: `${Math.abs(investment.progress)}%` }}
                     />

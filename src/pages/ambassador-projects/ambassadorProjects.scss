@@ -158,12 +158,12 @@
                                 }
 
                                 &.active {
-                                    background-color: rgba(78, 78, 78, 0.58);
+                                    background-color: var(--btn-gray-bg);
                                     color: var(--primary-text);
 
                                     .btns {
                                         display: flex;
-                                        background-color: #242623;
+                                        background-color: var(--card-background);
                                         padding: 4px;
                                         flex-wrap: wrap;
 
@@ -174,7 +174,7 @@
                                             justify-content: center;
                                             background-color: transparent;
                                             border: none;
-                                            color: rgba(230, 234, 238, 0.5);
+                                            color: #e6eaee80;
                                             font-family: MedievalSharp;
                                             position: relative;
                                             min-width: 80px;
@@ -213,8 +213,8 @@
                                             }
 
                                             &.active {
-                                                background-color: rgba(78, 78, 78, 0.58);
-                                                color: #F5EFDB;
+                                                background-color: var(--btn-gray-bg);
+                                                color: var(--primary-text);
 
                                                 &::before {
                                                     opacity: 1;
