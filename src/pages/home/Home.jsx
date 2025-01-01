@@ -281,26 +281,15 @@ const Home = () => {
     }
   };
 
-  const scrollToTop = () => {
-    const scrollOptions = {
-      top: 0,
-      behavior: "smooth",
-    };
-
-    // Try modern smooth scroll first
-    try {
-      window.scroll(scrollOptions);
-    } catch (error) {
-      // Fallback for older browsers
-      window.scrollTo(0, 0);
-    }
-  };
-
   const homeRef = useRef(null);
   const servicesRef = useRef(null);
   const membersRef = useRef(null);
   const partnersRef = useRef(null);
   const aboutRef = useRef(null);
+
+  const scrollToTop = () => {
+    homeRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   const handleScroll = (section) => {
     if (section === "Home") {

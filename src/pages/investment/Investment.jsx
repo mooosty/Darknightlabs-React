@@ -33,7 +33,8 @@ const cardData = [
         data: 'Dec 19',
       },
     ],
-    karmaNeeded: 0
+    karmaNeeded: 0,
+    state: 'PLEDGE'
   },
   {
     investmentName: 'Investment name',
@@ -851,6 +852,11 @@ const Investment = () => {
                               {data.karmaNeeded !== undefined && (
                                 <div className="karma_needed">
                                   Karma needed: {data.karmaNeeded}
+                                </div>
+                              )}
+                              {index === 0 && (
+                                <div className={`investment_state ${isPhase2 ? 'pledge_mode' : 'invest_mode'}`}>
+                                  {isPhase2 ? 'Pledge' : 'Invest'}
                                 </div>
                               )}
                             </div>

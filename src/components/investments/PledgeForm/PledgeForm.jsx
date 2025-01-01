@@ -11,34 +11,33 @@ const valueOptions = [
   'Gaming Partnerships',
   'DeFi',
   'Launchpad',
-  'Alpha calls / Traders groups'
+  'Alpha calls / Traders groups',
+  'Other...'
 ];
 
 const PledgeForm = ({ onSubmit }) => {
   const [ticketSize, setTicketSize] = useState('');
   const [selectedValues, setSelectedValues] = useState([]);
-  const [customValue, setCustomValue] = useState('');
+  const [currentValue, setCurrentValue] = useState('');
+  const [customValueType, setCustomValueType] = useState('');
+  const [currentContribution, setCurrentContribution] = useState('');
   const [elaboration, setElaboration] = useState('');
 
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter' && customValue.trim()) {
-      if (!selectedValues.includes(customValue.trim())) {
-        setSelectedValues([...selectedValues, customValue.trim()]);
-      }
-      setCustomValue('');
+  const handleAddValue = () => {
+    if ((currentValue === 'Other...' ? customValueType.trim() : currentValue) && currentContribution.trim()) {
+      const newValue = {
+        type: currentValue === 'Other...' ? customValueType.trim() : currentValue,
+        contribution: currentContribution.trim()
+      };
+      setSelectedValues([...selectedValues, newValue]);
+      setCurrentValue('');
+      setCustomValueType('');
+      setCurrentContribution('');
     }
   };
 
-  const toggleValue = (value) => {
-    if (selectedValues.includes(value)) {
-      setSelectedValues(selectedValues.filter(v => v !== value));
-    } else {
-      setSelectedValues([...selectedValues, value]);
-    }
-  };
-
-  const removeValue = (value) => {
-    setSelectedValues(selectedValues.filter(v => v !== value));
+  const removeValue = (index) => {
+    setSelectedValues(selectedValues.filter((_, i) => i !== index));
   };
 
   const handleSubmit = async () => {
@@ -56,6 +55,11 @@ const PledgeForm = ({ onSubmit }) => {
     }
 
     try {
+      // Convert the selected values array to combine type and contribution
+      const formattedValues = selectedValues.map(value => 
+        `${value.type}: ${value.contribution}`
+      ).join(', ');
+
       const response = await fetch('https://winwinsocietyweb3.com/api/submit-form-pledge', {
         method: 'POST',
         headers: {
@@ -63,7 +67,7 @@ const PledgeForm = ({ onSubmit }) => {
         },
         body: JSON.stringify({
           ticketSize,
-          values: selectedValues.join(', '),
+          values: formattedValues,
           elaboration
         }),
       });
@@ -77,7 +81,7 @@ const PledgeForm = ({ onSubmit }) => {
         toast.success('Pledge submitted successfully');
         onSubmit({
           ticketSize,
-          values: selectedValues,
+          values: formattedValues,
           elaboration
         });
 
@@ -110,39 +114,67 @@ const PledgeForm = ({ onSubmit }) => {
             placeholder="Enter your ideal ticket size"
           />
           <p className="form-description">Put your ideal ticket size, the highest you'd like to put in. Although this allocation is very limited, we'll do our best to try and accomodate your needs</p>
+          <div className="info-box">
+            <div className="info-box-title">Project Priorities</div>
+            <ul>
+              <li>🎯 Awareness and attention</li>
+              <li>🏛️ Cult building around Showa IP</li>
+              <li>🤝 Partnerships with gaming ecosystems, brands, IPs</li>
+            </ul>
+          </div>
         </div>
 
         <div className="form-group">
           <label className="form-label">What value can you bring to $SHOWA as a strategic investor?</label>
-          <div className="value-buttons">
-            {valueOptions.map((value) => (
-              <button
-                key={value}
-                className={`value-button ${selectedValues.includes(value) ? 'selected' : ''}`}
-                onClick={() => toggleValue(value)}
-                type="button"
-              >
-                {value}
-              </button>
-            ))}
-          </div>
-          <div className="custom-value">
+          <div className="value-input-group">
+            <select 
+              className="form-select"
+              value={currentValue}
+              onChange={(e) => setCurrentValue(e.target.value)}
+            >
+              <option value="">Select a value</option>
+              {valueOptions.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+            {currentValue === 'Other...' && (
+              <input
+                className="form-input"
+                type="text"
+                value={customValueType}
+                onChange={(e) => setCustomValueType(e.target.value)}
+                placeholder="Enter your value type..."
+              />
+            )}
             <input
               className="form-input"
               type="text"
-              value={customValue}
-              onChange={(e) => setCustomValue(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder="Add custom value (press Enter)"
+              value={currentContribution}
+              onChange={(e) => setCurrentContribution(e.target.value)}
+              placeholder="Describe how you can contribute in this area..."
             />
+            <button 
+              className="add-value-button"
+              onClick={handleAddValue}
+              type="button"
+              disabled={(!currentValue || (currentValue === 'Other...' && !customValueType.trim()) || !currentContribution.trim())}
+            >
+              Add Value
+            </button>
           </div>
+          
           {selectedValues.length > 0 && (
             <div className="selected-values">
-              {selectedValues.map((value) => (
-                <span key={value} className="value-tag">
-                  {value}
-                  <button onClick={() => removeValue(value)} type="button">&times;</button>
-                </span>
+              {selectedValues.map((value, index) => (
+                <div key={index} className="value-tag">
+                  {value.type}
+                  <div className="contribution-tooltip">
+                    {value.contribution}
+                  </div>
+                  <button onClick={() => removeValue(index)} type="button">&times;</button>
+                </div>
               ))}
             </div>
           )}
