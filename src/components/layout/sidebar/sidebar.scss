@@ -77,18 +77,30 @@
         .user_stats {
           .balance {
             flex-direction: column;
-            padding: 0;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: #191917;
+            padding: 0px;
+            border-radius: 8px;
+            font-family: "MedievalSharp", cursive;
+            position: relative;
+            cursor: pointer;
+            color: var(--primary-text);
+            font-size: 14px;
+            margin-bottom: 4px;
 
             span {
               font-size: 12px;
 
               &.value {
-                margin-left: 4px;
+                margin-right: -4px;
               }
             }
 
+            img,
             svg {
-              margin-left: 0;
+              margin-left: -4px;
 
               path {
                 fill: #f5efdb;

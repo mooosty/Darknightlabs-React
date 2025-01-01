@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { createInviteAPI, createTwitterUserAPI, getTwitterUserAPI, updateUserWalletAPI, } from "../../api-services/userApis";
 import { createUserAPI } from "../../api-services";
 import { storeAuthData } from "../../store/slice/authSlice";
-import { useRef } from "react";
 
 const servicesCardData = [
   {
@@ -244,22 +243,6 @@ const Home = () => {
       }
     }
   };
-
-  // const scrollToTop = () => {
-  //   const scrollOptions = {
-  //     top: 0,
-  //     behavior: "smooth",
-  //   };
-
-  //   // Try modern smooth scroll first
-  //   try {
-  //     window.scroll(scrollOptions);
-  //   } catch (error) {
-  //     // Fallback for older browsers
-  //     window.scrollTo(0, 0);
-  //   }
-  // };
-
 
   const scrollToTop = () => {
     window.scrollTo({

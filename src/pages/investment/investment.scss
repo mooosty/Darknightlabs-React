@@ -866,6 +866,42 @@
         color: var(--primary-white);
         opacity: 0.8;
     }
+
+    .selected_values_container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 8px;
+
+        .selected_value {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: var(--card-background);
+            border: 1px solid rgba(245, 239, 219, 0.1);
+            border-radius: 6px;
+            color: var(--primary-text);
+            font-size: 14px;
+
+            .remove_btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: none;
+                border: none;
+                padding: 0;
+                cursor: pointer;
+                color: var(--primary-text-op50);
+                font-size: 16px;
+                line-height: 1;
+
+                &:hover {
+                    color: var(--primary-text);
+                }
+            }
+        }
+    }
 }
 
 .payment-details {
@@ -985,4 +1021,35 @@
             }
         }
     }
+}
+
+.card_body {
+  // ... existing code ...
+
+  .karma_needed {
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--primary-text);
+  }
+
+  .investment_state {
+    margin-top: 10px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    display: inline-block;
+    color: var(--primary-white);
+    transition: background 0.3s ease;
+
+    &.pledge_mode {
+      box-shadow: 0 2px 12px rgba(255, 59, 59, 0.3);
+      background:#2ed573;
+    }
+
+    &.invest_mode {
+      box-shadow: 0 2px 12px rgba(46, 213, 115, 0.3);
+      background: #ff3b3b;
+    }
+  }
 }
