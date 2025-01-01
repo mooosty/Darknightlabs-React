@@ -292,6 +292,68 @@
         }
       }
     }
+
+    .payment-info {
+      margin: 24px 0;
+      padding: 20px;
+      background: rgba(36, 38, 35, 0.5);
+      border: 1px solid #3c3c3c;
+      border-radius: 8px;
+      color: #F5EFDB;
+
+      p {
+        margin: 0 0 16px;
+        font-size: 14px;
+        line-height: 1.5;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      .wallet-details {
+        background: #242623;
+        padding: 16px;
+        border-radius: 6px;
+        margin: 16px 0;
+
+        p {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin-bottom: 8px;
+          font-family: "Inter", sans-serif;
+
+          strong {
+            color: #9A9A97;
+            min-width: 80px;
+          }
+
+          &.wallet-address {
+            .copy-text {
+              cursor: pointer;
+              padding: 4px 8px;
+              border-radius: 4px;
+              transition: all 0.2s;
+              flex: 1;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              border-bottom: 1px dashed rgba(245, 239, 219, 0.2);
+
+              &:hover {
+                background: rgba(245, 239, 219, 0.1);
+                border-bottom-color: #F5EFDB;
+              }
+            }
+          }
+        }
+      }
+
+      .warning {
+        color: #ff3b3b;
+        font-weight: 500;
+      }
+    }
   }
 
   .form-actions {
