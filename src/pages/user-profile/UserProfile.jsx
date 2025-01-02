@@ -773,8 +773,8 @@ const UserProfile = () => {
                           </div>
                         </div>
                         <div className="profile_info">
-                          <div className="profile_head">Go to Web3 events</div>
-                          <div className="profile_data">{userDetails?.question2 || "-"}</div>
+                          <div className="profile_head">Angel investor</div>
+                          <div className="profile_data">{userDetails?.question1 || "-"}</div>
                         </div>
                         <div className="profile_info">
                           <div className="profile_head">Role</div>
@@ -800,9 +800,13 @@ const UserProfile = () => {
                               .join(", ") || "-"}
                           </div>
                         </div>
-                        <div className="profile_info">
+                        {/* <div className="profile_info">
                           <div className="profile_head">Angel investor</div>
                           <div className="profile_data">{userDetails?.question1 || "-"}</div>
+                        </div> */}
+                        <div className="profile_info">
+                          <div className="profile_head">Go to Web3 events</div>
+                          <div className="profile_data">{userDetails?.question2 || "-"}</div>
                         </div>
                         <div className="profile_info">
                           <div className="profile_head">Main City</div>
@@ -1301,9 +1305,9 @@ const UserProfile = () => {
                                   case "A C-level":
                                     return "C-level";
                                   case "A Web3 employee":
-                                    return "Web3 employee";
+                                    return role.trim();
                                   case "A KOL / Ambassador / Content Creator":
-                                    return "KOL / Ambassador / Content Creator";
+                                    return role.trim();
                                   case "An Angel Investor":
                                     return "Angel Investor";
                                   default:
@@ -1323,8 +1327,14 @@ const UserProfile = () => {
                               {[
                                 "Founder",
                                 "C-level",
-                                "Web3 employee",
-                                "KOL / Ambassador / Content Creator",
+                                "BD",
+                                "Community Manager",
+                                "Collab Manager",
+                                "Outreach Team",
+                                "KOL",
+                                "Ambassador",
+                                "Content Creator",
+                                "Alpha Caller",
                                 "Angel Investor",
                               ].map((role, index) => (
                                 <div
@@ -1343,8 +1353,14 @@ const UserProfile = () => {
                                     ![
                                       "Founder",
                                       "C-level",
-                                      "Web3 employee",
-                                      "KOL / Ambassador / Content Creator",
+                                      "BD",
+                                      "Community Manager",
+                                      "Collab Manager",
+                                      "Outreach Team",
+                                      "KOL",
+                                      "Ambassador",
+                                      "Content Creator",
+                                      "Alpha Caller",
                                       "Angel Investor",
                                     ].includes(role) && role !== "Other"
                                 )
@@ -1515,9 +1531,9 @@ const UserProfile = () => {
                                   case "A C-level":
                                     return "C-level";
                                   case "A Web3 employee":
-                                    return "Web3 employee";
+                                    return role.trim();
                                   case "A KOL / Ambassador / Content Creator":
-                                    return "KOL / Ambassador / Content Creator";
+                                    return role.trim();
                                   case "An Angel Investor":
                                     return "Angel Investor";
                                   default:
@@ -1562,7 +1578,7 @@ const UserProfile = () => {
                           culpa neque modi quisquam, sunt magni
                         </div>
                       </div>
-                      <div className="social_media_wrp">
+                      {/* <div className="social_media_wrp">
                         <div className="social_media">
                           <h2 className="social_media_title">Connected accounts</h2>
                           {!userData?.authDetails?.isAuthenticated && (
@@ -1580,7 +1596,7 @@ const UserProfile = () => {
                             Connect Telegram
                           </button>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
 
