@@ -28,9 +28,9 @@ import CryptoJS from 'crypto-js';
 const copyIcon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23f5efdb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='9' y='9' width='13' height='13' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'%3E%3C/path%3E%3C/svg%3E";
 
 const TelegramVerifyPopup = ({ isOpen, onClose, verificationCode }) => {
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(verificationCode);
-    toast.success('Code copied to clipboard!');
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text);
+    toast.success('Copied to clipboard!');
   };
 
   if (!isOpen) return null;
@@ -39,10 +39,18 @@ const TelegramVerifyPopup = ({ isOpen, onClose, verificationCode }) => {
     <div className="popup-overlay">
       <div className="popup-content">
         <h3>Verify Your Telegram Account</h3>
-        <p>Send this code to our Telegram bot to verify your account:</p>
+        <p>Add <span 
+          className="telegram-bot-name" 
+          onClick={() => copyToClipboard('@WinWinCyborg')}
+          style={{ 
+            cursor: 'pointer', 
+            color: '#229ED9',
+            textDecoration: 'underline'
+          }}
+        >@WinWinCyborg</span> and send this code to verify your account:</p>
         <div className="verification-code">
           <code>{verificationCode}</code>
-          <button onClick={copyToClipboard} className="copy-button" title="Copy to clipboard">
+          <button onClick={() => copyToClipboard(verificationCode)} className="copy-button" title="Copy to clipboard">
             <img src={copyIcon} alt="Copy" />
           </button>
         </div>

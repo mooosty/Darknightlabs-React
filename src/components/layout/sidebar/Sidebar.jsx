@@ -345,7 +345,11 @@ const Sidebar = () => {
                           : ""
                       } ${!isAmbassador ? "disabled ambassador-disabled" : ""} item-progress`}
                     >
-                      <Link to="#" onClick={handleAmbassadorClick} className={!isAmbassador ? "disabled-link" : ""}>
+                      <Link
+                        to={ROUTER.myContent}
+                        onClick={handleAmbassadorClick}
+                        className={!isAmbassador ? "disabled-link" : ""}
+                      >
                         <ProjectNavTabIcon />
                         <span className="menu_text">Ambassadorship</span>
                       </Link>
