@@ -47,7 +47,15 @@ const TelegramVerifyPopup = ({ isOpen, onClose, verificationCode }) => {
             color: '#229ED9',
             textDecoration: 'underline'
           }}
-        >@WinWinCyborg</span> and send this code to verify your account:</p>
+        >@WinWinCyborg</span> and type <span
+          onClick={() => copyToClipboard('/verify')}
+          style={{
+            cursor: 'pointer',
+            color: '#f5efdb',
+            fontWeight: 'bold',
+            textDecoration: 'underline'
+          }}
+        >/verify</span> then send this code to verify your account:</p>
         <div className="verification-code">
           <code>{verificationCode}</code>
           <button onClick={() => copyToClipboard(verificationCode)} className="copy-button" title="Copy to clipboard">
@@ -786,12 +794,12 @@ const UserProfile = () => {
                       />
                     </div>
                     <div className="profile_actions">
-                      <button className="btn_gray" onClick={handleEditProfile}>
+                      <button className="btn_gray save_button" onClick={handleEditProfile}>
                         <img src={editIcon} alt="" />
                         Edit profile
                       </button>
                       <button 
-                        className={`btn_gray ${hasTelegram ? 'verified' : ''}`} 
+                        className={`btn_gray save_button ${hasTelegram ? 'verified' : ''}`} 
                         onClick={handleVerifyTelegram}
                         disabled={hasTelegram}
                       >
