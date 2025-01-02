@@ -1,3 +1,23 @@
 export const ROUTER = {
-    projectManager: 'project-manager'
-}
+    welcome: "welcome",
+    authentication: "authentication",
+    projects: "projects",
+    projectDetails: "project-details",
+    projectManager: "project-manager",
+    projectManagerEdit: "project-manager-edit",
+    synergies: "synergies",
+    investment: "investment",
+    profile: "profile",
+    karma: "karma",
+    chat: "chat",
+    synergyRequests: "synergy-requests",
+    synergiesManager: "synergies-manager",
+    myContent: "my-content",
+    ambassadorProjects: "ambassador-projects",
+    societyFullList: 'society-full-list',
+    error404: '404',
+    error405: '405',
+    announcementFeed: "announcement-feed",
+    dashboard: "dashboard",
+    about: "about",
+};

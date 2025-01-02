@@ -1,0 +1,322 @@
+.synergies_model_bg {
+    display: none;
+    z-index: 99;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    font-family: MedievalSharp;
+
+    &.active {
+        display: block;
+    }
+
+    .project_name_btn {
+        background-color: var(--primary-red-bg);
+        border: none;
+        padding: 12px;
+
+        @media (max-width: 1600px) {
+            padding-block: 9px;
+
+            img {
+                width: 100%;
+            }
+        }
+
+    }
+
+    .add_synergies_popup {
+        background-color: var(--primary-gray-op80);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        width: 100%;
+        height: 100%;
+
+        .synergies_model_box {
+            position: relative;
+            width: 715px;
+            background-color: var(--primary-background);
+            background-image: url("../../../assets/model-frame.png");
+            background-repeat: no-repeat;
+            background-attachment: scroll;
+            background-position-x: 10px;
+            background-position-y: 10px;
+
+            @media (max-width: 1600px) {
+                width: 600px;
+            }
+
+            @media (max-width: 767px) {
+                width: 90%;
+            }
+
+            .synergies_model_body {
+                margin: 55px 4px 20px 28px;
+                padding-right: 20px;
+                overflow-y: scroll;
+                
+                @media (max-width: 1600px) {
+                    max-height: 450px;
+                    margin: 55px 4px 16px 28px;
+                }
+
+
+                &::-webkit-scrollbar-thumb {
+                    background:var(--scrollbar-thumb);
+                }
+
+                .synergies_model_header {
+                    margin-inline: 0;
+                    margin-top: 5px;
+                    margin-bottom: 20px;
+
+                    @media (max-width: 1600px) {
+                        margin-bottom: 18px;
+                    }
+
+
+                    h3 {
+                        color: var(--primary-text);
+                        text-decoration: none;
+                        font-size: 32px;
+                        font-weight: 500;
+                        line-height: 27.12px;
+                        font-family: "MedievalSharp", cursive;
+
+                        @media (max-width: 1600px) {
+                            font-size: 24px;
+                        }
+                    }
+
+                    button.close {
+                        background-color: transparent;
+                        border: gainsboro;
+                        position: absolute;
+                        top: 25px;
+                        right: 30px;
+
+                        img {
+                            width: 30px;
+
+                            @media (max-width: 1600px) {
+                                width: 24px;
+                            }
+                        }
+                    }
+                }
+
+                .synergies_model_form {
+
+                    .synergies_model_form_header {
+                        color: var(--primary-text);
+                        line-height: 19px;
+                        font-size: 18px;
+                        font-weight: 500;
+                        margin-bottom: 16px;
+                        font-family: "MedievalSharp";
+
+                        @media (max-width: 1600px) {
+                            margin-bottom: 12px;
+                        }
+
+                        &.second_header {
+                            margin-top: 12px;
+                        }
+
+                    }
+
+
+                    .form_group {
+                        margin-bottom: 16px;
+
+                        .select_wrapper .custom_select_field {
+                            color:var( --primary-text-op50);
+                            font-family: "Inter", sans-serif;
+
+                            @media (max-width: 1600px) {
+                                font-size: 14px;
+                            }
+                        }
+
+                        .custom_select_list {
+                            font-family: "Inter", sans-serif;
+                        }
+
+                        label {
+                            color: var(--primary-text);
+                            line-height: 19px;
+                            font-size: 15px;
+                            font-weight: 500;
+                            margin: 8px 0;
+                            display: block;
+
+                            @media (max-width: 767px) {
+                                font-size: 14px;
+                            }
+                        }
+
+                        input {
+                            padding: 15px 24px;
+                            border: 1px solid var(--primary-white-op72);
+                            background-color: transparent;
+                            width: 100%;
+                            color: var(--primary-text);
+                            line-height: 19px;
+                            font-size: 16px;
+                            font-weight: 500;
+                            margin-bottom: 8px;
+
+                            @media (max-width: 1600px) {
+                                padding: 10px 15px;
+                                font-size: 14px;
+                            }
+                        }
+
+                        .project_name {
+                            display: flex;
+                            justify-content: center;
+                            gap: 18px;
+
+                            .select_wrapper {
+                                .custom_select_field {
+                                    @media (max-width: 1600px) {
+                                        font-size: 14px;
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+
+                    .checkboxs {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 4px;
+                        align-items: center;
+                        font-family: inter;
+                        font-weight: 200;
+
+                        .checkbox_angles {
+                            border: 1px solid var(--primary-text);
+                            border-radius: 11px;
+                            color: var(--primary-white-op72) !important;
+
+                            .checkbox_label {
+                                margin: 0;
+                                color:var( --primary-text-op50);
+                                display: flex;
+                                align-items: center;
+                                gap: 6px;
+                                border-radius: 10px;
+                                padding: 5px 10px;
+
+                                img {
+                                    background-color: var(--primary-background);
+                                    border-radius: 30px;
+                                }
+                            }
+
+                            .checkbox_input {
+                                display: none;
+                            }
+
+                            .checkbox_input:checked+.checkbox_label {
+                                background-color: var(--primary-text-op80);
+                                color: var(--primary-background);
+                                stroke: var(--primary-background);
+
+                                svg {
+                                    path {
+                                        stroke: var(--primary-background);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }
+
+                .seprator-image {
+                    img {
+                        width: 100%;
+                    }
+                }
+
+                .synergies_model_description {
+                    color: var(--primary-text);
+                    text-decoration: none;
+                    font-size: 14px;
+                    font-weight: 500;
+                    line-height: 20px;
+                    font-family: "MedievalSharp", cursive;
+                    margin-bottom: 24px;
+                }
+
+                .add_more_btn {
+                    padding: 10px 24px;
+                    border: none;
+                    background-color: var(--btn-gray-bg);
+                    font-size: 16px;
+                    font-weight: 500;
+                    color: var(--primary-text);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 5px;
+
+                    @media (max-width: 1600px) {
+                        font-size: 14px;
+                        padding: 10px 20px;
+                    }
+                }
+
+            }
+
+            .synergies_model_footer {
+                padding: 24px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background-color: var(--popup-footer);
+
+                .cancel_btn {
+                    background-color: var(--primary-red-bg);
+                    border: none;
+                    padding: 12px 30px;
+                    color: var(--primary-red);
+                    font-size: 16px;
+
+                    @media (max-width: 1600px) {
+                        font-size: 14px;
+                    }
+                }
+
+                .save_btn {
+                    border: none;
+                    background-color: var(--btn-gray-bg);
+                    font-weight: 500;
+                    color: var(--primary-text);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 5px;
+                    border: none;
+                    padding: 12px 30px;
+                    font-size: 16px;
+
+                    @media (max-width: 1600px) {
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,203 @@
+.authentication_wrap {
+    .twitterLoginWrp {
+        z-index: 99;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        backdrop-filter: blur(2px);
+
+        // background: url("../../assets/Hero-desktop.png") no-repeat;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+
+        @media (max-width: 767px) {
+            // background: url("../../assets/hero-phone.png") no-repeat;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+
+        .twitterLoginBody {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform: translate(-50%, 50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+
+            @media (max-width: 640px) {
+                left: 0%;
+                bottom: -1%;
+                transform: none;
+                align-items: end;
+            }
+
+            .widget-container {
+                width: 600px;
+
+                @media (max-width: 640px) {
+                    max-width: 37.5rem;
+                    width: 100%;
+                }
+
+                .embedded-widget {
+                    display: inline;
+
+                    .dynamic-shadow-dom-content {
+                        .sandbox-indicator {
+                            display: none !important;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+    .hero_main_wrap {
+        padding: 0px 90px;
+        background-image: url('../../assets/hero-main-bg.png');
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        height: 100vh;
+
+        @media (max-width: 767px) {
+            padding: 20px;
+        }
+
+        .hero_wrap {
+            // padding-top: 50px;
+            background-image: url('../../assets/hero-bg-image.png');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            overflow: hidden;
+            background-position: 0 0;
+
+            @media (max-width: 767px) {
+                padding-top: 0;
+                background-image: none;
+                display: flex;
+                flex-direction: column;
+                gap: 50px;
+            }
+
+            .hero_wws_wrap,
+            .hero_poow_wrap {
+                display: flex;
+                justify-content: center;
+
+                @media (max-width: 767px) {
+                    background-image: url('../../assets/hero-mobile-image.png');
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    padding-block: 50px;
+                }
+
+                .hero_left {
+                    width: 40%;
+                    padding-top: 30px;
+
+                    &.wws_left {
+                        padding-top: 40px;
+                    }
+
+                    @media (max-width: 767px) {
+                        width: 80%;
+                    }
+
+                    .title {
+                        font-size: 44px;
+                        font-family: "MedievalSharp";
+                        color: var(--primary-text);
+                        margin-bottom: 5px;
+                        text-transform: uppercase;
+
+                        @media (max-width: 767px) {
+                            font-size: 38px;
+                        }
+                    }
+
+                    .des {
+                        color: var(--primary-white);
+                        font-family: "MedievalSharp";
+                        margin-block: 20px;
+                    }
+                }
+
+                .hero_right {
+                    width: 40%;
+                    display: flex;
+                    align-items: end;
+
+                    @media (max-width: 767px) {
+                        display: none;
+                    }
+
+
+                    &.wws_img {
+                        margin-left: 70px;
+                        position: relative;
+
+                        &::after {
+                            content: '';
+                            display: block;
+                            position: absolute;
+                            height: 300px;
+                            width: 400px;
+                            top: 0;
+                            left: -40px;
+                            z-index: 90;
+                            background-image: url('../../assets/dragon-shadow.png');
+                            background-size: 125%;
+                            background-position: 60% 0%;
+                        }
+
+                    }
+
+                    .hero_image {
+                        max-height: 350px;
+                        mix-blend-mode: screen;
+
+                        @media (max-width: 1600px) {
+                            max-height: 300px;
+                        }
+
+
+                    }
+                }
+            }
+
+            .half_divider {
+                height: 4px;
+                width: 100%;
+                background-image: url('../../assets/half-divider.png');
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+
+            .hero_btn {
+                height: 43px;
+                width: 180px;
+                background-image: url('../../assets/btn-frame.png');
+                background-size: cover;
+                background-repeat: no-repeat;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--primary-text);
+                font-family: "MedievalSharp";
+                background-color: transparent;
+                border: none;
+            }
+        }
+    }
+}

@@ -4,60 +4,115 @@
     align-items: center;
     width: 100%;
     gap: 12px;
+    cursor: pointer;
+
+    &.disable {
+        opacity: 0.4;
+        background-color: var(--border-color);
+        cursor: not-allowed;
+    }
 
     .custom_select_field {
-        padding: 16px 24px;
-        border: 1px solid rgba(255, 255, 255, 0.5019607843);
+        padding: 15px 24px;
+        border: 1px solid var(--primary-white-op72);
         background-color: transparent;
         width: 100%;
-        line-height: 19.36px;
+        line-height: 19px;
         font-size: 16px;
         font-weight: 500;
-        margin-bottom: 8px;
         position: relative;
+        display: flex;
+        gap: 4px;
 
         @media (max-width: 1600px) {
             font-size: 14px;
             padding: 10px 20px;
         }
 
+        .label_tooltip {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         .custom_select_label {
-            color: #f5efdb;
+            color: var(--primary-text);
         }
 
         .custom_select_placeholder {
-            color: #F5EFDB80;
+            color:var( --primary-text-op50);
+            max-width: 90%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .down-arrow {
             position: absolute;
             right: 13px;
-            top: 20%;
+            top: 22%;
 
-            img {
-                height: 24px;
-                width: 24px;
+            @media (max-width: 1600px) {
+                top: 20%;
+            }
+
+            svg {
+                height: 30px;
+                width: 30px;
 
                 @media (max-width: 1600px) {
-                    height: 20px;
-                    width: 20px;
+                    height: 25px;
+                    width: 25px;
                 }
             }
         }
     }
 
     .custom_select_list {
-        border: 1px solid #ffffff80;
-        background-color: #242623;
+        border: 1px solid var(--primary-white-op72);
+        background-color: var(--card-background);
         padding: 10px;
         position: absolute;
         display: none;
         width: 100%;
+        max-height: 200px;
+        overflow-y: auto;
         top: calc(100% + 0px);
+
+        &::-webkit-scrollbar-track {
+            margin-block: 13px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: var(--primary-text) !important;
+        }
 
         &.active {
             display: block;
             z-index: 10;
+        }
+
+        .select_search {
+            margin-bottom: 8px;
+            
+            input {
+                width: 100%;
+                padding: 8px 12px;
+                background-color: var(--primary-background);
+                border: 1px solid var(--border-color);
+                border-radius: 4px;
+                color: var(--primary-text);
+                font-size: 14px;
+
+                &::placeholder {
+                    color: var(--primary-text-op50);
+                }
+
+                &:focus {
+                    outline: none;
+                    border-color: var(--primary-text);
+                }
+            }
         }
 
         ul {
@@ -69,15 +124,30 @@
                 padding: 10px 16px;
                 font-size: 16px;
                 font-weight: 500;
-                line-height: 19.36px;
-                color: #f5efdb;
+                line-height: 19px;
+                color: var(--primary-text);
 
                 @media (max-width: 1600px) {
                     font-size: 14px;
                 }
 
                 &:hover {
-                    background-color: #ffffff1a;
+                    background-color: var(--primary-white-op10);
+                }
+
+                .tooltip {
+                    display: flex;
+                    align-items: center;
+
+                    img {
+                        height: 18px;
+                        width: 18px;
+
+                        @media (max-width: 1600px) {
+                            height: 16px;
+                            width: 16px;
+                        }
+                    }
                 }
             }
         }
@@ -85,10 +155,10 @@
         .add_new_angle_btn {
             padding: 10px 24px;
             border: none;
-            background-color: rgba(78, 78, 78, 0.5803921569);
+            background-color: var(--btn-gray-bg);
             font-size: 16px;
             font-weight: 500;
-            color: #f5efdb;
+            color: var(--primary-text);
             display: flex;
             align-items: center;
             justify-content: center;

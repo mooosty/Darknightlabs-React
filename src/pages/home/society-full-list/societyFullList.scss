@@ -1,0 +1,68 @@
+.society_full_list_wrap {
+    display: flex;
+    background-color: #0C0C0C;
+    align-items: center;
+    flex-direction: column;
+    gap: 70px;
+    padding: 80px 0;
+    height: 100%;
+    overflow-y: auto;
+
+    @media (max-width: 767px) {
+        padding: 20px;
+        gap: 30px;
+    }
+
+    .header {
+        font-size: 54px;
+        font-family: "MedievalSharp";
+        color: var(--primary-text);
+        margin-bottom: 5px;
+        text-align: center;
+        text-transform: uppercase;
+
+        @media (max-width: 767px) {
+            font-size: 40px;
+        }
+
+    }
+
+    .card_wrap {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px 0px;
+        max-width: 1100px;
+
+        @media (max-width: 1000px) {
+            row-gap: 16px;
+        }
+
+        .card_box {
+            flex-grow: 1;
+            flex-shrink: 0;
+            display: flex;
+            justify-content: center;
+            padding-inline: 32px;
+            flex-basis: calc(100% / 4);
+            max-width: calc(100% / 4);
+
+            @media (max-width: 1300px) {
+                flex-basis: calc(100% / 3);
+                max-width: calc(100% / 3);
+            }
+
+            @media (max-width: 1000px) {
+                padding-inline: 8px;
+                flex-basis: calc(100% / 2);
+                max-width: calc(100% / 2);
+            }
+        }
+    }
+
+    .less_btn {
+        padding: 8px 16px;
+        border: 1px solid var(--primary-text);
+        background: transparent;
+        color: var(--primary-text);
+    }
+}

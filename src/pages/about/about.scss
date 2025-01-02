@@ -1,0 +1,180 @@
+.content_header_wrap {
+    height: 100%;
+
+    @media (max-width: 767px) {
+        background-color: var(--primary-background);
+        padding-bottom: 20px;
+    }
+
+    .content_header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 32px;
+
+        @media (max-width: 1600px) {
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 767px) {
+            margin-bottom: 0px;
+            background-color: var(--primary-background);
+        }
+
+        .content_left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            @media (max-width: 767px) {
+                width: 100%;
+                padding: 15px 24px;
+                gap: 10px;
+                justify-content: space-between;
+            }
+
+            @media (max-width: 500px) {
+                padding-inline: 20px;
+            }
+
+            h2 {
+                color: var(--primary-white);
+                font-weight: 500;
+                font-family: "MedievalSharp", cursive;
+                font-size: 42px;
+
+                @media (max-width: 1600px) {
+                    font-size: 28px;
+                }
+            }
+        }
+    }
+
+    .content_body {
+        background-color: var(--primary-background);
+        border-radius: 9px;
+        padding: 15px;
+        height: calc(100% - 80px);
+
+        @media (max-width: 1600px) {
+            height: calc(100% - 45px);
+        }
+
+
+        @media (max-width: 767px) {
+            border-radius: 0;
+            padding: 20px;
+        }
+
+        .about_grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            padding: 10px;
+            height: 100%;
+            min-height: 450px;
+            overflow-y: auto;
+
+            @media (max-width: 767px) {
+                grid-template-columns: 1fr;
+                padding: 0;
+                padding-top: 0;
+            }
+
+            .about_card {
+                background: var(--card-background);
+                border-radius: 9px;
+                padding: 30px;
+                position: relative;
+
+                &.full_width {
+                    grid-column: 1 / -1;
+                }
+
+                .card_header {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-bottom: 50px;
+
+                    h3 {
+                        color: var(--primary-text);
+                        font-size: 24px;
+                        font-family: "MedievalSharp", cursive;
+                        margin: 0;
+                    }
+
+                    svg,
+                    img {
+                        color: #DCCA87;
+                    }
+                }
+
+                .card_content {
+                    color: rgba(245, 239, 219, 0.8);
+                    line-height: 1.6;
+
+                    &:not(.expanded) {
+                        max-height: 300px;
+                        overflow: hidden;
+                        position: relative;
+                    }
+
+                    p {
+                        margin-bottom: 16px;
+                        font-size: 16px;
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+                    }
+
+                    ol {
+                        margin: 16px 0;
+                        padding-left: 20px;
+
+                        li {
+                            margin-bottom: 16px;
+
+                            &:last-child {
+                                margin-bottom: 0;
+                            }
+
+                            strong {
+                                color: #DCCA87;
+                                font-weight: 500;
+                            }
+                        }
+                    }
+
+                    .section {
+                        margin-top: 24px;
+
+                        h4 {
+                            color: #F5EFDB;
+                            font-size: 20px;
+                            font-family: "MedievalSharp", cursive;
+                            margin-bottom: 16px;
+                        }
+                    }
+                }
+
+                .read_more_btn {
+                    background: none;
+                    border: none;
+                    color: #DCCA87;
+                    font-family: "MedievalSharp", cursive;
+                    font-size: 16px;
+                    cursor: pointer;
+                    padding: 8px 0;
+                    margin-top: 16px;
+                    transition: opacity 0.2s ease;
+
+                    &:hover {
+                        opacity: 0.8;
+                    }
+                }
+            }
+        }
+    }
+}

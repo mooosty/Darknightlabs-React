@@ -1,0 +1,121 @@
+.search_box {
+    height: 100%;
+    position: relative;
+    min-width: 450px;
+    min-height: 25px;
+
+    @media (max-width: 1199px) {
+        min-width: 230px;
+    }
+
+    @media (max-width: 767px) {
+        min-width: 30px;
+        display: none;
+    }
+
+    .searchbar_icon {
+        position: absolute;
+        left: 24px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1;
+
+        svg {
+            width: 24px;
+            height: 24px;
+            color: var(--primary-text);
+            opacity: 0.5;
+        }
+
+        @media (max-width: 1199px) {
+            left: 15px;
+        }
+
+        @media (max-width: 767px) {
+            position: static;
+            transform: none;
+        }
+    }
+
+    .search_input_top {
+        background-color: var(--primary-background);
+        padding: 10px 24px 10px 52px;
+        border: 1px solid var(--border-color);
+        border-radius: 9px;
+        width: 100%;
+        font-size: 16px;
+        color: var(--primary-text);
+
+        @media (max-width: 767px) {
+            display: none;
+        }
+
+        &::placeholder {
+            color: var(--primary-text);
+            font-size: 18px;
+            opacity: 0.5;
+        }
+    }
+
+    .search_input_open {
+        position: absolute;
+        top: 100%;
+        right: 0%;
+        width: 100%;
+        min-width: 230px;
+        max-width: 90vw;
+        min-height: 35px;
+        display: none;
+
+        @media (max-width: 767px) {
+            display: block;
+        }
+
+        .search_input_bottom {
+            background-color: var(--primary-background);
+            padding: 10px 24px 10px 35px;
+            border: 1px solid var(--border-color);
+            border-radius: 9px;
+            width: 100%;
+            font-size: 16px;
+            color: var(--primary-text);
+
+            &::placeholder {
+                color: var(--primary-text);
+                font-size: 18px;
+                opacity: 0.5;
+
+                @media (max-width: 1199px) {
+                    font-size: 14px;
+                }
+            }
+        }
+
+        .icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+
+        }
+    }
+}
+
+.search_icon_button {
+    display: none;
+
+    @media (max-width: 767px) {
+        display: block;
+    }
+
+    svg {
+        width: 24px;
+        height: 24px;
+        color: var(--primary-text);
+        opacity: 0.5;
+    }
+
+}

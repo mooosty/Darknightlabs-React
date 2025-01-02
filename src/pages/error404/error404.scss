@@ -1,0 +1,74 @@
+.error_404_main_wrap {
+    background-color:var(--primary-black);
+
+    .error_404_wrap {
+        width: 100%;
+        height: 100vh;
+        background-image: url('../../assets/bg-404-image.png');
+        background-position: 48% 50%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        @media (max-width: 767px) {
+            background-image: url('../../assets/mobile-404-bg.png');
+        }
+
+        .content_Wrap {
+            width: 30%;
+            text-align: center;
+            color: var(--primary-text);
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+
+            @media (max-width: 767px) {
+                gap: 20px;
+                width: 40%;
+            }
+
+            @media (max-width: 500px) {
+                gap: 10px;
+                width: 70%;
+            }
+
+            .title {
+                font-size: 32px;
+
+                @media (max-width: 767px) {
+                    font-size: 24px;
+                }
+            }
+
+            .header {
+                font-size: 102px;
+                font-family: "MedievalSharp";
+
+                @media (max-width: 767px) {
+                    font-size: 74px;
+                }
+            }
+
+            .desc {
+                font-size: 20px;
+                color: var(--primary-white);
+                font-family: "MedievalSharp";
+
+                @media (max-width: 767px) {
+                    font-size: 18px;
+                }
+            }
+
+            .btn {
+                padding: 9px 17px;
+                max-width: fit-content;
+                color: var(--primary-text);
+                border: 1px solid var(--primary-text);
+                background-color: transparent;
+                margin-inline: auto;
+            }
+        }
+    }
+}

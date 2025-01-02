@@ -1,0 +1,205 @@
+.project_card {
+    width: 100%;
+    border-radius: 10px;
+    height: 100%;
+    background-color: var(--card-background);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px 12px;
+    transition: 0.15s;
+
+    &:hover {
+        box-shadow: 1px 0px 20px 1px #ff8a1c59;
+    }
+
+    &.highlighted {
+        position: relative;
+        background-color:var(--gradient-light-yellow)1a;
+        border: 1px solid #ddc38c;
+
+        .isFeaturedCard {
+            position: absolute;
+            top: -10px;
+            left: 47%;
+            z-index: 5;
+        }
+    }
+
+
+    .card_img {
+        height: 154px;
+        object-fit: contain;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+        overflow: hidden;
+
+        img {
+            object-fit: cover;
+            height: 100%;
+            width: 100%;
+        }
+    }
+
+    .card_body {
+        display: flex;
+        justify-content: start;
+        flex-direction: column;
+        gap: 12px;
+
+        .card_body_head {
+            color: var(--primary-text);
+            font-size: 18px;
+            font-family: "MedievalSharp", cursive;
+            display: flex;
+            align-items: start;
+        }
+
+        .card_body_content {
+
+            .tabs {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 4px;
+                color: var(--primary-white);
+                // position: relative;
+
+                .angle_tag {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 4px 8px;
+                    font-size: 12px;
+                    border-radius: 6px;
+                    background: var(--primary-background);
+                    gap: 4px;
+
+                    .text {
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        display: -webkit-box;
+                        -webkit-line-clamp: 1;
+                        -webkit-box-orient: vertical;
+                        color: var(--primary-text);
+                    }
+                }
+
+                .global {
+                    .angle_tag {
+                        position: relative;
+
+                        &::before {
+                            content: "";
+                            inset: 0;
+                            position: absolute;
+                            border-radius: 6px;
+                            padding: 1px;
+                            background: linear-gradient(to bottom right, var(--gradient-purple), var(--gradient-pink));
+                            -webkit-mask: linear-gradient(var( --primary-white) 0 0) content-box, linear-gradient(var( --primary-white) 0 0);
+                            -webkit-mask-composite: xor;
+                            mask-composite: exclude;
+                            pointer-events: none;
+                        }
+
+                        .text {
+                            background-image: linear-gradient(to bottom right, var(--gradient-purple), var(--gradient-pink));
+                            -webkit-background-clip: text;
+                            -webkit-text-fill-color: transparent;
+                        }
+                    }
+                }
+
+                .graph {
+                    .angle_tag {
+                        position: relative;
+
+                        &::before {
+                            content: "";
+                            inset: 0;
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            border-radius: 6px;
+                            padding: 1px;
+                            background: linear-gradient(to bottom right, var(--gradient-dark-yellow), var(--gradient-light-yellow));
+                            -webkit-mask: linear-gradient(var( --primary-white) 0 0) content-box, linear-gradient(var( --primary-white) 0 0);
+                            -webkit-mask-composite: xor;
+                            mask-composite: exclude;
+                            pointer-events: none;
+                        }
+
+                        .text {
+                            background-image: linear-gradient(to bottom right, var(--gradient-dark-yellow), var(--gradient-light-yellow));
+                            -webkit-background-clip: text;
+                            -webkit-text-fill-color: transparent;
+                        }
+                    }
+                }
+            }
+        }
+
+        .card_body_price {
+            display: flex;
+            gap: 6px;
+            flex-direction: column;
+            justify-content: center;
+
+            .text {
+                font-family: "Inter", sans-serif;
+                font-size: 14px;
+                color: var(--primary-white-op60);
+            }
+
+            .digits {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                color: var(--primary-yellow);
+                font-size: 14px;
+                font-family: "MedievalSharp", cursive;
+
+                span {
+                    letter-spacing: 1px;
+                }
+            }
+        }
+
+    }
+
+    .card_button {
+        margin-top: auto;
+        cursor: pointer;
+        position: relative;
+
+        &::before {
+            content: "";
+            inset: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 1px;
+            background: linear-gradient(to bottom right, var(--gradient-dark-yellow), var(--gradient-light-yellow));
+            -webkit-mask: linear-gradient(var( --primary-white) 0 0) content-box, linear-gradient(var( --primary-white) 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+
+            .text {
+                // display: -webkit-box;
+                background-image: linear-gradient(to bottom right, var(--gradient-dark-yellow), var(--gradient-light-yellow));
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+        }
+
+    }
+}
