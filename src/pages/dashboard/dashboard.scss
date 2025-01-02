@@ -117,6 +117,13 @@ body {
 
 .dashboard-container {
   height: 100%;
+  padding: 16px;
+  
+  @media (max-width: 768px) {
+    padding: 12px;
+    height: auto;
+    overflow-y: auto;
+  }
   
   .welcome-section {
     margin-bottom: 24px;
@@ -124,12 +131,22 @@ body {
     border-radius: 9px;
     padding: 24px;
     
+    @media (max-width: 768px) {
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    
     .welcome-content {
       h1 {
         font-family: "MedievalSharp", cursive;
         color: #F5EFDB;
         font-size: 32px;
         margin-bottom: 24px;
+        
+        @media (max-width: 768px) {
+          font-size: 24px;
+          margin-bottom: 16px;
+        }
       }
       
       .stats-container {
@@ -138,6 +155,7 @@ body {
         
         @media (max-width: 768px) {
           flex-direction: column;
+          gap: 16px;
         }
         
         .stat-box {
@@ -147,6 +165,10 @@ body {
           padding: 24px;
           display: flex;
           flex-direction: column;
+
+          @media (max-width: 768px) {
+            padding: 16px;
+          }
 
           .stat-label {
             color: rgba(245, 239, 219, 0.5);
@@ -160,6 +182,11 @@ body {
             font-weight: 700;
             margin-bottom: 12px;
             font-family: "MedievalSharp", cursive;
+            
+            @media (max-width: 768px) {
+              font-size: 24px;
+              margin-bottom: 8px;
+            }
             
             &.karma {
               color: #DCCA87;
@@ -193,16 +220,29 @@ body {
       grid-template-columns: 1fr;
     }
     
+    @media (max-width: 768px) {
+      gap: 16px;
+    }
+    
     .grid-section {
       background: #191917;
       border-radius: 9px;
       padding: 24px;
+      
+      @media (max-width: 768px) {
+        padding: 16px;
+      }
       
       h2 {
         color: #F5EFDB;
         font-size: 24px;
         margin-bottom: 24px;
         font-family: "MedievalSharp", cursive;
+        
+        @media (max-width: 768px) {
+          font-size: 20px;
+          margin-bottom: 16px;
+        }
       }
       
       .view-all-btn {
@@ -226,8 +266,9 @@ body {
           padding: 24px;
           margin-bottom: 16px;
           
-          &:last-child {
-            margin-bottom: 0;
+          @media (max-width: 768px) {
+            padding: 16px;
+            margin-bottom: 12px;
           }
           
           .announcement-header {
@@ -235,6 +276,12 @@ body {
             justify-content: space-between;
             align-items: center;
             margin-bottom: 16px;
+            
+            @media (max-width: 768px) {
+              flex-direction: column;
+              align-items: flex-start;
+              gap: 12px;
+            }
             
             .author-info {
               display: flex;
@@ -252,11 +299,16 @@ body {
                   color: #F5EFDB;
                   font-size: 16px;
                   margin-bottom: 4px;
+                  
+                  @media (max-width: 768px) {
+                    font-size: 14px;
+                  }
                 }
                 
                 .announcement-date {
                   color: rgba(245, 239, 219, 0.5);
                   font-size: 12px;
+                  display: block;
                 }
               }
             }
@@ -271,15 +323,24 @@ body {
           .announcement-content {
             .announcement-title {
               color: #F5EFDB;
-              font-size: 18px;
-              margin-bottom: 12px;
               font-family: "MedievalSharp", cursive;
+              font-size: 20px;
+              margin-bottom: 12px;
+              
+              @media (max-width: 768px) {
+                font-size: 18px;
+                margin-bottom: 8px;
+              }
             }
             
             .announcement-text {
               color: rgba(245, 239, 219, 0.8);
               font-size: 14px;
               line-height: 1.6;
+              
+              p {
+                color: rgba(245, 239, 219, 0.8);
+              }
               
               .read-more-btn {
                 background: none;
@@ -306,17 +367,28 @@ body {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          padding: 24px;
+          padding: 16px;
           background: rgba(245, 239, 219, 0.03);
           border-radius: 9px;
-          margin-bottom: 16px;
+          margin-bottom: 12px;
+          
+          @media (max-width: 768px) {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 12px;
+            padding: 16px;
+          }
           
           .action-info {
             h3 {
               color: #F5EFDB;
               font-size: 18px;
-              margin-bottom: 8px;
+              margin-bottom: 4px;
               font-family: "MedievalSharp", cursive;
+              
+              @media (max-width: 768px) {
+                font-size: 16px;
+              }
             }
             
             p {
@@ -326,73 +398,124 @@ body {
           }
           
           .action-btn {
-            background: #DCCA87;
-            color: #191917;
+            background: rgba(245, 239, 219, 0.1);
             border: none;
-            padding: 12px 24px;
-            border-radius: 9px;
+            color: #F5EFDB;
+            padding: 8px 24px;
+            border-radius: 4px;
             cursor: pointer;
-            font-weight: 500;
-            font-family: "MedievalSharp", cursive;
+            font-size: 14px;
+            min-width: 120px;
+            text-align: center;
+            transition: background-color 0.2s;
             
             &:hover {
-              opacity: 0.9;
+              background: rgba(245, 239, 219, 0.15);
+            }
+            
+            @media (max-width: 768px) {
+              width: 100%;
+              padding: 12px;
             }
           }
         }
       }
       
       .upcoming-ama {
-        background: rgba(151, 71, 255, 0.1);
+        background: rgba(245, 239, 219, 0.03);
         border-radius: 9px;
         padding: 24px;
         margin-top: 24px;
         
+        @media (max-width: 768px) {
+          padding: 16px;
+          margin-top: 16px;
+        }
+        
         h3 {
-          color: #9747FF;
+          color: #F5EFDB;
           font-size: 20px;
-          margin-bottom: 12px;
+          margin-bottom: 8px;
           font-family: "MedievalSharp", cursive;
+          
+          @media (max-width: 768px) {
+            font-size: 18px;
+          }
         }
         
         p {
           color: rgba(245, 239, 219, 0.8);
           font-size: 14px;
           margin-bottom: 16px;
-          line-height: 1.6;
         }
         
         .timer {
-          display: flex;
-          align-items: center;
-          gap: 8px;
+          color: rgba(245, 239, 219, 0.5);
+          font-size: 14px;
           margin-bottom: 16px;
           
-          span {
-            color: rgba(245, 239, 219, 0.5);
-            font-size: 14px;
-            
-            &.time {
-              color: #9747FF;
-              font-weight: 700;
-              font-family: "MedievalSharp", cursive;
-            }
+          .time {
+            color: #DCCA87;
+            font-weight: 500;
           }
         }
         
         .reminder-btn {
-          width: 100%;
-          background: rgba(151, 71, 255, 0.2);
-          color: #9747FF;
-          border: 1px solid #9747FF;
-          padding: 12px;
-          border-radius: 9px;
+          background: rgba(245, 239, 219, 0.1);
+          border: none;
+          color: #F5EFDB;
+          padding: 8px 24px;
+          border-radius: 4px;
           cursor: pointer;
-          font-weight: 500;
-          font-family: "MedievalSharp", cursive;
+          font-size: 14px;
+          width: 100%;
+          text-align: center;
+          transition: background-color 0.2s;
           
           &:hover {
-            background: rgba(151, 71, 255, 0.3);
+            background: rgba(245, 239, 219, 0.15);
+          }
+          
+          @media (max-width: 768px) {
+            padding: 12px;
+          }
+        }
+      }
+    }
+    
+    .investments-section {
+      .investments-list {
+        .investment-item {
+          @media (max-width: 768px) {
+            padding: 12px;
+            margin-bottom: 12px;
+          }
+          
+          .investment-info {
+            @media (max-width: 768px) {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+    
+    .social-accounts-section {
+      .social-accounts-list {
+        .social-account-item {
+          @media (max-width: 768px) {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px;
+          }
+          
+          .connect-btn {
+            @media (max-width: 768px) {
+              width: 100%;
+              padding: 8px;
+              font-size: 14px;
+            }
           }
         }
       }
@@ -512,31 +635,35 @@ body {
       }
 
       .connect-btn {
-        padding: 0 24px;
-        height: 40px;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 14px;
-        font-family: "MedievalSharp", cursive;
-        transition: all 0.3s ease;
+        background-color: var(--btn-gray-bg);
         border: none;
-        color: white;
-        width: 160px;
-        text-align: center;
+        padding: 8px 16px;
+        color: var(--primary-text);
+        font-size: 14px;
+        font-family: "Inter", sans-serif;
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 8px;
+        cursor: pointer;
+        width: 160px;
         
         img {
           width: 16px;
           height: 16px;
         }
-
+        
         &.connected {
-          background-color: rgba(245, 239, 219, 0.1) !important;
-          cursor: default;
-          opacity: 0.8;
+          opacity: 0.7;
+          cursor: not-allowed;
+        }
+
+        &.twitter {
+          background-color: #1DA1F2;
+          
+          &:hover:not(.connected) {
+            background-color: darken(#1DA1F2, 10%);
+          }
         }
         
         &.telegram {
@@ -552,14 +679,6 @@ body {
           
           &:hover:not(.connected) {
             background-color: darken(#5865F2, 10%);
-          }
-        }
-
-        &.twitter {
-          background-color: #1DA1F2;
-          
-          &:hover:not(.connected) {
-            background-color: darken(#1DA1F2, 10%);
           }
         }
       }

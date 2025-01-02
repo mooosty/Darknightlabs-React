@@ -1,9 +1,14 @@
 .karma_page {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
     .karma_content_header {
         display: flex;
         align-items: center;
         justify-content: space-between;
         margin-bottom: 32px;
+        flex-shrink: 0;
 
         @media (max-width: 1600px) {
             margin-bottom: 20px;
@@ -46,9 +51,12 @@
     .karma_page_data {
         background-color: var(--primary-background);
         border-radius: 9px;
-        height: calc(100vh - 260px);
+        flex: 1;
+        min-height: 0;
         padding: 20px 0px;
         overflow: hidden;
+        display: flex;
+        flex-direction: column;
 
         @media (max-width: 1600px) {
             height: calc(100vh - 140px);
@@ -62,9 +70,11 @@
 
         .page_data {
             height: 100%;
+            flex: 1;
             background-color: transparent;
             overflow-y: auto;
             padding: 0 30px;
+            
             
             &::-webkit-scrollbar {
                 width: 6px;
@@ -121,11 +131,14 @@
                     }
 
                     .read-more {
-                        color: #DCCA87;
+                        color: #FFDF76;
                         font-size: 16px;
                         font-family: "MedievalSharp", cursive;
                         cursor: pointer;
                         transition: opacity 0.2s ease;
+                        background: none;
+                        border: none;
+                        padding: 0;
 
                         &:hover {
                             opacity: 0.8;
@@ -243,6 +256,7 @@
                     font-size: 16px;
                     cursor: pointer;
                     transition: all 0.2s ease;
+                    margin-bottom: 8px;
 
                     &:hover {
                         background: #DCCA87;
@@ -250,6 +264,23 @@
 
                     &:active {
                         transform: translateY(1px);
+                    }
+                }
+
+                .read-more-btn {
+                    background: none;
+                    border: none;
+                    padding: 4px;
+                    color: #FFDF76;
+                    font-size: 16px;
+                    font-family: "MedievalSharp", cursive;
+                    cursor: pointer;
+                    transition: opacity 0.2s ease;
+                    display: block;
+                    margin-left: auto;
+
+                    &:hover {
+                        opacity: 0.8;
                     }
                 }
             }

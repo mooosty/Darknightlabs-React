@@ -153,6 +153,9 @@ const Sidebar = () => {
                 <span>Karma:</span>
                 <span className="value">{userDetails?.currency_b || 0}</span>
                 <KarmaIcon style={{ width: "1em", height: "1em" }} />
+                <div className="karma-tooltip">
+                  <p>Karma points are rewards for users, click on karma to read more</p>
+                </div>
               </div>
               <div className="balance" onClick={() => navigate(`/${ROUTER.about}`)} style={{ cursor: "pointer" }}>
                 <span>$winwin:</span>

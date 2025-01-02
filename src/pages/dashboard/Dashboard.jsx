@@ -245,36 +245,36 @@ const Dashboard = () => {
         </div>
 
         <div className="grid-section social-accounts-section">
-          <h2>Social Accounts</h2>
+          <h2>Follow our social accounts</h2>
           <div className="social-accounts-list">
             <div className="social-account-item">
               <div className="account-info">
                 <span className="platform-name">Twitter</span>
-                <span className="connection-status connected">Connected</span>
+                <span className="connection-status">Follow us</span>
               </div>
-              <button className="connect-btn twitter connected" disabled>
+              <a href="https://x.com/WinWinSocietyHQ" target="_blank" rel="noopener noreferrer" style={{ backgroundColor: 'rgba(245, 239, 219, 0.1)', padding: '8px 16px', borderRadius: '4px', color: '#F5EFDB', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px', width: '120px', justifyContent: 'center', padding: '8px 85px' }}>
                 <img src={twitterIcon} alt="Twitter" />
-                Connected
-              </button>
+                Twitter
+              </a>
             </div>
             <div className="social-account-item">
               <div className="account-info">
                 <span className="platform-name">Telegram</span>
-                <span className="connection-status">Not Connected</span>
+                <span className="connection-status">Join group</span>
               </div>
-              <button className="connect-btn telegram">
+              <a href="https://t.me/+9m9gdhpa2CQzNTZk" target="_blank" rel="noopener noreferrer" style={{ backgroundColor: 'rgba(245, 239, 219, 0.1)', padding: '8px 16px', borderRadius: '4px', color: '#F5EFDB', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px', width: '120px', justifyContent: 'center', padding: '8px 85px' }}>
                 <img src={telegramIcon} alt="Telegram" />
-                Link Telegram
-              </button>
+                Telegram
+              </a>
             </div>
             <div className="social-account-item">
               <div className="account-info">
                 <span className="platform-name">Discord</span>
-                <span className="connection-status">Not Connected</span>
+                <span className="connection-status">Coming Soon</span>
               </div>
-              <button className="connect-btn discord">
+              <button style={{ backgroundColor: 'rgba(245, 239, 219, 0.1)', padding: '8px 16px', borderRadius: '4px', color: '#F5EFDB', border: 'none', display: 'flex', alignItems: 'center', gap: '8px', opacity: 0.5, cursor: 'not-allowed', width: '120px', justifyContent: 'center' , padding: '8px 85px' }} disabled>
                 <img src={discordIcon} alt="Discord" />
-                Link Discord
+                Discord
               </button>
             </div>
           </div>

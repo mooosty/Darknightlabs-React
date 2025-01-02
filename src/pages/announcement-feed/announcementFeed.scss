@@ -101,12 +101,6 @@
         border-radius: 16px;
         padding: 24px;
         border: 1px solid rgba(245, 239, 219, 0.1);
-        transition: all 0.2s ease;
-
-        &:hover {
-          transform: translateY(-2px);
-          border-color: rgba(245, 239, 219, 0.2);
-        }
 
         .announcement-header {
           display: flex;
@@ -179,15 +173,14 @@
             .read-more-btn {
               background: none;
               border: none;
-              color: #ff8a1c;
+              padding: 0;
+              color: #FFDF76 !important;
               cursor: pointer;
-              padding: 8px 0;
               font-size: 14px;
-              font-weight: 500;
-              margin-top: 10px;
-              
+              font-family: inherit;
+
               &:hover {
-                text-decoration: underline;
+                opacity: 0.8;
               }
             }
           }

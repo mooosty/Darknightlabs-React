@@ -1,8 +1,19 @@
 .pledge-form-card {
   background: #191917;
-  padding: 32px;
+  padding: 16px;
   border-radius: 8px;
   border: 1px solid #3c3c3c;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: visible;
+
+  .pledge-form-content {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+  }
 
   .pledge-form-header {
     margin-bottom: 32px;
@@ -111,7 +122,7 @@
         font-size: 14px;
         padding: 10px 20px;
         transition: all 0.2s;
-        font-family: "MedievalSharp", cursive;
+        font-family: "Inter", sans-serif;
 
         &:hover {
           background: #2f312d;
@@ -370,7 +381,7 @@
       font-size: 18px;
       padding: 14px 32px;
       transition: all 0.2s;
-      font-family: "MedievalSharp", cursive;
+      font-family: "Inter", sans-serif;
       font-weight: 500;
 
       &:hover {

@@ -146,7 +146,37 @@
               }
             }
   
+            .karma-tooltip {
+              position: absolute;
+              bottom: calc(100% + 8px);
+              left: 0;
+              background: #191917;
+              padding: 12px;
+              border-radius: 4px;
+              width: 100%;
+              opacity: 0;
+              visibility: hidden;
+              transition: opacity 0.2s ease, visibility 0.2s ease;
+              z-index: 10000;
+              color: #f5efdb;
+              font-size: 12px;
+              line-height: 1.4;
+              border: 1px solid rgba(245, 239, 219, 0.15);
+              transform: translateZ(0);
+              pointer-events: none;
+  
+              p {
+                margin: 0;
+                opacity: 0.8;
+              }
+            }
+  
             &:hover .winwin-tooltip {
+              opacity: 1;
+              visibility: visible;
+            }
+  
+            &:hover .karma-tooltip {
               opacity: 1;
               visibility: visible;
             }
@@ -409,7 +439,6 @@
     .item-tooltip {
       position: absolute;
       bottom: 100%;
-  
       background: #191917;
       padding: 12px;
       border-radius: 4px;
@@ -424,6 +453,7 @@
       border: 1px solid rgba(245, 239, 219, 0.15);
       transform: translateZ(0);
       pointer-events: none;
+      font-family: "MedievalSharp";
   
       p {
         margin: 0 0 8px 0;

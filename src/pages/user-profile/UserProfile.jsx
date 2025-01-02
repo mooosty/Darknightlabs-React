@@ -22,6 +22,35 @@ import { Loader, CustomDropdown } from "../../components";
 import ProjectInvolvment from "./project-manager-edit/ProjectInvolvment";
 import ProjectsUser from "./project-manager/ProjectsUser";
 import Ambassadors from "./Ambassadors/Ambassadors";
+import CryptoJS from 'crypto-js';
+
+
+const copyIcon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23f5efdb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='9' y='9' width='13' height='13' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'%3E%3C/path%3E%3C/svg%3E";
+
+const TelegramVerifyPopup = ({ isOpen, onClose, verificationCode }) => {
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(verificationCode);
+    toast.success('Code copied to clipboard!');
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="popup-overlay">
+      <div className="popup-content">
+        <h3>Verify Your Telegram Account</h3>
+        <p>Send this code to our Telegram bot to verify your account:</p>
+        <div className="verification-code">
+          <code>{verificationCode}</code>
+          <button onClick={copyToClipboard} className="copy-button" title="Copy to clipboard">
+            <img src={copyIcon} alt="Copy" />
+          </button>
+        </div>
+        <button onClick={onClose} className="close-button">Close</button>
+      </div>
+    </div>
+  );
+};
 
 const InputPassword = (props) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -271,11 +300,6 @@ const TwitterAuthButton = () => {
 };
 
 const UserProfile = () => {
-
-
-
-
-
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.auth);
   const { userDetails } = useSelector((state) => state.user);
@@ -287,11 +311,14 @@ const UserProfile = () => {
   const [userProjects, setUserProjects] = useState([]);
   const [addNewProject, setAddNewProject] = useState(false);
   const [telegramUsername, setTelegramUsername] = useState(null);
+  const [isVerifyPopupOpen, setIsVerifyPopupOpen] = useState(false);
+  const [verificationCode, setVerificationCode] = useState('');
+  const [hasTelegram, setHasTelegram] = useState(false);
+  const [telegramData, setTelegramData] = useState(null);
 
   const { authDetails } = useSelector((state) => state.auth);
 
   const defaultImage =  authDetails?.user?.verifiedCredentials[2]?.oauthAccountPhotos[0].replace("_normal", "")
-
 
   // Add function to fetch Telegram username
   const fetchTelegramUsername = async () => {
@@ -625,6 +652,20 @@ const UserProfile = () => {
     setFieldValue("investment_thesis", newThesis);
   };
 
+  const generateVerificationCode = () => {
+    const timestamp = new Date().getTime();
+    const dataToEncrypt = `${userData?.userId},${timestamp}`;
+    const encrypted = CryptoJS.AES.encrypt(dataToEncrypt, import.meta.env.VITE_TELEGRAM_SECRET_KEY).toString();
+    return encrypted;
+  };
+
+  const handleVerifyTelegram = () => {
+    if (hasTelegram) return; // Don't do anything if already connected
+    const code = generateVerificationCode();
+    setVerificationCode(code);
+    setIsVerifyPopupOpen(true);
+  };
+
   // Modify TelegramAuthButton to accept onSuccess prop
   const handleTelegramSuccess = async () => {
     await fetchTelegramUsername();
@@ -663,6 +704,29 @@ const UserProfile = () => {
     }
   };
 
+  const checkTelegramStatus = async () => {
+    try {
+      const response = await axiosApi.get(`/wws/has-telegram/${userData?.userId}`);
+      if (response.data.success === 1 && response.data.hasTelegram) {
+        setHasTelegram(true);
+        setTelegramData(response.data.data);
+      } else {
+        setHasTelegram(false);
+        setTelegramData(null);
+      }
+    } catch (error) {
+      console.error("Failed to check Telegram status:", error);
+      setHasTelegram(false);
+      setTelegramData(null);
+    }
+  };
+
+  useEffect(() => {
+    if (userData?.userId) {
+      checkTelegramStatus();
+    }
+  }, [userData?.userId]);
+
   return (
     <div className="profile_content_wrapper">
       {active === "INFORMATION" &&
@@ -700,12 +764,6 @@ const UserProfile = () => {
                   <div className="pagination">
                     <span>Profile</span>
                   </div>
-                  <div className="profile_actions">
-                    <button className="btn_gray" onClick={handleEditProfile}>
-                      <img src={editIcon} alt="" />
-                      Edit profile
-                    </button>
-                  </div>
                 </div>
                 <div className="profile_page_content">
                   <div className="project_profile">
@@ -718,6 +776,42 @@ const UserProfile = () => {
                           e.target.src = defaultImage;
                         }}
                       />
+                    </div>
+                    <div className="profile_actions">
+                      <button className="btn_gray" onClick={handleEditProfile}>
+                        <img src={editIcon} alt="" />
+                        Edit profile
+                      </button>
+                      <button 
+                        className={`btn_gray ${hasTelegram ? 'verified' : ''}`} 
+                        onClick={handleVerifyTelegram}
+                        disabled={hasTelegram}
+                      >
+                        <img src={telegramIcon} alt="" />
+                        {hasTelegram ? (
+                          <>
+                            Telegram Connected
+                            <svg 
+                              className="checkmark" 
+                              width="16" 
+                              height="16" 
+                              viewBox="0 0 24 24" 
+                              fill="none" 
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path 
+                                d="M20 6L9 17L4 12" 
+                                stroke="#4CAF50" 
+                                strokeWidth="2" 
+                                strokeLinecap="round" 
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          </>
+                        ) : (
+                          'Verify Telegram Account'
+                        )}
+                      </button>
                     </div>
                   </div>
                   <div className="profile_description_data">
@@ -1143,6 +1237,11 @@ const UserProfile = () => {
                 </div>
               </div>
             </div>
+            <TelegramVerifyPopup 
+              isOpen={isVerifyPopupOpen}
+              onClose={() => setIsVerifyPopupOpen(false)}
+              verificationCode={verificationCode}
+            />
           </>
         ) : (
           // Edit mode

@@ -303,6 +303,10 @@ const Investment = () => {
   const detailsLeftRef = useRef(null);
   const detailsRightRef = useRef(null);
   const [isPhase2, setIsPhase2] = useState(false);
+  const toggleContainerRef = useRef(null);
+  const [showNavButtons, setShowNavButtons] = useState(false);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
 
   useEffect(() => {
     const fetchPhase = async () => {
@@ -317,6 +321,50 @@ const Investment = () => {
 
     fetchPhase();
   }, []);
+
+  // Add scroll check effect
+  useEffect(() => {
+    const checkScroll = () => {
+      if (toggleContainerRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = toggleContainerRef.current;
+        setShowNavButtons(scrollWidth > clientWidth);
+        setCanScrollLeft(scrollLeft > 0);
+        setCanScrollRight(scrollLeft < scrollWidth - clientWidth);
+      }
+    };
+
+    checkScroll();
+    window.addEventListener('resize', checkScroll);
+    return () => window.removeEventListener('resize', checkScroll);
+  }, []);
+
+  // Add scroll handlers
+  const handleScrollLeft = () => {
+    if (toggleContainerRef.current) {
+      toggleContainerRef.current.scrollBy({
+        left: -200,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  const handleScrollRight = () => {
+    if (toggleContainerRef.current) {
+      toggleContainerRef.current.scrollBy({
+        left: 200,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  // Update scroll state on scroll
+  const handleScroll = () => {
+    if (toggleContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = toggleContainerRef.current;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth);
+    }
+  };
 
   const handleActive = (key) => { setActiveLayout(key) }
   const syncScroll = (e) => {
@@ -358,6 +406,36 @@ const Investment = () => {
     types: [],
     searchBy: ''
   })
+
+  // Add filtering logic
+  const filteredCards = cardData.filter(card => {
+    // Filter by search text
+    const searchMatch = !filter.searchBy || 
+      card.investmentName.toLowerCase().includes(filter.searchBy.toLowerCase()) ||
+      card.tags.some(tag => tag.toLowerCase().includes(filter.searchBy.toLowerCase())) ||
+      card.investments.some(inv => 
+        inv.head.toLowerCase().includes(filter.searchBy.toLowerCase()) ||
+        inv.data.toLowerCase().includes(filter.searchBy.toLowerCase())
+      );
+
+    // Filter by selected types
+    const typeMatch = filter.types.length === 0 || 
+      card.tags.some(tag => 
+        filter.types.some(type => 
+          tag.toLowerCase().includes(type.toLowerCase())
+        )
+      );
+
+    return searchMatch && typeMatch;
+  });
+
+  // Update the search handler
+  const handleSearch = (value) => {
+    setFilter(prev => ({
+      ...prev,
+      searchBy: value
+    }));
+  };
 
   // const handleConnectWallet = (address) => {
   //   dispatch(setWalletAddress({ walletAddress: address }));
@@ -727,12 +805,23 @@ const Investment = () => {
             <div className="content_left">
               <h2>Investment</h2>
               <div className="search_wrap">
-                <CustomSearch value={filter.searchBy} placeholder="Search" isOpen={isSearchOpen} setIsOpen={setIsSearchOpen} />
+                <CustomSearch 
+                  value={filter.searchBy} 
+                  onChange={handleSearch}
+                  placeholder="Search" 
+                  isOpen={isSearchOpen} 
+                  setIsOpen={setIsSearchOpen} 
+                />
               </div>
             </div>
             {isSearchOpen && <div className="mobile_search">
               <span className="icon"><SearchIcon /></span>
-              <input value={filter.searchBy} type="text" placeholder="Search" />
+              <input 
+                value={filter.searchBy} 
+                onChange={(e) => handleSearch(e.target.value)}
+                type="text" 
+                placeholder="Search" 
+              />
             </div>}
             <div className="content_right">
               <a href="#">Darknight Labs</a>
@@ -742,36 +831,60 @@ const Investment = () => {
             <div className={`page_data ${isSearchOpen ? 'search_open' : ''}`}>
               <div className="investment_page_header">
                 <div className="investment_toggleWrap">
-                  <button
-                    className={`investment_toggle_btn ${activeLayout === 'CLOSED' ? 'active' : ''}`}
-                    onClick={() => handleActive('CLOSED')}
+                  {showNavButtons && (
+                    <button 
+                      className={`nav_button prev ${!canScrollLeft ? 'hidden' : ''}`}
+                      onClick={handleScrollLeft}
+                      aria-label="Scroll left"
+                    >
+                      ←
+                    </button>
+                  )}
+                  <div 
+                    className="toggle_buttons_container"
+                    ref={toggleContainerRef}
+                    onScroll={handleScroll}
                   >
-                    <span>Closed</span>
-                  </button>
-                  <button
-                    className={`investment_toggle_btn ${activeLayout === 'OPEN' ? 'active' : ''}`}
-                    onClick={() => handleActive('OPEN')}
-                  >
-                    <span>Open</span>
-                  </button>
-                  <button
-                    className={`investment_toggle_btn ${activeLayout === 'PLEDGE' ? 'active' : ''}`}
-                    onClick={() => handleActive('PLEDGE')}
-                  >
-                    <span>Pledge</span>
-                  </button>
-                  <button
-                    className={`investment_toggle_btn ${activeLayout === 'APPLY' ? 'active' : ''}`}
-                    onClick={() => handleActive('APPLY')}
-                  >
-                    <span>Apply</span>
-                  </button>
-                  <button
-                    className={`investment_toggle_btn ${activeLayout === 'MY_INVESTMENTS' ? 'active' : ''}`}
-                    onClick={() => handleActive('MY_INVESTMENTS')}
-                  >
-                    <span>My Investments</span>
-                  </button>
+                    <button
+                      className={`investment_toggle_btn ${activeLayout === 'CLOSED' ? 'active' : ''}`}
+                      onClick={() => handleActive('CLOSED')}
+                    >
+                      <span>Closed</span>
+                    </button>
+                    <button
+                      className={`investment_toggle_btn ${activeLayout === 'OPEN' ? 'active' : ''}`}
+                      onClick={() => handleActive('OPEN')}
+                    >
+                      <span>Open</span>
+                    </button>
+                    <button
+                      className={`investment_toggle_btn ${activeLayout === 'PLEDGE' ? 'active' : ''}`}
+                      onClick={() => handleActive('PLEDGE')}
+                    >
+                      <span>Pledge</span>
+                    </button>
+                    <button
+                      className={`investment_toggle_btn ${activeLayout === 'APPLY' ? 'active' : ''}`}
+                      onClick={() => handleActive('APPLY')}
+                    >
+                      <span>Apply</span>
+                    </button>
+                    <button
+                      className={`investment_toggle_btn ${activeLayout === 'MY_INVESTMENTS' ? 'active' : ''}`}
+                      onClick={() => handleActive('MY_INVESTMENTS')}
+                    >
+                      <span>My Investments</span>
+                    </button>
+                  </div>
+                  {showNavButtons && (
+                    <button 
+                      className={`nav_button next ${!canScrollRight ? 'hidden' : ''}`}
+                      onClick={handleScrollRight}
+                      aria-label="Scroll right"
+                    >
+                      →
+                    </button>
+                  )}
                 </div>
                 <div className="selects">
                   <MultiselectDropDown
@@ -814,58 +927,59 @@ const Investment = () => {
                   </div>
                 )}
 
-                <div className="card_container">{cardData.length == 0 ?
-                  <EmptyData />
-                  :
-                  <>
-                    {cardData.map((data, index) => {
-                      return (
-                        <div className='card_wrap' key={index} onClick={() => handleCardClick(data, index)}>
-                          <div className="card">
-                            <div className="card_image">
-                              <img src={data.investorImg} alt="" />
-                            </div>
-                            <div className="card_body">
-                              <div className="name">{data.investmentName}</div>
-                              <div className="tabs">
-                                {data.investments.map((tag, index) => {
-                                  return (
-                                    <div className={``} key={index}>
-                                      <div className='investment_tag'>
-                                        <>{tag.head}:{tag.data}</>
-                                      </div>
-                                    </div>
-                                  )
-                                })}
+                <div className="card_container">
+                  {filteredCards.length === 0 ? (
+                    <EmptyData />
+                  ) : (
+                    <>
+                      {filteredCards.map((data, index) => {
+                        return (
+                          <div className='card_wrap' key={index} onClick={() => handleCardClick(data, index)}>
+                            <div className="card">
+                              <div className="card_image">
+                                <img src={data.investorImg} alt="" />
                               </div>
-                              <div className="tabs">
-                                {data.tags.map((data, index) => {
-                                  return (
-                                    <div className={``} key={index}>
-                                      <div className='meta_tag'>
-                                        <>{data}</>
+                              <div className="card_body">
+                                <div className="name">{data.investmentName}</div>
+                                <div className="tabs">
+                                  {data.investments.map((tag, index) => {
+                                    return (
+                                      <div className={``} key={index}>
+                                        <div className='investment_tag'>
+                                          <>{tag.head}:{tag.data}</>
+                                        </div>
                                       </div>
-                                    </div>
-                                  )
-                                })}
+                                    )
+                                  })}
+                                </div>
+                                <div className="tabs">
+                                  {data.tags.map((data, index) => {
+                                    return (
+                                      <div className={``} key={index}>
+                                        <div className='meta_tag'>
+                                          <>{data}</>
+                                        </div>
+                                      </div>
+                                    )
+                                  })}
+                                </div>
+                                {data.karmaNeeded !== undefined && (
+                                  <div className="karma_needed">
+                                    Karma needed: {data.karmaNeeded}
+                                  </div>
+                                )}
+                                {index === 0 && (
+                                  <div className={`investment_state ${isPhase2 ? 'pledge_mode' : 'invest_mode'}`}>
+                                    {isPhase2 ? 'Pledge' : 'Invest'}
+                                  </div>
+                                )}
                               </div>
-                              {data.karmaNeeded !== undefined && (
-                                <div className="karma_needed">
-                                  Karma needed: {data.karmaNeeded}
-                                </div>
-                              )}
-                              {index === 0 && (
-                                <div className={`investment_state ${isPhase2 ? 'pledge_mode' : 'invest_mode'}`}>
-                                  {isPhase2 ? 'Pledge' : 'Invest'}
-                                </div>
-                              )}
                             </div>
                           </div>
-                        </div>
-                      )
-                    })}
-                  </>
-                }
+                        )
+                      })}
+                    </>
+                  )}
                 </div>
                 {/* <div className="investment_pagination">
                   <div className="investment_pagination_content">

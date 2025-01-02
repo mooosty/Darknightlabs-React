@@ -1229,8 +1229,34 @@
 
 .profile_actions {
     display: flex;
+    flex-direction: column;
     gap: 10px;
-    align-items: center;
+    width: 100%;
+    
+    .btn_gray {
+        width: 100%;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background: #1E1E1E;
+        border: 1px solid rgba(245, 239, 219, 0.1);
+        border-radius: 4px;
+        color: #f5efdb;
+        font-size: 14px;
+        transition: all 0.2s ease;
+        
+        &:hover {
+            background: #2A2A2A;
+            border-color: rgba(245, 239, 219, 0.2);
+        }
+        
+        img {
+            width: 16px;
+            height: 16px;
+        }
+    }
 }
 
 .popup_overlay {
@@ -1579,4 +1605,95 @@
             background: rgba(245, 239, 219, 0.1);
         }
     }
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+  .popup-content {
+    background: #1E1E1E;
+    padding: 24px;
+    border-radius: 12px;
+    max-width: 400px;
+    width: 90%;
+    position: relative;
+    
+    h3 {
+      color: #fff;
+      margin-bottom: 16px;
+      font-size: 20px;
+    }
+
+    p {
+      color: #B4B4B4;
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+
+    .verification-code {
+      background: #2A2A2A;
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+
+      code {
+        color: #fff;
+        font-family: monospace;
+        font-size: 14px;
+        word-break: break-all;
+        flex: 1;
+      }
+
+      .copy-button {
+        background: transparent;
+        border: none;
+        padding: 8px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+        flex-shrink: 0;
+
+        &:hover {
+          background: rgba(245, 239, 219, 0.1);
+        }
+
+        img {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+
+    .close-button {
+      background: #3A3A3A;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      width: 100%;
+      transition: background 0.2s;
+
+      &:hover {
+        background: #4A4A4A;
+      }
+    }
+  }
 }
