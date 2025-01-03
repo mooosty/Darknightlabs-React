@@ -200,84 +200,144 @@ const Home = () => {
 
   const handleAuthResponse = async (response) => {
     if (response?.isAuthenticated) {
-      //   const jwtToken = getAuthToken();
+      try {
+        console.log('Auth Response:', {
+          user: response.user,
+          credentials: response.user?.verifiedCredentials,
+          primaryWallet: response.user?.primaryWallet
+        });
 
-      const twitterId = response.user.verifiedCredentials[2].oauthAccountId;
+        // First try to get credentials from verifiedCredentials
+        let twitterCredential = response.user?.verifiedCredentials?.find(
+          (cred) => cred.provider === 'twitter'
+        );
 
-      const fetchTwitterUser = async () => {
+        // If no Twitter credentials found in verifiedCredentials, try to use primaryWallet or first credential
+        if (!twitterCredential && response.user?.verifiedCredentials?.length > 0) {
+          twitterCredential = response.user.verifiedCredentials[0];
+          console.log('Using alternative credential:', twitterCredential);
+        }
+
+        if (!twitterCredential && response.user?.primaryWallet) {
+          // Use primary wallet as fallback
+          const walletAddress = response.user.primaryWallet.address;
+          console.log('Using primary wallet as fallback:', walletAddress);
+          
+          const {
+            payload: { data },
+          } = await dispatch(getTwitterUserAPI(walletAddress)).then((res) => res);
+
+          if (!data.length) {
+            const payloadUser = {
+              key: walletAddress,
+              firstname: response.user.alias || walletAddress.slice(0, 8),
+              profile_picture: "",
+              username: response.user.alias || walletAddress.slice(0, 8),
+              lastname: "",
+              birthday: "28-07-1998",
+              bio: "",
+              email: response.user.email || "",
+              validated: 1,
+              password: `${response.user.id}@@@${walletAddress}`,
+            };
+
+            const {
+              payload: { data: newUser },
+            } = await dispatch(createTwitterUserAPI(payloadUser)).then((res) => res);
+
+            const chatPayload = {
+              _id: newUser.insertId,
+              name: payloadUser.firstname,
+              email: payloadUser.email,
+              password: payloadUser.password,
+            };
+
+            dispatch(createUserAPI(chatPayload));
+
+            payloadUser.id = newUser.insertId;
+            dispatch(storeAuthData({ response, user: payloadUser }));
+
+            navigate(ROUTER.dashboard);
+            return;
+          } else {
+            dispatch(storeAuthData({ response, user: data[0] }));
+            navigate(ROUTER.dashboard);
+            return;
+          }
+        }
+
+        if (!twitterCredential) {
+          console.error('No valid credentials found in response:', response);
+          return;
+        }
+
+        const twitterId = twitterCredential.oauthAccountId || twitterCredential.id || twitterCredential.publicIdentifier;
         const {
           payload: { data },
         } = await dispatch(getTwitterUserAPI(twitterId)).then((res) => res);
 
-        return data;
-      };
-      const existingUser = await fetchTwitterUser();
+        if (!data.length) {
+          const payloadUser = {
+            key: twitterId,
+            firstname: twitterCredential.publicIdentifier || twitterCredential.alias || twitterId,
+            profile_picture: twitterCredential.oauthAccountPhotos?.[0] || "",
+            username: twitterCredential.oauthUsername || twitterCredential.alias || twitterId,
+            lastname: "",
+            birthday: "28-07-1998",
+            bio: twitterCredential.oauthMetadata?.description || "",
+            email: response.user.email || "",
+            validated: 1,
+            password: `${response.user.id}@@@${response.user.email || twitterId}`,
+          };
 
-      if (!existingUser.length) {
-        const payloadUser = {
-          key: response?.user.verifiedCredentials[2].oauthAccountId,
-          firstname: response?.user.verifiedCredentials[2].publicIdentifier,
-          profile_picture: response.user.verifiedCredentials[2].oauthAccountPhotos[0],
-          username: response.user.verifiedCredentials[2].oauthUsername,
-          lastname: "",
-          birthday: "28-07-1998",
-          bio: response.user.verifiedCredentials[2].oauthMetadata.description,
-          email: response.user.email,
-          validated: 1,
-          password: `${response.user.id}@@@${response.user.email}`,
-        };
-
-        const createTwitterUser = async () => {
           const {
-            payload: { data },
+            payload: { data: twitterUser },
           } = await dispatch(createTwitterUserAPI(payloadUser)).then((res) => res);
 
-          return data;
-        };
-        const twitterUser = await createTwitterUser();
+          const chatPayload = {
+            _id: twitterUser.insertId,
+            name: payloadUser.firstname,
+            email: payloadUser.email,
+            password: payloadUser.password,
+          };
 
-        const chatPayload = {
-          _id: twitterUser.insertId,
-          name: response.user.verifiedCredentials[2].publicIdentifier,
-          email: response.user.email,
-          password: `${response.user.id}@@@${response.user.email}`,
-        };
+          dispatch(createUserAPI(chatPayload));
 
-        dispatch(createUserAPI(chatPayload));
+          payloadUser.id = twitterUser.insertId;
+          dispatch(storeAuthData({ response, user: payloadUser }));
 
-        payloadUser.id = twitterUser.insertId;
-        dispatch(storeAuthData({ response, user: payloadUser }));
+          const referralId = localStorage.getItem("referral_id");
+          if (referralId) {
+            try {
+              await dispatch(
+                createInviteAPI({
+                  invited_user: twitterUser.insertId,
+                  invite_user: parseInt(referralId),
+                })
+              );
 
-        const referralId = localStorage.getItem("referral_id");
-        if (referralId) {
-          try {
-            // Create invite
-            await dispatch(
-              createInviteAPI({
-                invited_user: twitterUser.insertId,
-                invite_user: parseInt(referralId),
-              })
-            );
+              await dispatch(
+                updateUserWalletAPI({
+                  invited_user: twitterUser.insertId,
+                })
+              );
 
-            // Update wallet
-            await dispatch(
-              updateUserWalletAPI({
-                invited_user: twitterUser.insertId,
-              })
-            );
-
-            // Clear referral ID
-            localStorage.removeItem("referral_id");
-          } catch (error) {
-            console.error("Error processing referral:", error);
+              localStorage.removeItem("referral_id");
+            } catch (error) {
+              console.error("Error processing referral:", error);
+            }
           }
-        }
 
-        navigate(ROUTER.dashboard);
-      } else {
-        dispatch(storeAuthData({ response, user: existingUser[0] }));
-        navigate(ROUTER.dashboard);
+          navigate(ROUTER.dashboard);
+        } else {
+          dispatch(storeAuthData({ response, user: data[0] }));
+          navigate(ROUTER.dashboard);
+        }
+      } catch (error) {
+        console.error("Authentication error:", error);
       }
+    } else {
+      console.error('Not authenticated:', response);
     }
   };
 
