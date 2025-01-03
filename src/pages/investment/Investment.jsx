@@ -1,301 +1,347 @@
-import './investment.scss'
-import * as Yup from 'yup';
-import { useFormik } from 'formik';
-import { toast } from 'react-toastify';
-import { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { appendToSheet } from '../../utils/googleSheets';
-import { setWhitelistMessage } from '../../store/slice/authSlice';
-import { projectTypesOptions } from '../../utils/constants/options';
-import PledgeForm from '../../components/investments/PledgeForm/PledgeForm';
-import { CustomSearch, EmptyData, MultiselectDropDown } from '../../components';
-import ContributionForm from '../../components/investments/ContributionForm/ContributionForm';
-import ContributionStatus from '../../components/investments/ContributionStatus/ContributionStatus';
-import WhitelistVerification from '../../components/investments/WhitelistVerification/WhitelistVerification';
-import { cardActor1, cardActor2, cardActor3, cardActor4, cardActor5, cardActor6, cardActor7, cardActor8, cardActor9, cardActor10, cardActor11, cardActor12, cardActor13, cardActor14, cardActor15, SearchIcon, BackArrow, showa } from '../../utils/constants/images';
+import "./investment.scss";
+import * as Yup from "yup";
+import { useFormik } from "formik";
+import { toast } from "react-toastify";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { appendToSheet } from "../../utils/googleSheets";
+import { setWhitelistMessage } from "../../store/slice/authSlice";
+import { projectTypesOptions } from "../../utils/constants/options";
+import PledgeForm from "../../components/investments/PledgeForm/PledgeForm";
+import { CustomSearch, EmptyData, MultiselectDropDown } from "../../components";
+import ContributionForm from "../../components/investments/ContributionForm/ContributionForm";
+import ContributionStatus from "../../components/investments/ContributionStatus/ContributionStatus";
+import WhitelistVerification from "../../components/investments/WhitelistVerification/WhitelistVerification";
+import {
+  cardActor1,
+  cardActor2,
+  cardActor3,
+  cardActor4,
+  cardActor5,
+  cardActor6,
+  cardActor7,
+  cardActor8,
+  cardActor9,
+  cardActor10,
+  cardActor11,
+  cardActor12,
+  cardActor13,
+  cardActor14,
+  cardActor15,
+  SearchIcon,
+  BackArrow,
+  showa,
+} from "../../utils/constants/images";
 
 const cardData = [
   {
-    investmentName: '🌙 SHOWA : The Community Revolution',
+    investmentName: "🌙 SHOWA : The Community Revolution",
     investorImg: showa,
-    tags: ['🎮 #Gaming', '💰 #RWA', '🌐 #Community'],
+    tags: ["🎮 #Gaming", "💰 #RWA", "🌐 #Community"],
     investments: [
       {
-        head: 'Token',
-        data: '$SHOWA',
+        head: "Token",
+        data: "$SHOWA",
       },
       {
-        head: 'Revenue',
-        data: '10% Steam',
+        head: "Revenue",
+        data: "10% Steam",
       },
       {
-        head: 'Launch',
-        data: 'Dec 19',
+        head: "Launch",
+        data: "Dec 19",
       },
     ],
     karmaNeeded: 0,
-    state: 'PLEDGE'
+    state: "PLEDGE",
   },
   {
-    investmentName: 'Investment name',
+    investmentName: "Investment name",
     investorImg: cardActor2,
-    tags: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
+    tags: ["🌐 #Metaverse", "🤖 #AI", "👾 #Gaming"],
     investments: [
       {
-        head: 'Token name',
-        data: '$RIFT',
+        head: "Token name",
+        data: "$RIFT",
       },
       {
-        head: 'Round',
-        data: 'private',
+        head: "Round",
+        data: "private",
       },
       {
-        head: 'FDV',
-        data: '20mil',
-      },],
+        head: "FDV",
+        data: "20mil",
+      },
+    ],
+    state: "PLEDGE",
   },
   {
-    investmentName: 'Investment name',
+    investmentName: "Investment name",
     investorImg: cardActor3,
-    tags: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
+    tags: ["🌐 #Metaverse", "🤖 #AI", "👾 #Gaming"],
     investments: [
       {
-        head: 'Token name',
-        data: '$RIFT',
+        head: "Token name",
+        data: "$RIFT",
       },
       {
-        head: 'Round',
-        data: 'private',
+        head: "Round",
+        data: "private",
       },
       {
-        head: 'FDV',
-        data: '20mil',
-      },],
+        head: "FDV",
+        data: "20mil",
+      },
+    ],
+    state: "APPLY",
   },
   {
-    investmentName: 'Investment name',
+    investmentName: "Investment name",
     investorImg: cardActor4,
-    tags: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
+    tags: ["🌐 #Metaverse", "🤖 #AI", "👾 #Gaming"],
     investments: [
       {
-        head: 'Token name',
-        data: '$RIFT',
+        head: "Token name",
+        data: "$RIFT",
       },
       {
-        head: 'Round',
-        data: 'private',
+        head: "Round",
+        data: "private",
       },
       {
-        head: 'FDV',
-        data: '20mil',
-      },],
+        head: "FDV",
+        data: "20mil",
+      },
+    ],
+    state: "CLOSED",
   },
   {
-    investmentName: 'Investment name',
+    investmentName: "Investment name",
     investorImg: cardActor5,
-    tags: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
+    tags: ["🌐 #Metaverse", "🤖 #AI", "👾 #Gaming"],
     investments: [
       {
-        head: 'Token name',
-        data: '$RIFT',
+        head: "Token name",
+        data: "$RIFT",
       },
       {
-        head: 'Round',
-        data: 'private',
+        head: "Round",
+        data: "private",
       },
       {
-        head: 'FDV',
-        data: '20mil',
-      },],
+        head: "FDV",
+        data: "20mil",
+      },
+    ],
+    state: "OPEN",
   },
   {
-    investmentName: 'Investment name',
+    investmentName: "Investment name",
     investorImg: cardActor6,
-    tags: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
+    tags: ["🌐 #Metaverse", "🤖 #AI", "👾 #Gaming"],
     investments: [
       {
-        head: 'Token name',
-        data: '$RIFT',
+        head: "Token name",
+        data: "$RIFT",
       },
       {
-        head: 'Round',
-        data: 'private',
+        head: "Round",
+        data: "private",
       },
       {
-        head: 'FDV',
-        data: '20mil',
-      },],
+        head: "FDV",
+        data: "20mil",
+      },
+    ],
+    state: "MY_INVESTMENTS",
   },
   {
-    investmentName: 'Investment name',
+    investmentName: "Investment name",
     investorImg: cardActor7,
-    tags: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
+    tags: ["🌐 #Metaverse", "🤖 #AI", "👾 #Gaming"],
     investments: [
       {
-        head: 'Token name',
-        data: '$RIFT',
+        head: "Token name",
+        data: "$RIFT",
       },
       {
-        head: 'Round',
-        data: 'private',
+        head: "Round",
+        data: "private",
       },
       {
-        head: 'FDV',
-        data: '20mil',
-      },],
+        head: "FDV",
+        data: "20mil",
+      },
+    ],
+    state: "OPEN",
   },
   {
-    investmentName: 'Investment name',
+    investmentName: "Investment name",
     investorImg: cardActor8,
-    tags: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
+    tags: ["🌐 #Metaverse", "🤖 #AI", "👾 #Gaming"],
     investments: [
       {
-        head: 'Token name',
-        data: '$RIFT',
+        head: "Token name",
+        data: "$RIFT",
       },
       {
-        head: 'Round',
-        data: 'private',
+        head: "Round",
+        data: "private",
       },
       {
-        head: 'FDV',
-        data: '20mil',
-      },],
+        head: "FDV",
+        data: "20mil",
+      },
+    ],
+    state: "APPLY",
   },
   {
-    investmentName: 'Investment name',
+    investmentName: "Investment name",
     investorImg: cardActor9,
-    tags: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
+    tags: ["🌐 #Metaverse", "🤖 #AI", "👾 #Gaming"],
     investments: [
       {
-        head: 'Token name',
-        data: '$RIFT',
+        head: "Token name",
+        data: "$RIFT",
       },
       {
-        head: 'Round',
-        data: 'private',
+        head: "Round",
+        data: "private",
       },
       {
-        head: 'FDV',
-        data: '20mil',
-      },],
+        head: "FDV",
+        data: "20mil",
+      },
+    ],
+    state: "CLOSED",
   },
   {
-    investmentName: 'Investment name',
+    investmentName: "Investment name",
     investorImg: cardActor10,
-    tags: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
+    tags: ["🌐 #Metaverse", "🤖 #AI", "👾 #Gaming"],
     investments: [
       {
-        head: 'Token name',
-        data: '$RIFT',
+        head: "Token name",
+        data: "$RIFT",
       },
       {
-        head: 'Round',
-        data: 'private',
+        head: "Round",
+        data: "private",
       },
       {
-        head: 'FDV',
-        data: '20mil',
-      },],
+        head: "FDV",
+        data: "20mil",
+      },
+    ],
+    state: "OPEN",
   },
   {
-    investmentName: 'Investment name',
+    investmentName: "Investment name",
     investorImg: cardActor11,
-    tags: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
+    tags: ["🌐 #Metaverse", "🤖 #AI", "👾 #Gaming"],
     investments: [
       {
-        head: 'Token name',
-        data: '$RIFT',
+        head: "Token name",
+        data: "$RIFT",
       },
       {
-        head: 'Round',
-        data: 'private',
+        head: "Round",
+        data: "private",
       },
       {
-        head: 'FDV',
-        data: '20mil',
-      },],
+        head: "FDV",
+        data: "20mil",
+      },
+    ],
+    state: "MY_INVESTMENTS",
   },
   {
-    investmentName: 'Investment name',
+    investmentName: "Investment name",
     investorImg: cardActor12,
-    tags: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
+    tags: ["🌐 #Metaverse", "🤖 #AI", "👾 #Gaming"],
     investments: [
       {
-        head: 'Token name',
-        data: '$RIFT',
+        head: "Token name",
+        data: "$RIFT",
       },
       {
-        head: 'Round',
-        data: 'private',
+        head: "Round",
+        data: "private",
       },
       {
-        head: 'FDV',
-        data: '20mil',
-      },],
+        head: "FDV",
+        data: "20mil",
+      },
+    ],
+    state: "OPEN",
   },
   {
-    investmentName: 'Investment name',
+    investmentName: "Investment name",
     investorImg: cardActor13,
-    tags: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
+    tags: ["🌐 #Metaverse", "🤖 #AI", "👾 #Gaming"],
     investments: [
       {
-        head: 'Token name',
-        data: '$RIFT',
+        head: "Token name",
+        data: "$RIFT",
       },
       {
-        head: 'Round',
-        data: 'private',
+        head: "Round",
+        data: "private",
       },
       {
-        head: 'FDV',
-        data: '20mil',
-      },],
+        head: "FDV",
+        data: "20mil",
+      },
+    ],
+    state: "APPLY",
   },
   {
-    investmentName: 'Investment name',
+    investmentName: "Investment name",
     investorImg: cardActor14,
-    tags: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
+    tags: ["🌐 #Metaverse", "🤖 #AI", "👾 #Gaming"],
     investments: [
       {
-        head: 'Token name',
-        data: '$RIFT',
+        head: "Token name",
+        data: "$RIFT",
       },
       {
-        head: 'Round',
-        data: 'private',
+        head: "Round",
+        data: "private",
       },
       {
-        head: 'FDV',
-        data: '20mil',
-      },],
+        head: "FDV",
+        data: "20mil",
+      },
+    ],
+    state: "CLOSED",
   },
   {
-    investmentName: 'Investment name',
+    investmentName: "Investment name",
     investorImg: cardActor15,
-    tags: ['🌐 #Metaverse', '🤖 #AI', '👾 #Gaming'],
+    tags: ["🌐 #Metaverse", "🤖 #AI", "👾 #Gaming"],
     investments: [
       {
-        head: 'Token name',
-        data: '$RIFT',
+        head: "Token name",
+        data: "$RIFT",
       },
       {
-        head: 'Round',
-        data: 'private',
+        head: "Round",
+        data: "private",
       },
       {
-        head: 'FDV',
-        data: '20mil',
-      },],
+        head: "FDV",
+        data: "20mil",
+      },
+    ],
+    state: "OPEN",
   },
-]
+];
 
 const hasMaxContributions = false;
 const Investment = () => {
-
   const dispatch = useDispatch();
-  const { walletAddress, isWalletVerified, whitelistMessage } = useSelector(state => state.auth);
-  const [activeLayout, setActiveLayout] = useState('OPEN');
+  const { walletAddress, isWalletVerified, whitelistMessage } = useSelector((state) => state.auth);
+  const [activeLayout, setActiveLayout] = useState(["All"]);
   const [showDetails, setShowDetails] = useState(false);
   // const [selectedInvestment, setSelectedInvestment] = useState(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -311,11 +357,11 @@ const Investment = () => {
   useEffect(() => {
     const fetchPhase = async () => {
       try {
-        const response = await fetch('https://winwinsocietyweb3.com/api/investments/1');
+        const response = await fetch("https://winwinsocietyweb3.com/api/investments/1");
         const data = await response.json();
         setIsPhase2(data.phase === 2);
       } catch (error) {
-        console.error('Error fetching phase:', error);
+        console.error("Error fetching phase:", error);
       }
     };
 
@@ -334,8 +380,8 @@ const Investment = () => {
     };
 
     checkScroll();
-    window.addEventListener('resize', checkScroll);
-    return () => window.removeEventListener('resize', checkScroll);
+    window.addEventListener("resize", checkScroll);
+    return () => window.removeEventListener("resize", checkScroll);
   }, []);
 
   // Add scroll handlers
@@ -343,7 +389,7 @@ const Investment = () => {
     if (toggleContainerRef.current) {
       toggleContainerRef.current.scrollBy({
         left: -200,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
     }
   };
@@ -352,7 +398,7 @@ const Investment = () => {
     if (toggleContainerRef.current) {
       toggleContainerRef.current.scrollBy({
         left: 200,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
     }
   };
@@ -366,7 +412,6 @@ const Investment = () => {
     }
   };
 
-  const handleActive = (key) => { setActiveLayout(key) }
   const syncScroll = (e) => {
     const source = e.target;
     if (source === detailsLeftRef.current) {
@@ -389,51 +434,61 @@ const Investment = () => {
     }
   };
 
-
   const handleCardClick = (data, index) => {
     if (index === 0) {
       // setSelectedInvestment(data);
       setShowDetails(true);
     }
-  }
+  };
 
   const handleBackToList = () => {
     setShowDetails(false);
     // setSelectedInvestment(null);
-  }
+  };
 
   const [filter, setFilter] = useState({
     types: [],
-    searchBy: ''
-  })
+    searchBy: "",
+  });
 
   // Add filtering logic
-  const filteredCards = cardData.filter(card => {
+  const filteredCards = cardData.filter((card) => {
     // Filter by search text
-    const searchMatch = !filter.searchBy || 
+    const searchMatch =
+      !filter.searchBy ||
       card.investmentName.toLowerCase().includes(filter.searchBy.toLowerCase()) ||
-      card.tags.some(tag => tag.toLowerCase().includes(filter.searchBy.toLowerCase())) ||
-      card.investments.some(inv => 
-        inv.head.toLowerCase().includes(filter.searchBy.toLowerCase()) ||
-        inv.data.toLowerCase().includes(filter.searchBy.toLowerCase())
+      card.tags.some((tag) => tag.toLowerCase().includes(filter.searchBy.toLowerCase())) ||
+      card.investments.some(
+        (inv) =>
+          inv.head.toLowerCase().includes(filter.searchBy.toLowerCase()) ||
+          inv.data.toLowerCase().includes(filter.searchBy.toLowerCase())
       );
 
     // Filter by selected types
-    const typeMatch = filter.types.length === 0 || 
-      card.tags.some(tag => 
-        filter.types.some(type => 
-          tag.toLowerCase().includes(type.toLowerCase())
-        )
-      );
+    const typeMatch =
+      filter.types.length === 0 ||
+      card.tags.some((tag) => filter.types.some((type) => tag.toLowerCase().includes(type.toLowerCase())));
 
     return searchMatch && typeMatch;
   });
 
+  const [filteredProjects, setFilteredProjects] = useState([...cardData]);
+
+  useEffect(() => {
+    if (activeLayout.length === 1 && activeLayout[0].toLowerCase() === "all") {
+      setFilteredProjects([...cardData]);
+    } else {
+      setFilteredProjects(
+        cardData.filter((card) => activeLayout.some((type) => card.state.toLowerCase().includes(type.toLowerCase())))
+      );
+    }
+  }, [activeLayout]);
+
   // Update the search handler
   const handleSearch = (value) => {
-    setFilter(prev => ({
+    setFilter((prev) => ({
       ...prev,
-      searchBy: value
+      searchBy: value,
     }));
   };
 
@@ -443,7 +498,7 @@ const Investment = () => {
 
   const handleVerificationComplete = (message) => {
     dispatch(setWhitelistMessage({ whitelistMessage: message }));
-  }
+  };
 
   const InvestmentForm = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -451,43 +506,39 @@ const Investment = () => {
     const [submitSuccess, setSubmitSuccess] = useState(false);
 
     const validationSchema = Yup.object({
-      name: Yup.string().required('Name is required'),
-      telegram: Yup.string().required('Telegram handle is required'),
-      twitter: Yup.string().required('Twitter handle is required'),
-      role: Yup.string().required('Role is required'),
-      inTelegramGroup: Yup.string().required('Please select an option'),
+      name: Yup.string().required("Name is required"),
+      telegram: Yup.string().required("Telegram handle is required"),
+      twitter: Yup.string().required("Twitter handle is required"),
+      role: Yup.string().required("Role is required"),
+      inTelegramGroup: Yup.string().required("Please select an option"),
       investmentAmount: Yup.number()
-        .required('Investment amount is required')
-        .min(1, 'Amount must be greater than 0')
-        .max(500, 'Maximum investment amount is $500'),
-      transactionLink: Yup.string()
-        .required('Transaction link is required')
-        .url('Must be a valid URL'),
+        .required("Investment amount is required")
+        .min(1, "Amount must be greater than 0")
+        .max(500, "Maximum investment amount is $500"),
+      transactionLink: Yup.string().required("Transaction link is required").url("Must be a valid URL"),
       claimWallet: Yup.string()
-        .required('Claim wallet is required')
-        .matches(/^0x[a-fA-F0-9]{40}$/, 'Must be a valid ETH address'),
-      holdsApe: Yup.string().required('This field is required'),
-      apeOpenseaLink: Yup.string()
-        .required('Opensea link is required')
-        .url('Must be a valid URL'),
-      followsTwitter: Yup.string().required('Please select an option'),
-      joinedTwitterList: Yup.string().required('Please select an option'),
+        .required("Claim wallet is required")
+        .matches(/^0x[a-fA-F0-9]{40}$/, "Must be a valid ETH address"),
+      holdsApe: Yup.string().required("This field is required"),
+      apeOpenseaLink: Yup.string().required("Opensea link is required").url("Must be a valid URL"),
+      followsTwitter: Yup.string().required("Please select an option"),
+      joinedTwitterList: Yup.string().required("Please select an option"),
     });
 
     const formik = useFormik({
       initialValues: {
-        name: '',
-        telegram: '',
-        twitter: '',
-        role: '',
-        inTelegramGroup: '',
-        investmentAmount: '',
-        transactionLink: '',
-        claimWallet: '',
-        holdsApe: '',
-        apeOpenseaLink: '',
-        followsTwitter: '',
-        joinedTwitterList: '',
+        name: "",
+        telegram: "",
+        twitter: "",
+        role: "",
+        inTelegramGroup: "",
+        investmentAmount: "",
+        transactionLink: "",
+        claimWallet: "",
+        holdsApe: "",
+        apeOpenseaLink: "",
+        followsTwitter: "",
+        joinedTwitterList: "",
       },
       validationSchema,
       onSubmit: async (values, { resetForm }) => {
@@ -500,8 +551,8 @@ const Investment = () => {
           setSubmitSuccess(true);
           resetForm();
         } catch (error) {
-          console.error('Form submission error:', error);
-          setSubmitError('Failed to submit form. Please try again.');
+          console.error("Form submission error:", error);
+          setSubmitError("Failed to submit form. Please try again.");
         } finally {
           setIsSubmitting(false);
         }
@@ -520,9 +571,7 @@ const Investment = () => {
             onBlur={formik.handleBlur}
             value={formik.values.name}
           />
-          {formik.touched.name && formik.errors.name && (
-            <div className="error">{formik.errors.name}</div>
-          )}
+          {formik.touched.name && formik.errors.name && <div className="error">{formik.errors.name}</div>}
         </div>
 
         <div className="form-group">
@@ -535,9 +584,7 @@ const Investment = () => {
             onBlur={formik.handleBlur}
             value={formik.values.telegram}
           />
-          {formik.touched.telegram && formik.errors.telegram && (
-            <div className="error">{formik.errors.telegram}</div>
-          )}
+          {formik.touched.telegram && formik.errors.telegram && <div className="error">{formik.errors.telegram}</div>}
         </div>
 
         <div className="form-group">
@@ -550,9 +597,7 @@ const Investment = () => {
             onBlur={formik.handleBlur}
             value={formik.values.twitter}
           />
-          {formik.touched.twitter && formik.errors.twitter && (
-            <div className="error">{formik.errors.twitter}</div>
-          )}
+          {formik.touched.twitter && formik.errors.twitter && <div className="error">{formik.errors.twitter}</div>}
         </div>
 
         <div className="form-group">
@@ -566,9 +611,7 @@ const Investment = () => {
             onBlur={formik.handleBlur}
             value={formik.values.role}
           />
-          {formik.touched.role && formik.errors.role && (
-            <div className="error">{formik.errors.role}</div>
-          )}
+          {formik.touched.role && formik.errors.role && <div className="error">{formik.errors.role}</div>}
         </div>
 
         <div className="form-group">
@@ -580,7 +623,7 @@ const Investment = () => {
                 name="inTelegramGroup"
                 value="inside"
                 onChange={formik.handleChange}
-                checked={formik.values.inTelegramGroup === 'inside'}
+                checked={formik.values.inTelegramGroup === "inside"}
               />
               I&apos;m inside already
             </label>
@@ -590,7 +633,7 @@ const Investment = () => {
                 name="inTelegramGroup"
                 value="justDMed"
                 onChange={formik.handleChange}
-                checked={formik.values.inTelegramGroup === 'justDMed'}
+                checked={formik.values.inTelegramGroup === "justDMed"}
               />
               Just DMed
             </label>
@@ -612,8 +655,12 @@ const Investment = () => {
             value={formik.values.investmentAmount}
           />
           <div className="payment-details">
-            <p><strong>COIN:</strong> $USDT</p>
-            <p><strong>NETWORK:</strong> SOLANA</p>
+            <p>
+              <strong>COIN:</strong> $USDT
+            </p>
+            <p>
+              <strong>NETWORK:</strong> SOLANA
+            </p>
             <p>
               <strong>ADDRESS:</strong>
               <span
@@ -628,8 +675,8 @@ const Investment = () => {
                     style: {
                       background: "var(--card-background)",
                       color: "var(--primary-white)",
-                      fontFamily: "MedievalSharp, cursive"
-                    }
+                      fontFamily: "MedievalSharp, cursive",
+                    },
                   });
                 }}
               >
@@ -681,7 +728,7 @@ const Investment = () => {
                 name="holdsApe"
                 value="yes"
                 onChange={formik.handleChange}
-                checked={formik.values.holdsApe === 'yes'}
+                checked={formik.values.holdsApe === "yes"}
               />
               Yes
             </label>
@@ -691,14 +738,12 @@ const Investment = () => {
                 name="holdsApe"
                 value="no"
                 onChange={formik.handleChange}
-                checked={formik.values.holdsApe === 'no'}
+                checked={formik.values.holdsApe === "no"}
               />
               No
             </label>
           </div>
-          {formik.touched.holdsApe && formik.errors.holdsApe && (
-            <div className="error">{formik.errors.holdsApe}</div>
-          )}
+          {formik.touched.holdsApe && formik.errors.holdsApe && <div className="error">{formik.errors.holdsApe}</div>}
         </div>
 
         <div className="form-group">
@@ -725,7 +770,7 @@ const Investment = () => {
                 name="followsTwitter"
                 value="yes"
                 onChange={formik.handleChange}
-                checked={formik.values.followsTwitter === 'yes'}
+                checked={formik.values.followsTwitter === "yes"}
               />
               Yes
             </label>
@@ -735,7 +780,7 @@ const Investment = () => {
                 name="followsTwitter"
                 value="justFollowed"
                 onChange={formik.handleChange}
-                checked={formik.values.followsTwitter === 'justFollowed'}
+                checked={formik.values.followsTwitter === "justFollowed"}
               />
               Wasn&apos;t but I just did
             </label>
@@ -754,7 +799,7 @@ const Investment = () => {
                 name="joinedTwitterList"
                 value="yes"
                 onChange={formik.handleChange}
-                checked={formik.values.joinedTwitterList === 'yes'}
+                checked={formik.values.joinedTwitterList === "yes"}
               />
               Yes
             </label>
@@ -764,7 +809,7 @@ const Investment = () => {
                 name="joinedTwitterList"
                 value="justJoined"
                 onChange={formik.handleChange}
-                checked={formik.values.joinedTwitterList === 'justJoined'}
+                checked={formik.values.joinedTwitterList === "justJoined"}
               />
               Wasn&apos;t but I just did
             </label>
@@ -774,111 +819,118 @@ const Investment = () => {
           )}
         </div>
 
-        {submitError && (
-          <div className="error-message">
-            {submitError}
-          </div>
-        )}
+        {submitError && <div className="error-message">{submitError}</div>}
 
-        {submitSuccess && (
-          <div className="success-message">
-            Form submitted successfully!
-          </div>
-        )}
+        {submitSuccess && <div className="success-message">Form submitted successfully!</div>}
 
-        <button
-          type="submit"
-          className="submit-button"
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? 'Submitting...' : 'Submit'}
+        <button type="submit" className="submit-button" disabled={isSubmitting}>
+          {isSubmitting ? "Submitting..." : "Submit"}
         </button>
       </form>
     );
   };
 
+  const handleActive = (type) => {
+    const loweCaseType = type.toLowerCase();
+    setActiveLayout((prev) => {
+      if (loweCaseType === "all") {
+        return ["all"];
+      }
+      const newTypes = prev.includes(loweCaseType)
+        ? prev.filter((t) => t !== loweCaseType)
+        : [...prev.filter((t) => t.toLowerCase() !== "all"), loweCaseType];
+      return newTypes.length === 0 ? ["all"] : newTypes;
+    });
+  };
+
   return (
-    <div className='investment_wrapper'>
+    <div className="investment_wrapper">
       {!showDetails ? (
         <>
           <div className="investments_content_header">
             <div className="content_left">
               <h2>Investment</h2>
               <div className="search_wrap">
-                <CustomSearch 
-                  value={filter.searchBy} 
+                <CustomSearch
+                  value={filter.searchBy}
                   onChange={handleSearch}
-                  placeholder="Search" 
-                  isOpen={isSearchOpen} 
-                  setIsOpen={setIsSearchOpen} 
+                  placeholder="Search"
+                  isOpen={isSearchOpen}
+                  setIsOpen={setIsSearchOpen}
                 />
               </div>
             </div>
-            {isSearchOpen && <div className="mobile_search">
-              <span className="icon"><SearchIcon /></span>
-              <input 
-                value={filter.searchBy} 
-                onChange={(e) => handleSearch(e.target.value)}
-                type="text" 
-                placeholder="Search" 
-              />
-            </div>}
+            {isSearchOpen && (
+              <div className="mobile_search">
+                <span className="icon">
+                  <SearchIcon />
+                </span>
+                <input
+                  value={filter.searchBy}
+                  onChange={(e) => handleSearch(e.target.value)}
+                  type="text"
+                  placeholder="Search"
+                />
+              </div>
+            )}
             <div className="content_right">
               <a href="#">Darknight Labs</a>
             </div>
           </div>
           <div className="investments_page_data">
-            <div className={`page_data ${isSearchOpen ? 'search_open' : ''}`}>
+            <div className={`page_data ${isSearchOpen ? "search_open" : ""}`}>
               <div className="investment_page_header">
-                <div className="investment_toggleWrap"  >
+                <div className="investment_toggleWrap">
                   {showNavButtons && (
-                    <button 
-                      className={`nav_button prev ${!canScrollLeft ? 'hidden' : ''}`}
+                    <button
+                      className={`nav_button prev ${!canScrollLeft ? "hidden" : ""}`}
                       onClick={handleScrollLeft}
                       aria-label="Scroll left"
                     >
                       ←
                     </button>
                   )}
-                  <div 
-                    className="toggle_buttons_container"
-                    ref={toggleContainerRef}
-                    onScroll={handleScroll}
-                  >
+                  <div className="toggle_buttons_container" ref={toggleContainerRef} onScroll={handleScroll}>
                     <button
-                      className={`investment_toggle_btn ${activeLayout === 'CLOSED' ? 'active' : ''}`}
-                      onClick={() => handleActive('CLOSED')}
+                      className={`investment_toggle_btn ${activeLayout.includes("all") ? "active" : ""}`}
+                      onClick={() => handleActive("ALL")}
+                    >
+                      <span>All </span>
+                    </button>
+                    <button
+                      className={`investment_toggle_btn ${activeLayout.includes("closed") ? "active" : ""}`}
+                      onClick={() => handleActive("CLOSED")}
                     >
                       <span>Closed</span>
                     </button>
                     <button
-                      className={`investment_toggle_btn ${activeLayout === 'OPEN' ? 'active' : ''}`}
-                      onClick={() => handleActive('OPEN')}
+                      className={`investment_toggle_btn ${activeLayout.includes("open") ? "active" : ""}`}
+                      onClick={() => handleActive("OPEN")}
                     >
                       <span>Open</span>
                     </button>
                     <button
-                      className={`investment_toggle_btn ${activeLayout === 'PLEDGE' ? 'active' : ''}`}
-                      onClick={() => handleActive('PLEDGE')}
+                      className={`investment_toggle_btn ${activeLayout.includes("pledge") ? "active" : ""}`}
+                      onClick={() => handleActive("PLEDGE")}
                     >
                       <span>Pledge</span>
                     </button>
                     <button
-                      className={`investment_toggle_btn ${activeLayout === 'APPLY' ? 'active' : ''}`}
-                      onClick={() => handleActive('APPLY')}
+                      className={`investment_toggle_btn ${activeLayout.includes("apply") ? "active" : ""}`}
+                      onClick={() => handleActive("APPLY")}
                     >
                       <span>Apply</span>
                     </button>
                     <button
-                      className={`investment_toggle_btn ${activeLayout === 'MY_INVESTMENTS' ? 'active' : ''}`}
-                      onClick={() => handleActive('MY_INVESTMENTS')}
+                      className={`investment_toggle_btn ${activeLayout.includes("my_investments") ? "active" : ""}`}
+                      onClick={() => handleActive("MY_INVESTMENTS")}
                     >
                       <span>My Investments</span>
                     </button>
                   </div>
                   {showNavButtons && (
-                    <button 
-                      className={`nav_button next ${!canScrollRight ? 'hidden' : ''}`}
+                    <button
+                      className={`nav_button next ${!canScrollRight ? "hidden" : ""}`}
                       onClick={handleScrollRight}
                       aria-label="Scroll right"
                     >
@@ -889,20 +941,19 @@ const Investment = () => {
                 <div className="selects">
                   <MultiselectDropDown
                     options={projectTypesOptions}
-                    placeholder={'All types'}
+                    placeholder={"All types"}
                     onApply={(currentOptions) => {
                       setFilter({
                         ...filter,
-                        types: currentOptions?.map((option) => option.value)
-                      })
+                        types: currentOptions?.map((option) => option.value),
+                      });
                     }}
                   />
                 </div>
               </div>
               <div className="investment_page_body">
-
                 {walletAddress && !isWalletVerified && (
-                  <div className='wallet_details_wrap'>
+                  <div className="wallet_details_wrap">
                     <WhitelistVerification
                       walletAddress={walletAddress}
                       onVerificationComplete={handleVerificationComplete}
@@ -912,30 +963,28 @@ const Investment = () => {
 
                 {walletAddress && isWalletVerified && !hasMaxContributions && (
                   <div className="md:col-span-3">
-                    <ContributionForm
-                      walletAddress={walletAddress}
-                      whitelistSignature={whitelistMessage}
-                    />
+                    <ContributionForm walletAddress={walletAddress} whitelistSignature={whitelistMessage} />
                   </div>
                 )}
 
                 {walletAddress && (
                   <div className="contribution_status_wrap">
-                    <ContributionStatus
-                      walletAddress={walletAddress}
-                    />
+                    <ContributionStatus walletAddress={walletAddress} />
                   </div>
                 )}
 
                 <div className="card_container">
-                  {filteredCards.length === 0 ? (
+                  {filteredProjects.length === 0 ? (
                     <EmptyData />
                   ) : (
                     <>
-                      {filteredCards.map((data, index) => {
+                      {filteredProjects.map((data, index) => {
                         return (
-                          <div className='card_wrap' key={index} onClick={() => handleCardClick(data, index)}>
-                            <div className="card">
+                          <div className="card_wrap" key={index} onClick={() => handleCardClick(data, index)}>
+                            <div
+                              className="card"
+                              style={{ filter: data.investmentName?.toLowerCase().includes('showa') || data.investmentName?.toLowerCase().includes('karate') ? 'none' : 'blur(12px)' }}
+                            >
                               <div className="card_image">
                                 <img src={data.investorImg} alt="" />
                               </div>
@@ -945,38 +994,38 @@ const Investment = () => {
                                   {data.investments.map((tag, index) => {
                                     return (
                                       <div className={``} key={index}>
-                                        <div className='investment_tag'>
-                                          <>{tag.head}:{tag.data}</>
+                                        <div className="investment_tag">
+                                          <>
+                                            {tag.head}:{tag.data}
+                                          </>
                                         </div>
                                       </div>
-                                    )
+                                    );
                                   })}
                                 </div>
                                 <div className="tabs">
                                   {data.tags.map((data, index) => {
                                     return (
                                       <div className={``} key={index}>
-                                        <div className='meta_tag'>
+                                        <div className="meta_tag">
                                           <>{data}</>
                                         </div>
                                       </div>
-                                    )
+                                    );
                                   })}
                                 </div>
                                 {data.karmaNeeded !== undefined && (
-                                  <div className="karma_needed">
-                                    Karma needed: {data.karmaNeeded}
-                                  </div>
+                                  <div className="karma_needed">Karma needed: {data.karmaNeeded}</div>
                                 )}
                                 {index === 0 && (
-                                  <div className={`investment_state ${isPhase2 ? 'pledge_mode' : 'invest_mode'}`}>
-                                    {isPhase2 ? 'Pledge' : 'Invest'}
+                                  <div className={`investment_state ${isPhase2 ? "pledge_mode" : "invest_mode"}`}>
+                                    {isPhase2 ? "Pledge" : "Invest"}
                                   </div>
                                 )}
                               </div>
                             </div>
                           </div>
-                        )
+                        );
                       })}
                     </>
                   )}
@@ -1014,17 +1063,13 @@ const Investment = () => {
             </div>
           </div>
           <div className="investments_page_data">
-            <h2 className={`floating_form_title ${isPhase2 ? 'pledge_mode' : 'invest_mode'}`}>
-              {isPhase2 ? 'Pledge' : 'Invest'}
+            <h2 className={`floating_form_title ${isPhase2 ? "pledge_mode" : "invest_mode"}`}>
+              {isPhase2 ? "Pledge" : "Invest"}
             </h2>
             <div className="page_data">
               <div className="investment_page_body">
                 <div className="investment_details_content">
-                  <div
-                    ref={detailsLeftRef}
-                    className="details_left"
-                    onScroll={syncScroll}
-                  >
+                  <div ref={detailsLeftRef} className="details_left" onScroll={syncScroll}>
                     <div className="investment-header">
                       <button className="back_arrow" onClick={handleBackToList}>
                         <BackArrow />
@@ -1032,37 +1077,55 @@ const Investment = () => {
                       <h1 className="title">🌙 SHOWA : The Community Revolution</h1>
                       <div className="description">
                         <p className="highlight-text">
-                          Join the community-driven movement behind Showa American Story, transforming from a banned game to a revolutionary token ecosystem with real utility and Steam revenue sharing.
+                          Join the community-driven movement behind Showa American Story, transforming from a banned
+                          game to a revolutionary token ecosystem with real utility and Steam revenue sharing.
                         </p>
                       </div>
                     </div>
 
                     <div className="section vision-section">
                       <h2 className="section-title">💫 Our Vision</h2>
-                      <p className="section-intro">We're building a revolutionary 3-stage pump strategy that combines memecoins, utility, and real-world assets:</p>
-                      
+                      <p className="section-intro">
+                        We're building a revolutionary 3-stage pump strategy that combines memecoins, utility, and
+                        real-world assets:
+                      </p>
+
                       <div className="stage-details">
                         <div className="stage-block">
                           <h3 className="stage-title">Stage 1: Memecoin Launch</h3>
                           <div className="stage-date">Dec.19-23</div>
-                          <p className="stage-description">The passionate community and fans behind Showa American Story initiated this token movement after the game was removed by TGA for being too "violent" - a true story that sparked our revolution.</p>
+                          <p className="stage-description">
+                            The passionate community and fans behind Showa American Story initiated this token movement
+                            after the game was removed by TGA for being too "violent" - a true story that sparked our
+                            revolution.
+                          </p>
                         </div>
 
                         <div className="stage-block">
                           <h3 className="stage-title">Stage 2: Utility Integration</h3>
                           <div className="stage-date">Dec.24-Jan.15</div>
-                          <p className="stage-description">Oneness Labs will integrate $SHOWA token into TheGame.fun platform - a price discovery platform for trading in-game items. Backed by our 200K community, 4K NFT holders, and 100+ major buyers.</p>
+                          <p className="stage-description">
+                            Oneness Labs will integrate $SHOWA token into TheGame.fun platform - a price discovery
+                            platform for trading in-game items. Backed by our 200K community, 4K NFT holders, and 100+
+                            major buyers.
+                          </p>
                         </div>
 
                         <div className="stage-block">
                           <h3 className="stage-title">Stage 3: RWA Integration</h3>
                           <div className="stage-date">Jan.15-Mar/April</div>
-                          <p className="stage-description">The Showa Dev team will officially adopt $SHOWA, allocating 10% of the game's lifetime Steam revenue to the token while building the community together.</p>
+                          <p className="stage-description">
+                            The Showa Dev team will officially adopt $SHOWA, allocating 10% of the game's lifetime Steam
+                            revenue to the token while building the community together.
+                          </p>
                         </div>
 
                         <div className="stage-block">
                           <h3 className="stage-title">Final Stage: Steam Launch</h3>
-                          <p className="stage-description highlight-text">The ultimate catalyst: Showa's release on Steam, targeting 5M copies and injecting $30M cash into $SHOWA ecosystem.</p>
+                          <p className="stage-description highlight-text">
+                            The ultimate catalyst: Showa's release on Steam, targeting 5M copies and injecting $30M cash
+                            into $SHOWA ecosystem.
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -1090,7 +1153,8 @@ const Investment = () => {
                           <span className="feature-highlight">Strong Community:</span> 200K members and growing
                         </div>
                         <div className="feature-item">
-                          <span className="feature-highlight">Multiple Growth Stages:</span> Planned catalysts for sustainable growth
+                          <span className="feature-highlight">Multiple Growth Stages:</span> Planned catalysts for
+                          sustainable growth
                         </div>
                       </div>
                     </div>
@@ -1119,16 +1183,13 @@ const Investment = () => {
                     <div className="section movement-section">
                       <h2 className="section-title">🌙 Join the SHOWA Revolution</h2>
                       <p className="movement-text">
-                        Be part of a unique journey from banned game to revolutionary token ecosystem. Together, we're building something unprecedented in the gaming space! 
+                        Be part of a unique journey from banned game to revolutionary token ecosystem. Together, we're
+                        building something unprecedented in the gaming space!
                       </p>
                       <div className="stars">✨ The Future of Gaming Communities Starts Here ✨</div>
                     </div>
                   </div>
-                  <div
-                    ref={detailsRightRef}
-                    className="details_right"
-                    onScroll={syncScroll}
-                  >
+                  <div ref={detailsRightRef} className="details_right" onScroll={syncScroll}>
                     <div className="form_container">
                       {!isPhase2 ? (
                         <InvestmentForm />
@@ -1136,14 +1197,14 @@ const Investment = () => {
                         <PledgeForm
                           onSubmit={async (pledgeData) => {
                             try {
-                              console.log('Pledge submitted:', pledgeData);
-                              toast.success('Pledge submitted successfully');
+                              console.log("Pledge submitted:", pledgeData);
+                              toast.success("Pledge submitted successfully");
                             } catch (error) {
-                              console.error('Error submitting pledge:', error);
-                              toast.error('Failed to submit pledge');
+                              console.error("Error submitting pledge:", error);
+                              toast.error("Failed to submit pledge");
                             }
                           }}
-                        /> 
+                        />
                       )}
                     </div>
                   </div>
@@ -1154,7 +1215,7 @@ const Investment = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Investment
+export default Investment;

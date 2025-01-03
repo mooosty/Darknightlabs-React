@@ -1200,7 +1200,7 @@
 
                                             button, .btn_gray {
                                                 width: 10px;
-                                                padding: 8px 120px;
+                                                padding: 8px 140px;
                                                 height: 36px;
                                                 white-space: nowrap;
                                                 overflow: hidden;
@@ -1577,7 +1577,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
-    margin-bottom: 16px;
+    margin-bottom: 0px;
 
     .default_options,
     .custom_options {
@@ -1629,7 +1629,8 @@
 .add_custom_field {
     display: flex;
     gap: 12px;
-    margin-top: 12px;
+    margin-top: 0px;
+    margin-bottom: 16px;
     align-items: normal;
 
     input {

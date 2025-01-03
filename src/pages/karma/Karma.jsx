@@ -113,11 +113,8 @@ const Karma = () => {
     }, 1000);
   };
 
-  const toggleExpand = (e) => {
-    // Prevent click from triggering on child elements
-    if (e.target === e.currentTarget || e.target.closest(".section-header")) {
-      setIsExpanded(!isExpanded);
-    }
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
   };
 
   return (
@@ -153,7 +150,7 @@ const Karma = () => {
 
       <div className="karma_page_data">
         <div className="page_data">
-          <div className="karma_overview">
+          <div className="karma_overview" style={{ cursor: 'default' }}>
             <div className="section-header">
               <h3>Total Karma Points</h3>
             </div>
@@ -188,17 +185,22 @@ const Karma = () => {
           <div className="karma_explanation_section">
             <div
               className="section-header"
+              onClick={toggleExpand}
               style={{
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
                 marginBottom: "16px",
+                cursor: "pointer",
               }}
             >
               <h3>How Karma Points Work</h3>
               <button
                 className="read-more-btn"
-                onClick={toggleExpand}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleExpand();
+                }}
                 style={{
                   background: "none",
                   border: "none",

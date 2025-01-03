@@ -14,6 +14,7 @@ const About = () => {
           <button className="close_btn" onClick={onClose}>&times;</button>
         </div>
         <div className="modal_body">
+          <p>Karma allows you to get priority access to the most scarce deals in The Win-Win Society (among other special perks)</p>
           <p>There are two ways to increase your Karma level in The Win-Win Society:</p>
           
           <ol>
@@ -61,6 +62,7 @@ const About = () => {
               <KarmaIcon style={{ width: '1.2em', height: '1.2em' }} />
             </div>
             <div className="card_content">
+              <p>Karma allows you to get priority access to the most scarce deals in The Win-Win Society (among other special perks)</p>
               <p>There are two ways to increase your Karma level in The Win-Win Society:</p>
               
               <ol>

@@ -312,7 +312,7 @@ const TwitterAuthButton = () => {
   );
 };
 
-const DiscordAuthButton = () => {
+const DiscordAuthButton = ({ onSuccess }) => {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState("");
   const [hasDiscord, setHasDiscord] = useState(false);
@@ -372,6 +372,14 @@ const DiscordAuthButton = () => {
     // Check for discord_data in URL params
     const urlParams = new URLSearchParams(window.location.search);
     const discordDataParam = urlParams.get("discord_data");
+    const telegramVerified = urlParams.get("telegram_verified");
+
+    if (telegramVerified === "true") {
+      checkTelegramStatus();
+      handleSocialConnect();
+      toast.success("Successfully connected to Telegram!");
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
 
     if (discordDataParam) {
       try {
@@ -388,6 +396,9 @@ const DiscordAuthButton = () => {
             setStatus("");
             checkDiscordStatus();
             toast.success("Successfully connected to Discord!");
+            if (onSuccess) {
+              onSuccess();
+            }
           }).catch((error) => {
             console.error("Failed to update Discord ID:", error);
             toast.error("Failed to complete Discord connection");
@@ -401,7 +412,7 @@ const DiscordAuthButton = () => {
       // Clean up URL parameters
       window.history.replaceState({}, document.title, window.location.pathname);
     }
-  }, [userData?.userId]);
+  }, [userData?.userId, onSuccess]);
 
   return (
     <button 
@@ -452,6 +463,7 @@ const UserProfile = () => {
   const [verificationCode, setVerificationCode] = useState('');
   const [hasTelegram, setHasTelegram] = useState(false);
   const [telegramData, setTelegramData] = useState(null);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   const { authDetails } = useSelector((state) => state.auth);
 
@@ -492,9 +504,10 @@ const UserProfile = () => {
     primary_city: "",
     secondary_city: "",
     investment_thesis: [],
-    ticket_size: "",
-    investment_stage: "",
+    ticket_size: [],
+    investment_stage: [],
     investment_description: "",
+    previous_investments: "",
   };
 
   const formik = useFormik({
@@ -555,6 +568,13 @@ const UserProfile = () => {
 
     const profilePromises = [];
 
+    // Clean up ticket size values before stringifying
+    const cleanTicketSizes = (values.ticket_size || []).map(size => 
+      typeof size === 'string' 
+        ? size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1')
+        : size
+    );
+
     // Basic profile data
     const payload = {
       id: userData?.userId,
@@ -574,9 +594,10 @@ const UserProfile = () => {
         primary_city: values.primary_city || "",
         secondary_city: values.secondary_city || "",
         investment_thesis: JSON.stringify(values.investment_thesis || []),
-        ticket_size: values.ticket_size || "",
-        investment_stage: values.investment_stage || "",
+        ticket_size: JSON.stringify(cleanTicketSizes),
+        investment_stage: JSON.stringify(values.investment_stage || []),
         investment_description: values.investment_description || "",
+        previous_investments: values.previous_investments || "",
       },
     };
 
@@ -698,10 +719,33 @@ const UserProfile = () => {
       question2: userDetails?.question2 || "",
       primary_city: userDetails?.primary_city || "",
       secondary_city: userDetails?.secondary_city || "",
-      investment_thesis: userDetails?.investment_thesis || [],
-      ticket_size: userDetails?.ticket_size || "",
-      investment_stage: userDetails?.investment_stage || "",
+      investment_thesis: typeof userDetails?.investment_thesis === 'string' 
+        ? JSON.parse(userDetails.investment_thesis) 
+        : userDetails?.investment_thesis || [],
+      ticket_size: typeof userDetails?.ticket_size === 'string'
+        ? JSON.parse(userDetails.ticket_size).map(size => 
+            // Clean up the stored values by removing extra quotes
+            size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1')
+          )
+        : Array.isArray(userDetails?.ticket_size)
+          ? userDetails.ticket_size.map(size => 
+              // Clean up array values
+              typeof size === 'string' 
+                ? size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1')
+                : size
+            )
+          : userDetails?.ticket_size
+            ? [userDetails.ticket_size.toString()]
+            : [],
+      investment_stage: typeof userDetails?.investment_stage === 'string'
+        ? JSON.parse(userDetails.investment_stage)
+        : Array.isArray(userDetails?.investment_stage)
+          ? userDetails.investment_stage
+          : userDetails?.investment_stage
+            ? [userDetails.investment_stage]
+            : [],
       investment_description: userDetails?.investment_description || "",
+      previous_investments: userDetails?.previous_investments || "",
     });
   };
 
@@ -767,11 +811,61 @@ const UserProfile = () => {
           }
         }) || [];
 
+      // Parse ticket_size if it's a string
+      let parsedTicketSize = [];
+      try {
+        if (typeof userDetails.ticket_size === 'string') {
+          parsedTicketSize = JSON.parse(userDetails.ticket_size).map(size => 
+            size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1')
+          );
+        } else if (Array.isArray(userDetails.ticket_size)) {
+          parsedTicketSize = userDetails.ticket_size.map(size => 
+            typeof size === 'string' 
+              ? size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1')
+              : size
+          );
+        } else if (userDetails.ticket_size) {
+          parsedTicketSize = [userDetails.ticket_size.toString()];
+        }
+      } catch (e) {
+        console.error('Error parsing ticket_size:', e);
+      }
+
+      // Parse investment_stage if it's a string
+      let parsedInvestmentStage = [];
+      try {
+        if (typeof userDetails.investment_stage === 'string') {
+          parsedInvestmentStage = JSON.parse(userDetails.investment_stage);
+        } else if (Array.isArray(userDetails.investment_stage)) {
+          parsedInvestmentStage = userDetails.investment_stage;
+        } else if (userDetails.investment_stage) {
+          parsedInvestmentStage = [userDetails.investment_stage];
+        }
+      } catch (e) {
+        console.error('Error parsing investment_stage:', e);
+      }
+
+      // Parse investment_thesis if it's a string
+      let parsedInvestmentThesis = [];
+      try {
+        if (typeof userDetails.investment_thesis === 'string') {
+          parsedInvestmentThesis = JSON.parse(userDetails.investment_thesis);
+        } else if (Array.isArray(userDetails.investment_thesis)) {
+          parsedInvestmentThesis = userDetails.investment_thesis;
+        }
+      } catch (e) {
+        console.error('Error parsing investment_thesis:', e);
+      }
+
       setValues({
         ...initialValues,
         ...userDetails,
         roles: roles,
-        telegram_username: telegramUsername || userDetails.telegram_username, // Use Telegram username if available
+        telegram_username: telegramUsername || userDetails.telegram_username,
+        investment_stage: parsedInvestmentStage,
+        investment_thesis: parsedInvestmentThesis,
+        ticket_size: parsedTicketSize,
+        previous_investments: userDetails?.previous_investments || "",
       });
     }
   }, [userDetails, telegramUsername]);
@@ -797,7 +891,7 @@ const UserProfile = () => {
   };
 
   const handleVerifyTelegram = () => {
-    if (hasTelegram) return; // Don't do anything if already connected
+    if (hasTelegram) return;
     const code = generateVerificationCode();
     setVerificationCode(code);
     setIsVerifyPopupOpen(true);
@@ -862,7 +956,19 @@ const UserProfile = () => {
     if (userData?.userId) {
       checkTelegramStatus();
     }
-  }, [userData?.userId]);
+  }, [userData?.userId, refreshTrigger]);
+
+  const handleSocialConnect = () => {
+    setRefreshTrigger(prev => prev + 1);
+    dispatch(getUsersDetailsAPI(userData?.userId));
+  };
+
+  useEffect(() => {
+    if (userData?.userId) {
+      checkTelegramStatus();
+      dispatch(getUsersDetailsAPI(userData?.userId));
+    }
+  }, [userData?.userId, refreshTrigger]);
 
   return (
     <div className="profile_content_wrapper">
@@ -954,21 +1060,59 @@ const UserProfile = () => {
                         <div className="profile_info">
                           <div className="profile_head">Telegram</div>
                           <div className="profile_data">
-                            {telegramUsername || userDetails?.telegram_username || "-"}
+                            {telegramUsername || userDetails?.telegram_username ? (
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                {telegramUsername || userDetails?.telegram_username}
+                                <svg 
+                                  className="checkmark" 
+                                  width="16" 
+                                  height="16" 
+                                  viewBox="0 0 24 24" 
+                                  fill="none" 
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path 
+                                    d="M20 6L9 17L4 12" 
+                                    stroke="#4CAF50" 
+                                    strokeWidth="2" 
+                                    strokeLinecap="round" 
+                                    strokeLinejoin="round"
+                                  />
+                                </svg>
+                              </div>
+                            ) : "-"}
                           </div>
                         </div>
                         <div className="profile_info">
                           <div className="profile_head">Twitter</div>
                           <div className="profile_data">
                             {userDetails?.username ? (
-                              <a
-                                href={`https://twitter.com/${userDetails.username}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="twitter-link"
-                              >
-                                {userDetails.username}
-                              </a>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                <a
+                                  href={`https://twitter.com/${userDetails.username}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="twitter-link"
+                                >
+                                  {userDetails.username}
+                                </a>
+                                <svg 
+                                  className="checkmark" 
+                                  width="16" 
+                                  height="16" 
+                                  viewBox="0 0 24 24" 
+                                  fill="none" 
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path 
+                                    d="M20 6L9 17L4 12" 
+                                    stroke="#4CAF50" 
+                                    strokeWidth="2" 
+                                    strokeLinecap="round" 
+                                    strokeLinejoin="round"
+                                  />
+                                </svg>
+                              </div>
                             ) : (
                               "-"
                             )}
@@ -1002,10 +1146,6 @@ const UserProfile = () => {
                               .join(", ") || "-"}
                           </div>
                         </div>
-                        {/* <div className="profile_info">
-                          <div className="profile_head">Angel investor</div>
-                          <div className="profile_data">{userDetails?.question1 || "-"}</div>
-                        </div> */}
                         <div className="profile_info">
                           <div className="profile_head">Go to Web3 events</div>
                           <div className="profile_data">{userDetails?.question2 || "-"}</div>
@@ -1044,93 +1184,184 @@ const UserProfile = () => {
                           <div className="profile_data">
                             {values?.roles?.includes("Angel Investor") ? (
                               <>
-                                <label className="radio_box" htmlFor="5k">
+                                <label className="check_box" htmlFor="5k">
                                   <input
-                                    type="radio"
+                                    type="checkbox"
                                     id="5k"
-                                    name="ticket_size"
-                                    value=">$5k"
-                                    checked={values?.ticket_size === ">$5k"}
-                                    onChange={handleChange}
+                                    className="costum_checkbox_input"
+                                    checked={Array.isArray(values?.ticket_size) 
+                                      ? values?.ticket_size?.some(size => 
+                                          size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1') === ">$5k"
+                                        )
+                                      : values?.ticket_size === ">$5k"}
+                                    onChange={() => {
+                                      const currentSizes = Array.isArray(values?.ticket_size) 
+                                        ? values.ticket_size.map(size => 
+                                            size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1')
+                                          )
+                                        : values?.ticket_size ? [values.ticket_size] : [];
+                                      const newSizes = currentSizes.includes(">$5k")
+                                        ? currentSizes.filter(size => size !== ">$5k")
+                                        : [...currentSizes, ">$5k"];
+                                      setFieldValue("ticket_size", newSizes);
+                                    }}
                                   />
-                                  <span className="radio-custom"></span>
-                                  <span className="radio-label">{">"}$5k</span>
+                                  <span className="costum_checkbox_label"></span>
+                                  <span className="label">{">"}$5k</span>
                                 </label>
-                                <label className="radio_box" htmlFor="5k-10k">
+                                <label className="check_box" htmlFor="5k-10k">
                                   <input
-                                    type="radio"
+                                    type="checkbox"
                                     id="5k-10k"
-                                    name="ticket_size"
-                                    value="5k-10k"
-                                    checked={values?.ticket_size === "5k-10k"}
-                                    onChange={handleChange}
+                                    className="costum_checkbox_input"
+                                    checked={Array.isArray(values?.ticket_size) 
+                                      ? values?.ticket_size?.some(size => 
+                                          size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1') === "5k-10k"
+                                        )
+                                      : values?.ticket_size === "5k-10k"}
+                                    onChange={() => {
+                                      const currentSizes = Array.isArray(values?.ticket_size) 
+                                        ? values.ticket_size.map(size => 
+                                            size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1')
+                                          )
+                                        : values?.ticket_size ? [values.ticket_size] : [];
+                                      const newSizes = currentSizes.includes("5k-10k")
+                                        ? currentSizes.filter(size => size !== "5k-10k")
+                                        : [...currentSizes, "5k-10k"];
+                                      setFieldValue("ticket_size", newSizes);
+                                    }}
                                   />
-                                  <span className="radio-custom"></span>
-                                  <span className="radio-label">5k-10k</span>
+                                  <span className="costum_checkbox_label"></span>
+                                  <span className="label">5k-10k</span>
                                 </label>
-                                <label className="radio_box" htmlFor="10k-25k">
+                                <label className="check_box" htmlFor="10k-25k">
                                   <input
-                                    type="radio"
+                                    type="checkbox"
                                     id="10k-25k"
-                                    name="ticket_size"
-                                    value="10k-25k"
-                                    checked={values?.ticket_size === "10k-25k"}
-                                    onChange={handleChange}
+                                    className="costum_checkbox_input"
+                                    checked={Array.isArray(values?.ticket_size) 
+                                      ? values?.ticket_size?.some(size => 
+                                          size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1') === "10k-25k"
+                                        )
+                                      : values?.ticket_size === "10k-25k"}
+                                    onChange={() => {
+                                      const currentSizes = Array.isArray(values?.ticket_size) 
+                                        ? values.ticket_size.map(size => 
+                                            size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1')
+                                          )
+                                        : values?.ticket_size ? [values.ticket_size] : [];
+                                      const newSizes = currentSizes.includes("10k-25k")
+                                        ? currentSizes.filter(size => size !== "10k-25k")
+                                        : [...currentSizes, "10k-25k"];
+                                      setFieldValue("ticket_size", newSizes);
+                                    }}
                                   />
-                                  <span className="radio-custom"></span>
-                                  <span className="radio-label">10k-25k</span>
+                                  <span className="costum_checkbox_label"></span>
+                                  <span className="label">10k-25k</span>
                                 </label>
-                                <label className="radio_box" htmlFor="25k-100k">
+                                <label className="check_box" htmlFor="25k-100k">
                                   <input
-                                    type="radio"
+                                    type="checkbox"
                                     id="25k-100k"
-                                    name="ticket_size"
-                                    value="25k-100k"
-                                    checked={values?.ticket_size === "25k-100k"}
-                                    onChange={handleChange}
+                                    className="costum_checkbox_input"
+                                    checked={Array.isArray(values?.ticket_size) 
+                                      ? values?.ticket_size?.some(size => 
+                                          size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1') === "25k-100k"
+                                        )
+                                      : values?.ticket_size === "25k-100k"}
+                                    onChange={() => {
+                                      const currentSizes = Array.isArray(values?.ticket_size) 
+                                        ? values.ticket_size.map(size => 
+                                            size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1')
+                                          )
+                                        : values?.ticket_size ? [values.ticket_size] : [];
+                                      const newSizes = currentSizes.includes("25k-100k")
+                                        ? currentSizes.filter(size => size !== "25k-100k")
+                                        : [...currentSizes, "25k-100k"];
+                                      setFieldValue("ticket_size", newSizes);
+                                    }}
                                   />
-                                  <span className="radio-custom"></span>
-                                  <span className="radio-label">25k-100k</span>
+                                  <span className="costum_checkbox_label"></span>
+                                  <span className="label">25k-100k</span>
                                 </label>
-                                <label className="radio_box" htmlFor="100k-250k">
+                                <label className="check_box" htmlFor="100k-250k">
                                   <input
-                                    type="radio"
+                                    type="checkbox"
                                     id="100k-250k"
-                                    name="ticket_size"
-                                    value="100k-250k"
-                                    checked={values?.ticket_size === "100k-250k"}
-                                    onChange={handleChange}
+                                    className="costum_checkbox_input"
+                                    checked={Array.isArray(values?.ticket_size) 
+                                      ? values?.ticket_size?.some(size => 
+                                          size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1') === "100k-250k"
+                                        )
+                                      : values?.ticket_size === "100k-250k"}
+                                    onChange={() => {
+                                      const currentSizes = Array.isArray(values?.ticket_size) 
+                                        ? values.ticket_size.map(size => 
+                                            size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1')
+                                          )
+                                        : values?.ticket_size ? [values.ticket_size] : [];
+                                      const newSizes = currentSizes.includes("100k-250k")
+                                        ? currentSizes.filter(size => size !== "100k-250k")
+                                        : [...currentSizes, "100k-250k"];
+                                      setFieldValue("ticket_size", newSizes);
+                                    }}
                                   />
-                                  <span className="radio-custom"></span>
-                                  <span className="radio-label">100k-250k</span>
+                                  <span className="costum_checkbox_label"></span>
+                                  <span className="label">100k-250k</span>
                                 </label>
-                                <label className="radio_box" htmlFor="250k-500k">
+                                <label className="check_box" htmlFor="250k-500k">
                                   <input
-                                    type="radio"
+                                    type="checkbox"
                                     id="250k-500k"
-                                    name="ticket_size"
-                                    value="250k-500k"
-                                    checked={values?.ticket_size === "250k-500k"}
-                                    onChange={handleChange}
+                                    className="costum_checkbox_input"
+                                    checked={Array.isArray(values?.ticket_size) 
+                                      ? values?.ticket_size?.some(size => 
+                                          size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1') === "250k-500k"
+                                        )
+                                      : values?.ticket_size === "250k-500k"}
+                                    onChange={() => {
+                                      const currentSizes = Array.isArray(values?.ticket_size) 
+                                        ? values.ticket_size.map(size => 
+                                            size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1')
+                                          )
+                                        : values?.ticket_size ? [values.ticket_size] : [];
+                                      const newSizes = currentSizes.includes("250k-500k")
+                                        ? currentSizes.filter(size => size !== "250k-500k")
+                                        : [...currentSizes, "250k-500k"];
+                                      setFieldValue("ticket_size", newSizes);
+                                    }}
                                   />
-                                  <span className="radio-custom"></span>
-                                  <span className="radio-label">250k-500k</span>
+                                  <span className="costum_checkbox_label"></span>
+                                  <span className="label">250k-500k</span>
                                 </label>
-                                <label className="radio_box" htmlFor="1mil+">
+                                <label className="check_box" htmlFor="1mil+">
                                   <input
-                                    type="radio"
+                                    type="checkbox"
                                     id="1mil+"
-                                    name="ticket_size"
-                                    value="1mil+"
-                                    checked={values?.ticket_size === "1mil+"}
-                                    onChange={handleChange}
+                                    className="costum_checkbox_input"
+                                    checked={Array.isArray(values?.ticket_size) 
+                                      ? values?.ticket_size?.some(size => 
+                                          size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1') === "1mil+"
+                                        )
+                                      : values?.ticket_size === "1mil+"}
+                                    onChange={() => {
+                                      const currentSizes = Array.isArray(values?.ticket_size) 
+                                        ? values.ticket_size.map(size => 
+                                            size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1')
+                                          )
+                                        : values?.ticket_size ? [values.ticket_size] : [];
+                                      const newSizes = currentSizes.includes("1mil+")
+                                        ? currentSizes.filter(size => size !== "1mil+")
+                                        : [...currentSizes, "1mil+"];
+                                      setFieldValue("ticket_size", newSizes);
+                                    }}
                                   />
-                                  <span className="radio-custom"></span>
-                                  <span className="radio-label">1mil+</span>
+                                  <span className="costum_checkbox_label"></span>
+                                  <span className="label">1mil+</span>
                                 </label>
                               </>
                             ) : (
-                              <span className="disabled-message">Available for Angel Investors only</span>
+                              <span className="disabled-message">Available for Angel Investors only and VCs</span>
                             )}
                           </div>
                         </div>
@@ -1138,7 +1369,7 @@ const UserProfile = () => {
                         {/* Right Column */}
                         <div className="profile_info">
                           <div className="profile_head">
-                            Investment Thesis {values?.roles?.includes("Angel Investor") ? "*" : ""}
+                          Investment Categories {values?.roles?.includes("Angel Investor") ? "*" : ""}
                           </div>
                           <div className="profile_data">
                             {values?.roles?.includes("Angel Investor") ? (
@@ -1257,14 +1488,14 @@ const UserProfile = () => {
                                   <input
                                     type="text"
                                     className="other-thesis-input"
-                                    placeholder="Please specify other investment thesis..."
+                                    placeholder="Please specify other Investment Categories..."
                                     value={values?.other_investment_thesis || ""}
                                     onChange={(e) => setFieldValue("other_investment_thesis", e.target.value)}
                                   />
                                 )}
                               </>
                             ) : (
-                              <span className="disabled-message">Available for Angel Investors only</span>
+                              <span className="disabled-message">Available for Angel Investors only and VCs</span>
                             )}
                           </div>
                         </div>
@@ -1275,47 +1506,68 @@ const UserProfile = () => {
                             What's your investment thesis? {values?.roles?.includes("Angel Investor") ? "*" : ""}
                           </div>
                           <div className="profile_data">
-                            {values?.roles?.includes("Angel Investor") ? (
+                            {(values?.roles?.includes("Angel Investor") || values?.roles?.includes("Venture Capital")) ? (
                               <>
                                 <div className="radio_group">
                                   <div
-                                    className="radio_box"
-                                    onClick={() => handleQuestionChange("investment_stage", "Early")}
+                                    className="check_box"
+                                    onClick={() => {
+                                      const currentStages = Array.isArray(values?.investment_stage) 
+                                        ? values.investment_stage 
+                                        : values?.investment_stage ? [values.investment_stage] : [];
+                                      const newStages = currentStages.includes("Early")
+                                        ? currentStages.filter(stage => stage !== "Early")
+                                        : [...currentStages, "Early"];
+                                      handleQuestionChange("investment_stage", newStages);
+                                    }}
                                   >
                                     <input
-                                      type="radio"
-                                      name="investment_stage"
-                                      value="Early"
-                                      checked={values?.investment_stage === "Early"}
+                                      type="checkbox"
+                                      className="costum_checkbox_input"
+                                      checked={Array.isArray(values?.investment_stage) ? values?.investment_stage?.includes("Early") : values?.investment_stage === "Early"}
                                     />
-                                    <label></label>
-                                    <span>Early (pre-seed, seed)</span>
+                                    <span className="costum_checkbox_label"></span>
+                                    <span className="label">Early (pre-seed, seed)</span>
                                   </div>
                                   <div
-                                    className="radio_box"
-                                    onClick={() => handleQuestionChange("investment_stage", "Decent traction")}
+                                    className="check_box"
+                                    onClick={() => {
+                                      const currentStages = Array.isArray(values?.investment_stage) 
+                                        ? values.investment_stage 
+                                        : values?.investment_stage ? [values.investment_stage] : [];
+                                      const newStages = currentStages.includes("Decent traction")
+                                        ? currentStages.filter(stage => stage !== "Decent traction")
+                                        : [...currentStages, "Decent traction"];
+                                      handleQuestionChange("investment_stage", newStages);
+                                    }}
                                   >
                                     <input
-                                      type="radio"
-                                      name="investment_stage"
-                                      value="Decent traction"
-                                      checked={values?.investment_stage === "Decent traction"}
+                                      type="checkbox"
+                                      className="costum_checkbox_input"
+                                      checked={Array.isArray(values?.investment_stage) ? values?.investment_stage?.includes("Decent traction") : values?.investment_stage === "Decent traction"}
                                     />
-                                    <label></label>
-                                    <span>Decent traction (strategic, private)</span>
+                                    <span className="costum_checkbox_label"></span>
+                                    <span className="label">Decent traction (strategic, private)</span>
                                   </div>
                                   <div
-                                    className="radio_box"
-                                    onClick={() => handleQuestionChange("investment_stage", "Hyped")}
+                                    className="check_box"
+                                    onClick={() => {
+                                      const currentStages = Array.isArray(values?.investment_stage) 
+                                        ? values.investment_stage 
+                                        : values?.investment_stage ? [values.investment_stage] : [];
+                                      const newStages = currentStages.includes("Hyped")
+                                        ? currentStages.filter(stage => stage !== "Hyped")
+                                        : [...currentStages, "Hyped"];
+                                      handleQuestionChange("investment_stage", newStages);
+                                    }}
                                   >
                                     <input
-                                      type="radio"
-                                      name="investment_stage"
-                                      value="Hyped"
-                                      checked={values?.investment_stage === "Hyped"}
+                                      type="checkbox"
+                                      className="costum_checkbox_input"
+                                      checked={Array.isArray(values?.investment_stage) ? values?.investment_stage?.includes("Hyped") : values?.investment_stage === "Hyped"}
                                     />
-                                    <label></label>
-                                    <span>Hyped (public)</span>
+                                    <span className="costum_checkbox_label"></span>
+                                    <span className="label">Hyped (public)</span>
                                   </div>
                                 </div>
                                 <div className="question_desc">
@@ -1327,6 +1579,16 @@ const UserProfile = () => {
                                   name="investment_description"
                                   placeholder="Custom description..."
                                   value={values?.investment_description}
+                                  onChange={handleChange}
+                                />
+                                <div className="question_desc">
+                                  Previous investments and ticket sizes (if you feel comfortable sharing — will give us more insights on what makes sense to you, thus bring you tailored deals)
+                                </div>
+                                <textarea
+                                  className="textArea"
+                                  name="previous_investments"
+                                  placeholder="Share your previous investments and ticket sizes..."
+                                  value={values?.previous_investments}
                                   onChange={handleChange}
                                 />
                                 <div className="save_button_container">
@@ -1342,7 +1604,7 @@ const UserProfile = () => {
                                 </div>
                               </>
                             ) : (
-                              <span className="disabled-message">Available for Angel Investors only</span>
+                              <span className="disabled-message">Available for Angel Investors only and VCs</span>
                             )}
                           </div>
                         </div>
@@ -1506,36 +1768,6 @@ const UserProfile = () => {
                         </div>
                       </div>
 
-                      <div className="form_group_row">
-                        <div className="profile_info">
-                          <div className="profile_head">Go to Web3 events</div>
-                          <div className="profile_data">{userDetails?.question2 || "-"}</div>
-                        </div>
-                        <div className="profile_info">
-                          <div className="profile_head">Role</div>
-                          <div className="profile_data">
-                            {userDetails?.roles
-                              ?.split(",")
-                              .map((role) => {
-                                switch (role.trim()) {
-                                  case "A Founder":
-                                    return "Founder";
-                                  case "A C-level":
-                                    return "C-level";
-                                  case "A Web3 employee":
-                                    return role.trim();
-                                  case "A KOL / Ambassador / Content Creator":
-                                    return role.trim();
-                                  case "An Angel Investor":
-                                    return "Angel Investor";
-                                  default:
-                                    return role.trim();
-                                }
-                              })
-                              .join(", ") || "-"}
-                          </div>
-                        </div>
-                      </div>
 
                       <div className="form_group_row">
                         <div className="profile_info full_width">
@@ -1553,6 +1785,7 @@ const UserProfile = () => {
                                 "Ambassador",
                                 "Content Creator",
                                 "Alpha Caller",
+                                "Venture Capital",
                                 "Angel Investor",
                               ].map((role, index) => (
                                 <div
@@ -1580,6 +1813,7 @@ const UserProfile = () => {
                                       "Content Creator",
                                       "Alpha Caller",
                                       "Angel Investor",
+                                      "Venture Capital",
                                     ].includes(role) && role !== "Other"
                                 )
                                 .map((role, index) => (
@@ -1808,7 +2042,7 @@ const UserProfile = () => {
                                 Connect Twitter
                               </button>
                             )}
-                            <DiscordAuthButton />
+                            <DiscordAuthButton onSuccess={handleSocialConnect} />
                             <button 
                               className={`btn_gray save_button ${hasTelegram ? 'verified' : ''}`} 
                               onClick={handleVerifyTelegram}

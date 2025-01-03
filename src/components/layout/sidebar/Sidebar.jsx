@@ -132,7 +132,7 @@ const Sidebar = () => {
             </>
           )}
           <div className="profile_box">
-            <div className="profile_info">
+            <div className="profile_info" onClick={() => navigate(`/${ROUTER.profile}`)} style={{ cursor: "pointer" }}>
               <div className="profile_image">
                 <img
                   src={getProfilePicture()}
