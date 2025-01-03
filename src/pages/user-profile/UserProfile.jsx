@@ -901,6 +901,10 @@ const UserProfile = () => {
                   <div className="pagination">
                     <span>Profile</span>
                   </div>
+                  <button className="btn_gray save_button" onClick={handleEditProfile}>
+                    <img src={editIcon} alt="" />
+                    Edit profile
+                  </button>
                 </div>
                 <div className="profile_page_content">
                   <div className="project_profile">
@@ -915,40 +919,7 @@ const UserProfile = () => {
                       />
                     </div>
                     <div className="profile_actions">
-                      <button className="btn_gray save_button" onClick={handleEditProfile}>
-                        <img src={editIcon} alt="" />
-                        Edit profile
-                      </button>
-                      {/* <button 
-                        className={`btn_gray save_button ${hasTelegram ? 'verified' : ''}`} 
-                        onClick={handleVerifyTelegram}
-                        disabled={hasTelegram}
-                      >
-                        <img src={telegramIcon} alt="" />
-                        {hasTelegram ? (
-                          <>
-                            Telegram Connected
-                            <svg 
-                              className="checkmark" 
-                              width="16" 
-                              height="16" 
-                              viewBox="0 0 24 24" 
-                              fill="none" 
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path 
-                                d="M20 6L9 17L4 12" 
-                                stroke="#4CAF50" 
-                                strokeWidth="2" 
-                                strokeLinecap="round" 
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          </>
-                        ) : (
-                          'Verify Telegram Account'
-                        )}
-                      </button> */}
+                      {/* Edit profile button removed from here */}
                     </div>
                   </div>
                   <div className="profile_description_data">

@@ -482,7 +482,7 @@ const Home = () => {
                   <MaskIcon />
                 </a>
               </div>
-              <div className="text">© All rights reserved to Darkknight Labs 2023</div>
+              <div className="text">© All rights reserved to Darkknight Labs 2025</div>
             </div>
             <div className="up_arrow">
               <button onClick={scrollToTop} className="scroll-to-top-btn">
