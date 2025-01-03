@@ -252,7 +252,7 @@ const TwitterAuthButton = () => {
     const message = urlParams.get("message");
 
     if (twitterAuth === "success") {
-      setStatus("Successfully connected!");
+      setStatus("");
       window.history.replaceState({}, document.title, window.location.pathname);
     } else if (twitterAuth === "error") {
       setStatus(`Error: ${message || "Unknown error"}`);
@@ -385,7 +385,7 @@ const DiscordAuthButton = () => {
             id: userData?.userId,
             discord_id: discordData.user.id
           }).then(() => {
-            setStatus("Successfully connected!");
+            setStatus("");
             checkDiscordStatus();
             toast.success("Successfully connected to Discord!");
           }).catch((error) => {
