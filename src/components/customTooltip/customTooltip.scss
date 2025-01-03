@@ -1,0 +1,96 @@
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+
+    .tooltip {
+        position: absolute;
+        background-color: var(--primary-gray);
+        color: var(--primary-text);
+        min-width: 74px;
+        padding: 5px 8px;
+        border-radius: 5px;
+        z-index: 1000000;
+        font-size: 12px;
+
+        &.top {
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+
+            &::after {
+                content: '';
+                display: block;
+                position: absolute;
+                bottom: -8px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 14px;
+                z-index: 100;
+                clip-path: polygon(50% 100%, 100% 0%, 0% 0%);
+                height: 12px;
+                background-color: var(--primary-gray);
+            }
+        }
+
+        &.right {
+            top: 50%;
+            left: 125%;
+            transform: translateY(-50%);
+
+            &::after {
+                content: '';
+                display: block;
+                position: absolute;
+                left: -3px;
+                top: 30%;
+                transform: translateX(-50%);
+                width: 14px;
+                z-index: 100;
+                clip-path: polygon(100% 0, 0 54%, 100% 100%);
+                height: 12px;
+                background-color: var(--primary-gray);
+            }
+        }
+
+        &.bottom {
+            top: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+
+
+            &::after {
+                content: '';
+                display: block;
+                position: absolute;
+                left: 50%;
+                top: -10px;
+                transform: translateX(-50%);
+                width: 14px;
+                z-index: 100;
+                clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+                height: 12px;
+                background-color: var(--primary-gray);
+            }
+        }
+
+        &.left {
+            top: 50%;
+            right: 125%;
+            transform: translateY(-50%);
+
+            &::after {
+                content: '';
+                display: block;
+                position: absolute;
+                right: -18px;
+                top: 30%;
+                transform: translateX(-50%);
+                width: 14px;
+                z-index: 100;
+                clip-path: polygon(0 0, 0% 100%, 100% 53%);
+                height: 12px;
+                background-color: var(--primary-gray);
+            }
+        }
+    }
+}

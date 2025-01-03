@@ -1,0 +1,94 @@
+.welcome-page {
+  height: 100%;
+
+  .project_content_body {
+    padding: 20px 0px;
+    border-radius: 20px;
+    background-color: var(--primary-background);
+    height: calc(100vh - 130px);
+    overflow: hidden;
+
+    @media (max-width: 1600px) {
+      height: calc(100vh - 85px);
+    }
+
+    @media (max-width: 767px) {
+      border-radius: 0;
+      padding-block: 0px;
+      background-color: var(--primary-background);
+      background-image: none;
+      height: calc(100vh - 170px);
+    }
+
+    .page_data {
+      height: 100%;
+      background-color: transparent;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding: 0 34px;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      @media (max-width: 767px) {
+        padding: 10px 20px;
+      }
+
+      .popup {
+        background-color: var(--card-background);
+        border-radius: 16px;
+        border: 1px solid var(--border-color);
+        height: 100%;
+        width: 100%;
+        padding: 32px;
+        overflow-y: auto;
+        color: var(--primary-text);
+
+        .popup-content {
+          width: 100%;
+
+          h2 {
+            margin-bottom: 32px;
+            font-size: 36px;
+            font-weight: 500;
+            color: var(--primary-text);
+            text-align: center;
+            font-family: "MedievalSharp", cursive;
+          }
+
+          p {
+            margin-bottom: 24px;
+            font-size: 18px;
+            color: var(--primary-text-op50);
+            line-height: 1.6;
+          }
+
+          ul {
+            list-style: none;
+            margin-bottom: 32px;
+            padding: 0;
+
+            li {
+              margin-bottom: 16px;
+              font-size: 18px;
+              color: var(--primary-text-op50);
+              display: flex;
+              align-items: center;
+              gap: 12px;
+
+              strong {
+                color: var(--primary-text);
+                font-weight: 500;
+              }
+            }
+          }
+
+          button {
+            margin: 40px auto 0;
+          }
+        }
+      }
+    }
+  }
+}

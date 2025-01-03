@@ -1,0 +1,98 @@
+.contribution-card {
+    background-color: var(--card-background);
+    border-radius: 10px;
+    padding: 24px;
+    font-family: "MedievalSharp", cursive;
+    color: var(--primary-text);
+
+    @media (max-width: 1600px) {
+        padding: 20px;
+    }
+
+    .contribution-card-header {
+        margin-bottom: 24px;
+
+        .contribution-card-title {
+            color: var(--primary-text);
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 8px;
+
+            @media (max-width: 1600px) {
+                font-size: 20px;
+            }
+        }
+
+        .contribution-card-description {
+            color: var(--primary-white-op60);
+            font-size: 14px;
+            font-family: "Inter", sans-serif;
+        }
+    }
+
+    .contribution-card-content {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .status-section {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .status-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14px;
+
+        &.muted {
+            color: var(--primary-white-op60);
+        }
+
+        &.justify-end {
+            justify-content: flex-end;
+        }
+    }
+
+    .progress-bar {
+        width: 100%;
+        height: 8px;
+        background-color: var(--primary-white-op10);
+        border-radius: 4px;
+        overflow: hidden;
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(to right, #E58A02, #DAB943);
+            transition: width 0.3s ease;
+        }
+    }
+}
+
+.loading-card {
+    background-color: var(--card-background);
+    border-radius: 10px;
+    padding: 24px;
+    font-family: "MedievalSharp", cursive;
+    color: var(--primary-text);
+    margin-bottom: 24px;
+
+    @media (max-width: 1600px) {
+        padding: 20px;
+    }
+
+    .loading-card-header {
+        .loading-card-title {
+            color: var(--primary-text);
+            font-size: 20px;
+            font-weight: 500;
+
+            @media (max-width: 1600px) {
+                font-size: 16px;
+            }
+        }
+    }
+}

@@ -1,12 +1,72 @@
 .layout_container {
-    .main_wrp {
-        .container {
-            max-width: 1720px;
-            margin: 0 auto;
-            padding: 0 15px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-width: 100vw;
 
-            @media(max-width: 767px) {
-                padding: 0;
+    .main_wrp {
+        flex: 1;
+        padding: 24px;
+        overflow: hidden;
+        width: 100%;
+        
+        @media(max-width: 767px) {
+            padding: 0;
+            padding-bottom: 100px;
+        }
+
+        .container {
+            height: 100%;
+            max-width: 1920px;
+            margin: 0 auto;
+            padding: 0;
+            width: 100%;
+
+            .page_box {
+                display: flex;
+                gap: 24px;
+                height: calc(100vh - 132px);
+                margin-bottom: 24px;
+                width: 100%;
+
+                @media(max-width: 1600px) {
+                    height: calc(100vh - 85px - 10px);
+                }
+
+                @media(max-width: 767px) {
+                    gap: 0;
+                    margin-bottom: 0;
+                }
+
+                .content_box {
+                    flex: 1;
+                    background-color: transparent;
+                    border-radius: 9px;
+                    padding: 24px;
+                    overflow-y: auto;
+                    height: 100%;
+                    width: 100%;
+                    min-width: 0;
+                    
+                    @media(max-width: 767px) {
+                        padding: 0;
+                        border-radius: 0;
+                    }
+                    
+                    &::-webkit-scrollbar {
+                        width: 8px;
+                    }
+                    
+                    &::-webkit-scrollbar-track {
+                        background: transparent;
+                    }
+                    
+                    &::-webkit-scrollbar-thumb {
+                        background-color: rgba(245, 239, 219, 0.1);
+                        border-radius: 4px;
+                    }
+                }
             }
         }
     }

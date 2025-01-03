@@ -2,14 +2,24 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scrollbar-width: none !important;
+  /* Firefox */
+  -ms-overflow-style: none !important;
+
+  /* IE and Edge */
+  &::-webkit-scrollbar {
+    display: none !important;
+    /* Chrome, Safari and Opera */
+  }
+
 }
 
 body {
   margin: 0;
   padding: 0;
   font-family: "Inter", sans-serif;
-  background: url(./assets/body-bg.png);
-  background-size: cover;
+  /* background: url(./assets/body-bg.png);
+  background-size: cover; */
 }
 
 a {
@@ -20,7 +30,8 @@ a {
 button {
   cursor: pointer;
 }
-input:focus{
+
+input:focus {
   outline: none;
 }
 
