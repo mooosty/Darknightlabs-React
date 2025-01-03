@@ -1,8 +1,9 @@
 .header_wrp {
-    background-color: #191917;
+    background-color: var(--primary-background);
     padding: 22px 24px;
     margin-bottom: 30px;
-
+    display: flex;
+    align-items: center;
 
     @media(max-width: 1600px) {
         padding: 10px 15px;
@@ -11,44 +12,60 @@
 
     @media(max-width: 767px) {
         margin-bottom: 0;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 24px;
+        padding: 24px 20px;
+        background-color: var(--primary-black);
     }
 
     .header_title {
-        color: #F5EFDB;
+        color: var(--primary-text);
         font-family: "MedievalSharp", cursive;
         font-size: 24px;
-        display: none;
 
         @media(max-width: 767px) {
-            display: block;
+            font-size: 20px;
         }
     }
 
-    .sidbar_btn {
-        background-color: transparent;
-        border: none;
+    .header_right {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-left: auto;
+    }
+
+    .sidebar_btn {
         display: none;
 
         @media(max-width: 767px) {
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 3px;
+
+            .dropdown {
+                .dropdown_btn {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
         }
     }
-
 
     .header_btn {
-        margin-left: auto;
         font-family: "MedievalSharp", cursive;
         background-color: transparent;
-        border: 1px solid #f5efdb;
+        border: 1px solid var(--primary-text);
         font-size: 16px;
         font-weight: 500;
-        color: #f5efdb;
+        color: var(--primary-text);
         padding: 9px 17px;
-        display: block;
+        margin-left: auto;
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgba(245, 239, 219, 0.1);
+        }
 
         @media(max-width: 1600px) {
             font-size: 14px;
@@ -57,5 +74,19 @@
         @media(max-width: 767px) {
             display: none;
         }
+    }
+
+    .dropdown_tab {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+        background-color: transparent;
+        color: var(--primary-text);
+        border: none;
+    }
+
+    .logout_tab {
+        color: var(--primary-red);
     }
 }

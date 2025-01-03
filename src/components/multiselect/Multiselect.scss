@@ -1,0 +1,146 @@
+.multiselect_wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 12px;
+
+    .custom_multiselect_field {
+        padding: 12px 24px;
+        border: 1px solid var(--primary-white-op72);
+        background-color: transparent;
+        width: 100%;
+        line-height: 19px;
+        font-size: 16px;
+        font-weight: 500;
+        position: relative;
+        display: flex;
+        gap: 4px;
+        color: var(--primary-white);
+        font-family: "Inter", sans-serif;
+
+        @media (max-width: 1600px) {
+            font-size: 14px;
+            padding: 8px 20px;
+        }
+
+        .label_tooltip {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .custom_multiselect_label {
+            color: var(--primary-white);
+            padding: 2px 8px;
+            border-radius: 8px;
+            display: flex;
+            font-size: 12px;
+            align-items: center;
+            font-family: "Inter", sans-serif;
+            background-color: var(--primary-background);
+            border: 1px solid #ffefdb26;
+        }
+
+        .custom_multiselect_placeholder {
+            color: var(--primary-white-op60);
+            padding: 2px 8px;
+
+        }
+
+        .down-arrow {
+            position: absolute;
+            right: 13px;
+            top: 22%;
+
+            @media (max-width: 1600px) {
+                top: 20%;
+            }
+
+            svg {
+                height: 30px;
+                width: 30px;
+
+                @media (max-width: 1600px) {
+                    height: 25px;
+                    width: 25px;
+                }
+            }
+        }
+    }
+
+    .custom_multiselect_list {
+        border: 1px solid var(--primary-white-op72);
+        background-color: var(--card-background);
+        padding: 10px;
+        position: absolute;
+        display: none;
+        width: 100%;
+        top: calc(100% + 0px);
+
+        &.active {
+            display: block;
+            z-index: 10;
+        }
+
+        ul {
+            li {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 10px 16px;
+                font-size: 16px;
+                font-weight: 500;
+                line-height: 19px;
+                font-family: "Inter", sans-serif;
+                color: var(--primary-white);
+
+                @media (max-width: 1600px) {
+                    font-size: 14px;
+                }
+
+                &:hover {
+                    background-color: var(--primary-white-op10);
+                }
+
+                &.selected {
+                    background-color: var(--primary-white-op10);
+                }
+
+                .tooltip {
+                    display: flex;
+                    align-items: center;
+
+                    img {
+                        height: 18px;
+                        width: 18px;
+
+                        @media (max-width: 1600px) {
+                            height: 16px;
+                            width: 16px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .add_new_angle_btn {
+            padding: 10px 24px;
+            border: none;
+            background-color: var(--btn-gray-bg);
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--primary-text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            width: 100%;
+            margin-top: 8px;
+
+            @media (max-width: 1600px) {
+                font-size: 14px;
+            }
+        }
+    }
+}

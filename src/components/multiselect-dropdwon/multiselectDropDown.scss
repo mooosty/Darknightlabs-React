@@ -1,0 +1,254 @@
+.multiselect_wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 12px;
+
+    .multiselect_field {
+        padding: 12px 24px;
+        border: 1px solid var(--primary-white-op72);
+        background-color: transparent;
+        width: 100%;
+        line-height: 19px;
+        font-size: 16px;
+        font-weight: 500;
+        position: relative;
+        display: flex;
+        padding-right: 35px !important;
+        gap: 4px;
+        color: var(--primary-white);
+        background-color: var(--card-background);
+        font-family: "Inter", sans-serif;
+
+        @media (max-width: 1600px) {
+            font-size: 14px;
+            padding: 8px 20px;
+        }
+
+        .multiselect_placeholder {
+            color: var(--primary-white-op60);
+            padding: 2px 8px;
+
+        }
+
+        .down-arrow {
+            position: absolute;
+            right: 13px;
+            top: 22%;
+
+            @media (max-width: 1600px) {
+                top: 20%;
+            }
+
+            svg {
+                height: 30px;
+                width: 30px;
+
+                @media (max-width: 1600px) {
+                    height: 25px;
+                    width: 25px;
+                }
+            }
+        }
+    }
+
+    .multiselect_list {
+        border: 1px solid var(--primary-white-op72);
+        background-color: var(--card-background);
+        position: absolute;
+        display: none;
+        width: 100%;
+        top: calc(100% + 0px);
+
+        @media (max-width: 767px) {
+            .mobile_multiselect_wrapper {
+                height: 100vh;
+                width: 100vw;
+                z-index: 99;
+                position: fixed;
+                background-color: var(--primary-gray-op80);
+                bottom: 0;
+                left: 0;
+                display: block;
+            }
+        }
+
+        &.active {
+            margin-top: 6px;
+            display: block;
+            z-index: 100;
+        }
+
+
+        ul {
+            max-height: 350px;
+
+            @media (max-width: 767px) {
+                width: 100%;
+                background-color: var(--card-background);
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                border-top: 1px solid var(--primary-white-op72);
+                border-top-left-radius: 20px;
+                border-top-right-radius: 20px;
+                padding: 15px 10px;
+            }
+
+            @media (max-width: 380px) {
+                max-height: 400px;
+            }
+
+            .multiselect_header {
+                color: var(--primary-text);
+                font-size: 24px;
+                font-family: "MedievalSharp", cursive;
+                padding-bottom: 20px;
+                padding-left: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                @media (min-width: 767px) {
+                    display: none;
+                }
+                button {
+                    background-color: transparent;
+                    border: gainsboro;
+
+                    img {
+                        width: 32px;
+
+                        @media (max-width: 1600px) {
+                            width: 24px;
+                        }
+                    }
+                }
+            }
+
+            .list_items {
+                max-height: 230px;
+                overflow-y: scroll;
+                margin-right: 10px;
+
+
+                &::-webkit-scrollbar-track {
+                    margin-block: 5px;
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background: var(--primary-white);
+
+                }
+
+                li {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    padding: 10px;
+                    font-size: 16px;
+                    font-weight: 500;
+                    line-height: 19px;
+                    font-family: "Inter", sans-serif;
+                    color: var(--primary-white);
+
+                    @media (max-width: 1600px) {
+                        font-size: 14px;
+                    }
+
+                    &:hover {
+                        background-color: var(--primary-white-op10);
+                    }
+
+                    .costum_checkbox {
+                        display: flex;
+                        align-items: end;
+                        width: 100%;
+
+                        .costum_checkbox_input {
+                            display: none;
+                        }
+
+                        .costum_checkbox_label {
+                            display: flex;
+                            gap: 8px;
+                            align-items: center;
+                            width: 100%;
+
+                            .mark {
+                                height: 22px !important;
+                                width: 22px !important;
+                                background-color: var(--primary-gray-op20);
+                                border: 1px solid var(--primary-white);
+                            }
+
+                            .opt_label {
+                                width: calc(100% - 30px);
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                            }
+                        }
+
+                        .costum_checkbox_input:checked+.costum_checkbox_label {
+                            .mark {
+                                position: relative;
+
+                                &::after {
+                                    content: '';
+                                    display: block;
+                                    position: absolute;
+                                    top: -2px;
+                                    left: -1px;
+                                    height: 22px;
+                                    width: 22px;
+                                    background-image: url('../../assets/InputChecked.svg');
+                                    background-repeat: no-repeat;
+                                    background-size: cover;
+                                    z-index: 5;
+                                }
+                            }
+                        }
+                    }
+
+                    .tooltip {
+                        display: flex;
+                        align-items: center;
+
+                        img {
+                            height: 18px;
+                            width: 18px;
+
+                            @media (max-width: 1600px) {
+                                height: 16px;
+                                width: 16px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .btn_box {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 4px 0;
+
+                .apply_btn {
+                    width: 100%;
+                    border: none;
+                    background-color: var(--primary-gray-op80);
+                    padding-block: 10px;
+                    color: var(--primary-text);
+                    font-size: 14px;
+                    font-family: "MedievalSharp", cursive;
+                    margin: 0 10px 10px 10px;
+                }
+            }
+        }
+    }
+
+
+}

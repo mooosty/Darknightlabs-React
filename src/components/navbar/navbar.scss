@@ -1,0 +1,64 @@
+.navbar_wrap {
+    height: 90px;
+    width: 100vw;
+    display: flex;
+    padding: 24px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--primary-black);
+    position: fixed;
+    top: 0;
+    z-index: 100;
+
+    .logo_text {
+        font-size: 24px;
+        font-family: "MedievalSharp";
+        color: var(--primary-text);
+    }
+
+    .tab_wrap {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+
+        @media (max-width: 767px) {
+            display: none;
+        }
+
+        .tab_item {
+            font-family: "MedievalSharp";
+            color: var(--primary-text);
+
+            &.btn {
+                min-width: 110px;
+                padding: 8px 16px;
+                border: 1px solid var(--primary-text);
+            }
+        }
+    }
+
+    .more_btn {
+        display: none;
+        color: var(--primary-text);
+
+        @media (max-width: 767px) {
+            display: block;
+        }
+
+        .dropdown_tab {
+            font-family: "MedievalSharp";
+            color: var(--primary-text);
+            font-size: 16px;
+            display: block;
+            padding: 8px 0;
+            width: 100%;
+            text-align: left;
+        }
+    }
+}
+
+.tab_item {
+    width: 100%;
+    font-family: "MedievalSharp";
+    color: var(--primary-text);
+}
