@@ -1,9 +1,14 @@
 .content_header_wrap {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
     .content_header {
         display: flex;
         align-items: center;
         justify-content: space-between;
         margin-bottom: 32px;
+        flex-shrink: 0;
 
         @media (max-width: 1600px) {
             margin-bottom: 20px;
@@ -47,12 +52,19 @@
         background-color: var(--primary-background);
         border-radius: 9px;
         padding: 30px;
-        min-height: 450px;
+        flex: 1;
         overflow-y: auto;
+        min-height: 450px;
+        height: calc(100% - 80px);
+
+        @media (max-width: 1600px) {
+            height: calc(100% - 50px);
+        }
 
         @media (max-width: 767px) {
             border-radius: 0;
             padding: 20px;
+            height: calc(100% - 46px);
         }
 
         .about_grid {
