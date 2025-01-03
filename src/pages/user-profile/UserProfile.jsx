@@ -252,7 +252,7 @@ const TwitterAuthButton = () => {
     const message = urlParams.get("message");
 
     if (twitterAuth === "success") {
-      setStatus("Successfully connected!");
+      setStatus("");
       window.history.replaceState({}, document.title, window.location.pathname);
     } else if (twitterAuth === "error") {
       setStatus(`Error: ${message || "Unknown error"}`);
@@ -385,7 +385,7 @@ const DiscordAuthButton = () => {
             id: userData?.userId,
             discord_id: discordData.user.id
           }).then(() => {
-            setStatus("Successfully connected!");
+            setStatus("");
             checkDiscordStatus();
             toast.success("Successfully connected to Discord!");
           }).catch((error) => {
@@ -1780,62 +1780,66 @@ const UserProfile = () => {
                     <img src={sepratorImage} alt="Separator" />
                   </div>
                   <div className="form_box">
-                    <h3 className="profile_title">Contact information</h3>
                     <div className="contact_info">
-                      <div className="mail">
-                        <div className="profile_head">Email</div>
-                        <input
-                          name="email"
-                          type="text"
-                          placeholder="Email"
-                          value={values.email}
-                          onChange={handleChange}
-                        />
-                        <div className="profile_desc">
-                          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magnam eos enim tenetur excepturi
-                          culpa neque modi quisquam, sunt magni
-                        </div>
+                      <div className="section_headers">
+                        <h3 className="profile_title">Contact information</h3>
+                        <h3 className="profile_title">Connected accounts</h3>
                       </div>
-                      <div className="social_media_wrp">
-                        <div className="social_media">
-                          <h2 className="social_media_title">Connected accounts</h2>
-                          {!userData?.authDetails?.isAuthenticated && (
-                            <button className="btn_gray">
-                              <img src={twitterIcon} alt="" />
-                              Connect Twitter
-                            </button>
-                          )}
-                          <DiscordAuthButton />
-                          <button 
-                            className={`btn_gray save_button ${hasTelegram ? 'verified' : ''}`} 
-                            onClick={handleVerifyTelegram}
-                            disabled={hasTelegram}
-                          >
-                            <img src={telegramIcon} alt="" />
-                            {hasTelegram ? (
-                              <>
-                                Telegram Connected
-                                <svg 
-                                  className="checkmark" 
-                                  width="16" 
-                                  height="16" 
-                                  viewBox="0 0 24 24" 
-                                  fill="none" 
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path 
-                                    d="M20 6L9 17L4 12" 
-                                    stroke="#4CAF50" 
-                                    strokeWidth="2" 
-                                    strokeLinecap="round" 
-                                    strokeLinejoin="round"
-                                  />
-                                </svg>
-                              </>
-                            ) : (
-                              'Verify Telegram Account'
+                      <div className="content_wrapper">
+                        <div className="mail">
+                          <div className="profile_head">Email</div>
+                          <input
+                            name="email"
+                            type="text"
+                            placeholder="Email"
+                            value={values.email}
+                            onChange={handleChange}
+                          />
+                          <div className="profile_desc">
+                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magnam eos enim tenetur excepturi
+                            culpa neque modi quisquam, sunt magni
+                          </div>
+                        </div>
+                        <div className="social_media_wrp">
+                          <div className="social_media">
+                            {!userData?.authDetails?.isAuthenticated && (
+                              <button className="btn_gray">
+                                <img src={twitterIcon} alt="" />
+                                Connect Twitter
+                              </button>
                             )}
-                          </button>
+                            <DiscordAuthButton />
+                            <button 
+                              className={`btn_gray save_button ${hasTelegram ? 'verified' : ''}`} 
+                              onClick={handleVerifyTelegram}
+                              disabled={hasTelegram}
+                            >
+                              <img src={telegramIcon} alt="" />
+                              {hasTelegram ? (
+                                <>
+                                  Telegram Connected
+                                  <svg 
+                                    className="checkmark" 
+                                    width="16" 
+                                    height="16" 
+                                    viewBox="0 0 24 24" 
+                                    fill="none" 
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path 
+                                      d="M20 6L9 17L4 12" 
+                                      stroke="#4CAF50" 
+                                      strokeWidth="2" 
+                                      strokeLinecap="round" 
+                                      strokeLinejoin="round"
+                                    />
+                                  </svg>
+                                </>
+                              ) : (
+                                'Verify Telegram Account'
+                              )}
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
