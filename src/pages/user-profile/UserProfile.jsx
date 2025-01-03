@@ -78,10 +78,7 @@ const InputPassword = (props) => {
   return (
     <div className="type_password">
       <input type={isPasswordVisible ? "text" : "password"} {...props} />
-      <div
-        onClick={toggleVisibility}
-        style={{ position: "absolute", right: "12px", top: "50%", transform: "translateY(-50%)" }}
-      >
+      <div onClick={toggleVisibility}>
         {!isPasswordVisible ? <img src={closedEyeIcon} alt=" " /> : <img src={openEyeIcon} alt=" " />}
       </div>
     </div>
@@ -312,6 +309,130 @@ const TwitterAuthButton = () => {
 
       {status && <div className={`status-message ${status.includes("Error") ? "error" : "success"}`}>{status}</div>}
     </div>
+  );
+};
+
+const DiscordAuthButton = () => {
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState("");
+  const [hasDiscord, setHasDiscord] = useState(false);
+  const [discordData, setDiscordData] = useState(null);
+  const { authDetails } = useSelector((state) => state.auth);
+  const userData = useSelector((state) => state.auth);
+
+  const checkDiscordStatus = async () => {
+    try {
+      const response = await axiosApi.get(`/discord/has-discord/${userData?.userId}`);
+      if (response.data.success === 1 && response.data.hasDiscord) {
+        setHasDiscord(true);
+        setDiscordData(response.data.data);
+      } else {
+        setHasDiscord(false);
+        setDiscordData(null);
+      }
+    } catch (error) {
+      console.error("Failed to check Discord status:", error);
+      setHasDiscord(false);
+      setDiscordData(null);
+    }
+  };
+
+  useEffect(() => {
+    if (userData?.userId) {
+      checkDiscordStatus();
+    }
+  }, [userData?.userId]);
+
+  const handleDiscordAuth = async () => {
+    try {
+      setLoading(true);
+      setStatus("");
+
+      const returnUrl = window.location.href;
+      const response = await axiosApi.get(`/discord/auth?returnUrl=${encodeURIComponent(returnUrl)}`);
+
+      if (response.data.error) {
+        throw new Error(response.data.error);
+      }
+
+      if (response.data.authUrl) {
+        window.location.href = response.data.authUrl;
+      } else {
+        throw new Error("No auth URL received from server");
+      }
+    } catch (error) {
+      console.error("Discord auth error:", error);
+      setStatus(error.message || "Failed to connect to Discord");
+      setLoading(false);
+      toast.error("Failed to connect to Discord");
+    }
+  };
+
+  useEffect(() => {
+    // Check for discord_data in URL params
+    const urlParams = new URLSearchParams(window.location.search);
+    const discordDataParam = urlParams.get("discord_data");
+
+    if (discordDataParam) {
+      try {
+        // Decode the URL-encoded JSON string
+        const decodedData = decodeURIComponent(discordDataParam);
+        const discordData = JSON.parse(decodedData);
+
+        if (discordData.success && discordData.user?.id) {
+          // Update discord ID in backend
+          axiosApi.post('/discord/update-discord-id', {
+            id: userData?.userId,
+            discord_id: discordData.user.id
+          }).then(() => {
+            setStatus("Successfully connected!");
+            checkDiscordStatus();
+            toast.success("Successfully connected to Discord!");
+          }).catch((error) => {
+            console.error("Failed to update Discord ID:", error);
+            toast.error("Failed to complete Discord connection");
+          });
+        }
+      } catch (error) {
+        console.error("Failed to parse Discord data:", error);
+        toast.error("Failed to process Discord connection data");
+      }
+      
+      // Clean up URL parameters
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }, [userData?.userId]);
+
+  return (
+    <button 
+      className={`btn_gray save_button ${hasDiscord ? 'verified' : ''}`}
+      onClick={handleDiscordAuth}
+      disabled={loading || hasDiscord}
+    >
+      <img src={discordIcon} alt="" />
+      {loading ? "Connecting..." : hasDiscord ? (
+        <>
+          Discord Connected
+          <svg 
+            className="checkmark" 
+            width="16" 
+            height="16" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path 
+              d="M20 6L9 17L4 12" 
+              stroke="#4CAF50" 
+              strokeWidth="2" 
+              strokeLinecap="round" 
+              strokeLinejoin="round"
+            />
+          </svg>
+        </>
+      ) : "Connect Discord"}
+      {status && <div className={`status-message ${status.includes("Error") ? "error" : "success"}`}>{status}</div>}
+    </button>
   );
 };
 
@@ -798,7 +919,7 @@ const UserProfile = () => {
                         <img src={editIcon} alt="" />
                         Edit profile
                       </button>
-                      <button 
+                      {/* <button 
                         className={`btn_gray save_button ${hasTelegram ? 'verified' : ''}`} 
                         onClick={handleVerifyTelegram}
                         disabled={hasTelegram}
@@ -827,7 +948,7 @@ const UserProfile = () => {
                         ) : (
                           'Verify Telegram Account'
                         )}
-                      </button>
+                      </button> */}
                     </div>
                   </div>
                   <div className="profile_description_data">
@@ -1159,6 +1280,15 @@ const UserProfile = () => {
                                   <span className="costum_checkbox_label"></span>
                                   <span className="label">Other</span>
                                 </label>
+                                {values?.investment_thesis?.includes("Other") && (
+                                  <input
+                                    type="text"
+                                    className="other-thesis-input"
+                                    placeholder="Please specify other investment thesis..."
+                                    value={values?.other_investment_thesis || ""}
+                                    onChange={(e) => setFieldValue("other_investment_thesis", e.target.value)}
+                                  />
+                                )}
                               </>
                             ) : (
                               <span className="disabled-message">Available for Angel Investors only</span>
@@ -1693,7 +1823,7 @@ const UserProfile = () => {
                           culpa neque modi quisquam, sunt magni
                         </div>
                       </div>
-                      {/* <div className="social_media_wrp">
+                      <div className="social_media_wrp">
                         <div className="social_media">
                           <h2 className="social_media_title">Connected accounts</h2>
                           {!userData?.authDetails?.isAuthenticated && (
@@ -1702,16 +1832,39 @@ const UserProfile = () => {
                               Connect Twitter
                             </button>
                           )}
-                          <button className="btn_gray">
-                            <img src={discordIcon} alt="" />
-                            Connect Discord
-                          </button>
-                          <button className="btn_gray">
+                          <DiscordAuthButton />
+                          <button 
+                            className={`btn_gray save_button ${hasTelegram ? 'verified' : ''}`} 
+                            onClick={handleVerifyTelegram}
+                            disabled={hasTelegram}
+                          >
                             <img src={telegramIcon} alt="" />
-                            Connect Telegram
+                            {hasTelegram ? (
+                              <>
+                                Telegram Connected
+                                <svg 
+                                  className="checkmark" 
+                                  width="16" 
+                                  height="16" 
+                                  viewBox="0 0 24 24" 
+                                  fill="none" 
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path 
+                                    d="M20 6L9 17L4 12" 
+                                    stroke="#4CAF50" 
+                                    strokeWidth="2" 
+                                    strokeLinecap="round" 
+                                    strokeLinejoin="round"
+                                  />
+                                </svg>
+                              </>
+                            ) : (
+                              'Verify Telegram Account'
+                            )}
                           </button>
                         </div>
-                      </div> */}
+                      </div>
                     </div>
                   </div>
 
@@ -1793,6 +1946,11 @@ const UserProfile = () => {
       {active === "AMBASSADORS" && (
         <Ambassadors handleActive={handleActive} active={active} uid={userData?.userId} userData={userData} />
       )}
+      <TelegramVerifyPopup 
+        isOpen={isVerifyPopupOpen}
+        onClose={() => setIsVerifyPopupOpen(false)}
+        verificationCode={verificationCode}
+      />
     </div>
   );
 };

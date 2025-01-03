@@ -230,11 +230,31 @@
               transform: translateZ(0);
               pointer-events: none;
   
-              p {
-                margin: 0 0 8px 0;
-                opacity: 0.8;
-                &:last-child {
-                  margin-bottom: 0;
+              .tooltip-content-full {
+                display: block;
+                @media (max-width: 1600px) {
+                  display: none;
+                }
+  
+                p {
+                  margin: 0 0 8px 0;
+                  opacity: 0.8;
+                  &:last-child {
+                    margin-bottom: 0;
+                  }
+                }
+              }
+  
+              .tooltip-content-short {
+                display: none;
+                @media (max-width: 1600px) {
+                  display: block;
+                }
+  
+                p {
+                  margin: 0;
+                  opacity: 0.8;
+                  text-align: center;
                 }
               }
             }

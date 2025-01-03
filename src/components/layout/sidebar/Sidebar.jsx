@@ -21,7 +21,7 @@ import {
   KarmaIcon,
 } from "../../../utils/SVGs/SVGs";
 
-const userRole = "USER";
+const userRole = "User";
 const Sidebar = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -178,9 +178,14 @@ const Sidebar = () => {
                   <div className="progress" style={{ width: "50%" }}></div>
                 </div>
                 <div className="loyalty-tooltip">
-                  <p>Your Loyalty increases or decreases based on how long you hold WWS' exclusive deals.</p>
-                  <p>Loyalty, alongside with Karma, can give you access to exclusive and scarce deals in the future.</p>
-                  <p>The most loyal WWS holders will also get access to additional exclusive perks.</p>
+                  <div className="tooltip-content-full">
+                    <p>Your Loyalty increases or decreases based on how long you hold WWS' exclusive deals.</p>
+                    <p>Loyalty, alongside with Karma, can give you access to exclusive and scarce deals in the future.</p>
+                    <p>The most loyal WWS holders will also get access to additional exclusive perks.</p>
+                  </div>
+                  <div className="tooltip-content-short">
+                    <p>Click here to learn more</p>
+                  </div>
                 </div>
               </div>
             </div>

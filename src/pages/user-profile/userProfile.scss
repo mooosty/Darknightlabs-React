@@ -1,3 +1,55 @@
+.type_password {
+    position: relative;
+    width: 100%;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--primary-white-op72);
+    background-color: transparent;
+
+    input {
+        width: 100%;
+        height: 100%;
+        padding: 0 40px 0 14px;
+        border: none !important;
+        background-color: transparent;
+        color: var(--primary-text);
+        line-height: 19px;
+        font-size: 16px;
+        font-weight: 500;
+
+        @media (max-width: 1600px) {
+            font-size: 14px;
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    > div {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 2;
+        background: transparent;
+        border: none;
+        padding: 0;
+        height: 20px;
+        pointer-events: auto;
+
+        img {
+            width: 20px;
+            height: 20px;
+        }
+    }
+}
+
 .page_box {
 
     .btn_gray,
@@ -1180,20 +1232,54 @@
                                         }
 
                                         .type_password {
+                                            position: relative;
+                                            width: 100%;
                                             height: 42px;
                                             display: flex;
-                                            justify-content: space-between;
-                                            border: 1px solid var(--primary-white-op60);
-                                            padding: 10px 14px;
-                                            padding-left: 0;
+                                            align-items: center;
+                                            border: 1px solid var(--primary-white-op72);
+                                            background-color: transparent;
 
                                             input {
-                                                border: none;
+                                                width: 100%;
+                                                height: 100%;
+                                                padding: 0 40px 0 14px;
+                                                border: none !important;
+                                                background-color: transparent;
+                                                color: var(--primary-text);
+                                                line-height: 19px;
+                                                font-size: 16px;
+                                                font-weight: 500;
+
+                                                @media (max-width: 1600px) {
+                                                    font-size: 14px;
+                                                }
+
+                                                &:focus {
+                                                    outline: none;
+                                                }
                                             }
 
-                                            img {
+                                            > div {
+                                                position: absolute;
+                                                right: 12px;
+                                                top: 50%;
+                                                transform: translateY(-50%);
+                                                display: flex;
+                                                align-items: center;
+                                                justify-content: center;
                                                 cursor: pointer;
+                                                z-index: 2;
+                                                background: transparent;
+                                                border: none;
+                                                padding: 0;
                                                 height: 20px;
+                                                pointer-events: auto;
+
+                                                img {
+                                                    width: 20px;
+                                                    height: 20px;
+                                                }
                                             }
                                         }
                                     }
@@ -1245,12 +1331,6 @@
         border-radius: 4px;
         color: #f5efdb;
         font-size: 14px;
-        transition: all 0.2s ease;
-        
-        &:hover {
-            background: #2A2A2A;
-            border-color: rgba(245, 239, 219, 0.2);
-        }
         
         img {
             width: 16px;
@@ -1271,13 +1351,8 @@
         justify-content: center;
         gap: 8px;
         cursor: pointer;
-        transition: all 0.2s ease;
         font-family: "Inter", sans-serif;
         padding: 8px 16px;
-
-        &:hover:not(:disabled) {
-            background-color: var(--btn-gray-hover);
-        }
 
         &:disabled {
             cursor: not-allowed;
@@ -1349,10 +1424,6 @@
         padding: 10px 20px;
         border-radius: 4px;
         cursor: pointer;
-
-        &:hover {
-            background-color: var(--primary-gray-op80);
-        }
     }
 }
 
@@ -1362,11 +1433,25 @@
         text-decoration: underline;
         text-decoration-style: dotted;
         text-underline-offset: 3px;
-        transition: color 0.2s ease;
+    }
 
-        &:hover {
-            color: var(--primary-text);
-            text-decoration-style: solid;
+    .other-thesis-input {
+        width: 100%;
+        margin-top: 8px;
+        padding: 10px 14px;
+        background-color: transparent;
+        border: 1px solid rgba(245, 239, 219, 0.3);
+        border-radius: 4px;
+        color: #f5efdb;
+        font-size: 14px;
+        
+        &::placeholder {
+            color: rgba(245, 239, 219, 0.4);
+        }
+        
+        &:focus {
+            outline: none;
+            border-color: rgba(139, 131, 104, 0.6);
         }
     }
 }
@@ -1399,12 +1484,7 @@
         align-items: center;
         justify-content: center;
         gap: 8px;
-        transition: background-color 0.2s ease;
         margin-left: auto;
-
-        &:hover {
-            background-color: rgba(78, 78, 78, 0.8);
-        }
 
         p {
             margin: 0;
