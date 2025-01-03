@@ -506,11 +506,7 @@
         }
 
         .footer_wrap {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
+            width: 100%;
             padding: 32px;
             background-color: #141414;
             display: flex;
@@ -567,7 +563,7 @@
                 padding-right: 16px;
 
                 @media (max-width: 767px) {
-                    display: none;
+                    padding-right: 0;
                 }
 
                 button {
