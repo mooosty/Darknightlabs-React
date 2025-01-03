@@ -1,5 +1,6 @@
 .home_wrapper {
     height: 100%;
+    overflow-y: auto;
 
     .home_main_wrap {
         background-color: #0C0C0C;
@@ -510,13 +511,13 @@
             left: 0;
             right: 0;
             z-index: 100;
-            padding: 12px;
-            background-color: var(--primary-black);
+            padding: 32px;
+            background-color: #141414;
             display: flex;
             align-items: center;
 
             @media (max-width: 767px) {
-                padding-inline: 20px;
+                padding: 20px;
                 width: 100%;
             }
 
@@ -528,17 +529,16 @@
                 width: 95%;
                 font-family: "MedievalSharp";
                 color: var(--primary-text);
-                font-size: 14px;
 
                 @media (max-width: 767px) {
-                    font-size: 12px;
+                    font-size: 14px;
                     width: 100%;
                 }
 
                 .icons {
                     display: flex;
                     align-items: center;
-                    gap: 0px;
+                    gap: 16px;
 
                     a {
                         color: var(--primary-text);
@@ -546,11 +546,11 @@
                         display: flex;
                         align-items: center;
                         cursor: pointer;
-                        padding: 8px 4px;
-
+                        padding: 8px;
+                        
                         svg {
-                            width: 20px;
-                            height: 20px;
+                            width: 24px;
+                            height: 24px;
                         }
 
                         &:hover {
@@ -588,7 +588,6 @@
 
                     &:hover {
                         transform: translateY(-2px);
-
                         svg {
                             color: #DCCA87;
                         }

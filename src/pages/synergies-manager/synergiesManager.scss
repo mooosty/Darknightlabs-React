@@ -824,15 +824,15 @@
                                             position: absolute;
                                             border-radius: 6px;
                                             padding: 1px;
-                                            background: linear-gradient(to bottom right, var(--gradient-purple), var(--gradient-pink));
-                                            -webkit-mask: linear-gradient(var( --primary-white) 0 0) content-box, linear-gradient(var( --primary-white) 0 0);
+                                            background: linear-gradient(to bottom right, #622BFD, #DA4370);
+                                            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
                                             -webkit-mask-composite: xor;
                                             mask-composite: exclude;
                                             pointer-events: none;
                                         }
 
                                         .text {
-                                            background-image: linear-gradient(to bottom right, var(--gradient-purple), var(--gradient-pink));
+                                            background-image: linear-gradient(to bottom right, #622BFD, #DA4370);
                                             -webkit-background-clip: text;
                                             -webkit-text-fill-color: transparent;
                                         }
@@ -851,15 +851,15 @@
                                             left: 0;
                                             border-radius: 6px;
                                             padding: 1px;
-                                            background: linear-gradient(to bottom right, var(--gradient-dark-yellow), var(--gradient-light-yellow));
-                                            -webkit-mask: linear-gradient(var( --primary-white) 0 0) content-box, linear-gradient(var( --primary-white) 0 0);
+                                            background: linear-gradient(to bottom right, #E58A02, #DAB943);
+                                            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
                                             -webkit-mask-composite: xor;
                                             mask-composite: exclude;
                                             pointer-events: none;
                                         }
 
                                         .text {
-                                            background-image: linear-gradient(to bottom right, var(--gradient-dark-yellow), var(--gradient-light-yellow));
+                                            background-image: linear-gradient(to bottom right, #E58A02, #DAB943);
                                             -webkit-background-clip: text;
                                             -webkit-text-fill-color: transparent;
                                         }

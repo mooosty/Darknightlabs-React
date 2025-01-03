@@ -196,57 +196,9 @@
                             gap: 18px;
                             font-size: 16px;
 
-                            .select_wrapper {
-                                .custom_select_field {
-                                    .custom_select_placeholder {
-                                        color: var(--primary-white-op60);
-                                    }
-
-                                    div[class*="-control"] {
-                                        border-radius: 0;
-                                        border-color: var(--primary-white-op72);
-                                        transition: all 0.2s ease;
-
-                                        &:hover {
-                                            border-color:var(--primary-white);
-                                        }
-
-                                        @media (max-width: 1600px) {
-                                            min-height: 42px;
-                                        }
-                                    }
-
-                                    input {
-                                        padding: 15px 24px;
-                                        border: 1px solid var(--primary-white-op72);
-                                        background-color: transparent;
-                                        width: 100%;
-                                        color: var(--primary-text);
-                                        line-height: 19px;
-                                        font-size: 16px;
-                                        font-weight: 500;
-                                        margin-bottom: 8px;
-
-                                        div[class*="-menu"] {
-                                            margin-top: 4px;
-                                            border-radius: 4px;
-                                            overflow: hidden;
-                                            z-index: 100;
-                                        }
-
-                                        div[class*="-option"] {
-                                            padding: 12px 15px;
-                                            cursor: pointer;
-                                            transition: background-color 0.2s ease;
-
-                                            &:active {
-                                                background-color: var(--border-color);
-                                            }
-                                        }
-                                    }
-
-                                }
-
+                            div[class*="-container"] {
+                                width: 100%;
+                                font-family: "Inter", sans-serif;
                             }
 
                             div[class*="-control"] {

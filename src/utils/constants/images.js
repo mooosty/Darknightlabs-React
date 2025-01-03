@@ -23,7 +23,6 @@ import showa from '../../assets/showa.jpg'
 import autherProfile from "../../assets/auther-profile.png"
 import sepratorImage from "../../assets/seprator-image.png"
 import arrowRight from "../../assets/arrow-right.svg"
-import darknightlabsIcon from "../../assets/darknightlabs.svg"
 
 import synergy1 from '../../assets/synergy1.png'
 import synergy2 from '../../assets/synergy2.png'
@@ -260,7 +259,7 @@ export {
     recordImage13,
     recordImage14,
     recordImage15,
-    recordImage16,
+    recordImage16,    
     MembersImage1,
     MembersImage2,
     MembersImage3,
@@ -272,7 +271,6 @@ export {
     MembersImage9,
     MembersImage10,
     MembersImage11,
-    darknightlabsIcon,
 
 
 

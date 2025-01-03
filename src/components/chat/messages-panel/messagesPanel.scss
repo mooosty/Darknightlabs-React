@@ -34,7 +34,7 @@
                 height: 1px;
                 background-image: linear-gradient(157.79deg,
                         #f5efdb00 1.5%,
-                        var(--primary-text-op50));
+                        #f5efdb80);
             }
 
             .date {
@@ -49,7 +49,7 @@
                 width: 42%;
                 height: 1px;
                 background-image: linear-gradient(157.79deg,
-                        var(--primary-text-op50) 14.5%,
+                        #f5efdb80 14.5%,
                         #f5efdb00);
             }
         }
@@ -224,7 +224,6 @@
 
                 @media (max-width: 1600px) {
                     padding: 6px 12px 6px 16px;
-                    margin-bottom: 8px;
                 }
 
                 svg {
@@ -298,7 +297,7 @@
         width: 230px;
         // height: 100%;
         padding-bottom: 20px;
-        background-color: var(--primary-black);
+        background-color:var(--primary-black);
         align-self: stretch;
         height: 100%;
 

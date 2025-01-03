@@ -128,7 +128,7 @@ const PledgeForm = ({ onSubmit }) => {
   return (
     <div className="pledge-form-card">
       <div className="pledge-form-header">
-        <h3 className="pledge-form-title">Pledge</h3>
+        <h3 className="pledge-form-title"></h3>
       </div>
       <div className="pledge-form-content">
         <div className="form-group">
@@ -146,14 +146,14 @@ const PledgeForm = ({ onSubmit }) => {
             <p>Please choose the amount you wanna invest in SHOWA - max amount is $500 per person - then send the funds to the wallet below</p>
             <div className="wallet-details">
               <p><strong>COIN:</strong> $USDT</p>
-              <p><strong>NETWORK:</strong> BASE</p>
+              <p><strong>NETWORK:</strong> SOLANA</p>
               <p className="wallet-address">
                 <strong>ADDRESS:</strong>
                 <span className="copy-text" onClick={() => {
-                  navigator.clipboard.writeText("0x017C59adce270981465CB695FC75581b288ACC3f");
+                  navigator.clipboard.writeText("Pending");
                   toast.success("Address copied!");
                 }}>
-                  0x017C59adce270981465CB695FC75581b288ACC3f
+                  Pending
                 </span>
               </p>
             </div>

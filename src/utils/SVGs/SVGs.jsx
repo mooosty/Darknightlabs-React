@@ -837,7 +837,6 @@ export const KarmaIcon = ({ style }) => (
         style={{
             display: 'inline-block',
             verticalAlign: 'text-bottom',
-            marginBottom: '2px',
             ...style
         }}
     >

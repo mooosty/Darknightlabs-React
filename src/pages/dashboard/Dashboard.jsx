@@ -1,23 +1,22 @@
-import './dashboard.scss';
-import axios from 'axios';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useState, useEffect } from 'react';
-import "../../components/layout/layout.scss";
+import axios from 'axios';
+import './dashboard.scss';
 import { ROUTER } from '../../utils/routes/routes';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { ProfileNavTabIcon, LogoutNavTabIcon } from "../../utils/SVGs/SVGs";
 import CustomDropdown from "../../components/custom-dropdown/CustomDropdown";
-import { ProfileNavTabIcon, LogoutNavTabIcon, ThreeDots } from "../../utils/SVGs/SVGs";
 import { defaultImg, discordIcon, telegramIcon, twitterIcon } from "../../utils/constants/images";
-
+import Sidebar from "../../components/layout/sidebar/Sidebar";
+import "../../components/layout/layout.scss";
 
 const AnnouncementCard = ({ announcement }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const maxLength = 150;
   const shouldShowReadMore = announcement.content.length > maxLength;
-
-  const displayContent = isExpanded
-    ? announcement.content
+  
+  const displayContent = isExpanded 
+    ? announcement.content 
     : `${announcement.content.slice(0, maxLength)}${shouldShowReadMore ? '...' : ''}`;
 
   const formatDate = (dateString) => {
@@ -30,7 +29,7 @@ const AnnouncementCard = ({ announcement }) => {
   };
 
   const getPriorityColor = (priority) => {
-    switch (priority) {
+    switch(priority) {
       case 'high':
         return '#DCCA87';
       case 'medium':
@@ -52,9 +51,9 @@ const AnnouncementCard = ({ announcement }) => {
             <span className="announcement-date">{formatDate(announcement.created_at)}</span>
           </div>
         </div>
-        <div
+        <div 
           className="announcement-type"
-          style={{
+          style={{ 
             backgroundColor: 'rgba(245, 239, 219, 0.1)',
             color: getPriorityColor(announcement.priority)
           }}
@@ -62,14 +61,14 @@ const AnnouncementCard = ({ announcement }) => {
           {announcement.priority.charAt(0).toUpperCase() + announcement.priority.slice(1)} Priority
         </div>
       </div>
-
+      
       <div className="announcement-content">
         <h2 className="announcement-title">{announcement.title}</h2>
         <div className="announcement-text">
           <p>{displayContent}</p>
           {shouldShowReadMore && (
-            <button
-              className="read-more-btn"
+            <button 
+              className="read-more-btn" 
               onClick={() => setIsExpanded(!isExpanded)}
             >
               {isExpanded ? 'Read Less' : 'Read More'}
@@ -80,12 +79,10 @@ const AnnouncementCard = ({ announcement }) => {
     </div>
   );
 };
-AnnouncementCard.propTypes = {
-  announcement: PropTypes.array,
-}
+
 const Dashboard = () => {
   const navigate = useNavigate();
-  const { authDetails } = useSelector(state => state.auth)
+  const userData = useSelector((state) => state.auth);
   const { userDetails } = useSelector((state) => state.user);
   const [announcements, setAnnouncements] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -138,23 +135,19 @@ const Dashboard = () => {
   ];
 
   const actions = [
-    {
-      title: 'Boost Project X',
-      description: 'Earn 500 karma',
+    { 
+      title: 'Boost Project X', 
+      description: 'Earn 500 karma', 
       action: 'Take Action',
-      route: ROUTER.ambassadorProjects
+      route: ROUTER.ambassadorProjects 
     },
-    {
-      title: 'Invite valuable people',
-      description: 'Earn even more!',
+    { 
+      title: 'Invite valuable people', 
+      description: 'Earn even more!', 
       action: 'Take Action',
       route: ROUTER.karma
     }
   ];
-
-  if (!authDetails) {
-    return <Navigate to={ROUTER.authentication} />
-  }
 
   const getUserName = () => {
     if (!userDetails) return 'Guest';
@@ -162,118 +155,19 @@ const Dashboard = () => {
   };
 
   return (
-    <>
-      <header className="header_wrp">
-        <h4 className='header_title'>Darknight Labs</h4>
-        <div className="header_right">
-          <button
-            className="header_btn"
-            onClick={() => navigate(`/${ROUTER.profile}`)}
-          >
-            Dashboard
-          </button>
-          <div className="sidebar_btn">
-            <CustomDropdown
-              toggleButton={
-                <ThreeDots />
-              }
-              items={dropdownItems}
-            />
-          </div>
-        </div>
-      </header>
-
-      <div className="dashboard-container">
-        <div className="welcome-section">
-          <div className="welcome-content">
-            <h1>Welcome back, {getUserName()}!</h1>
-            <div className="stats-container">
-              <div className="stat-box">
-                <span className="stat-label">Karma Points</span>
-                <span className="stat-value karma">{userDetails?.currency_b || 0}</span>
-                <Link to={`/${ROUTER.karma}`} className="view-more-btn">View More Details</Link>
-              </div>
-              <div className="stat-box">
-                <span className="stat-label">Active Investments</span>
-                <span className="stat-value investments">5</span>
-              </div>
+    <div className="dashboard-container">
+      <div className="welcome-section">
+        <div className="welcome-content">
+          <h1>Welcome back, {getUserName()}!</h1>
+          <div className="stats-container">
+            <div className="stat-box">
+              <span className="stat-label">Karma Points</span>
+              <span className="stat-value karma">{userDetails?.currency_b || 0}</span>
+              <Link to={`/${ROUTER.karma}`} className="view-more-btn">View More Details</Link>
             </div>
-          </div>
-        </div>
-
-        <div className="dashboard-grid">
-          <div className="grid-section investments-section">
-            <h2>Your Investments</h2>
-            <div className="investments-list">
-              {investments.map((investment, index) => (
-                <div key={index} className="investment-item">
-                  <div className="investment-info">
-                    <span className="investment-name">{investment.name}</span>
-                    <span className="investment-type">{investment.type}</span>
-                  </div>
-                  <div className="investment-progress">
-                    <div
-                      className={`progress-bar ${investment.progress < 0 ? 'negative' : 'positive'}`}
-                      style={{ width: `${Math.abs(investment.progress)}%` }}
-                    />
-                    <span className="progress-value">{investment.progress}%</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <Link to={`/${ROUTER.projects}`} className="view-all-btn">View All Investments</Link>
-          </div>
-
-          <div className="grid-section announcements-section">
-            <h2>Announcements & News</h2>
-            <div className="announcements-list">
-              {announcements.map((announcement) => (
-                <div key={announcement.id} className={`announcement-item ${announcement.priority}`}>
-                  <span className="announcement-title">{announcement.title}</span>
-                  {announcement.priority === 'high' && <span className="priority-badge">High Priority</span>}
-                </div>
-              ))}
-            </div>
-            <Link to={`/${ROUTER.announcementFeed}`} className="view-all-btn">View All Announcements</Link>
-          </div>
-
-          <div className="grid-section leaderboard-section">
-            <h2>Community Leaderboard</h2>
-            <div className="leaderboard-list">
-              {leaderboard.map((user) => (
-                <div key={user.rank} className="leaderboard-item">
-                  <div className="rank-info">
-                    <span className="rank">{user.rank}</span>
-                    <span className="username">{user.username}</span>
-                  </div>
-                  <button className="follow-btn">Follow</button>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="grid-section actions-section">
-            <h2>Take Action</h2>
-            <div className="actions-list">
-              {actions.map((action, index) => (
-                <div key={index} className="action-item">
-                  <div className="action-info">
-                    <h3>{action.title}</h3>
-                    <p>{action.description}</p>
-                  </div>
-                  <button className="action-btn">{action.action}</button>
-                </div>
-              ))}
-            </div>
-
-            <div className="upcoming-ama">
-              <h3>Upcoming AMA</h3>
-              <p>Join us for a live AMA with the founders of Project X</p>
-              <div className="timer">
-                <span>Starts in:</span>
-                <span className="time">2d 14h 37m</span>
-              </div>
-              <button className="reminder-btn">Set Reminder</button>
+            <div className="stat-box">
+              <span className="stat-label">Active Investments</span>
+              <span className="stat-value investments">5</span>
             </div>
           </div>
         </div>
@@ -287,8 +181,8 @@ const Dashboard = () => {
               <div className="loading">Loading announcements...</div>
             ) : (
               announcements.slice(0, 3).map((announcement) => (
-                <AnnouncementCard
-                  key={announcement.id}
+                <AnnouncementCard 
+                  key={announcement.id} 
                   announcement={announcement}
                 />
               ))
@@ -306,7 +200,7 @@ const Dashboard = () => {
                   <h3>{action.title}</h3>
                   <p>{action.description}</p>
                 </div>
-                <button
+                <button 
                   className="action-btn"
                   onClick={() => action.route && navigate(`/${action.route}`)}
                   style={{ fontFamily: 'inherit' }}
@@ -338,7 +232,7 @@ const Dashboard = () => {
                   <span className="investment-type">{investment.type}</span>
                 </div>
                 <div className="investment-progress">
-                  <div
+                  <div 
                     className={`progress-bar ${investment.progress < 0 ? 'negative' : 'positive'}`}
                     style={{ width: `${Math.abs(investment.progress)}%` }}
                   />
@@ -351,42 +245,43 @@ const Dashboard = () => {
         </div>
 
         <div className="grid-section social-accounts-section">
-          <h2>Social Accounts</h2>
+          <h2>Follow our social accounts</h2>
           <div className="social-accounts-list">
             <div className="social-account-item">
               <div className="account-info">
                 <span className="platform-name">Twitter</span>
-                <span className="connection-status connected">Connected</span>
+                <span className="connection-status">Follow us</span>
               </div>
-              <button className="connect-btn twitter connected" disabled>
+              <a href="https://x.com/WinWinSocietyHQ" target="_blank" rel="noopener noreferrer" style={{ backgroundColor: 'rgba(245, 239, 219, 0.1)', padding: '8px 16px', borderRadius: '4px', color: '#F5EFDB', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px', width: '120px', justifyContent: 'center', padding: '8px 85px' }}>
                 <img src={twitterIcon} alt="Twitter" />
-                Connected
-              </button>
+                Twitter
+              </a>
             </div>
             <div className="social-account-item">
               <div className="account-info">
                 <span className="platform-name">Telegram</span>
-                <span className="connection-status">Not Connected</span>
+                <span className="connection-status">Join group</span>
               </div>
-              <button className="connect-btn telegram">
+              <a href="https://t.me/+9m9gdhpa2CQzNTZk" target="_blank" rel="noopener noreferrer" style={{ backgroundColor: 'rgba(245, 239, 219, 0.1)', padding: '8px 16px', borderRadius: '4px', color: '#F5EFDB', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px', width: '120px', justifyContent: 'center', padding: '8px 85px' }}>
                 <img src={telegramIcon} alt="Telegram" />
-                Link Telegram
-              </button>
+                Telegram
+              </a>
             </div>
             <div className="social-account-item">
               <div className="account-info">
                 <span className="platform-name">Discord</span>
-                <span className="connection-status">Not Connected</span>
+                <span className="connection-status">Coming Soon</span>
               </div>
-              <button className="connect-btn discord">
+              <button style={{ backgroundColor: 'rgba(245, 239, 219, 0.1)', padding: '8px 16px', borderRadius: '4px', color: '#F5EFDB', border: 'none', display: 'flex', alignItems: 'center', gap: '8px', opacity: 0.5, cursor: 'not-allowed', width: '120px', justifyContent: 'center' , padding: '8px 85px' }} disabled>
                 <img src={discordIcon} alt="Discord" />
-                Link Discord
+                Discord
               </button>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
+
 export default Dashboard; 

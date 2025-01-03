@@ -1,77 +1,70 @@
 .layout_container {
-    background: url('../../assets/body-bg.png');
-    background-size: cover;
-    min-height: 100vh;
-
-    &.ambassadorUser {
-        background: url('../../assets/ambassadors-bg-img.png');
-    }
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-width: 100vw;
 
     .main_wrp {
-        .container {
-            max-width: 1820px;
-            margin: 0 auto;
-            padding: 0 15px;
+        flex: 1;
+        padding: 24px;
+        overflow: hidden;
+        width: 100%;
+        
+        @media(max-width: 767px) {
+            padding: 0;
+            padding-bottom: 100px;
+        }
 
-            @media(max-width: 767px) {
-                padding: 0;
-            }
+        .container {
+            height: 100%;
+            max-width: 1920px;
+            margin: 0 auto;
+            padding: 0;
+            width: 100%;
 
             .page_box {
                 display: flex;
-                gap: 15px;
-                margin-bottom: 15px;
+                gap: 24px;
+                height: calc(100vh - 132px);
+                margin-bottom: 24px;
+                width: 100%;
 
-                @media (max-width: 767px) {
-                    margin-bottom: 0px;
+                @media(max-width: 1600px) {
+                    height: calc(100vh - 85px - 10px);
                 }
 
-                .btn_gray {
-                    padding: 16px 24px;
-                    border: none;
-                    background-color: var(--btn-gray-bg);
-                    font-size: 16px;
-                    font-weight: 500;
-                    color: var(--primary-text);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    gap: 5px;
-
-                    @media (max-width: 1600px) {
-                        font-size: 14px;
-                        padding: 10px 20px;
-                    }
-                }
-
-                .btn_delete {
-                    background-color: var(--primary-red-bg);
-                    border: none;
-                    padding: 13px;
-
-                    @media (max-width: 1600px) {
-                        padding: 10px;
-                    }
-
-                    img {
-                        @media (max-width: 1600px) {
-                            width: 17px;
-                        }
-                    }
+                @media(max-width: 767px) {
+                    gap: 0;
+                    margin-bottom: 0;
                 }
 
                 .content_box {
-                    height: calc(100vh - 132px);
+                    flex: 1;
+                    background-color: transparent;
+                    border-radius: 9px;
+                    padding: 24px;
+                    overflow-y: auto;
+                    height: 100%;
                     width: 100%;
-
-                    @media(max-width: 1600px) {
-                        height: calc(100vh - 95px);
+                    min-width: 0;
+                    
+                    @media(max-width: 767px) {
+                        padding: 0;
+                        border-radius: 0;
                     }
-
-                    @media (max-width: 767px) {
-                        width: 100%;
-                        margin-bottom: 80px ;
-                        height: calc(100vh - 165px);
+                    
+                    &::-webkit-scrollbar {
+                        width: 8px;
+                    }
+                    
+                    &::-webkit-scrollbar-track {
+                        background: transparent;
+                    }
+                    
+                    &::-webkit-scrollbar-thumb {
+                        background-color: rgba(245, 239, 219, 0.1);
+                        border-radius: 4px;
                     }
                 }
             }

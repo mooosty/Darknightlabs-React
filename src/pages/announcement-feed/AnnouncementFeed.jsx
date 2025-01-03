@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './announcementFeed.scss';
 import { defaultImg } from "../../utils/constants/images";

@@ -3,7 +3,6 @@ import './AddSynergiesPopup.scss'
 import Select from '../../select/Select';
 import { PlusIcon, CloseIcon, GlobalIcon, GrammerlyIcon, GraphIcon, HealthIcon, sepratorImage, StarIcon, DeleteIcon } from '../../../utils/constants/images';
 
-//! Not in use
 const AddSynergiesPopup = ({ open, handleClose }) => {
 
 

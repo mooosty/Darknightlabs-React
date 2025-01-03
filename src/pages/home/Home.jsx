@@ -1,14 +1,51 @@
 import "./home.scss";
 import { Navbar, SocietyCard } from "../../components";
 import { MaskIcon, sepratorImage, StileArrow, TwitterXIcon } from "../../utils/constants/images";
-import { heroFirstImage, heroSecondImage, servicesCardImg1, servicesCardImg2, servicesCardImg3, servicesCardImg4, MembersImage1, MembersImage2, MembersImage3, MembersImage4, MembersImage5, MembersImage6, MembersImage7, MembersImage8, recordImage1, recordImage2, recordImage3, recordImage4, recordImage5, recordImage6, recordImage7, recordImage8, recordImage9, recordImage10, recordImage11, recordImage12, recordImage13, recordImage14, recordImage15, recordImage16, } from "../../utils/constants/images";
+import {
+  heroFirstImage,
+  heroSecondImage,
+  servicesCardImg1,
+  servicesCardImg2,
+  servicesCardImg3,
+  servicesCardImg4,
+  MembersImage1,
+  MembersImage2,
+  MembersImage3,
+  MembersImage4,
+  MembersImage5,
+  MembersImage6,
+  MembersImage7,
+  MembersImage8,
+  recordImage1,
+  recordImage2,
+  recordImage3,
+  recordImage4,
+  recordImage5,
+  recordImage6,
+  recordImage7,
+  recordImage8,
+  recordImage9,
+  recordImage10,
+  recordImage11,
+  recordImage12,
+  recordImage13,
+  recordImage14,
+  recordImage15,
+  recordImage16,
+} from "../../utils/constants/images";
 import { Link, useNavigate } from "react-router-dom";
 import { ROUTER } from "../../utils/routes/routes";
 import { DynamicConnectButton, DynamicContextProvider, DynamicWidget } from "@dynamic-labs/sdk-react-core";
 import { useDispatch, useSelector } from "react-redux";
-import { createInviteAPI, createTwitterUserAPI, getTwitterUserAPI, updateUserWalletAPI, } from "../../api-services/userApis";
+import {
+  createInviteAPI,
+  createTwitterUserAPI,
+  getTwitterUserAPI,
+  updateUserWalletAPI,
+} from "../../api-services/userApis";
 import { createUserAPI } from "../../api-services";
 import { storeAuthData } from "../../store/slice/authSlice";
+import { useRef } from "react";
 
 const servicesCardData = [
   {
@@ -244,16 +281,33 @@ const Home = () => {
     }
   };
 
+  const homeRef = useRef(null);
+  const servicesRef = useRef(null);
+  const membersRef = useRef(null);
+  const partnersRef = useRef(null);
+  const aboutRef = useRef(null);
+
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+    homeRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleScroll = (section) => {
+    if (section === "Home") {
+      homeRef.current?.scrollIntoView({ behavior: "smooth" });
+    } else if (section === "Services") {
+      servicesRef.current?.scrollIntoView({ behavior: "smooth" });
+    } else if (section === "Members") {
+      membersRef.current?.scrollIntoView({ behavior: "smooth" });
+    } else if (section === "Partners") {
+      partnersRef.current?.scrollIntoView({ behavior: "smooth" });
+    } else if (section === "About") {
+      aboutRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
     <div className="home_wrapper">
-      <Navbar />
+      <Navbar onScroll={handleScroll} />
       <DynamicContextProvider
         theme={"dark"}
         settings={{
@@ -266,7 +320,7 @@ const Home = () => {
           },
         }}
       >
-        <div className="home_main_wrap" >
+        <div className="home_main_wrap" ref={homeRef}>
           <div className="hero_main_wrap">
             <div className="hero_wrap">
               <div className="hero_wws_wrap">
@@ -319,7 +373,7 @@ const Home = () => {
               <img src={sepratorImage} alt="Separator" />
             </div>
           </div>
-          <div className="services_main_wrap" id="services" >
+          <div className="services_main_wrap" id="services" ref={servicesRef}>
             <div className="services_wrap">
               <div className="wrap_header">Services</div>
               <div className="card_wrap">
@@ -337,7 +391,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="society_main_wrap" id="members" >
+          <div className="society_main_wrap" id="members" ref={membersRef}>
             <div className="society_wrap">
               <div className="wrap_header">THE WIN-WIN SOCIETY</div>
               <div className="card_wrap">
@@ -354,7 +408,7 @@ const Home = () => {
               </button>
             </div>
           </div>
-          <div className="record_main_wrap" id="partners" >
+          <div className="record_main_wrap" id="partners" ref={partnersRef}>
             <div className="record_wrap">
               <div className="wrap_header">TRACK RECORD & PARTNERS</div>
               <div className="record_card_wrap">
@@ -373,7 +427,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="about_main_wrap" id="about">
+          <div className="about_main_wrap" id="about" ref={aboutRef}>
             <div className="about_wrap" id="about">
               <div className="wrap_header">ABOUT </div>
               <div className="text_wrap">

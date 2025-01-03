@@ -7,7 +7,7 @@
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
-    // min-height: 40px;
+    min-height: 40px;
     align-items: center;
 
     .tag {
@@ -15,7 +15,7 @@
       background-color: #2f2e2a75;
       border-radius: 4px;
       font-size: 14px;
-      color: var(--primary-text);
+      color: #f5efdb;
       display: flex;
       align-items: center;
     }
@@ -24,14 +24,14 @@
       border: none;
       outline: none;
       background: transparent;
-      color: var(--primary-text);
+      color: #f5efdb;
       font-size: 14px;
       padding: 4px;
       flex: 1;
       min-width: 120px;
 
       &::placeholder {
-        color: var(--primary-text);
+        color: #f5efdb;
         opacity: 0.5;
       }
     }
@@ -42,8 +42,8 @@
     top: 100%;
     left: 0;
     right: 0;
-    background: var(--card-background);
-    border: 1px solid var(--border-color);
+    background: #242623;
+    border: 1px solid #3c3c3c;
     border-radius: 4px;
     margin-top: 4px;
     max-height: 200px;
@@ -52,7 +52,7 @@
 
     .tag_suggestion {
       padding: 8px 12px;
-      color: var(--primary-text);
+      color: #f5efdb;
       cursor: pointer;
       transition: background-color 0.2s;
 

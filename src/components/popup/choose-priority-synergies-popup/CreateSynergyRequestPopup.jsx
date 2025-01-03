@@ -16,7 +16,6 @@ const synergyAngles = synergyAnglesOptions.map((data) => ({
     value: data.label
 }))
 
-//! Not in use
 const ChoosePrioritySynergiesPopup = ({ open, handleClose, data }) => {
 
     const dispatch = useDispatch()

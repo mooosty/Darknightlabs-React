@@ -96,6 +96,7 @@
 
     @media (max-width: 767px) {
       border-radius: 0;
+      height: calc(100% - 30px);
     }
 
     .page_data {
@@ -495,11 +496,11 @@
                 font-family: "Inter", sans-serif;
 
                 .highlighted {
-                  background-color: var(--gradient-light-yellow)1a;
+                  background-color: #dab9431a;
                 }
 
                 .selected {
-                  background-color: var(--border-color);
+                  background-color:var( --border-color);
                 }
 
                 td {
@@ -668,10 +669,10 @@
                         border-radius: 10px;
                         padding: 1px;
                         background: linear-gradient(to bottom right,
-                            var(--gradient-purple),
-                            var(--gradient-pink));
-                        -webkit-mask: linear-gradient(var(--primary-white) 0 0) content-box,
-                          linear-gradient(var(--primary-white) 0 0);
+                            #622bfd,
+                            #da4370);
+                        -webkit-mask: linear-gradient(#fff 0 0) content-box,
+                          linear-gradient(#fff 0 0);
                         -webkit-mask-composite: xor;
                         mask-composite: exclude;
                         pointer-events: none;
@@ -680,8 +681,8 @@
                       .angle_tag {
                         .text {
                           background-image: linear-gradient(to bottom right,
-                              var(--gradient-purple),
-                              var(--gradient-pink));
+                              #622bfd,
+                              #da4370);
                           -webkit-background-clip: text;
                           -webkit-text-fill-color: transparent;
                         }
@@ -701,10 +702,10 @@
                           border-radius: 10px;
                           padding: 1px;
                           background: linear-gradient(to bottom right,
-                              var(--gradient-dark-yellow),
-                              var(--gradient-light-yellow));
-                          -webkit-mask: linear-gradient(var(--primary-white) 0 0) content-box,
-                            linear-gradient(var(--primary-white) 0 0);
+                              #e58a02,
+                              #dab943);
+                          -webkit-mask: linear-gradient(#fff 0 0) content-box,
+                            linear-gradient(#fff 0 0);
                           -webkit-mask-composite: xor;
                           mask-composite: exclude;
                           pointer-events: none;
@@ -712,8 +713,8 @@
 
                         .text {
                           background-image: linear-gradient(to bottom right,
-                              var(--gradient-dark-yellow),
-                              var(--gradient-light-yellow));
+                              #e58a02,
+                              #dab943);
                           -webkit-background-clip: text;
                           -webkit-text-fill-color: transparent;
                         }
@@ -760,8 +761,8 @@
                         background: linear-gradient(to bottom right,
                             #9d8c53,
                             #baa86c94);
-                        -webkit-mask: linear-gradient(var(--primary-white) 0 0) content-box,
-                          linear-gradient(var(--primary-white) 0 0);
+                        -webkit-mask: linear-gradient(#fff 0 0) content-box,
+                          linear-gradient(#fff 0 0);
                         -webkit-mask-composite: xor;
                         mask-composite: exclude;
                         pointer-events: none;
@@ -886,7 +887,7 @@
 
                 &.highlighted {
                   position: relative;
-                  background-color: var(--gradient-light-yellow)1a;
+                  background-color: #dab9431a;
                   border: 1px solid #ddc38c;
                 }
 
@@ -993,9 +994,9 @@
                           position: absolute;
                           border-radius: 6px;
                           padding: 1px;
-                          background: linear-gradient(to bottom right, var(--gradient-purple), var(--gradient-pink));
-                          -webkit-mask: linear-gradient(var(--primary-white) 0 0) content-box,
-                            linear-gradient(var(--primary-white) 0 0);
+                          background: linear-gradient(to bottom right, #622bfd, #da4370);
+                          -webkit-mask: linear-gradient(#fff 0 0) content-box,
+                            linear-gradient(#fff 0 0);
                           -webkit-mask-composite: xor;
                           mask-composite: exclude;
                           pointer-events: none;
@@ -1003,8 +1004,8 @@
 
                         .text {
                           background-image: linear-gradient(to bottom right,
-                              var(--gradient-purple),
-                              var(--gradient-pink));
+                              #622bfd,
+                              #da4370);
                           -webkit-background-clip: text;
                           -webkit-text-fill-color: transparent;
                         }
@@ -1023,9 +1024,9 @@
                           left: 0;
                           border-radius: 6px;
                           padding: 1px;
-                          background: linear-gradient(to bottom right, var(--gradient-dark-yellow), var(--gradient-light-yellow));
-                          -webkit-mask: linear-gradient(var(--primary-white) 0 0) content-box,
-                            linear-gradient(var(--primary-white) 0 0);
+                          background: linear-gradient(to bottom right, #e58a02, #dab943);
+                          -webkit-mask: linear-gradient(#fff 0 0) content-box,
+                            linear-gradient(#fff 0 0);
                           -webkit-mask-composite: xor;
                           mask-composite: exclude;
                           pointer-events: none;
@@ -1033,8 +1034,8 @@
 
                         .text {
                           background-image: linear-gradient(to bottom right,
-                              var(--gradient-dark-yellow),
-                              var(--gradient-light-yellow));
+                              #e58a02,
+                              #dab943);
                           -webkit-background-clip: text;
                           -webkit-text-fill-color: transparent;
                         }

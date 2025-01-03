@@ -66,6 +66,7 @@
                     button {
                         background-color: transparent;
                         border: gainsboro;
+                        font-family: 'Inter', sans-serif;
 
                         img {
                             width: 32px;
@@ -94,7 +95,7 @@
                         input {
                             background-color: var(--primary-background);
                             padding: 15px 24px 12px 52px;
-                            border: 1px solid var(--border-color);
+                            border: 1px solid #3c3c3c;
                             border-radius: 9px;
                             width: 100%;
                             color: var(--primary-text);
@@ -360,6 +361,7 @@
                     button {
                         background-color: transparent;
                         border: gainsboro;
+                        font-family: 'Inter', sans-serif;
 
                         img {
                             width: 32px;
@@ -389,7 +391,7 @@
                         input {
                             background-color: var(--primary-background);
                             padding: 17px 24px 17px 52px;
-                            border: 1px solid var(--border-color);
+                            border: 1px solid #3c3c3c;
                             border-radius: 9px;
                             width: 100%;
                             color: var(--primary-text);

@@ -40,9 +40,9 @@ function App() {
         <Route path="/" element={<Navigate to={`/${ROUTER.dashboard}`} replace />} />
         <Route path={`/${ROUTER.societyFullList}`} element={<SocietyFullList />} />
         <Route path={`/${ROUTER.authentication}`} element={<Authentication />} />
-        <Route path={`/${ROUTER.dashboard}`} element={<Dashboard />} />
 
         <Route path="/" element={<Layout />}>
+          <Route path={`/${ROUTER.dashboard}`} element={<Dashboard />} />
           <Route path={`/${ROUTER.welcome}`} element={<Welcome />} />
           <Route path={ROUTER.announcementFeed} element={<AnnouncementFeed />} />
           <Route path={`/${ROUTER.about}`} element={<About />} />

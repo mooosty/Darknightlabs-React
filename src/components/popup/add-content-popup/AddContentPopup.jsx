@@ -125,18 +125,18 @@ const AddContentPopup = ({ open, handleClose, isEdit, editableData, getData, ope
         option: (base, state) => ({
             ...base,
             background: state.isFocused ? 'rgba(245, 239, 219, 0.1)' : 'transparent',
-            color: 'var(--primary-text)',
+            color: '#F5EFDB',
             '&:hover': {
                 background: 'rgba(245, 239, 219, 0.1)'
             }
         }),
         singleValue: (base) => ({
             ...base,
-            color: 'var(--primary-text)'
+            color: '#F5EFDB'
         }),
         input: (base) => ({
             ...base,
-            color: 'var(--primary-text)'
+            color: '#F5EFDB'
         }),
         placeholder: (base) => ({
             ...base,
