@@ -155,7 +155,7 @@
             }
 
             .investment_page_header {
-                padding: 0px 34px 21px 34px;
+                padding: 0px 24px 24px 24px;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
@@ -178,6 +178,7 @@
                 }
 
                 .investment_toggleWrap {
+                    
                     position: relative;
                     display: inline-flex;
                     align-items: center;
@@ -186,8 +187,8 @@
                     background-color: var(--card-background);
                     font-weight: 500;
                     font-family: "MedievalSharp", cursive;
-                    border-radius: 8px;
-                    padding: 4px;
+                   
+                    padding: 4px 4px;
 
                     .toggle_buttons_container {
                         display: flex;
@@ -197,24 +198,25 @@
                     }
 
                     .investment_toggle_btn {
+                       
+                     
+                        width: auto;
                         height: 44px;
-                        min-width: 65px;
-                        padding: 10px 15px;
                         background-color: transparent;
+                    
                         border: none;
                         white-space: nowrap;
-                        flex-shrink: 0;
+                    
                         transition: all 0.2s ease;
-
+                        padding: 5px;
+                         
                         span {
                             font-family: "MedievalSharp", cursive;
                             color: #e6eaee81;
                         }
 
                         &.active {
-                            background-color: var(--btn-gray-bg);
-                            border-radius: 6px;
-
+                            background-color: var(--btn-gray-bg); 
                             span {
                                 color: var(--primary-text);
                             }
@@ -266,12 +268,12 @@
                         -webkit-overflow-scrolling: touch;
                         
                         .toggle_buttons_container {
-                            padding-bottom: 5px;
+                            // padding-bottom: 5px;
                         }
                         
                         .investment_toggle_btn {
-                            height: 38px;
-                            padding: 8px 12px;
+                            // height: 38px;
+                            // padding: 8px 12px;
                             white-space: nowrap;
                             
                             span {
@@ -314,7 +316,7 @@
 
             .investment_page_body {
                 height: 100%;
-                padding-inline: 34px 0px;
+                // padding-inline: 34px 0px;
 
                 @media (max-width: 767px) {
                     padding: 15px 20px;
@@ -332,8 +334,8 @@
                     display: flex;
                     row-gap: 24px;
                     flex-wrap: wrap;
-                    margin-left: -12px;
-                    margin-right: -12px;
+                    // margin-left: -12px;
+                    // margin-right: -12px;
                     flex-grow: 1;
 
                     @media (max-width: 767px) {
@@ -342,7 +344,8 @@
                     }
 
                     .card_wrap {
-                        padding-inline: 12px;
+                        // padding-inline: 12px;
+                        padding: 0px 24px 24px 24px;
                         flex-basis: calc(100% / 4);
                         max-width: calc(100% / 4);
 
@@ -492,6 +495,7 @@
 
                         &:not(:first-child) {
                             .card {
+                                // active_filter 
                                 filter: blur(12px);
                             }
                         }
@@ -573,6 +577,11 @@
     .investment_details {
         height: 100%;
 
+
+
+   
+          
+
         @media (max-width: 767px) {
             height: auto;
             min-height: 100%;
@@ -580,9 +589,10 @@
 
         .investments_page_data {
             background-color: var(--primary-background);
-            border-radius: 9px;
+            padding: 20px 0 20px 20px;
+             border-radius: 9px;
             height: calc(100% - 80px);
-            padding: 20px 0px;
+     
             min-height: 450px;
 
             @media (max-width: 1600px) {
@@ -607,7 +617,7 @@
                 @media (max-width: 1024px) {
                     flex-direction: column;
                     gap: 20px;
-                    padding-right: 0px;
+                    // padding-right: 0px;
                     padding-top: 50px;
                     overflow-y: auto;
                 }
@@ -615,8 +625,8 @@
                 .details_left {
                     flex: 0 0 65%;
                     color: var(--primary-text);
-                    padding-right: 20px;
-                    padding-left: 0px;
+                    // padding-right: 20px;
+                    // padding-left: 0px;
                     overflow-y: auto;
                     height: 100%;
                     scrollbar-width: none;

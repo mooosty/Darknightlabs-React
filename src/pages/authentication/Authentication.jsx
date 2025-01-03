@@ -54,7 +54,7 @@ const Authentication = () => {
           validated: 1,
           password: `${response.user.id}@@@${response.user.email}`,
         };
-
+        
         const createTwitterUser = async () => {
           const {
             payload: { data },

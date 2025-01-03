@@ -96,7 +96,7 @@ const CreateSynergySteps = ({ createSynergyStep, setCreateSynergyStep, synergies
                     {
                         createSynergyStep === 3 && <>
                             <div className="form_group">
-                                <label htmlFor="projectName">Create synergy name </label>
+                                <label htmlFor="projectName">Create synergy name</label>
                                 <input type="text" id="projectName" placeholder="Ex. Synergy 1581" value={synergies.synergyName} onChange={(e) => setSynergies({ ...synergies, synergyName: e.target.value })} />
                             </div>
                         </>
