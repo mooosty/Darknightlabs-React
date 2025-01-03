@@ -455,7 +455,7 @@ const UserProfile = () => {
 
   const { authDetails } = useSelector((state) => state.auth);
 
-  const defaultImage =  authDetails?.user?.verifiedCredentials[2]?.oauthAccountPhotos[0].replace("_normal", "")
+  const defaultImage =  authDetails?.user?.verifiedCredentials[2]?.oauthAccountPhotos[0]?.replace("_normal", "") || defaultImg;
 
   // Add function to fetch Telegram username
   const fetchTelegramUsername = async () => {
@@ -825,7 +825,7 @@ const UserProfile = () => {
       }
 
 
-       const defaultImage = authDetails?.user?.verifiedCredentials[2]?.oauthAccountPhotos[0].replace("_normal", "")
+       const defaultImage = authDetails?.user?.verifiedCredentials[2]?.oauthAccountPhotos[0]?.replace("_normal", "") || defaultImg;
  
       return defaultImage;
     } else {
@@ -835,7 +835,7 @@ const UserProfile = () => {
       if (userDetails?.profile_picture) {
         return userDetails.profile_picture;
       }
-       const defaultImage = authDetails?.user?.verifiedCredentials[2]?.oauthAccountPhotos[0].replace("_normal", "")
+       const defaultImage = authDetails?.user?.verifiedCredentials[2]?.oauthAccountPhotos[0]?.replace("_normal", "") || defaultImg;
 
       return defaultImage;
     }
@@ -942,7 +942,7 @@ const UserProfile = () => {
                           <div className="profile_head">User name</div>
                           <div className="profile_data">
                             {userDetails?.username ||
-                              userData?.authDetails?.user?.verifiedCredentials[2].oauthUsername ||
+                              (authDetails?.user?.verifiedCredentials?.[2]?.oauthUsername) ||
                               "-"}
                           </div>
                         </div>
@@ -1022,7 +1022,9 @@ const UserProfile = () => {
                       <div className="profile_bio_data">
                         <div className="profile_bio_head">Personal Bio</div>
                         <div className="profile_bio_data">
-                          {userDetails?.bio || userData?.authDetails?.user?.verifiedCredentials[2].description || "-"}
+                          {userDetails?.bio || 
+                           (authDetails?.user?.verifiedCredentials?.[2]?.description) || 
+                           "-"}
                         </div>
                       </div>
                     </div>
