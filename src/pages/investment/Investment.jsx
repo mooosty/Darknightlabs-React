@@ -410,18 +410,18 @@ const Investment = () => {
   // Add filtering logic
   const filteredCards = cardData.filter(card => {
     // Filter by search text
-    const searchMatch = !filter.searchBy || 
+    const searchMatch = !filter.searchBy ||
       card.investmentName.toLowerCase().includes(filter.searchBy.toLowerCase()) ||
       card.tags.some(tag => tag.toLowerCase().includes(filter.searchBy.toLowerCase())) ||
-      card.investments.some(inv => 
+      card.investments.some(inv =>
         inv.head.toLowerCase().includes(filter.searchBy.toLowerCase()) ||
         inv.data.toLowerCase().includes(filter.searchBy.toLowerCase())
       );
 
     // Filter by selected types
-    const typeMatch = filter.types.length === 0 || 
-      card.tags.some(tag => 
-        filter.types.some(type => 
+    const typeMatch = filter.types.length === 0 ||
+      card.tags.some(tag =>
+        filter.types.some(type =>
           tag.toLowerCase().includes(type.toLowerCase())
         )
       );
@@ -805,22 +805,22 @@ const Investment = () => {
             <div className="content_left">
               <h2>Investment</h2>
               <div className="search_wrap">
-                <CustomSearch 
-                  value={filter.searchBy} 
+                <CustomSearch
+                  value={filter.searchBy}
                   onChange={handleSearch}
-                  placeholder="Search" 
-                  isOpen={isSearchOpen} 
-                  setIsOpen={setIsSearchOpen} 
+                  placeholder="Search"
+                  isOpen={isSearchOpen}
+                  setIsOpen={setIsSearchOpen}
                 />
               </div>
             </div>
             {isSearchOpen && <div className="mobile_search">
               <span className="icon"><SearchIcon /></span>
-              <input 
-                value={filter.searchBy} 
+              <input
+                value={filter.searchBy}
                 onChange={(e) => handleSearch(e.target.value)}
-                type="text" 
-                placeholder="Search" 
+                type="text"
+                placeholder="Search"
               />
             </div>}
             <div className="content_right">
@@ -832,7 +832,7 @@ const Investment = () => {
               <div className="investment_page_header">
                 <div className="investment_toggleWrap">
                   {showNavButtons && (
-                    <button 
+                    <button
                       className={`nav_button prev ${!canScrollLeft ? 'hidden' : ''}`}
                       onClick={handleScrollLeft}
                       aria-label="Scroll left"
@@ -840,7 +840,7 @@ const Investment = () => {
                       ←
                     </button>
                   )}
-                  <div 
+                  <div
                     className="toggle_buttons_container"
                     ref={toggleContainerRef}
                     onScroll={handleScroll}
@@ -877,7 +877,7 @@ const Investment = () => {
                     </button>
                   </div>
                   {showNavButtons && (
-                    <button 
+                    <button
                       className={`nav_button next ${!canScrollRight ? 'hidden' : ''}`}
                       onClick={handleScrollRight}
                       aria-label="Scroll right"
@@ -1026,10 +1026,12 @@ const Investment = () => {
                     onScroll={syncScroll}
                   >
                     <div className="investment-header">
-                      <button className="back_arrow" onClick={handleBackToList}>
-                        <BackArrow />
-                      </button>
-                      <h1 className="title">🌙 SHOWA : The Community Revolution</h1>
+                      <div className="top">
+                        <button className="back_arrow" onClick={handleBackToList}>
+                          <BackArrow />
+                        </button>
+                        <h1 className="title">🌙 SHOWA : The Community Revolution</h1>
+                      </div>
                       <div className="description">
                         <p className="highlight-text">
                           Join the community-driven movement behind Showa American Story, transforming from a banned game to a revolutionary token ecosystem with real utility and Steam revenue sharing.
@@ -1040,7 +1042,7 @@ const Investment = () => {
                     <div className="section vision-section">
                       <h2 className="section-title">💫 Our Vision</h2>
                       <p className="section-intro">We're building a revolutionary 3-stage pump strategy that combines memecoins, utility, and real-world assets:</p>
-                      
+
                       <div className="stage-details">
                         <div className="stage-block">
                           <h3 className="stage-title">Stage 1: Memecoin Launch</h3>
@@ -1119,7 +1121,7 @@ const Investment = () => {
                     <div className="section movement-section">
                       <h2 className="section-title">🌙 Join the SHOWA Revolution</h2>
                       <p className="movement-text">
-                        Be part of a unique journey from banned game to revolutionary token ecosystem. Together, we're building something unprecedented in the gaming space! 
+                        Be part of a unique journey from banned game to revolutionary token ecosystem. Together, we're building something unprecedented in the gaming space!
                       </p>
                       <div className="stars">✨ The Future of Gaming Communities Starts Here ✨</div>
                     </div>
