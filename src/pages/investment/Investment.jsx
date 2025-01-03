@@ -830,7 +830,7 @@ const Investment = () => {
           <div className="investments_page_data">
             <div className={`page_data ${isSearchOpen ? 'search_open' : ''}`}>
               <div className="investment_page_header">
-                <div className="investment_toggleWrap">
+                <div className="investment_toggleWrap"  >
                   {showNavButtons && (
                     <button 
                       className={`nav_button prev ${!canScrollLeft ? 'hidden' : ''}`}
@@ -1143,7 +1143,7 @@ const Investment = () => {
                               toast.error('Failed to submit pledge');
                             }
                           }}
-                        />
+                        /> 
                       )}
                     </div>
                   </div>

@@ -8,6 +8,8 @@ import { KarmaIcon } from "../../utils/SVGs/SVGs";
 import { axiosApi } from "../../api-services/service";
 
 const Karma = () => {
+  const [currentKarma, setCurrentKarma] = useState(0);
+
   const [isExpanded, setIsExpanded] = useState(false);
   const [showInvitePopup, setShowInvitePopup] = useState(false);
   const [inviteLink, setInviteLink] = useState("");
@@ -16,7 +18,7 @@ const Karma = () => {
   const [inviteData, setInviteData] = useState({
     level1: [],
     level2: [],
-    level3: []
+    level3: [],
   });
   const userData = useSelector((state) => state.auth);
   const { userDetails } = useSelector((state) => state.user);
@@ -41,21 +43,17 @@ const Karma = () => {
     }
   }, [userData?.userId]);
 
-  if (isLoading) {
-    return <div className="karma_page">Loading...</div>;
-  }
-
   const calculateKarmaPoints = () => {
     const directInvites = inviteData.level1?.length || 0;
     const level1Invites = inviteData.level2?.length || 0;
     const level2Invites = inviteData.level3?.length || 0;
 
-    const directPoints = directInvites * 100;  // 100 KP per direct invite
-    const level1Points = level1Invites * 20;   // 20 KP per level 1 referral
-    const level2Points = level2Invites * 10;   // 10 KP per level 2 referral
+    const directPoints = directInvites * 100; // 100 KP per direct invite
+    const level1Points = level1Invites * 20; // 20 KP per level 1 referral
+    const level2Points = level2Invites * 10; // 10 KP per level 2 referral
 
     return {
-      totalKarmaPoints: userDetails?.currency_b || (directPoints + level1Points + level2Points),
+      totalKarmaPoints: userDetails?.currency_b || directPoints + level1Points + level2Points,
       directInvites,
       level1Invites,
       level2Invites,
@@ -68,6 +66,18 @@ const Karma = () => {
   };
 
   const karmaStats = calculateKarmaPoints();
+
+  useEffect(() => {
+    const incrementKarma = () => {
+      if (currentKarma < karmaStats.totalKarmaPoints) {
+        setCurrentKarma(Math.min(karmaStats.totalKarmaPoints, currentKarma + 5));
+      }
+    };
+
+    const timeoutId = setTimeout(incrementKarma, 0.01); // Adjust the delay as needed
+
+    return () => clearTimeout(timeoutId); // Cleanup on component unmount
+  }, [currentKarma, karmaStats.totalKarmaPoints]);
 
   const handleGenerateLink = async () => {
     try {
@@ -105,7 +115,7 @@ const Karma = () => {
 
   const toggleExpand = (e) => {
     // Prevent click from triggering on child elements
-    if (e.target === e.currentTarget || e.target.closest('.section-header')) {
+    if (e.target === e.currentTarget || e.target.closest(".section-header")) {
       setIsExpanded(!isExpanded);
     }
   };
@@ -134,7 +144,7 @@ const Karma = () => {
           },
         }}
       />
-      
+
       <div className="karma_content_header">
         <div className="karma_content_left">
           <h2>Karma Points</h2>
@@ -147,11 +157,11 @@ const Karma = () => {
             <div className="section-header">
               <h3>Total Karma Points</h3>
             </div>
-            
+
             <div className="karma_total">
               <div className="points">
-                {karmaStats.totalKarmaPoints}
-                <KarmaIcon style={{ width: '1.2em', height: '1.2em', marginLeft: '8px' }} />
+                {currentKarma}
+                <KarmaIcon style={{ width: "1.2em", height: "1.2em", marginLeft: "8px" }} />
               </div>
             </div>
 
@@ -176,36 +186,39 @@ const Karma = () => {
           </div>
 
           <div className="karma_explanation_section">
-            <div className="section-header" style={{ 
-              display: 'flex', 
-              justifyContent: 'space-between', 
-              alignItems: 'center',
-              marginBottom: '16px'
-            }}>
+            <div
+              className="section-header"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginBottom: "16px",
+              }}
+            >
               <h3>How Karma Points Work</h3>
-              <button 
-                className="read-more-btn" 
+              <button
+                className="read-more-btn"
                 onClick={toggleExpand}
-                style={{ 
-                  background: 'none',
-                  border: 'none',
-                  color: '#DCCA87',
-                  cursor: 'pointer',
-                  fontSize: '16px',
-                  padding: '4px 8px',
-                  marginLeft: 'auto',
-                  fontFamily: 'MedievalSharp',
-                  letterSpacing: '0.5px',
-                  textTransform: 'capitalize'
+                style={{
+                  background: "none",
+                  border: "none",
+                  color: "#DCCA87",
+                  cursor: "pointer",
+                  fontSize: "16px",
+                  padding: "4px 8px",
+                  marginLeft: "auto",
+                  fontFamily: "MedievalSharp",
+                  letterSpacing: "0.5px",
+                  textTransform: "capitalize",
                 }}
               >
-                {isExpanded ? 'Read Less' : 'Read More'}
+                {isExpanded ? "Read Less" : "Read More"}
               </button>
             </div>
-            <div className={`karma_explanation ${isExpanded ? 'expanded' : ''}`}>
+            <div className={`karma_explanation ${isExpanded ? "expanded" : ""}`}>
               {isExpanded ? (
                 <>
-                  <div className="karma-details" style={{ marginTop: '24px' }}>
+                  <div className="karma-details" style={{ marginTop: "24px" }}>
                     {/* <h3 style={{ color: '#f5efdb' }}>KARMA</h3>
                     
                     <div className="section" style={{ marginTop: '16px' }}>
@@ -218,10 +231,12 @@ const Karma = () => {
                       </ul>
                     </div> */}
 
-                    <div className="section" style={{ marginTop: '24px' }}>
-                      <h4 style={{ color: '#DCCA87' }}>What are Karma Points?</h4>
-                      <p style={{ marginTop: '8px' }}>Karma Points (KP) are a measure of your contribution and influence in The Win-Win Society. They serve multiple purposes:</p>
-                      <ul style={{ marginTop: '8px' }}>
+                    <div className="section" style={{ marginTop: "24px" }}>
+                      <h4 style={{ color: "#DCCA87" }}>What are Karma Points?</h4>
+                      <p style={{ marginTop: "8px" }}>
+                        Karma Points (KP) are a measure of your contribution and influence in The Win-Win Society. They serve multiple purposes:
+                      </p>
+                      <ul style={{ marginTop: "8px" }}>
                         <li>Access to exclusive deals and opportunities</li>
                         <li>Priority in oversubscribed investments</li>
                         <li>Recognition within the community</li>
@@ -229,52 +244,107 @@ const Karma = () => {
                       </ul>
                     </div>
 
-                    <p style={{ marginTop: '24px', color: '#DCCA87', fontSize: '18px', fontWeight: 'bold' }}>There are two ways to increase your Karma level in The Win-Win Society:</p>
-                    
-                    <ol style={{ marginTop: '16px' }}>
+                    <p style={{ marginTop: "24px", color: "#DCCA87", fontSize: "18px", fontWeight: "bold" }}>
+                      There are two ways to increase your Karma level in The Win-Win Society:
+                    </p>
+
+                    <ol style={{ marginTop: "16px" }}>
                       <li>
-                        <strong className="highlight" style={{ color: '#DCCA87' }}>Invite high tier individuals.</strong> Founders, VC partners, Family offices, Influencial people, etc.
-                        <p style={{ marginTop: '8px' }}>You get <span className="highlight">100 Karma minimum</span> everytime someone new is coming from you (after being vetted and accepted)</p>
-                        <p style={{ marginTop: '8px' }}>For the highest tier people, you will get bonuses (e.g. if you bring Elon Musk to The Win-Win Society, we'll give you more than 100 Karma Points)</p>
-                        <p style={{ marginTop: '8px' }}>Furthermore, if they invite people themselves, you get <span className="highlight">20%</span> of the Karma they generated back to you.</p>
-                        <p style={{ marginTop: '8px' }}>And if their people invite more people, you then get <span className="highlight">10%</span> of these in Karma. Therefore, there is an incentive to bring people with a rich network, as it will benefit you too.</p>
+                        <strong className="highlight" style={{ color: "#DCCA87" }}>
+                          Invite high tier individuals.
+                        </strong>{" "}
+                        Founders, VC partners, Family offices, Influencial people, etc.
+                        <p style={{ marginTop: "8px" }}>
+                          You get <span className="highlight">100 Karma minimum</span> everytime someone new is coming from you (after being vetted
+                          and accepted)
+                        </p>
+                        <p style={{ marginTop: "8px" }}>
+                          For the highest tier people, you will get bonuses (e.g. if you bring Elon Musk to The Win-Win Society, we'll give you more
+                          than 100 Karma Points)
+                        </p>
+                        <p style={{ marginTop: "8px" }}>
+                          Furthermore, if they invite people themselves, you get <span className="highlight">20%</span> of the Karma they generated
+                          back to you.
+                        </p>
+                        <p style={{ marginTop: "8px" }}>
+                          And if their people invite more people, you then get <span className="highlight">10%</span> of these in Karma. Therefore,
+                          there is an incentive to bring people with a rich network, as it will benefit you too.
+                        </p>
                       </li>
-                      
-                      <li style={{ marginTop: '16px' }}>
-                        <strong className="highlight" style={{ color: '#DCCA87' }}>Win, then pay what you want.</strong>
-                        <p style={{ marginTop: '8px' }}>The Win-Win Society doesn't charge any fees from your investments. No cut, no management fees, no carry, no nothing.</p>
-                        <p style={{ marginTop: '8px' }}>However, we give you the possibility, once you win with us, to give back — if you desire to do so. (hence "win, then pay what you want)</p>
-                        <p style={{ marginTop: '8px' }}>Say you put in 10k and it turns to 100k, you might feel like you wanna give 10%, 15%, 20% of that.</p>
-                        <p style={{ marginTop: '8px' }}>If you decide to give back, you will earn KARMA, which will give you priority access for next deals with limited supply.</p>
-                        <p style={{ marginTop: '8px' }}>Additionally, if you bring people in who end up giving back as well, you will get <span className="highlight">20%</span> of their KARMA based on their contribution. And if they bring their own network in, you will get <span className="highlight">10%</span> from the people they invite.</p>
-                        <p style={{ marginTop: '8px' }}>This makes it win-win for you as well to bring people in who will invest and give back.</p>
+
+                      <li style={{ marginTop: "16px" }}>
+                        <strong className="highlight" style={{ color: "#DCCA87" }}>
+                          Win, then pay what you want.
+                        </strong>
+                        <p style={{ marginTop: "8px" }}>
+                          The Win-Win Society doesn't charge any fees from your investments. No cut, no management fees, no carry, no nothing.
+                        </p>
+                        <p style={{ marginTop: "8px" }}>
+                          However, we give you the possibility, once you win with us, to give back — if you desire to do so. (hence "win, then pay
+                          what you want)
+                        </p>
+                        <p style={{ marginTop: "8px" }}>
+                          Say you put in 10k and it turns to 100k, you might feel like you wanna give 10%, 15%, 20% of that.
+                        </p>
+                        <p style={{ marginTop: "8px" }}>
+                          If you decide to give back, you will earn KARMA, which will give you priority access for next deals with limited supply.
+                        </p>
+                        <p style={{ marginTop: "8px" }}>
+                          Additionally, if you bring people in who end up giving back as well, you will get <span className="highlight">20%</span> of
+                          their KARMA based on their contribution. And if they bring their own network in, you will get{" "}
+                          <span className="highlight">10%</span> from the people they invite.
+                        </p>
+                        <p style={{ marginTop: "8px" }}>This makes it win-win for you as well to bring people in who will invest and give back.</p>
                       </li>
                     </ol>
 
-                    <div className="section" style={{ marginTop: '24px' }}>
-                      <h4 style={{ color: '#DCCA87' }}>Why the "Win, then pay what you want" model?</h4>
-                      <p style={{ marginTop: '8px' }}>WWS is not a charity, rather a bet on the natural law of reciprocity that is inherent to human beings (especially those with a win-win mindset, the people who we are targeting).</p>
-                      <p style={{ marginTop: '8px' }}>It's also a testimony in our confidence in the fact that we know we can deliver great deals, we therefore give you the leeway to win first, then contribute back later - if you decide to do so -, making our incentives very aligned, as we're not making money off of you either way, just by taking a cut from any raise, no matter if it perform well or not.</p>
-                      <p style={{ marginTop: '8px' }}>Finally, we believe that it emphasizes our win-win frame in a very powerful way. As you contribute back based on your own initiative, we anticipate that to solidify an exceptional level of trust and goodwill, making it a truly healthy, win-win ecosystem.</p>
+                    <div className="section" style={{ marginTop: "24px" }}>
+                      <h4 style={{ color: "#DCCA87" }}>Why the "Win, then pay what you want" model?</h4>
+                      <p style={{ marginTop: "8px" }}>
+                        WWS is not a charity, rather a bet on the natural law of reciprocity that is inherent to human beings (especially those with a
+                        win-win mindset, the people who we are targeting).
+                      </p>
+                      <p style={{ marginTop: "8px" }}>
+                        It's also a testimony in our confidence in the fact that we know we can deliver great deals, we therefore give you the leeway
+                        to win first, then contribute back later - if you decide to do so -, making our incentives very aligned, as we're not making
+                        money off of you either way, just by taking a cut from any raise, no matter if it perform well or not.
+                      </p>
+                      <p style={{ marginTop: "8px" }}>
+                        Finally, we believe that it emphasizes our win-win frame in a very powerful way. As you contribute back based on your own
+                        initiative, we anticipate that to solidify an exceptional level of trust and goodwill, making it a truly healthy, win-win
+                        ecosystem.
+                      </p>
                     </div>
                   </div>
 
-                  <div style={{ marginTop: '24px' }}>
-                    <p style={{ marginTop: '16px' }}>Your Karma Points are calculated based on your referral network:</p>
-                    <ul style={{ marginTop: '8px', marginBottom: '16px' }}>
-                      <li><strong>Direct Invites:</strong> 100 KP for each person you directly invite</li>
-                      <li><strong>Level 1 Referrals:</strong> 20 KP for each person your invitees bring in</li>
-                      <li><strong>Level 2 Referrals:</strong> 10 KP for each person your Level 1 referrals invite</li>
+                  <div style={{ marginTop: "24px" }}>
+                    <p style={{ marginTop: "16px" }}>Your Karma Points are calculated based on your referral network:</p>
+                    <ul style={{ marginTop: "8px", marginBottom: "16px" }}>
+                      <li>
+                        <strong>Direct Invites:</strong> 100 KP for each person you directly invite
+                      </li>
+                      <li>
+                        <strong>Level 1 Referrals:</strong> 20 KP for each person your invitees bring in
+                      </li>
+                      <li>
+                        <strong>Level 2 Referrals:</strong> 10 KP for each person your Level 1 referrals invite
+                      </li>
                     </ul>
                   </div>
                 </>
               ) : (
                 <>
-                  <p style={{ marginTop: '16px' }}>Your Karma Points are calculated based on your referral network:</p>
-                  <ul style={{ marginTop: '8px', marginBottom: '16px' }}>
-                    <li><strong>Direct Invites:</strong> 100 KP for each person you directly invite</li>
-                    <li><strong>Level 1 Referrals:</strong> 20 KP for each person your invitees bring in</li>
-                    <li><strong>Level 2 Referrals:</strong> 10 KP for each person your Level 1 referrals invite</li>
+                  <p style={{ marginTop: "16px" }}>Your Karma Points are calculated based on your referral network:</p>
+                  <ul style={{ marginTop: "8px", marginBottom: "16px" }}>
+                    <li>
+                      <strong>Direct Invites:</strong> 100 KP for each person you directly invite
+                    </li>
+                    <li>
+                      <strong>Level 1 Referrals:</strong> 20 KP for each person your invitees bring in
+                    </li>
+                    <li>
+                      <strong>Level 2 Referrals:</strong> 10 KP for each person your Level 1 referrals invite
+                    </li>
                   </ul>
                 </>
               )}
@@ -283,7 +353,7 @@ const Karma = () => {
 
           <div className="karma_breakdown">
             <h3>Your Karma Breakdown</h3>
-            
+
             <div className="breakdown_list">
               {karmaStats.karmaBreakdown.map((item, index) => (
                 <div key={index} className="breakdown_item">
