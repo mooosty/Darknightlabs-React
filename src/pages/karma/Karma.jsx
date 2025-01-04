@@ -6,8 +6,10 @@ import toast, { Toaster } from "react-hot-toast";
 import { CopyIcon, CheckIcon } from "../../utils/constants/images";
 import { KarmaIcon } from "../../utils/SVGs/SVGs";
 import { axiosApi } from "../../api-services/service";
+import { useNavigate } from "react-router-dom";
 
 const Karma = () => {
+  const navigate = useNavigate();
   const [currentKarma, setCurrentKarma] = useState(0);
 
   const [isExpanded, setIsExpanded] = useState(false);
@@ -83,7 +85,14 @@ const Karma = () => {
     try {
       if (!userDetails?.username) {
         toast.dismiss();
-        toast("Username not found. Please complete your profile first.");
+        toast((t) => (
+          <span onClick={() => {
+            toast.dismiss(t.id);
+            navigate("/profile");
+          }} style={{ cursor: "pointer" }}>
+            Username not found. Please complete your profile first.
+          </span>
+        ));
         return;
       }
       const response = await axiosApi.post("/tiny-url/", {
@@ -113,37 +122,13 @@ const Karma = () => {
     }, 1000);
   };
 
-  const toggleExpand = (e) => {
-    // Prevent click from triggering on child elements
-    if (e.target === e.currentTarget || e.target.closest(".section-header")) {
-      setIsExpanded(!isExpanded);
-    }
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
   };
 
   return (
     <div className="karma_page">
-      <Toaster
-        position="bottom-center"
-        toastOptions={{
-          className: "",
-          duration: 5000,
-          style: {
-            background: "#242623",
-            color: "#fff",
-            textAlign: "center",
-            fontSize: "18px",
-            padding: "20px",
-            border: "1px solid #ff8a1c",
-          },
-          success: {
-            duration: 3000,
-            theme: {
-              primary: "green",
-              secondary: "black",
-            },
-          },
-        }}
-      />
+      
 
       <div className="karma_content_header">
         <div className="karma_content_left">
@@ -153,7 +138,7 @@ const Karma = () => {
 
       <div className="karma_page_data">
         <div className="page_data">
-          <div className="karma_overview">
+          <div className="karma_overview" style={{ cursor: 'default' }}>
             <div className="section-header">
               <h3>Total Karma Points</h3>
             </div>
@@ -188,17 +173,22 @@ const Karma = () => {
           <div className="karma_explanation_section">
             <div
               className="section-header"
+              onClick={toggleExpand}
               style={{
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
                 marginBottom: "16px",
+                cursor: "pointer",
               }}
             >
               <h3>How Karma Points Work</h3>
               <button
                 className="read-more-btn"
-                onClick={toggleExpand}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleExpand();
+                }}
                 style={{
                   background: "none",
                   border: "none",

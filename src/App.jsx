@@ -18,7 +18,8 @@ import MyContent from './pages/my-content/MyContent'
 import AmbassadorProjects from './pages/ambassador-projects/ambassadorProjects'
 import AmbassadorProjectDetails from './pages/ambassador-projects/ambassador-project-details/AmbassadorProjectDetails'
 import { ROUTER } from "./utils/routes/routes";
-import { ToastContainer } from "react-toastify";
+// import { ToastContainer } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
 import "react-toastify/dist/ReactToastify.css";
 import SynergyRequest from "./pages/pending-synergies/SynergyRequest";
 import SynergiesManager from "./pages/synergies-manager/SynergiesManager";
@@ -30,6 +31,7 @@ import Error405 from './pages/error405/Error405';
 import SocietyFullList from './pages/home/society-full-list/SocietyFullList';
 import Dashboard from './pages/dashboard/Dashboard';
 import About from './pages/about/About';
+import HelpFeedback from './pages/help-feedback/HelpFeedback';
 
 function App() {
   return (
@@ -46,6 +48,7 @@ function App() {
           <Route path={`/${ROUTER.welcome}`} element={<Welcome />} />
           <Route path={ROUTER.announcementFeed} element={<AnnouncementFeed />} />
           <Route path={`/${ROUTER.about}`} element={<About />} />
+          <Route path={`/${ROUTER.helpFeedback}`} element={<HelpFeedback />} />
           <Route path={`/${ROUTER.projects}`} element={<ProtectedFeatureRoute feature="PROJECTS"><Projects /></ProtectedFeatureRoute>} />
 
           <Route path={ROUTER.myContent} element={<MyContent />} />
@@ -72,7 +75,7 @@ function App() {
         <Route path={`/${ROUTER.error405}`} element={<Error405 />} />
         <Route path={`*`} element={<Navigate to={ROUTER.error404} />} />
       </Routes>
-      <ToastContainer
+      {/* <ToastContainer
         position="bottom-center"
         autoClose={3000}
         hideProgressBar={false}
@@ -83,6 +86,28 @@ function App() {
         draggable
         pauseOnHover
         theme="dark"
+      /> */}
+      <Toaster
+        position="bottom-center"
+        toastOptions={{
+          className: "",
+          duration: 5000,
+          style: {
+            background: "#242623",
+            color: "#fff",
+            textAlign: "center",
+            fontSize: "18px",
+            padding: "20px",
+            border: "1px solid #ff8a1c",
+          },
+          success: {
+            duration: 3000,
+            theme: {
+              primary: "green",
+              secondary: "black",
+            },
+          },
+        }}
       />
     </BrowserRouter>
   );

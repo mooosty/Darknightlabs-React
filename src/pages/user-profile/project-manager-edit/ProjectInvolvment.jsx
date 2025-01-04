@@ -340,29 +340,7 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
   return (
     <>
 
-      <Toaster
-        position="bottom-center"
-        toastOptions={{
-          className: "",
-          duration: 5000,
-          style: {
-            background: "var(--card-background)",
-            color: "var(--primary-white)",
-            textAlign: "center", // Center the text
-            fontSize: "18px", // Increase the font size
-            padding: "20px", // Add some padding
-            border: "1px solid #ff8a1c", // Add orange border top
-          },
-          // Default options for specific types
-          success: {
-            duration: 3000,
-            theme: {
-              primary: "green",
-              secondary: "black",
-            },
-          },
-        }}
-      />
+
       <div className="content_header">
         <div className="content_left">
           <h2>Profile</h2>

@@ -522,6 +522,51 @@
                                             }
                                         }
                                     }
+
+                                    .social_inputs {
+                                        display: flex;
+                                        gap: 10px;
+                                        width: 100%;
+
+                                        input {
+                                            padding: 8px 12px;
+                                            border: 1px solid #f5efdb;
+                                            border-radius: 4px;
+                                            background: transparent;
+                                            color: #f5efdb;
+                                            font-size: 14px;
+                                            width: 100%;
+
+                                            &::placeholder {
+                                                color: rgba(245, 239, 219, 0.5);
+                                            }
+
+                                            &:focus {
+                                                outline: none;
+                                                border-color: #f5efdb;
+                                                box-shadow: 0 0 0 2px rgba(245, 239, 219, 0.2);
+                                            }
+                                        }
+
+                                        .audience_input {
+                                            width: 40%;
+                                            text-align: right;
+                                            
+                                            // Add thousand separators styling
+                                            &::placeholder {
+                                                text-align: left;
+                                            }
+                                        }
+                                    }
+
+                                    &.selected {
+                                        .social_inputs {
+                                            input {
+                                                border-color: #f5efdb;
+                                                background: rgba(245, 239, 219, 0.1);
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }

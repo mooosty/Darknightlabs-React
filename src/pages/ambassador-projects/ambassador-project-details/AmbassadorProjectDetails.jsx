@@ -7,7 +7,8 @@ import { AmbassadorAccordion, DeleteConfirmPopup, Loader, SuccessfullyPopup } fr
 import { DescriptionIcon, GradientGraphIcon, GradientInfiniteIcon, GrammerlyIcon, GredientGlobalIcon, HealthIcon, InvestmentIcon, RankingIcon, CopyIcon, StarIcon, RightIcon, fallBackImage, autherProfile, PlusIcon, InfoCircleIcon, editIcon, DeleteIcon, CheckIcon } from '../../../utils/constants/images'
 import { AddContentPopup } from '../../../components';
 import { deleteContentAPI, getProjectContentAPI } from '../../../api-services/contentApis';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
+import toast, { Toaster } from "react-hot-toast";
 import { ROUTER } from '../../../utils/routes/routes';
 
 

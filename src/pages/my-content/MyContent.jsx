@@ -11,7 +11,8 @@ import {
   EmptyData,
 } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
 import { deleteContentAPI, getContentAPI } from "../../api-services/contentApis";
 
 const MyContent = () => {

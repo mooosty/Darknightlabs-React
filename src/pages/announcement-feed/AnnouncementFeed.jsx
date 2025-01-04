@@ -47,6 +47,8 @@ const AnnouncementCard = ({ announcement }) => {
         <div 
           className="announcement-type"
           style={{ 
+            whiteSpace: 'nowrap',
+            
             backgroundColor: 'rgba(245, 239, 219, 0.1)',
             color: getPriorityColor(announcement.priority)
           }}

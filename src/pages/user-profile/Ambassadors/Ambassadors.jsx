@@ -30,6 +30,13 @@ const Ambassadors = ({ handleActive, active, uid }) => {
     });
     const [isSaving, setIsSaving] = useState(false);
     const [isExistingAmbassador, setIsExistingAmbassador] = useState(false);
+    const [socialAudiences, setSocialAudiences] = useState({
+        twitter: '',
+        youtube: '',
+        discord: '',
+        instagram: '',
+        twitch: ''
+    });
 
     const headerToggleButton = [
         {
@@ -112,14 +119,29 @@ const Ambassadors = ({ handleActive, active, uid }) => {
                         }));
                     }
 
-                    // Set social handles
+                    // Set social handles and audiences
                     if (data.main_socials) {
                         const defaultSocialIds = defaultSocials.map(s => s.id);
                         const customSocialsList = Object.keys(data.main_socials)
                             .filter(key => !defaultSocialIds.includes(key));
                         
                         setCustomSocials(customSocialsList);
-                        setSocialHandles(data.main_socials);
+                        
+                        // Separate handles and audience counts
+                        const handles = {};
+                        const audiences = {};
+                        Object.entries(data.main_socials).forEach(([key, value]) => {
+                            if (typeof value === 'object') {
+                                handles[key] = value.handle || '';
+                                audiences[key] = value.audience_count || '';
+                            } else {
+                                handles[key] = value;
+                                audiences[key] = '';
+                            }
+                        });
+                        
+                        setSocialHandles(handles);
+                        setSocialAudiences(audiences);
                         setSelectedSocials(Object.keys(data.main_socials));
                     }
 
@@ -185,14 +207,29 @@ const Ambassadors = ({ handleActive, active, uid }) => {
                     }));
                 }
 
-                // Set social handles
+                // Set social handles and audiences
                 if (data.main_socials) {
                     const defaultSocialIds = defaultSocials.map(s => s.id);
                     const customSocialsList = Object.keys(data.main_socials)
                         .filter(key => !defaultSocialIds.includes(key));
                     
                     setCustomSocials(customSocialsList);
-                    setSocialHandles(data.main_socials);
+                    
+                    // Separate handles and audience counts
+                    const handles = {};
+                    const audiences = {};
+                    Object.entries(data.main_socials).forEach(([key, value]) => {
+                        if (typeof value === 'object') {
+                            handles[key] = value.handle || '';
+                            audiences[key] = value.audience_count || '';
+                        } else {
+                            handles[key] = value;
+                            audiences[key] = '';
+                        }
+                    });
+                    
+                    setSocialHandles(handles);
+                    setSocialAudiences(audiences);
                     setSelectedSocials(Object.keys(data.main_socials));
                 }
             }
@@ -244,11 +281,15 @@ const Ambassadors = ({ handleActive, active, uid }) => {
             }
         });
 
-        // Prepare socials data - include all social handles that have values
+        // Prepare socials data - include all social handles and audience counts that have values
         [...defaultSocials.map(social => social.id), ...customSocials].forEach(socialId => {
             const value = socialHandles[socialId];
+            const audienceCount = socialAudiences[socialId];
             if (value && value.trim()) {
-                payload.main_socials[socialId] = value.trim();
+                payload.main_socials[socialId] = {
+                    handle: value.trim(),
+                    audience_count: audienceCount || ''
+                };
             }
         });
 
@@ -268,7 +309,7 @@ const Ambassadors = ({ handleActive, active, uid }) => {
         console.log('Saving payload:', payload); // Debug log
 
         try {
-            const url = `https://winwinsocietyweb3.com/api/ambassadors${isExistingAmbassador ? `/uid/${uid}` : ''}`;
+            const url = `https://winwinsocietyweb3.com/api/ambassadors${isExistingAmbassador ? `/${uid}` : ''}`;
             const method = isExistingAmbassador ? 'put' : 'post';
             
             await axios[method](url, payload);
@@ -322,17 +363,26 @@ const Ambassadors = ({ handleActive, active, uid }) => {
     ];
 
     const defaultSocials = [
-        { id: 'twitter', name: 'Twitter', placeholder: '@username' },
-        { id: 'youtube', name: 'YouTube', placeholder: 'Channel URL' },
-        { id: 'discord', name: 'Discord', placeholder: 'Server invite or username#0000' },
-        { id: 'instagram', name: 'Instagram', placeholder: '@username' },
-        { id: 'twitch', name: 'Twitch', placeholder: 'Channel name' }
+        { id: 'twitter', name: 'Twitter', placeholder: '@username', audiencePlaceholder: 'Number of followers' },
+        { id: 'youtube', name: 'YouTube', placeholder: 'Channel URL', audiencePlaceholder: 'Number of subscribers' },
+        { id: 'discord', name: 'Discord', placeholder: 'Server invite or username#0000', audiencePlaceholder: 'Number of members' },
+        { id: 'instagram', name: 'Instagram', placeholder: '@username', audiencePlaceholder: 'Number of followers' },
+        { id: 'twitch', name: 'Twitch', placeholder: 'Channel name', audiencePlaceholder: 'Number of followers' }
     ];
 
     const handleSocialChange = (socialId, value) => {
         setSocialHandles(prev => ({
             ...prev,
             [socialId]: value
+        }));
+    };
+
+    const handleSocialAudienceChange = (socialId, value) => {
+        // Only allow numbers
+        const numericValue = value.replace(/[^0-9]/g, '');
+        setSocialAudiences(prev => ({
+            ...prev,
+            [socialId]: numericValue
         }));
     };
 
@@ -402,7 +452,6 @@ const Ambassadors = ({ handleActive, active, uid }) => {
 
     return (
         <div className='ambassadors_content_wrapper'>
-            <Toaster />
             <div className="ambassadors_content_header">
                 <div className="ambassadors_content_left">
                     <h2>Profile</h2>
@@ -699,51 +748,64 @@ const Ambassadors = ({ handleActive, active, uid }) => {
                                             >
                                                 <label>{social.name}</label>
                                             </div>
-                                            <input
-                                                type="text"
-                                                placeholder={social.placeholder}
-                                                value={socialHandles[social.id]}
-                                                onChange={(e) => handleSocialChange(social.id, e.target.value)}
-                                                className="social_handle_input"
-                                            />
+                                            <div className="social_inputs">
+                                                <input
+                                                    type="text"
+                                                    placeholder={social.placeholder}
+                                                    value={socialHandles[social.id] || ''}
+                                                    onChange={(e) => handleSocialChange(social.id, e.target.value)}
+                                                />
+                                                <input
+                                                    type="text"
+                                                    placeholder={social.audiencePlaceholder}
+                                                    value={socialAudiences[social.id] || ''}
+                                                    onChange={(e) => handleSocialAudienceChange(social.id, e.target.value)}
+                                                    className="audience_input"
+                                                />
+                                            </div>
                                         </div>
                                     ))}
-                                    
-                                    {customSocials.map((social, index) => (
+                                    {customSocials.map((socialId) => (
                                         <div 
-                                            key={`custom-${index}`} 
-                                            className={`social_input_group custom ${selectedSocials.includes(social) ? 'selected' : ''}`}
+                                            key={socialId} 
+                                            className={`social_input_group custom ${selectedSocials.includes(socialId) ? 'selected' : ''}`}
                                         >
-                                            <div className="social_label_wrapper">
-                                                <div 
-                                                    className="social_label"
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                        const newSelected = selectedSocials.includes(social)
-                                                            ? selectedSocials.filter(s => s !== social)
-                                                            : [...selectedSocials, social];
-                                                        setSelectedSocials(newSelected);
-                                                    }}
-                                                >
-                                                    <label>{social}</label>
-                                                </div>
+                                            <div 
+                                                className="social_label"
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    const newSelected = selectedSocials.includes(socialId)
+                                                        ? selectedSocials.filter(s => s !== socialId)
+                                                        : [...selectedSocials, socialId];
+                                                    setSelectedSocials(newSelected);
+                                                }}
+                                            >
+                                                <label>{socialId}</label>
                                                 <span 
                                                     className="delete-btn"
                                                     onClick={(e) => {
                                                         e.stopPropagation();
-                                                        handleDeleteCustom('socials', social);
+                                                        handleDeleteCustom('socials', socialId);
                                                     }}
                                                 >
                                                     ×
                                                 </span>
                                             </div>
-                                            <input
-                                                type="text"
-                                                placeholder="Enter handle/URL"
-                                                value={socialHandles[social] || ''}
-                                                onChange={(e) => handleSocialChange(social, e.target.value)}
-                                                className="social_handle_input"
-                                            />
+                                            <div className="social_inputs">
+                                                <input
+                                                    type="text"
+                                                    placeholder="Social media handle/URL"
+                                                    value={socialHandles[socialId] || ''}
+                                                    onChange={(e) => handleSocialChange(socialId, e.target.value)}
+                                                />
+                                                <input
+                                                    type="text"
+                                                    placeholder="Number of followers/subscribers"
+                                                    value={socialAudiences[socialId] || ''}
+                                                    onChange={(e) => handleSocialAudienceChange(socialId, e.target.value)}
+                                                    className="audience_input"
+                                                />
+                                            </div>
                                         </div>
                                     ))}
                                 </div>
