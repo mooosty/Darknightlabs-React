@@ -19,6 +19,7 @@ import cardActor13 from '../../assets/pending-synergy-img13.png'
 import cardActor14 from '../../assets/pending-synergy-img14.png'
 import cardActor15 from '../../assets/pending-synergy-img15.png'
 import showa from '../../assets/showa.jpg'
+import kc from '../../assets/kc.png'
 
 import autherProfile from "../../assets/auther-profile.png"
 import sepratorImage from "../../assets/seprator-image.png"
@@ -349,4 +350,5 @@ export {
     CheckCircleIcon,
     StileArrow,
     TwitterXIcon,
+    kc,
 }

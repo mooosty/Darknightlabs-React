@@ -20,4 +20,5 @@ export const ROUTER = {
     announcementFeed: "announcement-feed",
     dashboard: "dashboard",
     about: "about",
+    helpFeedback: "help-feedback",
 };

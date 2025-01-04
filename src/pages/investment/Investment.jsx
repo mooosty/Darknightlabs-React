@@ -15,6 +15,7 @@ import ContributionStatus from "../../components/investments/ContributionStatus/
 import WhitelistVerification from "../../components/investments/WhitelistVerification/WhitelistVerification";
 import {
   cardActor1,
+  kc,
   cardActor2,
   cardActor3,
   cardActor4,
@@ -58,7 +59,7 @@ const cardData = [
   },
   {
     investmentName: "⚔️ Karate Combat",
-    investorImg: cardActor2,
+    investorImg: kc,
     tags: ["🥋 #Sports", "💪 #Combat", "🌐 #Web3"],
     investments: [
       {
@@ -74,6 +75,7 @@ const cardData = [
         data: "TBA",
       },
     ],
+    karmaNeeded: 0,
     state: "PLEDGE",
   },
   {
@@ -94,6 +96,7 @@ const cardData = [
         data: "20mil",
       },
     ],
+    karmaNeeded: 0,
     state: "APPLY",
   },
   {
@@ -114,6 +117,7 @@ const cardData = [
         data: "20mil",
       },
     ],
+    karmaNeeded: 0,
     state: "CLOSED",
   },
   {
@@ -134,6 +138,7 @@ const cardData = [
         data: "20mil",
       },
     ],
+    karmaNeeded: 0,
     state: "OPEN",
   },
   {
@@ -154,6 +159,7 @@ const cardData = [
         data: "20mil",
       },
     ],
+    karmaNeeded: 0,
     state: "MY_INVESTMENTS",
   },
   {
@@ -174,6 +180,7 @@ const cardData = [
         data: "20mil",
       },
     ],
+    karmaNeeded: 0,
     state: "OPEN",
   },
   {
@@ -194,6 +201,7 @@ const cardData = [
         data: "20mil",
       },
     ],
+    karmaNeeded: 0,
     state: "APPLY",
   },
   {
@@ -214,6 +222,7 @@ const cardData = [
         data: "20mil",
       },
     ],
+    karmaNeeded: 0,
     state: "CLOSED",
   },
   {
@@ -234,6 +243,7 @@ const cardData = [
         data: "20mil",
       },
     ],
+    karmaNeeded: 0,
     state: "OPEN",
   },
   {
@@ -254,6 +264,7 @@ const cardData = [
         data: "20mil",
       },
     ],
+    karmaNeeded: 0,
     state: "MY_INVESTMENTS",
   },
   {
@@ -274,6 +285,7 @@ const cardData = [
         data: "20mil",
       },
     ],
+    karmaNeeded: 0,
     state: "OPEN",
   },
   {
@@ -294,6 +306,7 @@ const cardData = [
         data: "20mil",
       },
     ],
+    karmaNeeded: 0,
     state: "APPLY",
   },
   {
@@ -314,6 +327,7 @@ const cardData = [
         data: "20mil",
       },
     ],
+    karmaNeeded: 0,
     state: "CLOSED",
   },
   {
@@ -334,6 +348,7 @@ const cardData = [
         data: "20mil",
       },
     ],
+    karmaNeeded: 0,
     state: "OPEN",
   },
 ];
@@ -982,11 +997,15 @@ const Investment = () => {
                       {filteredProjects.map((data, index) => {
                         return (
                           <div className="card_wrap" key={index} onClick={() => handleCardClick(data, index)}>
-                            <div
+                             <div
                               className="card"
-                              style={{ filter: data.investmentName?.toLowerCase().includes('showa') || data.investmentName?.toLowerCase().includes('karate') ? 'none' : 'blur(12px)' }}
+                              style={{
+                                filter: data.investmentName?.toLowerCase().includes('showa') || data.investmentName?.toLowerCase().includes('karate') ? 'none' : 'blur(12px)',
+                              
+                                transition: 'transform 0.2s ease',
+                              }}
                             >
-                              <div className="card_image">
+                               <div className="card_image">
                                 <img src={data.investorImg} alt="" />
                               </div>
                               <div className="card_body">
@@ -1085,47 +1104,63 @@ const Investment = () => {
                     </div>
 
                     <div className="section vision-section">
-                      <h2 className="section-title">💫 Our Vision</h2>
-                      <p className="section-intro">
-                        We're building a revolutionary 3-stage pump strategy that combines memecoins, utility, and
-                        real-world assets:
-                      </p>
+                      <h2 className="section-title">💫 Deal Details</h2>
+                      
+                      <div className="stage-details">
+                        <div className="stage-block deal-structure">
+                          <h3 className="stage-title">Deal Structure</h3>
+                          <ul className="stage-description deal-list">
+                            <li><span className="deal-label">FDV of the OTC deal:</span> 10mil FDV</li>
+                            <li><span className="deal-label">Vesting:</span> 3 months</li>
+                            <li><span className="deal-label">Current FDV in market:</span> 34mil</li>
+                            <li><span className="deal-label">Allocation:</span> Extremely tight, it's a strategic round for angel investors who will provide some type of value (social, attention, network, etc)</li>
+                          </ul>
+                        </div>
+                      </div>
+
+                      <div className="section-intro important-notice">
+                        <h3 className="important-title">Important:</h3>
+                        <p className="important-text">
+                          At The Win-Win Society, when we bring strategic rounds, we track a few key elements to ensure 
+                          interactions between strategic investors and projects are as win-win as it gets.
+                        </p>
+                      </div>
 
                       <div className="stage-details">
-                        <div className="stage-block">
-                          <h3 className="stage-title">Stage 1: Memecoin Launch</h3>
-                          <div className="stage-date">Dec.19-23</div>
-                          <p className="stage-description">
-                            The passionate community and fans behind Showa American Story initiated this token movement
-                            after the game was removed by TGA for being too "violent" - a true story that sparked our
-                            revolution.
+                        <div className="stage-block tracking-elements">
+                          <h3 className="stage-title">Key Tracking Elements</h3>
+                          <ul className="stage-description tracking-list">
+                            <li>
+                              <span className="score-label">Reputation Score:</span>
+                              <span className="score-description">Your value-add delivery - do you do what you actually promise for our partners in these strategic rounds?</span>
+                            </li>
+                            <li>
+                              <span className="score-label">Loyalty Score:</span>
+                              <span className="score-description">Your behavior with the tokens you get - as we provide exceptional deals to our members, that often allow you to break even or even profit since the first unlock, we observe your behavior: do you instant dump?</span>
+                            </li>
+                            <li>
+                              <span className="score-label">Karma Score:</span>
+                              <span className="score-description">Related to the people you bring in and their caliber (founders, C-levels, VC GPs, whales, influential figures, etc.). <a href="#" className="karma-link">Click here</a> to get your invite code and start increasing your Karma Score.</span>
+                            </li>
+                          </ul>
+                        </div>
+
+                        <div className="stage-block impact-section">
+                          <h3 className="stage-title">Impact on Future Deals</h3>
+                          <p className="stage-description impact-text">
+                            All these elements will impact in different ways your access and prioritization in next deals, 
+                            via a mix of objective and subjective metrics.
+                          </p>
+                          <p className="stage-description impact-text">
+                            For example, if you're bringing crazy value to our partners, have the highest Karma score, 
+                            but aren't the strongest Diamond Hands, you might still be prioritized in upcoming strategic deals.
                           </p>
                         </div>
 
                         <div className="stage-block">
-                          <h3 className="stage-title">Stage 2: Utility Integration</h3>
-                          <div className="stage-date">Dec.24-Jan.15</div>
-                          <p className="stage-description">
-                            Oneness Labs will integrate $SHOWA token into TheGame.fun platform - a price discovery
-                            platform for trading in-game items. Backed by our 200K community, 4K NFT holders, and 100+
-                            major buyers.
-                          </p>
-                        </div>
-
-                        <div className="stage-block">
-                          <h3 className="stage-title">Stage 3: RWA Integration</h3>
-                          <div className="stage-date">Jan.15-Mar/April</div>
-                          <p className="stage-description">
-                            The Showa Dev team will officially adopt $SHOWA, allocating 10% of the game's lifetime Steam
-                            revenue to the token while building the community together.
-                          </p>
-                        </div>
-
-                        <div className="stage-block">
-                          <h3 className="stage-title">Final Stage: Steam Launch</h3>
-                          <p className="stage-description highlight-text">
-                            The ultimate catalyst: Showa's release on Steam, targeting 5M copies and injecting $30M cash
-                            into $SHOWA ecosystem.
+                          <p className="stage-description highlight-text best-practice">
+                            Best practice is to keep all these in mind, while doubling down on your strengths to be a 
+                            highly valued strategic investor, and get access to some crazy deals.
                           </p>
                         </div>
                       </div>

@@ -377,7 +377,10 @@
                             border-radius: 10px;
                             height: 100%;
                             display: flex;
+
+
                             flex-direction: column;
+                            justify-content: space-between;
                             gap: 12px;
 
                             .card_image {
@@ -489,12 +492,10 @@
 
                         &:first-child {
                             .card {
-                                cursor: pointer;
+                                cursor: 'pointer';
                                 transition: transform 0.2s ease;
 
-                                &:hover {
-                                    transform: translateY(-5px);
-                                }
+                           
                             }
                         }
 
@@ -1027,5 +1028,84 @@
       box-shadow: 0 2px 12px rgba(46, 213, 115, 0.3);
       background: #ff3b3b;
     }
+  }
+}
+
+.vision-section {
+  .deal-structure {
+    .deal-list {
+      li {
+        margin-bottom: 12px;
+        line-height: 1.5;
+        
+        .deal-label {
+          font-weight: 600;
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+
+  .important-notice {
+    margin: 24px 0;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.05);
+
+    .important-title {
+      font-size: 1.2em;
+      margin-bottom: 12px;
+    }
+
+    .important-text {
+      line-height: 1.6;
+    }
+  }
+
+  .tracking-elements {
+    .tracking-list {
+      li {
+        margin-bottom: 16px;
+        
+        .score-label {
+          display: block;
+          font-weight: 600;
+          font-size: 1.1em;
+          margin-bottom: 6px;
+        }
+
+        .score-description {
+          display: block;
+          line-height: 1.5;
+          padding-left: 16px;
+        }
+
+        .karma-link {
+          text-decoration: underline;
+          color: #F5EFDB;
+          font-weight: 600;
+          &:hover {
+            opacity: 0.8;
+          }
+        }
+      }
+    }
+  }
+
+  .impact-section {
+    margin-top: 24px;
+
+    .impact-text {
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+  }
+
+  .best-practice {
+    margin-top: 24px;
+    padding: 16px;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.05);
+    line-height: 1.6;
   }
 }

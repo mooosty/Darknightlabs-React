@@ -49,20 +49,16 @@ const PledgeForm = ({ onSubmit }) => {
       toast.error('Please enter your ideal ticket size');
       return;
     }
-    if (!investedAmount) {
-      toast.error('Please enter the amount you invested');
-      return;
-    }
     if (!transactionLink) {
       toast.error('Please provide your transaction link');
       return;
     }
     if (!claimWallet) {
-      toast.error('Please provide your BASE claim wallet');
+      toast.error('Please provide your SOLANA claim wallet');
       return;
     }
-    if (!/^0x[a-fA-F0-9]{40}$/.test(claimWallet)) {
-      toast.error('Please enter a valid BASE wallet address');
+    if (!/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(claimWallet)) {
+      toast.error('Please enter a valid SOLANA wallet address');
       return;
     }
     if (selectedValues.length === 0) {
@@ -86,7 +82,6 @@ const PledgeForm = ({ onSubmit }) => {
         },
         body: JSON.stringify({
           ticketSize,
-          investedAmount,
           transactionLink,
           claimWallet,
           values: formattedValues,
@@ -103,7 +98,6 @@ const PledgeForm = ({ onSubmit }) => {
         toast.success('Pledge submitted successfully');
         onSubmit({
           ticketSize,
-          investedAmount,
           transactionLink,
           claimWallet,
           values: formattedValues,
@@ -112,7 +106,6 @@ const PledgeForm = ({ onSubmit }) => {
 
         // Clear form after successful submission
         setTicketSize('');
-        setInvestedAmount('');
         setTransactionLink('');
         setClaimWallet('');
         setSelectedValues([]);
@@ -144,7 +137,7 @@ const PledgeForm = ({ onSubmit }) => {
           <p className="form-description">Put your ideal ticket size, the highest you'd like to put in. Although this allocation is very limited, we'll do our best to try and accomodate your needs</p>
           
           <div className="payment-info">
-            <p>Please choose the amount you wanna invest in SHOWA - max amount is $500 per person - then send the funds to the wallet below</p>
+            <p>Please send the tokens you would like to pledge to the address below</p>
             <div className="wallet-details">
               <p><strong>COIN:</strong> $USDT</p>
               <p><strong>NETWORK:</strong> SOLANA</p>
@@ -162,17 +155,6 @@ const PledgeForm = ({ onSubmit }) => {
           </div>
 
           <div className="form-group">
-            <label className="form-label">Type below the amount you invested</label>
-            <input
-              className="form-input"
-              type="text"
-              value={investedAmount}
-              onChange={(e) => setInvestedAmount(e.target.value)}
-              placeholder="Enter the amount you invested"
-            />
-          </div>
-
-          <div className="form-group">
             <label className="form-label">Paste your blockchain explorer transaction link here</label>
             <input
               className="form-input"
@@ -184,13 +166,13 @@ const PledgeForm = ({ onSubmit }) => {
           </div>
 
           <div className="form-group">
-            <label className="form-label">Post your BASE Claim wallet</label>
+            <label className="form-label">Post your SOLANA Claim wallet</label>
             <input
               className="form-input"
               type="text"
               value={claimWallet}
               onChange={(e) => setClaimWallet(e.target.value)}
-              placeholder="Enter your BASE wallet address"
+              placeholder="Enter your SOLANA wallet address"
             />
             <p className="form-description">The wallet you'll be using to get your tokens. Please make sure it's the correct wallet!</p>
           </div>
@@ -267,7 +249,7 @@ const PledgeForm = ({ onSubmit }) => {
             className="form-textarea"
             value={elaboration}
             onChange={(e) => setElaboration(e.target.value)}
-            placeholder="Share how you can contribute to $SHOWA in as much detail as possible"
+            placeholder="Anything else you want us to know?"
             rows={4}
           />
         </div>
