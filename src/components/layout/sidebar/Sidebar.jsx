@@ -568,7 +568,7 @@ const Sidebar = () => {
                     <span className="menu_text">Help & Feedback</span>
                   </Link>
                 </li>
-                <li className={`${!isAmbassador ? "disabled ambassador-disabled" : ""} item-progress`}>
+                <li className={`${!isAmbassador ? "disabled ambassador-disabled" : ""} item-progress`} onClick={handleAmbassadorClick}>
                   <Link to="#" className={!isAmbassador ? "disabled-link" : ""}>
                     <ProjectNavTabIcon />
                     <span>Ambassadorship</span>

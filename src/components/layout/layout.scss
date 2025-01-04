@@ -40,11 +40,12 @@
                 }
 
                 .content_box {
+
                     flex: 1;
-                    background-color: transparent;
+                    background-color: transparent; 
                     border-radius: 9px;
                     padding: 0px 0px 24px 0px;
-                    overflow-y: auto;
+                    overflow-y: hidden;
                     height: 100%;
                     width: 100%;
                     min-width: 0;
