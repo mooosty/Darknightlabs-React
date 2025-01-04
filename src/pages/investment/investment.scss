@@ -474,6 +474,11 @@
                                         box-shadow: 0 2px 8px rgba(255, 59, 59, 0.3);
                                         color: var(--primary-white);
                                     }
+
+                                    &.incoming_mode {
+                                        background: var(--primary-yellow);
+                                        box-shadow: 0 2px 8px rgba(255, 223, 118, 0.3);
+                                    }
                                 }
 
                                 @media (max-width: 767px) {

@@ -2,8 +2,9 @@ import axios from "axios";
 import { axiosApi } from "../../api-services/service";
 import "./userProfile.scss";
 import { useFormik } from "formik";
-import { toast } from "react-toastify";
-import { useEffect, useState } from "react";
+// import { toast } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
+import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editUserProfileAPI, getUsersDetailsAPI, updatePasswordAPI } from "../../api-services/userApis";
 import {
@@ -422,7 +423,7 @@ const DiscordAuthButton = ({ onSuccess }) => {
     >
       <img src={discordIcon} alt="" />
       {loading ? "Connecting..." : hasDiscord ? (
-        <>
+        <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           Discord Connected
           <svg 
             className="checkmark" 
@@ -440,11 +441,147 @@ const DiscordAuthButton = ({ onSuccess }) => {
               strokeLinejoin="round"
             />
           </svg>
-        </>
+        </span>
       ) : "Connect Discord"}
       {status && <div className={`status-message ${status.includes("Error") ? "error" : "success"}`}>{status}</div>}
     </button>
   );
+};
+
+// Add this constant at the top of the file with other imports
+const MAJOR_CITIES = [
+  "New York, USA",
+  "London, UK",
+  "Paris, France",
+  "Tokyo, Japan",
+  "Singapore, Singapore",
+  "Dubai, UAE",
+  "Hong Kong, China",
+  "Los Angeles, USA",
+  "Shanghai, China",
+  "Toronto, Canada",
+  "Sydney, Australia",
+  "Berlin, Germany",
+  "Mumbai, India",
+  "Seoul, South Korea",
+  "São Paulo, Brazil",
+  "Amsterdam, Netherlands",
+  "Madrid, Spain",
+  "Miami, USA",
+  "San Francisco, USA",
+  "Chicago, USA",
+  "Bangkok, Thailand",
+  "Beijing, China",
+  "Istanbul, Turkey",
+  "Moscow, Russia",
+  "Mexico City, Mexico",
+  "Jakarta, Indonesia",
+  "Manila, Philippines",
+  "Kuala Lumpur, Malaysia",
+  "Rome, Italy",
+  "Vienna, Austria",
+  "Stockholm, Sweden",
+  "Zurich, Switzerland",
+  "Vancouver, Canada",
+  "Melbourne, Australia",
+  "Barcelona, Spain",
+  "Munich, Germany",
+  "Tel Aviv, Israel",
+  "Copenhagen, Denmark",
+  "Brussels, Belgium",
+  "Oslo, Norway",
+  "Dublin, Ireland",
+  "Helsinki, Finland",
+  "Prague, Czech Republic",
+  "Warsaw, Poland",
+  "Budapest, Hungary",
+  "Athens, Greece",
+  "Lisbon, Portugal",
+  "Buenos Aires, Argentina",
+  "Santiago, Chile",
+  "Lima, Peru"
+];
+
+const CityAutocomplete = ({ value, onChange, placeholder, label }) => {
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [inputValue, setInputValue] = useState(value || "");
+  const wrapperRef = useRef(null);
+
+  useEffect(() => {
+    setInputValue(value || "");
+  }, [value]);
+
+  useEffect(() => {
+    // Click outside handler
+    const handleClickOutside = (event) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        setShowSuggestions(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setInputValue(value);
+    setShowSuggestions(true);
+
+    if (value.length < 2) {
+      setSuggestions([]);
+      return;
+    }
+
+    // Filter cities based on input
+    const filteredCities = MAJOR_CITIES.filter(city =>
+      city.toLowerCase().includes(value.toLowerCase())
+    ).slice(0, 10);
+
+    setSuggestions(filteredCities);
+  };
+
+  const handleSuggestionClick = (city) => {
+    setInputValue(city);
+    onChange(city);
+    setShowSuggestions(false);
+    setSuggestions([]);
+  };
+
+  return (
+    <div className="city-autocomplete-wrapper" ref={wrapperRef}>
+      <label>{label}</label>
+      <div className="city-input-container">
+        <input
+          type="text"
+          value={inputValue}
+          onChange={handleInputChange}
+          onFocus={() => setShowSuggestions(true)}
+          placeholder={placeholder}
+          className="city-input"
+        />
+      </div>
+      {showSuggestions && suggestions.length > 0 && (
+        <ul className="city-suggestions">
+          {suggestions.map((city, index) => (
+            <li
+              key={index}
+              onClick={() => handleSuggestionClick(city)}
+              className="city-suggestion-item"
+            >
+              {city}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
+
+// Add this helper function near the top of the file
+const isInvestor = (roles) => {
+  return roles?.includes("Angel Investor") || roles?.includes("Venture Capital");
 };
 
 const UserProfile = () => {
@@ -464,6 +601,8 @@ const UserProfile = () => {
   const [hasTelegram, setHasTelegram] = useState(false);
   const [telegramData, setTelegramData] = useState(null);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
+  const [initialInvestorValues, setInitialInvestorValues] = useState(null);
+  const [isSaveEnabled, setIsSaveEnabled] = useState(false);
 
   const { authDetails } = useSelector((state) => state.auth);
 
@@ -791,26 +930,31 @@ const UserProfile = () => {
     fetchProjects();
   }, [dispatch]);
 
+  // Add this function to check if investor fields have changed
+  const checkInvestorFieldsChanged = (currentValues) => {
+    if (!initialInvestorValues) return false;
+
+    // Helper function to compare arrays
+    const areArraysEqual = (arr1, arr2) => {
+      if (!arr1 || !arr2) return false;
+      if (arr1.length !== arr2.length) return true;
+      return arr1.some((item, index) => item !== arr2[index]);
+    };
+
+    // Compare each field
+    const hasChanges = 
+      areArraysEqual(currentValues.ticket_size, initialInvestorValues.ticket_size) ||
+      areArraysEqual(currentValues.investment_thesis, initialInvestorValues.investment_thesis) ||
+      areArraysEqual(currentValues.investment_stage, initialInvestorValues.investment_stage) ||
+      currentValues.investment_description !== initialInvestorValues.investment_description ||
+      currentValues.previous_investments !== initialInvestorValues.previous_investments;
+
+    setIsSaveEnabled(hasChanges);
+  };
+
+  // Modify the useEffect that sets initial values to also set initialInvestorValues
   useEffect(() => {
     if (userDetails) {
-      const roles =
-        userDetails.roles?.split(",").map((r) => {
-          switch (r.trim()) {
-            case "A Founder":
-              return "Founder";
-            case "A C-level":
-              return "C-level";
-            case "A Web3 employee":
-              return "Web3 employee";
-            case "A KOL / Ambassador / Content Creator":
-              return "KOL / Ambassador / Content Creator";
-            case "An Angel Investor":
-              return "Angel Investor";
-            default:
-              return r.trim();
-          }
-        }) || [];
-
       // Parse ticket_size if it's a string
       let parsedTicketSize = [];
       try {
@@ -857,10 +1001,20 @@ const UserProfile = () => {
         console.error('Error parsing investment_thesis:', e);
       }
 
+      // Set initial investor values
+      setInitialInvestorValues({
+        ticket_size: parsedTicketSize,
+        investment_thesis: parsedInvestmentThesis,
+        investment_stage: parsedInvestmentStage,
+        investment_description: userDetails?.investment_description || "",
+        previous_investments: userDetails?.previous_investments || "",
+      });
+
+      // Set form values
       setValues({
         ...initialValues,
         ...userDetails,
-        roles: roles,
+        roles: userDetails?.roles?.split(",") || [],
         telegram_username: telegramUsername || userDetails.telegram_username,
         investment_stage: parsedInvestmentStage,
         investment_thesis: parsedInvestmentThesis,
@@ -869,6 +1023,13 @@ const UserProfile = () => {
       });
     }
   }, [userDetails, telegramUsername]);
+
+  // Add effect to check for changes when values change
+  useEffect(() => {
+    if (values && initialInvestorValues) {
+      checkInvestorFieldsChanged(values);
+    }
+  }, [values?.ticket_size, values?.investment_thesis, values?.investment_stage, values?.investment_description, values?.previous_investments]);
 
   const handleInvestmentThesisChange = (value) => {
     const currentThesis = values?.investment_thesis || [];
@@ -1179,10 +1340,10 @@ const UserProfile = () => {
                         {/* Left Column */}
                         <div className="profile_info">
                           <div className="profile_head">
-                            Average ticket size {values?.roles?.includes("Angel Investor") ? "*" : ""}
+                            Average ticket size {isInvestor(values?.roles) ? "*" : ""}
                           </div>
                           <div className="profile_data">
-                            {values?.roles?.includes("Angel Investor") ? (
+                            {isInvestor(values?.roles) ? (
                               <>
                                 <label className="check_box" htmlFor="5k">
                                   <input
@@ -1369,10 +1530,10 @@ const UserProfile = () => {
                         {/* Right Column */}
                         <div className="profile_info">
                           <div className="profile_head">
-                          Investment Categories {values?.roles?.includes("Angel Investor") ? "*" : ""}
+                          Investment Categories {isInvestor(values?.roles) ? "*" : ""}
                           </div>
                           <div className="profile_data">
-                            {values?.roles?.includes("Angel Investor") ? (
+                            {isInvestor(values?.roles) ? (
                               <>
                                 <label className="check_box" htmlFor="gaming">
                                   <input
@@ -1503,10 +1664,10 @@ const UserProfile = () => {
                         {/* Bottom Section - Full Width */}
                         <div className="profile_info">
                           <div className="profile_head">
-                            What's your investment thesis? {values?.roles?.includes("Angel Investor") ? "*" : ""}
+                            What's your investment thesis? {isInvestor(values?.roles) ? "*" : ""}
                           </div>
                           <div className="profile_data">
-                            {(values?.roles?.includes("Angel Investor") || values?.roles?.includes("Venture Capital")) ? (
+                            {isInvestor(values?.roles) ? (
                               <>
                                 <div className="radio_group">
                                   <div
@@ -1592,7 +1753,18 @@ const UserProfile = () => {
                                   onChange={handleChange}
                                 />
                                 <div className="save_button_container">
-                                  <button className="btn_gray save_button" type="submit" onClick={handleSubmit}>
+                                  <button 
+                                    className={`btn_gray save_button ${!isSaveEnabled ? 'disabled' : ''}`} 
+                                    type="submit" 
+                                    onClick={handleSubmit} 
+                                    disabled={!isSaveEnabled}
+                                    style={{
+                                      opacity: !isSaveEnabled ? '0.5' : '1',
+                                      cursor: !isSaveEnabled ? 'not-allowed' : 'pointer',
+                                      backgroundColor: !isSaveEnabled ? '#4a4a4a' : undefined,
+                                      transition: 'all 0.3s ease'
+                                    }}
+                                  >
                                     {isLoading ? (
                                       <>
                                         <Loader loading={isLoading} isItForButton={true} /> <p>Saving...</p>
@@ -1747,23 +1919,19 @@ const UserProfile = () => {
 
                       <div className="form_group_row">
                         <div className="profile_info">
-                          <label>Main City (for timezone and events) e.g. Paris, France </label>
-                          <input
-                            type="text"
-                            name="primary_city"
+                          <CityAutocomplete
                             value={values?.primary_city}
-                            onChange={handleChange}
-                            placeholder="Primary City"
+                            onChange={(value) => setFieldValue("primary_city", value)}
+                            placeholder="Enter your main city"
+                            label="Main City (for timezone and events)"
                           />
                         </div>
                         <div className="profile_info">
-                          <label>Secondary cities (separate each with a '/')</label>
-                          <input
-                            type="text"
-                            name="secondary_city"
+                          <CityAutocomplete
                             value={values?.secondary_city}
-                            onChange={handleChange}
-                            placeholder="Secondary Cities"
+                            onChange={(value) => setFieldValue("secondary_city", value)}
+                            placeholder="Enter your secondary city"
+                            label="Secondary City"
                           />
                         </div>
                       </div>
@@ -2050,7 +2218,8 @@ const UserProfile = () => {
                             >
                               <img src={telegramIcon} alt="" />
                               {hasTelegram ? (
-                                <>
+                                        <span style={{ display: 'flex', alignItems: 'center', gap: '3px' }}>
+
                                   Telegram Connected
                                   <svg 
                                     className="checkmark" 
@@ -2068,7 +2237,7 @@ const UserProfile = () => {
                                       strokeLinejoin="round"
                                     />
                                   </svg>
-                                </>
+                                </span>
                               ) : (
                                 'Verify Telegram Account'
                               )}

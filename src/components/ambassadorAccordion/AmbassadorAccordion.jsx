@@ -3,7 +3,8 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { CopyIcon, DownIcon, editIcon, DeleteIcon, CheckIcon } from '../../utils/constants/images';
 import { DeleteConfirmPopup } from '../../components'
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
+import toast, { Toaster } from "react-hot-toast";
 
 const AmbassadorAccordion = ({
     tweetText,

@@ -6,8 +6,10 @@ import toast, { Toaster } from "react-hot-toast";
 import { CopyIcon, CheckIcon } from "../../utils/constants/images";
 import { KarmaIcon } from "../../utils/SVGs/SVGs";
 import { axiosApi } from "../../api-services/service";
+import { useNavigate } from "react-router-dom";
 
 const Karma = () => {
+  const navigate = useNavigate();
   const [currentKarma, setCurrentKarma] = useState(0);
 
   const [isExpanded, setIsExpanded] = useState(false);
@@ -83,7 +85,14 @@ const Karma = () => {
     try {
       if (!userDetails?.username) {
         toast.dismiss();
-        toast("Username not found. Please complete your profile first.");
+        toast((t) => (
+          <span onClick={() => {
+            toast.dismiss(t.id);
+            navigate("/profile");
+          }} style={{ cursor: "pointer" }}>
+            Username not found. Please complete your profile first.
+          </span>
+        ));
         return;
       }
       const response = await axiosApi.post("/tiny-url/", {
@@ -119,28 +128,7 @@ const Karma = () => {
 
   return (
     <div className="karma_page">
-      <Toaster
-        position="bottom-center"
-        toastOptions={{
-          className: "",
-          duration: 5000,
-          style: {
-            background: "#242623",
-            color: "#fff",
-            textAlign: "center",
-            fontSize: "18px",
-            padding: "20px",
-            border: "1px solid #ff8a1c",
-          },
-          success: {
-            duration: 3000,
-            theme: {
-              primary: "green",
-              secondary: "black",
-            },
-          },
-        }}
-      />
+      
 
       <div className="karma_content_header">
         <div className="karma_content_left">

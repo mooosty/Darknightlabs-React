@@ -3,7 +3,8 @@ import { ethers } from 'ethers';
 import PropTypes from 'prop-types';
 import './ContributionForm.scss';
 import { PRESALE_CONTRACT, USDT_CONTRACT } from '../../../utils/contracts/contracts';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
+import toast, { Toaster } from "react-hot-toast";
 
 const ContributionForm = ({ walletAddress, whitelistSignature }) => {
   const [amount, setAmount] = useState('');

@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import './PledgeForm.scss';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
+import toast, { Toaster } from "react-hot-toast";
 
 const valueOptions = [
   'Social Ambassadorship',
@@ -212,7 +213,7 @@ const PledgeForm = ({ onSubmit }) => {
               value={currentValue}
               onChange={(e) => setCurrentValue(e.target.value)}
             >
-              <option value="">Select a value</option>
+              <option value="">Select value-adds</option>
               {valueOptions.map((option) => (
                 <option key={option} value={option}>
                   {option}

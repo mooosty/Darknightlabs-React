@@ -1,8 +1,9 @@
 import { BrowserProvider } from "ethers";
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import "./WalletConnect.scss";
+import toast, { Toaster } from "react-hot-toast";
 
 const WalletConnect = ({ onConnect, account }) => {
   const [isConnecting, setIsConnecting] = useState(false);

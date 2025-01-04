@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types'
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
+import toast, { Toaster } from "react-hot-toast";
 import { useDispatch } from 'react-redux';
 import { createSynergyApi } from '../../api-services/synergyApi';
 import { createGroupAPI, createUserAPI } from '../../api-services/chatApis';

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useFormik } from 'formik';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
+import toast, { Toaster } from "react-hot-toast";
 import './createSynergyRequestPopup.scss'
 import Select from '../../select/Select';
 import { useEffect, useState } from 'react';

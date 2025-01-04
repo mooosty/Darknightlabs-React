@@ -1,7 +1,8 @@
 import "./investment.scss";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { appendToSheet } from "../../utils/googleSheets";
@@ -56,21 +57,21 @@ const cardData = [
     state: "PLEDGE",
   },
   {
-    investmentName: "Investment name",
+    investmentName: "⚔️ Karate Combat",
     investorImg: cardActor2,
-    tags: ["🌐 #Metaverse", "🤖 #AI", "👾 #Gaming"],
+    tags: ["🥋 #Sports", "💪 #Combat", "🌐 #Web3"],
     investments: [
       {
-        head: "Token name",
-        data: "$RIFT",
+        head: "Token",
+        data: "$KARATE",
       },
       {
-        head: "Round",
-        data: "private",
+        head: "Status",
+        data: "Incoming",
       },
       {
-        head: "FDV",
-        data: "20mil",
+        head: "Launch",
+        data: "TBA",
       },
     ],
     state: "PLEDGE",
@@ -1017,9 +1018,9 @@ const Investment = () => {
                                 {data.karmaNeeded !== undefined && (
                                   <div className="karma_needed">Karma needed: {data.karmaNeeded}</div>
                                 )}
-                                {index === 0 && (
-                                  <div className={`investment_state ${isPhase2 ? "pledge_mode" : "invest_mode"}`}>
-                                    {isPhase2 ? "Pledge" : "Invest"}
+                                {(index === 0 || index === 1) && (
+                                  <div className={`investment_state ${index === 0 ? (isPhase2 ? "pledge_mode" : "invest_mode") : "incoming_mode"}`}>
+                                    {index === 0 ? (isPhase2 ? "Pledge" : "Invest") : "Incoming"}
                                   </div>
                                 )}
                               </div>

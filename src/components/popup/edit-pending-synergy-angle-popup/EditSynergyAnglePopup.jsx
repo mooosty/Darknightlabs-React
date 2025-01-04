@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
+import toast, { Toaster } from "react-hot-toast";
 import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AddCircleIcon, angelBg, CLeseCircleIcon, GlobalIcon } from '../../../utils/constants/images';
