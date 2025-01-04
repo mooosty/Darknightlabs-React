@@ -27,7 +27,7 @@
             gap: 15px;
             position: sticky;
             top: 0;
-            z-index: 10;
+            z-index: 1;
             background-color: var(--primary-background);
         }
 
@@ -35,15 +35,17 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            position: relative;
 
             @media (max-width: 767px) {
                 width: 100%;
                 padding: 0;
                 flex-wrap: wrap;
+                justify-content: space-between;
             }
 
             @media (max-width: 500px) {
-                padding-inline: 20px;
+                padding-inline: 0px;
             }
 
             h2 {
@@ -57,10 +59,50 @@
                 }
 
                 @media (max-width: 767px) {
-                    font-size: 24px;
+                    font-size: 28px;
                 }
             }
 
+            .search_wrap {
+                @media (max-width: 767px) {
+                    position: absolute;
+                    right: 0;
+                }
+            }
+        }
+
+        .mobile_search {
+            display: none;
+            
+            @media (max-width: 767px) {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                padding: 8px 12px;
+                background: var(--card-background);
+                border-radius: 6px;
+                gap: 10px;
+
+                .icon {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: var(--primary-text);
+                }
+
+                input {
+                    flex: 1;
+                    background: transparent;
+                    border: none;
+                    color: var(--primary-text);
+                    font-size: 14px;
+                    outline: none;
+
+                    &::placeholder {
+                        color: var(--primary-text-op50);
+                    }
+                }
+            }
         }
 
         .content_right {

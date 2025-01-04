@@ -531,10 +531,10 @@
             }
   
             &:hover::after {
-              content: "Please complete your profile to unlock";
+              // content: "Please complete your profile to unlock";
               position: relative;
               background: rgba(255, 138, 28, 0.1);
-              color: rgba(0, 255, 0, 0.8);
+              color: rgba(255, 60, 0, 0.8);
               padding: 8px 12px;
               border-radius: 6px;
               font-size: 14px;
@@ -547,22 +547,22 @@
               opacity: 1;
             }
   
-            &:hover::before {
-              content: "";
-              position: absolute;
-              left: 50%;
-              bottom: calc(100% - 6px);
-              transform: translateX(-50%);
-              border-width: 6px;
-              border-style: solid;
-              border-color: #000000 transparent transparent transparent;
-              z-index: 99999;
-            }
+            // &:hover::before {
+            //   content: "";
+            //   position: absolute;
+            //   left: 50%;
+            //   bottom: calc(100% - 6px);
+            //   transform: translateX(-50%);
+            //   border-width: 6px;
+            //   border-style: solid;
+            //   border-color: #000000 transparent transparent transparent;
+            //   z-index: 99999;
+            // }
   
-            &.ambassador-disabled:hover::after {
-              content: "Please complete your ambassadorship request in profile section";
-              opacity: 1;
-            }
+            // &.ambassador-disabled:hover::after {
+            //   content: "Please complete your ambassadorship request in profile section";
+            //   opacity: 1;
+            // }
           }
   
           &.disabled:hover .tooltip-text {
@@ -677,28 +677,28 @@
         pointer-events: none;
       }
   
-      &:hover::after {
-        content: "Please complete your profile to unlock";
-        position: relative;
-        background: #ff0000;
-        color: #00ff00;
-        padding: 8px 12px;
-        border-radius: 6px;
-        font-size: 14px;
-        white-space: nowrap;
-        left: 50%;
-        bottom: 100%;
-        transform: translateX(-50%);
-        margin-bottom: 10px;
-        z-index: 99999;
-        border: 1px solid rgba(245, 239, 219, 0.2);
-        opacity: 1;
-      }
+      // &:hover::after {
+      //   content: "Please complete your profile to unlock";
+      //   position: relative;
+      //   background: #ff0000;
+      //   color: #00ff00;
+      //   padding: 8px 12px;
+      //   border-radius: 6px;
+      //   font-size: 14px;
+      //   white-space: nowrap;
+      //   left: 50%;
+      //   bottom: 100%;
+      //   transform: translateX(-50%);
+      //   margin-bottom: 10px;
+      //   z-index: 99999;
+      //   border: 1px solid rgba(245, 239, 219, 0.2);
+      //   opacity: 1;
+      // }
   
-      &.ambassador-disabled:hover::after {
-        content: "Please complete your ambassadorship request in profile section";
-        opacity: 1;
-      }
+      // &.ambassador-disabled:hover::after {
+      //   content: "Please complete your ambassadorship request in profile section";
+      //   opacity: 1;
+      // }
     }
   }
   

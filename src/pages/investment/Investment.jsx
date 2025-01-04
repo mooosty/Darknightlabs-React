@@ -357,7 +357,7 @@ const hasMaxContributions = false;
 const Investment = () => {
   const dispatch = useDispatch();
   const { walletAddress, isWalletVerified, whitelistMessage } = useSelector((state) => state.auth);
-  const [activeLayout, setActiveLayout] = useState(["All"]);
+  const [activeLayout, setActiveLayout] = useState(["all"]);
   const [showDetails, setShowDetails] = useState(false);
   // const [selectedInvestment, setSelectedInvestment] = useState(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);

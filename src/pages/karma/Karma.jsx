@@ -177,13 +177,13 @@ const Karma = () => {
               style={{
                 display: "flex",
                 justifyContent: "space-between",
-                alignItems: "center",
+                // alignItems: "center",
                 marginBottom: "16px",
                 cursor: "pointer",
               }}
             >
               <h3>How Karma Points Work</h3>
-              <button
+              <div
                 className="read-more-btn"
                 onClick={(e) => {
                   e.stopPropagation();
@@ -195,7 +195,7 @@ const Karma = () => {
                   color: "#DCCA87",
                   cursor: "pointer",
                   fontSize: "16px",
-                  padding: "4px 8px",
+                  // padding: "4px 8px",
                   marginLeft: "auto",
                   fontFamily: "MedievalSharp",
                   letterSpacing: "0.5px",
@@ -203,7 +203,7 @@ const Karma = () => {
                 }}
               >
                 {isExpanded ? "Read Less" : "Read More"}
-              </button>
+              </div>
             </div>
             <div className={`karma_explanation ${isExpanded ? "expanded" : ""}`}>
               {isExpanded ? (

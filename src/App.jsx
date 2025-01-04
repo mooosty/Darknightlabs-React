@@ -88,7 +88,7 @@ function App() {
         theme="dark"
       /> */}
       <Toaster
-        position="bottom-center"
+        position="top-center"
         toastOptions={{
           className: "",
           duration: 5000,

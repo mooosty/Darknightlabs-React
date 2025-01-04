@@ -6,6 +6,7 @@ import { ROUTER } from "../../../utils/routes/routes";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
+import toast from "react-hot-toast";
 import { defaultImg } from "../../../utils/constants/images";
 import { getUsersDetailsAPI } from "../../../api-services/userApis";
 import {
@@ -19,6 +20,7 @@ import {
   PendingSynergiesNavTabIcon,
   SynergiesManagerNavTabIcon,
   KarmaIcon,
+  BackNavTabIcon
 } from "../../../utils/SVGs/SVGs";
 
 const userRole = "User";
@@ -449,14 +451,16 @@ const Sidebar = () => {
                     <span>Announcements</span>
                   </Link>
                 </li>
-                <li className={`${location.pathname === `/${ROUTER.projects}` ? "active" : ""} disabled item-progress`}>
+                <li className={`${location.pathname === `/${ROUTER.projects}` ? "active" : ""} disabled `}
+                onClick={()=>{
+                  toast("Please complete your profile to unlock")
+                }}
+                >
                   <Link to="#" className="disabled-link">
                     <ProjectNavTabIcon />
                     <span>Projects</span>
                   </Link>
-                  <div className="item-tooltip">
-                    <p>Please complete your profile to unlock</p>
-                  </div>
+                  
                 </li>
                 {userRole == "ADMIN" && (
                   <li
@@ -471,15 +475,16 @@ const Sidebar = () => {
                   </li>
                 )}
                 <li
-                  className={`${location.pathname === `/${ROUTER.synergies}` ? "active" : ""} disabled item-progress`}
-                >
+                  className={`${location.pathname === `/${ROUTER.synergies}` ? "active" : ""} disabled `}
+                onClick={()=>{
+                  toast("Please complete your profile to unlock")
+                }}
+               >
                   <Link to="#" className="disabled-link">
                     <SynergiesNavTabIcon />
                     <span>Synergies</span>
                   </Link>
-                  <div className="item-tooltip">
-                    <p>Please complete your profile to unlock</p>
-                  </div>
+                
                 </li>
                 <li className={`${location.pathname === `/${ROUTER.investment}` ? "active" : ""}`}>
                   <Link to={ROUTER.investment}>
@@ -511,14 +516,16 @@ const Sidebar = () => {
                     </li>
                   </>
                 )}
-                <li className={`${location.pathname === `/${ROUTER.chat}` ? "active" : ""} disabled item-progress`}>
+                <li className={`${location.pathname === `/${ROUTER.chat}` ? "active" : ""} disabled `}
+                onClick={()=>{
+                  toast("Please complete your profile to unlock")
+                }}
+                >
                   <Link to="#" className="disabled-link">
                     <ChatNavTabIcon />
                     <span className="chat">Chat</span>
                   </Link>
-                  <div className="item-tooltip">
-                    <p>Please complete your profile to unlock</p>
-                  </div>
+                
                 </li>
                 <li className={`${location.pathname === `/${ROUTER.karma}` ? "active" : ""}`}>
                   <Link to={ROUTER.karma}>
@@ -568,14 +575,23 @@ const Sidebar = () => {
                     <span className="menu_text">Help & Feedback</span>
                   </Link>
                 </li>
-                <li className={`${!isAmbassador ? "disabled ambassador-disabled" : ""} item-progress`}>
-                  <Link to="#" className={!isAmbassador ? "disabled-link" : ""}>
+                <li className={`${!isAmbassador ? "disabled ambassador-disabled" : ""} `}
+                onClick={()=>{
+                  if(!isAmbassador){
+                  toast("Please complete your ambassadorship request in profile section")
+                }}}
+                >
+                  <Link to={ROUTER.myContent}
+                        onClick={handleAmbassadorClick} 
+                        className={!isAmbassador ? "disabled-link" : ""}>
                     <ProjectNavTabIcon />
                     <span>Ambassadorship</span>
                   </Link>
                   {!isAmbassador && (
-                    <div className="item-tooltip">
-                      <p>Please complete your ambassadorship request in profile section</p>
+                    <div className=""
+                    
+                    >
+                     
                     </div>
                   )}
                 </li>
@@ -584,7 +600,8 @@ const Sidebar = () => {
               <>
                 <li onClick={handleBackClick}>
                   <Link to="#">
-                    <span>←</span>
+                    {/* <span>←</span> */}
+                    <BackNavTabIcon />
                     <span>Back</span>
                   </Link>
                 </li>
