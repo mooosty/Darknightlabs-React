@@ -27,6 +27,7 @@
             @media (max-width: 767px) {
                 width: 100%;
                 padding: 15px 24px;
+                
                 gap: 10px;
                 justify-content: space-between;
             }
@@ -64,6 +65,7 @@
 
         @media (max-width: 767px) {
             height: calc(100vh - 120px);
+            padding-bottom: 60px;
             border-radius: 0;
             padding-top: 0;
         }
@@ -133,6 +135,7 @@
                     .read-more {
                         color: #FFDF76;
                         font-size: 16px;
+                    
                         font-family: "MedievalSharp", cursive;
                         cursor: pointer;
                         transition: opacity 0.2s ease;
@@ -341,7 +344,7 @@
                 h3 {
                     color: var(--primary-text);
                     font-size: 24px;
-                    margin-bottom: 20px;
+                    // margin-bottom: 20px;
                     font-family: "MedievalSharp", cursive;
                 }
 

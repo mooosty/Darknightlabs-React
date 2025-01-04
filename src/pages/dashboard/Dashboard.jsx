@@ -250,7 +250,27 @@ const Dashboard = () => {
             <div className="social-account-item">
               <div className="account-info">
                 <span className="platform-name">Twitter</span>
-                <span className="connection-status">Follow us</span>
+                <span className="connection-status">Follow The Darknight Himself</span>
+              </div>
+              <a href="https://x.com/DarknightHimslf" target="_blank" rel="noopener noreferrer" style={{ backgroundColor: 'rgba(245, 239, 219, 0.1)', padding: '8px 16px', borderRadius: '4px', color: '#F5EFDB', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px', width: '120px', justifyContent: 'center', padding: '8px 85px' }}>
+                <img src={twitterIcon} alt="Twitter" />
+                Twitter
+              </a>
+            </div>
+            <div className="social-account-item">
+              <div className="account-info">
+                <span className="platform-name">Twitter</span>
+                <span className="connection-status">Follow Darknight Labs</span>
+              </div>
+              <a href="https://x.com/DarknightLabs" target="_blank" rel="noopener noreferrer" style={{ backgroundColor: 'rgba(245, 239, 219, 0.1)', padding: '8px 16px', borderRadius: '4px', color: '#F5EFDB', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px', width: '120px', justifyContent: 'center', padding: '8px 85px' }}>
+                <img src={twitterIcon} alt="Twitter" />
+                Twitter
+              </a>
+            </div>
+            <div className="social-account-item">
+              <div className="account-info">
+                <span className="platform-name">Twitter</span>
+                <span className="connection-status">Follow The Win-Win Society</span>
               </div>
               <a href="https://x.com/WinWinSocietyHQ" target="_blank" rel="noopener noreferrer" style={{ backgroundColor: 'rgba(245, 239, 219, 0.1)', padding: '8px 16px', borderRadius: '4px', color: '#F5EFDB', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px', width: '120px', justifyContent: 'center', padding: '8px 85px' }}>
                 <img src={twitterIcon} alt="Twitter" />

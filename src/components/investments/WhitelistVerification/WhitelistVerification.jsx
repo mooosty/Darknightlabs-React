@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { ethers } from "ethers";
 import PropTypes from 'prop-types';
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 // import { PRESALE_CONTRACT } from "../../../utils/contracts/contracts";
 import "./WhitelistVerification.scss";
+import toast, { Toaster } from "react-hot-toast";
 
 const WhitelistVerification = ({ walletAddress, onVerificationComplete }) => {
   const [message, setMessage] = useState("");

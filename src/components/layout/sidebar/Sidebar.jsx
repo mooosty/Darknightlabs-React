@@ -6,6 +6,7 @@ import { ROUTER } from "../../../utils/routes/routes";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
+import toast from "react-hot-toast";
 import { defaultImg } from "../../../utils/constants/images";
 import { getUsersDetailsAPI } from "../../../api-services/userApis";
 import {
@@ -19,6 +20,7 @@ import {
   PendingSynergiesNavTabIcon,
   SynergiesManagerNavTabIcon,
   KarmaIcon,
+  BackNavTabIcon
 } from "../../../utils/SVGs/SVGs";
 
 const userRole = "User";
@@ -132,7 +134,7 @@ const Sidebar = () => {
             </>
           )}
           <div className="profile_box">
-            <div className="profile_info">
+            <div className="profile_info" onClick={() => navigate(`/${ROUTER.profile}`)} style={{ cursor: "pointer" }}>
               <div className="profile_image">
                 <img
                   src={getProfilePicture()}
@@ -338,6 +340,23 @@ const Sidebar = () => {
                         <span className="menu_text">About</span>
                       </Link>
                     </li>
+                    <li className={`${location.pathname === `/${ROUTER.helpFeedback}` ? "active" : ""}`}>
+                      <Link to={`/${ROUTER.helpFeedback}`}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          style={{ width: "20px", height: "20px" }}
+                        >
+                          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                        </svg>
+                        <span className="menu_text">Help & Feedback</span>
+                      </Link>
+                    </li>
                   </ul>
                 </div>
                 <div className="menu-box">
@@ -432,14 +451,16 @@ const Sidebar = () => {
                     <span>Announcements</span>
                   </Link>
                 </li>
-                <li className={`${location.pathname === `/${ROUTER.projects}` ? "active" : ""} disabled item-progress`}>
+                <li className={`${location.pathname === `/${ROUTER.projects}` ? "active" : ""} disabled `}
+                onClick={()=>{
+                  toast("Please complete your profile to unlock")
+                }}
+                >
                   <Link to="#" className="disabled-link">
                     <ProjectNavTabIcon />
                     <span>Projects</span>
                   </Link>
-                  <div className="item-tooltip">
-                    <p>Please complete your profile to unlock</p>
-                  </div>
+                  
                 </li>
                 {userRole == "ADMIN" && (
                   <li
@@ -454,15 +475,16 @@ const Sidebar = () => {
                   </li>
                 )}
                 <li
-                  className={`${location.pathname === `/${ROUTER.synergies}` ? "active" : ""} disabled item-progress`}
-                >
+                  className={`${location.pathname === `/${ROUTER.synergies}` ? "active" : ""} disabled `}
+                onClick={()=>{
+                  toast("Please complete your profile to unlock")
+                }}
+               >
                   <Link to="#" className="disabled-link">
                     <SynergiesNavTabIcon />
                     <span>Synergies</span>
                   </Link>
-                  <div className="item-tooltip">
-                    <p>Please complete your profile to unlock</p>
-                  </div>
+                
                 </li>
                 <li className={`${location.pathname === `/${ROUTER.investment}` ? "active" : ""}`}>
                   <Link to={ROUTER.investment}>
@@ -494,14 +516,16 @@ const Sidebar = () => {
                     </li>
                   </>
                 )}
-                <li className={`${location.pathname === `/${ROUTER.chat}` ? "active" : ""} disabled item-progress`}>
+                <li className={`${location.pathname === `/${ROUTER.chat}` ? "active" : ""} disabled `}
+                onClick={()=>{
+                  toast("Please complete your profile to unlock")
+                }}
+                >
                   <Link to="#" className="disabled-link">
                     <ChatNavTabIcon />
                     <span className="chat">Chat</span>
                   </Link>
-                  <div className="item-tooltip">
-                    <p>Please complete your profile to unlock</p>
-                  </div>
+                
                 </li>
                 <li className={`${location.pathname === `/${ROUTER.karma}` ? "active" : ""}`}>
                   <Link to={ROUTER.karma}>
@@ -531,17 +555,43 @@ const Sidebar = () => {
                       <line x1="12" y1="16" x2="12" y2="12"></line>
                       <line x1="12" y1="8" x2="12.01" y2="8"></line>
                     </svg>
-                    <span>About</span>
+                    <span className="menu_text">About</span>
                   </Link>
                 </li>
-                <li className={`${!isAmbassador ? "disabled ambassador-disabled" : ""} item-progress`}>
-                  <Link to="#" className={!isAmbassador ? "disabled-link" : ""}>
+                <li className={`${location.pathname === `/${ROUTER.helpFeedback}` ? "active" : ""}`}>
+                  <Link to={`/${ROUTER.helpFeedback}`}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      style={{ width: "20px", height: "20px" }}
+                    >
+                      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                    </svg>
+                    <span className="menu_text">Help & Feedback</span>
+                  </Link>
+                </li>
+                <li className={`${!isAmbassador ? "disabled ambassador-disabled" : ""} `}
+                onClick={()=>{
+                  if(!isAmbassador){
+                  toast("Please complete your ambassadorship request in profile section")
+                }}}
+                >
+                  <Link to={ROUTER.myContent}
+                        onClick={handleAmbassadorClick} 
+                        className={!isAmbassador ? "disabled-link" : ""}>
                     <ProjectNavTabIcon />
                     <span>Ambassadorship</span>
                   </Link>
                   {!isAmbassador && (
-                    <div className="item-tooltip">
-                      <p>Please complete your ambassadorship request in profile section</p>
+                    <div className=""
+                    
+                    >
+                     
                     </div>
                   )}
                 </li>
@@ -550,7 +600,8 @@ const Sidebar = () => {
               <>
                 <li onClick={handleBackClick}>
                   <Link to="#">
-                    <span>←</span>
+                    {/* <span>←</span> */}
+                    <BackNavTabIcon />
                     <span>Back</span>
                   </Link>
                 </li>

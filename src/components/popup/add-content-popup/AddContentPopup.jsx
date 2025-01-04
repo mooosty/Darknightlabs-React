@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useFormik } from 'formik';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
+import toast, { Toaster } from "react-hot-toast";
 import './addContentPopup.scss'
 import {Select, Loader} from '../../../components';
 import { useEffect, useState } from 'react';
