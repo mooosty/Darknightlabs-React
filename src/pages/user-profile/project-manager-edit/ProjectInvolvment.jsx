@@ -19,6 +19,8 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { projectId } = useParams();
+  
+  console.log('Current projectId:', projectId, typeof projectId);
 
   const [isAddAngelPopupOpen, setIsAddAngelPopupOpen] = useState(false);
   const [whoAccessToSynergySide, setWhoAccessToSynergySide] = useState("All Users");
@@ -63,8 +65,8 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
 
   const formik = useFormik({
     initialValues: initialValues,
-    onSubmit: () => {
-      if (projectId === "add") {
+    onSubmit: (values) => {
+      if (!projectId || projectId === "add") {
         handleAddProject();
       } else {
         handleSaveChanges();
@@ -129,7 +131,7 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
         rating: 0,
         featured: 0,
         image: response.data.image_url,
-        date: `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`,
+        date: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`,
         synergy_access: true,
         synergy_angles: synergy_obj,
         investments_access: true,
@@ -178,7 +180,7 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
       twitter: values.twitter_username,
       rating: 0,
       image: values.image.base64Url,
-      date: `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`,
+      date: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`,
       synergy_access: true,
       synergy_angles: synergy_obj,
       investments_access: true,
@@ -263,27 +265,65 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
           };
         });
 
-        const obj = {
-          project_name: projectData.project_name,
-          tags: projectData?.project_info?.split("#"),
-          twitter_username: projectData.twitter,
-          discord_username: projectData.discord_link,
-          members: [
-            {
+        // Fetch members data for the project
+        axiosApi.get(`/project-members/${projectId}`).then(response => {
+          const membersData = response.data.data || [];
+          const formattedMembers = membersData.map(member => ({
+            userId: member.user_id,
+            name: member.username,
+            email: member.email,
+            position: member.roles
+          }));
+
+          const obj = {
+            project_name: projectData.project_name,
+            tags: projectData?.project_info?.split("#").filter(tag => tag),
+            twitter_username: projectData.twitter,
+            discord_username: projectData.discord_link,
+            members: formattedMembers.length > 0 ? formattedMembers : [{
               name: "",
               position: "",
+            }],
+            description: projectData.description,
+            synergy_angles: synergy_angles,
+            image: {
+              file: null,
+              base64Url: projectData.image,
             },
-          ],
-          description: projectData.description,
-          synergy_angles: synergy_angles,
-          image: {
-            file: null,
-            base64Url: projectData.image,
-          },
-          investments: investments,
-          open_to_invest: false,
-        };
-        setValues(obj);
+            investments: investments,
+            open_to_invest: projectData.open_to_invest || false,
+            ambassadors_enabled: projectData.ambassadors_enabled || false,
+            ambassadors_start_date: projectData.ambassadors_start_date || "",
+            ambassadors_end_date: projectData.ambassadors_end_date || "",
+            subject_title: projectData.subject_title || "",
+            requirements: projectData.requirements || [{
+              frequency: "",
+              frequency_count: "",
+              period: "",
+              type: ""
+            }]
+          };
+
+          // Update email validation results for existing members
+          const newEmailValidationResults = {};
+          formattedMembers.forEach((member, index) => {
+            if (member.email && member.name) {
+              newEmailValidationResults[index] = {
+                isValid: true,
+                message: `User: ${member.name}`,
+                username: member.name,
+                userId: member.userId
+              };
+            }
+          });
+          setEmailValidationResults(newEmailValidationResults);
+
+          setValues(obj);
+          
+          // Set the access states
+          setWhoAccessToSynergySide(projectData.synergy_access ? "All Users" : "Selected Users");
+          setWhoAccessToInvestmentSide(projectData.investments_access ? "All Users" : "Selected Users");
+        });
       });
     }
 
@@ -322,7 +362,8 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
           {
             ...values.members[index],
             userId: response.data.data.id,
-            name: response.data.data.username
+            name: response.data.data.username,
+            email: email
           },
           ...values.members.slice(index + 1),
         ]);
@@ -359,30 +400,6 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
               </span>
               <p>{values.project_name}</p>
             </div>
-            {false && (
-              <button className="btn_gray" onClick={handleSaveChanges} disabled={projectSaveApiLoading}>
-                {projectSaveApiLoading ? (
-                  <>
-                    {" "}
-                    <Loader loading={projectSaveApiLoading} isItForButton={true} /> <p>Save changes</p>{" "}
-                  </>
-                ) : (
-                  "Save changes"
-                )}
-              </button>
-            )}
-            {true && (
-              <button className="btn_gray" onClick={handleAddProject} disabled={projectApiLoading}>
-                {projectApiLoading ? (
-                  <>
-                    {" "}
-                    <Loader loading={projectApiLoading} isItForButton={true} /> <p> Add Project</p>{" "}
-                  </>
-                ) : (
-                  " Add Project"
-                )}
-              </button>
-            )}
           </div>
           <div className="page_body">
             <div className="page_content">
@@ -435,7 +452,7 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
                   </div>
                   <div className="form_item_box">
                     <div className="form_group">
-                      <label htmlFor="arc">Twitter</label>
+                      <label htmlFor="arc">Twitter<span className="required">*</span></label>
                       <input
                         type="text"
                         id="twitter_username"
@@ -507,8 +524,9 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
                             }}
                           />
                         </div>
-                        <button
+                        <div
                           className="btn_delete"
+                          
                           onClick={() => {
                             setFieldValue("members", [
                               ...values.members.slice(0, index),
@@ -523,7 +541,7 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
                           }}
                         >
                           <DeleteIcon />
-                        </button>
+                        </div>
                       </div>
                     );
                   })}
@@ -609,7 +627,7 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
                               }}
                             />
                           </div>
-                          <button
+                          <div
                             className="btn_delete"
                             onClick={() => {
                               setFieldValue("synergy_angles", [
@@ -619,7 +637,7 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
                             }}
                           >
                             <DeleteIcon />
-                          </button>
+                          </div>
                         </div>
                       </>
                     );
@@ -717,7 +735,7 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
                                 />
                               </div>
 
-                              <button
+                              <div
                                 className="btn_delete"
                                 onClick={() => {
                                   setFieldValue("investments", [
@@ -727,7 +745,7 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
                                 }}
                               >
                                 <DeleteIcon />
-                              </button>
+                              </div>
                             </div>
                           </>
                         );
@@ -751,22 +769,33 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="delete_project_btn">
-                <button
-                  className="btn_delete"
-                  disabled={projectId === "add"}
-                  onClick={() => {
-                    setIsDeleteConfirmPopupOpen(true);
-                  }}
-                >
-                  <DeleteIcon /> Delete project
-                </button>
-                <button type="submit" className="btn_gray" onClick={handleSubmit}>
-                  {" "}
-                  {projectId !== "add" ? "Save changes" : "Add Project"}
-                </button>
+                <div className="form_submit">
+                  <button 
+                    className="btn_gray" 
+                    type="submit"
+                    onClick={handleSubmit}
+                    disabled={projectId === "add" ? projectApiLoading : projectSaveApiLoading}
+                  >
+                    {!projectId || projectId === "add" ? (
+                      projectApiLoading ? (
+                        <>
+                          <Loader loading={projectApiLoading} isItForButton={true} /> <p>Add Project</p>
+                        </>
+                      ) : (
+                        "Add Project"
+                      )
+                    ) : (
+                      projectSaveApiLoading ? (
+                        <>
+                          <Loader loading={projectSaveApiLoading} isItForButton={true} /> <p>Save Changes</p>
+                        </>
+                      ) : (
+                        "Save Changes"
+                      )
+                    )}
+                  </button>
+                </div>
               </div>
             </div>
           </div>

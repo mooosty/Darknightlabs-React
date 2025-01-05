@@ -54,7 +54,7 @@ const ImageUploader = ({ image, setFieldValue }) => {
                     <input type="file" multiple={false} accept=".png, .jpeg, .svg, .jpg" onChange={(e) => {
                         handleUploadImage(e.target.files[0]);
                     }} />
-                    <p className="upload_document_title">Click to upload</p>
+                    <p className="upload_document_title">Click to upload<span className="required">*</span></p>
                     <span className="drag_file">or drag and drop</span>
                     <div className="file_type">SVG, PNG, JPG (max. 800x400px)</div>
                 </div>

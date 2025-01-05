@@ -24,6 +24,7 @@ import ProjectInvolvment from "./project-manager-edit/ProjectInvolvment";
 import ProjectsUser from "./project-manager/ProjectsUser";
 import Ambassadors from "./Ambassadors/Ambassadors";
 import CryptoJS from 'crypto-js';
+import { apiRoutes } from "../../utils/constants/apiUrl";
 
 
 const copyIcon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23f5efdb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='9' y='9' width='13' height='13' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'%3E%3C/path%3E%3C/svg%3E";
@@ -714,6 +715,15 @@ const UserProfile = () => {
         : size
     );
 
+    // Handle investment thesis with other category
+    let investmentThesis = values.investment_thesis || [];
+    if (investmentThesis.includes("Other") && values.other_investment_thesis) {
+      // Replace "Other" with the actual value
+      investmentThesis = investmentThesis.map(thesis => 
+        thesis === "Other" ? values.other_investment_thesis : thesis
+      );
+    }
+
     // Basic profile data
     const payload = {
       id: userData?.userId,
@@ -732,7 +742,7 @@ const UserProfile = () => {
         question2: values.question2 || "",
         primary_city: values.primary_city || "",
         secondary_city: values.secondary_city || "",
-        investment_thesis: JSON.stringify(values.investment_thesis || []),
+        investment_thesis: JSON.stringify(investmentThesis),
         ticket_size: JSON.stringify(cleanTicketSizes),
         investment_stage: JSON.stringify(values.investment_stage || []),
         investment_description: values.investment_description || "",
@@ -914,12 +924,7 @@ const UserProfile = () => {
     const fetchProjects = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get(`${import.meta.env.VITE_APP_BASE_URL}/userprojects/all/${userData.userId}`, {
-          headers: {
-            Authorization: `Bearer ${authDetails?.token}`,
-          },
-        });
-
+        const response = await axiosApi.get(`${apiRoutes.USER_PROJECT}/all/${userData.userId}`);
         setUserProjects(response.data.data ?? []);
       } catch (error) {
         console.error("error", error);
@@ -947,7 +952,8 @@ const UserProfile = () => {
       areArraysEqual(currentValues.investment_thesis, initialInvestorValues.investment_thesis) ||
       areArraysEqual(currentValues.investment_stage, initialInvestorValues.investment_stage) ||
       currentValues.investment_description !== initialInvestorValues.investment_description ||
-      currentValues.previous_investments !== initialInvestorValues.previous_investments;
+      currentValues.previous_investments !== initialInvestorValues.previous_investments ||
+      currentValues.other_investment_thesis !== initialInvestorValues.other_investment_thesis;
 
     setIsSaveEnabled(hasChanges);
   };
@@ -991,11 +997,41 @@ const UserProfile = () => {
 
       // Parse investment_thesis if it's a string
       let parsedInvestmentThesis = [];
+      let otherInvestmentThesis = "";
       try {
         if (typeof userDetails.investment_thesis === 'string') {
           parsedInvestmentThesis = JSON.parse(userDetails.investment_thesis);
         } else if (Array.isArray(userDetails.investment_thesis)) {
           parsedInvestmentThesis = userDetails.investment_thesis;
+        }
+
+        // Check if there's a custom category that's not in the predefined list
+        const predefinedCategories = [
+          "Gaming/Metaverse/GameFi",
+          "AI",
+          "RWA",
+          "DePin",
+          "DeFi",
+          "Infrastructure",
+          "L1/L2/L3",
+          "Data",
+          "IP",
+          "Other"
+        ];
+
+        // Find any custom categories
+        const customCategories = parsedInvestmentThesis.filter(
+          thesis => !predefinedCategories.includes(thesis)
+        );
+
+        if (customCategories.length > 0) {
+          // Store the first custom category as the other value
+          otherInvestmentThesis = customCategories[0];
+          // Remove custom categories and add "Other"
+          parsedInvestmentThesis = [
+            ...parsedInvestmentThesis.filter(thesis => predefinedCategories.includes(thesis)),
+            "Other"
+          ];
         }
       } catch (e) {
         console.error('Error parsing investment_thesis:', e);
@@ -1008,6 +1044,7 @@ const UserProfile = () => {
         investment_stage: parsedInvestmentStage,
         investment_description: userDetails?.investment_description || "",
         previous_investments: userDetails?.previous_investments || "",
+        other_investment_thesis: otherInvestmentThesis,
       });
 
       // Set form values
@@ -1020,6 +1057,7 @@ const UserProfile = () => {
         investment_thesis: parsedInvestmentThesis,
         ticket_size: parsedTicketSize,
         previous_investments: userDetails?.previous_investments || "",
+        other_investment_thesis: otherInvestmentThesis,
       });
     }
   }, [userDetails, telegramUsername]);
@@ -1029,7 +1067,14 @@ const UserProfile = () => {
     if (values && initialInvestorValues) {
       checkInvestorFieldsChanged(values);
     }
-  }, [values?.ticket_size, values?.investment_thesis, values?.investment_stage, values?.investment_description, values?.previous_investments]);
+  }, [
+    values?.ticket_size, 
+    values?.investment_thesis, 
+    values?.investment_stage, 
+    values?.investment_description, 
+    values?.previous_investments,
+    values?.other_investment_thesis
+  ]);
 
   const handleInvestmentThesisChange = (value) => {
     const currentThesis = values?.investment_thesis || [];

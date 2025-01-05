@@ -75,7 +75,7 @@
         border-radius: 0;
         padding-block: 20px;
         background-color: var(--primary-background);
-        height: calc(100% - 25px);
+        height: calc(100% + 50px);
         background-image: none;
       }
 
@@ -93,11 +93,16 @@
           @media (max-width: 767px) {
             padding: 24px 16px;
             padding-top: 0;
+            flex-wrap: wrap;
+            gap: 10px;
           }
 
           .btn_gray {
             @media (max-width: 767px) {
-              display: none;
+              padding: 10px 15px;
+              font-size: 14px;
+              width: auto;
+              
             }
           }
 
@@ -112,6 +117,8 @@
 
             @media (max-width: 767px) {
               gap: 5px;
+              font-size: 16px;
+              
             }
 
             span {
@@ -136,6 +143,7 @@
 
               @media (max-width: 767px) {
                 font-size: 12px;
+                
               }
             }
 
@@ -172,10 +180,12 @@
 
             @media (max-width: 767px) {
               height: calc(100vh - 235px);
+              
             }
 
             @media (max-width: 767px) {
               gap: 10px;
+              
             }
 
             .project_author {
@@ -367,6 +377,7 @@
               .btn_gray {
                 @media (max-width: 767px) {
                   width: 100%;
+                  
                 }
               }
 
@@ -386,6 +397,7 @@
 
                 @media (max-width: 767px) {
                   display: none;
+                  
                 }
 
                 span.created_by {
@@ -532,7 +544,7 @@
                   @media (max-width: 767px) {
                     margin-bottom: 10px;
                     gap: 5px;
-
+                        
                     &:not(.investment_item_box) {
                       flex-wrap: wrap;
                     }
@@ -598,6 +610,7 @@
 
                   .btn_delete {
                     padding: 12px;
+                    background-color: #3b2d2c;
 
                     @media (max-width: 1600px) {
                       padding: 7px;
@@ -615,6 +628,7 @@
 
                   @media (max-width: 767px) {
                     flex-wrap: wrap;
+                    
                   }
                 }
 
@@ -628,6 +642,7 @@
 
                   @media (max-width: 767px) {
                     margin-bottom: 0px;
+                    
                   }
                 }
 
@@ -713,7 +728,7 @@
 
                 .btn_delete {
                   padding: 12px;
-
+                  background-color: #3b2d2c;
                   @media (max-width: 1600px) {
                     padding: 7px;
                   }
@@ -725,27 +740,27 @@
                   margin-bottom: 10px;
                 }
               }
-            }
 
-            .delete_project_btn {
-              width: 100%;
-              display: none;
-              justify-content: space-between;
-              background-color: var(--primary-background);
-              border-top: 1px solid #32312c;
-              padding: 15px 20px 15px 15px;
-
-              @media (max-width: 767px) {
+              .form_submit {
+                margin-top: 32px;
                 display: flex;
-                padding-bottom: 35px;
-                padding-inline: 0;
-              }
-
-              .btn_gray {
-                display: none;
+                justify-content: flex-end;
+                padding-top: 24px;
+                border-top: 1px solid var(--border-color);
 
                 @media (max-width: 767px) {
-                  display: block;
+                  margin-top: 24px;
+                  padding-top: 16px;
+                  padding-bottom: 102px;
+                }
+
+                .btn_gray {
+                  min-width: 160px;
+                  
+                  @media (max-width: 767px) {
+                    width: 100%;
+                    justify-content: center;
+                  }
                 }
               }
             }

@@ -113,14 +113,6 @@ const ProjectManagerTableLayout = ({
                         <button
                           className="btn"
                           onClick={() => {
-                            navigate(`/${ROUTER.projectManagerEdit}/${rowData.projectId}`)
-                          }}
-                        >
-                          <img src={editIcon} alt=" " />
-                        </button>
-                        <button
-                          className="btn"
-                          onClick={() => {
                             setIsDeleteConfirmPopupOpen(true);
                             setDltId(rowData.projectId);
                           }}
@@ -147,9 +139,7 @@ const ProjectManagerTableLayout = ({
               projectName={rowData.projectName}
               teamMembers={rowData?.teamMembers}
               synergyImg={rowData.synergyImg}
-
               role={rowData.role}
-
               description={rowData.description}
               type={rowData.type}
               status={rowData.status}
@@ -161,9 +151,6 @@ const ProjectManagerTableLayout = ({
               onDelete={() => {
                 setIsDeleteConfirmPopupOpen(true);
                 setDltId(rowData.projectId);
-              }}
-              onEdit={() => {
-                navigate(`/${ROUTER.projectManagerEdit}/${rowData.projectId}`)
               }}
               onSelect={() => {
                 handleSelectProject(rowData);
