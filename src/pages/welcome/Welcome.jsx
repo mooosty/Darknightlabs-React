@@ -11,7 +11,7 @@ const Welcome = () => {
 
   const handleAuthResponse = async (response) => {
     if (response?.isAuthenticated) {
-      const twitterId = response.user.verifiedCredentials[2].oauthAccountId;
+      const twitterId = response.user.verifiedCredentials[1].oauthAccountId;
 
       const fetchTwitterUser = async () => {
         const {
@@ -23,13 +23,13 @@ const Welcome = () => {
 
       if (!existingUser.length) {
         const payloadUser = {
-          key: response?.user.verifiedCredentials[2].oauthAccountId,
-          firstname: response?.user.verifiedCredentials[2].publicIdentifier,
-          profile_picture: response.user.verifiedCredentials[2].oauthAccountPhotos[0],
-          username: response.user.verifiedCredentials[2].oauthUsername,
+          key: response?.user.verifiedCredentials[1].oauthAccountId,
+          firstname: response?.user.verifiedCredentials[1].publicIdentifier,
+          profile_picture: response.user.verifiedCredentials[1].oauthAccountPhotos[0],
+          username: response.user.verifiedCredentials[1].oauthUsername,
           lastname: "",
           birthday: "28-07-1998",
-          bio: response.user.verifiedCredentials[2].oauthMetadata.description,
+          bio: response.user.verifiedCredentials[1].oauthMetadata.description,
           email: response.user.email,
           validated: 1,
           password: `${response.user.id}@@@${response.user.email}`,
