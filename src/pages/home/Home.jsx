@@ -204,9 +204,10 @@ const Home = () => {
       //   const jwtToken = getAuthToken();
 
 
+
       console.log("response", response);
 
-      const twitterId = response.user.verifiedCredentials[0].oauthAccountId;
+      const twitterId = response.user.verifiedCredentials[1].oauthAccountId;
 
       const fetchTwitterUser = async () => {
         const {
@@ -219,13 +220,13 @@ const Home = () => {
 
       if (!existingUser.length) {
         const payloadUser = {
-          key: response?.user.verifiedCredentials[0].oauthAccountId,
-          firstname: response?.user.verifiedCredentials[0].publicIdentifier,
-          profile_picture: response.user.verifiedCredentials[0].oauthAccountPhotos[0],
-          username: response.user.verifiedCredentials[0].oauthUsername,
+          key: response?.user.verifiedCredentials[1].oauthAccountId,
+          firstname: response?.user.verifiedCredentials[1].publicIdentifier,
+          profile_picture: response.user.verifiedCredentials[1].oauthAccountPhotos[0],
+          username: response.user.verifiedCredentials[1].oauthUsername,
           lastname: "",
           birthday: "28-07-1998",
-          bio: response.user.verifiedCredentials[0].oauthMetadata.description,
+          bio: response.user.verifiedCredentials[1].oauthMetadata.description,
           email: response.user.email,
           validated: 1,
           password: `${response.user.id}@@@${response.user.email}`,
@@ -242,7 +243,7 @@ const Home = () => {
 
         const chatPayload = {
           _id: twitterUser.insertId,
-          name: response.user.verifiedCredentials[0].publicIdentifier,
+          name: response.user.verifiedCredentials[1].publicIdentifier,
           email: response.user.email,
           password: `${response.user.id}@@@${response.user.email}`,
         };
