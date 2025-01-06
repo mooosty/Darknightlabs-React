@@ -23,16 +23,16 @@ import { Loader, CustomDropdown } from "../../components";
 import ProjectInvolvment from "./project-manager-edit/ProjectInvolvment";
 import ProjectsUser from "./project-manager/ProjectsUser";
 import Ambassadors from "./Ambassadors/Ambassadors";
-import CryptoJS from 'crypto-js';
+import CryptoJS from "crypto-js";
 import { apiRoutes } from "../../utils/constants/apiUrl";
 
-
-const copyIcon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23f5efdb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='9' y='9' width='13' height='13' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'%3E%3C/path%3E%3C/svg%3E";
+const copyIcon =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23f5efdb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='9' y='9' width='13' height='13' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'%3E%3C/path%3E%3C/svg%3E";
 
 const TelegramVerifyPopup = ({ isOpen, onClose, verificationCode }) => {
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text);
-    toast.success('Copied to clipboard!');
+    toast.success("Copied to clipboard!");
   };
 
   if (!isOpen) return null;
@@ -41,30 +41,42 @@ const TelegramVerifyPopup = ({ isOpen, onClose, verificationCode }) => {
     <div className="popup-overlay">
       <div className="popup-content">
         <h3>Verify Your Telegram Account</h3>
-        <p>Add <span 
-          className="telegram-bot-name" 
-          onClick={() => copyToClipboard('@WinWinCyborg')}
-          style={{ 
-            cursor: 'pointer', 
-            color: '#229ED9',
-            textDecoration: 'underline'
-          }}
-        >@WinWinCyborg</span> and type <span
-          onClick={() => copyToClipboard('/verify')}
-          style={{
-            cursor: 'pointer',
-            color: '#f5efdb',
-            fontWeight: 'bold',
-            textDecoration: 'underline'
-          }}
-        >/verify</span> then send this code to verify your account:</p>
+        <p>
+          Add{" "}
+          <span
+            className="telegram-bot-name"
+            onClick={() => copyToClipboard("@WinWinCyborg")}
+            style={{
+              cursor: "pointer",
+              color: "#229ED9",
+              textDecoration: "underline",
+            }}
+          >
+            @WinWinCyborg
+          </span>{" "}
+          and type{" "}
+          <span
+            onClick={() => copyToClipboard("/verify")}
+            style={{
+              cursor: "pointer",
+              color: "#f5efdb",
+              fontWeight: "bold",
+              textDecoration: "underline",
+            }}
+          >
+            /verify
+          </span>{" "}
+          then send this code to verify your account:
+        </p>
         <div className="verification-code">
           <code>{verificationCode}</code>
           <button onClick={() => copyToClipboard(verificationCode)} className="copy-button" title="Copy to clipboard">
             <img src={copyIcon} alt="Copy" />
           </button>
         </div>
-        <button onClick={onClose} className="close-button">Close</button>
+        <button onClick={onClose} className="close-button">
+          Close
+        </button>
       </div>
     </div>
   );
@@ -391,59 +403,60 @@ const DiscordAuthButton = ({ onSuccess }) => {
 
         if (discordData.success && discordData.user?.id) {
           // Update discord ID in backend
-          axiosApi.post('/discord/update-discord-id', {
-            id: userData?.userId,
-            discord_id: discordData.user.id
-          }).then(() => {
-            setStatus("");
-            checkDiscordStatus();
-            toast.success("Successfully connected to Discord!");
-            if (onSuccess) {
-              onSuccess();
-            }
-          }).catch((error) => {
-            console.error("Failed to update Discord ID:", error);
-            toast.error("Failed to complete Discord connection");
-          });
+          axiosApi
+            .post("/discord/update-discord-id", {
+              id: userData?.userId,
+              discord_id: discordData.user.id,
+            })
+            .then(() => {
+              setStatus("");
+              checkDiscordStatus();
+              toast.success("Successfully connected to Discord!");
+              if (onSuccess) {
+                onSuccess();
+              }
+            })
+            .catch((error) => {
+              console.error("Failed to update Discord ID:", error);
+              toast.error("Failed to complete Discord connection");
+            });
         }
       } catch (error) {
         console.error("Failed to parse Discord data:", error);
         toast.error("Failed to process Discord connection data");
       }
-      
+
       // Clean up URL parameters
       window.history.replaceState({}, document.title, window.location.pathname);
     }
   }, [userData?.userId, onSuccess]);
 
   return (
-    <button 
-      className={`btn_gray save_button ${hasDiscord ? 'verified' : ''}`}
+    <button
+      className={`btn_gray save_button ${hasDiscord ? "verified" : ""}`}
       onClick={handleDiscordAuth}
       disabled={loading || hasDiscord}
     >
       <img src={discordIcon} alt="" />
-      {loading ? "Connecting..." : hasDiscord ? (
-        <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+      {loading ? (
+        "Connecting..."
+      ) : hasDiscord ? (
+        <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
           Discord Connected
-          <svg 
-            className="checkmark" 
-            width="16" 
-            height="16" 
-            viewBox="0 0 24 24" 
-            fill="none" 
+          <svg
+            className="checkmark"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <path 
-              d="M20 6L9 17L4 12" 
-              stroke="#4CAF50" 
-              strokeWidth="2" 
-              strokeLinecap="round" 
-              strokeLinejoin="round"
-            />
+            <path d="M20 6L9 17L4 12" stroke="#4CAF50" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </span>
-      ) : "Connect Discord"}
+      ) : (
+        "Connect Discord"
+      )}
       {status && <div className={`status-message ${status.includes("Error") ? "error" : "success"}`}>{status}</div>}
     </button>
   );
@@ -500,7 +513,7 @@ const MAJOR_CITIES = [
   "Lisbon, Portugal",
   "Buenos Aires, Argentina",
   "Santiago, Chile",
-  "Lima, Peru"
+  "Lima, Peru",
 ];
 
 const CityAutocomplete = ({ value, onChange, placeholder, label }) => {
@@ -521,8 +534,8 @@ const CityAutocomplete = ({ value, onChange, placeholder, label }) => {
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const handleInputChange = (e) => {
@@ -536,9 +549,7 @@ const CityAutocomplete = ({ value, onChange, placeholder, label }) => {
     }
 
     // Filter cities based on input
-    const filteredCities = MAJOR_CITIES.filter(city =>
-      city.toLowerCase().includes(value.toLowerCase())
-    ).slice(0, 10);
+    const filteredCities = MAJOR_CITIES.filter((city) => city.toLowerCase().includes(value.toLowerCase())).slice(0, 10);
 
     setSuggestions(filteredCities);
   };
@@ -566,11 +577,7 @@ const CityAutocomplete = ({ value, onChange, placeholder, label }) => {
       {showSuggestions && suggestions.length > 0 && (
         <ul className="city-suggestions">
           {suggestions.map((city, index) => (
-            <li
-              key={index}
-              onClick={() => handleSuggestionClick(city)}
-              className="city-suggestion-item"
-            >
+            <li key={index} onClick={() => handleSuggestionClick(city)} className="city-suggestion-item">
               {city}
             </li>
           ))}
@@ -598,7 +605,7 @@ const UserProfile = () => {
   const [addNewProject, setAddNewProject] = useState(false);
   const [telegramUsername, setTelegramUsername] = useState(null);
   const [isVerifyPopupOpen, setIsVerifyPopupOpen] = useState(false);
-  const [verificationCode, setVerificationCode] = useState('');
+  const [verificationCode, setVerificationCode] = useState("");
   const [hasTelegram, setHasTelegram] = useState(false);
   const [telegramData, setTelegramData] = useState(null);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
@@ -607,7 +614,8 @@ const UserProfile = () => {
 
   const { authDetails } = useSelector((state) => state.auth);
 
-  const defaultImage =  authDetails?.user?.verifiedCredentials[2]?.oauthAccountPhotos[0]?.replace("_normal", "") || defaultImg;
+  const defaultImage =
+    authDetails?.user?.verifiedCredentials[2]?.oauthAccountPhotos[0]?.replace("_normal", "") || defaultImg;
 
   // Add function to fetch Telegram username
   const fetchTelegramUsername = async () => {
@@ -709,17 +717,15 @@ const UserProfile = () => {
     const profilePromises = [];
 
     // Clean up ticket size values before stringifying
-    const cleanTicketSizes = (values.ticket_size || []).map(size => 
-      typeof size === 'string' 
-        ? size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1')
-        : size
+    const cleanTicketSizes = (values.ticket_size || []).map((size) =>
+      typeof size === "string" ? size.replace(/^"(.*)"$/, "$1").replace(/^'(.*)'$/, "$1") : size
     );
 
     // Handle investment thesis with other category
     let investmentThesis = values.investment_thesis || [];
     if (investmentThesis.includes("Other") && values.other_investment_thesis) {
       // Replace "Other" with the actual value
-      investmentThesis = investmentThesis.map(thesis => 
+      investmentThesis = investmentThesis.map((thesis) =>
         thesis === "Other" ? values.other_investment_thesis : thesis
       );
     }
@@ -868,31 +874,32 @@ const UserProfile = () => {
       question2: userDetails?.question2 || "",
       primary_city: userDetails?.primary_city || "",
       secondary_city: userDetails?.secondary_city || "",
-      investment_thesis: typeof userDetails?.investment_thesis === 'string' 
-        ? JSON.parse(userDetails.investment_thesis) 
-        : userDetails?.investment_thesis || [],
-      ticket_size: typeof userDetails?.ticket_size === 'string'
-        ? JSON.parse(userDetails.ticket_size).map(size => 
-            // Clean up the stored values by removing extra quotes
-            size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1')
-          )
-        : Array.isArray(userDetails?.ticket_size)
-          ? userDetails.ticket_size.map(size => 
+      investment_thesis:
+        typeof userDetails?.investment_thesis === "string"
+          ? JSON.parse(userDetails.investment_thesis)
+          : userDetails?.investment_thesis || [],
+      ticket_size:
+        typeof userDetails?.ticket_size === "string"
+          ? JSON.parse(userDetails.ticket_size).map((size) =>
+              // Clean up the stored values by removing extra quotes
+              size.replace(/^"(.*)"$/, "$1").replace(/^'(.*)'$/, "$1")
+            )
+          : Array.isArray(userDetails?.ticket_size)
+          ? userDetails.ticket_size.map((size) =>
               // Clean up array values
-              typeof size === 'string' 
-                ? size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1')
-                : size
+              typeof size === "string" ? size.replace(/^"(.*)"$/, "$1").replace(/^'(.*)'$/, "$1") : size
             )
           : userDetails?.ticket_size
-            ? [userDetails.ticket_size.toString()]
-            : [],
-      investment_stage: typeof userDetails?.investment_stage === 'string'
-        ? JSON.parse(userDetails.investment_stage)
-        : Array.isArray(userDetails?.investment_stage)
+          ? [userDetails.ticket_size.toString()]
+          : [],
+      investment_stage:
+        typeof userDetails?.investment_stage === "string"
+          ? JSON.parse(userDetails.investment_stage)
+          : Array.isArray(userDetails?.investment_stage)
           ? userDetails.investment_stage
           : userDetails?.investment_stage
-            ? [userDetails.investment_stage]
-            : [],
+          ? [userDetails.investment_stage]
+          : [],
       investment_description: userDetails?.investment_description || "",
       previous_investments: userDetails?.previous_investments || "",
     });
@@ -947,7 +954,7 @@ const UserProfile = () => {
     };
 
     // Compare each field
-    const hasChanges = 
+    const hasChanges =
       areArraysEqual(currentValues.ticket_size, initialInvestorValues.ticket_size) ||
       areArraysEqual(currentValues.investment_thesis, initialInvestorValues.investment_thesis) ||
       areArraysEqual(currentValues.investment_stage, initialInvestorValues.investment_stage) ||
@@ -964,27 +971,25 @@ const UserProfile = () => {
       // Parse ticket_size if it's a string
       let parsedTicketSize = [];
       try {
-        if (typeof userDetails.ticket_size === 'string') {
-          parsedTicketSize = JSON.parse(userDetails.ticket_size).map(size => 
-            size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1')
+        if (typeof userDetails.ticket_size === "string") {
+          parsedTicketSize = JSON.parse(userDetails.ticket_size).map((size) =>
+            size.replace(/^"(.*)"$/, "$1").replace(/^'(.*)'$/, "$1")
           );
         } else if (Array.isArray(userDetails.ticket_size)) {
-          parsedTicketSize = userDetails.ticket_size.map(size => 
-            typeof size === 'string' 
-              ? size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1')
-              : size
+          parsedTicketSize = userDetails.ticket_size.map((size) =>
+            typeof size === "string" ? size.replace(/^"(.*)"$/, "$1").replace(/^'(.*)'$/, "$1") : size
           );
         } else if (userDetails.ticket_size) {
           parsedTicketSize = [userDetails.ticket_size.toString()];
         }
       } catch (e) {
-        console.error('Error parsing ticket_size:', e);
+        console.error("Error parsing ticket_size:", e);
       }
 
       // Parse investment_stage if it's a string
       let parsedInvestmentStage = [];
       try {
-        if (typeof userDetails.investment_stage === 'string') {
+        if (typeof userDetails.investment_stage === "string") {
           parsedInvestmentStage = JSON.parse(userDetails.investment_stage);
         } else if (Array.isArray(userDetails.investment_stage)) {
           parsedInvestmentStage = userDetails.investment_stage;
@@ -992,14 +997,14 @@ const UserProfile = () => {
           parsedInvestmentStage = [userDetails.investment_stage];
         }
       } catch (e) {
-        console.error('Error parsing investment_stage:', e);
+        console.error("Error parsing investment_stage:", e);
       }
 
       // Parse investment_thesis if it's a string
       let parsedInvestmentThesis = [];
       let otherInvestmentThesis = "";
       try {
-        if (typeof userDetails.investment_thesis === 'string') {
+        if (typeof userDetails.investment_thesis === "string") {
           parsedInvestmentThesis = JSON.parse(userDetails.investment_thesis);
         } else if (Array.isArray(userDetails.investment_thesis)) {
           parsedInvestmentThesis = userDetails.investment_thesis;
@@ -1016,25 +1021,23 @@ const UserProfile = () => {
           "L1/L2/L3",
           "Data",
           "IP",
-          "Other"
+          "Other",
         ];
 
         // Find any custom categories
-        const customCategories = parsedInvestmentThesis.filter(
-          thesis => !predefinedCategories.includes(thesis)
-        );
+        const customCategories = parsedInvestmentThesis.filter((thesis) => !predefinedCategories.includes(thesis));
 
         if (customCategories.length > 0) {
           // Store the first custom category as the other value
           otherInvestmentThesis = customCategories[0];
           // Remove custom categories and add "Other"
           parsedInvestmentThesis = [
-            ...parsedInvestmentThesis.filter(thesis => predefinedCategories.includes(thesis)),
-            "Other"
+            ...parsedInvestmentThesis.filter((thesis) => predefinedCategories.includes(thesis)),
+            "Other",
           ];
         }
       } catch (e) {
-        console.error('Error parsing investment_thesis:', e);
+        console.error("Error parsing investment_thesis:", e);
       }
 
       // Set initial investor values
@@ -1068,12 +1071,12 @@ const UserProfile = () => {
       checkInvestorFieldsChanged(values);
     }
   }, [
-    values?.ticket_size, 
-    values?.investment_thesis, 
-    values?.investment_stage, 
-    values?.investment_description, 
+    values?.ticket_size,
+    values?.investment_thesis,
+    values?.investment_stage,
+    values?.investment_description,
     values?.previous_investments,
-    values?.other_investment_thesis
+    values?.other_investment_thesis,
   ]);
 
   const handleInvestmentThesisChange = (value) => {
@@ -1124,9 +1127,9 @@ const UserProfile = () => {
         return userData.profile_picture.replace("_normal", "");
       }
 
+      const defaultImage =
+        authDetails?.user?.verifiedCredentials[2]?.oauthAccountPhotos[0]?.replace("_normal", "") || defaultImg;
 
-       const defaultImage = authDetails?.user?.verifiedCredentials[2]?.oauthAccountPhotos[0]?.replace("_normal", "") || defaultImg;
- 
       return defaultImage;
     } else {
       if (userData?.profile_picture) {
@@ -1135,7 +1138,8 @@ const UserProfile = () => {
       if (userDetails?.profile_picture) {
         return userDetails.profile_picture;
       }
-       const defaultImage = authDetails?.user?.verifiedCredentials[2]?.oauthAccountPhotos[0]?.replace("_normal", "") || defaultImg;
+      const defaultImage =
+        authDetails?.user?.verifiedCredentials[2]?.oauthAccountPhotos[0]?.replace("_normal", "") || defaultImg;
 
       return defaultImage;
     }
@@ -1165,7 +1169,7 @@ const UserProfile = () => {
   }, [userData?.userId, refreshTrigger]);
 
   const handleSocialConnect = () => {
-    setRefreshTrigger(prev => prev + 1);
+    setRefreshTrigger((prev) => prev + 1);
     dispatch(getUsersDetailsAPI(userData?.userId));
   };
 
@@ -1230,9 +1234,7 @@ const UserProfile = () => {
                         }}
                       />
                     </div>
-                    <div className="profile_actions">
-                      {/* Edit profile button removed from here */}
-                    </div>
+                    <div className="profile_actions">{/* Edit profile button removed from here */}</div>
                   </div>
                   <div className="profile_description_data">
                     <div className="form_box">
@@ -1253,9 +1255,7 @@ const UserProfile = () => {
                         <div className="profile_info">
                           <div className="profile_head">User name</div>
                           <div className="profile_data">
-                            {userDetails?.username ||
-                              (authDetails?.user?.verifiedCredentials?.[2]?.oauthUsername) ||
-                              "-"}
+                            {userDetails?.username || authDetails?.user?.verifiedCredentials?.[2]?.oauthUsername || "-"}
                           </div>
                         </div>
 
@@ -1267,33 +1267,35 @@ const UserProfile = () => {
                           <div className="profile_head">Telegram</div>
                           <div className="profile_data">
                             {telegramUsername || userDetails?.telegram_username ? (
-                              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                                 {telegramUsername || userDetails?.telegram_username}
-                                <svg 
-                                  className="checkmark" 
-                                  width="16" 
-                                  height="16" 
-                                  viewBox="0 0 24 24" 
-                                  fill="none" 
+                                <svg
+                                  className="checkmark"
+                                  width="16"
+                                  height="16"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
                                   xmlns="http://www.w3.org/2000/svg"
                                 >
-                                  <path 
-                                    d="M20 6L9 17L4 12" 
-                                    stroke="#4CAF50" 
-                                    strokeWidth="2" 
-                                    strokeLinecap="round" 
+                                  <path
+                                    d="M20 6L9 17L4 12"
+                                    stroke="#4CAF50"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
                                     strokeLinejoin="round"
                                   />
                                 </svg>
                               </div>
-                            ) : "-"}
+                            ) : (
+                              "-"
+                            )}
                           </div>
                         </div>
                         <div className="profile_info">
                           <div className="profile_head">Twitter</div>
                           <div className="profile_data">
                             {userDetails?.username ? (
-                              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                                 <a
                                   href={`https://twitter.com/${userDetails.username}`}
                                   target="_blank"
@@ -1302,19 +1304,19 @@ const UserProfile = () => {
                                 >
                                   {userDetails.username}
                                 </a>
-                                <svg 
-                                  className="checkmark" 
-                                  width="16" 
-                                  height="16" 
-                                  viewBox="0 0 24 24" 
-                                  fill="none" 
+                                <svg
+                                  className="checkmark"
+                                  width="16"
+                                  height="16"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
                                   xmlns="http://www.w3.org/2000/svg"
                                 >
-                                  <path 
-                                    d="M20 6L9 17L4 12" 
-                                    stroke="#4CAF50" 
-                                    strokeWidth="2" 
-                                    strokeLinecap="round" 
+                                  <path
+                                    d="M20 6L9 17L4 12"
+                                    stroke="#4CAF50"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
                                     strokeLinejoin="round"
                                   />
                                 </svg>
@@ -1368,9 +1370,7 @@ const UserProfile = () => {
                       <div className="profile_bio_data">
                         <div className="profile_bio_head">Personal Bio</div>
                         <div className="profile_bio_data">
-                          {userDetails?.bio || 
-                           (authDetails?.user?.verifiedCredentials?.[2]?.description) || 
-                           "-"}
+                          {userDetails?.bio || authDetails?.user?.verifiedCredentials?.[2]?.description || "-"}
                         </div>
                       </div>
                     </div>
@@ -1384,187 +1384,39 @@ const UserProfile = () => {
                       <div className="investment_details">
                         {/* Left Column */}
                         <div className="profile_info">
-                          <div className="profile_head">
-                            Average ticket size {isInvestor(values?.roles) ? "*" : ""}
-                          </div>
+                          <div className="profile_head">Average ticket size {isInvestor(values?.roles) ? "*" : ""}</div>
                           <div className="profile_data">
                             {isInvestor(values?.roles) ? (
                               <>
-                                <label className="check_box" htmlFor="5k">
-                                  <input
-                                    type="checkbox"
-                                    id="5k"
-                                    className="costum_checkbox_input"
-                                    checked={Array.isArray(values?.ticket_size) 
-                                      ? values?.ticket_size?.some(size => 
-                                          size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1') === ">$5k"
-                                        )
-                                      : values?.ticket_size === ">$5k"}
-                                    onChange={() => {
-                                      const currentSizes = Array.isArray(values?.ticket_size) 
-                                        ? values.ticket_size.map(size => 
-                                            size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1')
-                                          )
-                                        : values?.ticket_size ? [values.ticket_size] : [];
-                                      const newSizes = currentSizes.includes(">$5k")
-                                        ? currentSizes.filter(size => size !== ">$5k")
-                                        : [...currentSizes, ">$5k"];
-                                      setFieldValue("ticket_size", newSizes);
-                                    }}
-                                  />
-                                  <span className="costum_checkbox_label"></span>
-                                  <span className="label">{">"}$5k</span>
-                                </label>
-                                <label className="check_box" htmlFor="5k-10k">
-                                  <input
-                                    type="checkbox"
-                                    id="5k-10k"
-                                    className="costum_checkbox_input"
-                                    checked={Array.isArray(values?.ticket_size) 
-                                      ? values?.ticket_size?.some(size => 
-                                          size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1') === "5k-10k"
-                                        )
-                                      : values?.ticket_size === "5k-10k"}
-                                    onChange={() => {
-                                      const currentSizes = Array.isArray(values?.ticket_size) 
-                                        ? values.ticket_size.map(size => 
-                                            size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1')
-                                          )
-                                        : values?.ticket_size ? [values.ticket_size] : [];
-                                      const newSizes = currentSizes.includes("5k-10k")
-                                        ? currentSizes.filter(size => size !== "5k-10k")
-                                        : [...currentSizes, "5k-10k"];
-                                      setFieldValue("ticket_size", newSizes);
-                                    }}
-                                  />
-                                  <span className="costum_checkbox_label"></span>
-                                  <span className="label">5k-10k</span>
-                                </label>
-                                <label className="check_box" htmlFor="10k-25k">
-                                  <input
-                                    type="checkbox"
-                                    id="10k-25k"
-                                    className="costum_checkbox_input"
-                                    checked={Array.isArray(values?.ticket_size) 
-                                      ? values?.ticket_size?.some(size => 
-                                          size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1') === "10k-25k"
-                                        )
-                                      : values?.ticket_size === "10k-25k"}
-                                    onChange={() => {
-                                      const currentSizes = Array.isArray(values?.ticket_size) 
-                                        ? values.ticket_size.map(size => 
-                                            size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1')
-                                          )
-                                        : values?.ticket_size ? [values.ticket_size] : [];
-                                      const newSizes = currentSizes.includes("10k-25k")
-                                        ? currentSizes.filter(size => size !== "10k-25k")
-                                        : [...currentSizes, "10k-25k"];
-                                      setFieldValue("ticket_size", newSizes);
-                                    }}
-                                  />
-                                  <span className="costum_checkbox_label"></span>
-                                  <span className="label">10k-25k</span>
-                                </label>
-                                <label className="check_box" htmlFor="25k-100k">
-                                  <input
-                                    type="checkbox"
-                                    id="25k-100k"
-                                    className="costum_checkbox_input"
-                                    checked={Array.isArray(values?.ticket_size) 
-                                      ? values?.ticket_size?.some(size => 
-                                          size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1') === "25k-100k"
-                                        )
-                                      : values?.ticket_size === "25k-100k"}
-                                    onChange={() => {
-                                      const currentSizes = Array.isArray(values?.ticket_size) 
-                                        ? values.ticket_size.map(size => 
-                                            size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1')
-                                          )
-                                        : values?.ticket_size ? [values.ticket_size] : [];
-                                      const newSizes = currentSizes.includes("25k-100k")
-                                        ? currentSizes.filter(size => size !== "25k-100k")
-                                        : [...currentSizes, "25k-100k"];
-                                      setFieldValue("ticket_size", newSizes);
-                                    }}
-                                  />
-                                  <span className="costum_checkbox_label"></span>
-                                  <span className="label">25k-100k</span>
-                                </label>
-                                <label className="check_box" htmlFor="100k-250k">
-                                  <input
-                                    type="checkbox"
-                                    id="100k-250k"
-                                    className="costum_checkbox_input"
-                                    checked={Array.isArray(values?.ticket_size) 
-                                      ? values?.ticket_size?.some(size => 
-                                          size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1') === "100k-250k"
-                                        )
-                                      : values?.ticket_size === "100k-250k"}
-                                    onChange={() => {
-                                      const currentSizes = Array.isArray(values?.ticket_size) 
-                                        ? values.ticket_size.map(size => 
-                                            size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1')
-                                          )
-                                        : values?.ticket_size ? [values.ticket_size] : [];
-                                      const newSizes = currentSizes.includes("100k-250k")
-                                        ? currentSizes.filter(size => size !== "100k-250k")
-                                        : [...currentSizes, "100k-250k"];
-                                      setFieldValue("ticket_size", newSizes);
-                                    }}
-                                  />
-                                  <span className="costum_checkbox_label"></span>
-                                  <span className="label">100k-250k</span>
-                                </label>
-                                <label className="check_box" htmlFor="250k-500k">
-                                  <input
-                                    type="checkbox"
-                                    id="250k-500k"
-                                    className="costum_checkbox_input"
-                                    checked={Array.isArray(values?.ticket_size) 
-                                      ? values?.ticket_size?.some(size => 
-                                          size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1') === "250k-500k"
-                                        )
-                                      : values?.ticket_size === "250k-500k"}
-                                    onChange={() => {
-                                      const currentSizes = Array.isArray(values?.ticket_size) 
-                                        ? values.ticket_size.map(size => 
-                                            size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1')
-                                          )
-                                        : values?.ticket_size ? [values.ticket_size] : [];
-                                      const newSizes = currentSizes.includes("250k-500k")
-                                        ? currentSizes.filter(size => size !== "250k-500k")
-                                        : [...currentSizes, "250k-500k"];
-                                      setFieldValue("ticket_size", newSizes);
-                                    }}
-                                  />
-                                  <span className="costum_checkbox_label"></span>
-                                  <span className="label">250k-500k</span>
-                                </label>
-                                <label className="check_box" htmlFor="1mil+">
-                                  <input
-                                    type="checkbox"
-                                    id="1mil+"
-                                    className="costum_checkbox_input"
-                                    checked={Array.isArray(values?.ticket_size) 
-                                      ? values?.ticket_size?.some(size => 
-                                          size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1') === "1mil+"
-                                        )
-                                      : values?.ticket_size === "1mil+"}
-                                    onChange={() => {
-                                      const currentSizes = Array.isArray(values?.ticket_size) 
-                                        ? values.ticket_size.map(size => 
-                                            size.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1')
-                                          )
-                                        : values?.ticket_size ? [values.ticket_size] : [];
-                                      const newSizes = currentSizes.includes("1mil+")
-                                        ? currentSizes.filter(size => size !== "1mil+")
-                                        : [...currentSizes, "1mil+"];
-                                      setFieldValue("ticket_size", newSizes);
-                                    }}
-                                  />
-                                  <span className="costum_checkbox_label"></span>
-                                  <span className="label">1mil+</span>
-                                </label>
+                                <div className="options_container">
+                                  <div className="default_options">
+                                    {[">$5k", "5k-10k", "10k-25k", "25k-100k", "100k-250k", "250k-500k", "1mil+"].map(
+                                      (role, index) => (
+                                        <div
+                                          key={index}
+                                          className={`option default ${
+                                            values?.ticket_size?.includes(role) ? "selected" : ""
+                                          }`}
+                                          onClick={() => {
+                                            const currentSizes = Array.isArray(values?.ticket_size)
+                                              ? values.ticket_size.map((size) =>
+                                                  size.replace(/^"(.*)"$/, "$1").replace(/^'(.*)'$/, "$1")
+                                                )
+                                              : values?.ticket_size
+                                              ? [values.ticket_size]
+                                              : [];
+                                            const newSizes = currentSizes.includes(role)
+                                              ? currentSizes.filter((size) => size !== role)
+                                              : [...currentSizes, role];
+                                            setFieldValue("ticket_size", newSizes);
+                                          }}
+                                        >
+                                          <label>{role}</label>
+                                        </div>
+                                      )
+                                    )}
+                                  </div>
+                                </div>
                               </>
                             ) : (
                               <span className="disabled-message">Available for Angel Investors only and VCs</span>
@@ -1575,130 +1427,49 @@ const UserProfile = () => {
                         {/* Right Column */}
                         <div className="profile_info">
                           <div className="profile_head">
-                          Investment Categories {isInvestor(values?.roles) ? "*" : ""}
+                            Investment Categories {isInvestor(values?.roles) ? "*" : ""}
                           </div>
                           <div className="profile_data">
                             {isInvestor(values?.roles) ? (
                               <>
-                                <label className="check_box" htmlFor="gaming">
-                                  <input
-                                    type="checkbox"
-                                    id="gaming"
-                                    className="costum_checkbox_input"
-                                    checked={values?.investment_thesis?.includes("Gaming/Metaverse/GameFi")}
-                                    onChange={() => handleInvestmentThesisChange("Gaming/Metaverse/GameFi")}
-                                  />
-                                  <span className="costum_checkbox_label"></span>
-                                  <span className="label">Gaming/Metaverse/GameFi</span>
-                                </label>
-                                <label className="check_box" htmlFor="ai">
-                                  <input
-                                    type="checkbox"
-                                    id="ai"
-                                    className="costum_checkbox_input"
-                                    checked={values?.investment_thesis?.includes("AI")}
-                                    onChange={() => handleInvestmentThesisChange("AI")}
-                                  />
-                                  <span className="costum_checkbox_label"></span>
-                                  <span className="label">AI</span>
-                                </label>
-                                <label className="check_box" htmlFor="rwa">
-                                  <input
-                                    type="checkbox"
-                                    id="rwa"
-                                    className="costum_checkbox_input"
-                                    checked={values?.investment_thesis?.includes("RWA")}
-                                    onChange={() => handleInvestmentThesisChange("RWA")}
-                                  />
-                                  <span className="costum_checkbox_label"></span>
-                                  <span className="label">RWA</span>
-                                </label>
-                                <label className="check_box" htmlFor="depin">
-                                  <input
-                                    type="checkbox"
-                                    id="depin"
-                                    className="costum_checkbox_input"
-                                    checked={values?.investment_thesis?.includes("DePin")}
-                                    onChange={() => handleInvestmentThesisChange("DePin")}
-                                  />
-                                  <span className="costum_checkbox_label"></span>
-                                  <span className="label">DePin</span>
-                                </label>
-                                <label className="check_box" htmlFor="defi">
-                                  <input
-                                    type="checkbox"
-                                    id="defi"
-                                    className="costum_checkbox_input"
-                                    checked={values?.investment_thesis?.includes("DeFi")}
-                                    onChange={() => handleInvestmentThesisChange("DeFi")}
-                                  />
-                                  <span className="costum_checkbox_label"></span>
-                                  <span className="label">DeFi</span>
-                                </label>
-                                <label className="check_box" htmlFor="infrastructure">
-                                  <input
-                                    type="checkbox"
-                                    id="infrastructure"
-                                    className="costum_checkbox_input"
-                                    checked={values?.investment_thesis?.includes("Infrastructure")}
-                                    onChange={() => handleInvestmentThesisChange("Infrastructure")}
-                                  />
-                                  <span className="costum_checkbox_label"></span>
-                                  <span className="label">Infrastructure</span>
-                                </label>
-                                <label className="check_box" htmlFor="l1l2l3">
-                                  <input
-                                    type="checkbox"
-                                    id="l1l2l3"
-                                    className="costum_checkbox_input"
-                                    checked={values?.investment_thesis?.includes("L1/L2/L3")}
-                                    onChange={() => handleInvestmentThesisChange("L1/L2/L3")}
-                                  />
-                                  <span className="costum_checkbox_label"></span>
-                                  <span className="label">L1/L2/L3</span>
-                                </label>
-                                <label className="check_box" htmlFor="data">
-                                  <input
-                                    type="checkbox"
-                                    id="data"
-                                    className="costum_checkbox_input"
-                                    checked={values?.investment_thesis?.includes("Data")}
-                                    onChange={() => handleInvestmentThesisChange("Data")}
-                                  />
-                                  <span className="costum_checkbox_label"></span>
-                                  <span className="label">Data</span>
-                                </label>
-                                <label className="check_box" htmlFor="ip">
-                                  <input
-                                    type="checkbox"
-                                    id="ip"
-                                    className="costum_checkbox_input"
-                                    checked={values?.investment_thesis?.includes("IP")}
-                                    onChange={() => handleInvestmentThesisChange("IP")}
-                                  />
-                                  <span className="costum_checkbox_label"></span>
-                                  <span className="label">IP</span>
-                                </label>
-                                <label className="check_box" htmlFor="other">
-                                  <input
-                                    type="checkbox"
-                                    id="other"
-                                    className="costum_checkbox_input"
-                                    checked={values?.investment_thesis?.includes("Other")}
-                                    onChange={() => handleInvestmentThesisChange("Other")}
-                                  />
-                                  <span className="costum_checkbox_label"></span>
-                                  <span className="label">Other</span>
-                                </label>
-                                {values?.investment_thesis?.includes("Other") && (
-                                  <input
-                                    type="text"
-                                    className="other-thesis-input"
-                                    placeholder="Please specify other Investment Categories..."
-                                    value={values?.other_investment_thesis || ""}
-                                    onChange={(e) => setFieldValue("other_investment_thesis", e.target.value)}
-                                  />
-                                )}
+                                <div className="options_container">
+                                  <div className="default_options">
+                                    {[
+                                      "Gaming/Metaverse/GameFi",
+                                      "AI",
+                                      "RWA",
+                                      "DePin",
+                                      "DeFi",
+                                      "Infrastructure",
+                                      "L1/L2/L3",
+                                      "Data",
+                                      "IP",
+                                      "Other",
+                                    ].map((role, index) => (
+                                      <div
+                                        key={index}
+                                        className={`option default ${
+                                          values?.investment_thesis?.includes(role) ? "selected" : ""
+                                        }`}
+                                        onClick={() => {
+                                          const currentSizes = Array.isArray(values?.investment_thesis)
+                                            ? values.investment_thesis.map((size) =>
+                                                size.replace(/^"(.*)"$/, "$1").replace(/^'(.*)'$/, "$1")
+                                              )
+                                            : values?.investment_thesis
+                                            ? [values.investment_thesis]
+                                            : [];
+                                          const newSizes = currentSizes.includes(role)
+                                            ? currentSizes.filter((size) => size !== role)
+                                            : [...currentSizes, role];
+                                          setFieldValue("investment_thesis", newSizes);
+                                        }}
+                                      >
+                                        <label>{role}</label>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
                               </>
                             ) : (
                               <span className="disabled-message">Available for Angel Investors only and VCs</span>
@@ -1714,68 +1485,38 @@ const UserProfile = () => {
                           <div className="profile_data">
                             {isInvestor(values?.roles) ? (
                               <>
-                                <div className="radio_group">
-                                  <div
-                                    className="check_box"
-                                    onClick={() => {
-                                      const currentStages = Array.isArray(values?.investment_stage) 
-                                        ? values.investment_stage 
-                                        : values?.investment_stage ? [values.investment_stage] : [];
-                                      const newStages = currentStages.includes("Early")
-                                        ? currentStages.filter(stage => stage !== "Early")
-                                        : [...currentStages, "Early"];
-                                      handleQuestionChange("investment_stage", newStages);
-                                    }}
-                                  >
-                                    <input
-                                      type="checkbox"
-                                      className="costum_checkbox_input"
-                                      checked={Array.isArray(values?.investment_stage) ? values?.investment_stage?.includes("Early") : values?.investment_stage === "Early"}
-                                    />
-                                    <span className="costum_checkbox_label"></span>
-                                    <span className="label">Early (pre-seed, seed)</span>
-                                  </div>
-                                  <div
-                                    className="check_box"
-                                    onClick={() => {
-                                      const currentStages = Array.isArray(values?.investment_stage) 
-                                        ? values.investment_stage 
-                                        : values?.investment_stage ? [values.investment_stage] : [];
-                                      const newStages = currentStages.includes("Decent traction")
-                                        ? currentStages.filter(stage => stage !== "Decent traction")
-                                        : [...currentStages, "Decent traction"];
-                                      handleQuestionChange("investment_stage", newStages);
-                                    }}
-                                  >
-                                    <input
-                                      type="checkbox"
-                                      className="costum_checkbox_input"
-                                      checked={Array.isArray(values?.investment_stage) ? values?.investment_stage?.includes("Decent traction") : values?.investment_stage === "Decent traction"}
-                                    />
-                                    <span className="costum_checkbox_label"></span>
-                                    <span className="label">Decent traction (strategic, private)</span>
-                                  </div>
-                                  <div
-                                    className="check_box"
-                                    onClick={() => {
-                                      const currentStages = Array.isArray(values?.investment_stage) 
-                                        ? values.investment_stage 
-                                        : values?.investment_stage ? [values.investment_stage] : [];
-                                      const newStages = currentStages.includes("Hyped")
-                                        ? currentStages.filter(stage => stage !== "Hyped")
-                                        : [...currentStages, "Hyped"];
-                                      handleQuestionChange("investment_stage", newStages);
-                                    }}
-                                  >
-                                    <input
-                                      type="checkbox"
-                                      className="costum_checkbox_input"
-                                      checked={Array.isArray(values?.investment_stage) ? values?.investment_stage?.includes("Hyped") : values?.investment_stage === "Hyped"}
-                                    />
-                                    <span className="costum_checkbox_label"></span>
-                                    <span className="label">Hyped (public)</span>
+                                <div className="options_container">
+                                  <div className="default_options">
+                                    {[
+                                      "Early (pre-seed, seed)",
+                                      "Decent traction (strategic, private)",
+                                      "Hyped (public)",
+                                    ].map((role, index) => (
+                                      <div
+                                        key={index}
+                                        className={`option default ${
+                                          values?.investment_stage?.includes(role) ? "selected" : ""
+                                        }`}
+                                        onClick={() => {
+                                          const currentSizes = Array.isArray(values?.investment_stage)
+                                            ? values.investment_stage.map((size) =>
+                                                size.replace(/^"(.*)"$/, "$1").replace(/^'(.*)'$/, "$1")
+                                              )
+                                            : values?.investment_stage
+                                            ? [values.investment_stage]
+                                            : [];
+                                          const newSizes = currentSizes.includes(role)
+                                            ? currentSizes.filter((size) => size !== role)
+                                            : [...currentSizes, role];
+                                          setFieldValue("investment_stage", newSizes);
+                                        }}
+                                      >
+                                        <label>{role}</label>
+                                      </div>
+                                    ))}
                                   </div>
                                 </div>
+
                                 <div className="question_desc">
                                   Describe your investment thesis in your own words so we can bring you exactly what you
                                   need *
@@ -1788,7 +1529,8 @@ const UserProfile = () => {
                                   onChange={handleChange}
                                 />
                                 <div className="question_desc">
-                                  Previous investments and ticket sizes (if you feel comfortable sharing — will give us more insights on what makes sense to you, thus bring you tailored deals)
+                                  Previous investments and ticket sizes (if you feel comfortable sharing — will give us
+                                  more insights on what makes sense to you, thus bring you tailored deals)
                                 </div>
                                 <textarea
                                   className="textArea"
@@ -1798,16 +1540,16 @@ const UserProfile = () => {
                                   onChange={handleChange}
                                 />
                                 <div className="save_button_container">
-                                  <button 
-                                    className={`btn_gray save_button ${!isSaveEnabled ? 'disabled' : ''}`} 
-                                    type="submit" 
-                                    onClick={handleSubmit} 
+                                  <button
+                                    className={`btn_gray save_button ${!isSaveEnabled ? "disabled" : ""}`}
+                                    type="submit"
+                                    onClick={handleSubmit}
                                     disabled={!isSaveEnabled}
                                     style={{
-                                      opacity: !isSaveEnabled ? '0.5' : '1',
-                                      cursor: !isSaveEnabled ? 'not-allowed' : 'pointer',
-                                      backgroundColor: !isSaveEnabled ? '#4a4a4a' : undefined,
-                                      transition: 'all 0.3s ease'
+                                      opacity: !isSaveEnabled ? "0.5" : "1",
+                                      cursor: !isSaveEnabled ? "not-allowed" : "pointer",
+                                      backgroundColor: !isSaveEnabled ? "#4a4a4a" : undefined,
+                                      transition: "all 0.3s ease",
                                     }}
                                   >
                                     {isLoading ? (
@@ -1835,7 +1577,7 @@ const UserProfile = () => {
                 </div>
               </div>
             </div>
-            <TelegramVerifyPopup 
+            <TelegramVerifyPopup
               isOpen={isVerifyPopupOpen}
               onClose={() => setIsVerifyPopupOpen(false)}
               verificationCode={verificationCode}
@@ -1980,7 +1722,6 @@ const UserProfile = () => {
                           />
                         </div>
                       </div>
-
 
                       <div className="form_group_row">
                         <div className="profile_info full_width">
@@ -2256,35 +1997,34 @@ const UserProfile = () => {
                               </button>
                             )}
                             <DiscordAuthButton onSuccess={handleSocialConnect} />
-                            <button 
-                              className={`btn_gray save_button ${hasTelegram ? 'verified' : ''}`} 
+                            <button
+                              className={`btn_gray save_button ${hasTelegram ? "verified" : ""}`}
                               onClick={handleVerifyTelegram}
                               disabled={hasTelegram}
                             >
                               <img src={telegramIcon} alt="" />
                               {hasTelegram ? (
-                                        <span style={{ display: 'flex', alignItems: 'center', gap: '3px' }}>
-
+                                <span style={{ display: "flex", alignItems: "center", gap: "3px" }}>
                                   Telegram Connected
-                                  <svg 
-                                    className="checkmark" 
-                                    width="16" 
-                                    height="16" 
-                                    viewBox="0 0 24 24" 
-                                    fill="none" 
+                                  <svg
+                                    className="checkmark"
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
                                     xmlns="http://www.w3.org/2000/svg"
                                   >
-                                    <path 
-                                      d="M20 6L9 17L4 12" 
-                                      stroke="#4CAF50" 
-                                      strokeWidth="2" 
-                                      strokeLinecap="round" 
+                                    <path
+                                      d="M20 6L9 17L4 12"
+                                      stroke="#4CAF50"
+                                      strokeWidth="2"
+                                      strokeLinecap="round"
                                       strokeLinejoin="round"
                                     />
                                   </svg>
                                 </span>
                               ) : (
-                                'Verify Telegram Account'
+                                "Verify Telegram Account"
                               )}
                             </button>
                           </div>
@@ -2371,7 +2111,7 @@ const UserProfile = () => {
       {active === "AMBASSADORS" && (
         <Ambassadors handleActive={handleActive} active={active} uid={userData?.userId} userData={userData} />
       )}
-      <TelegramVerifyPopup 
+      <TelegramVerifyPopup
         isOpen={isVerifyPopupOpen}
         onClose={() => setIsVerifyPopupOpen(false)}
         verificationCode={verificationCode}

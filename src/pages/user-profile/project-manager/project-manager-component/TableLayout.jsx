@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { EmptyData, ProjectAccordion } from "../../../../components";
 import { GredientGlobalIcon, GradientGraphIcon } from "../../../../utils/constants/images";
 import { defaultImg, editIcon, DeleteIcon } from "../../../../utils/constants/images";
@@ -15,6 +15,12 @@ const ProjectManagerTableLayout = ({
   setDltId,
 }) => {
   const navigate = useNavigate();
+
+
+  console.log("----------------")
+  console.log(filterProject)
+  console.log("----------------")
+
 
   return (
     <>
@@ -109,7 +115,17 @@ const ProjectManagerTableLayout = ({
                       <div className="date">{rowData.date}</div>
                     </td>
                     <td>
-                      <div className="actions">
+                      <div className="actions">  
+               
+                        <Link
+                          to={`/${ROUTER.projectEdit}/${rowData.projectId}`}
+                        >
+                          <button
+                            className="btn"
+                          >
+                            <img src={editIcon} alt=" " />
+                          </button>
+                        </Link>
                         <button
                           className="btn"
                           onClick={() => {

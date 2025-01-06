@@ -23,6 +23,7 @@ import toast, { Toaster } from "react-hot-toast";
 import "react-toastify/dist/ReactToastify.css";
 import SynergyRequest from "./pages/pending-synergies/SynergyRequest";
 import SynergiesManager from "./pages/synergies-manager/SynergiesManager";
+import ProjectEdit from './pages/user-profile/project-manager/project-edit/ProjectEdit';
 import ProtectedFeatureRoute from './components/routing/ProtectedFeatureRoute';
 import Welcome from './pages/welcome/Welcome';
 import Home from './pages/home/Home';
@@ -44,6 +45,7 @@ function App() {
         <Route path={`/${ROUTER.authentication}`} element={<Authentication />} />
 
         <Route path="/" element={<Layout />}>
+          <Route path={`/${ROUTER.projectEdit}/:id`} element={<ProjectEdit />} />
           <Route path={`/${ROUTER.dashboard}`} element={<Dashboard />} />
           <Route path={`/${ROUTER.welcome}`} element={<Welcome />} />
           <Route path={ROUTER.announcementFeed} element={<AnnouncementFeed />} />
