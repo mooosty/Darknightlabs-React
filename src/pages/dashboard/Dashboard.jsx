@@ -9,6 +9,7 @@ import CustomDropdown from "../../components/custom-dropdown/CustomDropdown";
 import { defaultImg, discordIcon, telegramIcon, twitterIcon } from "../../utils/constants/images";
 import Sidebar from "../../components/layout/sidebar/Sidebar";
 import "../../components/layout/layout.scss";
+import { startTour, isTourCompleted } from '../../utils/tourConfig';
 
 const AnnouncementCard = ({ announcement }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -101,6 +102,13 @@ const Dashboard = () => {
 
     fetchAnnouncements();
   }, []);
+
+  // Initialize tour when component mounts
+  useEffect(() => {
+    if (!isTourCompleted() && !loading) {
+      startTour('dashboard');
+    }
+  }, [loading]);
 
   const dropdownItems = [
     {

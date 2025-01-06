@@ -25,6 +25,7 @@ import ProjectsUser from "./project-manager/ProjectsUser";
 import Ambassadors from "./Ambassadors/Ambassadors";
 import CryptoJS from "crypto-js";
 import { apiRoutes } from "../../utils/constants/apiUrl";
+import { startTour } from '../../utils/tourConfig';
 
 const copyIcon =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23f5efdb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='9' y='9' width='13' height='13' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'%3E%3C/path%3E%3C/svg%3E";
@@ -904,6 +905,11 @@ const UserProfile = () => {
       investment_description: userDetails?.investment_description || "",
       previous_investments: userDetails?.previous_investments || "",
     });
+    
+    // Restart tour in edit mode after a short delay to allow state update
+    setTimeout(() => {
+      startTour('profile', true);
+    }, 100);
   };
 
   const cancelProfileEdit = () => {
@@ -1174,6 +1180,27 @@ const UserProfile = () => {
       dispatch(getUsersDetailsAPI(userData?.userId));
     }
   }, [userData?.userId, refreshTrigger]);
+
+  // Initialize tour when component mounts or mode changes
+  useEffect(() => {
+    if (active === "INFORMATION") {
+      startTour('profile', isEditMode);
+    }
+  }, [isEditMode, active]);
+
+  // When switching to project involvement tab
+  useEffect(() => {
+    if (active === "INVOLVEMENT" && !addNewProject) {
+      startTour('project');
+    }
+  }, [active, addNewProject]);
+
+  // When switching to ambassadors tab
+  useEffect(() => {
+    if (active === "AMBASSADORS") {
+      startTour('ambassador');
+    }
+  }, [active]);
 
   return (
     <div className="profile_content_wrapper">

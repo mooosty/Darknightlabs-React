@@ -1,0 +1,114 @@
+// Custom styles for Driver.js tour
+.driver-popover {
+  background: rgba(26, 26, 26, 0.95) !important;
+  border: 1px solid #DCCA87 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 20px rgba(220, 202, 135, 0.25) !important;
+  color: #F5EFDB !important;
+  padding: 24px !important;
+  max-width: 400px !important;
+  backdrop-filter: blur(10px) !important;
+
+  .driver-popover-title {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    color: #DCCA87 !important;
+    margin-bottom: 12px !important;
+    text-shadow: 0 0 10px rgba(220, 202, 135, 0.3) !important;
+  }
+
+  .driver-popover-description {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    color: #F5EFDB !important;
+    margin-bottom: 16px !important;
+  }
+
+  .driver-popover-footer {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-top: 20px !important;
+
+    button {
+      background: rgba(220, 202, 135, 0.1) !important;
+      border: 1px solid #DCCA87 !important;
+      border-radius: 6px !important;
+      color: #DCCA87 !important;
+      font-family: 'Inter', sans-serif !important;
+      font-size: 14px !important;
+      padding: 8px 16px !important;
+      cursor: pointer !important;
+      transition: all 0.3s ease !important;
+
+      &:hover {
+        background: rgba(220, 202, 135, 0.2) !important;
+        box-shadow: 0 0 10px rgba(220, 202, 135, 0.3) !important;
+      }
+    }
+  }
+}
+
+// Overlay styles
+.driver-overlay {
+  background: rgba(0, 0, 0, 0.4) !important;
+}
+
+// Highlighted element styles
+.driver-highlighted-element {
+  background: rgba(26, 26, 26, 0.95) !important;
+  border: 2px solid #DCCA87 !important;
+  border-radius: 4px !important;
+  box-shadow: 
+    0 0 0 2px #DCCA87,
+    0 0 15px rgba(220, 202, 135, 0.5),
+    0 0 30px rgba(220, 202, 135, 0.3) !important;
+}
+
+// Progress bar styles
+.driver-progress-bar {
+  background: rgba(245, 239, 219, 0.1) !important;
+  height: 4px !important;
+  border-radius: 2px !important;
+  margin-top: 16px !important;
+  overflow: hidden !important;
+
+  .driver-progress-bar-inner {
+    background: #DCCA87 !important;
+    height: 100% !important;
+    transition: width 0.3s ease !important;
+  }
+}
+
+// Animation classes
+.driver-fade-in {
+  animation: driverFadeIn 0.3s ease-in !important;
+}
+
+.driver-fade-out {
+  animation: driverFadeOut 0.3s ease-out !important;
+}
+
+@keyframes driverFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes driverFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+} 

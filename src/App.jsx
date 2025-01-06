@@ -21,6 +21,7 @@ import { ROUTER } from "./utils/routes/routes";
 // import { ToastContainer } from "react-toastify";
 import toast, { Toaster } from "react-hot-toast";
 import "react-toastify/dist/ReactToastify.css";
+import '../src/styles/tour.scss';
 import SynergyRequest from "./pages/pending-synergies/SynergyRequest";
 import SynergiesManager from "./pages/synergies-manager/SynergiesManager";
 import ProjectEdit from './pages/user-profile/project-manager/project-edit/ProjectEdit';
