@@ -25,7 +25,6 @@ import ProjectsUser from "./project-manager/ProjectsUser";
 import Ambassadors from "./Ambassadors/Ambassadors";
 import CryptoJS from "crypto-js";
 import { apiRoutes } from "../../utils/constants/apiUrl";
-import { startTour } from '../../utils/tourConfig';
 
 const copyIcon =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23f5efdb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='9' y='9' width='13' height='13' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'%3E%3C/path%3E%3C/svg%3E";
@@ -615,9 +614,8 @@ const UserProfile = () => {
 
   const { authDetails } = useSelector((state) => state.auth);
 
-
   const defaultImage =
-    authDetails?.user?.verifiedCredentials[1]?.oauthAccountPhotos[0]?.replace("_normal", "") || defaultImg;
+    authDetails?.user?.verifiedCredentials[2]?.oauthAccountPhotos[0]?.replace("_normal", "") || defaultImg;
 
   // Add function to fetch Telegram username
   const fetchTelegramUsername = async () => {
@@ -905,11 +903,6 @@ const UserProfile = () => {
       investment_description: userDetails?.investment_description || "",
       previous_investments: userDetails?.previous_investments || "",
     });
-    
-    // Restart tour in edit mode after a short delay to allow state update
-    setTimeout(() => {
-      startTour('profile', true);
-    }, 100);
   };
 
   const cancelProfileEdit = () => {
@@ -1009,6 +1002,7 @@ const UserProfile = () => {
 
       // Parse investment_thesis if it's a string
       let parsedInvestmentThesis = [];
+      let otherInvestmentThesis = "";
       try {
         if (typeof userDetails.investment_thesis === "string") {
           parsedInvestmentThesis = JSON.parse(userDetails.investment_thesis);
@@ -1016,7 +1010,7 @@ const UserProfile = () => {
           parsedInvestmentThesis = userDetails.investment_thesis;
         }
 
-        // Check for custom categories
+        // Check if there's a custom category that's not in the predefined list
         const predefinedCategories = [
           "Gaming/Metaverse/GameFi",
           "AI",
@@ -1030,15 +1024,18 @@ const UserProfile = () => {
           "Other",
         ];
 
-        // If there are custom categories, make sure "Other" is included
-        const hasCustomCategories = parsedInvestmentThesis.some(
-          thesis => !predefinedCategories.includes(thesis)
-        );
-        
-        if (hasCustomCategories && !parsedInvestmentThesis.includes("Other")) {
-          parsedInvestmentThesis.push("Other");
-        }
+        // Find any custom categories
+        const customCategories = parsedInvestmentThesis.filter((thesis) => !predefinedCategories.includes(thesis));
 
+        if (customCategories.length > 0) {
+          // Store the first custom category as the other value
+          otherInvestmentThesis = customCategories[0];
+          // Remove custom categories and add "Other"
+          parsedInvestmentThesis = [
+            ...parsedInvestmentThesis.filter((thesis) => predefinedCategories.includes(thesis)),
+            "Other",
+          ];
+        }
       } catch (e) {
         console.error("Error parsing investment_thesis:", e);
       }
@@ -1050,6 +1047,7 @@ const UserProfile = () => {
         investment_stage: parsedInvestmentStage,
         investment_description: userDetails?.investment_description || "",
         previous_investments: userDetails?.previous_investments || "",
+        other_investment_thesis: otherInvestmentThesis,
       });
 
       // Set form values
@@ -1062,6 +1060,7 @@ const UserProfile = () => {
         investment_thesis: parsedInvestmentThesis,
         ticket_size: parsedTicketSize,
         previous_investments: userDetails?.previous_investments || "",
+        other_investment_thesis: otherInvestmentThesis,
       });
     }
   }, [userDetails, telegramUsername]);
@@ -1181,27 +1180,6 @@ const UserProfile = () => {
     }
   }, [userData?.userId, refreshTrigger]);
 
-  // Initialize tour when component mounts or mode changes
-  useEffect(() => {
-    if (active === "INFORMATION") {
-      startTour('profile', isEditMode);
-    }
-  }, [isEditMode, active]);
-
-  // When switching to project involvement tab
-  useEffect(() => {
-    if (active === "INVOLVEMENT" && !addNewProject) {
-      startTour('project');
-    }
-  }, [active, addNewProject]);
-
-  // When switching to ambassadors tab
-  useEffect(() => {
-    if (active === "AMBASSADORS") {
-      startTour('ambassador');
-    }
-  }, [active]);
-
   return (
     <div className="profile_content_wrapper">
       {active === "INFORMATION" &&
@@ -1275,7 +1253,7 @@ const UserProfile = () => {
                           <div className="profile_data">{userDetails?.birthday || "-"}</div>
                         </div>
                         <div className="profile_info">
-                          <div className="profile_head">Username</div>
+                          <div className="profile_head">User name</div>
                           <div className="profile_data">
                             {userDetails?.username || authDetails?.user?.verifiedCredentials?.[2]?.oauthUsername || "-"}
                           </div>
@@ -1319,12 +1297,12 @@ const UserProfile = () => {
                             {userDetails?.username ? (
                               <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                                 <a
-                                  href={`https://twitter.com/${authDetails?.user?.verifiedCredentials[1]?.oauthUsername}`}
+                                  href={`https://twitter.com/${userDetails.username}`}
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   className="twitter-link"
                                 >
-                                  {authDetails?.user?.verifiedCredentials[1]?.oauthUsername}
+                                  {userDetails.username}
                                 </a>
                                 <svg
                                   className="checkmark"
@@ -1354,79 +1332,26 @@ const UserProfile = () => {
                         </div>
                         <div className="profile_info">
                           <div className="profile_head">Role</div>
-                          <div className="profile_data role-squares">
-                            {userDetails?.roles?.split(",").map((role, index) => {
-                              let displayRole;
-                              let emoji;
-                              switch (role.trim()) {
-                                case "A Founder":
-                                case "Founder":
-                                  displayRole = "Founder";
-                                  emoji = "👑";
-                                  break;
-                                case "A C-level":
-                                case "C-level":
-                                  displayRole = "C-level";
-                                  emoji = "💼";
-                                  break;
-                                case "A Web3 employee":
-                                case "Web3 employee":
-                                  displayRole = "Web3 Employee";
-                                  emoji = "💻";
-                                  break;
-                                case "A KOL / Ambassador / Content Creator":
-                                case "KOL / Ambassador / Content Creator":
-                                  displayRole = "Content Creator";
-                                  emoji = "🎥";
-                                  break;
-                                case "An Angel Investor":
-                                case "Angel Investor":
-                                  displayRole = "Angel Investor";
-                                  emoji = "👼";
-                                  break;
-                                case "BD":
-                                  displayRole = "BD";
-                                  emoji = "🤝";
-                                  break;
-                                case "Community Manager":
-                                  displayRole = "Community Manager";
-                                  emoji = "👥";
-                                  break;
-                                case "Collab Manager":
-                                  displayRole = "Collab Manager";
-                                  emoji = "🤝";
-                                  break;
-                                case "Outreach Team":
-                                  displayRole = "Outreach";
-                                  emoji = "📢";
-                                  break;
-                                case "KOL":
-                                  displayRole = "KOL";
-                                  emoji = "⭐";
-                                  break;
-                                case "Ambassador":
-                                  displayRole = "Ambassador";
-                                  emoji = "🌟";
-                                  break;
-                                case "Alpha Caller":
-                                  displayRole = "Alpha Caller";
-                                  emoji = "📱";
-                                  break;
-                                case "Venture Capital":
-                                  displayRole = "VC";
-                                  emoji = "💰";
-                                  break;
-                                default:
-                                  displayRole = role.trim();
-                                  emoji = "🔹";
-                              }
-                              return (
-                                <div key={index} className="role-square">
-                                  <span className="role-emoji">{emoji}</span>
-                                  <span className="role-text">{displayRole}</span>
-                                </div>
-                              );
-                            }) || "-"}
+                          <div className="profile_data">
+                            {userDetails?.roles
+                              ?.split(",")
+                              .map((role) => {
+                                switch (role.trim()) {
+                                  case "A Founder":
+                                    return "Founder";
+                                  case "A C-level":
+                                    return "C-level";
+                                  case "A Web3 employee":
+                                    return "Web3 employee";
+                                  case "A KOL / Ambassador / Content Creator":
+                                    return "KOL / Ambassador / Content Creator";
+                                  case "An Angel Investor":
+                                    return "Angel Investor";
+                                  default:
+                                    return role.trim();
+                                }
+                              })
+                              .join(", ") || "-"}
                           </div>
                         </div>
                         <div className="profile_info">
@@ -1526,79 +1451,23 @@ const UserProfile = () => {
                                         className={`option default ${
                                           values?.investment_thesis?.includes(role) ? "selected" : ""
                                         }`}
-                                        onClick={() => handleInvestmentThesisChange(role)}
+                                        onClick={() => {
+                                          const currentSizes = Array.isArray(values?.investment_thesis)
+                                            ? values.investment_thesis.map((size) =>
+                                                size.replace(/^"(.*)"$/, "$1").replace(/^'(.*)'$/, "$1")
+                                              )
+                                            : values?.investment_thesis
+                                            ? [values.investment_thesis]
+                                            : [];
+                                          const newSizes = currentSizes.includes(role)
+                                            ? currentSizes.filter((size) => size !== role)
+                                            : [...currentSizes, role];
+                                          setFieldValue("investment_thesis", newSizes);
+                                        }}
                                       >
                                         <label>{role}</label>
                                       </div>
                                     ))}
-                                  </div>
-                                  {values?.investment_thesis?.includes("Other") && (
-                                    <div className="add_custom_field">
-                                      <input
-                                        type="text"
-                                        placeholder="Add custom category"
-                                        value={values.other_investment_thesis || ""}
-                                        onChange={(e) => {
-                                          setFieldValue("other_investment_thesis", e.target.value);
-                                        }}
-                                        onKeyPress={(e) => {
-                                          if (e.key === "Enter" && values.other_investment_thesis?.trim()) {
-                                            e.preventDefault();
-                                            const newThesis = values.other_investment_thesis.trim();
-                                            setFieldValue("investment_thesis", [...values.investment_thesis, newThesis]);
-                                            setFieldValue("other_investment_thesis", "");
-                                          }
-                                        }}
-                                      />
-                                      <button
-                                        onClick={() => {
-                                          if (values.other_investment_thesis?.trim()) {
-                                            const newThesis = values.other_investment_thesis.trim();
-                                            setFieldValue("investment_thesis", [...values.investment_thesis, newThesis]);
-                                            setFieldValue("other_investment_thesis", "");
-                                          }
-                                        }}
-                                      >
-                                        Add
-                                      </button>
-                                    </div>
-                                  )}
-                                  <div className="custom_options">
-                                    {values?.investment_thesis
-                                      ?.filter(
-                                        (thesis) =>
-                                          ![
-                                            "Gaming/Metaverse/GameFi",
-                                            "AI",
-                                            "RWA",
-                                            "DePin",
-                                            "DeFi",
-                                            "Infrastructure",
-                                            "L1/L2/L3",
-                                            "Data",
-                                            "IP",
-                                            "Other",
-                                          ].includes(thesis)
-                                      )
-                                      .map((thesis, index) => (
-                                        <div key={`custom-${index}`} className="option custom selected">
-                                          <div>
-                                            <label>{thesis}</label>
-                                          </div>
-                                          <span
-                                            className="delete-btn"
-                                            onClick={(e) => {
-                                              e.stopPropagation();
-                                              setFieldValue(
-                                                "investment_thesis",
-                                                values.investment_thesis.filter((t) => t !== thesis)
-                                              );
-                                            }}
-                                          >
-                                            ×
-                                          </span>
-                                        </div>
-                                      ))}
                                   </div>
                                 </div>
                               </>
@@ -1801,7 +1670,7 @@ const UserProfile = () => {
                           </div>
                         </div>
                         <div className="profile_info">
-                          <label>Username</label>
+                          <label>User Name</label>
                           <input
                             type="text"
                             name="username"
@@ -2058,79 +1927,26 @@ const UserProfile = () => {
                         </div>
                         <div className="profile_info">
                           <div className="profile_head">Role</div>
-                          <div className="profile_data role-squares">
-                            {userDetails?.roles?.split(",").map((role, index) => {
-                              let displayRole;
-                              let emoji;
-                              switch (role.trim()) {
-                                case "A Founder":
-                                case "Founder":
-                                  displayRole = "Founder";
-                                  emoji = "👑";
-                                  break;
-                                case "A C-level":
-                                case "C-level":
-                                  displayRole = "C-level";
-                                  emoji = "💼";
-                                  break;
-                                case "A Web3 employee":
-                                case "Web3 employee":
-                                  displayRole = "Web3 Employee";
-                                  emoji = "💻";
-                                  break;
-                                case "A KOL / Ambassador / Content Creator":
-                                case "KOL / Ambassador / Content Creator":
-                                  displayRole = "Content Creator";
-                                  emoji = "🎥";
-                                  break;
-                                case "An Angel Investor":
-                                case "Angel Investor":
-                                  displayRole = "Angel Investor";
-                                  emoji = "👼";
-                                  break;
-                                case "BD":
-                                  displayRole = "BD";
-                                  emoji = "🤝";
-                                  break;
-                                case "Community Manager":
-                                  displayRole = "Community Manager";
-                                  emoji = "👥";
-                                  break;
-                                case "Collab Manager":
-                                  displayRole = "Collab Manager";
-                                  emoji = "🤲";
-                                  break;
-                                case "Outreach Team":
-                                  displayRole = "Outreach";
-                                  emoji = "📢";
-                                  break;
-                                case "KOL":
-                                  displayRole = "KOL";
-                                  emoji = "⭐";
-                                  break;
-                                case "Ambassador":
-                                  displayRole = "Ambassador";
-                                  emoji = "🌟";
-                                  break;
-                                case "Alpha Caller":
-                                  displayRole = "Alpha Caller";
-                                  emoji = "📱";
-                                  break;
-                                case "Venture Capital":
-                                  displayRole = "VC";
-                                  emoji = "💰";
-                                  break;
-                                default:
-                                  displayRole = role.trim();
-                                  emoji = "🔹";
-                              }
-                              return (
-                                <div key={index} className="role-square">
-                                  <span className="role-emoji">{emoji}</span>
-                                  <span className="role-text">{displayRole}</span>
-                                </div>
-                              );
-                            }) || "-"}
+                          <div className="profile_data">
+                            {userDetails?.roles
+                              ?.split(",")
+                              .map((role) => {
+                                switch (role.trim()) {
+                                  case "A Founder":
+                                    return "Founder";
+                                  case "A C-level":
+                                    return "C-level";
+                                  case "A Web3 employee":
+                                    return role.trim();
+                                  case "A KOL / Ambassador / Content Creator":
+                                    return role.trim();
+                                  case "An Angel Investor":
+                                    return "Angel Investor";
+                                  default:
+                                    return role.trim();
+                                }
+                              })
+                              .join(", ") || "-"}
                           </div>
                         </div>
                       </div>

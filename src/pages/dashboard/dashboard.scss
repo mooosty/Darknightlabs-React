@@ -117,8 +117,8 @@ body {
 
 .dashboard-container {
   height: 100%;
-  padding: 16px;
-  
+  padding: 8px;
+ 
   @media (max-width: 768px) {
     padding: 12px;
     height: auto;
@@ -126,9 +126,11 @@ body {
   }
   
   .welcome-section {
+ 
     margin-bottom: 24px;
     background: #191917;
     border-radius: 9px;
+    margin: 8px;
     padding: 24px;
     
     @media (max-width: 768px) {
@@ -137,6 +139,7 @@ body {
     }
     
     .welcome-content {
+      padding: 8px;
       h1 {
         font-family: "MedievalSharp", cursive;
         color: #F5EFDB;
@@ -213,6 +216,7 @@ body {
   
   .dashboard-grid {
     display: grid;
+    padding: 8px;
     grid-template-columns: repeat(2, 1fr);
     gap: 24px;
     

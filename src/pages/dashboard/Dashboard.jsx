@@ -168,7 +168,7 @@ const Dashboard = () => {
         <div className="welcome-content">
           <h1>Welcome back, {getUserName()}!</h1>
           <div className="stats-container">
-            <div className="stat-box">
+            <div className="stat-box">   
               <span className="stat-label">Karma Points</span>
               <span className="stat-value karma">{userDetails?.currency_b || 0}</span>
               <Link to={`/${ROUTER.karma}`} className="view-more-btn">View More Details</Link>
