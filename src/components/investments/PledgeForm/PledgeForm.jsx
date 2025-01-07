@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './PledgeForm.scss';
-// import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 import toast, { Toaster } from "react-hot-toast";
 
 const valueOptions = [
@@ -17,6 +17,13 @@ const valueOptions = [
 ];
 
 const PledgeForm = ({ onSubmit }) => {
+  const { userId, name } = useSelector((state) => state.auth);
+  
+  // Move ALL state declarations to the top
+  const [loading, setLoading] = useState(true);
+  const [pledgeData, setPledgeData] = useState(null);
+  const [showCounterOfferInput, setShowCounterOfferInput] = useState(false);
+  const [counterOffer, setCounterOffer] = useState('');
   const [ticketSize, setTicketSize] = useState('');
   const [investedAmount, setInvestedAmount] = useState('');
   const [transactionLink, setTransactionLink] = useState('');
@@ -26,6 +33,73 @@ const PledgeForm = ({ onSubmit }) => {
   const [customValueType, setCustomValueType] = useState('');
   const [currentContribution, setCurrentContribution] = useState('');
   const [elaboration, setElaboration] = useState('');
+
+  useEffect(() => {
+    const fetchPledgeData = async () => {
+      try {
+        const response = await fetch(`https://winwinsocietyweb3.com/api/investment-pledge/${userId}/showa`);
+        if (response.ok) {
+          const responseData = await response.json();
+          console.log('API Response:', responseData); // Debug log
+          if (responseData.success === 1 && responseData.data) {
+            setPledgeData(responseData.data);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching pledge data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (userId) {
+      fetchPledgeData();
+    }
+  }, [userId]);
+
+  const handleCounterOfferSubmit = async () => {
+    if (!counterOffer) {
+      toast.error('Please enter your counter offer');
+      return;
+    }
+
+    try {
+      const response = await fetch(`https://winwinsocietyweb3.com/api/investment-pledge/user-counter/${userId}/showa`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_counter_offer: counterOffer
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit counter offer');
+      }
+
+      const data = await response.json();
+      if (data.success) {
+        toast.success('Counter offer submitted successfully');
+        // Refresh pledge data
+        const updatedResponse = await fetch(`https://winwinsocietyweb3.com/api/investment-pledge/${userId}/showa`);
+        if (updatedResponse.ok) {
+          const updatedData = await updatedResponse.json();
+          if (updatedData.success === 1 && updatedData.data) {
+            setPledgeData({
+              ...updatedData.data,
+              wws_reply: 0 // Force the pending state
+            });
+          }
+        }
+        setShowCounterOfferInput(false);
+        setCounterOffer('');
+      }
+    } catch (error) {
+      console.error('Error submitting counter offer:', error);
+      toast.error('Failed to submit counter offer. Please try again.');
+    }
+  };
 
   const handleAddValue = () => {
     if ((currentValue === 'Other...' ? customValueType.trim() : currentValue) && currentContribution.trim()) {
@@ -74,13 +148,15 @@ const PledgeForm = ({ onSubmit }) => {
       const formattedValues = selectedValues.map(value => 
         `${value.type}: ${value.contribution}`
       ).join(', ');
-
+      
       const response = await fetch('https://winwinsocietyweb3.com/api/submit-form-pledge', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          userId,
+          username: name,
           ticketSize,
           transactionLink,
           claimWallet,
@@ -104,6 +180,15 @@ const PledgeForm = ({ onSubmit }) => {
           elaboration
         });
 
+        // Fetch updated pledge data
+        const pledgeResponse = await fetch(`https://winwinsocietyweb3.com/api/investment-pledge/${userId}/showa`);
+        if (pledgeResponse.ok) {
+          const pledgeData = await pledgeResponse.json();
+          if (pledgeData.success === 1 && pledgeData.data) {
+            setPledgeData(pledgeData.data);
+          }
+        }
+
         // Clear form after successful submission
         setTicketSize('');
         setTransactionLink('');
@@ -119,6 +204,128 @@ const PledgeForm = ({ onSubmit }) => {
     }
   };
 
+  const handleAcceptOffer = async () => {
+    try {
+      const response = await fetch(`https://winwinsocietyweb3.com/api/investment-pledge/user-accept/${userId}/showa`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to accept offer');
+      }
+
+      const data = await response.json();
+      if (data.success) {
+        toast.success('Offer accepted successfully');
+        // Refresh pledge data
+        const updatedResponse = await fetch(`https://winwinsocietyweb3.com/api/investment-pledge/${userId}/showa`);
+        if (updatedResponse.ok) {
+          const updatedData = await updatedResponse.json();
+          setPledgeData(updatedData.data);
+        }
+      }
+    } catch (error) {
+      console.error('Error accepting offer:', error);
+      toast.error('Failed to accept offer. Please try again.');
+    }
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (pledgeData && pledgeData.invested_amount) {
+    return (
+      <div className="pledge-form-card">
+        <div className="pledge-form-content">
+          <div className="submission-details">
+            <h3 className="submission-title">Your Submission Details</h3>
+            <div className="amount-display">
+              <span className="label">You submitted:</span>
+              <span className="amount">{pledgeData.invested_amount} USDT</span>
+            </div>
+          </div>
+          
+          {pledgeData.accepted === 1 ? (
+            <div className="accepted-offer-section">
+              <h4 className="accepted-title">Congratulations! Your offer has been accepted</h4>
+              <div className="final-amount">
+                Your accepted amount is: {pledgeData.final_offer} USDT
+              </div>
+            </div>
+          ) : pledgeData.accepted === 0 && pledgeData.wws_reply === 0 ? (
+            <div className="pending-section">
+              <h4 className="pending-title">Thank you for your submission</h4>
+              <p className="pending-message">
+                The team will see if they can accommodate your request or counter back.
+                Please check back later for updates.
+              </p>
+            </div>
+          ) : (
+            <div className="counter-offer-section">
+              <div className="wws-counter">
+                <h4 className="counter-title">The WinWin Society is Countering that offer with:</h4>
+                <div className="counter-amount">
+                  {pledgeData.wws_counter_offer === "0.00" ? (
+                    <span className="no-counter">No counter offer yet</span>
+                  ) : (
+                    `${pledgeData.wws_counter_offer} USDT`
+                  )}
+                </div>
+              </div>
+              
+              {pledgeData.wws_counter_offer !== "0.00" && (
+                <>
+                  {!showCounterOfferInput && (
+                    <div className="action-section">
+                      <p className="action-prompt">Would you like to accept or counter offer?</p>
+                      <div className="button-group">
+                        <button 
+                          className="action-button accept"
+                          onClick={handleAcceptOffer}
+                        >
+                          Accept Offer
+                        </button>
+                        <button 
+                          className="action-button counter"
+                          onClick={() => setShowCounterOfferInput(true)}
+                        >
+                          Make Counter Offer
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {showCounterOfferInput && (
+                    <div className="counter-input-section">
+                      <input
+                        type="text"
+                        className="counter-input"
+                        value={counterOffer}
+                        onChange={(e) => setCounterOffer(e.target.value)}
+                        placeholder="Enter your counter offer in USDT"
+                      />
+                      <button 
+                        className="submit-counter"
+                        onClick={handleCounterOfferSubmit}
+                      >
+                        Submit Counter Offer
+                      </button>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  // Original form JSX
   return (
     <div className="pledge-form-card">
       <div className="pledge-form-header">
