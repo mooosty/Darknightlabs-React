@@ -133,7 +133,7 @@ const Chats = () => {
 
       <div className="chat_wrap">
         <div className="chat_conternt">
-          <div className={`synergies ${chatNumber ? "active" : ""}`}>
+          {/* <div className={`synergies ${chatNumber ? "active" : ""}`}>
             {groupData.map((data, index) => {
               const imageIndex = index % chatSynergies.length;
               return (
@@ -150,20 +150,20 @@ const Chats = () => {
                 </div>
               );
             })}
-          </div>
+          </div> */}
           <div className={`channels ${chatNumber ? "active" : ""}`}>
             <div className="channels_avatar">
               <img src={chatSynergies[openChatIndex % chatSynergies?.length].img} alt="" />
             </div>
             <div className="channels_list">
-              <div className="channels_list_head">
+              {/* <div className="channels_list_head">
                 <span>Synergy name</span>
-                {/* <div className="btn_gray" onClick={handleMenberListOpen}>
+                <div className="btn_gray" onClick={handleMenberListOpen}>
                                     <UserIcon />
                                     <span>128 </span>
-                                </div> */}
-              </div>
-              <div className="channels_list_separator "></div>
+                                </div>
+              </div> */}
+              {/* <div className="channels_list_separator "></div> */}
               <div className="channels_list_data">
                 <div className="data_header" onClick={handleChannelOpen}>
                   <span>Channels</span>
