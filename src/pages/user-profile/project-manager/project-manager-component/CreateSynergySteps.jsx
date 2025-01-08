@@ -43,7 +43,10 @@ const CreateSynergySteps = ({ createSynergyStep, setCreateSynergyStep, synergies
             "project2_id": synergies.projects[1]['project_id'],
             "date": new Date().toISOString(),
             "synergy_name": synergies.synergyName,
-            "synergy_angles": [...Object.entries(synergies.projects[0]['synergy_angles']).map((obj) => obj[1]), ...Object.entries(synergies.projects[1]['synergy_angles']).map((obj) => obj[1])],
+            "synergy_angles": [ 
+                                ...Object.entries(synergies.projects[0]['synergy_angles']).map((obj) => obj[1]), 
+                                ...Object.entries(synergies.projects[1]['synergy_angles']).map((obj) => obj[1])
+                            ],
             "price": 0,
             "synergy_image": synergies.projects[0]['image']
         }
@@ -59,6 +62,8 @@ const CreateSynergySteps = ({ createSynergyStep, setCreateSynergyStep, synergies
                 })
             }
         })
+
+        
 
         // const groupData = {
         //     name: synergies.groupName,

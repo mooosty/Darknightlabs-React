@@ -3,6 +3,8 @@ import { apiRoutes } from "../utils/constants/apiUrl";
 import { chatAxiosApi } from "./service";
 
 export const createGroupAPI = createAsyncThunk("chat/group/create", async (data, thunkAPI) => {
+  console.log(data);
+
   const response = await chatAxiosApi.post(apiRoutes.CHAT_GROUP, data);
   if (response?.status) return response.data;
   else return thunkAPI.rejectWithValue(response?.data);
@@ -10,6 +12,8 @@ export const createGroupAPI = createAsyncThunk("chat/group/create", async (data,
 
 export const getGroupsAPI = createAsyncThunk("chat/group/get", async (thunkAPI) => {
   const response = await chatAxiosApi.get(apiRoutes.CHAT);
+  console.log("response")
+  console.log(response)
   if (response?.status) return response.data;
   else return thunkAPI.rejectWithValue(response?.data);
 });

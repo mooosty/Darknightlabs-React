@@ -70,17 +70,17 @@ const CreateSynergySteps = ({ createSynergyStep, setCreateSynergyStep, synergies
         setIsLoading(true)
         dispatch(createSynergyApi(data)).unwrap().then(async () => {
             try {
-                const userPromises = users.map((user) => {
-                    const payload = {
-                        _id: user.id,
-                        name: `${user.first_name ?? ''} ${user.last_name ?? ''}`,
-                        email: user.email,
-                        password: `${user.id}@@@${user.email}`,
-                    }
-                    return dispatch(createUserAPI(payload))
-                })
+                // const userPromises = users.map((user) => {
+                //     const payload = {
+                //         _id: user.id,
+                //         name: `${user.first_name ?? ''} ${user.last_name ?? ''}`,
+                //         email: user.email,
+                //         password: `${user.id}@@@${user.email}`,
+                //     }
+                //     return dispatch(createUserAPI(payload))
+                // })
 
-                await Promise.allSettled(userPromises)
+                // await Promise.allSettled(userPromises)
 
                 dispatch(createGroupAPI(groupData)).then((res) => {
                     setCreateSynergyStep(0);

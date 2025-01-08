@@ -2,10 +2,11 @@
 
   .chat_main_wrap {
     height: 100%;
+   
 
     &.hide {
       @media (max-width: 767px) {
-        height: calc(100% + 50px);
+        // height: calc(100% );
 
         .chat_content_header {
           display: none;
@@ -134,7 +135,7 @@
             cursor: pointer;
 
             img {
-              height: 100%;
+           
               width: 100%;
               border-radius: 50%;
             }

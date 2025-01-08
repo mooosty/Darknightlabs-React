@@ -20,6 +20,7 @@ const authSlice = createSlice({
   reducers: {
     storeAuthData: (state, action) => {
       const userId = action?.payload?.user.id;
+      localStorage.setItem('userId', userId);
       const name = action?.payload?.user.firstname;
       const email = action?.payload?.user.email;
       const profile_picture = action?.payload?.user.profile_picture;

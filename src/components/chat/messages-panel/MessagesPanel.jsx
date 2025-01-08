@@ -171,8 +171,8 @@ const MessagesPanel = ({
 
   return (
     <>
-      <div className="chat_main_body">
-        <div className="chat_container">
+      <div   className="chat_main_body" >
+        <div className="chat_container" >
           {messages.map((message, index) => {
             return (
               <Fragment key={index}>

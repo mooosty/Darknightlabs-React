@@ -18,7 +18,7 @@ axiosApi.interceptors.request.use(
       Accept: "application/json, */*",
       "Content-Type": "application/json",
     };
-    const token = localStorage.getItem("dynamic_authentication_token").replace(/['"]+/g, '');
+    const token = localStorage.getItem("dynamic_authentication_token").replace(/['"]+/g, "");
 
     if (token) {
       headers = {
@@ -45,7 +45,8 @@ chatAxiosApi.interceptors.request.use(
       "Content-Type": "application/json",
     };
 
-    const token = localStorage.getItem("dynamic_authentication_token").replace(/['"]+/g, '');
+    const token = localStorage.getItem("dynamic_authentication_token").replace(/['"]+/g, "");
+
     const t = store?.auth?.token;
     if (token) {
       headers = {
@@ -57,9 +58,14 @@ chatAxiosApi.interceptors.request.use(
     config.headers = {
       ...headers,
     };
-    config.params = {
-      id: 123,
-    };
+
+    const userId = localStorage.getItem("userId");
+
+    if (userId) {
+      config.params = {
+        id: userId,
+      };
+    }
 
     return config;
   },

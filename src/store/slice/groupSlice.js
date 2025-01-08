@@ -14,6 +14,7 @@ const groupSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(getGroupsAPI.pending, (state) => {
+           
             if (state.groups.length === 0) {
                 return {
                     ...state,
@@ -27,6 +28,7 @@ const groupSlice = createSlice({
             }
         })
         builder.addCase(getGroupsAPI.fulfilled, (state, action) => {
+        
             return {
                 ...state,
                 isLoading: false,
