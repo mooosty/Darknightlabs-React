@@ -165,6 +165,38 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
       synergy_obj[`synergy_angle${index}`] = synergy_angle[`synergy_angle`];
     });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const investment_obj = {};
     values.investments.forEach(({ property, price }) => {
       investment_obj[property] = price;
@@ -197,6 +229,24 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
       data = { ...data, image: response.data.image_url };
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     dispatch(
       updateProjectAPI({
         projectId: projectId - 0,
@@ -207,10 +257,24 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
         if (res.error) {
           throw new Error(res.error.message);
         }
-        navigate("/project-manager");
+        navigate("/profile");
       })
       .catch((err) => console.error(err));
   };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   const handleProjectDelete = () => {
     dispatch(
@@ -218,10 +282,21 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
         projectIds: [projectId - 0],
       })
     ).then(() => {
-      navigate("/project-manager");
+      navigate("/profile");
     });
     setIsDeleteConfirmPopupOpen(false);
   };
+
+
+
+
+
+
+
+
+
+
+
 
   const handleAddNewAngel = (data) => {
     toggleAddAngelPopupOpen();
@@ -241,6 +316,36 @@ const ProjectInvolvment = ({ setAddNewProject }) => {
       ]);
     }
   };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   useEffect(() => {
     if (projectId && projectId !== "add") {

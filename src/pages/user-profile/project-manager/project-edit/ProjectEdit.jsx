@@ -13,29 +13,25 @@ import { synergyAnglesOptions } from "../../../../utils/constants/options";
 import { autherProfile, DeleteIcon, PlusIcon, sepratorImage, RightIcon, project } from "../../../../utils/constants/images";
 import { AddAngelPopup, DeleteConfirmPopup, ImageUploader, Loader, Select, TagInput } from "../../../../components";
 import { addProjectAPI, deleteProjectAPI, addMemberAPI, getProjectsApiById } from "../../../../api-services/projectApis";
+import debounce from "lodash.debounce";
 
 const ProjectEdit = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // const { projectId } = useParams();
- 
-  const urlItems = window.location.pathname.split('/');
-  const projectId = urlItems[urlItems.length - 1];
-  useEffect(() => {
-    console.log("projectId");
-    
-    console.log(projectId);
-  },[projectId])
 
-  const isAddMode = window.location.pathname === '/project-manager/add';
+  const urlItems = window.location.pathname.split("/");
+  const [projectId, setProjectId] = useState(urlItems[urlItems.length - 1]);
+
+  const isAddMode = window.location.pathname === "/project-manager/add";
 
   const [isAddAngelPopupOpen, setIsAddAngelPopupOpen] = useState(false);
   const [whoAccessToSynergySide, setWhoAccessToSynergySide] = useState("All Users");
   const [whoAccessToInvestmentSide, setWhoAccessToInvestmentSide] = useState("All Users");
   const [isDeleteConfirmPopupOpen, setIsDeleteConfirmPopupOpen] = useState(false);
   const [angelPopupIndex, setAngelPopupIndex] = useState();
+  const [emailValidationResults, setEmailValidationResults] = useState({});
 
-  const userData = useSelector((state) => state.user.users);
   const {
     projectDetails,
     isLoading: projectApiLoading,
@@ -76,9 +72,9 @@ const ProjectEdit = () => {
         frequency: "",
         frequency_count: "",
         period: "",
-        type: ""
-      }
-    ]
+        type: "",
+      },
+    ],
   };
 
   const formik = useFormik({
@@ -91,10 +87,6 @@ const ProjectEdit = () => {
       }
     },
   });
-
-
- 
-
 
   const { values, setFieldValue, setValues, handleChange, handleSubmit } = formik;
 
@@ -139,7 +131,6 @@ const ProjectEdit = () => {
     };
 
     dispatch(addProjectAPI(data)).then((res) => {
-
       const resArr = values.members.map((member) => {
         const data = {
           userId: member.userId,
@@ -153,16 +144,16 @@ const ProjectEdit = () => {
         const formattedRequirements = {
           tweets: {
             frequency: values.requirements
-              .filter(req => req.type === 'tweet')
+              .filter((req) => req.type === "tweet")
               .reduce((acc, curr) => acc + Number(curr.frequency_count), 0),
-            period: values.requirements.find(req => req.type === 'tweet')?.period || 'week'
+            period: values.requirements.find((req) => req.type === "tweet")?.period || "week",
           },
           videos: {
             frequency: values.requirements
-              .filter(req => req.type === 'video')
+              .filter((req) => req.type === "video")
               .reduce((acc, curr) => acc + Number(curr.frequency_count), 0),
-            period: values.requirements.find(req => req.type === 'video')?.period || 'month'
-          }
+            period: values.requirements.find((req) => req.type === "video")?.period || "month",
+          },
         };
 
         const contentReqData = {
@@ -170,7 +161,7 @@ const ProjectEdit = () => {
           title: values.subject_title,
           start_date: values.ambassadors_start_date + " 00:00:00",
           end_date: values.ambassadors_end_date + " 23:59:59",
-          requirements: formattedRequirements
+          requirements: formattedRequirements,
         };
 
         resArr.push(axiosApi.post(`/content-requirements`, contentReqData));
@@ -205,7 +196,7 @@ const ProjectEdit = () => {
       twitter: values.twitter_username,
       rating: 0,
       image: values.image.base64Url,
-      date: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`,
+      date: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
       synergy_access: true,
       synergy_angles: synergy_obj,
       investments_access: true,
@@ -222,11 +213,6 @@ const ProjectEdit = () => {
       data = { ...data, image: response.data.image_url };
     }
 
-
-    console.log("projectId")
-
-    const x = projectId -0 
-    console.log(typeof x)
     dispatch(
       updateProjectAPI({
         projectId: projectId - 0,
@@ -237,35 +223,6 @@ const ProjectEdit = () => {
         if (res.error) {
           throw new Error(res.error.message);
         }
-
-        if (values.ambassadors_enabled && values.requirements.length > 0) {
-          const formattedRequirements = {
-            tweets: {
-              frequency: values.requirements
-                .filter(req => req.type === 'tweet')
-                .reduce((acc, curr) => acc + Number(curr.frequency_count), 0),
-              period: values.requirements.find(req => req.type === 'tweet')?.period || 'week'
-            },
-            videos: {
-              frequency: values.requirements
-                .filter(req => req.type === 'video')
-                .reduce((acc, curr) => acc + Number(curr.frequency_count), 0),
-              period: values.requirements.find(req => req.type === 'video')?.period || 'month'
-            }
-          };
-
-          const contentReqData = {
-            project_id: projectId - 0,
-            title: values.subject_title,
-            start_date: values.ambassadors_start_date + " 00:00:00",
-            end_date: values.ambassadors_end_date + " 23:59:59",
-            requirements: formattedRequirements
-          };
-
-          return axiosApi.post(`/content-requirements`, contentReqData);
-        }
-      })
-      .then(() => {
         navigate("/profile");
       })
       .catch((err) => console.error(err));
@@ -288,8 +245,7 @@ const ProjectEdit = () => {
       synergyAnglesOptions.push({
         label: data?.description,
         value: data?.description,
-        tooltip:
-          "Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences",
+        tooltip: "Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences",
       });
       setFieldValue("synergy_angles", [
         ...values.synergy_angles.slice(0, angelPopupIndex),
@@ -310,8 +266,7 @@ const ProjectEdit = () => {
             synergyAnglesOptions.push({
               label: synergyAngle[1],
               value: synergyAngle[1],
-              tooltip:
-                "Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences",
+              tooltip: "Integrating branded game assets from other Web3 brands in our project for cross-pollination of audiences",
             });
           }
           return { [`synergy_angle`]: synergyAngle[1] };
@@ -324,47 +279,169 @@ const ProjectEdit = () => {
           };
         });
 
-        const obj = {
-          project_name: projectData.project_name,
-          tags: projectData?.project_info?.split("#"),
-          twitter_username: projectData.twitter,
-          discord_username: projectData.discord_link,
-          members: [
-            {
-              name: "",
-              position: "",
-            },
-          ],
-          description: projectData.description,
-          synergy_angles: synergy_angles,
-          image: {
-            file: null,
-            base64Url: projectData.image,
-          },
-          investments: investments,
-          open_to_invest: false,
-          ambassadors_enabled: false,
-          ambassadors_start_date: "",
-          ambassadors_end_date: "",
+        const members = [];
+
+        const fetchProjectUsers = async () => {
+          try {
+            const response1 = await axios.get(`https://winwinsocietyweb3.com/api/projectusers/${projectId}`, {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("dynamic_authentication_token").replace(/"/g, "")}`,
+              },
+            });
+         
+            members.push(
+              ...response1.data.data.map((user) => {
+                return { email: user.email, position: user.job_desc };
+              })
+            );
+
+
+
+
+
+
+
+
+
+            const obj = {
+              project_name: projectData.project_name,
+              tags: projectData?.project_info?.split("#"),
+              twitter_username: projectData.twitter,
+              discord_username: projectData.discord_link,
+              members: [...members],
+              description: projectData.description,
+              synergy_angles: synergy_angles,
+              image: {
+                file: null,
+                base64Url: projectData.image,
+              },
+              investments: investments,
+              open_to_invest: false,
+              ambassadors_enabled: false,
+              ambassadors_start_date: "",
+              ambassadors_end_date: "",
+            };
+            console.log("obj------------------------")
+            console.log(obj)
+            console.log("obj------------------------")
+            setValues(obj);
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+          } catch (error) {}
         };
-        setValues(obj);
+         console.log( fetchProjectUsers());
+
+
+        // Fetch members data for the project
+        axiosApi.get(`/project-members/${projectId}`).then((response) => {
+          // Update email validation results for existing members
+          const newEmailValidationResults = {};
+          formattedMembers.forEach((member, index) => {
+            if (member.email && member.name) {
+              newEmailValidationResults[index] = {
+                isValid: true,
+                message: `User: ${member.name}`,
+                username: member.name,
+                userId: member.userId,
+              };
+            }
+          });
+          setEmailValidationResults(newEmailValidationResults);
+
+          setValues(obj);
+
+          // Set the access states
+          setWhoAccessToSynergySide(projectData.synergy_access ? "All Users" : "Selected Users");
+          setWhoAccessToInvestmentSide(projectData.investments_access ? "All Users" : "Selected Users");
+        });
       });
     }
 
     dispatch(getUsersAPI());
   }, [projectId, isAddMode]);
 
-useEffect(() => {
-  
-  console.log("values")
-  console.log(values)
-},[values])
-
-
-
   useEffect(() => {
     dispatch(getUsersAPI());
   }, []);
+
+  const validateEmail = async (email, index) => {
+    if (!email) {
+      setEmailValidationResults((prev) => ({
+        ...prev,
+        [index]: { isValid: false, message: "", username: "" },
+      }));
+      return;
+    }
+
+    try {
+      const response = await axiosApi.get(`/users/email/${email}`);
+
+      if (response.data?.success === 1) {
+        setEmailValidationResults((prev) => ({
+          ...prev,
+          [index]: {
+            isValid: true,
+            message: `User: ${response.data.data.username}`,
+            username: response.data.data.username,
+            userId: response.data.data.id,
+          },
+        }));
+
+        setFieldValue("members", [
+          ...values.members.slice(0, index),
+          {
+            ...values.members[index],
+            userId: response.data.data.id,
+            name: response.data.data.username,
+            email: email,
+          },
+          ...values.members.slice(index + 1),
+        ]);
+      }
+    } catch (error) {
+      setEmailValidationResults((prev) => ({
+        ...prev,
+        [index]: { isValid: false, message: "User doesn't exist" },
+      }));
+    }
+  };
+
+  const debouncedValidateEmail = debounce(validateEmail, 300);
+
+  useEffect(() => {
+    const fetchProjectUsers = async () => {
+      try {
+        const response = await axios.get(`https://winwinsocietyweb3.com/api/projectusers/${projectId}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("dynamic_authentication_token").replace(/"/g, "")}`,
+          },
+        });
+        console.log("response.data.data");
+
+        setFieldValue("members", [...response.data.data.map((user) => user.email)]);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchProjectUsers();
+  }, [projectId]);
+  useEffect(() => {
+    console.log("values");
+    console.log(values);
+  }, [values]);
 
   return (
     <div className="project_manager_edit_wrapper">
@@ -483,6 +560,76 @@ useEffect(() => {
                   {values.members.map((member, index) => {
                     return (
                       <>
+                        <div className="form_item_box" key={index}>
+                          <div className="form_group">
+                            <input
+                              type="email"
+                              placeholder="Member email"
+                              value={member.email || ""}
+                              onChange={(e) => {
+                                const email = e.target.value;
+                                setFieldValue("members", [
+                                  ...values.members.slice(0, index),
+                                  {
+                                    ...member,
+                                    email: email,
+                                  },
+                                  ...values.members.slice(index + 1),
+                                ]);
+                                debouncedValidateEmail(email, index);
+                              }}
+                            />
+                            {emailValidationResults[index] && (
+                              <div
+                                className={`validation-message ${emailValidationResults[index].isValid ? "valid" : "invalid"}`}
+                              >
+                                {emailValidationResults[index].message}
+                              </div>
+                            )}
+                          </div>
+
+                          <div className="form_group">
+                            <Select
+                              options={[
+                                { label: "Owner", value: "Owner" },
+                                { label: "C-Level", value: "C-Level" },
+                                { label: "Web3 employee", value: "Web3 employee" },
+                                { label: "KOL / Ambassador / Content Creator", value: "KOL / Ambassador / Content Creator" },
+                                { label: "Angel Investor", value: "Angel Investor" },
+                              ]}
+                              value={member.position}
+                              onChange={(value) => {
+                                setFieldValue("members", [
+                                  ...values.members.slice(0, index),
+                                  {
+                                    ...member,
+                                    position: value.value,
+                                  },
+                                  ...values.members.slice(index + 1),
+                                ]);
+                              }}
+                            />
+                          </div>
+                          <div
+                            className="btn_delete"
+                            onClick={() => {
+                              setFieldValue("members", [...values.members.slice(0, index), ...values.members.slice(index + 1)]);
+                              // Clear validation result for this index
+                              setEmailValidationResults((prev) => {
+                                const newResults = { ...prev };
+                                delete newResults[index];
+                                return newResults;
+                              });
+                            }}
+                          >
+                            <DeleteIcon />
+                          </div>
+                        </div>
+
+                        {/* 
+
+
+
                         <div className="form_item_box">
                           <div className="form_group">
                             <Select
@@ -537,6 +684,9 @@ useEffect(() => {
                             <DeleteIcon />
                           </button>
                         </div>
+
+
+ */}
                       </>
                     );
                   })}
@@ -587,12 +737,14 @@ useEffect(() => {
                               setFieldValue("requirements", []);
                               setFieldValue("subject_title", "");
                             } else {
-                              setFieldValue("requirements", [{
-                                frequency: "",
-                                frequency_count: "",
-                                period: "",
-                                type: ""
-                              }]);
+                              setFieldValue("requirements", [
+                                {
+                                  frequency: "",
+                                  frequency_count: "",
+                                  period: "",
+                                  type: "",
+                                },
+                              ]);
                             }
                           }}
                         />
@@ -620,7 +772,7 @@ useEffect(() => {
                                 <DatePicker
                                   selected={values.ambassadors_start_date ? new Date(values.ambassadors_start_date) : null}
                                   onChange={(date) => {
-                                    setFieldValue("ambassadors_start_date", date ? date.toISOString().split('T')[0] : "");
+                                    setFieldValue("ambassadors_start_date", date ? date.toISOString().split("T")[0] : "");
                                   }}
                                   dateFormat="M/d/yyyy"
                                   placeholderText="Select date"
@@ -635,7 +787,7 @@ useEffect(() => {
                                 <DatePicker
                                   selected={values.ambassadors_end_date ? new Date(values.ambassadors_end_date) : null}
                                   onChange={(date) => {
-                                    setFieldValue("ambassadors_end_date", date ? date.toISOString().split('T')[0] : "");
+                                    setFieldValue("ambassadors_end_date", date ? date.toISOString().split("T")[0] : "");
                                   }}
                                   dateFormat="M/d/yyyy"
                                   placeholderText="Select date"
@@ -645,7 +797,7 @@ useEffect(() => {
                                   popperClassName="custom-popper"
                                 />
                               </div>
-                              <button 
+                              <button
                                 className="btn_delete"
                                 onClick={() => {
                                   setFieldValue("ambassadors_start_date", "");
@@ -663,9 +815,9 @@ useEffect(() => {
                               const today = new Date();
                               const nextYear = new Date();
                               nextYear.setFullYear(today.getFullYear() + 1);
-                              
-                              setFieldValue("ambassadors_start_date", today.toISOString().split('T')[0]);
-                              setFieldValue("ambassadors_end_date", nextYear.toISOString().split('T')[0]);
+
+                              setFieldValue("ambassadors_start_date", today.toISOString().split("T")[0]);
+                              setFieldValue("ambassadors_end_date", nextYear.toISOString().split("T")[0]);
                             }}
                           >
                             Add timeframe <PlusIcon />
@@ -680,7 +832,7 @@ useEffect(() => {
                                 <Select
                                   options={[
                                     { label: "Each week", value: "week" },
-                                    { label: "Every month", value: "month" }
+                                    { label: "Every month", value: "month" },
                                   ]}
                                   value={requirement.frequency}
                                   onChange={(value) => {
@@ -689,9 +841,9 @@ useEffect(() => {
                                       {
                                         ...requirement,
                                         frequency: value.value,
-                                        period: value.value
+                                        period: value.value,
                                       },
-                                      ...values.requirements.slice(index + 1)
+                                      ...values.requirements.slice(index + 1),
                                     ]);
                                   }}
                                   placeholder="Select frequency"
@@ -708,9 +860,9 @@ useEffect(() => {
                                       ...values.requirements.slice(0, index),
                                       {
                                         ...requirement,
-                                        frequency_count: e.target.value
+                                        frequency_count: e.target.value,
                                       },
-                                      ...values.requirements.slice(index + 1)
+                                      ...values.requirements.slice(index + 1),
                                     ]);
                                   }}
                                 />
@@ -719,7 +871,7 @@ useEffect(() => {
                                 <Select
                                   options={[
                                     { label: "Tweet", value: "tweet" },
-                                    { label: "Video", value: "video" }
+                                    { label: "Video", value: "video" },
                                   ]}
                                   value={requirement.type}
                                   onChange={(value) => {
@@ -727,20 +879,20 @@ useEffect(() => {
                                       ...values.requirements.slice(0, index),
                                       {
                                         ...requirement,
-                                        type: value.value
+                                        type: value.value,
                                       },
-                                      ...values.requirements.slice(index + 1)
+                                      ...values.requirements.slice(index + 1),
                                     ]);
                                   }}
                                   placeholder="Select content type"
                                 />
                               </div>
-                              <button 
+                              <button
                                 className="btn_delete"
                                 onClick={() => {
                                   setFieldValue("requirements", [
                                     ...values.requirements.slice(0, index),
-                                    ...values.requirements.slice(index + 1)
+                                    ...values.requirements.slice(index + 1),
                                   ]);
                                 }}
                               >
@@ -757,8 +909,8 @@ useEffect(() => {
                                   frequency: "",
                                   frequency_count: "",
                                   period: "",
-                                  type: ""
-                                }
+                                  type: "",
+                                },
                               ]);
                             }}
                           >
@@ -842,7 +994,8 @@ useEffect(() => {
                     }}
                   >
                     {" "}
-                    Add synergy angle<PlusIcon />
+                    Add synergy angle
+                    <PlusIcon />
                   </button>
                   <div className="invostments-group">
                     <div className="seprator-image">
@@ -954,10 +1107,9 @@ useEffect(() => {
                       </button>
                     </div>
                   </div>
-                </div>--
+                </div>
+                --
               </div>
-
-             
             </div>
           </div>
         </div>
