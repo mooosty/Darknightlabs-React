@@ -267,7 +267,7 @@ const PledgeForm = ({ onSubmit }) => {
           ) : (
             <div className="counter-offer-section">
               <div className="wws-counter">
-                <h4 className="counter-title">The WinWin Society is Countering that offer with:</h4>
+                <h4 className="counter-title">The Win-Win Society is Countering that offer with:</h4>
                 <div className="counter-amount">
                   {pledgeData.wws_counter_offer === "0.00" ? (
                     <span className="no-counter">No counter offer yet</span>

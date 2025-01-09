@@ -310,8 +310,8 @@
                                     pointer-events: none;
                                     
                                     .card_content {
-                                        opacity: 0.3;
-                                        filter: blur(4px);
+                                        opacity: 0.15;
+                                        filter: blur(8px);
                                         transform: scale(0.98);
                                         transition: all 0.3s ease;
                                     }
@@ -434,8 +434,8 @@
                                 pointer-events: none;
                                 
                                 .card_content {
-                                    opacity: 0.3;
-                                    filter: blur(4px);
+                                    opacity: 0.15;
+                                    filter: blur(8px);
                                     transform: scale(0.98);
                                     transition: all 0.3s ease;
                                 }

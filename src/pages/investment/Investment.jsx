@@ -37,27 +37,6 @@ import {
 
 const cardData = [
   {
-    investmentName: "🌙 SHOWA : The Community Revolution",
-    investorImg: showa,
-    tags: ["🎮 #Gaming", "💰 #RWA", "🌐 #Community"],
-    investments: [
-      {
-        head: "Token",
-        data: "$SHOWA",
-      },
-      {
-        head: "Revenue",
-        data: "10% Steam",
-      },
-      {
-        head: "Launch",
-        data: "Dec 19",
-      },
-    ],
-    karmaNeeded: 0,
-    state: "PLEDGE",
-  },
-  {
     investmentName: "⚔️ Karate Combat",
     investorImg: kc,
     tags: ["🥋 #Sports", "💪 #Combat", "🌐 #Web3"],
@@ -73,6 +52,27 @@ const cardData = [
       {
         head: "Launch",
         data: "TBA",
+      },
+    ],
+    karmaNeeded: 0,
+    state: "PLEDGE",
+  },
+  {
+    investmentName: "🌙 SHOWA : The Community Revolution",
+    investorImg: showa,
+    tags: ["🎮 #Gaming", "💰 #RWA", "🌐 #Community"],
+    investments: [
+      {
+        head: "Token",
+        data: "$SHOWA",
+      },
+      {
+        head: "Revenue",
+        data: "10% Steam",
+      },
+      {
+        head: "Launch",
+        data: "Dec 19",
       },
     ],
     karmaNeeded: 0,
@@ -1007,6 +1007,11 @@ const Investment = () => {
                             >
                                <div className="card_image">
                                 <img src={data.investorImg} alt="" />
+                                {(index === 0 || index === 1) && (
+                                  <div className={`investment_state ${index === 0 ? "incoming_mode" : (isPhase2 ? "pledge_mode" : "invest_mode")}`}>
+                                    {index === 0 ? "Coming soon" : (isPhase2 ? "Pledge" : "Invest")}
+                                  </div>
+                                )}
                               </div>
                               <div className="card_body">
                                 <div className="name">{data.investmentName}</div>
@@ -1036,11 +1041,6 @@ const Investment = () => {
                                 </div>
                                 {data.karmaNeeded !== undefined && (
                                   <div className="karma_needed">Karma needed: {data.karmaNeeded}</div>
-                                )}
-                                {(index === 0 || index === 1) && (
-                                  <div className={`investment_state ${index === 0 ? (isPhase2 ? "pledge_mode" : "invest_mode") : "incoming_mode"}`}>
-                                    {index === 0 ? (isPhase2 ? "Pledge" : "Invest") : "Incoming"}
-                                  </div>
                                 )}
                               </div>
                             </div>

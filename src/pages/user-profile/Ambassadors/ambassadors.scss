@@ -570,6 +570,54 @@
                                 }
                             }
                         }
+
+                        &.contribution_section {
+                            .contribution_container {
+                                background: rgba(78, 78, 78, 0.1);
+                                border-radius: 8px;
+                                padding: 20px;
+                                
+                                .contribution_description {
+                                    .contribution_prompt {
+                                        color: #F5EFDB;
+                                        font-family: "Inter", sans-serif;
+                                        font-size: 14px;
+                                        line-height: 1.5;
+                                        margin-bottom: 16px;
+                                        opacity: 0.8;
+                                    }
+
+                                    .contribution_textarea {
+                                        width: 100%;
+                                        min-height: 160px;
+                                        background: rgba(25, 25, 23, 0.6);
+                                        border: 1px solid rgba(245, 239, 219, 0.2);
+                                        border-radius: 8px;
+                                        padding: 16px;
+                                        color: #F5EFDB;
+                                        font-family: "Inter", sans-serif;
+                                        font-size: 14px;
+                                        line-height: 1.6;
+                                        resize: vertical;
+                                        transition: all 0.2s ease;
+
+                                        &::placeholder {
+                                            color: rgba(245, 239, 219, 0.4);
+                                        }
+
+                                        &:focus {
+                                            outline: none;
+                                            border-color: rgba(245, 239, 219, 0.4);
+                                            background: rgba(25, 25, 23, 0.8);
+                                        }
+
+                                        &:hover {
+                                            border-color: rgba(245, 239, 219, 0.3);
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
 
                     .save_section {

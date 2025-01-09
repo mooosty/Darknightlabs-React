@@ -37,6 +37,7 @@ const Ambassadors = ({ handleActive, active, uid }) => {
         instagram: '',
         twitch: ''
     });
+    const [description, setDescription] = useState('');
 
     const headerToggleButton = [
         {
@@ -82,6 +83,11 @@ const Ambassadors = ({ handleActive, active, uid }) => {
                 if (response.data) {
                     setIsExistingAmbassador(true);
                     const data = response.data;
+                    
+                    // Set description if it exists
+                    if (data.description) {
+                        setDescription(data.description);
+                    }
                     
                     // Set niches
                     if (data.niches) {
@@ -247,7 +253,8 @@ const Ambassadors = ({ handleActive, active, uid }) => {
             niches: {},
             audience_type: {},
             main_socials: {},
-            languages: {}
+            languages: {},
+            description: description
         };
 
         // Add _uid only for POST request
@@ -821,6 +828,25 @@ const Ambassadors = ({ handleActive, active, uid }) => {
                                         onKeyPress={(e) => handleKeyPress(e, 'socials')}
                                     />
                                     <button onClick={() => handleAddCustomField('socials')}>Add</button>
+                                </div>
+                            </div>
+
+                            {/* Add new Ambassador Contribution Section */}
+                            <div className="section contribution_section">
+                                <h3>Your Ambassador Journey</h3>
+                                <div className="contribution_container">
+                                    <div className="contribution_description">
+                                        <p className="contribution_prompt">
+                                            Tell us about your journey as an ambassador and how you contribute to projects. 
+                                            Share your unique approach and what makes you stand out.
+                                        </p>
+                                        <textarea
+                                            className="contribution_textarea"
+                                            placeholder="Describe your ambassador contributions... (e.g., 'I specialize in community growth through engaging Twitter spaces and educational content creation. I've helped projects like X achieve Y% growth in Z months...')"
+                                            value={description}
+                                            onChange={(e) => setDescription(e.target.value)}
+                                        />
+                                    </div>
                                 </div>
                             </div>
 

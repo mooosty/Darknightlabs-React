@@ -592,6 +592,26 @@ const isInvestor = (roles) => {
   return roles?.includes("Angel Investor") || roles?.includes("Venture Capital");
 };
 
+// Add this helper function near the top of the file
+const isDefaultRole = (role) => {
+  const defaultRoles = [
+    "Founder",
+    "C-level",
+    "BD",
+    "Community Manager",
+    "Collab Manager",
+    "Outreach Team",
+    "KOL",
+    "Ambassador",
+    "Content Creator",
+    "Alpha Caller",
+    "Venture Capital",
+    "Angel Investor",
+    "Web3 employee"
+  ];
+  return defaultRoles.includes(role.trim());
+};
+
 const UserProfile = () => {
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.auth);
@@ -1394,7 +1414,7 @@ const UserProfile = () => {
                                   emoji = "🔹";
                               }
                               return (
-                                <div key={index} className="role-square">
+                                <div key={index} className={`role-square ${!isDefaultRole(role.trim()) ? 'custom-role' : ''}`}>
                                   <span className="role-emoji">{emoji}</span>
                                   <span className="role-text">{displayRole}</span>
                                 </div>
@@ -1844,7 +1864,6 @@ const UserProfile = () => {
                                 "Content Creator",
                                 "Alpha Caller",
                                 "Venture Capital",
-                                "Angel Investor",
                               ].map((role, index) => (
                                 <div
                                   key={index}
@@ -1870,7 +1889,6 @@ const UserProfile = () => {
                                       "Ambassador",
                                       "Content Creator",
                                       "Alpha Caller",
-                                      "Angel Investor",
                                       "Venture Capital",
                                     ].includes(role) && role !== "Other"
                                 )
@@ -2098,7 +2116,7 @@ const UserProfile = () => {
                                   emoji = "🔹";
                               }
                               return (
-                                <div key={index} className="role-square">
+                                <div key={index} className={`role-square ${!isDefaultRole(role.trim()) ? 'custom-role' : ''}`}>
                                   <span className="role-emoji">{emoji}</span>
                                   <span className="role-text">{displayRole}</span>
                                 </div>

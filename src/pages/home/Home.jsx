@@ -45,7 +45,8 @@ import {
 } from "../../api-services/userApis";
 import { createUserAPI } from "../../api-services";
 import { storeAuthData } from "../../store/slice/authSlice";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import OnboardingPopup from "../../components/popup/onboarding-popup/OnboardingPopup";
 
 const servicesCardData = [
   {
@@ -197,23 +198,17 @@ const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { authDetails } = useSelector((state) => state.auth);
+  const [showOnboarding, setShowOnboarding] = useState(false);
+  const [newUserId, setNewUserId] = useState(null);
 
   const handleAuthResponse = async (response) => {
-    console.log(response)
     if (response?.isAuthenticated) {
-      //   const jwtToken = getAuthToken();
-
-
-
-      console.log("response", response);
-
       const twitterId = response.user.verifiedCredentials[1].oauthAccountId;
 
       const fetchTwitterUser = async () => {
         const {
           payload: { data },
         } = await dispatch(getTwitterUserAPI(twitterId)).then((res) => res);
-
         return data;
       };
       const existingUser = await fetchTwitterUser();
@@ -236,7 +231,6 @@ const Home = () => {
           const {
             payload: { data },
           } = await dispatch(createTwitterUserAPI(payloadUser)).then((res) => res);
-
           return data;
         };
         const twitterUser = await createTwitterUser();
@@ -248,43 +242,40 @@ const Home = () => {
           password: `${response.user.id}@@@${response.user.email}`,
         };
 
-        dispatch(createUserAPI(chatPayload));
+        await dispatch(createUserAPI(chatPayload));
 
         payloadUser.id = twitterUser.insertId;
-   
         dispatch(storeAuthData({ response, user: payloadUser }));
 
-        const referralId = localStorage.getItem("referral_id");
+        const referralId = localStorage.getItem('referral_id');
         if (referralId) {
           try {
-            // Create invite
-            await dispatch(
-              createInviteAPI({
-                invited_user: twitterUser.insertId,
-                invite_user: parseInt(referralId),
-              })
-            );
-
-            // Update wallet
-            await dispatch(
-              updateUserWalletAPI({
-                invited_user: twitterUser.insertId,
-              })
-            );
-
-            // Clear referral ID
-            localStorage.removeItem("referral_id");
+            await dispatch(createInviteAPI({
+              invited_user: twitterUser.insertId,
+              invite_user: parseInt(referralId)
+            }));
+            await dispatch(updateUserWalletAPI({
+              invited_user: twitterUser.insertId
+            }));
+            localStorage.removeItem('referral_id');
           } catch (error) {
-            console.error("Error processing referral:", error);
+            console.error('Error processing referral:', error);
           }
         }
 
-        navigate(ROUTER.dashboard);
+        // Show onboarding popup for new users
+        setNewUserId(twitterUser.insertId);
+        setShowOnboarding(true);
       } else {
         dispatch(storeAuthData({ response, user: existingUser[0] }));
-        navigate(ROUTER.dashboard);
+        navigate('/dashboard');
       }
     }
+  };
+
+  const handleOnboardingClose = () => {
+    setShowOnboarding(false);
+    navigate('/dashboard');
   };
 
   const homeRef = useRef(null);
@@ -500,6 +491,14 @@ const Home = () => {
             <DynamicWidget variant="modal" buttonClassName="extra_button" />
           </div>
         </div>
+        
+        {showOnboarding && (
+          <OnboardingPopup 
+            open={showOnboarding} 
+            handleClose={handleOnboardingClose}
+            userId={newUserId}
+          />
+        )}
       </DynamicContextProvider>
     </div>
   );

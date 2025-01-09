@@ -1,7 +1,6 @@
 import './App.scss'
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./components/layout/Layout";
-import Authentication from "./pages/authentication/Authentication";
 import Projects from "./pages/projects/Projects";
 import ProjectDetails from "./pages/projects/project-details/ProjectDetails";
 import ProjectManager from "./pages/project-manager/ProjectManager";
@@ -19,7 +18,6 @@ import MyContent from './pages/my-content/MyContent'
 import AmbassadorProjects from './pages/ambassador-projects/ambassadorProjects'
 import AmbassadorProjectDetails from './pages/ambassador-projects/ambassador-project-details/AmbassadorProjectDetails'
 import { ROUTER } from "./utils/routes/routes";
-// import { ToastContainer } from "react-toastify";
 import toast, { Toaster } from "react-hot-toast";
 import "react-toastify/dist/ReactToastify.css";
 import SynergyRequest from "./pages/pending-synergies/SynergyRequest";
@@ -43,7 +41,6 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/" element={<Navigate to={`/${ROUTER.dashboard}`} replace />} />
         <Route path={`/${ROUTER.societyFullList}`} element={<SocietyFullList />} />
-        <Route path={`/${ROUTER.authentication}`} element={<Authentication />} />
 
         <Route path="/" element={<Layout />}>
           <Route path={`/${ROUTER.projectEdit}/:id`} element={<ProjectEdit />} />
@@ -80,18 +77,6 @@ function App() {
         <Route path={`/${ROUTER.error405}`} element={<Error405 />} />
         <Route path={`*`} element={<Navigate to={ROUTER.error404} />} />
       </Routes>
-      {/* <ToastContainer
-        position="bottom-center"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      /> */}
       <Toaster
         position="top-center"
         toastOptions={{
