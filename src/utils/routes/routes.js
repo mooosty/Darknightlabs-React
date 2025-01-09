@@ -11,6 +11,7 @@ export const ROUTER = {
     profile: "profile",
     karma: "karma",
     chat: "chat",
+    chatLahcen: "chat-lahcen",
     synergyRequests: "synergy-requests",
     synergiesManager: "synergies-manager",
     myContent: "my-content",

@@ -102,21 +102,7 @@
       padding-right: 8px;
 
       &::-webkit-scrollbar {
-        width: 8px;
-      }
-
-      &::-webkit-scrollbar-track {
-        background: rgba(245, 239, 219, 0.05);
-        border-radius: 4px;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        background: rgba(245, 239, 219, 0.2);
-        border-radius: 4px;
-      }
-
-      &::-webkit-scrollbar-thumb:hover {
-        background: rgba(245, 239, 219, 0.3);
+        display: none;
       }
 
       // .announcement-card {

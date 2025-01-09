@@ -276,6 +276,26 @@
       }
   
       .menu-section {
+ 
+      
+        &::-webkit-scrollbar {
+          width: 8px;
+        }
+  
+        &::-webkit-scrollbar-track {
+          background: rgba(245, 239, 219, 0.05);
+          border-radius: 4px;
+        }
+  
+        &::-webkit-scrollbar-thumb {
+          background: rgba(245, 239, 219, 0.2);
+          border-radius: 4px;
+        }
+  
+        &::-webkit-scrollbar-thumb:hover {
+          background: rgba(245, 239, 219, 0.3);
+        }
+  
         flex: 1 1 auto;
         display: flex;
         flex-direction: column;
@@ -285,20 +305,11 @@
         overflow-y: auto;
         z-index: 1;
   
-        &::-webkit-scrollbar {
-          width: 6px;
-        }
-  
-        &::-webkit-scrollbar-track {
-          background: transparent;
-        }
-  
-        &::-webkit-scrollbar-thumb {
-          background: rgba(245, 239, 219, 0.1);
-          border-radius: 3px;
-        }
-  
+
+ 
         .menu-box {
+        
+      
           margin-bottom: 7px;
           overflow: visible;
           position: relative;
@@ -307,6 +318,7 @@
           }
   
           ul {
+           
             overflow: visible;
             position: relative;
   

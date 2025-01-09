@@ -6,7 +6,16 @@ import { Fragment, useEffect, useRef, useState } from "react";
 import { getChatMessages } from "../../../api-services/chatApis";
 import { addMessage, removeMessage } from "../../../store/slice/chatSlice";
 import { useSocket } from "../../../utils/socket-provider/SocketContext";
-import { AddUserIcon, AttachmentIcon, DeleteIcon, EmojiFilledIcon, member1, member2, MicrophoneIcon, SendChatIcon } from "../../../utils/constants/images";
+import {
+  AddUserIcon,
+  AttachmentIcon,
+  DeleteIcon,
+  EmojiFilledIcon,
+  member1,
+  member2,
+  MicrophoneIcon,
+  SendChatIcon,
+} from "../../../utils/constants/images";
 import { formatDateTime, isEqualDate, dayWiseFormat } from "../../../utils/helper/helper";
 import DeleteConfirmPopup from "../../popup/delete-confirm-popup/DeleteConfirmPopup";
 
@@ -41,7 +50,7 @@ const MessagesPanel = ({
   const getMessages = () => {
     if (groupId) {
       dispatch(getChatMessages(groupId))
-        .then(() => { })
+        .then(() => {})
         .finally(() => {
           scrollToBottom();
         });
@@ -168,11 +177,10 @@ const MessagesPanel = ({
     getMessages();
   }, [openChatIndex, groupData]);
 
-
   return (
     <>
-      <div   className="chat_main_body" >
-        <div className="chat_container" >
+      <div className="chat_main_body">
+        <div className="chat_container">
           {messages.map((message, index) => {
             return (
               <Fragment key={index}>
@@ -187,14 +195,13 @@ const MessagesPanel = ({
                   <div>
                     <div
                       ref={index === messages.length - 1 ? lastMessageRef : null}
-                      className={`message_wrap ${userData.userId == message.sender["_id"] ? "message_send" : "message_received"
-                        }`}
+                      className={`message_wrap ${
+                        userData.userId == message.sender["_id"] ? "message_send" : "message_received"
+                      }`}
                     >
                       <div className="message">
                         <div className="message_left">
-                          <div className='user_name'>
-                            {message.sender.name[0]?.toUpperCase()}
-                          </div>
+                          <div className="user_name">{message.sender.name[0]?.toUpperCase()}</div>
                           {/* <img src={userData.profile_picture} alt="" /> */}
                         </div>
                         <div className="message_right">
@@ -211,7 +218,7 @@ const MessagesPanel = ({
                               <DeleteIcon />
                             </div>
                           </div>
-                          <div className="message_text">{message.content}</div>
+                          <div className="message_text">{message.content}das</div>
                         </div>
                       </div>
                     </div>
@@ -220,211 +227,6 @@ const MessagesPanel = ({
               </Fragment>
             );
           })}
-
-          {/* <div className="date_separator ">
-            <div className="left"></div>
-            <div className="date">March 22th 2024</div>
-            <div className="right"></div>
-          </div>
-
-          <div>
-            <div className="message_received">
-              <div className="message">
-                <div className="message_left">
-                  <img src={chatMassageDP} alt="" />
-                </div>
-                <div className="message_right">
-                  <div className="messenger_info">
-                    <div className="messenger_name">Sir Lancelot</div>
-                    <div className="time">Friday 2:20pm</div>
-                  </div>
-                  <div className="message_text">Borem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-                </div>
-              </div>
-            </div>
-            <div className="message_received">
-              <div className="message">
-                <div className="message_left">
-                  <img src={chatMassageDP} alt="" />
-                </div>
-                <div className="message_right">
-                  <div className="messenger_info">
-                    <div className="messenger_name">Robin Hood</div>
-                    <div className="time">Friday 2:20pm</div>
-                  </div>
-                  <div className="message_text">Borem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-                  <div className="images">
-                    <img src={sharedImg} alt="" />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="message_send">
-              <div className="message">
-                <div className="message_left">
-                  <img src={chatMassageDP} alt="" />
-                </div>
-                <div className="message_right">
-                  <div className="messenger_info">
-                    <div className="messenger_name">Joan of Arc</div>
-                    <div className="time">Friday 2:20pm</div>
-                  </div>
-                  <div className="message_text"> Nunc vulputate libero et velit interdum, ac aliquet odio mattis.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="date_separator ">
-            <div className="left"></div>
-            <div className="date">March 23th 2024</div>
-            <div className="right"></div>
-          </div>
-
-          <div className="message_received">
-            <div className="message">
-              <div className="message_left">
-                <img src={chatMassageDP} alt="" />
-              </div>
-              <div className="message_right">
-                <div className="messenger_info">
-                  <div className="messenger_name">Sir Lancelot</div>
-                  <div className="time">Friday 2:20pm</div>
-                </div>
-                <div className="message_text">Borem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-              </div>
-            </div>
-          </div>
-          <div className="message_received">
-            <div className="message">
-              <div className="message_left">
-                <img src={chatMassageDP1} alt="" />
-              </div>
-              <div className="message_right">
-                <div className="messenger_info">
-                  <div className="messenger_name">Phoenix </div>
-                  <div className="time">Friday 2:20pm</div>
-                </div>
-                <div className="message_text">Borem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-              </div>
-            </div>
-          </div>
-          <div className="message_send">
-            <div className="message">
-              <div className="message_left">
-                <img src={chatMassageDP} alt="" />
-              </div>
-              <div className="message_right">
-                <div className="messenger_info">
-                  <div className="messenger_name">Joan of Arc</div>
-                  <div className="time">Friday 2:20pm</div>
-                </div>
-                <div className="message_text">Borem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="date_separator ">
-            <div className="left"></div>
-            <div className="date">March 23th 2024</div>
-            <div className="right"></div>
-          </div>
-
-          <div className="message_received">
-            <div className="message">
-              <div className="message_left">
-                <img src={chatMassageDP} alt="" />
-              </div>
-              <div className="message_right">
-                <div className="messenger_info">
-                  <div className="messenger_name">Sir Lancelot</div>
-                  <div className="time">Friday 2:20pm</div>
-                </div>
-                <div className="message_text">Borem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-              </div>
-            </div>
-          </div>
-          <div className="message_received">
-            <div className="message">
-              <div className="message_left">
-                <img src={chatMassageDP1} alt="" />
-              </div>
-              <div className="message_right">
-                <div className="messenger_info">
-                  <div className="messenger_name">Phoenix </div>
-                  <div className="time">Friday 2:20pm</div>
-                </div>
-                <div className="message_text">Borem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-              </div>
-            </div>
-          </div>
-          <div className="message_send">
-            <div className="message">
-              <div className="message_left">
-                <img src={chatMassageDP} alt="" />
-              </div>
-              <div className="message_right">
-                <div className="messenger_info">
-                  <div className="messenger_name">Joan of Arc</div>
-                  <div className="time">Friday 2:20pm</div>
-                </div>
-                <div className="message_text">Borem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="date_separator ">
-            <div className="left"></div>
-            <div className="date">March 23th 2024</div>
-            <div className="right"></div>
-          </div>
-
-          <div className="message_received">
-            <div className="message">
-              <div className="message_left">
-                <img src={chatMassageDP} alt="" />
-              </div>
-              <div className="message_right">
-                <div className="messenger_info">
-                  <div className="messenger_name">Sir Lancelot</div>
-                  <div className="time">Friday 2:20pm</div>
-                </div>
-                <div className="message_text">Borem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-              </div>
-            </div>
-          </div>
-          <div className="message_received">
-            <div className="message">
-              <div className="message_left">
-                <img src={chatMassageDP1} alt="" />
-              </div>
-              <div className="message_right">
-                <div className="messenger_info">
-                  <div className="messenger_name">Phoenix </div>
-                  <div className="time">Friday 2:20pm</div>
-                </div>
-                <div className="message_text">Borem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-              </div>
-            </div>
-          </div>
-          <div className="message_send">
-            <div className="message">
-              <div className="message_left">
-                <img src={chatMassageDP} alt="" />
-              </div>
-              <div className="message_right">
-                <div className="messenger_info">
-                  <div className="messenger_name">Joan of Arc</div>
-                  <div className="time">Friday 2:20pm</div>
-                </div>
-                <div className="message_text">Borem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-                <div className="images">
-                  <img src={sharedImg} alt="" />
-                  <img src={chatAvtar} alt="" />
-                </div>
-              </div>
-            </div> */}
 
           <div className={`chat_input_container ${isMemberListOpen ? "active" : ""}`}>
             <div className="chat_input">
@@ -437,15 +239,17 @@ const MessagesPanel = ({
                 value={message}
                 onChange={handleTyping}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter")
-                    handleSendMsg()
+                  if (e.key === "Enter") handleSendMsg();
                 }}
               />
               <AttachmentIcon />
               <EmojiFilledIcon />
-              <div className={'chat_icon_wrp'} onClick={() => {
-                handleSendMsg();
-              }}>
+              <div
+                className={"chat_icon_wrp"}
+                onClick={() => {
+                  handleSendMsg();
+                }}
+              >
                 <SendChatIcon />
               </div>
 
@@ -489,7 +293,6 @@ const MessagesPanel = ({
                   {groupData[openChatIndex]?.users?.map((data, index) => {
                     return (
                       <div key={index} className="list_items">
-                        
                         <div className="img">
                           <img src={member1} alt=" " />
                         </div>

@@ -309,7 +309,7 @@ const Sidebar = () => {
                         <p>Please complete your profile to unlock</p>
                       </div>
                     </li>
-                    <li className={`${location.pathname === `/${ROUTER.karma}` ? "active" : ""}`}>
+                    <li   className={`${location.pathname === `/${ROUTER.karma}` ? "active" : ""}`}>
                       <Link to={`/${ROUTER.karma}`}>
                         <img src={karmaIcon} alt="Karma" />
                         <span className="menu_text">Karma</span>

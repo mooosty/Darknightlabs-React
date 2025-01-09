@@ -10,6 +10,7 @@ import Synergies from "./pages/synergies/Synergies";
 import Investment from "./pages/investment/Investment";
 import UserProfile from "./pages/user-profile/UserProfile";
 import Chats from './pages/chats/Chats'
+import ChatsLahcen from './pages/chats-lahcen/Chats'
 import InitialDataLoader from './components/InitialDataLoader';
 import SynergiesDetails from './pages/synergies/synergies-details/SynergiesDetails'
 import AnnouncementFeed from './pages/announcement-feed/AnnouncementFeed';
@@ -71,6 +72,8 @@ function App() {
           <Route path={`/${ROUTER.karma}`} element={<Karma />} />
           <Route path={ROUTER.chat} element={<ProtectedFeatureRoute feature="CHAT">   <Chats /> </ProtectedFeatureRoute>} />
           <Route path={`${ROUTER.chat}/:id`} element={<ProtectedFeatureRoute feature="CHAT"><Chats /></ProtectedFeatureRoute>} />
+          <Route path={ROUTER.chatLahcen} element={<ProtectedFeatureRoute feature="CHAT">   <ChatsLahcen /> </ProtectedFeatureRoute>} />
+          <Route path={`${ROUTER.chatLahcen}/:id`} element={<ProtectedFeatureRoute feature="CHAT"><ChatsLahcen /></ProtectedFeatureRoute>} />
         </Route>
 
         <Route path={`/${ROUTER.error404}`} element={<Error404 />} />

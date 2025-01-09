@@ -2,13 +2,13 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  scrollbar-width: none !important;
+  /* scrollbar-width: none !important; */
   /* Firefox */
-  -ms-overflow-style: none !important;
+  /* -ms-overflow-style: none !important; */
 
   /* IE and Edge */
   &::-webkit-scrollbar {
-    display: none !important;
+    /* display: none !important; */
     /* Chrome, Safari and Opera */
   }
 
