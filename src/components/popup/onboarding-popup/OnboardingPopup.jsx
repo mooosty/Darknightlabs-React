@@ -9,6 +9,7 @@ import { Download } from "../../../utils/SVGs/SVGs";
 import axios from "axios";
 import "./onboardingPopup.scss";
 import { useNavigate } from "react-router-dom";
+import { ROUTER } from "../../../utils/routes/routes";
 
 const CustomImageUploader = ({ image, setFieldValue }) => {
   const handleUploadImage = (file) => {
@@ -86,7 +87,7 @@ const CustomImageUploader = ({ image, setFieldValue }) => {
   );
 };
 
-const OnboardingPopup = ({ open, handleClose, userId }) => {
+const OnboardingPopup = ({ open, handleClose, userId , setExistingProjects  }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { authDetails } = useSelector((state) => state.auth);
@@ -259,7 +260,9 @@ const OnboardingPopup = ({ open, handleClose, userId }) => {
       }
 
       handleClose();
-      navigate(`/${ROUTER.dashboard}`);
+     
+     
+     
     } catch (error) {
       console.error("Error saving data:", error);
     }

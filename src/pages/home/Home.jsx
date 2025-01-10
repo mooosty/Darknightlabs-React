@@ -40,7 +40,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createInviteAPI, createTwitterUserAPI, getTwitterUserAPI, updateUserWalletAPI } from "../../api-services/userApis";
 import { axiosApi, createUserAPI } from "../../api-services";
 import { storeAuthData } from "../../store/slice/authSlice";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import OnboardingPopup from "../../components/popup/onboarding-popup/OnboardingPopup";
 import { apiRoutes } from "../../utils/constants/apiUrl";
 
@@ -194,10 +194,10 @@ const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { authDetails } = useSelector((state) => state.auth);
-  const [showOnboarding, setShowOnboarding] = useState(false);
-  const [newUserId, setNewUserId] = useState(null);
+  const userData = useSelector((state) => state.auth);
 
-  const [existingProjects, setExistingProjects] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(false);
+  const [newUserId, setNewUserId] = useState(parseInt(localStorage.getItem("userId"), 10) || null);
 
   const handleAuthResponse = async (response) => {
     if (response?.isAuthenticated) {
@@ -240,7 +240,7 @@ const Home = () => {
           password: `${response.user.id}@@@${response.user.email}`,
         };
 
-        await dispatch(createUserAPI(chatPayload));
+        dispatch(createUserAPI(chatPayload));
 
         payloadUser.id = twitterUser.insertId;
         dispatch(storeAuthData({ response, user: payloadUser }));
@@ -266,40 +266,27 @@ const Home = () => {
         }
 
         // Show onboarding popup for new users
+
         setNewUserId(twitterUser.insertId);
         setShowOnboarding(true);
       } else {
         dispatch(storeAuthData({ response, user: existingUser[0] }));
 
-        //   console.log("------------------")
+        console.log("existingUser", existingUser[0]);
 
-        // console.log(existingUser)
-        //   const fetchProjects = async () => {
+        setNewUserId(existingUser[0].id);
 
-        //     try {
-        //       const response = await axiosApi.get(`${apiRoutes.USER_PROJECT}/all/${existingUser[0].id}`);
-
-        //       const checkProjectsLength = response.data.data.length > 0;
-        //       console.log("checkProjectsLength")
-        //       console.log(checkProjectsLength)
-        //       setShowOnboarding(!checkProjectsLength);
-        //       setExistingProjects(checkProjectsLength);
-        //     } catch (error) {
-        //       console.error("error", error);
-        //     }
-        //   };
-        //   fetchProjects();
-
-        //   console.log("------------------")
-
-        navigate("/dashboard");
+        if (existingUser[0].firstlogin) {
+          navigate("/dashboard");
+        } else {
+          setShowOnboarding(true);
+        }
       }
     }
   };
 
-  const handleOnboardingClose = () => {
-    setShowOnboarding(false);
-
+  const handleOnboardingClose = async () => {
+    setShowOnboarding(false); 
     navigate("/dashboard");
   };
 
@@ -356,11 +343,28 @@ const Home = () => {
                     condimentum ac, vestibulum eu nisl.
                   </div>
                   {authDetails ? (
-                    <Link to={ROUTER.dashboard} className="hero_btn">
-                      To dashboard
-                    </Link>
+                       <Link to={ROUTER.dashboard} className="hero_btn">
+                        To dashboard 
+                      </Link>
+                    // existingProjects > 0 ? (
+                    //   <Link to={ROUTER.dashboard} className="hero_btn">
+                    //     To dashboard {existingProjects} link
+                    //   </Link>
+                    // ) 
+                    // 
+                    // : (
+                    // <div
+                    //   className="hero_btn"
+                    //   onClick={() => {
+                    //     setShowOnboarding(true);
+                    //     // navigate("/dashboard");
+                    //   }}
+                    // >
+                    //   To dashboard
+                    // </div>
                   ) : (
-                    <DynamicConnectButton buttonClassName="hero_btn">To dashboard</DynamicConnectButton>
+                    // )
+                    <DynamicConnectButton buttonClassName="hero_btn">To dashboard </DynamicConnectButton>
                   )}
                 </div>
                 <div className="hero_right wws_img">
