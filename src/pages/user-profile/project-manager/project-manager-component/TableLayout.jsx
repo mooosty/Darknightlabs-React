@@ -16,10 +16,7 @@ const ProjectManagerTableLayout = ({
 }) => {
   const navigate = useNavigate();
 
-
-  console.log("----------------")
-  console.log(filterProject)
-  console.log("----------------")
+ 
 
 
   return (

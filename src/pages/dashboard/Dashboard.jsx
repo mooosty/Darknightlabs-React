@@ -9,7 +9,7 @@ import CustomDropdown from "../../components/custom-dropdown/CustomDropdown";
 import { defaultImg, discordIcon, telegramIcon, twitterIcon } from "../../utils/constants/images";
 import Sidebar from "../../components/layout/sidebar/Sidebar";
 import "../../components/layout/layout.scss";
-
+ 
 const AnnouncementCard = ({ announcement }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const maxLength = 150;
@@ -172,7 +172,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-
+ 
       <div className="dashboard-grid">
         <div className="grid-section announcements-section">
           <h2>Announcements & News</h2>

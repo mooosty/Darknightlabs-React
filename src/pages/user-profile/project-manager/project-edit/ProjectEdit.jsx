@@ -288,20 +288,12 @@ const ProjectEdit = () => {
                 Authorization: `Bearer ${localStorage.getItem("dynamic_authentication_token").replace(/"/g, "")}`,
               },
             });
-         
+
             members.push(
               ...response1.data.data.map((user) => {
                 return { email: user.email, position: user.job_desc };
               })
             );
-
-
-
-
-
-
-
-
 
             const obj = {
               project_name: projectData.project_name,
@@ -321,28 +313,13 @@ const ProjectEdit = () => {
               ambassadors_start_date: "",
               ambassadors_end_date: "",
             };
-            console.log("obj------------------------")
-            console.log(obj)
-            console.log("obj------------------------")
+            console.log("obj------------------------");
+            console.log(obj);
+            console.log("obj------------------------");
             setValues(obj);
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
           } catch (error) {}
         };
-         console.log( fetchProjectUsers());
-
+        console.log(fetchProjectUsers());
 
         // Fetch members data for the project
         axiosApi.get(`/project-members/${projectId}`).then((response) => {

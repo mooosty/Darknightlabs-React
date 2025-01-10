@@ -451,7 +451,8 @@ const Investment = () => {
   };
 
   const handleCardClick = (data, index) => {
-    if (index === 0) {
+    console.log(data)
+    if (index === 1) {
       // setSelectedInvestment(data);
       setShowDetails(true);
     }

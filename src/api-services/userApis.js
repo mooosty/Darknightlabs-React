@@ -38,6 +38,8 @@ export const getUsersDetailsAPI = createAsyncThunk(
 export const editUserProfileAPI = createAsyncThunk(
     "/user",
     async (data, thunkAPI) => {
+        console.log("data");
+        console.log(data);
         const response = await axiosApi.patch(apiRoutes.USER, data);
         if (response?.data?.success) return { ...response?.data, payload: data };
         else return thunkAPI.rejectWithValue(response?.data);

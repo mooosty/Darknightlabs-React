@@ -37,16 +37,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { ROUTER } from "../../utils/routes/routes";
 import { DynamicConnectButton, DynamicContextProvider, DynamicWidget } from "@dynamic-labs/sdk-react-core";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  createInviteAPI,
-  createTwitterUserAPI,
-  getTwitterUserAPI,
-  updateUserWalletAPI,
-} from "../../api-services/userApis";
-import { createUserAPI } from "../../api-services";
+import { createInviteAPI, createTwitterUserAPI, getTwitterUserAPI, updateUserWalletAPI } from "../../api-services/userApis";
+import { axiosApi, createUserAPI } from "../../api-services";
 import { storeAuthData } from "../../store/slice/authSlice";
 import { useRef, useState } from "react";
 import OnboardingPopup from "../../components/popup/onboarding-popup/OnboardingPopup";
+import { apiRoutes } from "../../utils/constants/apiUrl";
 
 const servicesCardData = [
   {
@@ -201,6 +197,8 @@ const Home = () => {
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [newUserId, setNewUserId] = useState(null);
 
+  const [existingProjects, setExistingProjects] = useState(false);
+
   const handleAuthResponse = async (response) => {
     if (response?.isAuthenticated) {
       const twitterId = response.user.verifiedCredentials[1].oauthAccountId;
@@ -247,19 +245,23 @@ const Home = () => {
         payloadUser.id = twitterUser.insertId;
         dispatch(storeAuthData({ response, user: payloadUser }));
 
-        const referralId = localStorage.getItem('referral_id');
+        const referralId = localStorage.getItem("referral_id");
         if (referralId) {
           try {
-            await dispatch(createInviteAPI({
-              invited_user: twitterUser.insertId,
-              invite_user: parseInt(referralId)
-            }));
-            await dispatch(updateUserWalletAPI({
-              invited_user: twitterUser.insertId
-            }));
-            localStorage.removeItem('referral_id');
+            await dispatch(
+              createInviteAPI({
+                invited_user: twitterUser.insertId,
+                invite_user: parseInt(referralId),
+              })
+            );
+            await dispatch(
+              updateUserWalletAPI({
+                invited_user: twitterUser.insertId,
+              })
+            );
+            localStorage.removeItem("referral_id");
           } catch (error) {
-            console.error('Error processing referral:', error);
+            console.error("Error processing referral:", error);
           }
         }
 
@@ -268,14 +270,37 @@ const Home = () => {
         setShowOnboarding(true);
       } else {
         dispatch(storeAuthData({ response, user: existingUser[0] }));
-        navigate('/dashboard');
+
+        //   console.log("------------------")
+
+        // console.log(existingUser)
+        //   const fetchProjects = async () => {
+
+        //     try {
+        //       const response = await axiosApi.get(`${apiRoutes.USER_PROJECT}/all/${existingUser[0].id}`);
+
+        //       const checkProjectsLength = response.data.data.length > 0;
+        //       console.log("checkProjectsLength")
+        //       console.log(checkProjectsLength)
+        //       setShowOnboarding(!checkProjectsLength);
+        //       setExistingProjects(checkProjectsLength);
+        //     } catch (error) {
+        //       console.error("error", error);
+        //     }
+        //   };
+        //   fetchProjects();
+
+        //   console.log("------------------")
+
+        navigate("/dashboard");
       }
     }
   };
 
   const handleOnboardingClose = () => {
     setShowOnboarding(false);
-    navigate('/dashboard');
+
+    navigate("/dashboard");
   };
 
   const homeRef = useRef(null);
@@ -325,10 +350,10 @@ const Home = () => {
                   <div className="title">wws</div>
                   <div className="half_divider"></div>
                   <div className="des">
-                    Sorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac
-                    aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
-                    inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis. Ut commodo efficitur
-                    neque. Ut diam quam, semper iaculis condimentum ac, vestibulum eu nisl.
+                    Sorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet
+                    odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+                    Curabitur tempus urna at turpis condimentum lobortis. Ut commodo efficitur neque. Ut diam quam, semper iaculis
+                    condimentum ac, vestibulum eu nisl.
                   </div>
                   {authDetails ? (
                     <Link to={ROUTER.dashboard} className="hero_btn">
@@ -350,10 +375,10 @@ const Home = () => {
                   <div className="title">poow</div>
                   <div className="half_divider"></div>
                   <div className="des">
-                    Sorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac
-                    aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
-                    inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis. Ut commodo efficitur
-                    neque. Ut diam quam, semper iaculis condimentum ac, vestibulum eu nisl.
+                    Sorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet
+                    odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+                    Curabitur tempus urna at turpis condimentum lobortis. Ut commodo efficitur neque. Ut diam quam, semper iaculis
+                    condimentum ac, vestibulum eu nisl.
                   </div>
                   {authDetails ? (
                     <Link to={ROUTER.dashboard} className="hero_btn">
@@ -429,25 +454,24 @@ const Home = () => {
               <div className="wrap_header">ABOUT </div>
               <div className="text_wrap">
                 <p>
-                  Darknight Labs is an NFT Strategy, Marketing and Partnership agency. Known for providing
-                  paradigm-shifting strategies to ensure optimal NFT drops by their partners, Darknight Labs is one of
-                  the most well- connected entities in the Web3 space, with hundreds of warm connections to founders and
-                  core team members from the very best projects, communities, VCs and brands in the space.
+                  Darknight Labs is an NFT Strategy, Marketing and Partnership agency. Known for providing paradigm-shifting
+                  strategies to ensure optimal NFT drops by their partners, Darknight Labs is one of the most well- connected
+                  entities in the Web3 space, with hundreds of warm connections to founders and core team members from the very
+                  best projects, communities, VCs and brands in the space.
                 </p>
                 <p>
-                  Our typical client is a Web2 brand or company that want to enter the NFT space in the most optimal
-                  way, without replicating the deadly mistakes (that we&apos;ve observed many major brands commit), or a
-                  Web3 project, either a crypto game, a defi platform, a tool or any other value-adding product, looking
-                  to tap into the NFT community the right way, while performing a successful mint.
+                  Our typical client is a Web2 brand or company that want to enter the NFT space in the most optimal way, without
+                  replicating the deadly mistakes (that we&apos;ve observed many major brands commit), or a Web3 project, either a
+                  crypto game, a defi platform, a tool or any other value-adding product, looking to tap into the NFT community
+                  the right way, while performing a successful mint.
                 </p>
                 <p>
-                  In addition, through high level partners, Darknight Labs help their partners through other services
-                  when needed, such as high tier token listings (Binance, KuCoin, Coinbase), blockchain partnerships /
-                  grants (Polygon, Arbitrum, Binance Chain, Venom, etc), high tier launchpads (Polkastarter, DAOmaker,
-                  etc.), and more. Darknight Labs is also a Web3 founders mastermind with the purpose of making Web3
-                  founders with a great product and a healthy mindset synergize, cross-pollinate audiences,
-                  cross-integrate assets and utilities, and cross-market. The goal is to create the ultimate win-win
-                  Web3 ecosystem.
+                  In addition, through high level partners, Darknight Labs help their partners through other services when needed,
+                  such as high tier token listings (Binance, KuCoin, Coinbase), blockchain partnerships / grants (Polygon,
+                  Arbitrum, Binance Chain, Venom, etc), high tier launchpads (Polkastarter, DAOmaker, etc.), and more. Darknight
+                  Labs is also a Web3 founders mastermind with the purpose of making Web3 founders with a great product and a
+                  healthy mindset synergize, cross-pollinate audiences, cross-integrate assets and utilities, and cross-market.
+                  The goal is to create the ultimate win-win Web3 ecosystem.
                 </p>
               </div>
             </div>
@@ -491,14 +515,8 @@ const Home = () => {
             <DynamicWidget variant="modal" buttonClassName="extra_button" />
           </div>
         </div>
-        
-        {showOnboarding && (
-          <OnboardingPopup 
-            open={showOnboarding} 
-            handleClose={handleOnboardingClose}
-            userId={newUserId}
-          />
-        )}
+
+        {showOnboarding && <OnboardingPopup open={showOnboarding} handleClose={handleOnboardingClose} userId={newUserId} />}
       </DynamicContextProvider>
     </div>
   );
