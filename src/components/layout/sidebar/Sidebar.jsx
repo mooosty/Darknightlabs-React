@@ -20,11 +20,11 @@ import {
   PendingSynergiesNavTabIcon,
   SynergiesManagerNavTabIcon,
   KarmaIcon,
-  BackNavTabIcon
+  BackNavTabIcon,
 } from "../../../utils/SVGs/SVGs";
 
 const userRole = "User";
-const Sidebar = () => {
+const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
@@ -103,10 +103,7 @@ const Sidebar = () => {
       }
     }
     // Finally fallback to default
-    const defaultImage = userData?.authDetails?.user?.verifiedCredentials[2]?.oauthAccountPhotos[0].replace(
-      "_normal",
-      ""
-    );
+    const defaultImage = userData?.authDetails?.user?.verifiedCredentials[2]?.oauthAccountPhotos[0].replace("_normal", "");
 
     return defaultImage;
   };
@@ -123,6 +120,10 @@ const Sidebar = () => {
     dispatch(handleLogout());
     navigate("/");
   };
+
+
+  // const [isSidebarOpen, setIsSidebarOpen] = useState(false);  
+
 
   return (
     <>
@@ -168,11 +169,7 @@ const Sidebar = () => {
                   <p>But your Karma and Loyalty levels might have an impact at some point.</p>
                 </div>
               </div>
-              <div
-                className="loyalty-progress"
-                onClick={() => navigate(`/${ROUTER.about}`)}
-                style={{ cursor: "pointer" }}
-              >
+              <div className="loyalty-progress" onClick={() => navigate(`/${ROUTER.about}`)} style={{ cursor: "pointer" }}>
                 <div className="loyalty-text">
                   <span>Loyalty</span>
                 </div>
@@ -216,9 +213,7 @@ const Sidebar = () => {
                       </Link>
                     </li>
                     <li
-                      className={`${
-                        location.pathname.startsWith(`/${ROUTER.projects}`) ? "active" : ""
-                      } disabled item-progress `}
+                      className={`${location.pathname.startsWith(`/${ROUTER.projects}`) ? "active" : ""} disabled item-progress `}
                     >
                       <Link to="#" className="disabled-link item-text  ">
                         <ProfileNavTabIcon />
@@ -309,7 +304,7 @@ const Sidebar = () => {
                         <p>Please complete your profile to unlock</p>
                       </div>
                     </li>
-                    <li   className={`${location.pathname === `/${ROUTER.karma}` ? "active" : ""}`}>
+                    <li className={`${location.pathname === `/${ROUTER.karma}` ? "active" : ""}`}>
                       <Link to={`/${ROUTER.karma}`}>
                         <img src={karmaIcon} alt="Karma" />
                         <span className="menu_text">Karma</span>
@@ -364,9 +359,7 @@ const Sidebar = () => {
                   <ul>
                     <li
                       className={`${
-                        location.pathname.includes("ambassador") || location.pathname.includes("my-content")
-                          ? "active"
-                          : ""
+                        location.pathname.includes("ambassador") || location.pathname.includes("my-content") ? "active" : ""
                       } ${!isAmbassador ? "disabled ambassador-disabled" : ""} item-progress`}
                     >
                       <Link
@@ -429,7 +422,332 @@ const Sidebar = () => {
       </div>
 
       {/* Mobile view */}
-      <div className="mobile_bottom_footer_wrap">
+
+      <div
+        className="sidebar_container_mobile"
+        style={{
+          transform: isSidebarOpen ? "translateX(0)" : "translateX(-100%)",
+          transition: "transform 0.3s ease-in-out",
+          height: "100% !important",
+        }}
+        onClick={() => setIsSidebarOpen(false)}
+      >
+        <div className="sidebar">
+          {isAmbassadorMode && (
+            <>
+              <h2 className="ambassador_title">Ambassadorship</h2>
+            </>
+          )}
+          <div className="profile_box">
+            <div className="profile_info" onClick={() => navigate(`/${ROUTER.profile}`)} style={{ cursor: "pointer" }}>
+              <div className="profile_image">
+                <img
+                  src={getProfilePicture()}
+                  alt="Profile"
+                  onError={(e) => {
+                    e.target.onerror = null; // Prevent infinite loop
+                    e.target.src = defaultImg;
+                  }}
+                />
+              </div>
+              <div className="user_details">
+                <h3>{userData?.name?.split(" ")[0] || userDetails?.firstname || "User"}</h3>
+                <p>{userRole}</p>
+              </div>
+            </div>
+            <div className="user_stats">
+              <div className="balance" onClick={() => navigate(`/${ROUTER.about}`)} style={{ cursor: "pointer" }}>
+                <span>Karma:</span>
+                <span className="value">{userDetails?.currency_b || 0}</span>
+                <KarmaIcon style={{ width: "1em", height: "1em" }} />
+                <div className="karma-tooltip">
+                  <p>Karma points are rewards for users, click on karma to read more</p>
+                </div>
+              </div>
+              <div className="balance" onClick={() => navigate(`/${ROUTER.about}`)} style={{ cursor: "pointer" }}>
+                <span>$winwin:</span>
+                <span className="value">{userDetails?.currency_a || 10000}</span>
+                <img src={darknightlabsIcon} alt="Darknight Labs" style={{ width: "1.5em", height: "1.5em" }} />
+                <div className="winwin-tooltip">
+                  <p>Not much has been revealed about $winwin yet.</p>
+                  <p>But your Karma and Loyalty levels might have an impact at some point.</p>
+                </div>
+              </div>
+              <div className="loyalty-progress" onClick={() => navigate(`/${ROUTER.about}`)} style={{ cursor: "pointer" }}>
+                <div className="loyalty-text">
+                  <span>Loyalty</span>
+                </div>
+                <div className="progress-bar">
+                  <div className="progress" style={{ width: "50%" }}></div>
+                </div>
+                <div className="loyalty-tooltip">
+                  <div className="tooltip-content-full">
+                    <p>Your Loyalty increases or decreases based on how long you hold WWS' exclusive deals.</p>
+                    <p>Loyalty, alongside with Karma, can give you access to exclusive and scarce deals in the future.</p>
+                    <p>The most loyal WWS holders will also get access to additional exclusive perks.</p>
+                  </div>
+                  <div className="tooltip-content-short">
+                    <p>Click here to learn more</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="menu-section">
+            {!isAmbassadorMode ? (
+              <>
+                <div className="menu-box">
+                  <ul>
+                    <li className={`${location.pathname.startsWith(`/${ROUTER.announcementFeed}`) ? "active" : ""}`}>
+                      <Link to={`/${ROUTER.announcementFeed}`}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          style={{ width: "20px", height: "20px" }}
+                        >
+                          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                        <span className="menu_text">Announcements</span>
+                      </Link>
+                    </li>
+                    <li
+                      className={`${location.pathname.startsWith(`/${ROUTER.projects}`) ? "active" : ""} disabled item-progress `}
+                    >
+                      <Link to="#" className="disabled-link item-text  ">
+                        <ProfileNavTabIcon />
+                        <span className="menu_text">Projects</span>
+                      </Link>
+                      <div className="item-tooltip">
+                        <p>Please complete your profile to unlock</p>
+                      </div>
+                    </li>
+
+                    {userRole == "ADMIN" && (
+                      <li
+                        className={`${location.pathname.startsWith(`/${ROUTER.projectManager}`) ? "active" : ""} ${
+                          userProjects.length === 0 ? "disabled" : ""
+                        }`}
+                      >
+                        <Link to={`/${ROUTER.projectManager}`}>
+                          <ProjectNavTabIcon />
+                          <span className="menu_text">Projects Manager</span>
+                        </Link>
+                      </li>
+                    )}
+                  </ul>
+                </div>
+                <div className="menu-box">
+                  <span className="separator"></span>
+                  <ul>
+                    <>
+                      <li
+                        className={`${
+                          location.pathname.startsWith(`/${ROUTER.synergies}`) &&
+                          location.pathname !== `/${ROUTER.synergiesManager}`
+                            ? "active"
+                            : ""
+                        } disabled  item-progress `}
+                      >
+                        <Link to="#" className="disabled-link item-text  ">
+                          <SynergiesNavTabIcon />
+                          <span className="menu_text">Synergies</span>
+                        </Link>
+                        <div className="item-tooltip">
+                          <p>Please complete your profile to unlock</p>
+                        </div>
+                      </li>
+                      <li className={`${location.pathname === `/${ROUTER.investment}` ? "active" : ""}`}>
+                        <Link to={ROUTER.investment}>
+                          <InvestmentNavTabIcon />
+                          <span className="menu_text">Investments </span>
+                        </Link>
+                      </li>
+                    </>
+
+                    {userRole == "ADMIN" && (
+                      <>
+                        <li
+                          className={`${location.pathname === `/${ROUTER.synergyRequests}` ? "active" : ""} ${
+                            userProjects.length === 0 ? "disabled" : ""
+                          }`}
+                        >
+                          <Link to={ROUTER.synergyRequests}>
+                            <SynergiesNavTabIcon />
+                            <span className="menu_text">Synergy requests</span>
+                          </Link>
+                        </li>
+                        <li
+                          className={`${location.pathname === `/${ROUTER.synergiesManager}` ? "active" : ""} ${
+                            userProjects.length === 0 ? "disabled" : ""
+                          }`}
+                        >
+                          <Link to={ROUTER.synergiesManager}>
+                            <SynergiesManagerNavTabIcon />
+                            <span className="menu_text">Synergies Manager </span>
+                          </Link>
+                        </li>
+                      </>
+                    )}
+                  </ul>
+                </div>
+                <div className="menu-box">
+                  <span className="separator"></span>
+                  <ul>
+                    <li className={`${location.pathname === `/${ROUTER.chat}` ? "active" : ""} disabled item-progress`}>
+                      <Link to="#" className="disabled-link">
+                        <ChatNavTabIcon />
+                        <span className="chat">Chat</span>
+                      </Link>
+                      <div className="item-tooltip">
+                        <p>Please complete your profile to unlock</p>
+                      </div>
+                    </li>
+                    <li className={`${location.pathname === `/${ROUTER.karma}` ? "active" : ""}`}>
+                      <Link to={`/${ROUTER.karma}`}>
+                        <img src={karmaIcon} alt="Karma" />
+                        <span className="menu_text">Karma</span>
+                      </Link>
+                    </li>
+                    <li className={`${location.pathname === `/${ROUTER.profile}` ? "active" : ""}`}>
+                      <Link to={`/${ROUTER.profile}`}>
+                        <ProfileNavTabIcon />
+                        <span className="menu_text">Profile</span>
+                      </Link>
+                    </li>
+                    <li className={`${location.pathname === `/${ROUTER.about}` ? "active" : ""}`}>
+                      <Link to={`/${ROUTER.about}`}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          style={{ width: "20px", height: "20px" }}
+                        >
+                          <circle cx="12" cy="12" r="10"></circle>
+                          <line x1="12" y1="16" x2="12" y2="12"></line>
+                          <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                        <span className="menu_text">About</span>
+                      </Link>
+                    </li>
+                    <li className={`${location.pathname === `/${ROUTER.helpFeedback}` ? "active" : ""}`}>
+                      <Link to={`/${ROUTER.helpFeedback}`}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          style={{ width: "20px", height: "20px" }}
+                        >
+                          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                        </svg>
+                        <span className="menu_text">Help & Feedback</span>
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+                <div className="menu-box">
+                  <span className="separator"></span>
+                  <ul>
+                    <li
+                      className={`${
+                        location.pathname.includes("ambassador") || location.pathname.includes("my-content") ? "active" : ""
+                      } ${!isAmbassador ? "disabled ambassador-disabled" : ""} item-progress`}
+                    >
+                      <Link
+                        to={ROUTER.myContent}
+                        onClick={handleAmbassadorClick}
+                        className={!isAmbassador ? "disabled-link" : ""}
+                      >
+                        <ProjectNavTabIcon />
+                        <span className="menu_text">Ambassadorship</span>
+                      </Link>
+                      {!isAmbassador && (
+                        <div className="item-tooltip">
+                          <p>Please complete your profile to unlock</p>
+                        </div>
+                      )}
+                    </li>
+                  </ul>
+
+                  {/* <div className="menu-box sidebar_bottom">
+            <span className="separator"></span>
+            <ul>
+              {isAmbassadorMode ? (
+                <li>
+                  <Link to="#" onClick={handleBackClick} style={{ color: "#e8efdb" }}>
+                    <span className="menu_text">← Back to Menu</span>
+                  </Link>
+                </li>
+              ) : (
+                <li>
+                  <Link to="/" onClick={handleLogout}>
+                    <LogoutNavTabIcon />
+                    <span className="menu_text">Logout</span>
+                  </Link>
+                </li>
+              )}
+            </ul>
+          </div> */}
+
+
+                </div>
+              </>
+            ) : (
+              <div className="menu-box">
+                <ul>
+                  <li className={`${location.pathname.startsWith(`/${ROUTER.myContent}`) ? "active" : ""}`}>
+                    <Link to={ROUTER.myContent}>
+                      <MyContentNavTabIcon />
+                      <span className="menu_text">My Content</span>
+                    </Link>
+                  </li>
+                  <li className={`${location.pathname.startsWith(`/${ROUTER.ambassadorProjects}`) ? "active" : ""}`}>
+                    <Link to={ROUTER.ambassadorProjects}>
+                      <ProjectNavTabIcon />
+                      <span className="menu_text">Projects</span>
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            )}
+          </div>
+
+          <div className="menu-box sidebar_bottom">
+            <span className="separator"></span>
+            <ul>
+              {isAmbassadorMode ? (
+                <li>
+                  <Link to="#" onClick={handleBackClick} style={{ color: "#e8efdb" }}>
+                    <span className="menu_text">← Back to Menu</span>
+                  </Link>
+                </li>
+              ) : (
+                <li>
+                  <Link to="/" onClick={handleLogout}>
+                    <LogoutNavTabIcon />
+                    <span className="menu_text">Logout</span>
+                  </Link>
+                </li>
+              )}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* <div className="mobile_bottom_footer_wrap">
         <div className="mobile_bottom_footer">
           <ul>
             {!isAmbassadorMode ? (
@@ -600,7 +918,7 @@ const Sidebar = () => {
               <>
                 <li onClick={handleBackClick}>
                   <Link to="#">
-                    {/* <span>←</span> */}
+                   
                     <BackNavTabIcon />
                     <span>Back</span>
                   </Link>
@@ -621,7 +939,7 @@ const Sidebar = () => {
             )}
           </ul>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

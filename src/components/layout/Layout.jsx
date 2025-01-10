@@ -3,7 +3,7 @@ import { Navigate, Outlet } from 'react-router-dom'
 import Header from './header/Header'
 import Sidebar from './sidebar/Sidebar'
 import { useSelector } from 'react-redux'
-
+import { useState , useEffect } from 'react'
 const Layout = () => {
     const { authDetails } = useSelector(state => state.auth)
 
@@ -11,13 +11,21 @@ const Layout = () => {
         return <Navigate to="/" />
     }
 
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);  
+
+
+    useEffect(() => {
+     console.log(isSidebarOpen);
+    }, [isSidebarOpen]);
+
+
     return (
         <div className={`layout_container`}>
-              <Header />
+              <Header isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
             <main className="main_wrp">
                 <div className="container">
                     <div className="page_box">
-                        <Sidebar />
+                        <Sidebar  isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen}   />
                         <div className="content_box">
                             <Outlet />
                         </div>

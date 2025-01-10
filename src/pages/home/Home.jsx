@@ -286,7 +286,7 @@ const Home = () => {
   };
 
   const handleOnboardingClose = async () => {
-    setShowOnboarding(false); 
+    setShowOnboarding(false);
     navigate("/dashboard");
   };
 
@@ -343,27 +343,10 @@ const Home = () => {
                     condimentum ac, vestibulum eu nisl.
                   </div>
                   {authDetails ? (
-                       <Link to={ROUTER.dashboard} className="hero_btn">
-                        To dashboard 
-                      </Link>
-                    // existingProjects > 0 ? (
-                    //   <Link to={ROUTER.dashboard} className="hero_btn">
-                    //     To dashboard {existingProjects} link
-                    //   </Link>
-                    // ) 
-                    // 
-                    // : (
-                    // <div
-                    //   className="hero_btn"
-                    //   onClick={() => {
-                    //     setShowOnboarding(true);
-                    //     // navigate("/dashboard");
-                    //   }}
-                    // >
-                    //   To dashboard
-                    // </div>
+                    <Link to={ROUTER.dashboard} className="hero_btn">
+                      To dashboard
+                    </Link>
                   ) : (
-                    // )
                     <DynamicConnectButton buttonClassName="hero_btn">To dashboard </DynamicConnectButton>
                   )}
                 </div>
