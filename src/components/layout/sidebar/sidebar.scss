@@ -10,7 +10,7 @@
     z-index: 1;
     display: flex;
     flex-direction: column;
-    overflow: visible;
+    overflow: visible !important;
   
     @media (max-width: 1600px) {
       width: 240px;
@@ -30,34 +30,33 @@
       display: flex;
       flex-direction: column;
       position: relative;
-      overflow: visible;
+      overflow: visible !important;
       height: 100%;
   
       .profile_box {
-        flex: 0 0 auto;
+        padding: 16px 0;
         margin-bottom: 24px;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        padding: 12px;
-        background: rgba(245, 239, 219, 0.03);
-        border-radius: 8px;
-        overflow: visible;
-        position: relative;
-        z-index: 2;
+        border-bottom: 1px solid rgba(245, 239, 219, 0.08);
+        overflow: visible !important;
   
         .profile_info {
           display: flex;
           align-items: center;
           gap: 12px;
+          margin-bottom: 16px;
   
           .profile_image {
-            border: 1px solid rgba(134, 134, 134, 0.3);
-            height: 60px;
-            width: 60px;
-            border-radius: 8px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
             overflow: hidden;
             flex-shrink: 0;
+            opacity: 0.95;
+            transition: opacity 0.2s ease;
+  
+            &:hover {
+              opacity: 1;
+            }
   
             img {
               width: 100%;
@@ -71,18 +70,18 @@
   
             h3 {
               font-family: "MedievalSharp", cursive;
-              color: #fff;
-              font-size: 18px;
-              line-height: 1.2;
-              font-weight: 700;
-              margin-bottom: 5px;
+              color: #f5efdb;
+              font-size: 16px;
+              line-height: 1;
+              font-weight: 500;
+              margin-bottom: 4px;
               white-space: nowrap;
               overflow: hidden;
               text-overflow: ellipsis;
             }
   
             p {
-              color: rgba(255, 255, 255, 0.5);
+              color: rgba(245, 239, 219, 0.4);
               font-size: 12px;
               margin: 0;
             }
@@ -91,51 +90,69 @@
   
         .user_stats {
           .balance {
+            position: relative;
             display: flex;
             align-items: center;
-            gap: 4px;
-            background: #191917;
-            padding: 8px 16px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            font-family: "MedievalSharp", cursive;
-            position: relative;
+            padding: 4px 0;
             cursor: pointer;
-            color: var(--primary-text);
-            font-size: 14px;
+            color: rgba(245, 239, 219, 0.6);
+            font-size: 13px;
+            transition: color 0.2s ease;
   
-            span {
-              color: #f5efdb;
-              &.value {
-                margin-right: -4px;
-              }
+            &:hover {
+              color: rgba(245, 239, 219, 0.8);
             }
   
             img, svg {
-              margin-left: -4px;
+              width: 12px;
+              height: 12px;
+              margin-right: 6px;
+              opacity: 0.6;
               path {
-                fill: #f5efdb;
+                fill: currentColor;
               }
             }
   
-            .winwin-tooltip {
+            span.value {
+              margin-left: auto;
+              color: #f5efdb;
+            }
+  
+            .winwin-tooltip,
+            .karma-tooltip {
               position: absolute;
-              bottom: calc(100% + 8px);
-              left: 0;
+              top: auto;
+              bottom: 100%;
+              left: 50%;
+              transform: translateX(-50%);
               background: #191917;
               padding: 12px;
               border-radius: 4px;
-              width: 100%;
+              min-width: 200px;
+              max-width: 90%;
               opacity: 0;
               visibility: hidden;
-              transition: opacity 0.2s ease, visibility 0.2s ease;
+              transition: all 0.2s ease;
               z-index: 10000;
               color: #f5efdb;
               font-size: 12px;
               line-height: 1.4;
               border: 1px solid rgba(245, 239, 219, 0.15);
-              transform: translateZ(0);
               pointer-events: none;
+              margin-bottom: 8px;
+  
+              &:after {
+                content: '';
+                position: absolute;
+                left: 50%;
+                bottom: -5px;
+                transform: translateX(-50%) rotate(45deg);
+                width: 8px;
+                height: 8px;
+                background: #191917;
+                border-right: 1px solid rgba(245, 239, 219, 0.15);
+                border-bottom: 1px solid rgba(245, 239, 219, 0.15);
+              }
   
               p {
                 margin: 0 0 8px 0;
@@ -146,36 +163,7 @@
               }
             }
   
-            .karma-tooltip {
-              position: absolute;
-              bottom: calc(100% + 8px);
-              left: 0;
-              background: #191917;
-              padding: 12px;
-              border-radius: 4px;
-              width: 100%;
-              opacity: 0;
-              visibility: hidden;
-              transition: opacity 0.2s ease, visibility 0.2s ease;
-              z-index: 10000;
-              color: #f5efdb;
-              font-size: 12px;
-              line-height: 1.4;
-              border: 1px solid rgba(245, 239, 219, 0.15);
-              transform: translateZ(0);
-              pointer-events: none;
-  
-              p {
-                margin: 0;
-                opacity: 0.8;
-              }
-            }
-  
-            &:hover .winwin-tooltip {
-              opacity: 1;
-              visibility: visible;
-            }
-  
+            &:hover .winwin-tooltip,
             &:hover .karma-tooltip {
               opacity: 1;
               visibility: visible;
@@ -183,79 +171,72 @@
           }
   
           .loyalty-progress {
-            width: 100%;
-            padding: 6px 8px;
-            background: rgba(245, 239, 219, 0.05);
-            border-radius: 6px;
             position: relative;
+            margin-top: 12px;
             cursor: pointer;
+            overflow: visible !important;
   
             .loyalty-text {
-              color: #f5efdb;
-              font-size: 12px;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              color: rgba(245, 239, 219, 0.6);
+              font-size: 13px;
               margin-bottom: 6px;
             }
   
             .progress-bar {
               width: 100%;
-              height: 4px;
+              height: 2px;
               background: rgba(245, 239, 219, 0.1);
-              border-radius: 2px;
+              border-radius: 1px;
               overflow: hidden;
   
               .progress {
                 height: 100%;
-                background: linear-gradient(90deg, #f5efdb 0%, #a18527 100%);
-                border-radius: 2px;
+                background: rgba(245, 239, 219, 0.4);
+                border-radius: 1px;
                 transition: width 0.3s ease;
               }
             }
   
             .loyalty-tooltip {
               position: absolute;
-              bottom: calc(100% + 8px);
-              left: 0;
+              bottom: calc(100% + 10px);
+              left: 50%;
+              transform: translateX(-50%);
               background: #191917;
-              padding: 12px;
+              padding: 8px 12px;
               border-radius: 4px;
-              width: 100%;
+              min-width: auto;
+              max-width: 90%;
               opacity: 0;
               visibility: hidden;
-              transition: opacity 0.2s ease, visibility 0.2s ease;
-              z-index: 10000;
+              transition: all 0.2s ease;
+              z-index: 99999;
               color: #f5efdb;
               font-size: 12px;
               line-height: 1.4;
               border: 1px solid rgba(245, 239, 219, 0.15);
-              transform: translateZ(0);
               pointer-events: none;
+              white-space: nowrap;
   
-              .tooltip-content-full {
-                display: block;
-                @media (max-width: 1600px) {
-                  display: none;
-                }
-  
-                p {
-                  margin: 0 0 8px 0;
-                  opacity: 0.8;
-                  &:last-child {
-                    margin-bottom: 0;
-                  }
-                }
+              &:after {
+                content: '';
+                position: absolute;
+                left: 50%;
+                bottom: -5px;
+                transform: translateX(-50%) rotate(45deg);
+                width: 8px;
+                height: 8px;
+                background: #191917;
+                border-right: 1px solid rgba(245, 239, 219, 0.15);
+                border-bottom: 1px solid rgba(245, 239, 219, 0.15);
               }
   
-              .tooltip-content-short {
-                display: none;
-                @media (max-width: 1600px) {
-                  display: block;
-                }
-  
-                p {
-                  margin: 0;
-                  opacity: 0.8;
-                  text-align: center;
-                }
+              p {
+                margin: 0;
+                opacity: 0.8;
               }
             }
   
@@ -777,29 +758,29 @@
        z-index: 1000;
   
       .profile_box {
-        flex: 0 0 auto;
-        margin-bottom: 24px;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        padding: 12px;
-         border-radius: 8px;
-        overflow: visible;
-        position: relative;
-        z-index: 2;
+        padding: 16px 0;
+        margin-bottom: 20px;
+        border-bottom: 1px solid rgba(245, 239, 219, 0.08);
+        overflow: visible !important;
   
         .profile_info {
           display: flex;
           align-items: center;
           gap: 12px;
+          margin-bottom: 16px;
   
           .profile_image {
-            border: 1px solid rgba(134, 134, 134, 0.3);
-            height: 60px;
-            width: 60px;
-            border-radius: 8px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             overflow: hidden;
             flex-shrink: 0;
+            opacity: 0.95;
+            transition: opacity 0.2s ease;
+  
+            &:hover {
+              opacity: 1;
+            }
   
             img {
               width: 100%;
@@ -813,19 +794,19 @@
   
             h3 {
               font-family: "MedievalSharp", cursive;
-              color: #fff;
-              font-size: 18px;
-              line-height: 1.2;
-              font-weight: 700;
-              margin-bottom: 5px;
+              color: #f5efdb;
+              font-size: 15px;
+              line-height: 1;
+              font-weight: 500;
+              margin-bottom: 4px;
               white-space: nowrap;
               overflow: hidden;
               text-overflow: ellipsis;
             }
   
             p {
-              color: rgba(255, 255, 255, 0.5);
-              font-size: 12px;
+              color: rgba(245, 239, 219, 0.4);
+              font-size: 11px;
               margin: 0;
             }
           }
@@ -833,91 +814,72 @@
   
         .user_stats {
           .balance {
+            position: relative;
             display: flex;
             align-items: center;
-            gap: 4px;
-            background: #191917;
-            padding: 8px 16px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            font-family: "MedievalSharp", cursive;
-            position: relative;
+            padding: 4px 0;
             cursor: pointer;
-            color: var(--primary-text);
-            font-size: 14px;
+            color: rgba(245, 239, 219, 0.6);
+            font-size: 12px;
+            transition: color 0.2s ease;
   
-            span {
-              color: #f5efdb;
-              &.value {
-                margin-right: -4px;
-              }
+            &:hover {
+              color: rgba(245, 239, 219, 0.8);
             }
   
             img, svg {
-              margin-left: -4px;
+              width: 11px;
+              height: 11px;
+              margin-right: 6px;
+              opacity: 0.6;
               path {
-                fill: #f5efdb;
+                fill: currentColor;
               }
             }
   
-            .winwin-tooltip {
-              position: absolute;
-              bottom: calc(100% + 8px);
-              left: 0;
+            span.value {
+              margin-left: auto;
+              color: #f5efdb;
+            }
+  
+            .winwin-tooltip,
+            .karma-tooltip {
+              position: fixed;
+              left: 50% !important;
+              bottom: auto !important;
+              top: 50% !important;
+              transform: translate(-50%, -50%) !important;
               background: #191917;
               padding: 12px;
               border-radius: 4px;
-              width: 100%;
+              width: 280px;
+              max-width: 90vw;
               opacity: 0;
               visibility: hidden;
-              transition: opacity 0.2s ease, visibility 0.2s ease;
-              z-index: 10000;
+              transition: all 0.2s ease;
+              z-index: 10001;
               color: #f5efdb;
               font-size: 12px;
               line-height: 1.4;
               border: 1px solid rgba(245, 239, 219, 0.15);
-              transform: translateZ(0);
               pointer-events: none;
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  
+              &:after {
+                display: none;
+              }
   
               p {
                 margin: 0 0 8px 0;
                 opacity: 0.8;
+                text-align: center;
                 &:last-child {
                   margin-bottom: 0;
                 }
               }
             }
   
-            .karma-tooltip {
-              position: absolute;
-              bottom: calc(100% + 8px);
-              left: 0;
-              background: #191917;
-              padding: 12px;
-              border-radius: 4px;
-              width: 100%;
-              opacity: 0;
-              visibility: hidden;
-              transition: opacity 0.2s ease, visibility 0.2s ease;
-              z-index: 10000;
-              color: #f5efdb;
-              font-size: 12px;
-              line-height: 1.4;
-              border: 1px solid rgba(245, 239, 219, 0.15);
-              transform: translateZ(0);
-              pointer-events: none;
-  
-              p {
-                margin: 0;
-                opacity: 0.8;
-              }
-            }
-  
-            &:hover .winwin-tooltip {
-              opacity: 1;
-              visibility: visible;
-            }
-  
+            &:hover .winwin-tooltip,
             &:hover .karma-tooltip {
               opacity: 1;
               visibility: visible;
@@ -925,79 +887,72 @@
           }
   
           .loyalty-progress {
-            width: 100%;
-            padding: 6px 8px;
-            background: rgba(245, 239, 219, 0.05);
-            border-radius: 6px;
             position: relative;
+            margin-top: 12px;
             cursor: pointer;
+            overflow: visible !important;
   
             .loyalty-text {
-              color: #f5efdb;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              color: rgba(245, 239, 219, 0.6);
               font-size: 12px;
               margin-bottom: 6px;
             }
   
             .progress-bar {
               width: 100%;
-              height: 4px;
+              height: 2px;
               background: rgba(245, 239, 219, 0.1);
-              border-radius: 2px;
+              border-radius: 1px;
               overflow: hidden;
   
               .progress {
                 height: 100%;
-                background: linear-gradient(90deg, #f5efdb 0%, #a18527 100%);
-                border-radius: 2px;
+                background: rgba(245, 239, 219, 0.4);
+                border-radius: 1px;
                 transition: width 0.3s ease;
               }
             }
   
             .loyalty-tooltip {
               position: absolute;
-              bottom: calc(100% + 8px);
-              left: 0;
+              bottom: calc(100% + 10px);
+              left: 50%;
+              transform: translateX(-50%);
               background: #191917;
-              padding: 12px;
+              padding: 8px 12px;
               border-radius: 4px;
-              width: 100%;
+              min-width: auto;
+              max-width: 90%;
               opacity: 0;
               visibility: hidden;
-              transition: opacity 0.2s ease, visibility 0.2s ease;
-              z-index: 10000;
+              transition: all 0.2s ease;
+              z-index: 99999;
               color: #f5efdb;
               font-size: 12px;
               line-height: 1.4;
               border: 1px solid rgba(245, 239, 219, 0.15);
-              transform: translateZ(0);
               pointer-events: none;
+              white-space: nowrap;
   
-              .tooltip-content-full {
-                display: block;
-                @media (max-width: 1600px) {
-                  display: none;
-                }
-  
-                p {
-                  margin: 0 0 8px 0;
-                  opacity: 0.8;
-                  &:last-child {
-                    margin-bottom: 0;
-                  }
-                }
+              &:after {
+                content: '';
+                position: absolute;
+                left: 50%;
+                bottom: -5px;
+                transform: translateX(-50%) rotate(45deg);
+                width: 8px;
+                height: 8px;
+                background: #191917;
+                border-right: 1px solid rgba(245, 239, 219, 0.15);
+                border-bottom: 1px solid rgba(245, 239, 219, 0.15);
               }
   
-              .tooltip-content-short {
-                display: none;
-                @media (max-width: 1600px) {
-                  display: block;
-                }
-  
-                p {
-                  margin: 0;
-                  opacity: 0.8;
-                  text-align: center;
-                }
+              p {
+                margin: 0;
+                opacity: 0.8;
               }
             }
   

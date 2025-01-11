@@ -188,7 +188,7 @@ const OnboardingPopup = ({ open, handleClose, userId , setExistingProjects  }) =
     }
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (isSkipped = false) => {
     try {
       // Save profile data
       const profilePayload = {
@@ -207,8 +207,15 @@ const OnboardingPopup = ({ open, handleClose, userId , setExistingProjects  }) =
       console.log(profilePayload);
       dispatch(editUserProfileAPI(profilePayload));
 
-      // Save project data if project name is provided
-      if (formData.project_name) {
+      if (isSkipped) {
+        // Make POST request to /firstlogin/:id when skipping
+        try {
+          await axios.post(`https://winwinsocietyweb3.com/api/users/firstlogin/${userId}`);
+        } catch (error) {
+          console.error("Error making firstlogin request:", error);
+        }
+      } else if (formData.project_name) {
+        // Save project data if not skipped and project name is provided
         const date = new Date();
         const synergy_obj = {};
 
@@ -260,8 +267,6 @@ const OnboardingPopup = ({ open, handleClose, userId , setExistingProjects  }) =
       }
 
       handleClose();
-     
-     
      
     } catch (error) {
       console.error("Error saving data:", error);
@@ -486,6 +491,23 @@ const OnboardingPopup = ({ open, handleClose, userId , setExistingProjects  }) =
               <div
                 style={{
                   flex: "1",
+                  backgroundColor: "rgba(245, 239, 219, 0.3)",
+                  color: "#F5EFDB",
+                  padding: "1rem 2rem 1rem 2rem",
+                  border: "1px solid rgba(245, 239, 219, 0.3)",
+                  borderRadius: "14px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  cursor: "pointer",
+                }}
+                onClick={() => handleSubmit(true)}
+              >
+                Skip
+              </div>
+              <div
+                style={{
+                  flex: "1",
                   backgroundColor: "white",
                   color: "black",
                   padding: "1rem 2rem 1rem 2rem",
@@ -496,8 +518,7 @@ const OnboardingPopup = ({ open, handleClose, userId , setExistingProjects  }) =
                   alignItems: "center",
                   cursor: "pointer",
                 }}
-                onClick={handleSubmit}
-                disabled={!formData.project_name}
+                onClick={() => handleSubmit(false)}
               >
                 Complete
               </div>

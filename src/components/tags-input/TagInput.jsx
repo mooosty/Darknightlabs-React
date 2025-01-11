@@ -5,7 +5,16 @@ import PropTypes from 'prop-types';
 const defaultTags = [
   { label: 'Gaming', value: 'gaming' },
   { label: 'AI', value: 'ai' },
-  { label: 'RWA', value: 'rwa' }
+  { label: 'RWA', value: 'rwa' },
+  { label: 'DePin', value: 'depin' },
+  { label: 'DeFi', value: 'defi' },
+  { label: 'Infrastructure', value: 'infrastructure' },
+  { label: 'L1/L2/L3', value: 'l1l2l3' },
+  { label: 'Data', value: 'data' },
+  { label: 'IP', value: 'ip' },
+  { label: 'Web2 Brand entering Web3', value: 'web2-brand-entering-web3' },
+  { label: 'Exchange', value: 'exchange' },
+  { label: 'Market Maker', value: 'market-maker' }
 ];
 
 function TagInput({ tags, setTags }) {
@@ -86,7 +95,7 @@ function TagInput({ tags, setTags }) {
                     onChange={handleInputChange}
                     onKeyDown={handleKeyPress}
                     onFocus={handleInputFocus}
-                    placeholder="Type or select a tag"
+                    placeholder="Type and press Enteror select a tag"
                     name='tags'
                 />
             </div>

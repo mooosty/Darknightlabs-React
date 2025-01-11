@@ -1,71 +1,69 @@
 .layout_container {
+    min-height: 100vh;
     height: 100vh;
     display: flex;
     flex-direction: column;
+    width: 100%;
     overflow: hidden;
-    min-width: 100vw;
 
     .main_wrp {
         flex: 1;
-        padding: 24px;
-        overflow: hidden;
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 20px 24px 0 24px;
+        overflow: hidden;
+        height: calc(100vh - 85px);
         
         @media(max-width: 767px) {
             padding: 0;
-            padding-bottom: 100px;
+            overflow: auto;
+            height: 100%;
+            display: block;
         }
 
         .container {
-            height: 100%;
+            width: 100%;
             max-width: 1920px;
             margin: 0 auto;
-            padding: 0;
-            width: 100%;
+            height: calc(100% - 15px);
+
+            @media(max-width: 767px) {
+                height: 100%;
+                margin: 0;
+            }
 
             .page_box {
                 display: flex;
                 gap: 24px;
-                height: calc(100vh - 132px);
-                margin-bottom: 24px;
                 width: 100%;
-
-                @media(max-width: 1600px) {
-                    height: calc(100vh - 85px - 10px);
-                }
+                height: 100%;
 
                 @media(max-width: 767px) {
                     gap: 0;
-                    margin-bottom: 0;
+                    margin: 0;
+                    height: 100%;
+                    display: block;
                 }
 
                 .content_box {
                     flex: 1;
+                    width: 100%;
                     background-color: transparent;
                     border-radius: 9px;
-                    padding: 0px 0px 24px 0px;
+                    padding: 0;
                     overflow-y: auto;
                     height: 100%;
-                    width: 100%;
-                    min-width: 0;
+                    display: flex;
+                    flex-direction: column;
                     
                     @media(max-width: 767px) {
                         padding: 0;
                         border-radius: 0;
+                        overflow: visible;
+                        height: 100%;
+                        display: block;
                     }
-                    
-                    // &::-webkit-scrollbar {
-                    //     width: 8px;
-                    // }
-                    
-                    // &::-webkit-scrollbar-track {
-                    //     background: transparent;
-                    // }
-                    
-                    // &::-webkit-scrollbar-thumb {
-                    //     background-color: rgba(245, 239, 219, 0.1);
-                    //     border-radius: 4px;
-                    // }
                 }
             }
         }

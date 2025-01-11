@@ -177,14 +177,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                   <div className="progress" style={{ width: "50%" }}></div>
                 </div>
                 <div className="loyalty-tooltip">
-                  <div className="tooltip-content-full">
-                    <p>Your Loyalty increases or decreases based on how long you hold WWS' exclusive deals.</p>
-                    <p>Loyalty, alongside with Karma, can give you access to exclusive and scarce deals in the future.</p>
-                    <p>The most loyal WWS holders will also get access to additional exclusive perks.</p>
-                  </div>
-                  <div className="tooltip-content-short">
-                    <p>Click here to learn more</p>
-                  </div>
+                  <p>Click to see more details</p>
                 </div>
               </div>
             </div>
@@ -481,14 +474,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                   <div className="progress" style={{ width: "50%" }}></div>
                 </div>
                 <div className="loyalty-tooltip">
-                  <div className="tooltip-content-full">
-                    <p>Your Loyalty increases or decreases based on how long you hold WWS' exclusive deals.</p>
-                    <p>Loyalty, alongside with Karma, can give you access to exclusive and scarce deals in the future.</p>
-                    <p>The most loyal WWS holders will also get access to additional exclusive perks.</p>
-                  </div>
-                  <div className="tooltip-content-short">
-                    <p>Click here to learn more</p>
-                  </div>
+                  <p>Click to see more details</p>
                 </div>
               </div>
             </div>

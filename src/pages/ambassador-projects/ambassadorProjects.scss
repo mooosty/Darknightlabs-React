@@ -96,6 +96,7 @@
         .page_data {
             height: 100%;
             overflow-y: auto;
+            overflow-x: hidden;
 
             &.search_open {
                 height: calc(100% - 50px);
