@@ -733,11 +733,13 @@
   .sidebar_container_mobile {
  
     background-color: #191917;
+    // background-color: rgba(223, 79, 79, 0.336);
     padding: 24px; 
     width: 300px;
     flex-shrink: 0; 
     position: absolute;
-    height: calc(100vh - 70px);
+    // height: calc(100vh - 70px);
+    height: calc( 100dvh - 70px);
     z-index: 99; 
     display: none; 
     
