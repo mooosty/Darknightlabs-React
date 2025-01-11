@@ -24,6 +24,7 @@ const PledgeForm = ({ onSubmit }) => {
   const [pledgeData, setPledgeData] = useState(null);
   const [showCounterOfferInput, setShowCounterOfferInput] = useState(false);
   const [counterOffer, setCounterOffer] = useState('');
+  const [counterOfferReason, setCounterOfferReason] = useState('');
   const [ticketSize, setTicketSize] = useState('');
   const [investedAmount, setInvestedAmount] = useState('');
   const [transactionLink, setTransactionLink] = useState('');
@@ -33,6 +34,10 @@ const PledgeForm = ({ onSubmit }) => {
   const [customValueType, setCustomValueType] = useState('');
   const [currentContribution, setCurrentContribution] = useState('');
   const [elaboration, setElaboration] = useState('');
+  const [selectedValueTypes, setSelectedValueTypes] = useState([]);
+  const [valueContributions, setValueContributions] = useState({});
+  const [customValues, setCustomValues] = useState({});
+  const [otherValueCount, setOtherValueCount] = useState(0);
 
   useEffect(() => {
     const fetchPledgeData = async () => {
@@ -42,7 +47,15 @@ const PledgeForm = ({ onSubmit }) => {
           const responseData = await response.json();
           console.log('API Response:', responseData); // Debug log
           if (responseData.success === 1 && responseData.data) {
-            setPledgeData(responseData.data);
+            // Parse counter_history if it's a string
+            const data = {
+              ...responseData.data,
+              counter_history: typeof responseData.data.counter_history === 'string' 
+                ? JSON.parse(responseData.data.counter_history)
+                : responseData.data.counter_history
+            };
+            console.log('Parsed counter history:', data.counter_history); // Debug log
+            setPledgeData(data);
           }
         }
       } catch (error) {
@@ -63,6 +76,11 @@ const PledgeForm = ({ onSubmit }) => {
       return;
     }
 
+    if (!counterOfferReason) {
+      toast.error('Please provide a reason for your counter offer');
+      return;
+    }
+
     try {
       const response = await fetch(`https://winwinsocietyweb3.com/api/investment-pledge/user-counter/${userId}/showa`, {
         method: 'POST',
@@ -70,7 +88,8 @@ const PledgeForm = ({ onSubmit }) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          user_counter_offer: counterOffer
+          user_counter_offer: counterOffer,
+          counter_offer_reason: counterOfferReason
         }),
       });
 
@@ -94,6 +113,7 @@ const PledgeForm = ({ onSubmit }) => {
         }
         setShowCounterOfferInput(false);
         setCounterOffer('');
+        setCounterOfferReason('');
       }
     } catch (error) {
       console.error('Error submitting counter offer:', error);
@@ -101,22 +121,62 @@ const PledgeForm = ({ onSubmit }) => {
     }
   };
 
-  const handleAddValue = () => {
-    if ((currentValue === 'Other...' ? customValueType.trim() : currentValue) && currentContribution.trim()) {
-      const newValue = {
-        type: currentValue === 'Other...' ? customValueType.trim() : currentValue,
-        contribution: currentContribution.trim()
-      };
-      setSelectedValues([...selectedValues, newValue]);
-      setCurrentValue('');
-      setCustomValueType('');
-      setCurrentContribution('');
-    }
+  const handleValueSelect = (value) => {
+    setSelectedValueTypes(prev => {
+      if (value === 'Other...') {
+        // Add a new unique Other option
+        const newOtherKey = `Other_${otherValueCount}`;
+        setOtherValueCount(prev => prev + 1);
+        return [...prev, newOtherKey];
+      }
+
+      if (prev.includes(value)) {
+        // Remove value and its contribution
+        const newValueContributions = { ...valueContributions };
+        delete newValueContributions[value];
+        setValueContributions(newValueContributions);
+        
+        if (value.startsWith('Other_')) {
+          const newCustomValues = { ...customValues };
+          delete newCustomValues[value];
+          setCustomValues(newCustomValues);
+        }
+        
+        return prev.filter(v => v !== value);
+      } else {
+        // Add value
+        return [...prev, value];
+      }
+    });
   };
 
-  const removeValue = (index) => {
-    setSelectedValues(selectedValues.filter((_, i) => i !== index));
+  const handleContributionChange = (value, contribution) => {
+    setValueContributions(prev => ({
+      ...prev,
+      [value]: contribution
+    }));
   };
+
+  const handleCustomValueChange = (value, customValue) => {
+    setCustomValues(prev => ({
+      ...prev,
+      [value]: customValue
+    }));
+  };
+
+  const getSelectedValues = () => {
+    return selectedValueTypes.map(type => ({
+      type: type.startsWith('Other_') ? customValues[type] : type,
+      contribution: valueContributions[type] || ''
+    })).filter(value => 
+      value.type && 
+      (!value.type.startsWith('Other_') || customValues[value.type])
+    );
+  };
+
+  useEffect(() => {
+    setSelectedValues(getSelectedValues());
+  }, [valueContributions, customValues, selectedValueTypes]);
 
   const handleSubmit = async () => {
     if (!ticketSize) {
@@ -135,7 +195,7 @@ const PledgeForm = ({ onSubmit }) => {
       toast.error('Please enter a valid SOLANA wallet address');
       return;
     }
-    if (selectedValues.length === 0) {
+    if (selectedValueTypes.length === 0) {
       toast.error('Please select at least one value you can bring');
       return;
     }
@@ -146,7 +206,7 @@ const PledgeForm = ({ onSubmit }) => {
 
     try {
       const formattedValues = selectedValues.map(value => 
-        `${value.type}: ${value.contribution}`
+        value.contribution ? `${value.type}: ${value.contribution}` : value.type
       ).join(', ');
       
       const response = await fetch('https://winwinsocietyweb3.com/api/submit-form-pledge', {
@@ -233,6 +293,16 @@ const PledgeForm = ({ onSubmit }) => {
     }
   };
 
+  const formatDate = (timestamp) => {
+    const date = new Date(timestamp);
+    return date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -250,12 +320,38 @@ const PledgeForm = ({ onSubmit }) => {
           </div>
           
           {pledgeData.accepted === 1 ? (
-            <div className="accepted-offer-section">
-              <h4 className="accepted-title">Congratulations! Your offer has been accepted</h4>
-              <div className="final-amount">
-                Your accepted amount is: {pledgeData.final_offer} USDT
+            <>
+              <div className="accepted-offer-section">
+                <h4 className="accepted-title">Congratulations! Your offer has been accepted</h4>
+                <div className="final-amount">
+                  Your accepted amount is: {pledgeData.final_offer} USDT
+                </div>
               </div>
-            </div>
+              
+              <div className="counter-offer-section">
+                <div className="counter-history">
+                  <h4 className="history-title">Negotiation History</h4>
+                  <div className="timeline">
+                    {pledgeData.counter_history && Array.isArray(pledgeData.counter_history) && pledgeData.counter_history.map((entry, index) => (
+                      <div key={index} className={`timeline-entry ${entry.by === 'admins' ? 'wws-entry' : 'user-entry'}`}>
+                        <div className="timeline-content">
+                          <div className="entry-header">
+                            <span className="entry-by">{entry.by === 'admins' ? 'Win-Win Society' : 'You'}</span>
+                            <span className="entry-time">{formatDate(entry.timestamp)}</span>
+                          </div>
+                          <div className="entry-amount">{entry.amount} USDT</div>
+                          {(entry.reason || entry.counter_offer_reason) && (
+                            <div className="entry-reason">
+                              {entry.reason || entry.counter_offer_reason}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </>
           ) : pledgeData.accepted === 0 && pledgeData.wws_reply === 0 ? (
             <div className="pending-section">
               <h4 className="pending-title">Thank you for your submission</h4>
@@ -266,17 +362,28 @@ const PledgeForm = ({ onSubmit }) => {
             </div>
           ) : (
             <div className="counter-offer-section">
-              <div className="wws-counter">
-                <h4 className="counter-title">The Win-Win Society is Countering that offer with:</h4>
-                <div className="counter-amount">
-                  {pledgeData.wws_counter_offer === "0.00" ? (
-                    <span className="no-counter">No counter offer yet</span>
-                  ) : (
-                    `${pledgeData.wws_counter_offer} USDT`
-                  )}
+              <div className="counter-history">
+                <h4 className="history-title">Negotiation History</h4>
+                <div className="timeline">
+                  {pledgeData.counter_history && Array.isArray(pledgeData.counter_history) && pledgeData.counter_history.map((entry, index) => (
+                    <div key={index} className={`timeline-entry ${entry.by === 'admins' ? 'wws-entry' : 'user-entry'}`}>
+                      <div className="timeline-content">
+                        <div className="entry-header">
+                          <span className="entry-by">{entry.by === 'admins' ? 'Win-Win Society' : 'You'}</span>
+                          <span className="entry-time">{formatDate(entry.timestamp)}</span>
+                        </div>
+                        <div className="entry-amount">{entry.amount} USDT</div>
+                        {(entry.reason || entry.counter_offer_reason) && (
+                          <div className="entry-reason">
+                            {entry.reason || entry.counter_offer_reason}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
-              
+
               {pledgeData.wws_counter_offer !== "0.00" && (
                 <>
                   {!showCounterOfferInput && (
@@ -307,6 +414,13 @@ const PledgeForm = ({ onSubmit }) => {
                         value={counterOffer}
                         onChange={(e) => setCounterOffer(e.target.value)}
                         placeholder="Enter your counter offer in USDT"
+                      />
+                      <textarea
+                        className="counter-reason-input"
+                        value={counterOfferReason}
+                        onChange={(e) => setCounterOfferReason(e.target.value)}
+                        placeholder="Please explain why you want this amount"
+                        rows={3}
                       />
                       <button 
                         className="submit-counter"
@@ -396,58 +510,71 @@ const PledgeForm = ({ onSubmit }) => {
 
         <div className="form-group">
           <label className="form-label">What value can you bring to $SHOWA as a strategic investor?</label>
-          <div className="value-input-group">
-            <select 
-              className="form-select"
-              value={currentValue}
-              onChange={(e) => setCurrentValue(e.target.value)}
-            >
-              <option value="">Select value-adds</option>
-              {valueOptions.map((option) => (
-                <option key={option} value={option}>
+          <div className="value-selection-group">
+            {valueOptions.filter(option => option !== 'Other...').map((option) => (
+              <div key={option} className="value-option-container">
+                <button
+                  type="button"
+                  className={`value-select-button ${selectedValueTypes.includes(option) ? 'selected' : ''}`}
+                  onClick={() => handleValueSelect(option)}
+                >
                   {option}
-                </option>
-              ))}
-            </select>
-            {currentValue === 'Other...' && (
-              <input
-                className="form-input"
-                type="text"
-                value={customValueType}
-                onChange={(e) => setCustomValueType(e.target.value)}
-                placeholder="Enter your value type..."
-              />
-            )}
-            <input
-              className="form-input"
-              type="text"
-              value={currentContribution}
-              onChange={(e) => setCurrentContribution(e.target.value)}
-              placeholder="Describe how you can contribute in this area..."
-            />
-            <button 
-              className="add-value-button"
-              onClick={handleAddValue}
-              type="button"
-              disabled={(!currentValue || (currentValue === 'Other...' && !customValueType.trim()) || !currentContribution.trim())}
-            >
-              Add Value
-            </button>
-          </div>
-          
-          {selectedValues.length > 0 && (
-            <div className="selected-values">
-              {selectedValues.map((value, index) => (
-                <div key={index} className="value-tag">
-                  {value.type}
-                  <div className="contribution-tooltip">
-                    {value.contribution}
+                </button>
+                
+                {selectedValueTypes.includes(option) && (
+                  <div className="value-input-container">
+                    <textarea
+                      className="form-input"
+                      value={valueContributions[option] || ''}
+                      onChange={(e) => handleContributionChange(option, e.target.value)}
+                      placeholder={`Describe how you can contribute in ${option}... (optional)`}
+                    />
                   </div>
-                  <button onClick={() => removeValue(index)} type="button">&times;</button>
+                )}
+              </div>
+            ))}
+
+            {/* Custom "Other" values */}
+            {selectedValueTypes
+              .filter(type => type.startsWith('Other_'))
+              .map((otherKey) => (
+                <div key={otherKey} className="value-option-container">
+                  <div className="other-value-header">
+                    <input
+                      type="text"
+                      className="form-input other-value-input"
+                      value={customValues[otherKey] || ''}
+                      onChange={(e) => handleCustomValueChange(otherKey, e.target.value)}
+                      placeholder="Enter your value type..."
+                    />
+                    <button
+                      type="button"
+                      className="remove-other-button"
+                      onClick={() => handleValueSelect(otherKey)}
+                    >
+                      ×
+                    </button>
+                  </div>
+                  <div className="value-input-container">
+                    <textarea
+                      className="form-input"
+                      value={valueContributions[otherKey] || ''}
+                      onChange={(e) => handleContributionChange(otherKey, e.target.value)}
+                      placeholder="Describe how you can contribute in this area... (optional)"
+                    />
+                  </div>
                 </div>
               ))}
-            </div>
-          )}
+
+            {/* Add Other button */}
+            <button
+              type="button"
+              className="add-other-button"
+              onClick={() => handleValueSelect('Other...')}
+            >
+              + Add Other Value
+            </button>
+          </div>
         </div>
 
         <div className="form-group">
