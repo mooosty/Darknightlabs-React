@@ -443,14 +443,7 @@ const DiscordAuthButton = ({ onSuccess }) => {
       ) : hasDiscord ? (
         <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
           Discord Connected
-          <svg
-            className="checkmark"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg className="checkmark" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M20 6L9 17L4 12" stroke="#4CAF50" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </span>
@@ -607,7 +600,7 @@ const isDefaultRole = (role) => {
     "Alpha Caller",
     "Venture Capital",
     "Angel Investor",
-    "Web3 employee"
+    "Web3 employee",
   ];
   return defaultRoles.includes(role.trim());
 };
@@ -635,9 +628,7 @@ const UserProfile = () => {
 
   const { authDetails } = useSelector((state) => state.auth);
 
-
-  const defaultImage =
-    authDetails?.user?.verifiedCredentials[1]?.oauthAccountPhotos[0]?.replace("_normal", "") || defaultImg;
+  const defaultImage = authDetails?.user?.verifiedCredentials[1]?.oauthAccountPhotos[0]?.replace("_normal", "") || defaultImg;
 
   // Add function to fetch Telegram username
   const fetchTelegramUsername = async () => {
@@ -747,9 +738,7 @@ const UserProfile = () => {
     let investmentThesis = values.investment_thesis || [];
     if (investmentThesis.includes("Other") && values.other_investment_thesis) {
       // Replace "Other" with the actual value
-      investmentThesis = investmentThesis.map((thesis) =>
-        thesis === "Other" ? values.other_investment_thesis : thesis
-      );
+      investmentThesis = investmentThesis.map((thesis) => (thesis === "Other" ? values.other_investment_thesis : thesis));
     }
 
     // Basic profile data
@@ -782,11 +771,7 @@ const UserProfile = () => {
     profilePromises.push(profileDataPromise);
 
     // Handle password update if needed
-    if (
-      passwordFormik.values.oldPassword &&
-      passwordFormik.values.newPassword &&
-      passwordFormik.values.confirmPassword
-    ) {
+    if (passwordFormik.values.oldPassword && passwordFormik.values.newPassword && passwordFormik.values.confirmPassword) {
       if (passwordFormik.values.newPassword !== passwordFormik.values.confirmPassword) {
         toast.error("New password and confirm password do not match");
         setIsLoading(false);
@@ -1046,14 +1031,11 @@ const UserProfile = () => {
         ];
 
         // If there are custom categories, make sure "Other" is included
-        const hasCustomCategories = parsedInvestmentThesis.some(
-          thesis => !predefinedCategories.includes(thesis)
-        );
-        
+        const hasCustomCategories = parsedInvestmentThesis.some((thesis) => !predefinedCategories.includes(thesis));
+
         if (hasCustomCategories && !parsedInvestmentThesis.includes("Other")) {
           parsedInvestmentThesis.push("Other");
         }
-
       } catch (e) {
         console.error("Error parsing investment_thesis:", e);
       }
@@ -1143,8 +1125,7 @@ const UserProfile = () => {
         return userData.profile_picture.replace("_normal", "");
       }
 
-      const defaultImage =
-        authDetails?.user?.verifiedCredentials[2]?.oauthAccountPhotos[0]?.replace("_normal", "") || defaultImg;
+      const defaultImage = authDetails?.user?.verifiedCredentials[2]?.oauthAccountPhotos[0]?.replace("_normal", "") || defaultImg;
 
       return defaultImage;
     } else {
@@ -1154,8 +1135,7 @@ const UserProfile = () => {
       if (userDetails?.profile_picture) {
         return userDetails.profile_picture;
       }
-      const defaultImage =
-        authDetails?.user?.verifiedCredentials[2]?.oauthAccountPhotos[0]?.replace("_normal", "") || defaultImg;
+      const defaultImage = authDetails?.user?.verifiedCredentials[2]?.oauthAccountPhotos[0]?.replace("_normal", "") || defaultImg;
 
       return defaultImage;
     }
@@ -1215,11 +1195,7 @@ const UserProfile = () => {
                   <div className="header_toggle_button">
                     {headerToggleButton.map((data) => {
                       return (
-                        <div
-                          key={data.key}
-                          className={`buttons ${active === data.key ? "active" : ""}`}
-                          onClick={data.onClick}
-                        >
+                        <div key={data.key} className={`buttons ${active === data.key ? "active" : ""}`} onClick={data.onClick}>
                           {data.label}
                         </div>
                       );
@@ -1416,7 +1392,7 @@ const UserProfile = () => {
                                     emoji = "🔹";
                                 }
                                 return (
-                                  <div key={index} className={`role-square ${!isDefaultRole(role.trim()) ? 'custom-role' : ''}`}>
+                                  <div key={index} className={`role-square ${!isDefaultRole(role.trim()) ? "custom-role" : ""}`}>
                                     <span className="role-emoji">{emoji}</span>
                                     <span className="role-text">{displayRole}</span>
                                   </div>
@@ -1473,6 +1449,7 @@ const UserProfile = () => {
                             </button>
                           )}
                         </div>
+
                         <div className="investment_details">
                           {/* Left Column */}
                           <div className="profile_info">
@@ -1528,9 +1505,7 @@ const UserProfile = () => {
 
                           {/* Right Column */}
                           <div className="profile_info">
-                            <div className="profile_head">
-                              Investment Categories {isInvestor(values?.roles) ? "*" : ""}
-                            </div>
+                            <div className="profile_head">Investment Categories {isInvestor(values?.roles) ? "*" : ""}</div>
                             <div className="profile_data">
                               {isInvestor(values?.roles) ? (
                                 isInvestmentEditMode ? (
@@ -1547,7 +1522,7 @@ const UserProfile = () => {
                                           "L1/L2/L3",
                                           "Data",
                                           "IP",
-                                          "Other",
+                                          // "Other",
                                         ].map((role, index) => (
                                           <div
                                             key={index}
@@ -1560,37 +1535,80 @@ const UserProfile = () => {
                                           </div>
                                         ))}
                                       </div>
-                                      {values?.investment_thesis?.includes("Other") && (
-                                        <div className="add_custom_field">
-                                          <input
-                                            type="text"
-                                            placeholder="Add custom category"
-                                            value={values.other_investment_thesis || ""}
-                                            onChange={(e) => {
-                                              setFieldValue("other_investment_thesis", e.target.value);
-                                            }}
-                                            onKeyPress={(e) => {
-                                              if (e.key === "Enter" && values.other_investment_thesis?.trim()) {
-                                                e.preventDefault();
-                                                const newThesis = values.other_investment_thesis.trim();
-                                                setFieldValue("investment_thesis", [...values.investment_thesis, newThesis]);
-                                                setFieldValue("other_investment_thesis", "");
+
+                                      <div className="custom_options">
+                                        {values?.investment_thesis
+                                          ?.filter(
+                                            (role) =>
+                                              ![
+                                                "Gaming/Metaverse/GameFi",
+                                                "AI",
+                                                "RWA",
+                                                "DePin",
+                                                "DeFi",
+                                                "Infrastructure",
+                                                "L1/L2/L3",
+                                                "Data",
+                                                "IP",
+                                                // "Other",
+                                              ].includes(role) &&
+                                              role !== "Other" &&
+                                              role !== ""
+                                          )
+                                          .map((role, index) => (
+                                            <div key={`custom-${index}`} className={`option custom selected`}>
+                                              <div onClick={() => handleRoleChange(role)}>
+                                                <label>{role}</label>
+                                              </div>
+                                              <span
+                                                className="delete-btn"
+                                                onClick={(e) => {
+                                                  e.stopPropagation();
+                                                  setFieldValue(
+                                                    "investment_thesis",
+                                                    values.investment_thesis.filter((r) => r !== role)
+                                                  );
+                                                }}
+                                              >
+                                                ×
+                                              </span>
+                                            </div>
+                                          ))}
+                                      </div>
+
+                                      <div className="add_custom_field">
+                                        <input
+                                          type="text"
+                                          placeholder="Add custom role"
+                                          value={values.other || ""}
+                                          onChange={(e) => {
+                                            setFieldValue("other", e.target.value);
+                                          }}
+                                          onKeyPress={(e) => {
+                                            if (e.key === "Enter" && values.other?.trim()) {
+                                              e.preventDefault();
+                                              const newRole = values.other.trim();
+                                              if (!values.roles.includes(newRole)) {
+                                                setFieldValue("investment_thesis", [...values.investment_thesis, newRole]);
                                               }
-                                            }}
-                                          />
-                                          <button
-                                            onClick={() => {
-                                              if (values.other_investment_thesis?.trim()) {
-                                                const newThesis = values.other_investment_thesis.trim();
-                                                setFieldValue("investment_thesis", [...values.investment_thesis, newThesis]);
-                                                setFieldValue("other_investment_thesis", "");
+                                              setFieldValue("other", "");
+                                            }
+                                          }}
+                                        />
+                                        <button
+                                          onClick={() => {
+                                            if (values.other?.trim()) {
+                                              const newRole = values.other.trim();
+                                              if (!values.investment_thesis.includes(newRole)) {
+                                                setFieldValue("investment_thesis", [...values.investment_thesis, newRole]);
                                               }
-                                            }}
-                                          >
-                                            Add
-                                          </button>
-                                        </div>
-                                      )}
+                                              setFieldValue("other", "");
+                                            }
+                                          }}
+                                        >
+                                          Add
+                                        </button>
+                                      </div>
                                     </div>
                                   </>
                                 ) : (
@@ -1619,39 +1637,37 @@ const UserProfile = () => {
                                   <>
                                     <div className="options_container">
                                       <div className="default_options">
-                                        {[
-                                          "Early (pre-seed, seed)",
-                                          "Decent traction (strategic, private)",
-                                          "Hyped (public)",
-                                        ].map((role, index) => (
-                                          <div
-                                            key={index}
-                                            className={`option default ${
-                                              values?.investment_stage?.includes(role) ? "selected" : ""
-                                            }`}
-                                            onClick={() => {
-                                              const currentSizes = Array.isArray(values?.investment_stage)
-                                                ? values.investment_stage.map((size) =>
-                                                    size.replace(/^"(.*)"$/, "$1").replace(/^'(.*)'$/, "$1")
-                                                  )
-                                                : values?.investment_stage
-                                                ? [values.investment_stage]
-                                                : [];
-                                              const newSizes = currentSizes.includes(role)
-                                                ? currentSizes.filter((size) => size !== role)
-                                                : [...currentSizes, role];
-                                              setFieldValue("investment_stage", newSizes);
-                                            }}
-                                          >
-                                            <label>{role}</label>
-                                          </div>
-                                        ))}
+                                        {["Early (pre-seed, seed)", "Decent traction (strategic, private)", "Hyped (public)"].map(
+                                          (role, index) => (
+                                            <div
+                                              key={index}
+                                              className={`option default ${
+                                                values?.investment_stage?.includes(role) ? "selected" : ""
+                                              }`}
+                                              onClick={() => {
+                                                const currentSizes = Array.isArray(values?.investment_stage)
+                                                  ? values.investment_stage.map((size) =>
+                                                      size.replace(/^"(.*)"$/, "$1").replace(/^'(.*)'$/, "$1")
+                                                    )
+                                                  : values?.investment_stage
+                                                  ? [values.investment_stage]
+                                                  : [];
+                                                const newSizes = currentSizes.includes(role)
+                                                  ? currentSizes.filter((size) => size !== role)
+                                                  : [...currentSizes, role];
+                                                setFieldValue("investment_stage", newSizes);
+                                              }}
+                                            >
+                                              <label>{role}</label>
+                                            </div>
+                                          )
+                                        )}
                                       </div>
                                     </div>
 
                                     <div className="question_desc">
-                                      Describe your investment thesis in your own words so we can bring you exactly what you
-                                      need *
+                                      Describe your investment thesis in your own words so we can bring you exactly what you need
+                                      *
                                     </div>
                                     <textarea
                                       className="textArea"
@@ -1661,8 +1677,8 @@ const UserProfile = () => {
                                       onChange={handleChange}
                                     />
                                     <div className="question_desc">
-                                      Previous investments and ticket sizes (if you feel comfortable sharing — will give us
-                                      more insights on what makes sense to you, thus bring you tailored deals)
+                                      Previous investments and ticket sizes (if you feel comfortable sharing — will give us more
+                                      insights on what makes sense to you, thus bring you tailored deals)
                                     </div>
                                     <textarea
                                       className="textArea"
@@ -1749,9 +1765,7 @@ const UserProfile = () => {
                 <div className="project_profile">
                   <div className="profile_upload_profile">
                     <img
-                      src={
-                        values.profile_picture === "" || !values.profile_picture ? defaultImage : values.profile_picture
-                      }
+                      src={values.profile_picture === "" || !values.profile_picture ? defaultImage : values.profile_picture}
                       alt=""
                       onError={(e) => (e.target.src = defaultImage)}
                     />
@@ -1981,13 +1995,9 @@ const UserProfile = () => {
                       <div className="form_group_row">
                         <div className="profile_info full_width">
                           <label>
-                            Are you a VC / Angel investor and do you invest in early stage rounds (seed, strategic,
-                            private) ?{" "}
+                            Are you a VC / Angel investor and do you invest in early stage rounds (seed, strategic, private) ?{" "}
                           </label>
-                          <div
-                            className="radio_box"
-                            onClick={() => handleQuestionChange("question1", "Yes, frequently")}
-                          >
+                          <div className="radio_box" onClick={() => handleQuestionChange("question1", "Yes, frequently")}>
                             <input
                               type="radio"
                               name="question1"
@@ -1997,10 +2007,7 @@ const UserProfile = () => {
                             <label></label>
                             <span>Yes, frequently</span>
                           </div>
-                          <div
-                            className="radio_box"
-                            onClick={() => handleQuestionChange("question1", "Yes, sometimes")}
-                          >
+                          <div className="radio_box" onClick={() => handleQuestionChange("question1", "Yes, sometimes")}>
                             <input
                               type="radio"
                               name="question1"
@@ -2024,38 +2031,23 @@ const UserProfile = () => {
                             Do you ever go to IRL Web3 events (main events, side events, private investors events...) ?{" "}
                           </label>
                           <div className="radio_box" onClick={() => handleQuestionChange("question2", "Often")}>
-                            <input
-                              type="radio"
-                              name="question2"
-                              value="Often"
-                              checked={values?.question2 === "Often"}
-                            />
+                            <input type="radio" name="question2" value="Often" checked={values?.question2 === "Often"} />
                             <label></label>
                             <span>Often</span>
                           </div>
                           <div className="radio_box" onClick={() => handleQuestionChange("question2", "Sometimes")}>
-                            <input
-                              type="radio"
-                              name="question2"
-                              value="Sometimes"
-                              checked={values?.question2 === "Sometimes"}
-                            />
+                            <input type="radio" name="question2" value="Sometimes" checked={values?.question2 === "Sometimes"} />
                             <label></label>
                             <span>Sometimes</span>
                           </div>
                           <div className="radio_box" onClick={() => handleQuestionChange("question2", "Never")}>
-                            <input
-                              type="radio"
-                              name="question2"
-                              value="Never"
-                              checked={values?.question2 === "Never"}
-                            />
+                            <input type="radio" name="question2" value="Never" checked={values?.question2 === "Never"} />
                             <label></label>
                             <span>Never</span>
                           </div>
                           <span className="question_desc">
-                            (This will allow us to invite you to exclusive events we&apos;re co-hosting with our
-                            partners at Forbes, Karate Combat and others.)
+                            (This will allow us to invite you to exclusive events we&apos;re co-hosting with our partners at
+                            Forbes, Karate Combat and others.)
                           </span>
                         </div>
                       </div>
@@ -2180,13 +2172,7 @@ const UserProfile = () => {
                       <div className="content_wrapper">
                         <div className="mail">
                           <div className="profile_head">Email</div>
-                          <input
-                            name="email"
-                            type="text"
-                            placeholder="Email"
-                            value={values.email}
-                            onChange={handleChange}
-                          />
+                          <input name="email" type="text" placeholder="Email" value={values.email} onChange={handleChange} />
                           <div className="profile_desc">
                             Your email is used to add you to projects and to send you notifications.
                           </div>
@@ -2279,7 +2265,7 @@ const UserProfile = () => {
                     <div className="profile_seprator_image">
                       <img src={sepratorImage} alt="Separator" />
                     </div>
-                    <div className="submit_form" style={{width : "100%",  display : "flex", justifyContent : "space-between"}}>
+                    <div className="submit_form" style={{ width: "100%", display: "flex", justifyContent: "space-between" }}>
                       <button className="btn_transparent" onClick={cancelProfileEdit}>
                         Cancel
                       </button>

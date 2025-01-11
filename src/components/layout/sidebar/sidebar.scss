@@ -55,8 +55,8 @@
             transition: opacity 0.2s ease;
             position: relative;
             padding: 4px;
-            background: linear-gradient(45deg, rgba(255, 215, 0, 0.5), rgba(255, 165, 0, 0.4));
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.15);
+            // background: linear-gradient(45deg, rgba(255, 215, 0, 0.5), rgba(255, 165, 0, 0.4));
+            // box-shadow: 0 0 20px rgba(255, 215, 0, 0.15);
   
             &:before {
               content: '';
@@ -810,8 +810,8 @@
             transition: opacity 0.2s ease;
             position: relative;
             padding: 4px;
-            background: linear-gradient(45deg, #FFD700, #FFA500);
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.35);
+            // background: linear-gradient(45deg, #FFD700, #FFA500);
+            // box-shadow: 0 0 25px rgba(255, 215, 0, 0.35);
   
             &:before {
               content: '';
