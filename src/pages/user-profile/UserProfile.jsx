@@ -618,6 +618,7 @@ const UserProfile = () => {
   const { userDetails } = useSelector((state) => state.user);
   const [active, setActive] = useState("INFORMATION");
   const [isEditMode, setIsEditMode] = useState(false);
+  const [isInvestmentEditMode, setIsInvestmentEditMode] = useState(false);
   const [image, setImage] = useState("");
   const [isImageChange, setIsImageChange] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -1251,451 +1252,479 @@ const UserProfile = () => {
                     </div>
                     <div className="profile_actions">{/* Edit profile button removed from here */}</div>
                   </div>
-                  <div className="profile_description_data">
-                    <div className="form_box">
-                      <h3 className="profile_title">Personal information</h3>
-                      <div className="form_group_data">
-                        <div className="profile_info">
-                          <div className="profile_head">First Name</div>
-                          <div className="profile_data">{userDetails?.firstname || userData?.name || "-"}</div>
-                        </div>
-                        <div className="profile_info">
-                          <div className="profile_head">Last Name</div>
-                          <div className="profile_data">{userDetails?.lastname || "-"}</div>
-                        </div>
-                        <div className="profile_info">
-                          <div className="profile_head">Date of birth</div>
-                          <div className="profile_data">{userDetails?.birthday || "-"}</div>
-                        </div>
-                        <div className="profile_info">
-                          <div className="profile_head">Username</div>
-                          <div className="profile_data">
-                            {userDetails?.username || authDetails?.user?.verifiedCredentials?.[2]?.oauthUsername || "-"}
+                  <div className="right_side_content">
+                    <div className="profile_description_data">
+                      <div className="form_box">
+                        <h3 className="profile_title">Personal information</h3>
+                        <div className="form_group_data">
+                          <div className="profile_info">
+                            <div className="profile_head">First Name</div>
+                            <div className="profile_data">{userDetails?.firstname || userData?.name || "-"}</div>
                           </div>
-                        </div>
+                          <div className="profile_info">
+                            <div className="profile_head">Last Name</div>
+                            <div className="profile_data">{userDetails?.lastname || "-"}</div>
+                          </div>
+                          <div className="profile_info">
+                            <div className="profile_head">Date of birth</div>
+                            <div className="profile_data">{userDetails?.birthday || "-"}</div>
+                          </div>
+                          <div className="profile_info">
+                            <div className="profile_head">Username</div>
+                            <div className="profile_data">
+                              {userDetails?.username || authDetails?.user?.verifiedCredentials?.[2]?.oauthUsername || "-"}
+                            </div>
+                          </div>
 
-                        <div className="profile_info">
-                          <div className="profile_head">LinkedIn</div>
-                          <div className="profile_data">{userDetails?.linkedin || "-"}</div>
-                        </div>
-                        <div className="profile_info">
-                          <div className="profile_head">Telegram</div>
-                          <div className="profile_data">
-                            {telegramUsername || userDetails?.telegram_username ? (
-                              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                                {telegramUsername || userDetails?.telegram_username}
-                                <svg
-                                  className="checkmark"
-                                  width="16"
-                                  height="16"
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M20 6L9 17L4 12"
-                                    stroke="#4CAF50"
-                                    strokeWidth="2"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                  />
-                                </svg>
-                              </div>
-                            ) : (
-                              "-"
-                            )}
+                          <div className="profile_info">
+                            <div className="profile_head">LinkedIn</div>
+                            <div className="profile_data">{userDetails?.linkedin || "-"}</div>
                           </div>
-                        </div>
-                        <div className="profile_info">
-                          <div className="profile_head">Twitter</div>
-                          <div className="profile_data">
-                            {userDetails?.username ? (
-                              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                                <a
-                                  href={`https://twitter.com/${authDetails?.user?.verifiedCredentials[1]?.oauthUsername}`}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="twitter-link"
-                                >
-                                  {authDetails?.user?.verifiedCredentials[1]?.oauthUsername}
-                                </a>
-                                <svg
-                                  className="checkmark"
-                                  width="16"
-                                  height="16"
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M20 6L9 17L4 12"
-                                    stroke="#4CAF50"
-                                    strokeWidth="2"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                  />
-                                </svg>
-                              </div>
-                            ) : (
-                              "-"
-                            )}
-                          </div>
-                        </div>
-                        <div className="profile_info">
-                          <div className="profile_head">Angel investor</div>
-                          <div className="profile_data">{userDetails?.question1 || "-"}</div>
-                        </div>
-                        <div className="profile_info">
-                          <div className="profile_head">Role</div>
-                          <div className="profile_data role-squares">
-                            {userDetails?.roles?.split(",").map((role, index) => {
-                              let displayRole;
-                              let emoji;
-                              switch (role.trim()) {
-                                case "A Founder":
-                                case "Founder":
-                                  displayRole = "Founder";
-                                  emoji = "👑";
-                                  break;
-                                case "A C-level":
-                                case "C-level":
-                                  displayRole = "C-level";
-                                  emoji = "💼";
-                                  break;
-                                case "A Web3 employee":
-                                case "Web3 employee":
-                                  displayRole = "Web3 Employee";
-                                  emoji = "💻";
-                                  break;
-                                case "A KOL / Ambassador / Content Creator":
-                                case "KOL / Ambassador / Content Creator":
-                                  displayRole = "Content Creator";
-                                  emoji = "🎥";
-                                  break;
-                                case "An Angel Investor":
-                                case "Angel Investor":
-                                  displayRole = "Angel Investor";
-                                  emoji = "👼";
-                                  break;
-                                case "BD":
-                                  displayRole = "BD";
-                                  emoji = "🤝";
-                                  break;
-                                case "Community Manager":
-                                  displayRole = "Community Manager";
-                                  emoji = "👥";
-                                  break;
-                                case "Collab Manager":
-                                  displayRole = "Collab Manager";
-                                  emoji = "🤝";
-                                  break;
-                                case "Outreach Team":
-                                  displayRole = "Outreach";
-                                  emoji = "📢";
-                                  break;
-                                case "KOL":
-                                  displayRole = "KOL";
-                                  emoji = "⭐";
-                                  break;
-                                case "Ambassador":
-                                  displayRole = "Ambassador";
-                                  emoji = "🌟";
-                                  break;
-                                case "Alpha Caller":
-                                  displayRole = "Alpha Caller";
-                                  emoji = "📱";
-                                  break;
-                                case "Venture Capital":
-                                  displayRole = "VC";
-                                  emoji = "💰";
-                                  break;
-                                default:
-                                  displayRole = role.trim();
-                                  emoji = "🔹";
-                              }
-                              return (
-                                <div key={index} className={`role-square ${!isDefaultRole(role.trim()) ? 'custom-role' : ''}`}>
-                                  <span className="role-emoji">{emoji}</span>
-                                  <span className="role-text">{displayRole}</span>
+                          <div className="profile_info">
+                            <div className="profile_head">Telegram</div>
+                            <div className="profile_data">
+                              {telegramUsername || userDetails?.telegram_username ? (
+                                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                                  {telegramUsername || userDetails?.telegram_username}
+                                  <svg
+                                    className="checkmark"
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M20 6L9 17L4 12"
+                                      stroke="#4CAF50"
+                                      strokeWidth="2"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                    />
+                                  </svg>
                                 </div>
-                              );
-                            }) || "-"}
+                              ) : (
+                                "-"
+                              )}
+                            </div>
                           </div>
-                        </div>
-                        <div className="profile_info">
-                          <div className="profile_head">Go to Web3 events</div>
-                          <div className="profile_data">{userDetails?.question2 || "-"}</div>
-                        </div>
-                        <div className="profile_info">
-                          <div className="profile_head">Main City</div>
-                          <div className="profile_data">{userDetails?.primary_city || "-"}</div>
-                        </div>
-                        <div className="profile_info">
-                          <div className="profile_head">Secondary Cities</div>
-                          <div className="profile_data">{userDetails?.secondary_city || "-"}</div>
-                        </div>
-                      </div>
-                      <div className="profile_bio_data">
-                        <div className="profile_bio_head">Personal Bio</div>
-                        <div className="profile_bio_data">
-                          {userDetails?.bio || authDetails?.user?.verifiedCredentials?.[2]?.description || "-"}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="profile_seprator_image ">
-                      <img src={sepratorImage} alt="Separator" />
-                    </div>
-
-                    <div className="form_box">
-                      <h3 className="profile_title">Investor's Information</h3>
-                      <div className="investment_details">
-                        {/* Left Column */}
-                        <div className="profile_info">
-                          <div className="profile_head">Average ticket size {isInvestor(values?.roles) ? "*" : ""}</div>
-                          <div className="profile_data">
-                            {isInvestor(values?.roles) ? (
-                              <>
-                                <div className="options_container">
-                                  <div className="default_options">
-                                    {[">$5k", "5k-10k", "10k-25k", "25k-100k", "100k-250k", "250k-500k", "1mil+"].map(
-                                      (role, index) => (
-                                        <div
-                                          key={index}
-                                          className={`option default ${
-                                            values?.ticket_size?.includes(role) ? "selected" : ""
-                                          }`}
-                                          onClick={() => {
-                                            const currentSizes = Array.isArray(values?.ticket_size)
-                                              ? values.ticket_size.map((size) =>
-                                                  size.replace(/^"(.*)"$/, "$1").replace(/^'(.*)'$/, "$1")
-                                                )
-                                              : values?.ticket_size
-                                              ? [values.ticket_size]
-                                              : [];
-                                            const newSizes = currentSizes.includes(role)
-                                              ? currentSizes.filter((size) => size !== role)
-                                              : [...currentSizes, role];
-                                            setFieldValue("ticket_size", newSizes);
-                                          }}
-                                        >
-                                          <label>{role}</label>
-                                        </div>
-                                      )
-                                    )}
+                          <div className="profile_info">
+                            <div className="profile_head">Twitter</div>
+                            <div className="profile_data">
+                              {userDetails?.username ? (
+                                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                                  <a
+                                    href={`https://twitter.com/${authDetails?.user?.verifiedCredentials[1]?.oauthUsername}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="twitter-link"
+                                  >
+                                    {authDetails?.user?.verifiedCredentials[1]?.oauthUsername}
+                                  </a>
+                                  <svg
+                                    className="checkmark"
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M20 6L9 17L4 12"
+                                      stroke="#4CAF50"
+                                      strokeWidth="2"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                    />
+                                  </svg>
+                                </div>
+                              ) : (
+                                "-"
+                              )}
+                            </div>
+                          </div>
+                          <div className="profile_info">
+                            <div className="profile_head">Angel investor</div>
+                            <div className="profile_data">{userDetails?.question1 || "-"}</div>
+                          </div>
+                          <div className="profile_info">
+                            <div className="profile_head">Role</div>
+                            <div className="profile_data role-squares">
+                              {userDetails?.roles?.split(",").map((role, index) => {
+                                let displayRole;
+                                let emoji;
+                                switch (role.trim()) {
+                                  case "A Founder":
+                                  case "Founder":
+                                    displayRole = "Founder";
+                                    emoji = "👑";
+                                    break;
+                                  case "A C-level":
+                                  case "C-level":
+                                    displayRole = "C-level";
+                                    emoji = "💼";
+                                    break;
+                                  case "A Web3 employee":
+                                  case "Web3 employee":
+                                    displayRole = "Web3 Employee";
+                                    emoji = "💻";
+                                    break;
+                                  case "A KOL / Ambassador / Content Creator":
+                                  case "KOL / Ambassador / Content Creator":
+                                    displayRole = "Content Creator";
+                                    emoji = "🎥";
+                                    break;
+                                  case "An Angel Investor":
+                                  case "Angel Investor":
+                                    displayRole = "Angel Investor";
+                                    emoji = "👼";
+                                    break;
+                                  case "BD":
+                                    displayRole = "BD";
+                                    emoji = "🤝";
+                                    break;
+                                  case "Community Manager":
+                                    displayRole = "Community Manager";
+                                    emoji = "👥";
+                                    break;
+                                  case "Collab Manager":
+                                    displayRole = "Collab Manager";
+                                    emoji = "🤝";
+                                    break;
+                                  case "Outreach Team":
+                                    displayRole = "Outreach";
+                                    emoji = "📢";
+                                    break;
+                                  case "KOL":
+                                    displayRole = "KOL";
+                                    emoji = "⭐";
+                                    break;
+                                  case "Ambassador":
+                                    displayRole = "Ambassador";
+                                    emoji = "🌟";
+                                    break;
+                                  case "Alpha Caller":
+                                    displayRole = "Alpha Caller";
+                                    emoji = "📱";
+                                    break;
+                                  case "Venture Capital":
+                                    displayRole = "VC";
+                                    emoji = "💰";
+                                    break;
+                                  default:
+                                    displayRole = role.trim();
+                                    emoji = "🔹";
+                                }
+                                return (
+                                  <div key={index} className={`role-square ${!isDefaultRole(role.trim()) ? 'custom-role' : ''}`}>
+                                    <span className="role-emoji">{emoji}</span>
+                                    <span className="role-text">{displayRole}</span>
                                   </div>
-                                </div>
-                              </>
-                            ) : (
-                              <span className="disabled-message">Available for Angel Investors only and VCs</span>
-                            )}
+                                );
+                              }) || "-"}
+                            </div>
+                          </div>
+                          <div className="profile_info">
+                            <div className="profile_head">Go to Web3 events</div>
+                            <div className="profile_data">{userDetails?.question2 || "-"}</div>
+                          </div>
+                          <div className="profile_info">
+                            <div className="profile_head">Main City</div>
+                            <div className="profile_data">{userDetails?.primary_city || "-"}</div>
+                          </div>
+                          <div className="profile_info">
+                            <div className="profile_head">Secondary Cities</div>
+                            <div className="profile_data">{userDetails?.secondary_city || "-"}</div>
                           </div>
                         </div>
-
-                        {/* Right Column */}
-                        <div className="profile_info">
-                          <div className="profile_head">
-                            Investment Categories {isInvestor(values?.roles) ? "*" : ""}
+                        <div className="profile_bio_data">
+                          <div className="profile_bio_head">Personal Bio</div>
+                          <div className="profile_bio_data">
+                            {userDetails?.bio || authDetails?.user?.verifiedCredentials?.[2]?.description || "-"}
                           </div>
-                          <div className="profile_data">
-                            {isInvestor(values?.roles) ? (
-                              <>
-                                <div className="options_container">
-                                  <div className="default_options">
-                                    {[
-                                      "Gaming/Metaverse/GameFi",
-                                      "AI",
-                                      "RWA",
-                                      "DePin",
-                                      "DeFi",
-                                      "Infrastructure",
-                                      "L1/L2/L3",
-                                      "Data",
-                                      "IP",
-                                      "Other",
-                                    ].map((role, index) => (
-                                      <div
-                                        key={index}
-                                        className={`option default ${
-                                          values?.investment_thesis?.includes(role) ? "selected" : ""
-                                        }`}
-                                        onClick={() => handleInvestmentThesisChange(role)}
-                                      >
-                                        <label>{role}</label>
+                        </div>
+                      </div>
+
+                      <div className="profile_seprator_image ">
+                        <img src={sepratorImage} alt="Separator" />
+                      </div>
+                    </div>
+
+                    <div className="investment_section">
+                      <div className="form_box">
+                        <div className="investment-header">
+                          <h3 className="profile_title">Investor's Information</h3>
+                          {isInvestor(values?.roles) && (
+                            <button
+                              className="btn_gray edit_button"
+                              onClick={() => setIsInvestmentEditMode(!isInvestmentEditMode)}
+                            >
+                              {isInvestmentEditMode ? (
+                                <>
+                                  <img src={editIcon} alt="" />
+                                  Cancel
+                                </>
+                              ) : (
+                                <>
+                                  <img src={editIcon} alt="" />
+                                  Edit
+                                </>
+                              )}
+                            </button>
+                          )}
+                        </div>
+                        <div className="investment_details">
+                          {/* Left Column */}
+                          <div className="profile_info">
+                            <div className="profile_head">Average ticket size {isInvestor(values?.roles) ? "*" : ""}</div>
+                            <div className="profile_data">
+                              {isInvestor(values?.roles) ? (
+                                isInvestmentEditMode ? (
+                                  <>
+                                    <div className="options_container">
+                                      <div className="default_options">
+                                        {[">$5k", "5k-10k", "10k-25k", "25k-100k", "100k-250k", "250k-500k", "1mil+"].map(
+                                          (role, index) => (
+                                            <div
+                                              key={index}
+                                              className={`option default ${
+                                                values?.ticket_size?.includes(role) ? "selected" : ""
+                                              }`}
+                                              onClick={() => {
+                                                const currentSizes = Array.isArray(values?.ticket_size)
+                                                  ? values.ticket_size.map((size) =>
+                                                      size.replace(/^"(.*)"$/, "$1").replace(/^'(.*)'$/, "$1")
+                                                    )
+                                                  : values?.ticket_size
+                                                  ? [values.ticket_size]
+                                                  : [];
+                                                const newSizes = currentSizes.includes(role)
+                                                  ? currentSizes.filter((size) => size !== role)
+                                                  : [...currentSizes, role];
+                                                setFieldValue("ticket_size", newSizes);
+                                              }}
+                                            >
+                                              <label>{role}</label>
+                                            </div>
+                                          )
+                                        )}
                                       </div>
+                                    </div>
+                                  </>
+                                ) : (
+                                  <div className="view-mode">
+                                    {values?.ticket_size?.map((size, index) => (
+                                      <span key={index} className="selected-value">
+                                        {size}
+                                      </span>
                                     ))}
                                   </div>
-                                  {values?.investment_thesis?.includes("Other") && (
-                                    <div className="add_custom_field">
-                                      <input
-                                        type="text"
-                                        placeholder="Add custom category"
-                                        value={values.other_investment_thesis || ""}
-                                        onChange={(e) => {
-                                          setFieldValue("other_investment_thesis", e.target.value);
-                                        }}
-                                        onKeyPress={(e) => {
-                                          if (e.key === "Enter" && values.other_investment_thesis?.trim()) {
-                                            e.preventDefault();
-                                            const newThesis = values.other_investment_thesis.trim();
-                                            setFieldValue("investment_thesis", [...values.investment_thesis, newThesis]);
-                                            setFieldValue("other_investment_thesis", "");
-                                          }
-                                        }}
-                                      />
-                                      <button
-                                        onClick={() => {
-                                          if (values.other_investment_thesis?.trim()) {
-                                            const newThesis = values.other_investment_thesis.trim();
-                                            setFieldValue("investment_thesis", [...values.investment_thesis, newThesis]);
-                                            setFieldValue("other_investment_thesis", "");
-                                          }
-                                        }}
-                                      >
-                                        Add
-                                      </button>
-                                    </div>
-                                  )}
-                                  <div className="custom_options">
-                                    {values?.investment_thesis
-                                      ?.filter(
-                                        (thesis) =>
-                                          ![
-                                            "Gaming/Metaverse/GameFi",
-                                            "AI",
-                                            "RWA",
-                                            "DePin",
-                                            "DeFi",
-                                            "Infrastructure",
-                                            "L1/L2/L3",
-                                            "Data",
-                                            "IP",
-                                            "Other",
-                                          ].includes(thesis)
-                                      )
-                                      .map((thesis, index) => (
-                                        <div key={`custom-${index}`} className="option custom selected">
-                                          <div>
-                                            <label>{thesis}</label>
+                                )
+                              ) : (
+                                <span className="disabled-message">Available for Angel Investors only and VCs</span>
+                              )}
+                            </div>
+                          </div>
+
+                          {/* Right Column */}
+                          <div className="profile_info">
+                            <div className="profile_head">
+                              Investment Categories {isInvestor(values?.roles) ? "*" : ""}
+                            </div>
+                            <div className="profile_data">
+                              {isInvestor(values?.roles) ? (
+                                isInvestmentEditMode ? (
+                                  <>
+                                    <div className="options_container">
+                                      <div className="default_options">
+                                        {[
+                                          "Gaming/Metaverse/GameFi",
+                                          "AI",
+                                          "RWA",
+                                          "DePin",
+                                          "DeFi",
+                                          "Infrastructure",
+                                          "L1/L2/L3",
+                                          "Data",
+                                          "IP",
+                                          "Other",
+                                        ].map((role, index) => (
+                                          <div
+                                            key={index}
+                                            className={`option default ${
+                                              values?.investment_thesis?.includes(role) ? "selected" : ""
+                                            }`}
+                                            onClick={() => handleInvestmentThesisChange(role)}
+                                          >
+                                            <label>{role}</label>
                                           </div>
-                                          <span
-                                            className="delete-btn"
-                                            onClick={(e) => {
-                                              e.stopPropagation();
-                                              setFieldValue(
-                                                "investment_thesis",
-                                                values.investment_thesis.filter((t) => t !== thesis)
-                                              );
+                                        ))}
+                                      </div>
+                                      {values?.investment_thesis?.includes("Other") && (
+                                        <div className="add_custom_field">
+                                          <input
+                                            type="text"
+                                            placeholder="Add custom category"
+                                            value={values.other_investment_thesis || ""}
+                                            onChange={(e) => {
+                                              setFieldValue("other_investment_thesis", e.target.value);
+                                            }}
+                                            onKeyPress={(e) => {
+                                              if (e.key === "Enter" && values.other_investment_thesis?.trim()) {
+                                                e.preventDefault();
+                                                const newThesis = values.other_investment_thesis.trim();
+                                                setFieldValue("investment_thesis", [...values.investment_thesis, newThesis]);
+                                                setFieldValue("other_investment_thesis", "");
+                                              }
+                                            }}
+                                          />
+                                          <button
+                                            onClick={() => {
+                                              if (values.other_investment_thesis?.trim()) {
+                                                const newThesis = values.other_investment_thesis.trim();
+                                                setFieldValue("investment_thesis", [...values.investment_thesis, newThesis]);
+                                                setFieldValue("other_investment_thesis", "");
+                                              }
                                             }}
                                           >
-                                            ×
-                                          </span>
+                                            Add
+                                          </button>
                                         </div>
-                                      ))}
-                                  </div>
-                                </div>
-                              </>
-                            ) : (
-                              <span className="disabled-message">Available for Angel Investors only and VCs</span>
-                            )}
-                          </div>
-                        </div>
-
-                        {/* Bottom Section - Full Width */}
-                        <div className="profile_info">
-                          <div className="profile_head">
-                            What's your investment thesis? {isInvestor(values?.roles) ? "*" : ""}
-                          </div>
-                          <div className="profile_data">
-                            {isInvestor(values?.roles) ? (
-                              <>
-                                <div className="options_container">
-                                  <div className="default_options">
-                                    {[
-                                      "Early (pre-seed, seed)",
-                                      "Decent traction (strategic, private)",
-                                      "Hyped (public)",
-                                    ].map((role, index) => (
-                                      <div
-                                        key={index}
-                                        className={`option default ${
-                                          values?.investment_stage?.includes(role) ? "selected" : ""
-                                        }`}
-                                        onClick={() => {
-                                          const currentSizes = Array.isArray(values?.investment_stage)
-                                            ? values.investment_stage.map((size) =>
-                                                size.replace(/^"(.*)"$/, "$1").replace(/^'(.*)'$/, "$1")
-                                              )
-                                            : values?.investment_stage
-                                            ? [values.investment_stage]
-                                            : [];
-                                          const newSizes = currentSizes.includes(role)
-                                            ? currentSizes.filter((size) => size !== role)
-                                            : [...currentSizes, role];
-                                          setFieldValue("investment_stage", newSizes);
-                                        }}
-                                      >
-                                        <label>{role}</label>
-                                      </div>
+                                      )}
+                                    </div>
+                                  </>
+                                ) : (
+                                  <div className="view-mode">
+                                    {values?.investment_thesis?.map((thesis, index) => (
+                                      <span key={index} className="selected-value">
+                                        {thesis}
+                                      </span>
                                     ))}
                                   </div>
-                                </div>
+                                )
+                              ) : (
+                                <span className="disabled-message">Available for Angel Investors only and VCs</span>
+                              )}
+                            </div>
+                          </div>
 
-                                <div className="question_desc">
-                                  Describe your investment thesis in your own words so we can bring you exactly what you
-                                  need *
-                                </div>
-                                <textarea
-                                  className="textArea"
-                                  name="investment_description"
-                                  placeholder="Custom description..."
-                                  value={values?.investment_description}
-                                  onChange={handleChange}
-                                />
-                                <div className="question_desc">
-                                  Previous investments and ticket sizes (if you feel comfortable sharing — will give us
-                                  more insights on what makes sense to you, thus bring you tailored deals)
-                                </div>
-                                <textarea
-                                  className="textArea"
-                                  name="previous_investments"
-                                  placeholder="Share your previous investments and ticket sizes..."
-                                  value={values?.previous_investments}
-                                  onChange={handleChange}
-                                />
-                                <div className="save_button_container">
-                                  <button
-                                    className={`btn_gray save_button ${!isSaveEnabled ? "disabled" : ""}`}
-                                    type="submit"
-                                    onClick={handleSubmit}
-                                    disabled={!isSaveEnabled}
-                                    style={{
-                                      opacity: !isSaveEnabled ? "0.5" : "1",
-                                      cursor: !isSaveEnabled ? "not-allowed" : "pointer",
-                                      backgroundColor: !isSaveEnabled ? "#4a4a4a" : undefined,
-                                      transition: "all 0.3s ease",
-                                    }}
-                                  >
-                                    {isLoading ? (
-                                      <>
-                                        <Loader loading={isLoading} isItForButton={true} /> <p>Saving...</p>
-                                      </>
-                                    ) : (
-                                      "Save Changes"
+                          {/* Bottom Section - Full Width */}
+                          <div className="profile_info">
+                            <div className="profile_head">
+                              What's your investment thesis? {isInvestor(values?.roles) ? "*" : ""}
+                            </div>
+                            <div className="profile_data">
+                              {isInvestor(values?.roles) ? (
+                                isInvestmentEditMode ? (
+                                  <>
+                                    <div className="options_container">
+                                      <div className="default_options">
+                                        {[
+                                          "Early (pre-seed, seed)",
+                                          "Decent traction (strategic, private)",
+                                          "Hyped (public)",
+                                        ].map((role, index) => (
+                                          <div
+                                            key={index}
+                                            className={`option default ${
+                                              values?.investment_stage?.includes(role) ? "selected" : ""
+                                            }`}
+                                            onClick={() => {
+                                              const currentSizes = Array.isArray(values?.investment_stage)
+                                                ? values.investment_stage.map((size) =>
+                                                    size.replace(/^"(.*)"$/, "$1").replace(/^'(.*)'$/, "$1")
+                                                  )
+                                                : values?.investment_stage
+                                                ? [values.investment_stage]
+                                                : [];
+                                              const newSizes = currentSizes.includes(role)
+                                                ? currentSizes.filter((size) => size !== role)
+                                                : [...currentSizes, role];
+                                              setFieldValue("investment_stage", newSizes);
+                                            }}
+                                          >
+                                            <label>{role}</label>
+                                          </div>
+                                        ))}
+                                      </div>
+                                    </div>
+
+                                    <div className="question_desc">
+                                      Describe your investment thesis in your own words so we can bring you exactly what you
+                                      need *
+                                    </div>
+                                    <textarea
+                                      className="textArea"
+                                      name="investment_description"
+                                      placeholder="Custom description..."
+                                      value={values?.investment_description}
+                                      onChange={handleChange}
+                                    />
+                                    <div className="question_desc">
+                                      Previous investments and ticket sizes (if you feel comfortable sharing — will give us
+                                      more insights on what makes sense to you, thus bring you tailored deals)
+                                    </div>
+                                    <textarea
+                                      className="textArea"
+                                      name="previous_investments"
+                                      placeholder="Share your previous investments and ticket sizes..."
+                                      value={values?.previous_investments}
+                                      onChange={handleChange}
+                                    />
+                                    <div className="save_button_container">
+                                      <button
+                                        className={`btn_gray save_button ${!isSaveEnabled ? "disabled" : ""}`}
+                                        type="submit"
+                                        onClick={() => {
+                                          handleSubmit();
+                                          setIsInvestmentEditMode(false);
+                                        }}
+                                        disabled={!isSaveEnabled}
+                                        style={{
+                                          opacity: !isSaveEnabled ? "0.5" : "1",
+                                          cursor: !isSaveEnabled ? "not-allowed" : "pointer",
+                                          backgroundColor: !isSaveEnabled ? "#4a4a4a" : undefined,
+                                          transition: "all 0.3s ease",
+                                        }}
+                                      >
+                                        {isLoading ? (
+                                          <>
+                                            <Loader loading={isLoading} isItForButton={true} /> <p>Saving...</p>
+                                          </>
+                                        ) : (
+                                          "Save Changes"
+                                        )}
+                                      </button>
+                                    </div>
+                                  </>
+                                ) : (
+                                  <div className="view-mode">
+                                    <div className="investment-stages">
+                                      {values?.investment_stage?.map((stage, index) => (
+                                        <span key={index} className="selected-value">
+                                          {stage}
+                                        </span>
+                                      ))}
+                                    </div>
+                                    <div className="investment-description">
+                                      <h4>Investment Thesis Description:</h4>
+                                      <p>{values?.investment_description || "No description provided"}</p>
+                                    </div>
+                                    {values?.previous_investments && (
+                                      <div className="previous-investments">
+                                        <h4>Previous Investments:</h4>
+                                        <p>{values?.previous_investments}</p>
+                                      </div>
                                     )}
-                                  </button>
-                                </div>
-                              </>
-                            ) : (
-                              <span className="disabled-message">Available for Angel Investors only and VCs</span>
-                            )}
+                                  </div>
+                                )
+                              ) : (
+                                <span className="disabled-message">Available for Angel Investors only and VCs</span>
+                              )}
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-
-                    <div className="profile_seprator_image">
-                      <img src={sepratorImage} alt="Separator" />
                     </div>
                   </div>
                 </div>
@@ -2031,9 +2060,9 @@ const UserProfile = () => {
                         </div>
                       </div>
 
-                      <div className="form_group_row">
+                      {/* <div className="form_group_row">
                         <div className="profile_info">
-                          <div className="profile_head">Main City</div>
+                          <div className="profile_head">222Main City</div>
                           <div className="profile_data">{userDetails?.primary_city || "-"}</div>
                         </div>
                         <div className="profile_info">
@@ -2124,7 +2153,7 @@ const UserProfile = () => {
                             }) || "-"}
                           </div>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
 
                     <div className="profile_bio">
@@ -2159,8 +2188,7 @@ const UserProfile = () => {
                             onChange={handleChange}
                           />
                           <div className="profile_desc">
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magnam eos enim tenetur excepturi
-                            culpa neque modi quisquam, sunt magni
+                            Your email is used to add you to projects and to send you notifications.
                           </div>
                         </div>
                         <div className="social_media_wrp">
@@ -2251,7 +2279,7 @@ const UserProfile = () => {
                     <div className="profile_seprator_image">
                       <img src={sepratorImage} alt="Separator" />
                     </div>
-                    <div className="submit_form">
+                    <div className="submit_form" style={{width : "100%",  display : "flex", justifyContent : "space-between"}}>
                       <button className="btn_transparent" onClick={cancelProfileEdit}>
                         Cancel
                       </button>

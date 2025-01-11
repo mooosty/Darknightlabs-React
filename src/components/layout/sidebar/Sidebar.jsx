@@ -152,32 +152,40 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
               </div>
             </div>
             <div className="user_stats">
-              <div className="balance" onClick={() => navigate(`/${ROUTER.about}`)} style={{ cursor: "pointer" }}>
-                <span>Karma:</span>
-                <span className="value">{userDetails?.currency_b || 0}</span>
-                <KarmaIcon style={{ width: "1em", height: "1em" }} />
-                <div className="karma-tooltip">
-                  <p>Karma points are rewards for users, click on karma to read more</p>
+              <div className="stats-row">
+                <div className="stat_box">
+                  <div className="balance" onClick={() => navigate(`/${ROUTER.about}`)} style={{ cursor: "pointer" }}>
+                    <span className="value">{userDetails?.currency_b || 0}</span>
+                    <KarmaIcon style={{ width: "1em", height: "1em" }} />
+                    <div className="karma-tooltip">
+                      <p>Karma points are rewards for users, click on karma to read more</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="stat_box">
+                  <div className="balance" onClick={() => navigate(`/${ROUTER.about}`)} style={{ cursor: "pointer" }}>
+                    <span className="value">{userDetails?.currency_a || 10000}</span>
+                    <img src={darknightlabsIcon} alt="Darknight Labs" style={{ width: "1.5em", height: "1.5em" }} />
+                    <div className="winwin-tooltip">
+                      <p>Not much has been revealed about $winwin yet.</p>
+                      <p>But your Karma and Loyalty levels might have an impact at some point.</p>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="balance" onClick={() => navigate(`/${ROUTER.about}`)} style={{ cursor: "pointer" }}>
-                <span>$winwin:</span>
-                <span className="value">{userDetails?.currency_a || 10000}</span>
-                <img src={darknightlabsIcon} alt="Darknight Labs" style={{ width: "1.5em", height: "1.5em" }} />
-                <div className="winwin-tooltip">
-                  <p>Not much has been revealed about $winwin yet.</p>
-                  <p>But your Karma and Loyalty levels might have an impact at some point.</p>
-                </div>
-              </div>
-              <div className="loyalty-progress" onClick={() => navigate(`/${ROUTER.about}`)} style={{ cursor: "pointer" }}>
-                <div className="loyalty-text">
-                  <span>Loyalty</span>
-                </div>
-                <div className="progress-bar">
-                  <div className="progress" style={{ width: "50%" }}></div>
-                </div>
-                <div className="loyalty-tooltip">
-                  <p>Click to see more details</p>
+
+              <div className="stat_box">
+                <div className="loyalty-progress" onClick={() => navigate(`/${ROUTER.about}`)} style={{ cursor: "pointer" }}>
+                  <div className="loyalty-text">
+                    <span>Loyalty</span>
+                  </div>
+                  <div className="progress-bar">
+                    <div className="progress" style={{ width: "50%" }}></div>
+                  </div>
+                  <div className="loyalty-tooltip">
+                    <p>Click to see more details</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -449,32 +457,40 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
               </div>
             </div>
             <div className="user_stats">
-              <div className="balance" onClick={() => navigate(`/${ROUTER.about}`)} style={{ cursor: "pointer" }}>
-                <span>Karma:</span>
-                <span className="value">{userDetails?.currency_b || 0}</span>
-                <KarmaIcon style={{ width: "1em", height: "1em" }} />
-                <div className="karma-tooltip">
-                  <p>Karma points are rewards for users, click on karma to read more</p>
+              <div className="stats-row">
+                <div className="stat_box">
+                  <div className="balance" onClick={() => navigate(`/${ROUTER.about}`)} style={{ cursor: "pointer" }}>
+                    <span className="value">{userDetails?.currency_b || 0}</span>
+                    <KarmaIcon style={{ width: "1em", height: "1em" }} />
+                    <div className="karma-tooltip">
+                      <p>Karma points are rewards for users, click on karma to read more</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="stat_box">
+                  <div className="balance" onClick={() => navigate(`/${ROUTER.about}`)} style={{ cursor: "pointer" }}>
+                    <span className="value">{userDetails?.currency_a || 10000}</span>
+                    <img src={darknightlabsIcon} alt="Darknight Labs" style={{ width: "1.5em", height: "1.5em" }} />
+                    <div className="winwin-tooltip">
+                      <p>Not much has been revealed about $winwin yet.</p>
+                      <p>But your Karma and Loyalty levels might have an impact at some point.</p>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="balance" onClick={() => navigate(`/${ROUTER.about}`)} style={{ cursor: "pointer" }}>
-                <span>$winwin:</span>
-                <span className="value">{userDetails?.currency_a || 10000}</span>
-                <img src={darknightlabsIcon} alt="Darknight Labs" style={{ width: "1.5em", height: "1.5em" }} />
-                <div className="winwin-tooltip">
-                  <p>Not much has been revealed about $winwin yet.</p>
-                  <p>But your Karma and Loyalty levels might have an impact at some point.</p>
-                </div>
-              </div>
-              <div className="loyalty-progress" onClick={() => navigate(`/${ROUTER.about}`)} style={{ cursor: "pointer" }}>
-                <div className="loyalty-text">
-                  <span>Loyalty</span>
-                </div>
-                <div className="progress-bar">
-                  <div className="progress" style={{ width: "50%" }}></div>
-                </div>
-                <div className="loyalty-tooltip">
-                  <p>Click to see more details</p>
+
+              <div className="stat_box">
+                <div className="loyalty-progress" onClick={() => navigate(`/${ROUTER.about}`)} style={{ cursor: "pointer" }}>
+                  <div className="loyalty-text">
+                    <span>Loyalty</span>
+                  </div>
+                  <div className="progress-bar">
+                    <div className="progress" style={{ width: "50%" }}></div>
+                  </div>
+                  <div className="loyalty-tooltip">
+                    <p>Click to see more details</p>
+                  </div>
                 </div>
               </div>
             </div>
