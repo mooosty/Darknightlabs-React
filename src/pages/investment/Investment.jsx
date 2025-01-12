@@ -359,7 +359,8 @@ const Investment = () => {
   const { walletAddress, isWalletVerified, whitelistMessage } = useSelector((state) => state.auth);
   const [activeLayout, setActiveLayout] = useState(["all"]);
   const [showDetails, setShowDetails] = useState(false);
-  // const [selectedInvestment, setSelectedInvestment] = useState(null);
+  const [selectedCard, setSelectedCard] = useState(null);
+  const [selectedCardIndex, setSelectedCardIndex] = useState(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const detailsLeftRef = useRef(null);
@@ -451,16 +452,17 @@ const Investment = () => {
   };
 
   const handleCardClick = (data, index) => {
-    console.log(data)
-    if (index === 1) {
-      // setSelectedInvestment(data);
+    if (data.investmentName.includes('SHOWA') || data.investmentName.includes('Karate Combat')) {
+      setSelectedCard(data);
+      setSelectedCardIndex(index);
       setShowDetails(true);
     }
   };
 
   const handleBackToList = () => {
+    setSelectedCard(null);
+    setSelectedCardIndex(null);
     setShowDetails(false);
-    // setSelectedInvestment(null);
   };
 
   const [filter, setFilter] = useState({
@@ -860,6 +862,264 @@ const Investment = () => {
     });
   };
 
+  const renderDetails = () => {
+    if (!selectedCard) return null;
+
+    if (selectedCard.investmentName === "⚔️ Karate Combat") {
+      return (
+        <div className="investment_details">
+          <div className="investments_content_header">
+            <div className="content_left">
+              <h2>Investment Details</h2>
+              <h6 className={`floating_form_title hidden ${isPhase2 ? "pledge_mode" : "invest_mode"}`}>
+                {isPhase2 ? "Pledge" : "Invest"}
+              </h6>
+            </div>
+          </div>
+          <div className="investments_page_data">
+            <h2 className={`floating_form_title ${isPhase2 ? "pledge_mode" : "invest_mode"}`}>
+              {isPhase2 ? "Pledge" : "Invest"}
+            </h2>
+            <div className="page_data">
+              <div className="investment_page_body">
+                <div className="investment_details_content">
+                  <div ref={detailsLeftRef} className="details_left" onScroll={syncScroll}>
+                    <div className="investment-header">
+                      <button className="back_arrow" onClick={handleBackToList}>
+                        <BackArrow />
+                      </button>
+                      <h1 className="title">{selectedCard.investmentName}</h1>
+                      <div className="description">
+                        <p className="highlight-text">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="section vision-section">
+                      <h2 className="section-title">Project Description</h2>
+                      <div className="stage-details">
+                        <div className="stage-block">
+                          <p className="stage-description">
+                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="section details-section">
+                      <h2 className="section-title">Investment Details</h2>
+                      <div className="details-grid">
+                        {selectedCard.investments.map((item, index) => (
+                          <div key={index} className="detail-item">
+                            <span className="detail-label">{item.head}:</span> {item.data}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="section tags-section">
+                      <h2 className="section-title">Tags</h2>
+                      <div className="tags-grid">
+                        {selectedCard.tags.map((tag, index) => (
+                          <div key={index} className="tag-item">{tag}</div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <div ref={detailsRightRef} className="details_right" onScroll={syncScroll}>
+                    <div className="form_container">
+                      <button className="apply-button">Apply</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    } else if (selectedCard.investmentName === "🌙 SHOWA : The Community Revolution") {
+      return (
+        <div className="investment_details">
+          <div className="investments_content_header">
+            <div className="content_left">
+              <h2>Investment Details</h2>
+              <h6 className={`floating_form_title hidden ${isPhase2 ? "pledge_mode" : "invest_mode"}`}>
+                {isPhase2 ? "Pledge" : "Invest"}
+              </h6>
+            </div>
+          </div>
+          <div className="investments_page_data">
+            <h2 className={`floating_form_title ${isPhase2 ? "pledge_mode" : "invest_mode"}`}>
+              {isPhase2 ? "Pledge" : "Invest"}
+            </h2>
+            <div className="page_data">
+              <div className="investment_page_body">
+                <div className="investment_details_content">
+                  <div ref={detailsLeftRef} className="details_left" onScroll={syncScroll}>
+                    <div className="investment-header">
+                      <button className="back_arrow" onClick={handleBackToList}>
+                        <BackArrow />
+                      </button>
+                      <h1 className="title">🌙 SHOWA : The Community Revolution</h1>
+                      <div className="description">
+                        <p className="highlight-text">
+                          Join the community-driven movement behind Showa American Story, transforming from a banned
+                          game to a revolutionary token ecosystem with real utility and Steam revenue sharing.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="section vision-section">
+                      <h2 className="section-title">💫 Deal Details</h2>
+                      
+                      <div className="stage-details">
+                        <div className="stage-block deal-structure">
+                          <h3 className="stage-title">Deal Structure</h3>
+                          <ul className="stage-description deal-list">
+                            <li><span className="deal-label">FDV of the OTC deal:</span> 10mil FDV</li>
+                            <li><span className="deal-label">Vesting:</span> 3 months</li>
+                            <li><span className="deal-label">Current FDV in market:</span> 34mil</li>
+                            <li><span className="deal-label">Allocation:</span> Extremely tight, it's a strategic round for angel investors who will provide some type of value (social, attention, network, etc)</li>
+                          </ul>
+                        </div>
+                      </div>
+
+                      <div className="section-intro important-notice">
+                        <h3 className="important-title">Important:</h3>
+                        <p className="important-text">
+                          At The Win-Win Society, when we bring strategic rounds, we track a few key elements to ensure 
+                          interactions between strategic investors and projects are as win-win as it gets.
+                        </p>
+                      </div>
+
+                      <div className="stage-details">
+                        <div className="stage-block tracking-elements">
+                          <h3 className="stage-title">Key Tracking Elements</h3>
+                          <ul className="stage-description tracking-list">
+                            <li>
+                              <span className="score-label">Reputation Score:</span>
+                              <span className="score-description">Your value-add delivery - do you do what you actually promise for our partners in these strategic rounds?</span>
+                            </li>
+                            <li>
+                              <span className="score-label">Loyalty Score:</span>
+                              <span className="score-description">Your behavior with the tokens you get - as we provide exceptional deals to our members, that often allow you to break even or even profit since the first unlock, we observe your behavior: do you instant dump?</span>
+                            </li>
+                            <li>
+                              <span className="score-label">Karma Score:</span>
+                              <span className="score-description">Related to the people you bring in and their caliber (founders, C-levels, VC GPs, whales, influential figures, etc.). <a href="#" className="karma-link">Click here</a> to get your invite code and start increasing your Karma Score.</span>
+                            </li>
+                          </ul>
+                        </div>
+
+                        <div className="stage-block impact-section">
+                          <h3 className="stage-title">Impact on Future Deals</h3>
+                          <p className="stage-description impact-text">
+                            All these elements will impact in different ways your access and prioritization in next deals, 
+                            via a mix of objective and subjective metrics.
+                          </p>
+                          <p className="stage-description impact-text">
+                            For example, if you're bringing crazy value to our partners, have the highest Karma score, 
+                            but aren't the strongest Diamond Hands, you might still be prioritized in upcoming strategic deals.
+                          </p>
+                        </div>
+
+                        <div className="stage-block">
+                          <p className="stage-description highlight-text best-practice">
+                            Best practice is to keep all these in mind, while doubling down on your strengths to be a 
+                            highly valued strategic investor, and get access to some crazy deals.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="section details-section">
+                      <h2 className="section-title">🎮 Project Details</h2>
+                      <div className="details-grid">
+                        <div className="detail-item">Gaming, Community Token, Revenue Sharing</div>
+                        <div className="detail-item">Backed by Real Game Revenue</div>
+                        <div className="detail-item">Multiple Growth Catalysts</div>
+                        <div className="detail-item">Strong Community Foundation</div>
+                      </div>
+                    </div>
+
+                    <div className="section features-section">
+                      <h2 className="section-title">🚀 Why SHOWA?</h2>
+                      <div className="features-grid">
+                        <div className="feature-item">
+                          <span className="feature-highlight">Real Utility:</span> Integration with TheGame.fun platform
+                        </div>
+                        <div className="feature-item">
+                          <span className="feature-highlight">Revenue Sharing:</span> 10% of lifetime Steam revenue
+                        </div>
+                        <div className="feature-item">
+                          <span className="feature-highlight">Strong Community:</span> 200K members and growing
+                        </div>
+                        <div className="feature-item">
+                          <span className="feature-highlight">Multiple Growth Stages:</span> Planned catalysts for
+                          sustainable growth
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="section backers-section">
+                      <h2 className="section-title">👑 Backed by</h2>
+                      <div className="backers-grid">
+                        <div className="backer-item">Oneness Labs</div>
+                        <div className="backer-item">TheGame.fun Platform</div>
+                        <div className="backer-item">4K+ NFT Holders</div>
+                        <div className="backer-item">100+ Major Buyers</div>
+                        <div className="backer-item">200K Community Members</div>
+                      </div>
+                    </div>
+
+                    <div className="section security-section">
+                      <h2 className="section-title">🔒 Security & Ownership</h2>
+                      <div className="security-grid">
+                        <div className="security-item">Community-Driven Development</div>
+                        <div className="security-item">Transparent Revenue Sharing Model</div>
+                        <div className="security-item">Multiple Utility Integrations</div>
+                        <div className="security-item">Sustainable Growth Strategy</div>
+                      </div>
+                    </div>
+
+                    <div className="section movement-section">
+                      <h2 className="section-title">🌙 Join the SHOWA Revolution</h2>
+                      <p className="movement-text">
+                        Be part of a unique journey from banned game to revolutionary token ecosystem. Together, we're
+                        building something unprecedented in the gaming space!
+                      </p>
+                      <div className="stars">✨ The Future of Gaming Communities Starts Here ✨</div>
+                    </div>
+                  </div>
+                  <div ref={detailsRightRef} className="details_right" onScroll={syncScroll}>
+                    <div className="form_container">
+                      {!isPhase2 ? (
+                        <InvestmentForm />
+                      ) : (
+                        <PledgeForm
+                          onSubmit={async (pledgeData) => {
+                            try {
+                              console.log("Pledge submitted:", pledgeData);
+                              toast.success("Pledge submitted successfully");
+                            } catch (error) {
+                              console.error("Error submitting pledge:", error);
+                              toast.error("Failed to submit pledge");
+                            }
+                          }}
+                        />
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+  };
+
   return (
     <div className="investment_wrapper">
       {!showDetails ? (
@@ -1077,182 +1337,7 @@ const Investment = () => {
           </div>
         </>
       ) : (
-        <div className="investment_details">
-          <div className="investments_content_header">
-            <div className="content_left">
-              <h2>Investment Details</h2>
-              <h6 className={`floating_form_title hidden ${isPhase2 ? "pledge_mode" : "invest_mode"}`}>
-              {isPhase2 ? "Pledge" : "Invest"}
-            </h6>
-            </div>
-          </div>
-          <div className="investments_page_data">
-            <h2 className={`floating_form_title ${isPhase2 ? "pledge_mode" : "invest_mode"}`}>
-              {isPhase2 ? "Pledge" : "Invest"}
-            </h2>
-            <div className="page_data">
-              <div className="investment_page_body">
-                <div className="investment_details_content">
-                  <div ref={detailsLeftRef} className="details_left" onScroll={syncScroll}>
-                    <div className="investment-header">
-                      <button className="back_arrow" onClick={handleBackToList}>
-                        <BackArrow />
-                      </button>
-                      <h1 className="title">🌙 SHOWA : The Community Revolution</h1>
-                      <div className="description">
-                        <p className="highlight-text">
-                          Join the community-driven movement behind Showa American Story, transforming from a banned
-                          game to a revolutionary token ecosystem with real utility and Steam revenue sharing.
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="section vision-section">
-                      <h2 className="section-title">💫 Deal Details</h2>
-                      
-                      <div className="stage-details">
-                        <div className="stage-block deal-structure">
-                          <h3 className="stage-title">Deal Structure</h3>
-                          <ul className="stage-description deal-list">
-                            <li><span className="deal-label">FDV of the OTC deal:</span> 10mil FDV</li>
-                            <li><span className="deal-label">Vesting:</span> 3 months</li>
-                            <li><span className="deal-label">Current FDV in market:</span> 34mil</li>
-                            <li><span className="deal-label">Allocation:</span> Extremely tight, it's a strategic round for angel investors who will provide some type of value (social, attention, network, etc)</li>
-                          </ul>
-                        </div>
-                      </div>
-
-                      <div className="section-intro important-notice">
-                        <h3 className="important-title">Important:</h3>
-                        <p className="important-text">
-                          At The Win-Win Society, when we bring strategic rounds, we track a few key elements to ensure 
-                          interactions between strategic investors and projects are as win-win as it gets.
-                        </p>
-                      </div>
-
-                      <div className="stage-details">
-                        <div className="stage-block tracking-elements">
-                          <h3 className="stage-title">Key Tracking Elements</h3>
-                          <ul className="stage-description tracking-list">
-                            <li>
-                              <span className="score-label">Reputation Score:</span>
-                              <span className="score-description">Your value-add delivery - do you do what you actually promise for our partners in these strategic rounds?</span>
-                            </li>
-                            <li>
-                              <span className="score-label">Loyalty Score:</span>
-                              <span className="score-description">Your behavior with the tokens you get - as we provide exceptional deals to our members, that often allow you to break even or even profit since the first unlock, we observe your behavior: do you instant dump?</span>
-                            </li>
-                            <li>
-                              <span className="score-label">Karma Score:</span>
-                              <span className="score-description">Related to the people you bring in and their caliber (founders, C-levels, VC GPs, whales, influential figures, etc.). <a href="#" className="karma-link">Click here</a> to get your invite code and start increasing your Karma Score.</span>
-                            </li>
-                          </ul>
-                        </div>
-
-                        <div className="stage-block impact-section">
-                          <h3 className="stage-title">Impact on Future Deals</h3>
-                          <p className="stage-description impact-text">
-                            All these elements will impact in different ways your access and prioritization in next deals, 
-                            via a mix of objective and subjective metrics.
-                          </p>
-                          <p className="stage-description impact-text">
-                            For example, if you're bringing crazy value to our partners, have the highest Karma score, 
-                            but aren't the strongest Diamond Hands, you might still be prioritized in upcoming strategic deals.
-                          </p>
-                        </div>
-
-                        <div className="stage-block">
-                          <p className="stage-description highlight-text best-practice">
-                            Best practice is to keep all these in mind, while doubling down on your strengths to be a 
-                            highly valued strategic investor, and get access to some crazy deals.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="section details-section">
-                      <h2 className="section-title">🎮 Project Details</h2>
-                      <div className="details-grid">
-                        <div className="detail-item">Gaming, Community Token, Revenue Sharing</div>
-                        <div className="detail-item">Backed by Real Game Revenue</div>
-                        <div className="detail-item">Multiple Growth Catalysts</div>
-                        <div className="detail-item">Strong Community Foundation</div>
-                      </div>
-                    </div>
-
-                    <div className="section features-section">
-                      <h2 className="section-title">🚀 Why SHOWA?</h2>
-                      <div className="features-grid">
-                        <div className="feature-item">
-                          <span className="feature-highlight">Real Utility:</span> Integration with TheGame.fun platform
-                        </div>
-                        <div className="feature-item">
-                          <span className="feature-highlight">Revenue Sharing:</span> 10% of lifetime Steam revenue
-                        </div>
-                        <div className="feature-item">
-                          <span className="feature-highlight">Strong Community:</span> 200K members and growing
-                        </div>
-                        <div className="feature-item">
-                          <span className="feature-highlight">Multiple Growth Stages:</span> Planned catalysts for
-                          sustainable growth
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="section backers-section">
-                      <h2 className="section-title">👑 Backed by</h2>
-                      <div className="backers-grid">
-                        <div className="backer-item">Oneness Labs</div>
-                        <div className="backer-item">TheGame.fun Platform</div>
-                        <div className="backer-item">4K+ NFT Holders</div>
-                        <div className="backer-item">100+ Major Buyers</div>
-                        <div className="backer-item">200K Community Members</div>
-                      </div>
-                    </div>
-
-                    <div className="section security-section">
-                      <h2 className="section-title">🔒 Security & Ownership</h2>
-                      <div className="security-grid">
-                        <div className="security-item">Community-Driven Development</div>
-                        <div className="security-item">Transparent Revenue Sharing Model</div>
-                        <div className="security-item">Multiple Utility Integrations</div>
-                        <div className="security-item">Sustainable Growth Strategy</div>
-                      </div>
-                    </div>
-
-                    <div className="section movement-section">
-                      <h2 className="section-title">🌙 Join the SHOWA Revolution</h2>
-                      <p className="movement-text">
-                        Be part of a unique journey from banned game to revolutionary token ecosystem. Together, we're
-                        building something unprecedented in the gaming space!
-                      </p>
-                      <div className="stars">✨ The Future of Gaming Communities Starts Here ✨</div>
-                    </div>
-                  </div>
-                  <div ref={detailsRightRef} className="details_right" onScroll={syncScroll}>
-                    <div className="form_container">
-                      {!isPhase2 ? (
-                        <InvestmentForm />
-                      ) : (
-                        <PledgeForm
-                          onSubmit={async (pledgeData) => {
-                            try {
-                              console.log("Pledge submitted:", pledgeData);
-                              toast.success("Pledge submitted successfully");
-                            } catch (error) {
-                              console.error("Error submitting pledge:", error);
-                              toast.error("Failed to submit pledge");
-                            }
-                          }}
-                        />
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        renderDetails()
       )}
     </div>
   );

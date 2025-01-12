@@ -81,6 +81,8 @@
 
     .profile_content_wrapper {
         height: 100%;
+        padding-bottom: 11px;
+      
 
         @media (max-width: 767px) {
             width: 100%;
@@ -571,6 +573,10 @@
                                                 transition: all 0.2s ease;
                                                 width: fit-content;
                                                 margin: 4px;
+
+                                                &.custom {
+                                                    border: 2px dashed rgba(245, 239, 219, 0.4);
+                                                }
 
                                                 &:hover {
                                                     background: rgba(245, 239, 219, 0.15);
@@ -1538,7 +1544,7 @@
 
 .profile-header {
   display: flex;
-//   justify-content: space-between;
+  justify-content: space-between;
 //   align-items: center;
   margin-bottom: 24px;
 
@@ -1604,6 +1610,10 @@
   transition: all 0.2s ease;
   width: fit-content;
   margin: 0;
+
+  &.custom {
+    border: 2px dashed rgba(245, 239, 219, 0.4);
+  }
 }
 
 .view-mode .selected-value:hover {
@@ -1651,6 +1661,10 @@
           transition: all 0.2s ease;
           width: fit-content;
           margin: 4px;
+
+          &.custom {
+            border: 2px dashed rgba(245, 239, 219, 0.4);
+          }
 
           &:hover {
             background: rgba(245, 239, 219, 0.15);
@@ -1715,7 +1729,7 @@
     .form_box {
       background: var(--bg-dark);
       border-radius: 8px;
-    //   padding: 24px;
+      // padding: 24px;
     }
   }
 }

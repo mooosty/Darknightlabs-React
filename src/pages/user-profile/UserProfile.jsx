@@ -1613,11 +1613,24 @@ const UserProfile = () => {
                                   </>
                                 ) : (
                                   <div className="view-mode">
-                                    {values?.investment_thesis?.map((thesis, index) => (
-                                      <span key={index} className="selected-value">
-                                        {thesis}
-                                      </span>
-                                    ))}
+                                    {values?.investment_thesis?.map((thesis, index) => {
+                                      const isDefaultCategory = [
+                                        "Gaming/Metaverse/GameFi",
+                                        "AI",
+                                        "RWA",
+                                        "DePin",
+                                        "DeFi",
+                                        "Infrastructure",
+                                        "L1/L2/L3",
+                                        "Data",
+                                        "IP"
+                                      ].includes(thesis);
+                                      return (
+                                        <span key={index} className={`selected-value ${!isDefaultCategory ? 'custom' : ''}`}>
+                                          {thesis}
+                                        </span>
+                                      );
+                                    })}
                                   </div>
                                 )
                               ) : (
