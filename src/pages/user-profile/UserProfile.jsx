@@ -1428,7 +1428,7 @@ const UserProfile = () => {
 
                     <div className="investment_section">
                       <div className="form_box">
-                        <div className="investment-header">
+                        <div className="profile-header">
                           <h3 className="profile_title">Investor's Information</h3>
                           {isInvestor(values?.roles) && (
                             <button

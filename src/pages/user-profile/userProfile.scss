@@ -1536,10 +1536,10 @@
   }
 }
 
-.investment-header {
+.profile-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+//   justify-content: space-between;
+//   align-items: center;
   margin-bottom: 24px;
 
   .profile_title {
@@ -1612,9 +1612,9 @@
 }
 
 .investment_details {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 40px;
+//   display: flex;
+//   flex-wrap: wrap;
+//   gap: 40px;
 
   .profile_info {
     flex: 1;

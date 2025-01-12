@@ -1081,6 +1081,9 @@ const Investment = () => {
           <div className="investments_content_header">
             <div className="content_left">
               <h2>Investment Details</h2>
+              <h6 className={`floating_form_title hidden ${isPhase2 ? "pledge_mode" : "invest_mode"}`}>
+              {isPhase2 ? "Pledge" : "Invest"}
+            </h6>
             </div>
           </div>
           <div className="investments_page_data">
