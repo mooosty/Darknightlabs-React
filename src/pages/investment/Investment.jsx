@@ -35,325 +35,6 @@ import {
   showa,
 } from "../../utils/constants/images";
 
-const cardData = [
-  {
-    investmentName: "⚔️ Karate Combat",
-    investorImg: kc,
-    tags: ["🥋 #Sports", "💪 #Combat", "🌐 #Web3"],
-    investments: [
-      {
-        head: "Token",
-        data: "$KARATE",
-      },
-      {
-        head: "Status",
-        data: "Incoming",
-      },
-      {
-        head: "Launch",
-        data: "TBA",
-      },
-    ],
-    karmaNeeded: 0,
-    state: "PLEDGE",
-  },
-  {
-    investmentName: "🌙 SHOWA : The Community Revolution",
-    investorImg: showa,
-    tags: ["🎮 #Gaming", "💰 #RWA", "🌐 #Community"],
-    investments: [
-      {
-        head: "Token",
-        data: "$SHOWA",
-      },
-      {
-        head: "Revenue",
-        data: "10% Steam",
-      },
-      {
-        head: "Launch",
-        data: "Dec 19",
-      },
-    ],
-    karmaNeeded: 0,
-    state: "PLEDGE",
-  },
-  {
-    investmentName: "Investment name",
-    investorImg: cardActor3,
-    tags: ["🌐 #Metaverse", "🤖 #AI", "👾 #Gaming"],
-    investments: [
-      {
-        head: "Token name",
-        data: "$RIFT",
-      },
-      {
-        head: "Round",
-        data: "private",
-      },
-      {
-        head: "FDV",
-        data: "20mil",
-      },
-    ],
-    karmaNeeded: 0,
-    state: "APPLY",
-  },
-  {
-    investmentName: "Investment name",
-    investorImg: cardActor4,
-    tags: ["🌐 #Metaverse", "🤖 #AI", "👾 #Gaming"],
-    investments: [
-      {
-        head: "Token name",
-        data: "$RIFT",
-      },
-      {
-        head: "Round",
-        data: "private",
-      },
-      {
-        head: "FDV",
-        data: "20mil",
-      },
-    ],
-    karmaNeeded: 0,
-    state: "CLOSED",
-  },
-  {
-    investmentName: "Investment name",
-    investorImg: cardActor5,
-    tags: ["🌐 #Metaverse", "🤖 #AI", "👾 #Gaming"],
-    investments: [
-      {
-        head: "Token name",
-        data: "$RIFT",
-      },
-      {
-        head: "Round",
-        data: "private",
-      },
-      {
-        head: "FDV",
-        data: "20mil",
-      },
-    ],
-    karmaNeeded: 0,
-    state: "OPEN",
-  },
-  {
-    investmentName: "Investment name",
-    investorImg: cardActor6,
-    tags: ["🌐 #Metaverse", "🤖 #AI", "👾 #Gaming"],
-    investments: [
-      {
-        head: "Token name",
-        data: "$RIFT",
-      },
-      {
-        head: "Round",
-        data: "private",
-      },
-      {
-        head: "FDV",
-        data: "20mil",
-      },
-    ],
-    karmaNeeded: 0,
-    state: "MY_INVESTMENTS",
-  },
-  {
-    investmentName: "Investment name",
-    investorImg: cardActor7,
-    tags: ["🌐 #Metaverse", "🤖 #AI", "👾 #Gaming"],
-    investments: [
-      {
-        head: "Token name",
-        data: "$RIFT",
-      },
-      {
-        head: "Round",
-        data: "private",
-      },
-      {
-        head: "FDV",
-        data: "20mil",
-      },
-    ],
-    karmaNeeded: 0,
-    state: "OPEN",
-  },
-  {
-    investmentName: "Investment name",
-    investorImg: cardActor8,
-    tags: ["🌐 #Metaverse", "🤖 #AI", "👾 #Gaming"],
-    investments: [
-      {
-        head: "Token name",
-        data: "$RIFT",
-      },
-      {
-        head: "Round",
-        data: "private",
-      },
-      {
-        head: "FDV",
-        data: "20mil",
-      },
-    ],
-    karmaNeeded: 0,
-    state: "APPLY",
-  },
-  {
-    investmentName: "Investment name",
-    investorImg: cardActor9,
-    tags: ["🌐 #Metaverse", "🤖 #AI", "👾 #Gaming"],
-    investments: [
-      {
-        head: "Token name",
-        data: "$RIFT",
-      },
-      {
-        head: "Round",
-        data: "private",
-      },
-      {
-        head: "FDV",
-        data: "20mil",
-      },
-    ],
-    karmaNeeded: 0,
-    state: "CLOSED",
-  },
-  {
-    investmentName: "Investment name",
-    investorImg: cardActor10,
-    tags: ["🌐 #Metaverse", "🤖 #AI", "👾 #Gaming"],
-    investments: [
-      {
-        head: "Token name",
-        data: "$RIFT",
-      },
-      {
-        head: "Round",
-        data: "private",
-      },
-      {
-        head: "FDV",
-        data: "20mil",
-      },
-    ],
-    karmaNeeded: 0,
-    state: "OPEN",
-  },
-  {
-    investmentName: "Investment name",
-    investorImg: cardActor11,
-    tags: ["🌐 #Metaverse", "🤖 #AI", "👾 #Gaming"],
-    investments: [
-      {
-        head: "Token name",
-        data: "$RIFT",
-      },
-      {
-        head: "Round",
-        data: "private",
-      },
-      {
-        head: "FDV",
-        data: "20mil",
-      },
-    ],
-    karmaNeeded: 0,
-    state: "MY_INVESTMENTS",
-  },
-  {
-    investmentName: "Investment name",
-    investorImg: cardActor12,
-    tags: ["🌐 #Metaverse", "🤖 #AI", "👾 #Gaming"],
-    investments: [
-      {
-        head: "Token name",
-        data: "$RIFT",
-      },
-      {
-        head: "Round",
-        data: "private",
-      },
-      {
-        head: "FDV",
-        data: "20mil",
-      },
-    ],
-    karmaNeeded: 0,
-    state: "OPEN",
-  },
-  {
-    investmentName: "Investment name",
-    investorImg: cardActor13,
-    tags: ["🌐 #Metaverse", "🤖 #AI", "👾 #Gaming"],
-    investments: [
-      {
-        head: "Token name",
-        data: "$RIFT",
-      },
-      {
-        head: "Round",
-        data: "private",
-      },
-      {
-        head: "FDV",
-        data: "20mil",
-      },
-    ],
-    karmaNeeded: 0,
-    state: "APPLY",
-  },
-  {
-    investmentName: "Investment name",
-    investorImg: cardActor14,
-    tags: ["🌐 #Metaverse", "🤖 #AI", "👾 #Gaming"],
-    investments: [
-      {
-        head: "Token name",
-        data: "$RIFT",
-      },
-      {
-        head: "Round",
-        data: "private",
-      },
-      {
-        head: "FDV",
-        data: "20mil",
-      },
-    ],
-    karmaNeeded: 0,
-    state: "CLOSED",
-  },
-  {
-    investmentName: "Investment name",
-    investorImg: cardActor15,
-    tags: ["🌐 #Metaverse", "🤖 #AI", "👾 #Gaming"],
-    investments: [
-      {
-        head: "Token name",
-        data: "$RIFT",
-      },
-      {
-        head: "Round",
-        data: "private",
-      },
-      {
-        head: "FDV",
-        data: "20mil",
-      },
-    ],
-    karmaNeeded: 0,
-    state: "OPEN",
-  },
-];
-
-const hasMaxContributions = false;
 const Investment = () => {
   const dispatch = useDispatch();
   const { walletAddress, isWalletVerified, whitelistMessage } = useSelector((state) => state.auth);
@@ -370,6 +51,9 @@ const Investment = () => {
   const [showNavButtons, setShowNavButtons] = useState(false);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
+  const [showApplyPopup, setShowApplyPopup] = useState(false);
+  const [supportText, setSupportText] = useState("");
+  const [investments, setInvestments] = useState([]);
 
   useEffect(() => {
     const fetchPhase = async () => {
@@ -383,6 +67,22 @@ const Investment = () => {
     };
 
     fetchPhase();
+  }, []);
+
+  useEffect(() => {
+    const fetchInvestments = async () => {
+      try {
+        const response = await fetch('https://winwinsocietyweb3.com/api/investments');
+        const data = await response.json();
+        setInvestments(data);
+        setFilteredProjects(data); // Initialize filtered projects with all investments
+      } catch (error) {
+        console.error("Error fetching investments:", error);
+        toast.error("Failed to load investments");
+      }
+    };
+
+    fetchInvestments();
   }, []);
 
   // Add scroll check effect
@@ -452,7 +152,7 @@ const Investment = () => {
   };
 
   const handleCardClick = (data, index) => {
-    if (data.investmentName.includes('SHOWA') || data.investmentName.includes('Karate Combat')) {
+    if (data.name.toLowerCase().includes('showa') || data.name.toLowerCase().includes('karate')) {
       setSelectedCard(data);
       setSelectedCardIndex(index);
       setShowDetails(true);
@@ -470,38 +170,32 @@ const Investment = () => {
     searchBy: "",
   });
 
-  // Add filtering logic
-  const filteredCards = cardData.filter((card) => {
-    // Filter by search text
-    const searchMatch =
-      !filter.searchBy ||
-      card.investmentName.toLowerCase().includes(filter.searchBy.toLowerCase()) ||
-      card.tags.some((tag) => tag.toLowerCase().includes(filter.searchBy.toLowerCase())) ||
-      card.investments.some(
-        (inv) =>
-          inv.head.toLowerCase().includes(filter.searchBy.toLowerCase()) ||
-          inv.data.toLowerCase().includes(filter.searchBy.toLowerCase())
-      );
-
-    // Filter by selected types
-    const typeMatch =
-      filter.types.length === 0 ||
-      card.tags.some((tag) => filter.types.some((type) => tag.toLowerCase().includes(type.toLowerCase())));
-
-    return searchMatch && typeMatch;
-  });
-
-  const [filteredProjects, setFilteredProjects] = useState([...cardData]);
-
+  // Replace the filteredCards logic with this:
   useEffect(() => {
-    if (activeLayout.length === 1 && activeLayout[0].toLowerCase() === "all") {
-      setFilteredProjects([...cardData]);
-    } else {
-      setFilteredProjects(
-        cardData.filter((card) => activeLayout.some((type) => card.state.toLowerCase().includes(type.toLowerCase())))
-      );
-    }
-  }, [activeLayout]);
+    const filtered = investments.filter((card) => {
+      // Filter by search text
+      const searchMatch =
+        !filter.searchBy ||
+        card.name.toLowerCase().includes(filter.searchBy.toLowerCase()) ||
+        card.tags.some((tag) => tag.toLowerCase().includes(filter.searchBy.toLowerCase())) ||
+        Object.entries(card.details).some(
+          ([key, value]) =>
+            key.toLowerCase().includes(filter.searchBy.toLowerCase()) ||
+            value.toLowerCase().includes(filter.searchBy.toLowerCase())
+        );
+
+      // Filter by selected types
+      const typeMatch =
+        filter.types.length === 0 ||
+        card.tags.some((tag) => filter.types.some((type) => tag.toLowerCase().includes(type.toLowerCase())));
+
+      return searchMatch && typeMatch;
+    });
+
+    setFilteredProjects(filtered);
+  }, [filter, investments]);
+
+  const [filteredProjects, setFilteredProjects] = useState([]);
 
   // Update the search handler
   const handleSearch = (value) => {
@@ -865,9 +559,30 @@ const Investment = () => {
   const renderDetails = () => {
     if (!selectedCard) return null;
 
-    if (selectedCard.investmentName === "⚔️ Karate Combat") {
+    if (selectedCard.name === "⚔️ Karate Combat") {
       return (
         <div className="investment_details">
+          {showApplyPopup && (
+            <div className="apply-popup">
+              <div className="apply-popup-content">
+                <h3>Apply to Support Karate Combat</h3>
+                <textarea
+                  placeholder="How exactly do you wanna support Karate Combat?"
+                  value={supportText}
+                  onChange={(e) => setSupportText(e.target.value)}
+                  rows={4}
+                />
+                <div className="popup-buttons">
+                  <button onClick={() => setShowApplyPopup(false)}>Cancel</button>
+                  <button onClick={() => {
+                    toast.success("Application submitted successfully!");
+                    setShowApplyPopup(false);
+                    setSupportText("");
+                  }}>Submit</button>
+                </div>
+              </div>
+            </div>
+          )}
           <div className="investments_content_header">
             <div className="content_left">
               <h2>Investment Details</h2>
@@ -888,31 +603,20 @@ const Investment = () => {
                       <button className="back_arrow" onClick={handleBackToList}>
                         <BackArrow />
                       </button>
-                      <h1 className="title">{selectedCard.investmentName}</h1>
+                      <h1 className="title">{selectedCard.name}</h1>
                       <div className="description">
                         <p className="highlight-text">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                          {selectedCard.description || "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."}
                         </p>
-                      </div>
-                    </div>
-
-                    <div className="section vision-section">
-                      <h2 className="section-title">Project Description</h2>
-                      <div className="stage-details">
-                        <div className="stage-block">
-                          <p className="stage-description">
-                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                          </p>
-                        </div>
                       </div>
                     </div>
 
                     <div className="section details-section">
                       <h2 className="section-title">Investment Details</h2>
                       <div className="details-grid">
-                        {selectedCard.investments.map((item, index) => (
+                        {Object.entries(selectedCard.details).map(([key, value], index) => (
                           <div key={index} className="detail-item">
-                            <span className="detail-label">{item.head}:</span> {item.data}
+                            <span className="detail-label">{key}:</span> {value}
                           </div>
                         ))}
                       </div>
@@ -929,7 +633,7 @@ const Investment = () => {
                   </div>
                   <div ref={detailsRightRef} className="details_right" onScroll={syncScroll}>
                     <div className="form_container">
-                      <button className="apply-button">Apply</button>
+                      <button className="apply-button" onClick={() => setShowApplyPopup(true)}>Apply</button>
                     </div>
                   </div>
                 </div>
@@ -938,7 +642,7 @@ const Investment = () => {
           </div>
         </div>
       );
-    } else if (selectedCard.investmentName === "🌙 SHOWA : The Community Revolution") {
+    } else if (selectedCard.name.toLowerCase().includes('showa')) {
       return (
         <div className="investment_details">
           <div className="investments_content_header">
@@ -961,7 +665,7 @@ const Investment = () => {
                       <button className="back_arrow" onClick={handleBackToList}>
                         <BackArrow />
                       </button>
-                      <h1 className="title">🌙 SHOWA : The Community Revolution</h1>
+                      <h1 className="title">{selectedCard.name}</h1>
                       <div className="description">
                         <p className="highlight-text">
                           Join the community-driven movement behind Showa American Story, transforming from a banned
@@ -1036,10 +740,20 @@ const Investment = () => {
                     <div className="section details-section">
                       <h2 className="section-title">🎮 Project Details</h2>
                       <div className="details-grid">
-                        <div className="detail-item">Gaming, Community Token, Revenue Sharing</div>
-                        <div className="detail-item">Backed by Real Game Revenue</div>
-                        <div className="detail-item">Multiple Growth Catalysts</div>
-                        <div className="detail-item">Strong Community Foundation</div>
+                        {Object.entries(selectedCard.details).map(([key, value], index) => (
+                          <div key={index} className="detail-item">
+                            <span className="detail-label">{key}:</span> {value}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="section tags-section">
+                      <h2 className="section-title">Tags</h2>
+                      <div className="tags-grid">
+                        {selectedCard.tags.map((tag, index) => (
+                          <div key={index} className="tag-item">{tag}</div>
+                        ))}
                       </div>
                     </div>
 
@@ -1124,6 +838,27 @@ const Investment = () => {
     <div className="investment_wrapper">
       {!showDetails ? (
         <>
+          {showApplyPopup && (
+            <div className="apply-popup">
+              <div className="apply-popup-content">
+                <h3>Apply to Support Karate Combat</h3>
+                <textarea
+                  placeholder="How exactly do you wanna support Karate Combat?"
+                  value={supportText}
+                  onChange={(e) => setSupportText(e.target.value)}
+                  rows={4}
+                />
+                <div className="popup-buttons">
+                  <button onClick={() => setShowApplyPopup(false)}>Cancel</button>
+                  <button onClick={() => {
+                    toast.success("Application submitted successfully!");
+                    setShowApplyPopup(false);
+                    setSupportText("");
+                  }}>Submit</button>
+                </div>
+              </div>
+            </div>
+          )}
           <div className="investments_content_header">
             <div className="content_left">
               <h2>Investment</h2>
@@ -1256,52 +991,62 @@ const Investment = () => {
                   ) : (
                     <>
                       {filteredProjects.map((data, index) => {
+                        const isShowa = data.name.toLowerCase().includes('showa');
+                        const isKarate = data.name.toLowerCase().includes('karate');
+                        
                         return (
-                          <div className="card_wrap" key={index} onClick={() => handleCardClick(data, index)}>
-                             <div
+                          <div className="card_wrap" key={data.id}>
+                            <div
                               className="card"
                               style={{
-                                filter: data.investmentName?.toLowerCase().includes('showa') || data.investmentName?.toLowerCase().includes('karate') ? 'none' : 'blur(12px)',
-                              
+                                filter: (isShowa || isKarate) ? 'none' : 'blur(12px)',
                                 transition: 'transform 0.2s ease',
                               }}
+                              onClick={() => isKarate ? null : handleCardClick(data, index)}
                             >
-                               <div className="card_image">
-                                <img src={data.investorImg} alt="" />
-                                {(index === 0 || index === 1) && (
-                                  <div className={`investment_state ${index === 0 ? "incoming_mode" : (isPhase2 ? "pledge_mode" : "invest_mode")}`}>
-                                    {index === 0 ? "Coming soon" : (isPhase2 ? "Pledge" : "Invest")}
+                              <div className="card_image">
+                                <img src={data.image_url || cardActor1} alt="" />
+                                {(isShowa || isKarate) && (
+                                  <div className={`investment_state ${isKarate ? "incoming_mode" : (isPhase2 ? "pledge_mode" : "invest_mode")}`}>
+                                    {isKarate ? "Coming soon" : (isPhase2 ? "Pledge" : "Invest")}
                                   </div>
                                 )}
                               </div>
                               <div className="card_body">
-                                <div className="name">{data.investmentName}</div>
-                                <div className="tabs">
-                                  {data.investments.map((tag, index) => {
-                                    return (
-                                      <div className={``} key={index}>
+                                <div className="content_wrapper">
+                                  <div className="name">{data.name}</div>
+                                  <div className="tabs">
+                                    {Object.entries(data.details).map(([key, value], index) => (
+                                      <div key={index}>
                                         <div className="investment_tag">
-                                          <>
-                                            {tag.head}:{tag.data}
-                                          </>
+                                          {key}:{value}
                                         </div>
                                       </div>
-                                    );
-                                  })}
-                                </div>
-                                <div className="tabs">
-                                  {data.tags.map((data, index) => {
-                                    return (
-                                      <div className={``} key={index}>
+                                    ))}
+                                  </div>
+                                  <div className="tabs">
+                                    {data.tags.map((tag, index) => (
+                                      <div key={index}>
                                         <div className="meta_tag">
-                                          <>{data}</>
+                                          {tag}
                                         </div>
                                       </div>
-                                    );
-                                  })}
+                                    ))}
+                                  </div>
+                                  {data.kp !== undefined && (
+                                    <div className="karma_needed">Karma needed: {data.kp}</div>
+                                  )}
                                 </div>
-                                {data.karmaNeeded !== undefined && (
-                                  <div className="karma_needed">Karma needed: {data.karmaNeeded}</div>
+                                {isKarate && (
+                                  <button 
+                                    className="card-apply-button" 
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      setShowApplyPopup(true);
+                                    }}
+                                  >
+                                    Apply
+                                  </button>
                                 )}
                               </div>
                             </div>

@@ -215,7 +215,7 @@ const Home = () => {
         const payloadUser = {
           key: response?.user.verifiedCredentials[1].oauthAccountId,
           firstname: response?.user.verifiedCredentials[1].publicIdentifier,
-          profile_picture: response.user.verifiedCredentials[1].oauthAccountPhotos[0],
+          profile_picture: response.user.verifiedCredentials[1].oauthAccountPhotos[0].replace('_normal', ''),
           username: response.user.verifiedCredentials[1].oauthUsername,
           lastname: "",
           birthday: "28-07-1998",

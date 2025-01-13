@@ -249,16 +249,8 @@ const Dashboard = () => {
           <div className="social-accounts-list">
             <div className="social-account-item">
               <div className="account-info">
-                <span className="platform-name">Twitter</span>
-                <a 
-                  href="https://x.com/DarknightHimslf" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="connection-status"
-                  style={{ color: '#F5EFDB', textDecoration: 'none', cursor: 'pointer' }}
-                >
-                  Follow @DarknightHimslf
-                </a>
+                {/* <span className="platform-name">Twitter</span> */}
+                <span className="connection-status">Follow @DarknightHimslf</span>
               </div>
               <a href="https://x.com/DarknightHimslf" target="_blank" rel="noopener noreferrer" style={{ backgroundColor: 'rgba(245, 239, 219, 0.1)', padding: '8px 16px', borderRadius: '4px', color: '#F5EFDB', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px', width: '120px', justifyContent: 'center', padding: '8px 85px' }}>
                 <img src={twitterIcon} alt="Twitter" />
@@ -267,7 +259,7 @@ const Dashboard = () => {
             </div>
             <div className="social-account-item">
               <div className="account-info">
-                <span className="platform-name">Twitter</span>
+                {/* <span className="platform-name">Twitter</span> */}
                 <span className="connection-status">Follow Darknight Labs</span>
               </div>
               <a href="https://x.com/DarknightLabs" target="_blank" rel="noopener noreferrer" style={{ backgroundColor: 'rgba(245, 239, 219, 0.1)', padding: '8px 16px', borderRadius: '4px', color: '#F5EFDB', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px', width: '120px', justifyContent: 'center', padding: '8px 85px' }}>
@@ -277,7 +269,7 @@ const Dashboard = () => {
             </div>
             <div className="social-account-item">
               <div className="account-info">
-                <span className="platform-name">Twitter</span>
+                {/* <span className="platform-name">Twitter</span> */}
                 <span className="connection-status">Follow The Win-Win Society</span>
               </div>
               <a href="https://x.com/WinWinSocietyHQ" target="_blank" rel="noopener noreferrer" style={{ backgroundColor: 'rgba(245, 239, 219, 0.1)', padding: '8px 16px', borderRadius: '4px', color: '#F5EFDB', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px', width: '120px', justifyContent: 'center', padding: '8px 85px' }}>
@@ -287,8 +279,8 @@ const Dashboard = () => {
             </div>
             <div className="social-account-item">
               <div className="account-info">
-                <span className="platform-name">Telegram</span>
-                <span className="connection-status">Join group</span>
+                {/* <span className="platform-name">Telegram</span> */}
+                <span className="connection-status">Join our Telegram group</span>
               </div>
               <a href="https://t.me/+9m9gdhpa2CQzNTZk" target="_blank" rel="noopener noreferrer" style={{ backgroundColor: 'rgba(245, 239, 219, 0.1)', padding: '8px 16px', borderRadius: '4px', color: '#F5EFDB', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px', width: '120px', justifyContent: 'center', padding: '8px 85px' }}>
                 <img src={telegramIcon} alt="Telegram" />
@@ -297,7 +289,7 @@ const Dashboard = () => {
             </div>
             <div className="social-account-item">
               <div className="account-info">
-                <span className="platform-name">Discord</span>
+                {/* <span className="platform-name">Discord</span> */}
                 <span className="connection-status">Coming Soon</span>
               </div>
               <button style={{ backgroundColor: 'rgba(245, 239, 219, 0.1)', padding: '8px 16px', borderRadius: '4px', color: '#F5EFDB', border: 'none', display: 'flex', alignItems: 'center', gap: '8px', opacity: 0.5, cursor: 'not-allowed', width: '120px', justifyContent: 'center' , padding: '8px 85px' }} disabled>
