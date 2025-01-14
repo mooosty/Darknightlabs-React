@@ -999,7 +999,7 @@ const Investment = () => {
                             <div
                               className="card"
                               style={{
-                                filter: (isShowa || isKarate) ? 'none' : 'blur(12px)',
+                                filter: data.blurred === 1 ? 'blur(12px)' : 'none',
                                 transition: 'transform 0.2s ease',
                               }}
                               onClick={() => isKarate ? null : handleCardClick(data, index)}
