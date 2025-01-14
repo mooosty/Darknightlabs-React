@@ -1264,18 +1264,55 @@ const UserProfile = () => {
                         {/********************** */}
                         <h3 className="profile_title">You are : </h3>
                         <div style={{ marginBottom: "2rem" }}>
-                          {infoProfile.map(({ role, company }) => (
-                            <div key={role + company} style={{ display: "flex", marginBottom: "1rem" }}>
-                              <div
-                                className="profile_info"
-                                style={{ display: "flex", flex: 2, fontSize: "1.1rem ", color: "rgba(245, 239, 219, 0.7)" }}
-                              >
-                                {role.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")} {company.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
-                                {/* <div style={{ flex: 1 }}>{role}</div>
-                                <div style={{ flex: 5 }}>{company}</div> */}
+                          {infoProfile.length > 0 ? (
+                            infoProfile.map(({ role, company }) => (
+                              <div key={role + company} style={{ display: "flex", marginBottom: "1rem" }}>
+                                <div
+                                  className="profile_info"
+                                  style={{ display: "flex", flex: 2, fontSize: "1.1rem ", color: "rgba(245, 239, 219, 0.7)" }}
+                                >
+                                  {role.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")} {company.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
+                                </div>
                               </div>
+                            ))
+                          ) : (
+                            <div 
+                              onClick={() => {
+                                setAddNewProject(false); // Set this to false so it shows the projects list view
+                                handleActive("INVOLVEMENT"); // Switch to the INVOLVEMENT tab
+                              }} 
+                              style={{ 
+                                cursor: 'pointer',
+                                color: 'rgba(245, 239, 219, 0.7)',
+                                fontSize: '1.1rem',
+                                marginTop: '1rem',
+                                transition: 'color 0.2s ease',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '8px'
+                              }}
+                              onMouseEnter={(e) => e.target.style.color = '#f5efdb'}
+                              onMouseLeave={(e) => e.target.style.color = 'rgba(245, 239, 219, 0.7)'}
+                            >
+                              You currently have nothing to show here. Go to Project Involvement to add your projects
+                              <svg 
+                                width="16" 
+                                height="16" 
+                                viewBox="0 0 16 16" 
+                                fill="none" 
+                                xmlns="http://www.w3.org/2000/svg"
+                                style={{ marginLeft: '4px' }}
+                              >
+                                <path 
+                                  d="M6 12L10 8L6 4" 
+                                  stroke="currentColor" 
+                                  strokeWidth="2" 
+                                  strokeLinecap="round" 
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
                             </div>
-                          ))}
+                          )}
                         </div>
                         {/* <div style={{ marginBottom: "2rem" }}>
                           <div style={{ display: "flex", marginBottom: "1rem" }}>

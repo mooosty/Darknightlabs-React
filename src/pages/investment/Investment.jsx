@@ -46,7 +46,6 @@ const Investment = () => {
 
   const detailsLeftRef = useRef(null);
   const detailsRightRef = useRef(null);
-  const [isPhase2, setIsPhase2] = useState(false);
   const toggleContainerRef = useRef(null);
   const [showNavButtons, setShowNavButtons] = useState(false);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -54,20 +53,6 @@ const Investment = () => {
   const [showApplyPopup, setShowApplyPopup] = useState(false);
   const [supportText, setSupportText] = useState("");
   const [investments, setInvestments] = useState([]);
-
-  useEffect(() => {
-    const fetchPhase = async () => {
-      try {
-        const response = await fetch("https://winwinsocietyweb3.com/api/investments/1");
-        const data = await response.json();
-        setIsPhase2(data.phase === 2);
-      } catch (error) {
-        console.error("Error fetching phase:", error);
-      }
-    };
-
-    fetchPhase();
-  }, []);
 
   useEffect(() => {
     const fetchInvestments = async () => {
@@ -648,14 +633,18 @@ const Investment = () => {
           <div className="investments_content_header">
             <div className="content_left">
               <h2>Investment Details</h2>
-              <h6 className={`floating_form_title hidden ${isPhase2 ? "pledge_mode" : "invest_mode"}`}>
-                {isPhase2 ? "Pledge" : "Invest"}
+              <h6 className={`floating_form_title hidden ${
+                selectedCard.phase === 2 ? "pledge_mode" : "invest_mode"
+              }`}>
+                {selectedCard.phase === 2 ? "Pledge" : "Invest"}
               </h6>
             </div>
           </div>
           <div className="investments_page_data">
-            <h2 className={`floating_form_title ${isPhase2 ? "pledge_mode" : "invest_mode"}`}>
-              {isPhase2 ? "Pledge" : "Invest"}
+            <h2 className={`floating_form_title ${
+              selectedCard.phase === 2 ? "pledge_mode" : "invest_mode"
+            }`}>
+              {selectedCard.phase === 2 ? "Pledge" : "Invest"}
             </h2>
             <div className="page_data">
               <div className="investment_page_body">
@@ -808,9 +797,7 @@ const Investment = () => {
                   </div>
                   <div ref={detailsRightRef} className="details_right" onScroll={syncScroll}>
                     <div className="form_container">
-                      {!isPhase2 ? (
-                        <InvestmentForm />
-                      ) : (
+                      {selectedCard.phase === 2 ? (
                         <PledgeForm
                           onSubmit={async (pledgeData) => {
                             try {
@@ -822,6 +809,8 @@ const Investment = () => {
                             }
                           }}
                         />
+                      ) : (
+                        <InvestmentForm />
                       )}
                     </div>
                   </div>
@@ -1007,8 +996,12 @@ const Investment = () => {
                               <div className="card_image">
                                 <img src={data.image_url || cardActor1} alt="" />
                                 {(isShowa || isKarate) && (
-                                  <div className={`investment_state ${isKarate ? "incoming_mode" : (isPhase2 ? "pledge_mode" : "invest_mode")}`}>
-                                    {isKarate ? "Coming soon" : (isPhase2 ? "Pledge" : "Invest")}
+                                  <div className={`investment_state ${
+                                    isKarate ? "incoming_mode" : 
+                                    (data.phase === 2 ? "pledge_mode" : "invest_mode")
+                                  }`}>
+                                    {isKarate ? "Coming soon" : 
+                                     (data.phase === 2 ? "Pledge" : "Invest")}
                                   </div>
                                 )}
                               </div>
