@@ -42,7 +42,7 @@ const TelegramVerifyPopup = ({ isOpen, onClose, verificationCode }) => {
       <div className="popup-content">
         <h3>Verify Your Telegram Account</h3>
         <p>
-          Add{" "}
+          Add
           <span
             className="telegram-bot-name"
             onClick={() => copyToClipboard("@WinWinCyborg")}
@@ -53,8 +53,8 @@ const TelegramVerifyPopup = ({ isOpen, onClose, verificationCode }) => {
             }}
           >
             @WinWinCyborg
-          </span>{" "}
-          and type{" "}
+          </span>
+          and type
           <span
             onClick={() => copyToClipboard("/verify")}
             style={{
@@ -65,7 +65,7 @@ const TelegramVerifyPopup = ({ isOpen, onClose, verificationCode }) => {
             }}
           >
             /verify
-          </span>{" "}
+          </span>
           then send this code to verify your account:
         </p>
         <div className="verification-code">
@@ -1176,6 +1176,30 @@ const UserProfile = () => {
     }
   }, [userData?.userId, refreshTrigger]);
 
+  const [infoProfile, setInfoProfile] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = localStorage.getItem("dynamic_authentication_token")?.replace(/['"]+/g, "");
+      const userId = localStorage.getItem("userId");
+
+      const response = await axiosApi.get(`https://winwinsocietyweb3.com/api/userprojects/all/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data = response.data.data.map((item) => ({
+        role: item.job_desc,
+        company: `@ ${item.project_name}`,
+      }));
+
+      setInfoProfile(data);
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="profile_content_wrapper">
       {active === "INFORMATION" &&
@@ -1231,6 +1255,85 @@ const UserProfile = () => {
                   <div className="right_side_content">
                     <div className="profile_description_data">
                       <div className="form_box">
+                        {/********************** */}
+                        {/********************** */}
+                        {/********************** */}
+                        {/********************** */}
+                        {/********************** */}
+                        {/********************** */}
+                        {/********************** */}
+                        <h3 className="profile_title">You are : </h3>
+                        <div style={{ marginBottom: "2rem" }}>
+                          {infoProfile.map(({ role, company }) => (
+                            <div key={role + company} style={{ display: "flex", marginBottom: "1rem" }}>
+                              <div
+                                className="profile_info"
+                                style={{ display: "flex", flex: 2, fontSize: "1.1rem ", color: "rgba(245, 239, 219, 0.7)" }}
+                              >
+                                {role.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")} {company.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
+                                {/* <div style={{ flex: 1 }}>{role}</div>
+                                <div style={{ flex: 5 }}>{company}</div> */}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        {/* <div style={{ marginBottom: "2rem" }}>
+                          <div style={{ display: "flex", marginBottom: "1rem" }}>
+                            <div
+                              className="profile_info"
+                              style={{ display: "flex", flex: 2, fontSize: "1.1rem ", color: "rgba(245, 239, 219, 0.7)" }}
+                            >
+                              <div style={{ flex: 1 }}>Founder</div>
+                              <div style={{ flex: 5 }}>@ Darknight Labs</div>
+                            </div>
+                          </div>
+                          <div style={{ display: "flex", marginBottom: "1rem" }}>
+                            <div
+                              className="profile_info"
+                              style={{ display: "flex", flex: 2, fontSize: "1.1rem ", color: "rgba(245, 239, 219, 0.7)" }}
+                            >
+                              <div style={{ flex: 1 }}>Founder</div>
+                              <div style={{ flex: 5 }}>@ The Win-Win Society</div>
+                            </div>
+                          </div>
+                          <div style={{ display: "flex", marginBottom: "1rem" }}>
+                            <div
+                              className="profile_info"
+                              style={{ display: "flex", flex: 2, fontSize: "1.1rem ", color: "rgba(245, 239, 219, 0.7)" }}
+                            >
+                              <div style={{ flex: 1 }}>Founder</div>
+                              <div style={{ flex: 5 }}>@ Ape Ventures</div>
+                            </div>
+                          </div>
+
+                          <div style={{ display: "flex", marginBottom: "1rem" }}>
+                            <div
+                              className="profile_info"
+                              style={{ display: "flex", flex: 2, fontSize: "1.1rem ", color: "rgba(245, 239, 219, 0.7)" }}
+                            >
+                              <div style={{ flex: 1 }}>Advisor</div>
+                              <div style={{ flex: 5 }}>@ Forbes</div>
+                            </div>
+                          </div>
+                          <div style={{ display: "flex", marginBottom: "1rem" }}>
+                            <div
+                              className="profile_info"
+                              style={{ display: "flex", flex: 2, fontSize: "1.1rem ", color: "rgba(245, 239, 219, 0.7)" }}
+                            >
+                              <div style={{ flex: 1 }}>Advisor</div>
+                              <div style={{ flex: 5 }}>@ Karate Combat</div>
+                            </div>
+                          </div>
+                        </div> */}
+
+                        {/********************** */}
+                        {/********************** */}
+                        {/********************** */}
+                        {/********************** */}
+                        {/********************** */}
+                        {/********************** */}
+                        {/********************** */}
+
                         <h3 className="profile_title">Personal information</h3>
                         <div className="form_group_data">
                           <div className="profile_info">
@@ -1623,10 +1726,10 @@ const UserProfile = () => {
                                         "Infrastructure",
                                         "L1/L2/L3",
                                         "Data",
-                                        "IP"
+                                        "IP",
                                       ].includes(thesis);
                                       return (
-                                        <span key={index} className={`selected-value ${!isDefaultCategory ? 'custom' : ''}`}>
+                                        <span key={index} className={`selected-value ${!isDefaultCategory ? "custom" : ""}`}>
                                           {thesis}
                                         </span>
                                       );
@@ -1798,7 +1901,6 @@ const UserProfile = () => {
                         input.click();
                       }}
                     >
-                      {" "}
                       Change Photo
                     </button>
                   </div>
@@ -2008,7 +2110,7 @@ const UserProfile = () => {
                       <div className="form_group_row">
                         <div className="profile_info full_width">
                           <label>
-                            Are you a VC / Angel investor and do you invest in early stage rounds (seed, strategic, private) ?{" "}
+                            Are you a VC / Angel investor and do you invest in early stage rounds (seed, strategic, private) ?
                           </label>
                           <div className="radio_box" onClick={() => handleQuestionChange("question1", "Yes, frequently")}>
                             <input
@@ -2041,7 +2143,7 @@ const UserProfile = () => {
                       <div className="form_group_row">
                         <div className="profile_info full_width">
                           <label>
-                            Do you ever go to IRL Web3 events (main events, side events, private investors events...) ?{" "}
+                            Do you ever go to IRL Web3 events (main events, side events, private investors events...) ?
                           </label>
                           <div className="radio_box" onClick={() => handleQuestionChange("question2", "Often")}>
                             <input type="radio" name="question2" value="Often" checked={values?.question2 === "Often"} />
@@ -2285,7 +2387,6 @@ const UserProfile = () => {
                       <button className="btn_gray" type="submit" onClick={handleSubmit}>
                         {isLoading ? (
                           <>
-                            {" "}
                             <Loader loading={isLoading} isItForButton={true} /> <p>Save Change</p>
                           </>
                         ) : (
