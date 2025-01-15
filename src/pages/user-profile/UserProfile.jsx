@@ -137,11 +137,13 @@ const PhoneNumberVerifyPopup = ({ isOpen, onClose, phoneNumber }) => {
           }),
         });
         const data = await response.json();
-
+        console.log(data)
         return data.success;
       };
 
       handleVerifyPhone().then((response) => {
+        console.log("response")
+        console.log(response)
         if (response) {
           setTimeout(() => {
             toast.success(`You have successfully verified your phone number `);
@@ -160,7 +162,7 @@ const PhoneNumberVerifyPopup = ({ isOpen, onClose, phoneNumber }) => {
   return (
     <div className="popup-overlay">
       <div className="popup-content">
-        <p style={{ textAlign: "center", fontSize: "22px" }}>Paste the code sent to the following number: {phoneNumber}</p>
+        <p style={{ textAlign: "center", fontSize: "22px" }}>Paste the code sent to the following number: + {phoneNumber}</p>
 
         <div style={{ display: "flex", justifyContent: "center", gap: "5px", marginTop: "10px", width: "100%" }}>
           {[0, 1, 2, 3, 4, 5].map((index) => (
