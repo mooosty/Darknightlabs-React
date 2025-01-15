@@ -137,13 +137,10 @@ const PhoneNumberVerifyPopup = ({ isOpen, onClose, phoneNumber }) => {
           }),
         });
         const data = await response.json();
-        console.log(data)
         return data.success;
       };
 
       handleVerifyPhone().then((response) => {
-        console.log("response")
-        console.log(response)
         if (response) {
           setTimeout(() => {
             toast.success(`You have successfully verified your phone number `);
@@ -160,63 +157,31 @@ const PhoneNumberVerifyPopup = ({ isOpen, onClose, phoneNumber }) => {
   }, [codes]);
 
   return (
-    <div className="popup-overlay">
-      <div className="popup-content">
-        <p style={{ textAlign: "center", fontSize: "22px" }}>Paste the code sent to the following number: + {phoneNumber}</p>
+    <div className="phone-verification-popup">
+      <div className="popup-overlay">
+        <div className="popup-content">
+          <p>Paste the code sent to the following number: +{phoneNumber}</p>
 
-        <div style={{ display: "flex", justifyContent: "center", gap: "5px", marginTop: "10px", width: "100%" }}>
-          {[0, 1, 2, 3, 4, 5].map((index) => (
-            <input
-              key={index}
-              ref={(el) => (inputRefs.current[index] = el)}
-              type="text"
-              maxLength={1}
-              value={codes[index]}
-              onChange={(e) => handleChange(index, e.target.value)}
-              onPaste={index === 0 ? handlePaste : undefined}
-              style={{
-                width: "38px",
-                height: "38px",
-                borderRadius: "5px",
-                border: "1px solid #ccc",
-                textAlign: "center",
-              }}
-            />
-          ))}
-        </div>
-        {codes.every((code) => code) && (
-          <div
-            style={{
-              marginTop: "1rem",
-              width: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "10px",
-              fontFamily: "Arial, sans-serif",
-            }}
-          >
-            <div
-              style={{
-                width: "30px",
-                height: "30px",
-                border: "3px solid #f3f3f3",
-                borderTop: "3px solid #3498db",
-                borderRadius: "50%",
-                animation: "spin 1s linear infinite",
-              }}
-            >
-              <style>
-                {`
-                @keyframes spin {
-                  0% { transform: rotate(0deg); }
-                  100% { transform: rotate(360deg); }
-                }
-              `}
-              </style>
-            </div>
+          <div className="verification-inputs">
+            {[0, 1, 2, 3, 4, 5].map((index) => (
+              <input
+                key={index}
+                ref={(el) => (inputRefs.current[index] = el)}
+                type="text"
+                maxLength={1}
+                value={codes[index]}
+                onChange={(e) => handleChange(index, e.target.value)}
+                onPaste={index === 0 ? handlePaste : undefined}
+              />
+            ))}
           </div>
-        )}
+          
+          {codes.every((code) => code) && (
+            <div className="loading-spinner">
+              <div className="spinner" />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
