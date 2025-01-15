@@ -656,6 +656,7 @@ const UserProfile = () => {
     bio: "",
     email: "",
     profile_picture: "",
+    phone_number: "",
     telegram_username: "",
     linkedin: "",
     roles: [],
@@ -752,6 +753,7 @@ const UserProfile = () => {
         bio: values.bio,
         email: values.email,
         profile_picture: updated_profile_picture || userDetails?.profile_picture,
+        phone_number: values.phone_number || "",
         telegram_username: values.telegram_username || "",
         linkedin: values.linkedin || "",
         roles: values.roles.join(","),
@@ -874,6 +876,7 @@ const UserProfile = () => {
       birthday: userDetails?.birthday || "",
       username: userDetails?.username || "",
       profile_picture: userDetails?.profile_picture || "",
+      phone_number: userDetails?.phone_number || "",
       telegram_username: userDetails?.telegram_username || "",
       linkedin: userDetails?.linkedin || "",
       roles: userDetails?.roles?.split(",") || [],
@@ -1200,6 +1203,35 @@ const UserProfile = () => {
     fetchData();
   }, []);
 
+  const [phoneNumber, setPhoneNumber] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = localStorage.getItem("dynamic_authentication_token")?.replace(/['"]+/g, "");
+      const userId = localStorage.getItem("userId");
+
+      const response = await axiosApi.post(
+        `https://winwinsocietyweb3.com/api/sms/verify/check`,
+        {
+          user_id: 656,
+          phone_number: "+21366666666",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log(response);
+      // const data = response.data.data;
+
+      // setPhoneNumber(data.phone_number);
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="profile_content_wrapper">
       {active === "INFORMATION" &&
@@ -1271,97 +1303,56 @@ const UserProfile = () => {
                                   className="profile_info"
                                   style={{ display: "flex", flex: 2, fontSize: "1.1rem ", color: "rgba(245, 239, 219, 0.7)" }}
                                 >
-                                  {role.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")} {company.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
+                                  {role
+                                    .split(" ")
+                                    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                                    .join(" ")}{" "}
+                                  {company
+                                    .split(" ")
+                                    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                                    .join(" ")}
                                 </div>
                               </div>
                             ))
                           ) : (
-                            <div 
+                            <div
                               onClick={() => {
                                 setAddNewProject(false); // Set this to false so it shows the projects list view
                                 handleActive("INVOLVEMENT"); // Switch to the INVOLVEMENT tab
-                              }} 
-                              style={{ 
-                                cursor: 'pointer',
-                                color: 'rgba(245, 239, 219, 0.7)',
-                                fontSize: '1.1rem',
-                                marginTop: '1rem',
-                                transition: 'color 0.2s ease',
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '8px'
                               }}
-                              onMouseEnter={(e) => e.target.style.color = '#f5efdb'}
-                              onMouseLeave={(e) => e.target.style.color = 'rgba(245, 239, 219, 0.7)'}
+                              style={{
+                                cursor: "pointer",
+                                color: "rgba(245, 239, 219, 0.7)",
+                                fontSize: "1.1rem",
+                                marginTop: "1rem",
+                                transition: "color 0.2s ease",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "8px",
+                              }}
+                              onMouseEnter={(e) => (e.target.style.color = "#f5efdb")}
+                              onMouseLeave={(e) => (e.target.style.color = "rgba(245, 239, 219, 0.7)")}
                             >
                               You currently have nothing to show here. Go to Project Involvement to add your projects
-                              <svg 
-                                width="16" 
-                                height="16" 
-                                viewBox="0 0 16 16" 
-                                fill="none" 
+                              <svg
+                                width="16"
+                                height="16"
+                                viewBox="0 0 16 16"
+                                fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
-                                style={{ marginLeft: '4px' }}
+                                style={{ marginLeft: "4px" }}
                               >
-                                <path 
-                                  d="M6 12L10 8L6 4" 
-                                  stroke="currentColor" 
-                                  strokeWidth="2" 
-                                  strokeLinecap="round" 
+                                <path
+                                  d="M6 12L10 8L6 4"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
                                   strokeLinejoin="round"
                                 />
                               </svg>
                             </div>
                           )}
                         </div>
-                        {/* <div style={{ marginBottom: "2rem" }}>
-                          <div style={{ display: "flex", marginBottom: "1rem" }}>
-                            <div
-                              className="profile_info"
-                              style={{ display: "flex", flex: 2, fontSize: "1.1rem ", color: "rgba(245, 239, 219, 0.7)" }}
-                            >
-                              <div style={{ flex: 1 }}>Founder</div>
-                              <div style={{ flex: 5 }}>@ Darknight Labs</div>
-                            </div>
-                          </div>
-                          <div style={{ display: "flex", marginBottom: "1rem" }}>
-                            <div
-                              className="profile_info"
-                              style={{ display: "flex", flex: 2, fontSize: "1.1rem ", color: "rgba(245, 239, 219, 0.7)" }}
-                            >
-                              <div style={{ flex: 1 }}>Founder</div>
-                              <div style={{ flex: 5 }}>@ The Win-Win Society</div>
-                            </div>
-                          </div>
-                          <div style={{ display: "flex", marginBottom: "1rem" }}>
-                            <div
-                              className="profile_info"
-                              style={{ display: "flex", flex: 2, fontSize: "1.1rem ", color: "rgba(245, 239, 219, 0.7)" }}
-                            >
-                              <div style={{ flex: 1 }}>Founder</div>
-                              <div style={{ flex: 5 }}>@ Ape Ventures</div>
-                            </div>
-                          </div>
-
-                          <div style={{ display: "flex", marginBottom: "1rem" }}>
-                            <div
-                              className="profile_info"
-                              style={{ display: "flex", flex: 2, fontSize: "1.1rem ", color: "rgba(245, 239, 219, 0.7)" }}
-                            >
-                              <div style={{ flex: 1 }}>Advisor</div>
-                              <div style={{ flex: 5 }}>@ Forbes</div>
-                            </div>
-                          </div>
-                          <div style={{ display: "flex", marginBottom: "1rem" }}>
-                            <div
-                              className="profile_info"
-                              style={{ display: "flex", flex: 2, fontSize: "1.1rem ", color: "rgba(245, 239, 219, 0.7)" }}
-                            >
-                              <div style={{ flex: 1 }}>Advisor</div>
-                              <div style={{ flex: 5 }}>@ Karate Combat</div>
-                            </div>
-                          </div>
-                        </div> */}
 
                         {/********************** */}
                         {/********************** */}
@@ -1395,6 +1386,44 @@ const UserProfile = () => {
                           <div className="profile_info">
                             <div className="profile_head">LinkedIn</div>
                             <div className="profile_data">{userDetails?.linkedin || "-"}</div>
+                          </div>
+                          <div className="profile_info">
+                            <div className="profile_head">Phone number </div>
+                            <div className="profile_data">
+                              {userDetails?.username ? (
+                                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                                  <span
+                                    style={{ cursor: "pointer" }}
+                                    onClick={() => {
+                                      navigator.clipboard.writeText(userDetails?.phone_number);
+                                      toast.success("Copied to clipboard!");
+                                    }}
+                                  >
+                                    {userDetails?.phone_number || "-"}
+                                  </span>
+                                  {/* {authDetails?.user?.verifiedCredentials[1]?.oauthUsername} */}
+
+                                  <svg
+                                    className="checkmark"
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M20 6L9 17L4 12"
+                                      stroke="#4CAF50"
+                                      strokeWidth="2"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                    />
+                                  </svg>
+                                </div>
+                              ) : (
+                                "-"
+                              )}
+                            </div>
                           </div>
                           <div className="profile_info">
                             <div className="profile_head">Telegram</div>
@@ -2012,17 +2041,40 @@ const UserProfile = () => {
                           />
                         </div>
                         <div className="profile_info">
-                          <label>Telegram</label>
+                          <label>Phone Number </label>
+
+
+
+
+
+
+
+
+                              
+                          
                           <input
-                            type="text"
-                            name="telegram_username"
-                            value={values?.telegram_username}
+                            type="tel" pattern="^\d+$"
+                            name="phone_number"
+                            value={values?.phone_number}
                             onChange={handleChange}
-                            placeholder="Telegram"
+                            placeholder="Phone number"
                           />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         </div>
                       </div>
-
                       <div className="form_group_row">
                         <div className="profile_info">
                           <CityAutocomplete
@@ -2032,6 +2084,7 @@ const UserProfile = () => {
                             label="Main City (for timezone and events)"
                           />
                         </div>
+
                         <div className="profile_info">
                           <CityAutocomplete
                             value={values?.secondary_city}

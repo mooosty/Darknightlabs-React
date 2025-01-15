@@ -1436,8 +1436,9 @@
 .city-autocomplete-wrapper {
   position: relative;
   width: 100%;
-
+  
   .city-input-container {
+    margin-top: 0.5rem;
     position: relative;
     width: 100%;
   }
@@ -1940,6 +1941,7 @@
 }
 
 .contact_info {
+
   .section_headers {
     display: flex;
     justify-content: space-between;
@@ -2035,3 +2037,17 @@
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
