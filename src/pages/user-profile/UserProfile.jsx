@@ -175,7 +175,7 @@ const PhoneNumberVerifyPopup = ({ isOpen, onClose, phoneNumber }) => {
               />
             ))}
           </div>
-          
+
           {codes.every((code) => code) && (
             <div className="loading-spinner">
               <div className="spinner" />
@@ -1385,12 +1385,7 @@ const UserProfile = () => {
                     <div className="profile_description_data">
                       <div className="form_box">
                         {/********************** */}
-                        {/********************** */}
-                        {/********************** */}
-                        {/********************** */}
-                        {/********************** */}
-                        {/********************** */}
-                        {/********************** */}
+
                         <h3 className="profile_title">You are : </h3>
                         <div style={{ marginBottom: "2rem" }}>
                           {infoProfile.length > 0 ? (
@@ -1452,12 +1447,6 @@ const UserProfile = () => {
                         </div>
 
                         {/********************** */}
-                        {/********************** */}
-                        {/********************** */}
-                        {/********************** */}
-                        {/********************** */}
-                        {/********************** */}
-                        {/********************** */}
 
                         <h3 className="profile_title">Personal information</h3>
                         <div className="form_group_data">
@@ -1500,22 +1489,24 @@ const UserProfile = () => {
                                   </span>
                                   {/* {authDetails?.user?.verifiedCredentials[1]?.oauthUsername} */}
 
-                                  <svg
-                                    className="checkmark"
-                                    width="16"
-                                    height="16"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M20 6L9 17L4 12"
-                                      stroke="#4CAF50"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    />
-                                  </svg>
+                                  {userDetails?.phone_number && (
+                                    <svg
+                                      className="checkmark"
+                                      width="16"
+                                      height="16"
+                                      viewBox="0 0 24 24"
+                                      fill="none"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M20 6L9 17L4 12"
+                                        stroke="#4CAF50"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                      />
+                                    </svg>
+                                  )}
                                 </div>
                               ) : (
                                 "-"
@@ -1584,10 +1575,6 @@ const UserProfile = () => {
                                 "-"
                               )}
                             </div>
-                          </div>
-                          <div className="profile_info">
-                            <div className="profile_head">Angel investor</div>
-                            <div className="profile_data">{userDetails?.question1 || "-"}</div>
                           </div>
                           <div className="profile_info">
                             <div className="profile_head">Role</div>
@@ -1667,8 +1654,8 @@ const UserProfile = () => {
                             </div>
                           </div>
                           <div className="profile_info">
-                            <div className="profile_head">Go to Web3 events</div>
-                            <div className="profile_data">{userDetails?.question2 || "-"}</div>
+                            <div className="profile_head">Angel investor</div>
+                            <div className="profile_data">{userDetails?.question1 || "-"}</div>
                           </div>
                           <div className="profile_info">
                             <div className="profile_head">Main City</div>
@@ -1678,13 +1665,15 @@ const UserProfile = () => {
                             <div className="profile_head">Secondary Cities</div>
                             <div className="profile_data">{userDetails?.secondary_city || "-"}</div>
                           </div>
-                        </div>
-                        <div className="profile_bio_data">
-                          <div className="profile_bio_head">Personal Bio</div>
-                          <div className="profile_bio_data">
-                            {userDetails?.bio || authDetails?.user?.verifiedCredentials?.[2]?.description || "-"}
+                          <div className="profile_info">
+                            <div className="profile_head">Personal Bios</div>
+                            <div className="profile_data">     {userDetails?.bio || authDetails?.user?.verifiedCredentials?.[2]?.description || "-"}</div>
                           </div>
-                        </div>
+                          <div className="profile_info">
+                            <div className="profile_head">Go to Web3 events</div>
+                            <div className="profile_data">{userDetails?.question2 || "-"}</div>
+                          </div>
+                        </div> 
                       </div>
 
                       <div className="profile_seprator_image ">
