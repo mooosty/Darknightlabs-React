@@ -1,3 +1,5 @@
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 import axios from "axios";
 import { axiosApi } from "../../api-services/service";
 import "./userProfile.scss";
@@ -77,6 +79,142 @@ const TelegramVerifyPopup = ({ isOpen, onClose, verificationCode }) => {
         <button onClick={onClose} className="close-button">
           Close
         </button>
+      </div>
+    </div>
+  );
+};
+const PhoneNumberVerifyPopup = ({ isOpen, onClose, phoneNumber }) => {
+  if (!isOpen) return null;
+
+  const [codes, setCodes] = useState(Array(6).fill(""));
+  const inputRefs = useRef([]);
+
+  useEffect(() => {
+    inputRefs.current = inputRefs.current.slice(0, 6);
+  }, []);
+
+  const handleChange = (index, value) => {
+    const newCodes = [...codes];
+    newCodes[index] = value;
+    setCodes(newCodes);
+
+    // Auto-focus next input
+    if (value && index < 5) {
+      inputRefs.current[index + 1]?.focus();
+    }
+  };
+
+  const handlePaste = (e) => {
+    e.preventDefault();
+    const pastedText = (e.clipboardData || window.clipboardData).getData("text");
+    const pastedChars = pastedText.slice(0, 6).split("");
+
+    const newCodes = [...codes];
+    pastedChars.forEach((char, index) => {
+      if (index < 6) {
+        newCodes[index] = char;
+      }
+    });
+    setCodes(newCodes);
+  };
+
+  useEffect(() => {
+    if (codes.every((code) => code)) {
+      const handleVerifyPhone = async () => {
+        const token = localStorage.getItem("dynamic_authentication_token")?.replace(/['"]+/g, "");
+        const userId = Number(localStorage.getItem("userId"));
+
+        const response = await fetch(`https://winwinsocietyweb3.com/api/sms/verify/check`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: userId,
+            phoneNumber: "+" + phoneNumber,
+            code: codes.join(""),
+          }),
+        });
+        const data = await response.json();
+
+        return data.success;
+      };
+
+      handleVerifyPhone().then((response) => {
+        if (response) {
+          setTimeout(() => {
+            toast.success(`You have successfully verified your phone number `);
+            onClose();
+          }, 500);
+        } else {
+          setTimeout(() => {
+            toast.error("Invalid code , check again");
+            setCodes(Array(6).fill(""));
+          }, 500);
+        }
+      });
+    }
+  }, [codes]);
+
+  return (
+    <div className="popup-overlay">
+      <div className="popup-content">
+        <p style={{ textAlign: "center", fontSize: "22px" }}>Paste the code sent to the following number: {phoneNumber}</p>
+
+        <div style={{ display: "flex", justifyContent: "center", gap: "5px", marginTop: "10px", width: "100%" }}>
+          {[0, 1, 2, 3, 4, 5].map((index) => (
+            <input
+              key={index}
+              ref={(el) => (inputRefs.current[index] = el)}
+              type="text"
+              maxLength={1}
+              value={codes[index]}
+              onChange={(e) => handleChange(index, e.target.value)}
+              onPaste={index === 0 ? handlePaste : undefined}
+              style={{
+                width: "38px",
+                height: "38px",
+                borderRadius: "5px",
+                border: "1px solid #ccc",
+                textAlign: "center",
+              }}
+            />
+          ))}
+        </div>
+        {codes.every((code) => code) && (
+          <div
+            style={{
+              marginTop: "1rem",
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "10px",
+              fontFamily: "Arial, sans-serif",
+            }}
+          >
+            <div
+              style={{
+                width: "30px",
+                height: "30px",
+                border: "3px solid #f3f3f3",
+                borderTop: "3px solid #3498db",
+                borderRadius: "50%",
+                animation: "spin 1s linear infinite",
+              }}
+            >
+              <style>
+                {`
+                @keyframes spin {
+                  0% { transform: rotate(0deg); }
+                  100% { transform: rotate(360deg); }
+                }
+              `}
+              </style>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -625,6 +763,8 @@ const UserProfile = () => {
   const [refreshTrigger, setRefreshTrigger] = useState(0);
   const [initialInvestorValues, setInitialInvestorValues] = useState(null);
   const [isSaveEnabled, setIsSaveEnabled] = useState(false);
+
+  const [isVerifyPhonePopupOpen, setIsVerifyPhonePopupOpen] = useState(false);
 
   const { authDetails } = useSelector((state) => state.auth);
 
@@ -1180,9 +1320,8 @@ const UserProfile = () => {
   }, [userData?.userId, refreshTrigger]);
 
   const [infoProfile, setInfoProfile] = useState([]);
-
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchInfoProfile = async () => {
       const token = localStorage.getItem("dynamic_authentication_token")?.replace(/['"]+/g, "");
       const userId = localStorage.getItem("userId");
 
@@ -1200,37 +1339,28 @@ const UserProfile = () => {
       setInfoProfile(data);
     };
 
-    fetchData();
+    fetchInfoProfile();
   }, []);
 
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const verifyPhoneNumber = async (phoneNumber) => {
+    const token = localStorage.getItem("dynamic_authentication_token")?.replace(/['"]+/g, "");
+    const userId = Number(localStorage.getItem("userId"));
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const token = localStorage.getItem("dynamic_authentication_token")?.replace(/['"]+/g, "");
-      const userId = localStorage.getItem("userId");
-
-      const response = await axiosApi.post(
-        `https://winwinsocietyweb3.com/api/sms/verify/check`,
-        {
-          user_id: 656,
-          phone_number: "+21366666666",
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      console.log(response);
-      // const data = response.data.data;
-
-      // setPhoneNumber(data.phone_number);
-    };
-
-    fetchData();
-  }, []);
+    console.log(userId);
+    const response = await fetch(`https://winwinsocietyweb3.com/api/sms/verify/send`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: userId,
+        phoneNumber: "+" + phoneNumber,
+      }),
+    });
+    setIsVerifyPhonePopupOpen(true);
+    // const data = await response.json();
+  };
 
   return (
     <div className="profile_content_wrapper">
@@ -2043,36 +2173,46 @@ const UserProfile = () => {
                         <div className="profile_info">
                           <label>Phone Number </label>
 
-
-
-
-
-
-
-
-                              
-                          
-                          <input
-                            type="tel" pattern="^\d+$"
-                            name="phone_number"
-                            value={values?.phone_number}
-                            onChange={handleChange}
-                            placeholder="Phone number"
-                          />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                          <div style={{ display: "flex", gap: "1rem" }}>
+                            <PhoneInput
+                              country={"us"} // Default country
+                              value={values?.phone_number}
+                              onChange={(phone) => setFieldValue("phone_number", phone)}
+                              inputClass="phone-input"
+                              containerClass="phone-container"
+                              buttonClass="country-dropdown"
+                              placeholder="Enter phone number"
+                              inputStyle={{
+                                width: "100%",
+                                height: "42px",
+                                fontSize: "14px",
+                                backgroundColor: "transparent",
+                                border: "1px solid var(--primary-white-op72)",
+                                color: "#f5efdb",
+                                borderRadius: "0",
+                                padding: "8px 8px 8px 50px",
+                              }}
+                              buttonStyle={{
+                                backgroundColor: "transparent",
+                                border: "1px solid var(--primary-white-op72)",
+                                borderRight: "none",
+                                borderRadius: "0",
+                              }}
+                              dropdownStyle={{
+                                backgroundColor: "var(--primary-background)",
+                                color: "#f5efdb",
+                                border: "1px solid var(--primary-white-op72)",
+                              }}
+                              searchStyle={{
+                                backgroundColor: "transparent",
+                                color: "#f5efdb",
+                              }}
+                              disableSearchIcon={true}
+                            />
+                            <button onClick={() => verifyPhoneNumber(values.phone_number)} className="btn_gray save_button">
+                              Verify
+                            </button>
+                          </div>
                         </div>
                       </div>
                       <div className="form_group_row">
@@ -2508,6 +2648,11 @@ const UserProfile = () => {
         isOpen={isVerifyPopupOpen}
         onClose={() => setIsVerifyPopupOpen(false)}
         verificationCode={verificationCode}
+      />
+      <PhoneNumberVerifyPopup
+        isOpen={isVerifyPhonePopupOpen}
+        onClose={() => setIsVerifyPhonePopupOpen(false)}
+        phoneNumber={values.phone_number}
       />
     </div>
   );
